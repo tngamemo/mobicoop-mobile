@@ -1,0 +1,53 @@
+{
+  "name": "mobicoop-v2",
+  "description": "A Vue.js project",
+  "version": "1.0.0",
+  "author": "smartfizz",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "serve:ouestgo": "vue-cli-service serve --mode ouestgo",
+    "serve:ouestgostaging": "vue-cli-service serve --mode ouestgostaging",
+    "serve:mobicoop": "vue-cli-service serve --mode mobicoop",
+    "serve:movici": "vue-cli-service serve --mode movici",
+    "build": "vue-cli-service build",
+    "build:ouestgo": "vue-cli-service build --mode ouestgo",
+    "build:ouestgostaging": "vue-cli-service build --mode ouestgostaging",
+    "build:mobicoop": "vue-cli-service build --mode mobicoop",
+    "build:movici": "vue-cli-service build --mode movici",
+    "lint": "vue-cli-service lint",
+    "i18n:report": "vue-cli-service i18n:report --src './src/**/*.?(js|vue)' --locales './src/locales/**/*.json'"
+  },
+  "dependencies": {
+    "@ionic/core": "^4.11.10",
+    "@ionic/vue": "0.0.9",
+    "axios": "^0.19.2",
+    "copy-webpack-plugin": "^5.1.1",
+    "vue": "^2.5.11",
+    "vue-i18n": "^8.15.3",
+    "vue-router": "^3.1.5"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ],
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-stage-3": "^6.24.1",
+    "cross-env": "^5.0.5",
+    "css-loader": "^0.28.7",
+    "file-loader": "^1.1.4",
+    "node-sass": "^4.5.3",
+    "sass-loader": "^6.0.6",
+    "vue-loader": "^13.0.5",
+    "vue-template-compiler": "^2.4.4",
+    "webpack": "^4.0.0",
+    "webpack-dev-server": "^3.0.0",
+    "@vue/cli": "^4.1.2",
+    "@vue/cli-service": "^4.1.2"
+  }
+}
