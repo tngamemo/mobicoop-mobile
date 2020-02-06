@@ -11,7 +11,7 @@
       </ion-toolbar>
     </ion-header>
 
-    <ion-content class="mc-container ion-padding" color="background" no-bounce>
+    <ion-content class="ion-padding ion-content-padding" color="background" no-bounce>
       <div class="mc-container">
         <div class="mc-welcome-home" v-if="seeWelcome">
           <ion-icon name="close" item-right @click="closeWelcome()"></ion-icon>
@@ -19,8 +19,8 @@
         </div>
 
         <div class="mc-user-home">
-          <ion-button class='mc-big-button' color="success" expand="block">Connexion</ion-button>
-          <ion-button class='mc-big-button' expand="block" fill="outline">Inscription</ion-button>
+          <ion-button class='mc-big-button' color="success" expand="block" @click="$router.push('login')">Connexion</ion-button>
+          <ion-button class='mc-big-button' expand="block" fill="outline" @click="$router.push('register')">Inscription</ion-button>
         </div>
       </div>
     </ion-content>

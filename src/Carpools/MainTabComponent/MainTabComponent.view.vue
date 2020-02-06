@@ -27,13 +27,13 @@
             </ion-tab-button>
 
              <!-- Provide a custom route to navigate to -->
-            <ion-tab-button tab="register" :to="{ name: 'app.speakers' }">
+            <ion-tab-button tab="register" :to="{ name: 'register' }">
               <ion-icon name="people"></ion-icon>
               <ion-label>Inscription</ion-label>
             </ion-tab-button>
 
              <!-- Provide a custom route to navigate to -->
-            <ion-tab-button tab="login" :to="{ name: 'app.speakers' }">
+            <ion-tab-button tab="login" :to="{ name: 'login' }">
               <ion-icon name="person"></ion-icon>
               <ion-label>Connexion</ion-label>
             </ion-tab-button>

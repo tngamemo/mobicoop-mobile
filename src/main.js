@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router';
 import i18n from './i18n';
+import store from './Shared/user.store';
 
 import { addIcons } from 'ionicons';
 import * as allIcons from 'ionicons/icons';
@@ -12,10 +13,12 @@ import '@ionic/core/css/ionic.bundle.css';
 Vue.use(Ionic);
 Vue.config.productionTip = false;
 
+console.log(store)
 new Vue({
   router,
   i18n,
   el: '#app',
+  store,
   render: h => h(App)
 })
 
