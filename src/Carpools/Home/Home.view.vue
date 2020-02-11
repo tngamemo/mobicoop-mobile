@@ -11,10 +11,26 @@
       </ion-toolbar>
     </ion-header>
 
-    <ion-content color="background" no-bounce>
+    <ion-content color="background">
       <UserHome />
 
       <div class="mc-white-container">
+        <BlockAction
+          :action="'communities'"
+          :color="'#2E499A'"
+          :colorBg="'rgba(46, 73, 154, 0.4)'"
+          :icon="'briefcase'"
+          @clickButton="redirectToCommunities()"
+        />
+
+        <BlockAction
+          :action="'events'"
+          :color="'#C67100'"
+          :colorBg="'#FFD149'"
+          :icon="'musical-note'"
+          @clickButton="redirectToEvents()"
+        />
+
       </div>
     </ion-content>
   </div>
@@ -60,12 +76,14 @@
 
 <script>
 
-  import UserHome from './Components/UserHome.component'
+  import UserHome from './Components/UserHome.component';
+  import BlockAction from './Components/BlockAction.component';
 
   export default {
     name: 'home',
     components: {
-      UserHome
+      UserHome,
+      BlockAction
     },
     data () {
       return {
@@ -77,6 +95,14 @@
 
       closeWelcome: function() {
         this.seeWelcome = false;
+      },
+
+      redirectToCommunities() {
+        console.log('GO TO COMMU');
+      },
+
+      redirectToEvents() {
+        console.log('GO TO EVENTS');
       }
     }
   }

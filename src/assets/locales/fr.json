@@ -17,5 +17,17 @@
     "log-in": "Se connecter",
     "mail-placeholder": "Adresse mail*",
     "password-placeholder": "Mot de passe*"
+  },
+  "BlockAction": {
+    "communities": {
+      "title": "Communautés",
+      "text": "Rejoindre les covoitureurs de<br> mon association ou entreprise.",
+      "button": "Voir les communautés"
+    },
+    "events": {
+      "title": "Evénements",
+      "text": "Trouver des covoitureurs<br> allant au même événement.",
+      "button": "Voir les événements"
+    }
   }
 }

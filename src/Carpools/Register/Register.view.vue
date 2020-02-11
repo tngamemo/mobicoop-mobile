@@ -10,7 +10,7 @@
     </ion-header>
 
     <ion-content color="background" no-bounce>
-      <div class="mc-white-container">
+      <div class="mc-white-container" style="height: 100%">
 
         <div class="mc-form-register">
 
