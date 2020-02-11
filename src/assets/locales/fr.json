@@ -2,7 +2,9 @@
   "HOME": {
     "title": "Bienvenue sur <br> {title} !",
     "sign-in": "Connexion",
-    "register": "Inscription"
+    "register": "Inscription",
+    "searchCarpool": "Recherche un covoiturage",
+    "postCarpool": "Publier une annonce"
   },
   "Nav": {
     "home": "Accueil",
@@ -11,7 +13,7 @@
     "register": "Inscription",
     "messages": "Messages",
     "communities": "Communautés",
-    "profile": "Profile"
+    "profile": "Profil"
   },
   "Login": {
     "log-in": "Se connecter",
@@ -29,5 +31,10 @@
       "text": "Trouver des covoitureurs<br> allant au même événement.",
       "button": "Voir les événements"
     }
+  },
+  "Search": {
+    "origin": "Lieu de départ",
+    "destination": "Lieu d'arrivée",
+    "placeHolder": "Veuillez renseigner une adresse (Ville, etc...)"
   }
 }

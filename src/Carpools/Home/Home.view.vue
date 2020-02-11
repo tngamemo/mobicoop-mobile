@@ -15,6 +15,9 @@
       <UserHome />
 
       <div class="mc-white-container">
+
+        <SearchHome />
+
         <BlockAction
           :action="'communities'"
           :color="'#2E499A'"
@@ -78,12 +81,14 @@
 
   import UserHome from './Components/UserHome.component';
   import BlockAction from './Components/BlockAction.component';
+  import SearchHome from './Components/SearchHome.component';
 
   export default {
     name: 'home',
     components: {
       UserHome,
-      BlockAction
+      BlockAction,
+      SearchHome
     },
     data () {
       return {

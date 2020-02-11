@@ -39,8 +39,8 @@
 
           <div class="mc-form-login-button">
             <ion-button class='mc-big-button' color="success" expand="block" :disabled="loginDisable()" @click="loginUser()" >
-              <ion-icon size="large" class="rotating" v-if="this.$store.state.status == 'loading'" name="md-sync"></ion-icon>
-              <span v-if="this.$store.state.status != 'loading'">{{ $t('Login.log-in') }}</span>
+              <ion-icon size="large" class="rotating" v-if="this.$store.state.userStore.status == 'loading'" name="md-sync"></ion-icon>
+              <span v-if="this.$store.state.userStore.status != 'loading'">{{ $t('Login.log-in') }}</span>
             </ion-button>
           </div>
         </div>
@@ -84,7 +84,7 @@
 
     methods: {
       loginDisable: function () {
-        if (!! this.email && !! this.password && this.$store.state.status != 'loading') {
+        if (!! this.email && !! this.password && this.$store.state.userStore.status != 'loading') {
           return false;
         }
         return true;
@@ -94,7 +94,6 @@
 
         let username = this.email
         let password = this.password
-
         this.$store.dispatch('login', { username, password })
        .then(res => this.getUser(res))
        .catch(err => {

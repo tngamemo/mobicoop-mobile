@@ -2,7 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router';
 import i18n from './i18n';
-import store from './Shared/user.store';
+import store from './Shared/store';
 
 
 import Ionic from '@ionic/vue';

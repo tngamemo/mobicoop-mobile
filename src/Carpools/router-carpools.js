@@ -5,6 +5,7 @@ import Home from './Home/Home.view.vue';
 import MainTabComponent from './MainTabComponent/MainTabComponent.view.vue';
 import Login from './Login/Login.view.vue';
 import Register from './Register/Register.view.vue';
+import GeoSearch from './GeoSearch/GeoSearch.view.vue';
 
 import Vue from 'vue'
 
@@ -39,6 +40,12 @@ export default [
     path: 'register',
     name: 'register',
     component: Register,
-  }
+  },
+
+  {
+    path: 'geosearch',
+    name: 'geoSearch',
+    component: GeoSearch
+  },
 ]
 

@@ -5,7 +5,7 @@
       <h2 v-html="$t('HOME.title', { title })"></h2>
     </div>
 
-    <div class="mc-user-home-login" v-if="! !!this.$store.state.user">
+    <div class="mc-user-home-login" v-if="! !!this.$store.state.userStore.user">
       <ion-button class='mc-big-button' color="success" expand="block" @click="$router.push('login')">
         {{ $t('HOME.sign-in') }}
       </ion-button>
@@ -14,17 +14,18 @@
       </ion-button>
     </div>
 
-    <div class="mc-user-home-profile" v-if="!!this.$store.state.user">
+    <div class="mc-user-home-profile" v-if="!!this.$store.state.userStore.user">
       <div class="mc-user-bloc-info">
         <div class="mc-user-image">
-          <ion-thumbnail v-if="!! this.$store.state.user.avatars">
-            <img :src="this.$store.state.user.avatars[0]">
+          {{this.$store.state.userStore.avatars}}
+          <ion-thumbnail v-if="!! this.$store.state.userStore.user.avatars">
+            <img :src="this.$store.state.userStore.user.avatars[0]">
           </ion-thumbnail>
         </div>
 
         <div class="mc-user-info">
-          <p>{{this.$store.state.user.givenName }}</p>
-          <p>{{this.$store.state.user.shortFamilyName }}</p>
+          <p>{{this.$store.state.userStore.user.givenName }}</p>
+          <p>{{this.$store.state.userStore.user.shortFamilyName }}</p>
         </div>
       </div>
 
@@ -79,13 +80,6 @@
 
 <script>
 
-import { addIcons } from 'ionicons'
-import { key } from 'ionicons/icons'
-
-addIcons({
-  'ios-key': key.ios,
-  'md-key': key.md
-})
   export default {
     name: 'user-home',
     data () {
@@ -94,9 +88,7 @@ addIcons({
         seeWelcome: true
       }
     },
-    mounted() {
-      console.log(this.$store.state.user);
-    },
+    mounted() {},
     methods: {
 
       closeWelcome: function() {

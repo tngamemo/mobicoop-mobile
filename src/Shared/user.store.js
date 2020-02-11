@@ -1,10 +1,6 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
 import http from './http.mixin'
 
-Vue.use(Vuex);
-
-export default new Vuex.Store({
+export const userStore = {
   state: {
     status: '',
     tokenUser: localStorage.getItem('tokenUser') || '',
@@ -119,4 +115,6 @@ export default new Vuex.Store({
   getters : {
 
   }
-})
+}
+
+export default {userStore};
