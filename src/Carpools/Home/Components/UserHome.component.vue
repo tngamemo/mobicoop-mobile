@@ -2,12 +2,16 @@
   <div class="mc-container mc-user-home">
     <div class="mc-welcome-home" v-if="seeWelcome">
       <ion-icon name="close" item-right @click="closeWelcome()"></ion-icon>
-      <h2>Bienvenue <br>sur {{title}} !</h2>
+      <h2 v-html="$t('HOME.title', { title })"></h2>
     </div>
 
     <div class="mc-user-home-login" v-if="! !!this.$store.state.user">
-      <ion-button class='mc-big-button' color="success" expand="block" @click="$router.push('login')">Connexion</ion-button>
-      <ion-button class='mc-big-button' expand="block" fill="outline" @click="$router.push('register')">Inscription</ion-button>
+      <ion-button class='mc-big-button' color="success" expand="block" @click="$router.push('login')">
+        {{ $t('HOME.sign-in') }}
+      </ion-button>
+      <ion-button class='mc-big-button' expand="block" fill="outline" @click="$router.push('register')">
+        {{ $t('HOME.register') }}
+      </ion-button>
     </div>
 
     <div class="mc-user-home-profile" v-if="!!this.$store.state.user">

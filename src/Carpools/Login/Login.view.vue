@@ -20,7 +20,7 @@
               <ion-item>
                 <ion-input
                   type="email"
-                  placeholder="Adresse mail*"
+                  :placeholder="$t('Login.mail-placeholder')"
                   :value="email"
                   @input="email = $event.target.value">
                 </ion-input>
@@ -29,7 +29,7 @@
               <ion-item>
                 <ion-input
                   type="password"
-                  placeholder="Mot de passe*"
+                  :placeholder="$t('Login.password-placeholder')"
                   :value="password"
                   @input="password = $event.target.value">
                 </ion-input>
@@ -40,7 +40,7 @@
           <div class="mc-form-login-button">
             <ion-button class='mc-big-button' color="success" expand="block" :disabled="loginDisable()" @click="loginUser()" >
               <ion-icon size="large" class="rotating" v-if="this.$store.state.status == 'loading'" name="md-sync"></ion-icon>
-              <span v-if="this.$store.state.status != 'loading'">Se connecter</span>
+              <span v-if="this.$store.state.status != 'loading'">{{ $t('Login.log-in') }}</span>
             </ion-button>
           </div>
         </div>

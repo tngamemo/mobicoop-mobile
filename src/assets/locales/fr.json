@@ -1,3 +1,21 @@
 {
-  "msg": "Coucou monde !"
+  "HOME": {
+    "title": "Bienvenue sur <br> {title} !",
+    "sign-in": "Connexion",
+    "register": "Inscription"
+  },
+  "Nav": {
+    "home": "Accueil",
+    "help": "Aide",
+    "sign-in": "Connexion",
+    "register": "Inscription",
+    "messages": "Messages",
+    "communities": "Communautés",
+    "profile": "Profile"
+  },
+  "Login": {
+    "log-in": "Se connecter",
+    "mail-placeholder": "Adresse mail*",
+    "password-placeholder": "Mot de passe*"
+  }
 }

@@ -11,8 +11,11 @@
       </ion-toolbar>
     </ion-header>
 
-    <ion-content class="ion-padding ion-content-padding" color="background" no-bounce>
+    <ion-content color="background" no-bounce>
       <UserHome />
+
+      <div class="mc-white-container">
+      </div>
     </ion-content>
   </div>
 </template>

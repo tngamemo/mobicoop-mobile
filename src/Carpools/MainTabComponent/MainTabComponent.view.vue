@@ -17,37 +17,37 @@
           <ion-tab-bar>
             <ion-tab-button tab="home" :to="{ name: 'carpoolsHome' }">
               <ion-icon name="home"></ion-icon>
-              <ion-label>Accueil</ion-label>
+              <ion-label>{{ $t('Nav.home') }}</ion-label>
             </ion-tab-button>
 
             <ion-tab-button v-if="! !!this.$store.state.user" tab="help" :to="{ name: 'app.speakers' }">
               <ion-icon name="help-circle"></ion-icon>
-              <ion-label>Aide</ion-label>
+              <ion-label>{{ $t('Nav.help') }}</ion-label>
             </ion-tab-button>
 
             <ion-tab-button v-if="! !!this.$store.state.user" tab="register" :to="{ name: 'register' }">
               <ion-icon name="create"></ion-icon>
-              <ion-label>Inscription</ion-label>
+              <ion-label>{{ $t('Nav.register') }}</ion-label>
             </ion-tab-button>
 
             <ion-tab-button v-if="! !!this.$store.state.user" tab="login" :to="{ name: 'login' }">
               <ion-icon name="person"></ion-icon>
-              <ion-label>Connexion</ion-label>
+              <ion-label>{{ $t('Nav.sign-in') }}</ion-label>
             </ion-tab-button>
 
             <ion-tab-button v-if="!!this.$store.state.user" tab="help" :to="{ name: 'app.speakers' }">
               <ion-icon name="text"></ion-icon>
-              <ion-label>Messages</ion-label>
+              <ion-label>{{ $t('Nav.messages') }}</ion-label>
             </ion-tab-button>
 
             <ion-tab-button v-if="!!this.$store.state.user" tab="register" :to="{ name: 'register' }">
               <ion-icon name="people"></ion-icon>
-              <ion-label>Communautés</ion-label>
+              <ion-label>{{ $t('Nav.communities') }}</ion-label>
             </ion-tab-button>
 
             <ion-tab-button v-if="!!this.$store.state.user" tab="login" :to="{ name: 'login' }">
               <ion-icon name="person"></ion-icon>
-              <ion-label>Profil</ion-label>
+              <ion-label>{{ $t('Nav.profile') }}</ion-label>
             </ion-tab-button>
 
 

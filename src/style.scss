@@ -125,3 +125,7 @@ ion-input {
 .rotating {
   -webkit-animation: rotating 2s linear infinite;
 }
+
+*::-webkit-scrollbar {
+  display: none;
+}
