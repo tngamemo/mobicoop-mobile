@@ -15,24 +15,26 @@
         <div class="mc-form-login">
 
           <div class="mc-form-login-input">
-            <!-- Input with placeholder -->
-            <ion-item>
-              <ion-input
-                type="email"
-                placeholder="Adresse mail*"
-                :value="email"
-                @input="email = $event.target.value">
-              </ion-input>
-            </ion-item>
+            <form>
+              <!-- Input with placeholder -->
+              <ion-item>
+                <ion-input
+                  type="email"
+                  placeholder="Adresse mail*"
+                  :value="email"
+                  @input="email = $event.target.value">
+                </ion-input>
+              </ion-item>
 
-            <ion-item>
-              <ion-input
-                type="password"
-                placeholder="Mot de passe*"
-                :value="password"
-                @input="password = $event.target.value">
-              </ion-input>
-            </ion-item>
+              <ion-item>
+                <ion-input
+                  type="password"
+                  placeholder="Mot de passe*"
+                  :value="password"
+                  @input="password = $event.target.value">
+                </ion-input>
+              </ion-item>
+            </form>
           </div>
 
           <div class="mc-form-login-button">
@@ -82,7 +84,6 @@
 
     methods: {
       loginDisable: function () {
-        console.log(this.$store.state.status)
         if (!! this.email && !! this.password && this.$store.state.status != 'loading') {
           return false;
         }

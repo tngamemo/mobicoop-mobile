@@ -20,22 +20,34 @@
               <ion-label>Accueil</ion-label>
             </ion-tab-button>
 
-            <!-- Provide a custom route to navigate to -->
-            <ion-tab-button tab="help" :to="{ name: 'app.speakers' }">
-              <ion-icon name="help"></ion-icon>
+            <ion-tab-button v-if="! !!this.$store.state.user" tab="help" :to="{ name: 'app.speakers' }">
+              <ion-icon name="help-circle"></ion-icon>
               <ion-label>Aide</ion-label>
             </ion-tab-button>
 
-             <!-- Provide a custom route to navigate to -->
-            <ion-tab-button tab="register" :to="{ name: 'register' }">
-              <ion-icon name="people"></ion-icon>
+            <ion-tab-button v-if="! !!this.$store.state.user" tab="register" :to="{ name: 'register' }">
+              <ion-icon name="create"></ion-icon>
               <ion-label>Inscription</ion-label>
             </ion-tab-button>
 
-             <!-- Provide a custom route to navigate to -->
-            <ion-tab-button tab="login" :to="{ name: 'login' }">
+            <ion-tab-button v-if="! !!this.$store.state.user" tab="login" :to="{ name: 'login' }">
               <ion-icon name="person"></ion-icon>
               <ion-label>Connexion</ion-label>
+            </ion-tab-button>
+
+            <ion-tab-button v-if="!!this.$store.state.user" tab="help" :to="{ name: 'app.speakers' }">
+              <ion-icon name="text"></ion-icon>
+              <ion-label>Messages</ion-label>
+            </ion-tab-button>
+
+            <ion-tab-button v-if="!!this.$store.state.user" tab="register" :to="{ name: 'register' }">
+              <ion-icon name="people"></ion-icon>
+              <ion-label>Communautés</ion-label>
+            </ion-tab-button>
+
+            <ion-tab-button v-if="!!this.$store.state.user" tab="login" :to="{ name: 'login' }">
+              <ion-icon name="person"></ion-icon>
+              <ion-label>Profil</ion-label>
             </ion-tab-button>
 
 

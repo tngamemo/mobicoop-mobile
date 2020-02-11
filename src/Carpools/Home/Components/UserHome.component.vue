@@ -1,0 +1,107 @@
+<template>
+  <div class="mc-container mc-user-home">
+    <div class="mc-welcome-home" v-if="seeWelcome">
+      <ion-icon name="close" item-right @click="closeWelcome()"></ion-icon>
+      <h2>Bienvenue <br>sur {{title}} !</h2>
+    </div>
+
+    <div class="mc-user-home-login" v-if="! !!this.$store.state.user">
+      <ion-button class='mc-big-button' color="success" expand="block" @click="$router.push('login')">Connexion</ion-button>
+      <ion-button class='mc-big-button' expand="block" fill="outline" @click="$router.push('register')">Inscription</ion-button>
+    </div>
+
+    <div class="mc-user-home-profile" v-if="!!this.$store.state.user">
+      <div class="mc-user-bloc-info">
+        <div class="mc-user-image">
+          <ion-thumbnail v-if="!! this.$store.state.user.avatars">
+            <img :src="this.$store.state.user.avatars[0]">
+          </ion-thumbnail>
+        </div>
+
+        <div class="mc-user-info">
+          <p>{{this.$store.state.user.givenName }}</p>
+          <p>{{this.$store.state.user.shortFamilyName }}</p>
+        </div>
+      </div>
+
+      <div class="mc-user-action">
+        <ion-icon name="create" size="large" class="ion-padding-end"></ion-icon>
+         <ion-icon name="log-out" size="large" v-on:click="logout"></ion-icon>
+      </div>
+
+    </div>
+  </div>
+</template>
+
+<style lang="scss">
+
+  .mc-welcome-home {
+    text-align: right;
+    h2 {
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 200px;
+    }
+  }
+
+  .mc-user-home-profile {
+    display: flex;
+    justify-content: space-between;
+
+    .mc-user-bloc-info {
+      display: flex;
+    }
+
+    ion-thumbnail {
+      --size: 90px;
+      --border-radius: 50%;
+    }
+
+    .mc-user-info {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      margin-left: 20px;
+
+      p {
+        margin: 0;
+        font-weight: bold;
+      }
+    }
+
+  }
+
+</style>
+
+<script>
+
+import { addIcons } from 'ionicons'
+import { key } from 'ionicons/icons'
+
+addIcons({
+  'ios-key': key.ios,
+  'md-key': key.md
+})
+  export default {
+    name: 'user-home',
+    data () {
+      return {
+        title: process.env.VUE_APP_NAME,
+        seeWelcome: true
+      }
+    },
+    mounted() {
+      console.log(this.$store.state.user);
+    },
+    methods: {
+
+      closeWelcome: function() {
+        this.seeWelcome = false;
+      },
+
+      logout: function() {
+        this.$store.dispatch('logout');
+      }
+    }
+  }
+</script>

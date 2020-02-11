@@ -4,8 +4,6 @@ import router from './router';
 import i18n from './i18n';
 import store from './Shared/user.store';
 
-import { addIcons } from 'ionicons';
-import * as allIcons from 'ionicons/icons';
 
 import Ionic from '@ionic/vue';
 import '@ionic/core/css/ionic.bundle.css';
@@ -13,7 +11,6 @@ import '@ionic/core/css/ionic.bundle.css';
 Vue.use(Ionic);
 Vue.config.productionTip = false;
 
-console.log(store)
 new Vue({
   router,
   i18n,
@@ -26,12 +23,21 @@ new Vue({
 i18n.locale = 'fr';
 
 
-// Ajout des icons ionic
+import { addIcons } from 'ionicons';
+import * as allIcons from 'ionicons/icons';
+
 const currentIcons = Object.keys(allIcons).map(i => {
+  const key = i.replace(/[A-Z]/g, letter => `-${letter.toLowerCase()}`)
+  if(typeof allIcons[i] === 'string') {
+    return {
+      [key]: allIcons[i],
+    }
+  }
   return {
-    ['ios-' + i]: allIcons[i].ios,
-    ['md-' + i]: allIcons[i].md
+    ['ios-' + key]: allIcons[i].ios,
+    ['md-' + key]: allIcons[i].md,
   };
 });
+
 const iconsObject = Object.assign({}, ...currentIcons);
 addIcons(iconsObject);

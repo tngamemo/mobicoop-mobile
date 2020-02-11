@@ -12,17 +12,7 @@
     </ion-header>
 
     <ion-content class="ion-padding ion-content-padding" color="background" no-bounce>
-      <div class="mc-container">
-        <div class="mc-welcome-home" v-if="seeWelcome">
-          <ion-icon name="close" item-right @click="closeWelcome()"></ion-icon>
-          <h2>Bienvenue <br>sur {{title}} !</h2>
-        </div>
-
-        <div class="mc-user-home">
-          <ion-button class='mc-big-button' color="success" expand="block" @click="$router.push('login')">Connexion</ion-button>
-          <ion-button class='mc-big-button' expand="block" fill="outline" @click="$router.push('register')">Inscription</ion-button>
-        </div>
-      </div>
+      <UserHome />
     </ion-content>
   </div>
 </template>
@@ -66,12 +56,17 @@
 </style>
 
 <script>
+
+  import UserHome from './Components/UserHome.component'
+
   export default {
     name: 'home',
+    components: {
+      UserHome
+    },
     data () {
       return {
         title: process.env.VUE_APP_NAME,
-        seeWelcome: true
       }
     },
 

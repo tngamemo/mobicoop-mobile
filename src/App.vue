@@ -7,6 +7,8 @@
 </template>
 
 <script>
+  import jwt_decode from "jwt-decode";
+
   export default {
     name: 'app',
     data () {
@@ -33,24 +35,19 @@
 
       authUserOnStart: function() {
 
-        const tokenUser = localStorage.getItem('tokenUser');
-
         // Get the user api Token. If empty, we connect with the anonymous User
-        if (tokenUser) {
+        if (this.$store.state.tokenUser) {
 
-            // const userId = jwt_decode(store.token).id;
-            // this
-            //     .getUser(id)
-            //     .then(res => {
-            //         if (!! res) {
-            //             this.setUserStorage(res.data);
-            //             this.getAsksByUser(id).then(res => this.setUserAsksStorage(res.data['hydra:member']))
-            //         }
-            //     })
-            //     .catch(() => {
-            //         store.token = '';
-            //         this.authAnonym();
-            //     });
+            const idUser = jwt_decode(this.$store.state.tokenUser).id;
+            this.$store.dispatch('getUser', { idUser })
+            .then(res => {
+
+
+              })
+            .catch(err => {
+              // On va authentifier l'appli via un utilisateur anonyme
+              this.$store.dispatch('authAnonymousUser')
+            })
         } else {
 
           // On va authentifier l'appli via un utilisateur anonyme

@@ -9,7 +9,7 @@ export default new Vuex.Store({
     status: '',
     tokenUser: localStorage.getItem('tokenUser') || '',
     tokenAnonymousUser: localStorage.getItem('tokenAnonymousUser') || '',
-    user : {}
+    user : null
   },
   mutations: {
     auth_request(state) {
@@ -31,7 +31,13 @@ export default new Vuex.Store({
     user_request_success(state, user) {
       state.status = 'success';
       state.user = user;
-    }
+    },
+
+    logout(state){
+      state.status = '';
+      state.tokenUser = '';
+      state.user = null;
+    },
 
   },
   actions: {
@@ -84,7 +90,6 @@ export default new Vuex.Store({
      * Fonction pour récupérer les informations d'un utilisateur
      */
     getUser({commit}, params){
-
       return new Promise((resolve, reject) => {
         http.get(`/users/${params.idUser}`)
         .then(resp => {
@@ -100,6 +105,14 @@ export default new Vuex.Store({
         })
       })
     },
+
+    logout({commit}){
+      return new Promise((resolve, reject) => {
+        commit('logout')
+        localStorage.removeItem('tokenUser')
+        resolve()
+      })
+    }
 
 
   },
