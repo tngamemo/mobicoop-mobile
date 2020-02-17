@@ -64,7 +64,7 @@ export const userStore = {
     authAnonymousUser({commit}){
 
       return new Promise((resolve, reject) => {
-        http.post("/auth", { "username": 'mobile', "password": 'mobile' })
+        http.post("/auth", { "username": process.env.VUE_APP_API_USERNAME, "password": process.env.VUE_APP_API_PASSWORD })
         .then(resp => {
 
           const tokenAnonymousUser = resp.data.token

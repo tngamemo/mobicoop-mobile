@@ -7,6 +7,7 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
+    "serve:solidarity": "vue-cli-service serve --mode solidarity",
     "serve:ouestgo": "vue-cli-service serve --mode ouestgo",
     "serve:ouestgostaging": "vue-cli-service serve --mode ouestgostaging",
     "serve:mobicoop": "vue-cli-service serve --mode mobicoop",
