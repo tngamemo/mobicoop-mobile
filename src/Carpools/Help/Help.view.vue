@@ -5,13 +5,13 @@
         <ion-buttons slot="start">
           <ion-back-button></ion-back-button>
         </ion-buttons>
-        <h1 class="ion-text-center"> {{ $t('Register.title')}} </h1>
+        <h1 class="ion-text-center"> {{ $t('Help.title') }} </h1>
       </ion-toolbar>
     </ion-header>
 
     <ion-content color="background" no-bounce>
       <div class="mc-white-container" style="height: 100%">
-        <Slider v-bind:slides="slides"></Slider>
+
       </div>
     </ion-content>
   </div>
@@ -22,26 +22,13 @@
 </style>
 
 <script>
-  import Slider from '../../Shared/View/Slider.view'
-
   export default {
-    name: 'register',
-      components: {
-        Slider
-      },
+    name: 'help',
     data () {
       return {
-        slides : [
-            {title : "Step 1", component: "RegisterStep1"},
-            {title : "Step 2", component: "RegisterStep2"}
-        ]
 
-        }
+      }
     },
-      created() {
-        this.$store.commit('register_reset');
-      },
-
     methods: {
     }
   }

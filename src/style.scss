@@ -66,6 +66,12 @@ ion-toolbar {
   --border-radius: 30px !important;
 }
 
+.mc-small-button {
+  height: 36px !important;
+  font-weight: bold;
+  --border-radius: 33px !important;
+}
+
 .ion-color-background{
     --ion-color-base: var(--ion-color-background,  #FFFFFF) !important;
     --ion-color-contrast: var(--ion-color-background-contrast) !important;
@@ -107,6 +113,7 @@ ion-input {
   width: 100%;
   background: white;
   padding: 30px;
+  color: black;
   border-top-left-radius: 15px !important;
   border-top-right-radius: 15px !important;
 }

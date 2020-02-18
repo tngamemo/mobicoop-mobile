@@ -1,4 +1,4 @@
-import http from './http.mixin'
+import http from '../Mixin/http.mixin'
 
 export const searchStore = {
   state: {

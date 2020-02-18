@@ -53,7 +53,7 @@
 </style>
 
 <script>
-  import { toast } from '../../Shared/toast.mixin';
+  import { toast } from '../../Shared/Mixin/toast.mixin';
 
   export default {
     name: 'geo-search',

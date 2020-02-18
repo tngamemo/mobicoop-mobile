@@ -20,6 +20,9 @@
     "mail-placeholder": "Adresse mail*",
     "password-placeholder": "Mot de passe*"
   },
+  "Register" : {
+    "title" : "Inscription"
+  },
   "BlockAction": {
     "communities": {
       "title": "Communautés",
@@ -36,5 +39,12 @@
     "origin": "Lieu de départ",
     "destination": "Lieu d'arrivée",
     "placeHolder": "Veuillez renseigner une adresse (Ville, etc...)"
+  },
+  "Help": {
+    "title": "Aide"
+  },
+  "Slider": {
+    "prev": "Précédent",
+    "next": "Suivant"
   }
 }
