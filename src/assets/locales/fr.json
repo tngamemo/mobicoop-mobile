@@ -21,7 +21,9 @@
     "password-placeholder": "Mot de passe*"
   },
   "Register" : {
-    "title" : "Inscription"
+    "title" : "Inscription",
+    "firstname" : "Prénom",
+    "name" : "Nom"
   },
   "BlockAction": {
     "communities": {
@@ -45,6 +47,11 @@
   },
   "Slider": {
     "prev": "Précédent",
-    "next": "Suivant"
+    "next": "Suivant",
+    "register" : "S'inscrire",
+    "success" : "Succès de l'inscription"
+  },
+  "Commons": {
+    "error" : "Une erreur est survenue"
   }
 }

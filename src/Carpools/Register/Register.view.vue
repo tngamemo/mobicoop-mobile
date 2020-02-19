@@ -11,7 +11,7 @@
 
     <ion-content color="background" no-bounce>
       <div class="mc-white-container" style="height: 100%">
-        <Slider v-bind:slides="slides"></Slider>
+        <Slider v-bind:slides="slides" v-on:save="register()"></Slider>
       </div>
     </ion-content>
   </div>
@@ -25,24 +25,35 @@
   import Slider from '../../Shared/View/Slider.view'
 
   export default {
-    name: 'register',
+      name: 'register',
       components: {
-        Slider
+          Slider
       },
-    data () {
-      return {
-        slides : [
-            {title : "Step 1", component: "RegisterStep1"},
-            {title : "Step 2", component: "RegisterStep2"}
-        ]
+      data() {
+          return {
+              slides: [
+                  {title: "Step 1", component: "RegisterStep1"},
+                  {title: "Step 2", component: "RegisterStep2"}
+              ]
 
-        }
-    },
+          }
+      },
       created() {
-        this.$store.commit('register_reset');
+          this.$store.commit('register_reset');
       },
 
-    methods: {
-    }
+      methods: {
+          register() {
+              console.log('presaved');
+              this.$store.dispatch('register')
+                  .then(res => {
+                      this.$router.push('home');
+                      this.presentToast(this.$t("Register.success"), 'success')
+                  })
+                  .catch(err => {
+                      this.presentToast(this.$t("Commons.error"), 'danger')
+                  });
+          }
+      }
   }
 </script>

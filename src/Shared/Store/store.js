@@ -10,6 +10,6 @@ export default new Vuex.Store({
   modules: {
     userStore: userStore,
     searchStore: searchStore,
-    registerstore: registerStore
+    registerStore: registerStore
   }
 })

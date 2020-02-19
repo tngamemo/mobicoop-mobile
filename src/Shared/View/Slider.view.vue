@@ -11,7 +11,7 @@
       {{ $t('Slider.prev') }}
     </ion-button>
     <ion-button class='mc-small-button' color="success" @click="next()" >
-      {{ $t('Slider.next') }}
+      {{ activeIndex >= slides.length - 1 ? $t('Slider.register') : $t('Slider.next') }}
     </ion-button>
   </div>
   </div>
@@ -40,6 +40,8 @@
     line-height: 27px;
     color: var(--ion-color-background);
     opacity: 0.6;
+    min-height: 27px;
+    margin-bottom: 23px;
   }
 
   .slider-style {
@@ -67,6 +69,7 @@
     top: 25px;
     left: 0;
     width: 100%;
+    height: 10px;
   }
 
 </style>
@@ -102,21 +105,22 @@
               }
           )
       },
+      // Pass an array of slides {title, component}
     props: ['slides'],
     methods: {
       next() {
-          this.$refs.slider.slideNext()
+          if (this.activeIndex >= this.slides.length - 1) {
+              console.log('save');
+              this.$emit('save');
+          } else {
+              this.activeIndex = this.activeIndex + 1;
+              this.$refs.slider.slideNext()
+          }
       },
         prev() {
-          this.$refs.slider.slidePrev()
+              this.activeIndex = this.activeIndex - 1;
+              this.$refs.slider.slidePrev()
         },
-        getIndex() {
-            console.log(this.$refs.slider);
-          if(this.$refs.slider){
-              console.log(this.$refs.slider.swiper.activeIndex);
-          }
-          return (this.$refs.slider && this.$refs.slider.swiper.activeIndex) ? this.$refs.slider.swiper.activeIndex : 0
-        }
     }
   }
 </script>

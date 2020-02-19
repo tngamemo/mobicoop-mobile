@@ -6,7 +6,7 @@ export const registerStore = {
     userToRegister: null
   },
   mutations: {
-    register_request() {
+    register_request(state) {
       state.statusRegister = 'loading';
     },
 
@@ -39,7 +39,7 @@ export const registerStore = {
   },
   actions: {
     // Register
-    register: ({commit, state}, params) => {
+    register: ({commit, state}) => {
       commit('register_request');
       return new Promise((resolve, reject) => {
         http.post("/users", state.userToRegister).then(resp => {

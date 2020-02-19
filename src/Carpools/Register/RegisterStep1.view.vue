@@ -1,25 +1,33 @@
 <template>
 
-
+        <form>
         <div class="mc-form-register">
 
           <div class="mc-form-register-input">
-            <!-- Input with placeholder -->
-            <ion-item>
-              <ion-input
-                type="email"
-                placeholder="Adresse mail*">
-              </ion-input>
-            </ion-item>
 
             <ion-item>
               <ion-input
-                type="password"
-                placeholder="Mot de passe*">
+                type="text"
+                :placeholder="$t('Register.firstname') + '*'"
+                :value="user.firstname"
+                @input="user.firstname = $event.target.value"
+              >
+              </ion-input>
+            </ion-item>
+
+            <br>
+            <ion-item>
+              <ion-input
+                type="text"
+                :placeholder="$t('Register.name') + '*'"
+                :value="user.name"
+                @input="user.name = $event.target.value"
+              >
               </ion-input>
             </ion-item>
           </div>
         </div>
+        </form>
 
 </template>
 
@@ -63,7 +71,12 @@
         }
       }
     },
-
+      computed: {
+          user () {
+              console.log(this.$store.state.registerStore);
+              return this.$store.state.registerStore.userToRegister
+          }
+      },
     methods: {
     }
   }
