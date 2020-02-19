@@ -25,18 +25,24 @@ export const registerStore = {
     register_reset(state) {
       state.userToRegister = {
         status: 1,
+          givenName: '',
+          familyName: '',
           gender: '',
-          telephone: "",
+          phone: '',
+          email: '',
+          password: '',
+          confirmPassword: '',
           multiTransportMode: true,
           userAgreementAccepted: false,
           phoneDisplay: 1,
-          birthDate: new Date(),
+          birthDate: new Date().toISOString(),
           maxDeviationTime:600,
           maxDeviationDistance:10000,
           anyRouteAsPassenger:false,
           newsSubscription:true,
           language: "fr_FR",
-          addresses: ""
+          addresses: '',
+          address: ''
       }
     }
 

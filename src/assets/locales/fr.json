@@ -27,6 +27,14 @@
     "email" : "Email",
     "password" : "Mot de passe",
     "confirmPassword" : "Confirmation du mot de passe",
+    "phone" : "Téléphone",
+    "birthDate" : "Date de naissance",
+    "address": "Commune de résidence",
+    "gender": "Civilité",
+    "nc": "Autre",
+    "male": "Homme",
+    "female": "Femme",
+    "userAgreementAccepted": "J'accepte la charte de la plateforme et sa politique de confidentialité",
     "success" : "Succès de l'inscription"
   },
   "BlockAction": {
@@ -55,7 +63,9 @@
     "register" : "Enregistrer"
   },
   "Commons": {
-    "error" : "Une erreur est survenue"
+    "error" : "Une erreur est survenue",
+    "cancel": "Annuler",
+    "validate": "Valider"
   },
   "Validation" : {
     "required" : "Ce champ est requis"

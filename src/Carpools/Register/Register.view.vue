@@ -23,9 +23,11 @@
 
 <script>
   import Slider from '../../Shared/View/Slider.view'
+  import { toast } from '../../Shared/Mixin/toast.mixin';
 
   export default {
       name: 'register',
+      mixins: [toast],
       components: {
           Slider
       },

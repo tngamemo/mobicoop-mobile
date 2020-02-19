@@ -1,6 +1,5 @@
 <template>
 
-        <form>
         <div class="mc-form-register">
 
           <div class="mc-form-register-input">
@@ -11,7 +10,7 @@
                 type="text"
                 :placeholder="$t('Register.givenName') + '*'"
                 :value="user.givenName"
-                @input="user.givenName = $event.target.value; updateMessage()"
+                @input="user.givenName = $event.target.value;"
               >
               </ion-input>
             </ion-item>
@@ -24,7 +23,7 @@
                 type="text"
                 :placeholder="$t('Register.familyName') + '*'"
                 :value="user.familyName"
-                @input="user.familyName = $event.target.value; updateMessage()"
+                @input="user.familyName = $event.target.value;"
               >
               </ion-input>
             </ion-item>
@@ -66,17 +65,16 @@
               </ion-input>
             </ion-item>
             <div class="mc-error-label"  v-if="$v.user.confirmPassword.$error">{{$t('Validation.required')}}</div>
-
           </div>
         </div>
-        </form>
+
 
 </template>
 
 <style lang="scss">
 
   .mc-form-register {
-    display: flex;
+    display: block;
     height: 100%;
     flex-direction: column;
     justify-content: space-between;
@@ -96,10 +94,10 @@
     import { mapState } from 'vuex'
 
     export default {
-    name: 'register',
+    name: 'registerStep1',
     data () {
       return {
-
+        user: {givenName : '', familyName: ''}
       }
     },
         validations: {
@@ -121,29 +119,38 @@
                   required,
                   sameAsPassword: sameAs('password')
               }
+
           }
         },
       computed: {
+          /*
           ...mapState({
-              user: state => {
-                  console.log(state);
+              getUser: state => {
+                  console.log('compute');
+                  this.user = Object.assign({}, state.registerStore.userToRegister);
+                  console.log(this.user);
                   return state.registerStore.userToRegister
               }
           })
-        /*
-          user : {
+          */
+          getUser : {
               get() {
-                  console.log('updatedobject');
                   return this.$store.state.registerStore.userToRegister
+              },
+              set() {
+                  this.$store.commit('register_update', this.user);
               }
           }
-          */
+
       },
         created() {
+        this.user = this.getUser
+        console.log(this.user);
         this.test()
         },
     methods: {
       validate() {
+          this.$v.$reset();
           this.$v.$touch();
           this.test();
           if (this.$v.$invalid) {
@@ -153,7 +160,7 @@
           }
       },
         test() {
-          console.log(this.$v.user)
+          //console.log(this.$v.user)
         },
         updateMessage(){
             this.$store.commit('register_update', this.user);
