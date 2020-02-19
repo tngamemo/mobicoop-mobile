@@ -6,25 +6,67 @@
           <div class="mc-form-register-input">
 
             <ion-item>
+              <ion-label position="floating">{{$t('Register.givenName')}} *</ion-label>
               <ion-input
                 type="text"
-                :placeholder="$t('Register.firstname') + '*'"
-                :value="user.firstname"
-                @input="user.firstname = $event.target.value"
+                :placeholder="$t('Register.givenName') + '*'"
+                :value="user.givenName"
+                @input="user.givenName = $event.target.value; updateMessage()"
               >
               </ion-input>
             </ion-item>
+            <div class="mc-error-label"  v-if="$v.user.givenName.$error">{{$t('Validation.required')}}</div>
 
             <br>
             <ion-item>
+              <ion-label position="floating">{{$t('Register.familyName')}} *</ion-label>
               <ion-input
                 type="text"
-                :placeholder="$t('Register.name') + '*'"
-                :value="user.name"
-                @input="user.name = $event.target.value"
+                :placeholder="$t('Register.familyName') + '*'"
+                :value="user.familyName"
+                @input="user.familyName = $event.target.value; updateMessage()"
               >
               </ion-input>
             </ion-item>
+            <div class="mc-error-label"  v-if="$v.user.familyName.$error">{{$t('Validation.required')}}</div>
+
+            <ion-item>
+              <ion-label position="floating">{{$t('Register.email')}} *</ion-label>
+              <ion-input
+                type="text"
+                :placeholder="$t('Register.email') + '*'"
+                :value="user.email"
+                @input="user.email = $event.target.value; updateMessage()"
+              >
+              </ion-input>
+            </ion-item>
+            <div class="mc-error-label"  v-if="$v.user.email.$error">{{$t('Validation.required')}}</div>
+
+            <br>
+            <ion-item>
+              <ion-label position="floating">{{$t('Register.password')}} *</ion-label>
+              <ion-input
+                type="password"
+                :placeholder="$t('Register.password') + '*'"
+                :value="user.password"
+                @input="user.password = $event.target.value; updateMessage()"
+              >
+              </ion-input>
+            </ion-item>
+            <div class="mc-error-label"  v-if="$v.user.confirmPassword.$error">{{$t('Validation.required')}}</div>
+
+            <ion-item>
+              <ion-label position="floating">{{$t('Register.confirmPassword')}} *</ion-label>
+              <ion-input
+                type="password"
+                :placeholder="$t('Register.confirmPassword') + '*'"
+                :value="user.confirmPassword"
+                @input="user.confirmPassword = $event.target.value; updateMessage()"
+              >
+              </ion-input>
+            </ion-item>
+            <div class="mc-error-label"  v-if="$v.user.confirmPassword.$error">{{$t('Validation.required')}}</div>
+
           </div>
         </div>
         </form>
@@ -50,34 +92,72 @@
 </style>
 
 <script>
-  export default {
+    import { required, email, sameAs } from 'vuelidate/lib/validators'
+    import { mapState } from 'vuex'
+
+    export default {
     name: 'register',
     data () {
       return {
-        userToRegister: {
-          status: 1,
-          gender: '',
-          telephone: "",
-          multiTransportMode: true,
-          userAgreementAccepted: false,
-          phoneDisplay: 1,
-          birthDate: new Date(),
-          maxDeviationTime:600,
-          maxDeviationDistance:10000,
-          anyRouteAsPassenger:false,
-          newsSubscription:true,
-          language: "fr_FR",
-          addresses: ""
-        }
+
       }
     },
+        validations: {
+          user: {
+              givenName: {
+                  required,
+              },
+              familyName: {
+                  required
+              },
+              email: {
+                  required,
+                  email
+              },
+              password: {
+                  required
+              },
+              confirmPassword: {
+                  required,
+                  sameAsPassword: sameAs('password')
+              }
+          }
+        },
       computed: {
-          user () {
-              console.log(this.$store.state.registerStore);
-              return this.$store.state.registerStore.userToRegister
+          ...mapState({
+              user: state => {
+                  console.log(state);
+                  return state.registerStore.userToRegister
+              }
+          })
+        /*
+          user : {
+              get() {
+                  console.log('updatedobject');
+                  return this.$store.state.registerStore.userToRegister
+              }
+          }
+          */
+      },
+        created() {
+        this.test()
+        },
+    methods: {
+      validate() {
+          this.$v.$touch();
+          this.test();
+          if (this.$v.$invalid) {
+              return false;
+          } else {
+              return true;
           }
       },
-    methods: {
+        test() {
+          console.log(this.$v.user)
+        },
+        updateMessage(){
+            this.$store.commit('register_update', this.user);
+        }
     }
   }
 </script>

@@ -78,15 +78,15 @@
   }
 
   ion-tab-button {
-    --background: ##F5F6FA;
-    --color: var(--ion-color-statusbar) !important;
-    --color-selected: var(--ion-color-statusbar) !important;
+    --background: #F5F6FA;
+    --color: var(--ion-color-primary) !important;
+    --color-selected: var(--ion-color-primary) !important;
   }
 
   ion-tab-button.tab-selected {
-    --background: var(--ion-color-statusbar) !important;
-    --color: var(--ion-color-primary) !important;
-    --color-selected: var(--ion-color-primary) !important;
+    --background: var(--ion-color-primary) !important;
+    --color: var(--ion-color-light) !important;
+    --color-selected: var(--ion-color-light) !important;
   }
 </style>
 

@@ -14,7 +14,7 @@
             >
           </ion-input>
         </ion-item>
-        <ion-icon name="swap" color="background" size="large"></ion-icon>
+        <ion-icon name="swap" color="primary" size="large"></ion-icon>
 
         <!-- Input with placeholder -->
         <ion-item v-on:click="goGeoSearch('destination', 'search')">
@@ -27,7 +27,9 @@
           </ion-input>
         </ion-item>
 
-        <div class="d-flex">
+        <ion-grid class="ion-margin-bottom">
+          <ion-row>
+            <ion-col size="6">
           <ion-item v-on:click="goGeoSearch('destination', 'search')">
             <ion-input
               type="text"
@@ -37,19 +39,22 @@
               >
             </ion-input>
           </ion-item>
-
-          <ion-item>
+            </ion-col>
+            <ion-col size="6">
+          <ion-item lines="none">
             <ion-label>Trajet régulier</ion-label>
             <ion-checkbox slot="start"></ion-checkbox>
           </ion-item>
-        </div>
+          </ion-col>
+          </ion-row>
+        </ion-grid>
       </form>
     </div>
 
      <ion-button class='mc-big-button' color="success" expand="block">
         {{ $t('HOME.searchCarpool') }}
       </ion-button>
-      <ion-button class='mc-big-button' color="background" expand="block" fill="outline" @click="$router.push('register')">
+      <ion-button class='mc-big-button' color="primary" expand="block" fill="outline" @click="$router.push('register')">
         {{ $t('HOME.postCarpool') }}
       </ion-button>
   </div>

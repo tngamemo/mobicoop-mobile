@@ -18,6 +18,10 @@ export const registerStore = {
       state.statusRegister = 'error';
     },
 
+    register_update (state, value) {
+      state.userToRegister = value;
+    },
+
     register_reset(state) {
       state.userToRegister = {
         status: 1,

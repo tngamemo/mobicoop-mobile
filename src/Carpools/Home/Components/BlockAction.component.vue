@@ -27,6 +27,7 @@
   .mc-block-action {
     border-radius: 10px;
     margin-bottom: 20px;
+    color: white;
     .mc-block-action-title {
       border-top-left-radius: 10px;
       border-top-right-radius: 10px;

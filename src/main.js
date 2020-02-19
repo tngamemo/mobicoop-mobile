@@ -7,8 +7,11 @@ import store from './Shared/Store/store';
 
 import Ionic from '@ionic/vue';
 import '@ionic/core/css/ionic.bundle.css';
+import Vuelidate from 'vuelidate'
+
 
 Vue.use(Ionic);
+Vue.use(Vuelidate);
 Vue.config.productionTip = false;
 
 new Vue({

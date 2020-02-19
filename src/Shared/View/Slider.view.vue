@@ -1,11 +1,15 @@
 <template>
   <div class="slider-container">
+    <div class="slider-container-content">
   <ion-slides ref="slider" class="slider-style swiper-no-swiping" pager="true" :options="slideOpts">
     <ion-slide v-for="slide in slides">
       <div class="slide-title">{{slide.title}}</div>
-      <component v-bind:is="slide.component"></component>
+      <div class="component-content">
+        <component :ref="slide.component" v-bind:is="slide.component"></component>
+      </div>
     </ion-slide>
   </ion-slides>
+      </div >
   <div class="mc-swipper-buttons">
     <ion-button :style="{visibility: activeIndex !== 0 ? 'visible' : 'hidden'}" class='mc-small-button' color="background" fill="outline" @click="prev()" >
       {{ $t('Slider.prev') }}
@@ -23,6 +27,12 @@
     height: 100%;
     position: relative;
   }
+
+  .slider-container-content {
+    height: calc(100% - 44px);
+    position: relative;
+  }
+
   .mc-swipper-buttons {
     position: absolute;
     bottom: 0px;
@@ -47,7 +57,12 @@
   .slider-style {
     --bullet-background : black;
     --bullet-background-active: var(--ion-color-background);
-    height: calc(100% - 44px);
+    height: 100%;
+  }
+
+  .component-content {
+    overflow-x: scroll;
+    height: calc(100% - 50px);
   }
 
   .swiper-zoom-container {
@@ -109,12 +124,15 @@
     props: ['slides'],
     methods: {
       next() {
-          if (this.activeIndex >= this.slides.length - 1) {
-              console.log('save');
-              this.$emit('save');
-          } else {
-              this.activeIndex = this.activeIndex + 1;
-              this.$refs.slider.slideNext()
+
+          if (this.$refs[this.slides[this.activeIndex].component][0].validate()) {
+              if (this.activeIndex >= this.slides.length - 1) {
+                  console.log('save');
+                  this.$emit('save');
+              } else {
+                  this.activeIndex = this.activeIndex + 1;
+                  this.$refs.slider.slideNext()
+              }
           }
       },
         prev() {

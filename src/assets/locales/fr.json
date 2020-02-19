@@ -22,8 +22,12 @@
   },
   "Register" : {
     "title" : "Inscription",
-    "firstname" : "Prénom",
-    "name" : "Nom"
+    "givenName" : "Prénom",
+    "familyName" : "Nom",
+    "email" : "Email",
+    "password" : "Mot de passe",
+    "confirmPassword" : "Confirmation du mot de passe",
+    "success" : "Succès de l'inscription"
   },
   "BlockAction": {
     "communities": {
@@ -48,10 +52,12 @@
   "Slider": {
     "prev": "Précédent",
     "next": "Suivant",
-    "register" : "S'inscrire",
-    "success" : "Succès de l'inscription"
+    "register" : "Enregistrer"
   },
   "Commons": {
     "error" : "Une erreur est survenue"
+  },
+  "Validation" : {
+    "required" : "Ce champ est requis"
   }
 }

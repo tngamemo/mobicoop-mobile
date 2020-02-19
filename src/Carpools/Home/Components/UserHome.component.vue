@@ -9,7 +9,7 @@
       <ion-button class='mc-big-button' color="success" expand="block" @click="$router.push('login')">
         {{ $t('HOME.sign-in') }}
       </ion-button>
-      <ion-button class='mc-big-button' expand="block" fill="outline" @click="$router.push('register')">
+      <ion-button class='mc-big-button' color="light" expand="block" fill="outline" @click="$router.push('register')">
         {{ $t('HOME.register') }}
       </ion-button>
     </div>

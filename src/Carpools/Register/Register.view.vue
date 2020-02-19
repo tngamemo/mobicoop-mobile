@@ -32,8 +32,8 @@
       data() {
           return {
               slides: [
-                  {title: "Step 1", component: "RegisterStep1"},
-                  {title: "Step 2", component: "RegisterStep2"}
+                  {title: "", component: "RegisterStep1"},
+                  {title: "", component: "RegisterStep2"}
               ]
 
           }
