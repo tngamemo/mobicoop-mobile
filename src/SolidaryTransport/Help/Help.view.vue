@@ -9,51 +9,84 @@
           </ion-toolbar>
         </ion-header>
 
-        <ion-content color="background">
-          <ion-card v-if="articles" v-for="(article, index) in articles" @click="interactWithCard(index)" :key="index">
+        <ion-content color="background" v-if="sections.length !== 0">
+          <ion-card v-for="(section, index) in sections" @click="interactWithCard(index)" :key="index" class="mc-card">
             <ion-card-header class="mc-card">
-              <ion-card-title>{{article.title}}</ion-card-title>
+              <ion-card-title>{{section.title}}</ion-card-title>
             </ion-card-header>
 
-            <ion-card-content v-html="article.description" v-if="active === index"></ion-card-content>
+            <ion-card-content class="mc-card-content" v-if="active === index">
+              <p v-for="(paragraph, index) in section.paragraphs" v-html="paragraph.text"></p>
+            </ion-card-content>
           </ion-card>
+        </ion-content>
+
+        <ion-content color="background" v-else>
+          loading...
         </ion-content>
     </ion-page>
 </template>
 
 <style lang="scss">
+  .mc-card {
 
+    .mc-card-content {
+      p + p {
+        margin-top: 10px;
+      }
+    }
+  }
 </style>
 
 <script>
+import { mapState, mapGetters } from 'vuex'
+
 export default {
   name: 'index',
   components: {},
   data () {
     return {
       active: 0,
-      articles: [
-        {
-          title: "Besoin d’aide ? Vous pouvez contacter l’assistance téléphonique au XX.XX.XX.XX.XX",
-          description: "Lorem ipsum sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat colutpat. Ut wisi enim as minim veniam, quis nostrud exerci lation ullamocorper suscipit lobortis nisl ut aliquip ex ea commodo"
-        },
-        {
-          title: "Le transport solidaire, c’est quoi ?",
-          description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur nisi quas numquam repellendus eaque veniam, optio nulla delectus cupiditate similique perferendis dolores exercitationem animi reiciendis eligendi aliquam illo rerum, et."
-        },
-        {
-          title: "Quelles sont les conditions d’éligibilité au transport solidaire ?",
-          description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi, ea voluptas. Eum maxime vero sapiente omnis praesentium magnam fugiat laboriosam, molestiae beatae, sint? Obcaecati aspernatur quasi praesentium, cumque temporibus veritatis."
-        }
-      ]
+      sections: []
     }
   },
+  computed: {},
   methods: {
     interactWithCard: function (index) {
       this.active = index
     }
     
   },
-  created: function () {}
+  created: function () {
+    // Get articles for help
+    this.$store.dispatch('getSectionsForHelp')
+      .then((sections) => {
+        this.sections = sections
+      })
+      .catch((error) => {
+        console.error(error)
+      })
+
+  //   async asyncData ({store, env, params, query}) {
+  //   let data
+
+  //   data.articles = [
+  //     {
+  //       title: "Besoin d’aide ? Vous pouvez contacter l’assistance téléphonique au XX.XX.XX.XX.XX",
+  //       description: "Lorem ipsum sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat colutpat. Ut wisi enim as minim veniam, quis nostrud exerci lation ullamocorper suscipit lobortis nisl ut aliquip ex ea commodo"
+  //     },
+  //     {
+  //       title: "Le transport solidaire, c’est quoi ?",
+  //       description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur nisi quas numquam repellendus eaque veniam, optio nulla delectus cupiditate similique perferendis dolores exercitationem animi reiciendis eligendi aliquam illo rerum, et."
+  //     },
+  //     {
+  //       title: "Quelles sont les conditions d’éligibilité au transport solidaire ?",
+  //       description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi, ea voluptas. Eum maxime vero sapiente omnis praesentium magnam fugiat laboriosam, molestiae beatae, sint? Obcaecati aspernatur quasi praesentium, cumque temporibus veritatis."
+  //     }
+  //   ]
+
+  //   return data
+  // },
+  }
 }
 </script>

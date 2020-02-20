@@ -7,7 +7,7 @@ import SolidaryTransport from './SolidaryTransport/SolidaryTransport.view.vue';
 
 import Vue from 'vue'
 import routerCarpools from './Carpools/router-carpools';
-import routerSolidaryTransport from './SolidaryTransport/router-solidaryTransport';
+import routerSolidaryTransport from './SolidaryTransport/SolidaryTransport.router';
 
 Vue.use(IonicVueRouter);
 
