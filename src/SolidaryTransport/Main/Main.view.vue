@@ -2,6 +2,9 @@
     <ion-page>
       <ion-header no-border>
           <ion-toolbar color="background">
+            <ion-buttons slot="start">
+              <ion-back-button text="Back" icon="add"></ion-back-button>
+            </ion-buttons>
             <div class='mc-home-header'>
               <div class="mc-home-log">
                 <img class="background-img ion-margin-end" src="../../assets/icons/home.png">
