@@ -12,10 +12,10 @@
         </ion-header>
 
         <ion-content color="background">
-          <ion-button @click="$router.push({name: 'solidarityTransport'})">Main access</ion-button>
-          <ion-button @click="$router.push({name: 'solidarityTransport.login'})">Login access</ion-button>
-          <ion-button @click="$router.push({name: 'solidarityTransport.register'})">Register access</ion-button>
-          <ion-button @click="$router.push({name: 'solidarityTransport.help'})">Help access</ion-button>
+          <ion-button @click="$router.push('/')">Home</ion-button>
+          <ion-button @click="$router.push({name: 'solidaryTransport.login'})">Login access</ion-button>
+          <ion-button @click="$router.push({name: 'solidaryTransport.register'})">Register access</ion-button>
+          <ion-button @click="$router.push({name: 'solidaryTransport.help'})">Help access</ion-button>
         </ion-content>
     </ion-page>
 </template>

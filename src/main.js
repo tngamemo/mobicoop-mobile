@@ -21,6 +21,7 @@ new Vue({
 
 // Default locale
 i18n.locale = 'fr';
+i18n.test = 'a'
 
 
 import { addIcons } from 'ionicons';
