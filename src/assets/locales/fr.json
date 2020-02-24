@@ -51,6 +51,7 @@
   },
   "Search": {
     "origin": "Lieu de départ",
+    "register_address": "Adresse",
     "destination": "Lieu d'arrivée",
     "placeHolder": "Veuillez renseigner une adresse (Ville, etc...)",
     "outwardDate": "JJ/MM"
@@ -69,6 +70,11 @@
     "validate": "Valider"
   },
   "Validation" : {
-    "required" : "Ce champ est requis"
+    "required" : "Ce champ est requis",
+    "email" : "Le mail renseigné n'est pas au bon format",
+    "sameAsPassword" : "La confirmation et le mot de passe ne sont pas identiques",
+    "minLength" : "Le mot de passe doit comprendre 8 caractères minimum",
+    "oneUppercase" : "Le mot de passe doit comprendre 1 majuscule",
+    "oneDigit" : "Le mot de passe doit comprendre 1 chiffre"
   }
 }

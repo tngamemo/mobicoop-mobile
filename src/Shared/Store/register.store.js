@@ -3,6 +3,7 @@ import http from '../Mixin/http.mixin'
 export const registerStore = {
   state: {
     statusRegister: '',
+    displayAddress : '',
     userToRegister: null
   },
   mutations: {
@@ -22,13 +23,18 @@ export const registerStore = {
       state.userToRegister = value;
     },
 
+    changeRegisterAddress(state, payload) {
+      state.userToRegister.addresses = [payload.addressDTO];
+      state.displayAddress = payload.displayGeo;
+    },
+
     register_reset(state) {
       state.userToRegister = {
         status: 1,
           givenName: '',
           familyName: '',
           gender: '',
-          phone: '',
+          telephone: '',
           email: '',
           password: '',
           confirmPassword: '',
@@ -42,8 +48,8 @@ export const registerStore = {
           newsSubscription:true,
           language: "fr_FR",
           addresses: '',
-          address: ''
-      }
+      };
+      state.displayAddress = '';
     }
 
   },
@@ -51,8 +57,11 @@ export const registerStore = {
     // Register
     register: ({commit, state}) => {
       commit('register_request');
+      const u = Object.assign({}, state.userToRegister);
+      delete u.confirmPassword;
+      delete u.addresses[0].id;
       return new Promise((resolve, reject) => {
-        http.post("/users", state.userToRegister).then(resp => {
+        http.post("/users", u).then(resp => {
           if (resp) {
             commit('register_success');
             resolve(resp)
