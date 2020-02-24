@@ -1,7 +1,8 @@
 {
   "SolidaryTransport": {
     "Help": {
-      "title": "Aide"
+      "title": "Aide",
+      "loading": "Chargement"
     }
   }
 }
