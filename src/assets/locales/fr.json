@@ -20,6 +20,23 @@
     "mail-placeholder": "Adresse mail*",
     "password-placeholder": "Mot de passe*"
   },
+  "Register" : {
+    "title" : "Inscription",
+    "givenName" : "Prénom",
+    "familyName" : "Nom",
+    "email" : "Email",
+    "password" : "Mot de passe",
+    "confirmPassword" : "Confirmation du mot de passe",
+    "phone" : "Téléphone",
+    "birthDate" : "Date de naissance",
+    "address": "Commune de résidence",
+    "gender": "Civilité",
+    "nc": "Autre",
+    "male": "Homme",
+    "female": "Femme",
+    "userAgreementAccepted": "J'accepte la charte de la plateforme et sa politique de confidentialité",
+    "success" : "Succès de l'inscription"
+  },
   "BlockAction": {
     "communities": {
       "title": "Communautés",
@@ -36,5 +53,21 @@
     "origin": "Lieu de départ",
     "destination": "Lieu d'arrivée",
     "placeHolder": "Veuillez renseigner une adresse (Ville, etc...)"
+  },
+  "Help": {
+    "title": "Aide"
+  },
+  "Slider": {
+    "prev": "Précédent",
+    "next": "Suivant",
+    "register" : "Enregistrer"
+  },
+  "Commons": {
+    "error" : "Une erreur est survenue",
+    "cancel": "Annuler",
+    "validate": "Valider"
+  },
+  "Validation" : {
+    "required" : "Ce champ est requis"
   }
 }

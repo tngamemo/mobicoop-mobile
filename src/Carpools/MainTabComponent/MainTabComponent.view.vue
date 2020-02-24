@@ -3,14 +3,29 @@
 
       <!-- Listen to before and after tab change events -->
       <ion-tabs>
+
         <ion-tab tab="home" :routes="'carpoolsHome'">
           <Home />
         </ion-tab>
+
+        <ion-tab tab="help">
+          <Help />
+        </ion-tab>
+
+        <ion-tab tab="register">
+          <Register />
+        </ion-tab>
+
+        <ion-tab tab="login">
+          <Login />
+        </ion-tab>
+
 
         <!-- Match by "app.speakers" route name -->
         <ion-tab tab="speakers" :routes="'app.speakers'">
           <Speakers />
         </ion-tab>
+
 
         <!-- Use v-slot:bottom with Vue ^2.6.0 -->
         <template slot="bottom">
@@ -20,7 +35,7 @@
               <ion-label>{{ $t('Nav.home') }}</ion-label>
             </ion-tab-button>
 
-            <ion-tab-button v-if="! !!this.$store.state.userStore.user" tab="help" :to="{ name: 'app.speakers' }">
+            <ion-tab-button v-if="! !!this.$store.state.userStore.user" tab="help" :to="{ name: 'help' }">
               <ion-icon name="help-circle"></ion-icon>
               <ion-label>{{ $t('Nav.help') }}</ion-label>
             </ion-tab-button>
@@ -63,25 +78,31 @@
   }
 
   ion-tab-button {
-    --background: ##F5F6FA;
-    --color: var(--ion-color-statusbar) !important;
-    --color-selected: var(--ion-color-statusbar) !important;
+    --background: #F5F6FA;
+    --color: var(--ion-color-primary) !important;
+    --color-selected: var(--ion-color-primary) !important;
   }
 
   ion-tab-button.tab-selected {
-    --background: var(--ion-color-statusbar) !important;
-    --color: var(--ion-color-primary) !important;
-    --color-selected: var(--ion-color-primary) !important;
+    --background: var(--ion-color-primary) !important;
+    --color: var(--ion-color-light) !important;
+    --color-selected: var(--ion-color-light) !important;
   }
 </style>
 
 <script>
 
   import Home from '../Home/Home.view.vue';
+  import Register from '../Register/Register.view.vue';
+  import Login from '../Login/Login.view.vue';
+  import Help from '../Help/Help.view.vue';
   export default {
     name: 'carpools',
     components: {
-      Home
+      Home,
+        Register,
+        Login,
+        Help
     },
     data () {
       return {

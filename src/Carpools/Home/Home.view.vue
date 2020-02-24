@@ -11,7 +11,7 @@
       </ion-toolbar>
     </ion-header>
 
-    <ion-content color="background">
+    <ion-content color="primary">
       <UserHome />
 
       <div class="mc-white-container">

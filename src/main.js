@@ -2,13 +2,16 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router';
 import i18n from './i18n';
-import store from './Shared/store';
+import store from './Shared/Store/store';
 
 
 import Ionic from '@ionic/vue';
 import '@ionic/core/css/ionic.bundle.css';
+import Vuelidate from 'vuelidate'
+
 
 Vue.use(Ionic);
+Vue.use(Vuelidate);
 Vue.config.productionTip = false;
 
 new Vue({
@@ -16,8 +19,10 @@ new Vue({
   i18n,
   el: '#app',
   store,
-  render: h => h(App)
+  render: h => h(App),
 })
+
+
 
 // Default locale
 i18n.locale = 'fr';
