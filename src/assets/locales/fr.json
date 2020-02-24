@@ -52,7 +52,8 @@
   "Search": {
     "origin": "Lieu de départ",
     "destination": "Lieu d'arrivée",
-    "placeHolder": "Veuillez renseigner une adresse (Ville, etc...)"
+    "placeHolder": "Veuillez renseigner une adresse (Ville, etc...)",
+    "outwardDate": "JJ/MM"
   },
   "Help": {
     "title": "Aide"

@@ -8,14 +8,15 @@ export const searchStore = {
     resultsGeo: [],
     display: {
       origin: '',
-      destination: ''
+      destination: '',
+      outwardDate: ''
     },
     searchObject: {
       search: true,
       role: 3,
       frequency: 1,
       outwardWaypoints: [],
-      outwardDate: null,
+      outwardDate: new Date(),
       userId: null,
     },
 
@@ -35,9 +36,41 @@ export const searchStore = {
       state.resultGeo = [];
     },
 
+    search_request(state) {
+      state.statusSearch = 'loading';
+    },
+
+    search_succes(state, resultSearch) {
+      state.statusSearch = 'success';
+      state.resultSearch = resultSearch;
+    },
+
+    search_error(state) {
+      state.statusSearch = 'error';
+      state.resultSearch = [];
+    },
+
+    changeUserIdOfSearch(state, userId) {
+      state.searchObject.userId = userId
+    },
+
+    changeOrigin(state, payload) {
+      console.log(payload)
+      state.searchObject.outwardWaypoints[0] = payload.addressDTO;
+      state.display.origin = payload.displayGeo;
+    },
+
+    changeDestination(state, payload) {
+      state.searchObject.outwardWaypoints[1] = payload.addressDTO;
+      state.display.destination = payload.displayGeo;
+    }
+
   },
   actions: {
-    // Search Long/Lat of a city
+
+    /**
+     * Fonction qui retourne des addresses en fonction d'un string
+     */
     geoSearch: ({commit}, params) => {
       commit('geo_request')
       return new Promise((resolve, reject) => {
@@ -52,9 +85,68 @@ export const searchStore = {
         })
       })
     },
-  },
-  getters : {
 
+    /**
+     * Fonction qui intervetit l'origine et la desitnation
+     */
+    swapDestinationAndOrigin({commit, state}) {
+      state.searchObject.outwardWaypoints.reverse();
+      const newOrigin = state.display.destination;
+      const newDestination = state.display.origin;
+
+      state.display.destination = newDestination;
+      state.display.origin = newOrigin;
+    },
+
+    /**
+     * Fonction qui effectue la recherche
+     */
+    searchCarpools({commit, getters}) {
+      // return http.post("/carpools", data)
+      commit('search_request')
+      return new Promise((resolve, reject) => {
+        http.post("/carpools", getters.searchObject).then(resp => {
+          if (resp) {
+            console.log(resp)
+            commit('search_succes', resp.data["results"])
+            resolve(resp)
+          }
+        }).catch(err => {
+          commit('search_error')
+          reject(err)
+        })
+      })
+    },
+  },
+
+  getters : {
+    searchOrigin: state => {
+      return state.searchObject.outwardWaypoints[0];
+    },
+
+    searchDestination: state => {
+      return state.searchObject.outwardWaypoints[1];
+    },
+
+    displayOrigin: state => {
+      return state.display.origin;
+    },
+
+    displayDestination: state => {
+      return state.display.destination;
+    },
+
+    searchObject: state => {
+      return state.searchObject;
+    },
+
+    resultSearch: state => {
+      return state.resultSearch;
+    },
+
+    statusSearch: state => {
+      return state.statusSearch;
+    },
   }
 }
 

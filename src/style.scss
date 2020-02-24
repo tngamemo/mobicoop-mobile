@@ -207,6 +207,10 @@ ion-input {
   justify-content: center;
 }
 
+.justify-between {
+  justify-content: space-between;
+}
+
 .align-center {
   align-items: center;
 }
@@ -219,4 +223,8 @@ ion-input {
 
 .mc-input-danger {
   border-color: var(--ion-color-danger);
+}
+
+.pointer {
+  cursor: pointer;
 }

@@ -8,11 +8,16 @@ import store from './Shared/Store/store';
 import Ionic from '@ionic/vue';
 import '@ionic/core/css/ionic.bundle.css';
 import Vuelidate from 'vuelidate'
-
+import VueMoment from 'vue-moment'
+const moment = require('moment')
+require('moment/locale/fr')
 
 Vue.use(Ionic);
 Vue.use(Vuelidate);
+Vue.use(VueMoment, { moment });
 Vue.config.productionTip = false;
+
+
 
 new Vue({
   router,
@@ -21,8 +26,6 @@ new Vue({
   store,
   render: h => h(App),
 })
-
-
 
 // Default locale
 i18n.locale = 'fr';

@@ -114,6 +114,9 @@ export const userStore = {
   },
   getters : {
 
+    userId: state => {
+      return !! state.user && state.user.id
+    },
   }
 }
 

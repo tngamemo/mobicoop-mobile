@@ -7,6 +7,7 @@ import Help from './Help/Help.view.vue';
 import Login from './Login/Login.view.vue';
 import Register from './Register/Register.view.vue';
 import GeoSearch from './GeoSearch/GeoSearch.view.vue';
+import Search from './Search/Search.view.vue';
 
 import Vue from 'vue'
 
@@ -50,6 +51,12 @@ export default [
     path: 'geosearch',
     name: 'geoSearch',
     component: GeoSearch
+  },
+
+  {
+    path: 'search',
+    name: 'search',
+    component: Search
   },
 ]
 

@@ -102,11 +102,11 @@
         this.seeWelcome = false;
       },
 
-      redirectToCommunities() {
+      redirectToCommunities: function() {
         console.log('GO TO COMMU');
       },
 
-      redirectToEvents() {
+      redirectToEvents: function() {
         console.log('GO TO EVENTS');
       }
     }

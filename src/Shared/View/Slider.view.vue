@@ -2,7 +2,7 @@
   <div class="slider-container">
     <div class="slider-container-content">
   <ion-slides ref="slider" class="slider-style swiper-no-swiping" pager="true" :options="slideOpts">
-    <ion-slide v-for="slide in slides">
+    <ion-slide v-for="slide in slides" :key="slide">
       <div class="slide-title">{{slide.title}}</div>
       <div class="component-content">
         <component :ref="slide.component" v-bind:is="slide.component"></component>

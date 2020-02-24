@@ -95,16 +95,14 @@
 
         if (this.action == 'search') {
           if (this.type == 'origin') {
-            this.$store.state.searchStore.searchObject.outwardWaypoints.unshift(addressDTO);
-            this.$store.state.searchStore.display.origin = displayGeo;
+            this.$store.commit('changeOrigin', { addressDTO, displayGeo });
           }
 
           if (this.type == 'destination') {
-            this.$store.state.searchStore.searchObject.outwardWaypoints.push(addressDTO);
-            this.$store.state.searchStore.display.destination = displayGeo;
+            this.$store.commit('changeDestination', { addressDTO, displayGeo });
           }
         }
-
+        console.log(this.$store.state.searchStore.searchObject);
         this.$router.back();
       }
     }

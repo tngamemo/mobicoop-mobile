@@ -14,7 +14,15 @@
             >
           </ion-input>
         </ion-item>
-        <ion-icon name="swap" color="primary" size="large"></ion-icon>
+
+        <div class="mc-div-icon-swap">
+         <ion-icon v-on:click="swapDestinationAndOrigin()"
+            class="mc-rotate-icon"
+            name="swap"
+            color="primary"
+            size="large">
+          </ion-icon>
+        </div>
 
         <!-- Input with placeholder -->
         <ion-item v-on:click="goGeoSearch('destination', 'search')">
@@ -27,31 +35,40 @@
           </ion-input>
         </ion-item>
 
-        <ion-grid class="ion-margin-bottom">
+        <ion-grid class="ion-margin-bottom mc-block-date">
           <ion-row>
             <ion-col size="6">
-          <ion-item v-on:click="goGeoSearch('destination', 'search')">
-            <ion-input
-              type="text"
-              class="no-clickable"
-              :placeholder="$t('Search.destination')"
-              :value="this.$store.state.searchStore.display.destination"
-              >
-            </ion-input>
-          </ion-item>
+              <ion-item>
+                <ion-datetime
+                  display-format="DD/MM"
+                  picker-format="DD/MM"
+                  cancel-text="Annuler"
+                  done-text="Valider"
+                  :value="this.$store.state.searchStore.searchObject.outwardDate"
+                  @ionChange="changeDate($event)"
+                ></ion-datetime>
+              </ion-item>
             </ion-col>
             <ion-col size="6">
-          <ion-item lines="none">
-            <ion-label>Trajet régulier</ion-label>
-            <ion-checkbox slot="start"></ion-checkbox>
-          </ion-item>
-          </ion-col>
+              <ion-item lines="none">
+                <ion-label>Trajet régulier</ion-label>
+                <ion-checkbox slot="start"
+                  :checked="this.$store.state.searchStore.searchObject.frequency == 2"
+                  @ionChange="changeFrequency($event)">
+                </ion-checkbox>
+              </ion-item>
+            </ion-col>
           </ion-row>
         </ion-grid>
       </form>
     </div>
 
-     <ion-button class='mc-big-button' color="success" expand="block">
+     <ion-button
+      class='mc-big-button'
+      color="success"
+      expand="block"
+      :disabled="!hasSearchOriginAndDestination"
+      v-on:click="goToSearchPage()">
         {{ $t('HOME.searchCarpool') }}
       </ion-button>
       <ion-button class='mc-big-button' color="primary" expand="block" fill="outline" @click="$router.push('register')">
@@ -71,6 +88,22 @@
     touch-action: none;
   }
 
+  .mc-div-icon-swap {
+    margin-top: 20px;
+    .mc-rotate-icon {
+      transform: rotate(90deg)
+    }
+  }
+
+  .mc-block-date {
+    margin-top: 20px;
+  }
+
+
+  ion-datetime {
+    padding-left: 0px !important;
+  }
+
 </style>
 
 <script>
@@ -82,10 +115,42 @@
     },
     mounted() {
     },
+    computed: {
+      hasSearchOriginAndDestination () {
+        return (!! this.$store.getters.searchOrigin && !! this.$store.getters.searchDestination)
+      }
+    },
     methods: {
       goGeoSearch(type, action) {
         this.$router.push({ name: "geoSearch", query: { type, action } });
       },
+
+      /**
+       * Fonction qui change la date pour la recherche
+       */
+      changeDate($event) {
+       this.$store.state.searchStore.searchObject.outwardDate = new Date($event.detail.value)
+      },
+
+      swapDestinationAndOrigin() {
+        this.$store.dispatch('swapDestinationAndOrigin');
+      },
+
+      /**
+       * Fonction qui change la frequence d'un carpooling pour la recherche
+       */
+      changeFrequency(event) {
+          event.detail.checked ? ( this.$store.state.searchStore.searchObject.frequency = 2) : (this.$store.state.searchStore.searchObject.frequency = 1);
+      },
+
+      goToSearchPage() {
+        if (this.$store.getters.userId) {
+          this.$store.commit('changeUserIdOfSearch', this.$store.getters.userId)
+        } else {
+          this.$store.commit('changeUserIdOfSearch', null)
+        }
+        this.$router.push({ name: "search" });
+      }
     }
   }
 </script>
