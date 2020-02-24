@@ -26,8 +26,8 @@
 
           <div class="mc-rounded-cards" v-else>
             <div class="mc-loading">
-              <ion-spinner name="crescent"></ion-spinner>
-              <span class="text">{{$t('SolidaryTransport.Help.loading')}}</span>
+              <ion-spinner name="crescent" class="mc-loading-spinner"></ion-spinner>
+              <p class="mc-loading-message">{{$t('SolidaryTransport.Help.loading')}}</p>
             </div>
           </div>
         </ion-content>
@@ -86,7 +86,16 @@
     }
 
     .mc-loading {
+      text-align: center;
 
+      .mc-loading-spinner {
+        display: inline-block;
+      }
+
+      .mc-loading-message {
+        color: var(--ion-color-background);
+        margin: 0;
+      }
     }
   }
 </style>
