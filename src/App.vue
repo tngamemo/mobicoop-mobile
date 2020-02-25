@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <ion-app>
+    <ion-app v-if="!! this.$store.state.userStore.user || !! this.$store.state.userStore.tokenAnonymousUser">
       <ion-vue-router />
     </ion-app>
   </div>
@@ -21,6 +21,7 @@
 
       // On change les couleurs en fonction de l'environement
       document.documentElement.style.setProperty('--ion-color-primary', '#' + process.env.VUE_APP_PRIMARY);
+      document.documentElement.style.setProperty('--ion-color-primary-rgb', process.env.VUE_APP_PRIMARY_RGB);
       document.documentElement.style.setProperty('--ion-color-secondary', '#' + process.env.VUE_APP_SECONDARY);
       document.documentElement.style.setProperty('--ion-color-tertiary', '#' + process.env.VUE_APP_TERTIARY);
       document.documentElement.style.setProperty('--ion-color-success', '#' + process.env.VUE_APP_SUCCESS);

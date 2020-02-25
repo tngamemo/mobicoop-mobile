@@ -54,7 +54,10 @@
     "register_address": "Adresse",
     "destination": "Lieu d'arrivée",
     "placeHolder": "Veuillez renseigner une adresse (Ville, etc...)",
-    "outwardDate": "JJ/MM"
+    "outwardDate": "JJ/MM",
+    "titlePage": "Résultats de recherche",
+    "error": "Une erreur est survenue durant la recherche. Veuillez réessayer ultérieurement.",
+    "nbResult": "annonces en covoiturages trouvées"
   },
   "Help": {
     "title": "Aide"
@@ -80,10 +83,10 @@
   "Slider": {
     "prev": "Précédent",
     "next": "Suivant",
-    "register" : "Enregistrer"
+    "register": "Enregistrer"
   },
   "Commons": {
-    "error" : "Une erreur est survenue",
+    "error": "Une erreur est survenue",
     "cancel": "Annuler",
     "validate": "Valider",
     "save": "Enregistrer"
@@ -95,5 +98,16 @@
     "minLength" : "Le mot de passe doit comprendre 8 caractères minimum",
     "oneUppercase" : "Le mot de passe doit comprendre 1 majuscule",
     "oneDigit" : "Le mot de passe doit comprendre 1 chiffre"
+  },
+  "Carpool" : {
+    "L": "L",
+    "Ma": "Ma",
+    "Me": "Me",
+    "J": "J",
+    "V": "V",
+    "S": "S",
+    "D": "D",
+    "oneWay": "Aller",
+    "return": "Retour"
   }
 }
