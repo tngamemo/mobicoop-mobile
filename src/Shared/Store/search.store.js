@@ -38,6 +38,7 @@ export const searchStore = {
 
     search_request(state) {
       state.statusSearch = 'loading';
+      state.resultSearch = [];
     },
 
     search_succes(state, resultSearch) {
@@ -105,7 +106,13 @@ export const searchStore = {
       // return http.post("/carpools", data)
       commit('search_request')
       return new Promise((resolve, reject) => {
-        http.post("/carpools", getters.searchObject).then(resp => {
+
+        const data = Object.assign({}, getters.searchObject);
+        if (data.frequency == 2) {
+          delete data.outwardDate;
+        }
+
+        http.post("/carpools", data).then(resp => {
           if (resp) {
             console.log(resp)
             commit('search_succes', resp.data["results"])

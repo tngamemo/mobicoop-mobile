@@ -53,7 +53,10 @@
     "origin": "Lieu de départ",
     "destination": "Lieu d'arrivée",
     "placeHolder": "Veuillez renseigner une adresse (Ville, etc...)",
-    "outwardDate": "JJ/MM"
+    "outwardDate": "JJ/MM",
+    "titlePage": "Résultats de recherche",
+    "error": "Une erreur est survenue durant la recherche. Veuillez réessayer ultérieurement.",
+    "nbResult": "annonces en covoiturages trouvées"
   },
   "Help": {
     "title": "Aide"
@@ -61,14 +64,25 @@
   "Slider": {
     "prev": "Précédent",
     "next": "Suivant",
-    "register" : "Enregistrer"
+    "register": "Enregistrer"
   },
   "Commons": {
-    "error" : "Une erreur est survenue",
+    "error": "Une erreur est survenue",
     "cancel": "Annuler",
     "validate": "Valider"
   },
-  "Validation" : {
-    "required" : "Ce champ est requis"
+  "Validation": {
+    "required": "Ce champ est requis"
+  },
+  "Carpool" : {
+    "L": "L",
+    "Ma": "Ma",
+    "Me": "Me",
+    "J": "J",
+    "V": "V",
+    "S": "S",
+    "D": "D",
+    "oneWay": "Aller",
+    "return": "Retour"
   }
 }
