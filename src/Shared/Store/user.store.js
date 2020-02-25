@@ -102,6 +102,40 @@ export const userStore = {
       })
     },
 
+    updateUser({commit}, params){
+      return new Promise((resolve, reject) => {
+        delete params.addresses[0].id;
+        delete params.images;
+        http.put(`/users/${params.id}`, params)
+          .then(resp => {
+
+            // On commit et envoie le resultat
+            commit('user_request_success', resp.data);
+            resolve(resp)
+          })
+          .catch(err => {
+            console.log(err);
+            reject(err)
+          })
+      })
+    },
+
+    updateUserPicture({commit}, params){
+      return new Promise((resolve, reject) => {
+        const formData = new FormData();
+        formData.append('userFile', params.file);
+        formData.append('userId', Number(params.userId));
+
+        http.post(`/images`, formData)
+          .then(resp => {
+            resolve(resp)
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
+    },
+
     logout({commit}){
       return new Promise((resolve, reject) => {
         commit('logout')

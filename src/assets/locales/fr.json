@@ -51,6 +51,7 @@
   },
   "Search": {
     "origin": "Lieu de départ",
+    "register_address": "Adresse",
     "destination": "Lieu d'arrivée",
     "placeHolder": "Veuillez renseigner une adresse (Ville, etc...)",
     "outwardDate": "JJ/MM",
@@ -61,6 +62,24 @@
   "Help": {
     "title": "Aide"
   },
+  "Messages": {
+    "title": "Messages"
+  },
+  "Communities": {
+    "title": "Communautés"
+  },
+  "Profile": {
+    "title": "Profil",
+    "my-announce": "Mes annonces",
+    "my-accepted-carpools": "Mes covoiturages acceptés",
+    "alerts": "Gérer mes alertes",
+    "logout": "Se déconnecter",
+    "delete": "Supprimer mon compte"
+  },
+  "UpdateProfile": {
+    "title" : "Modifier mon profil",
+    "photo" : "Modifier la photo"
+  },
   "Slider": {
     "prev": "Précédent",
     "next": "Suivant",
@@ -69,10 +88,16 @@
   "Commons": {
     "error": "Une erreur est survenue",
     "cancel": "Annuler",
-    "validate": "Valider"
+    "validate": "Valider",
+    "save": "Enregistrer"
   },
-  "Validation": {
-    "required": "Ce champ est requis"
+  "Validation" : {
+    "required" : "Ce champ est requis",
+    "email" : "Le mail renseigné n'est pas au bon format",
+    "sameAsPassword" : "La confirmation et le mot de passe ne sont pas identiques",
+    "minLength" : "Le mot de passe doit comprendre 8 caractères minimum",
+    "oneUppercase" : "Le mot de passe doit comprendre 1 majuscule",
+    "oneDigit" : "Le mot de passe doit comprendre 1 chiffre"
   },
   "Carpool" : {
     "L": "L",

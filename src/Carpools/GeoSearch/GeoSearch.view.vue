@@ -99,8 +99,12 @@
           }
 
           if (this.type == 'destination') {
-            this.$store.commit('changeDestination', { addressDTO, displayGeo });
+                this.$store.commit('changeDestination', { addressDTO, displayGeo });
           }
+
+            if (this.type == 'register_address') {
+                this.$store.commit('changeRegisterAddress', { addressDTO, displayGeo });
+            }
         }
         console.log(this.$store.state.searchStore.searchObject);
         this.$router.back();

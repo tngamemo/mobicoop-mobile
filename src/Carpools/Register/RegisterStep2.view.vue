@@ -9,25 +9,30 @@
               <ion-label position="floating">{{$t('Register.phone')}} *</ion-label>
               <ion-input
                 type="text"
-                name="phone"
-                :value="user.phone"
-                @input="user.phone = $event.target.value; updateMessage()"
+                name="telephone"
+                :value="user.telephone"
+                @input="user.telephone = $event.target.value;"
                 :placeholder="$t('Register.phone')"
               ></ion-input>
             </ion-item>
-            <div class="mc-error-label"  v-if="$v.user.phone.$error">{{$t('Validation.required')}}</div>
+            <div v-if="$v.user.telephone.$error">
+              <div class="mc-error-label"  v-if="!$v.user.telephone.required">{{$t('Validation.required')}}</div>
+            </div>
 
-            <ion-item>
+            <ion-item v-on:click="goGeoSearch('register_address', 'search')">
               <ion-label position="floating">{{$t('Register.address')}} *</ion-label>
               <ion-input
                 type="text"
                 name="address"
-                :value="user.address"
-                @input="user.address = $event.target.value; updateMessage()"
+                :value="displayAddress"
+                readonly="true"
+                class="no-clickable"
                 v-bind:placeholder="$t('Register.address')"
               ></ion-input>
             </ion-item>
-            <div class="mc-error-label"  v-if="$v.user.address.$error">{{$t('Validation.required')}}</div>
+            <div v-if="$v.user.addresses.$error">
+              <div class="mc-error-label"  v-if="!$v.user.addresses.required">{{$t('Validation.required')}}</div>
+            </div>
             <br>
 
             <ion-item>
@@ -44,9 +49,11 @@
                 <ion-select-option value="1">{{$t('Register.female')}}</ion-select-option>
               </ion-select>
             </ion-item>
-            <div class="mc-error-label"  v-if="$v.user.gender.$error">{{$t('Validation.required')}}</div>
+            <div v-if="$v.user.gender.$error">
+              <div class="mc-error-label"  v-if="!$v.user.gender.required">{{$t('Validation.required')}}</div>
+            </div>
 
-            <ion-item v-on:click="test">
+            <ion-item>
               <ion-label position="floating">{{ $t('Register.birthDate') }} *</ion-label>
               <ion-datetime
                 display-format="DD/MM/YYYY"
@@ -58,6 +65,9 @@
                 @ionChange="user.birthDate = $event.detail.value"
               ></ion-datetime>
             </ion-item>
+            <div v-if="$v.user.birthDate.$error">
+              <div class="mc-error-label"  v-if="!$v.user.birthDate.required">{{$t('Validation.required')}}</div>
+            </div>
             <br>
             <ion-item lines="none">
               <ion-checkbox
@@ -70,6 +80,10 @@
               ></ion-checkbox>
               <ion-label class="no-white-space">{{ $t('Register.userAgreementAccepted') }}</ion-label>
             </ion-item>
+            <div v-if="$v.user.userAgreementAccepted.$error">
+              <div class="mc-error-label"  v-if="!$v.user.userAgreementAccepted.required">{{$t('Validation.required')}}</div>
+              <div class="mc-error-label"  v-if="!$v.user.userAgreementAccepted.checked">{{$t('Validation.required')}}</div>
+            </div>
 
           </div>
 
@@ -102,6 +116,8 @@
     import { required, email, sameAs } from 'vuelidate/lib/validators'
     import { mapState } from 'vuex'
 
+    const checked = value => value === true;
+
     export default {
         name: 'registerStep2',
         data () {
@@ -111,10 +127,10 @@
         },
         validations: {
             user: {
-                phone: {
+                telephone: {
                     required,
                 },
-                address: {
+                addresses: {
                     required
                 },
                 gender: {
@@ -124,25 +140,36 @@
                     required
                 },
                 userAgreementAccepted: {
-                    required
+                    required,
+                    checked
                 }
             }
         },
         computed: {
-            ...mapState({
-                user: state => {
-                    console.log(state.registerStore.userToRegister);
-                    return state.registerStore.userToRegister
+            user : {
+                get() {
+                    return this.$store.state.registerStore.userToRegister
+                },
+                set() {
+                    this.$store.commit('register_update', this.user);
                 }
-            })
+            },
+            displayAddress : {
+                get() {
+                    return this.$store.state.registerStore.displayAddress
+                }
+            }
         },
         created() {
-            this.test()
         },
         methods: {
+            goGeoSearch(type, action) {
+                this.$router.push({ name: "geoSearch", query: { type, action }});
+            },
             validate() {
+                console.log(this.user);
+                this.$v.$reset();
                 this.$v.$touch();
-                this.test();
                 if (this.$v.$invalid) {
                     return false;
                 } else {
@@ -152,13 +179,6 @@
             changeUserAgreementAccepted(event) {
                 event.detail.checked ? ( this.user.userAgreementAccepted = true) : (this.user.userAgreementAccepted = false);
             },
-            test() {
-                console.log(this.user.birthDate);
-                console.log(this.maxBirthDate);
-            },
-            updateMessage(){
-                this.$store.commit('register_update', this.user);
-            }
         }
     }
 </script>

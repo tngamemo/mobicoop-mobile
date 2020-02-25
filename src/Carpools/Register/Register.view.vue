@@ -41,14 +41,27 @@
           }
       },
       created() {
-          this.$store.commit('register_reset');
+          if(!this.user) {
+              this.$store.commit('register_reset');
+          }
+      },
+      computed: {
+          user : {
+              get() {
+                  return this.$store.state.registerStore.userToRegister
+              },
+              set() {
+                  this.$store.commit('register_update', this.user);
+              }
+          }
+
       },
 
       methods: {
           register() {
-              console.log('presaved');
               this.$store.dispatch('register')
                   .then(res => {
+                      this.$store.commit('register_reset');
                       this.$router.push('home');
                       this.presentToast(this.$t("Register.success"), 'success')
                   })

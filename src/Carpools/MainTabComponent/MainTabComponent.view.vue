@@ -20,11 +20,18 @@
           <Login />
         </ion-tab>
 
-
-        <!-- Match by "app.speakers" route name -->
-        <ion-tab tab="speakers" :routes="'app.speakers'">
-          <Speakers />
+        <ion-tab tab="messages">
+          <Messages />
         </ion-tab>
+
+        <ion-tab tab="communities">
+          <Communities />
+        </ion-tab>
+
+        <ion-tab tab="profile">
+          <Profile />
+        </ion-tab>
+
 
 
         <!-- Use v-slot:bottom with Vue ^2.6.0 -->
@@ -50,17 +57,17 @@
               <ion-label>{{ $t('Nav.sign-in') }}</ion-label>
             </ion-tab-button>
 
-            <ion-tab-button v-if="!!this.$store.state.userStore.user" tab="help" :to="{ name: 'app.speakers' }">
+            <ion-tab-button v-if="!!this.$store.state.userStore.user" tab="messages" :to="{ name: 'messages' }">
               <ion-icon name="text"></ion-icon>
               <ion-label>{{ $t('Nav.messages') }}</ion-label>
             </ion-tab-button>
 
-            <ion-tab-button v-if="!!this.$store.state.userStore.user" tab="register" :to="{ name: 'register' }">
+            <ion-tab-button v-if="!!this.$store.state.userStore.user" tab="communities" :to="{ name: 'communities' }">
               <ion-icon name="people"></ion-icon>
               <ion-label>{{ $t('Nav.communities') }}</ion-label>
             </ion-tab-button>
 
-            <ion-tab-button v-if="!!this.$store.state.userStore.user" tab="login" :to="{ name: 'login' }">
+            <ion-tab-button v-if="!!this.$store.state.userStore.user" tab="profile" :to="{ name: 'profile' }">
               <ion-icon name="person"></ion-icon>
               <ion-label>{{ $t('Nav.profile') }}</ion-label>
             </ion-tab-button>
@@ -96,13 +103,20 @@
   import Register from '../Register/Register.view.vue';
   import Login from '../Login/Login.view.vue';
   import Help from '../Help/Help.view.vue';
+  import Messages from '../Messages/Messages.view.vue';
+  import Communities from '../Communities/Communities.view.vue';
+  import Profile from '../Profile/Profile.view.vue';
+
   export default {
     name: 'carpools',
     components: {
       Home,
         Register,
         Login,
-        Help
+        Help,
+        Profile,
+        Messages,
+        Communities
     },
     data () {
       return {
