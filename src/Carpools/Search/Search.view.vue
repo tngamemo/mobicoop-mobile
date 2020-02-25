@@ -5,7 +5,7 @@
         <ion-buttons slot="start">
           <ion-back-button></ion-back-button>
         </ion-buttons>
-        <h1 class="ion-text-center"> Résultats de recherche </h1>
+        <h1 class="ion-text-center"> {{ $t('Search.titlePage')}} </h1>
       </ion-toolbar>
     </ion-header>
 
@@ -13,17 +13,20 @@
 
       <RecapSearch />
 
-      <div class="mc-white-container" style="height: 100%">
+      <div class="mc-white-container" style="min-height: 100%">
         <div class="ion-text-center">
           <ion-icon size="large" color="background" class="rotating" v-if="getStatusOfSearch == 'loading'" name="md-sync"></ion-icon>
         </div>
 
         <div class="ion-text-center" v-if="getStatusOfSearch == 'error'">
-          Une erreur est survenue durant la recherche. Veuillez réessayer ultérieurement.
+          {{ $t('Search.error')}}
         </div>
 
         <div class="" v-if="getStatusOfSearch == 'success'">
-          {{numberOfResultsSearch}} annonces en covoiturages trouvées
+          {{numberOfResultsSearch}} {{ $t('Search.nbResult')}}
+          <div v-for="(result, index) in this.$store.getters.resultSearch" :key="index">
+            <CarpoolItem :carpool="result" />
+          </div>
         </div>
 
 
@@ -39,11 +42,13 @@
 <script>
 
   import RecapSearch from './Components/RecapSearch.component';
+  import CarpoolItem from './Components/CarpoolItem.component';
 
   export default {
     name: 'search',
     components: {
-      RecapSearch
+      RecapSearch,
+      CarpoolItem
     },
     computed: {
       numberOfResultsSearch(){
