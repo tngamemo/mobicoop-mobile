@@ -48,7 +48,7 @@
     font-weight: 600;
     font-size: 18px;
     line-height: 27px;
-    color: var(--ion-color-background);
+    color: var(--ion-color-primary);
     opacity: 0.6;
     min-height: 27px;
     margin-bottom: 23px;
@@ -56,7 +56,7 @@
 
   .slider-style {
     --bullet-background : black;
-    --bullet-background-active: var(--ion-color-background);
+    --bullet-background-active: var(--ion-color-primary);
     height: 100%;
   }
 
