@@ -59,6 +59,24 @@
   "Help": {
     "title": "Aide"
   },
+  "Messages": {
+    "title": "Messages"
+  },
+  "Communities": {
+    "title": "Communautés"
+  },
+  "Profile": {
+    "title": "Profil",
+    "my-announce": "Mes annonces",
+    "my-accepted-carpools": "Mes covoiturages acceptés",
+    "alerts": "Gérer mes alertes",
+    "logout": "Se déconnecter",
+    "delete": "Supprimer mon compte"
+  },
+  "UpdateProfile": {
+    "title" : "Modifier mon profil",
+    "photo" : "Modifier la photo"
+  },
   "Slider": {
     "prev": "Précédent",
     "next": "Suivant",
@@ -67,7 +85,8 @@
   "Commons": {
     "error" : "Une erreur est survenue",
     "cancel": "Annuler",
-    "validate": "Valider"
+    "validate": "Valider",
+    "save": "Enregistrer"
   },
   "Validation" : {
     "required" : "Ce champ est requis",

@@ -8,6 +8,10 @@ import Login from './Login/Login.view.vue';
 import Register from './Register/Register.view.vue';
 import GeoSearch from './GeoSearch/GeoSearch.view.vue';
 import Search from './Search/Search.view.vue';
+import Messages from './Messages/Messages.view.vue';
+import Communities from './Communities/Communities.view.vue';
+import Profile from './Profile/Profile.view.vue';
+import UpdateProfile from './Profile/UpdateProfile.view.vue';
 
 import Vue from 'vue'
 
@@ -44,6 +48,21 @@ export default [
         name: 'register',
         component: Register,
       },
+      {
+        path: 'messages',
+        name: 'messages',
+        component: Messages,
+      },
+      {
+        path: 'communities',
+        name: 'communities',
+        component: Communities,
+      },
+      {
+        path: 'profile',
+        name: 'profile',
+        component: Profile,
+      },
     ]
   },
 
@@ -57,6 +76,11 @@ export default [
     path: 'search',
     name: 'search',
     component: Search
+  },
+  {
+    path: 'update-profile',
+    name: 'update-profile',
+    component: UpdateProfile
   },
 ]
 
