@@ -54,8 +54,8 @@
 
     <div class="mc-carpool-footer d-flex align-center">
         <ion-thumbnail>
-          <img v-if="this.carpool.carpooler.avatars[0] && this.avatarLoaded" :src="this.carpool.carpooler.avatars[0]" @load="onImgLoad()">
-          <ion-icon v-if="! this.avatarLoaded" name="contact" size="large" ></ion-icon>
+          <img :hidden="!(this.carpool.carpooler.avatars[0] && this.avatarLoaded)" :src="this.carpool.carpooler.avatars[0]" @load="onImgLoad()">
+          <ion-icon v-if="!this.avatarLoaded" name="contact" size="large" ></ion-icon>
         </ion-thumbnail>
         <strong class="mc-carpool-carpooler">{{this.carpool.carpooler.givenName}} {{this.carpool.carpooler.shortFamilyName}}</strong>
       </div>
@@ -244,6 +244,7 @@
 
       onImgLoad: function () {
         this.avatarLoaded = true;
+        console.log('test')
       }
     }
   }

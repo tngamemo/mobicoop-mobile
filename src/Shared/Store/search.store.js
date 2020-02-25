@@ -56,7 +56,6 @@ export const searchStore = {
     },
 
     changeOrigin(state, payload) {
-      console.log(payload)
       state.searchObject.outwardWaypoints[0] = payload.addressDTO;
       state.display.origin = payload.displayGeo;
     },
@@ -103,7 +102,6 @@ export const searchStore = {
      * Fonction qui effectue la recherche
      */
     searchCarpools({commit, getters}) {
-      // return http.post("/carpools", data)
       commit('search_request')
       return new Promise((resolve, reject) => {
 
@@ -114,7 +112,6 @@ export const searchStore = {
 
         http.post("/carpools", data).then(resp => {
           if (resp) {
-            console.log(resp)
             commit('search_succes', resp.data["results"])
             resolve(resp)
           }

@@ -106,7 +106,6 @@
                 this.$store.commit('changeRegisterAddress', { addressDTO, displayGeo });
             }
         }
-        console.log(this.$store.state.searchStore.searchObject);
         this.$router.back();
       }
     }

@@ -71,7 +71,7 @@
       v-on:click="goToSearchPage()">
         {{ $t('HOME.searchCarpool') }}
       </ion-button>
-      <ion-button class='mc-big-button' color="primary" expand="block" fill="outline" @click="$router.push('register')">
+      <ion-button class='mc-big-button' color="primary" expand="block" fill="outline" @click="$router.push('post-carpool')">
         {{ $t('HOME.postCarpool') }}
       </ion-button>
   </div>
