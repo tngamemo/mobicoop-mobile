@@ -10,7 +10,7 @@
     </ion-header>
 
     <ion-content color="background" no-bounce>
-      <div class="mc-white-container" style="height: 100%">
+      <div class="mc-white-container">
 
         <!-- Bloc user -->
         <div class="mc-user-profile ion-margin-bottom" v-if="user">
