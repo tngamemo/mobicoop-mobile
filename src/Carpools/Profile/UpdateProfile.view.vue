@@ -3,7 +3,7 @@
     <ion-header no-border>
       <ion-toolbar color="background">
         <ion-buttons slot="start">
-          <ion-back-button></ion-back-button>
+          <ion-back-button default-href="profile"></ion-back-button>
         </ion-buttons>
         <h1 class="ion-text-center"> {{ $t('UpdateProfile.title') }} </h1>
       </ion-toolbar>

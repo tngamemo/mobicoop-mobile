@@ -5,22 +5,23 @@ export const userStore = {
     status: '',
     tokenUser: localStorage.getItem('tokenUser') || '',
     tokenAnonymousUser: localStorage.getItem('tokenAnonymousUser') || '',
-    user : null
+    user: null,
+    alerts: []
   },
   mutations: {
     auth_request(state) {
       state.status = 'loading';
     },
 
-    auth_success(state, tokenUser){
+    auth_success(state, tokenUser) {
       state.tokenUser = tokenUser;
     },
 
-    auth_error(state){
+    auth_error(state) {
       state.status = 'error';
     },
 
-    auth_anonymous_success(state, tokenAnonymousUser){
+    auth_anonymous_success(state, tokenAnonymousUser) {
       state.tokenAnonymousUser = tokenAnonymousUser
     },
 
@@ -29,7 +30,11 @@ export const userStore = {
       state.user = user;
     },
 
-    logout(state){
+    user_alerts_request_success(state, data) {
+      state.alerts = data.alerts;
+    },
+
+    logout(state) {
       state.status = '';
       state.tokenUser = '';
       state.user = null;
@@ -37,23 +42,23 @@ export const userStore = {
 
   },
   actions: {
-    login({commit}, params){
+    login({commit}, params) {
       commit('auth_request')
       return new Promise((resolve, reject) => {
-        http.post("/login", { "username": params.username, "password": params.password })
-        .then(resp => {
-          if (resp) {
-            const tokenUser = resp.data.token
-            localStorage.setItem('tokenUser', tokenUser)
-            commit('auth_success', tokenUser)
-            resolve(resp)
-          }
-        })
-        .catch(err => {
-          commit('auth_error')
-          localStorage.removeItem('tokenUser')
-          reject(err)
-        })
+        http.post("/login", {"username": params.username, "password": params.password})
+          .then(resp => {
+            if (resp) {
+              const tokenUser = resp.data.token
+              localStorage.setItem('tokenUser', tokenUser)
+              commit('auth_success', tokenUser)
+              resolve(resp)
+            }
+          })
+          .catch(err => {
+            commit('auth_error')
+            localStorage.removeItem('tokenUser')
+            reject(err)
+          })
       })
     },
 
@@ -61,48 +66,48 @@ export const userStore = {
      * Fonction qui permet d'autentifier un utilisateur de maniére anonyme.
      * Pour pouvoir accéder au fonctionnalité de base en mode déco.
      */
-    authAnonymousUser({commit}){
+    authAnonymousUser({commit}) {
 
       return new Promise((resolve, reject) => {
-        http.post("/auth", { "username": 'mobile', "password": 'mobile' })
-        .then(resp => {
+        http.post("/auth", {"username": 'mobile', "password": 'mobile'})
+          .then(resp => {
 
-          const tokenAnonymousUser = resp.data.token
-          localStorage.setItem('tokenAnonymousUser', tokenAnonymousUser)
+            const tokenAnonymousUser = resp.data.token
+            localStorage.setItem('tokenAnonymousUser', tokenAnonymousUser)
 
-          // On commit et envoie le resultat
-          commit('auth_anonymous_success', tokenAnonymousUser)
-          resolve(resp)
-        })
-        .catch(err => {
-          console.log(err)
-          localStorage.removeItem('tokenAnonymousUser')
-          reject(err)
-        })
+            // On commit et envoie le resultat
+            commit('auth_anonymous_success', tokenAnonymousUser)
+            resolve(resp)
+          })
+          .catch(err => {
+            console.log(err)
+            localStorage.removeItem('tokenAnonymousUser')
+            reject(err)
+          })
       })
     },
 
     /**
      * Fonction pour récupérer les informations d'un utilisateur
      */
-    getUser({commit}, params){
+    getUser({commit}, params) {
       return new Promise((resolve, reject) => {
         http.get(`/users/${params.idUser}`)
-        .then(resp => {
+          .then(resp => {
 
-          // On commit et envoie le resultat
-          commit('user_request_success', resp.data)
-          resolve(resp)
-        })
-        .catch(err => {
-          commit('auth_error')
-          console.log(err)
-          reject(err)
-        })
+            // On commit et envoie le resultat
+            commit('user_request_success', resp.data)
+            resolve(resp)
+          })
+          .catch(err => {
+            commit('auth_error')
+            console.log(err)
+            reject(err)
+          })
       })
     },
 
-    updateUser({commit}, params){
+    updateUser({commit}, params) {
       return new Promise((resolve, reject) => {
         delete params.addresses[0].id;
         delete params.images;
@@ -120,7 +125,7 @@ export const userStore = {
       })
     },
 
-    updateUserPicture({commit}, params){
+    updateUserPicture({commit}, params) {
       return new Promise((resolve, reject) => {
         const formData = new FormData();
         formData.append('userFile', params.file);
@@ -136,18 +141,19 @@ export const userStore = {
       })
     },
 
-    logout({commit}){
+    logout({commit}) {
       return new Promise((resolve, reject) => {
-        commit('logout')
-        localStorage.removeItem('tokenUser')
+        commit('logout');
+        localStorage.removeItem('tokenUser');
         resolve()
       })
     },
 
-    generatePhoneToken({commit}, id){
+    getAlerts({commit}, userId) {
       return new Promise((resolve, reject) => {
-        http.get(`/users/${id}/generate_phone_token`)
+        http.get(`/users/${userId}/alerts`)
           .then(resp => {
+            commit('user_alerts_request_success', resp.data);
             resolve(resp)
           })
           .catch(err => {
@@ -155,19 +161,45 @@ export const userStore = {
           })
       })
     },
-    checkPhoneTokenPost({commit}, params){
+    updateAlert({commit}, params) {
+      const alert = {
+        alerts: {[params.alertId]: params.alertValue},
+      };
       return new Promise((resolve, reject) => {
-        http.post(`/users/checkPhoneToken`, params)
+        http.put(`/users/${params.userId}/alerts`, alert)
           .then(resp => {
-            commit('user_request_success', resp.data);
+            commit('user_alerts_request_success', resp.data);
             resolve(resp)
           })
           .catch(err => {
             reject(err)
           })
       })
-    }
+    },
 
+  generatePhoneToken({commit}, id) {
+    return new Promise((resolve, reject) => {
+      http.get(`/users/${id}/generate_phone_token`)
+        .then(resp => {
+          resolve(resp)
+        })
+        .catch(err => {
+          reject(err)
+        })
+    })
+  },
+  checkPhoneTokenPost({commit}, params) {
+    return new Promise((resolve, reject) => {
+      http.post(`/users/checkPhoneToken`, params)
+        .then(resp => {
+          commit('user_request_success', resp.data);
+          resolve(resp)
+        })
+        .catch(err => {
+          reject(err)
+        })
+    })
+  }
 
   },
   getters : {
