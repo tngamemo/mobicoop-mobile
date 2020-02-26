@@ -80,7 +80,6 @@ export const userStore = {
             resolve(resp)
           })
           .catch(err => {
-            console.log(err)
             localStorage.removeItem('tokenAnonymousUser')
             reject(err)
           })

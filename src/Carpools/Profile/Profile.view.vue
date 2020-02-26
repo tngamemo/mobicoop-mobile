@@ -69,8 +69,16 @@
     justify-content: space-between;
     color: var(--ion-color-primary);
 
+
     .mc-user-bloc-info {
       display: flex;
+      width: 100%;
+      flex-wrap: wrap;
+    }
+
+    .mc-user-image{
+      margin-right: 20px;
+      margin-bottom: 20px;
     }
 
     ion-thumbnail {
@@ -79,7 +87,6 @@
     }
 
     .mc-user-info {
-      margin-left: 20px;
 
       p {
         margin: 0;
