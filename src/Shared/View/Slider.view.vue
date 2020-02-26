@@ -110,6 +110,12 @@
       }
     },
       mounted () {
+          // go to slide if there is step param in route
+          if(this.$route.query.step) {
+            this.$refs.slider.slideTo(this.$route.query.step, 0);
+            this.activeIndex=this.$route.query.step;
+          }
+
           this.$watch(
               () => {
                   return this.$refs.slider
@@ -131,12 +137,14 @@
                   this.$emit('save');
               } else {
                   this.activeIndex = this.activeIndex + 1;
+                  this.$router.replace({ query: { step: this.activeIndex } });
                   this.$refs.slider.slideNext()
               }
           }
       },
         prev() {
               this.activeIndex = this.activeIndex - 1;
+              this.$router.replace({ query: { step: this.activeIndex } });
               this.$refs.slider.slidePrev()
         },
     }

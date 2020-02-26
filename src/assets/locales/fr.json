@@ -35,7 +35,9 @@
     "male": "Homme",
     "female": "Femme",
     "userAgreementAccepted": "J'accepte la charte de la plateforme et sa politique de confidentialité",
-    "success" : "Succès de l'inscription"
+    "success" : "Succès de l'inscription",
+    "visible-by-all": "Visible par tous",
+    "see-cgu": "Voir les CGU"
   },
   "BlockAction": {
     "communities": {
