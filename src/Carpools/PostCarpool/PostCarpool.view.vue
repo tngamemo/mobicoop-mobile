@@ -11,7 +11,7 @@
     <!--  -->
     <ion-content color="background" no-bounce>
       <div class="mc-white-container" style="height: 100%">
-        <Slider v-bind:slides="slides" v-on:save="register()"></Slider>
+        <Slider v-bind:slides="slides" v-on:save="postCarpool()"></Slider>
       </div>
     </ion-content>
   </div>
@@ -23,6 +23,7 @@
 <script>
   import Slider from "../../Shared/View/Slider.view";
   import { toast } from "../../Shared/Mixin/toast.mixin";
+  import PostCarpoolStep1 from "./PostCarpoolStep1.view";
 
   export default {
     name: "post-carpool",
@@ -33,14 +34,22 @@
     data() {
       return {
         slides: [
-          // {title: "", component: "RegisterStep1"},
+          {title: "", component: PostCarpoolStep1},
           // {title: "", component: "RegisterStep2"}
         ]
       };
     },
-    created() {},
+    created() {
+      if (this.$store.getters.carpoolToPost == null) {
+        this.$store.commit('carpoolPost_init');
+      }
+    },
     computed: {},
 
-    methods: {}
+    methods: {
+      postCarpool: function() {
+        console.log('yolo')
+      }
+    }
   };
 </script>

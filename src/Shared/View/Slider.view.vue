@@ -7,10 +7,10 @@
         pager="true"
         :options="slideOpts"
       >
-        <ion-slide v-for="slide in slides" :key="slide.component">
+        <ion-slide v-for="(slide, index) in slides" :key="index">
           <div class="slide-title">{{slide.title}}</div>
           <div class="component-content">
-            <component :ref="slide.component" v-bind:is="slide.component"></component>
+            <component :ref="slide.component" :is="slide.component"></component>
           </div>
         </ion-slide>
       </ion-slides>
@@ -58,15 +58,15 @@
     font-weight: 600;
     font-size: 18px;
     line-height: 27px;
-    color: var(--ion-color-background);
+    color: var(--ion-color-primary);
     opacity: 0.6;
     min-height: 27px;
     margin-bottom: 23px;
   }
 
   .slider-style {
-    --bullet-background: black;
-    --bullet-background-active: var(--ion-color-background);
+    --bullet-background : black;
+    --bullet-background-active: var(--ion-color-primary);
     height: 100%;
   }
 
@@ -101,15 +101,10 @@
 </style>
 
 <script>
-  import RegisterStep1 from "../../Carpools/Register/RegisterStep1.view";
-  import RegisterStep2 from "../../Carpools/Register/RegisterStep2.view";
+
 
   export default {
     name: "slider",
-    components: {
-      RegisterStep1,
-      RegisterStep2
-    },
     data() {
       return {
         activeIndex: 0,
