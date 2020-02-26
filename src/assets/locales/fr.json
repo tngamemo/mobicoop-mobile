@@ -78,7 +78,9 @@
   },
   "UpdateProfile": {
     "title" : "Modifier mon profil",
-    "photo" : "Modifier la photo"
+    "photo" : "Modifier la photo",
+    "picture-success": "La photo a bien été mise à jour",
+    "success": "Le profil a bien été mise à jour"
   },
   "Slider": {
     "prev": "Précédent",
@@ -89,7 +91,8 @@
     "error": "Une erreur est survenue",
     "cancel": "Annuler",
     "validate": "Valider",
-    "save": "Enregistrer"
+    "save": "Enregistrer",
+    "delete": "Supprimer"
   },
   "Validation" : {
     "required" : "Ce champ est requis",
