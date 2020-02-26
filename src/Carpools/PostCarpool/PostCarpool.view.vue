@@ -36,8 +36,7 @@
       return {
         slides: [
           {title: "", component: PostCarpoolStep1},
-          {title: "", component: PostCarpoolStep2},
-          // {title: "", component: "RegisterStep2"}
+          {title: "", component: PostCarpoolStep2}
         ]
       };
     },

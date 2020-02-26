@@ -57,6 +57,22 @@ export const carpoolStore = {
 
     addPostCarpoolStep(state, payload) {
       state.addressessUseToPost.step.push(payload.addressDTO);
+    },
+
+    changeDateOutwardCarpool(state, payload) {
+      state.carpoolToPost.outwardDate = payload.outwardDate;
+    },
+
+    changeTimeOutwardCarpool(state, payload) {
+      state.carpoolToPost.outwardTime = payload.outwardTime;
+    },
+
+    changeDateReturnCarpool(state, payload) {
+      state.carpoolToPost.returnDate = payload.returnDate;
+    },
+
+    changeTimeReturnCarpool(state, payload) {
+      state.carpoolToPost.returnTime = payload.returnTime;
     }
 
   },

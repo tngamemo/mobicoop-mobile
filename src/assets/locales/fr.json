@@ -35,7 +35,9 @@
     "male": "Homme",
     "female": "Femme",
     "userAgreementAccepted": "J'accepte la charte de la plateforme et sa politique de confidentialité",
-    "success" : "Succès de l'inscription"
+    "success" : "Succès de l'inscription",
+    "visible-by-all": "Visible par tous",
+    "see-cgu": "Voir les CGU"
   },
   "BlockAction": {
     "communities": {
@@ -78,7 +80,9 @@
   },
   "UpdateProfile": {
     "title" : "Modifier mon profil",
-    "photo" : "Modifier la photo"
+    "photo" : "Modifier la photo",
+    "picture-success": "La photo a bien été mise à jour",
+    "success": "Le profil a bien été mise à jour"
   },
   "Slider": {
     "prev": "Précédent",
@@ -89,7 +93,8 @@
     "error": "Une erreur est survenue",
     "cancel": "Annuler",
     "validate": "Valider",
-    "save": "Enregistrer"
+    "save": "Enregistrer",
+    "delete": "Supprimer"
   },
   "Validation" : {
     "required" : "Ce champ est requis",

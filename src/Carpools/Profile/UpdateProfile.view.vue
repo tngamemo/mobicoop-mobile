@@ -10,7 +10,7 @@
     </ion-header>
 
     <ion-content color="background" no-bounce>
-      <div class="mc-white-container" style="height: 100%">
+      <div class="mc-white-container">
 
         <div v-if="user">
         <!-- Bloc photo -->
@@ -24,7 +24,7 @@
           <ion-button class='mc-small-button' color="primary" fill="outline" @click="$refs.imageInput.click()">
             <ion-icon class="ion-margin-end" name="create"></ion-icon> {{ $t('UpdateProfile.photo') }}
           </ion-button>
-          <input ref="imageInput" style="display: none" type="file" @change="changePicture" />
+          <input ref="imageInput" style="display: none" type="file" @change="changePicture($event)" />
         </div>
 
         <!-- Form -->
@@ -207,7 +207,7 @@
     methods: {
         changePicture(e) {
             const file = e.target.files[0];
-            this.$store.dispatch('updateUser', { userId : this.user.id, file: file })
+            this.$store.dispatch('updateUserPicture', { userId : this.user.id, file: file })
                 .then(res => {
                     this.$store.dispatch('getUser', { idUser: this.user.id });
                     this.presentToast(this.$t("UpdateProfile.picture-success"), 'success')

@@ -115,33 +115,43 @@
         }
       };
     },
-    mounted() {
-      this.$watch(
-        () => {
-          return this.$refs.slider;
-        },
-        val => {
-          this.activeIndex = val.swiper.activeIndex;
-        }
-      );
-    },
-    // Pass an array of slides {title, component}
-    props: ["slides"],
+      mounted () {
+          // go to slide if there is step param in route
+          if(this.$route.query.step) {
+            this.$refs.slider.slideTo(this.$route.query.step, 0);
+            this.activeIndex=this.$route.query.step;
+          }
+
+          this.$watch(
+              () => {
+                  return this.$refs.slider
+              },
+              (val) => {
+                 this.activeIndex = val.swiper.activeIndex
+              }
+          )
+      },
+      // Pass an array of slides {title, component}
+    props: ['slides'],
     methods: {
       next() {
-        if (this.$refs[this.slides[this.activeIndex].component][0].validate()) {
-          if (this.activeIndex >= this.slides.length - 1) {
-            this.$emit("save");
-          } else {
-            this.activeIndex = this.activeIndex + 1;
-            this.$refs.slider.slideNext();
+
+          if (this.$refs[this.slides[this.activeIndex].component][0].validate()) {
+              if (this.activeIndex >= this.slides.length - 1) {
+                  console.log('save');
+                  this.$emit('save');
+              } else {
+                  this.activeIndex = this.activeIndex + 1;
+                  this.$router.replace({ query: { step: this.activeIndex } });
+                  this.$refs.slider.slideNext()
+              }
           }
-        }
-      },
-      prev() {
-        this.activeIndex = this.activeIndex - 1;
-        this.$refs.slider.slidePrev();
-      }
+        },
+        prev() {
+              this.activeIndex = this.activeIndex - 1;
+              this.$router.replace({ query: { step: this.activeIndex } });
+              this.$refs.slider.slidePrev()
+        },
     }
   };
 </script>

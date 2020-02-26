@@ -124,7 +124,8 @@ import {
 export default {
   name: "post-carpool-step1",
   data() {
-    return {};
+    return {
+    };
   },
   validations: {
     carpoolToPost: {
@@ -133,6 +134,7 @@ export default {
       },
       outwardDate: {
         required: requiredIf(function (outwardDate) {
+          console.log('asd')
           return this.$store.getters.carpoolToPost.frequency == 1
         })
       },
@@ -223,7 +225,7 @@ export default {
     },
 
     changePostOutwardDate($event) {
-      this.$store.getters.carpoolToPost.outwardDate = new Date($event.detail.value)
+      this.$store.commit('changeDateOutwardCarpool', {outwardDate: new Date($event.detail.value)})
     },
   }
 };

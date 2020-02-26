@@ -169,8 +169,14 @@ ion-input {
   background: white;
   padding: 30px;
   color: black;
+  min-height: 100%;
   border-top-left-radius: 15px !important;
   border-top-right-radius: 15px !important;
+}
+
+.mc-white-container-no-padding {
+  padding-right: 0px;
+  padding-left: 0px;
 }
 
 
