@@ -3,7 +3,7 @@
     "title": "Bienvenue sur <br> {title} !",
     "sign-in": "Connexion",
     "register": "Inscription",
-    "searchCarpool": "Recherche un covoiturage",
+    "searchCarpool": "Rechercher un covoiturage",
     "postCarpool": "Publier une annonce"
   },
   "Nav": {
@@ -32,8 +32,8 @@
     "address": "Commune de résidence",
     "gender": "Civilité",
     "nc": "Autre",
-    "male": "Homme",
-    "female": "Femme",
+    "male": "Monsieur",
+    "female": "Madame",
     "userAgreementAccepted": "J'accepte la charte de la plateforme et sa politique de confidentialité",
     "success" : "Succès de l'inscription",
     "visible-by-all": "Visible par tous",
@@ -82,7 +82,11 @@
     "title" : "Modifier mon profil",
     "photo" : "Modifier la photo",
     "picture-success": "La photo a bien été mise à jour",
-    "success": "Le profil a bien été mise à jour"
+    "success": "Le profil a bien été mise à jour",
+    "visibility-accepted": "Visible seulement après acceptation du covoiturage, uniquement par les participants",
+    "visibility-all": "Visible dès la publication de l'annonce, par tous les inscrits",
+    "phoneToken": "Envoyer un code de vérification",
+    "phoneTokenPopup": "Vérification du téléphone"
   },
   "Slider": {
     "prev": "Précédent",
@@ -91,6 +95,7 @@
   },
   "Commons": {
     "error": "Une erreur est survenue",
+    "success": "Action effectuée avec succès",
     "cancel": "Annuler",
     "validate": "Valider",
     "save": "Enregistrer",

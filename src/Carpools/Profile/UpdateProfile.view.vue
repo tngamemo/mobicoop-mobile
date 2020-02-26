@@ -13,49 +13,49 @@
       <div class="mc-white-container">
 
         <div v-if="user">
-        <!-- Bloc photo -->
-        <div class="mc-user-update-profile ion-margin-bottom" >
+          <!-- Bloc photo -->
+          <div class="mc-user-update-profile ion-margin-bottom" >
             <div class="mc-user-image">
               <ion-thumbnail v-if="!! user.avatars">
                 <img :src="user.avatars[0]">
               </ion-thumbnail>
             </div>
 
-          <ion-button class='mc-small-button' color="primary" fill="outline" @click="$refs.imageInput.click()">
-            <ion-icon class="ion-margin-end" name="create"></ion-icon> {{ $t('UpdateProfile.photo') }}
-          </ion-button>
-          <input ref="imageInput" style="display: none" type="file" @change="changePicture($event)" />
-        </div>
+            <ion-button class='mc-small-button' color="primary" fill="outline" @click="$refs.imageInput.click()">
+              <ion-icon class="ion-margin-end" name="create"></ion-icon> {{ $t('UpdateProfile.photo') }}
+            </ion-button>
+            <input ref="imageInput" style="display: none" type="file" @change="changePicture($event)" />
+          </div>
 
-        <!-- Form -->
+          <!-- Form -->
 
-        <ion-item>
-          <ion-label position="floating">{{$t('Register.givenName')}} *</ion-label>
-          <ion-input
-            type="text"
-            :placeholder="$t('Register.givenName') + '*'"
-            :value="user.givenName"
-            @input="user.givenName = $event.target.value;"
-          >
-          </ion-input>
-        </ion-item>
-        <div v-if="$v.user.givenName.$error">
-          <div class="mc-error-label"  v-if="!$v.user.givenName.required">{{$t('Validation.required')}}</div>
-        </div>
+          <ion-item>
+            <ion-label position="floating">{{$t('Register.givenName')}} *</ion-label>
+            <ion-input
+              type="text"
+              :placeholder="$t('Register.givenName') + '*'"
+              :value="user.givenName"
+              @input="user.givenName = $event.target.value;"
+            >
+            </ion-input>
+          </ion-item>
+          <div v-if="$v.user.givenName.$error">
+            <div class="mc-error-label"  v-if="!$v.user.givenName.required">{{$t('Validation.required')}}</div>
+          </div>
 
-        <ion-item>
-          <ion-label position="floating">{{$t('Register.familyName')}} *</ion-label>
-          <ion-input
-            type="text"
-            :placeholder="$t('Register.familyName') + '*'"
-            :value="user.familyName"
-            @input="user.familyName = $event.target.value;"
-          >
-          </ion-input>
-        </ion-item>
-        <div v-if="$v.user.familyName.$error">
-          <div class="mc-error-label"  v-if="!$v.user.familyName.required">{{$t('Validation.required')}}</div>
-        </div>
+          <ion-item>
+            <ion-label position="floating">{{$t('Register.familyName')}} *</ion-label>
+            <ion-input
+              type="text"
+              :placeholder="$t('Register.familyName') + '*'"
+              :value="user.familyName"
+              @input="user.familyName = $event.target.value;"
+            >
+            </ion-input>
+          </ion-item>
+          <div v-if="$v.user.familyName.$error">
+            <div class="mc-error-label"  v-if="!$v.user.familyName.required">{{$t('Validation.required')}}</div>
+          </div>
 
           <ion-item>
             <ion-label position="floating">{{$t('Register.gender')}} *</ion-label>
@@ -103,6 +103,30 @@
           <div v-if="$v.user.telephone.$error">
             <div class="mc-error-label"  v-if="!$v.user.telephone.required">{{$t('Validation.required')}}</div>
           </div>
+
+          <div v-if="!user.phoneValidatedDate" class="mc-button-phone">
+            <ion-button class='mc-small-button' fill="outline" color="primary" v-on:click='setPhoneToken'>
+              {{ $t('UpdateProfile.phoneToken') }}
+            </ion-button>
+          </div>
+
+
+          <div class="phone-visibility">
+            <ion-item lines="none">
+              <ion-radio-group>
+                <ion-item color="background" lines="none" >
+                  <ion-label class="ion-text-wrap">{{$t('UpdateProfile.visibility-accepted')}}</ion-label>
+                  <ion-radio slot="start" value="1" :checked="user.phoneDisplay == 1" @ionSelect="user.phoneDisplay = 1"></ion-radio>
+                </ion-item>
+
+                <ion-item color="background" lines="none">
+                  <ion-label class="ion-text-wrap">{{$t('UpdateProfile.visibility-all')}}</ion-label>
+                  <ion-radio slot="start" value="2" :checked="user.phoneDisplay == 2" @ionSelect="user.phoneDisplay = 2"></ion-radio>
+                </ion-item>
+              </ion-radio-group>
+            </ion-item>
+          </div>
+
 
           <ion-item v-on:click="goGeoSearch('register_address', 'search')">
             <ion-label position="floating">{{$t('Register.address')}} *</ion-label>
@@ -163,69 +187,142 @@
       --border-radius: 50%;
     }
   }
+
+  .phone-visibility {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  .mc-button-phone {
+    text-align: right;
+    width: 100%;
+  }
 </style>
 
 <script>
-    import { required, email, sameAs, minLength, helpers } from 'vuelidate/lib/validators'
-    import { toast } from '../../Shared/Mixin/toast.mixin';
+  import { required, email, sameAs, minLength, helpers } from 'vuelidate/lib/validators'
+  import { toast } from '../../Shared/Mixin/toast.mixin';
 
   export default {
     name: 'update-profile',
     data () {
       return {
         user: Object.assign({}, this.$store.state.userStore.user ),
-          maxBirthDate: new Date().toISOString()
+        maxBirthDate: new Date().toISOString()
       }
     },
-      mixins: [toast],
-      validations: {
-          user: {
-              givenName: {
-                  required,
-              },
-              familyName: {
-                  required
-              },
-              gender: {
-                  required,
-              },
-              email: {
-                  required,
-                  email
-              },
-              telephone: {
-                  required,
-              },
-              addresses: {
-                  required
-              },
-              birthDate: {
-                  required
-              }
-          }
-      },
-    methods: {
-        changePicture(e) {
-            const file = e.target.files[0];
-            this.$store.dispatch('updateUserPicture', { userId : this.user.id, file: file })
-                .then(res => {
-                    this.$store.dispatch('getUser', { idUser: this.user.id });
-                    this.presentToast(this.$t("UpdateProfile.picture-success"), 'success')
-                })
-                .catch(err => {
-                    this.presentToast(this.$t("Commons.error"), 'danger')
-                });
+    mixins: [toast],
+    validations: {
+      user: {
+        givenName: {
+          required,
         },
-        updateUser() {
-            this.$store.dispatch('updateUser', this.user)
-                .then(res => {
-                    this.$router.push('profile');
-                    this.presentToast(this.$t("UpdateProfile.success"), 'success')
-                })
-                .catch(err => {
-                    this.presentToast(this.$t("Commons.error"), 'danger')
-                });
+        familyName: {
+          required
+        },
+        gender: {
+          required,
+        },
+        email: {
+          required,
+          email
+        },
+        telephone: {
+          required,
+        },
+        addresses: {
+          required
+        },
+        birthDate: {
+          required
         }
+      }
+    },
+    methods: {
+      changePicture(e) {
+        const file = e.target.files[0];
+        this.$store.dispatch('updateUserPicture', { userId : this.user.id, file: file })
+          .then(res => {
+            this.$store.dispatch('getUser', { idUser: this.user.id }).then(res => {
+              this.user = Object.assign({}, this.$store.state.userStore.user );
+            });
+            this.presentToast(this.$t("UpdateProfile.picture-success"), 'success')
+          })
+          .catch(err => {
+            this.presentToast(this.$t("Commons.error"), 'danger')
+          });
+      },
+      updateUser() {
+        this.$store.dispatch('updateUser', this.user)
+          .then(res => {
+            this.$router.push('profile');
+            this.presentToast(this.$t("UpdateProfile.success"), 'success')
+          })
+          .catch(err => {
+            this.presentToast(this.$t("Commons.error"), 'danger')
+          });
+      },
+      setPhoneToken() {
+        this.$store.dispatch('generatePhoneToken', this.user.id)
+          .then(res => {
+            this.displayPhoneTokenAlert();
+          })
+          .catch(() => {
+            this.presentToast(this.$t("Commons.error"), "danger");
+          });
+
+      },
+      displayPhoneTokenAlert() {
+        return this.$ionic.alertController
+          .create({
+            header: this.$t('UpdateProfile.phoneTokenPopup'),
+            inputs: [
+              {
+                name: "phoneToken",
+                id: "phoneToken",
+                placeholder: this.$t('UpdateProfile.phoneTokenPopup')
+              }
+            ],
+            buttons: [
+              {
+                text: 'Annuler',
+                role: "cancel",
+                cssClass: "secondary",
+                handler: () => {
+
+                }
+              },
+              {
+                text: 'Vérifier',
+                handler: data => {
+                  if (data.phoneToken) {
+                    this.checkPhoneToken(data.phoneToken);
+                  } else {
+                    this.presentToast(
+                      `Il n'y a pas de code`,
+                      "danger"
+                    );
+                  }
+                }
+              }
+            ]
+          })
+          .then(a => a.present());
+      },
+      checkPhoneToken(phoneToken) {
+        this.$store.dispatch('checkPhoneTokenPost', {telephone : this.user.telephone, phoneToken : phoneToken})
+          .then(res => {
+            if (res) {
+              this.user = Object.assign({}, this.$store.state.userStore.user );
+              this.presentToast(this.$t("Commons.success"), "success");
+            } else {
+              this.presentToast(this.$t("Commons.error"), "tertiary");
+            }
+          })
+          .catch(() => {
+            this.presentToast(this.$t("Commons.error"), "tertiary");
+          });
+      },
     }
   }
 </script>

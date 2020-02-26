@@ -25,7 +25,7 @@ export const toast = {
             message: text,
             duration: 4000,
             showCloseButton: false,
-            position: 'bottom',
+            position: 'top',
             color: color
         });
       toast.present();

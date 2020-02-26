@@ -142,6 +142,30 @@ export const userStore = {
         localStorage.removeItem('tokenUser')
         resolve()
       })
+    },
+
+    generatePhoneToken({commit}, id){
+      return new Promise((resolve, reject) => {
+        http.get(`/users/${id}/generate_phone_token`)
+          .then(resp => {
+            resolve(resp)
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
+    },
+    checkPhoneTokenPost({commit}, params){
+      return new Promise((resolve, reject) => {
+        http.post(`/users/checkPhoneToken`, params)
+          .then(resp => {
+            commit('user_request_success', resp.data);
+            resolve(resp)
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
     }
 
 
