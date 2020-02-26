@@ -14,6 +14,9 @@
               >
               </ion-input>
             </ion-item>
+            <div class="label-visible-by-all">
+              {{$t('Register.visible-by-all')}}
+            </div>
             <div v-if="$v.user.givenName.$error">
               <div class="mc-error-label"  v-if="!$v.user.givenName.required">{{$t('Validation.required')}}</div>
             </div>
@@ -101,6 +104,14 @@
     display: flex;
     justify-content: center
   }
+
+    .label-visible-by-all {
+      float: left;
+      font-size: 11px;
+      opacity: 0.6;
+      text-align: start;
+      margin-top: 3px;
+    }
 }
 
 </style>

@@ -85,6 +85,9 @@
               <div class="mc-error-label"  v-if="!$v.user.userAgreementAccepted.checked">{{$t('Validation.required')}}</div>
             </div>
 
+            <br>
+            <!--<a class="text-center" v-on:click="$router.push('cgu')">Voir les conditions</a>-->
+
           </div>
 
         </div>
