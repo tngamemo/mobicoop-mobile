@@ -84,6 +84,20 @@
     "picture-success": "La photo a bien été mise à jour",
     "success": "Le profil a bien été mise à jour"
   },
+  "ProfileAlerts": {
+    "title": "Mes alertes",
+    "carpool_ask_posted" : "Sollicitation pour un covoiturage",
+    "communication_internal_message_received": "Nouveau message dans la messagerie",
+    "carpool_matching_new": "Nouveaux covoiturages potentiels",
+    "carpool_ask_accepted": "Covoiturage accepté",
+    "carpool_ask_refused": "Covoiturage refusé",
+    "carpool_ad_renewal": "Renouveller mes trajets en fin de validité",
+    "carpool_proposal_canceled": "Annulation d'un covoiturage",
+    "validate_create_event": "Confirmation de création d'événement",
+    "medium-1": "Message",
+    "medium-2": "Email",
+    "medium-3": "SMS"
+  },
   "Slider": {
     "prev": "Précédent",
     "next": "Suivant",

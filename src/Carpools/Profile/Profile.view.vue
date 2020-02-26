@@ -45,15 +45,17 @@
             <ion-icon class="ion-margin-end" name="checkmark-circle"></ion-icon> {{ $t('Profile.my-accepted-carpools') }}
           </ion-button>
           -->
-          <ion-button class='mc-big-button' color="success" expand="block" @click="">
+          <ion-button class='mc-big-button' color="success" expand="block" @click="$router.push('profile-alerts')">
             <ion-icon class="ion-margin-end" name="notifications"></ion-icon> {{ $t('Profile.alerts') }}
           </ion-button>
           <ion-button class='mc-big-button' color="warning" expand="block" @click="logout()">
             <ion-icon class="ion-margin-end" name="log-out"></ion-icon> {{ $t('Profile.logout') }}
           </ion-button>
+          <!--
           <ion-button class='mc-big-button' color="danger" expand="block" @click="">
             <ion-icon class="ion-margin-end" name="trash"></ion-icon> {{ $t('Profile.delete') }}
           </ion-button>
+          -->
         </div>
 
       </div>

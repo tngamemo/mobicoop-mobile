@@ -5,7 +5,8 @@ export const userStore = {
     status: '',
     tokenUser: localStorage.getItem('tokenUser') || '',
     tokenAnonymousUser: localStorage.getItem('tokenAnonymousUser') || '',
-    user : null
+    user : null,
+    alerts: []
   },
   mutations: {
     auth_request(state) {
@@ -27,6 +28,10 @@ export const userStore = {
     user_request_success(state, user) {
       state.status = 'success';
       state.user = user;
+    },
+
+    user_alerts_request_success(state, data) {
+      state.alerts = data.alerts;
     },
 
     logout(state){
@@ -138,11 +143,39 @@ export const userStore = {
 
     logout({commit}){
       return new Promise((resolve, reject) => {
-        commit('logout')
-        localStorage.removeItem('tokenUser')
+        commit('logout');
+        localStorage.removeItem('tokenUser');
         resolve()
       })
-    }
+    },
+
+    getAlerts({commit}, userId){
+      return new Promise((resolve, reject) => {
+        http.get(`/users/${userId}/alerts`)
+          .then(resp => {
+            commit('user_alerts_request_success', resp.data);
+            resolve(resp)
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
+    },
+    updateAlert({commit}, params){
+      const alert = {
+        alerts: {[params.alertId]: params.alertValue},
+      };
+      return new Promise((resolve, reject) => {
+        http.put(`/users/${params.userId}/alerts`, alert )
+          .then(resp => {
+            commit('user_alerts_request_success', resp.data);
+            resolve(resp)
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
+    },
 
 
   },
