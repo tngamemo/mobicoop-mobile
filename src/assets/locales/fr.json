@@ -118,6 +118,7 @@
     "origin":"Lieu de départ",
     "destination":"Lieu d'arrivée",
     "regular": "Trajet régulier",
-    "dayOutward": "Date de départ"
+    "dayOutward": "Date de départ",
+    "timeOutward": "Heure de départ"
   }
 }

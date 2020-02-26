@@ -24,6 +24,7 @@
   import Slider from "../../Shared/View/Slider.view";
   import { toast } from "../../Shared/Mixin/toast.mixin";
   import PostCarpoolStep1 from "./PostCarpoolStep1.view";
+  import PostCarpoolStep2 from "./PostCarpoolStep2.view";
 
   export default {
     name: "post-carpool",
@@ -35,6 +36,7 @@
       return {
         slides: [
           {title: "", component: PostCarpoolStep1},
+          {title: "", component: PostCarpoolStep2},
           // {title: "", component: "RegisterStep2"}
         ]
       };
