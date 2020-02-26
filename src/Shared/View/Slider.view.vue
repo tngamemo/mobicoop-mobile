@@ -112,7 +112,9 @@
       mounted () {
           // go to slide if there is step param in route
           if(this.$route.query.step) {
-            this.$refs.slider.slideTo(this.$route.query.step, 0);
+            this.$nextTick(() => {
+              this.$refs.slider.slideTo(this.$route.query.step, 0);
+            });
             this.activeIndex=this.$route.query.step;
           }
 
