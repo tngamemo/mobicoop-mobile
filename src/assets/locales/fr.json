@@ -102,6 +102,11 @@
     "medium-2": "Email",
     "medium-3": "SMS"
   },
+  "MyCarpools": {
+    "title": "Mes annonces",
+    "in-progress": "En cours",
+    "archived": "Archivées"
+  },
   "Slider": {
     "prev": "Précédent",
     "next": "Suivant",

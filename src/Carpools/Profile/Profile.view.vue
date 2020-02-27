@@ -37,7 +37,7 @@
 
         <!-- Bloc buttons -->
         <div>
-          <ion-button class='mc-big-button' color="success" expand="block" @click="">
+          <ion-button class='mc-big-button' color="success" expand="block" @click="$router.push('my-carpools')">
             <ion-icon class="ion-margin-end" name="list-box"></ion-icon> {{ $t('Profile.my-announce') }}
           </ion-button>
           <!--

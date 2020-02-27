@@ -19,6 +19,7 @@
 
     created: function () {
 
+      document.title = process.env.VUE_APP_NAME;
       // On change les couleurs en fonction de l'environement
       document.documentElement.style.setProperty('--ion-color-primary', '#' + process.env.VUE_APP_PRIMARY);
       document.documentElement.style.setProperty('--ion-color-primary-rgb', process.env.VUE_APP_PRIMARY_RGB);

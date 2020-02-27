@@ -6,7 +6,8 @@ export const userStore = {
     tokenUser: localStorage.getItem('tokenUser') || '',
     tokenAnonymousUser: localStorage.getItem('tokenAnonymousUser') || '',
     user: null,
-    alerts: []
+    alerts: [],
+    myCarpools: []
   },
   mutations: {
     auth_request(state) {
@@ -33,6 +34,12 @@ export const userStore = {
     user_alerts_request_success(state, data) {
       state.alerts = data.alerts;
     },
+
+    user_my_carpools_request_success(state, data) {
+      console.log(data);
+      state.myCarpools = data['hydra:member'];
+    },
+
 
     logout(state) {
       state.status = '';
@@ -145,6 +152,19 @@ export const userStore = {
         commit('logout');
         localStorage.removeItem('tokenUser');
         resolve()
+      })
+    },
+
+    getMyCarpools({commit}, userId) {
+      return new Promise((resolve, reject) => {
+        http.get(`/carpools?userId=${userId}`)
+          .then(resp => {
+            commit('user_my_carpools_request_success', resp.data);
+            resolve(resp)
+          })
+          .catch(err => {
+            reject(err)
+          })
       })
     },
 
