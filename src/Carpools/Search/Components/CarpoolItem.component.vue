@@ -41,7 +41,6 @@
         <div class="mc-carpool-time" v-if="isPunctualCarpool">
           <p>{{ carpool.outwardTime | moment("utc", "HH:mm") }}</p>
           <p>{{ carpool.outwardEndTime  | moment("utc", "HH:mm")}}</p>
-          <!-- <p>{{resultDriveOrPassenger}}</p> -->
         </div>
         <div class='mc-carpool-origin-destination'>
           <div>

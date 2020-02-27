@@ -24,6 +24,8 @@
 <script>
   import Slider from '../../Shared/View/Slider.view'
   import { toast } from '../../Shared/Mixin/toast.mixin';
+  import RegisterStep1 from "../../Carpools/Register/RegisterStep1.view";
+  import RegisterStep2 from "../../Carpools/Register/RegisterStep2.view";
 
   export default {
       name: 'register',
@@ -34,8 +36,8 @@
       data() {
           return {
               slides: [
-                  {title: "", component: "RegisterStep1"},
-                  {title: "", component: "RegisterStep2"}
+                  {title: "", component: RegisterStep1},
+                  {title: "", component: RegisterStep2}
               ]
 
           }

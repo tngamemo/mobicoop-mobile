@@ -62,11 +62,21 @@
     },
     created () {
       this.$store.state.searchStore.resultsGeo = [];
+       this.unwatch = this.$store.watch(
+        (state, getters) => getters.addressessUseToPost,
+        (newValue, oldValue) => {
+          this.$store.dispatch('getDistanceOfCarpool')
+        },
+      );
+    },
+    beforeDestroy() {
+      this.unwatch();
     },
     data () {
       return {
         type: this.$route.query.type,
         action: this.$route.query.action,
+        index: this.$route.query.index
       }
     },
 
@@ -82,7 +92,7 @@
       },
 
       selectGeo: function(address) {
-        const addressDTO = {
+        let addressDTO = {
           "@id": address['@id'],
           "@type": address['@type'],
           id: address.id,
@@ -91,22 +101,60 @@
           longitude: address.longitude
         };
 
+        if (this.action == 'post') {
+          addressDTO = address;
+        }
+
         const displayGeo = `${address.addressLocality}, ${address.addressCountry}`;
 
-        if (this.action == 'search') {
-          if (this.type == 'origin') {
-            this.$store.commit('changeOrigin', { addressDTO, displayGeo });
-          }
+        switch (this.action) {
+          case 'search': {
 
-          if (this.type == 'destination') {
+            switch (this.type) {
+              case 'origin': {
+                this.$store.commit('changeOrigin', { addressDTO, displayGeo });
+                break;
+              }
+
+              case 'destination': {
                 this.$store.commit('changeDestination', { addressDTO, displayGeo });
+                break;
+              }
+
+              case 'register_address': {
+                this.$store.commit('changeRegisterAddress', { addressDTO, displayGeo });
+                break;
+              }
+
+            }
+            break;
           }
 
-            if (this.type == 'register_address') {
-                this.$store.commit('changeRegisterAddress', { addressDTO, displayGeo });
+          case 'post': {
+            switch (this.type) {
+              case 'origin': {
+                this.$store.commit('addPostCarpoolOrigin', { addressDTO });
+                break;
+              }
+
+              case 'destination': {
+                this.$store.commit('addPostCarpoolDestination', { addressDTO });
+                break;
+              }
+
+              case 'step': {
+                this.$store.commit('addPostCarpoolStep', { addressDTO, index: this.index });
+                break;
+              }
+
             }
+            break;
+          }
+
+
+          default:
+            break;
         }
-        console.log(this.$store.state.searchStore.searchObject);
         this.$router.back();
       }
     }
