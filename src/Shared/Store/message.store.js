@@ -33,7 +33,6 @@ export const messageStore = {
 
         http.get("/users/" + userId + "/threadsCarpoolMessages").then(resp => {
           if (resp) {
-            console.log(resp.data.threads);
             commit('message_success', resp.data.threads);
             resolve(resp)
           }

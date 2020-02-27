@@ -59,7 +59,8 @@
     "outwardDate": "JJ/MM",
     "titlePage": "Résultats de recherche",
     "error": "Une erreur est survenue durant la recherche. Veuillez réessayer ultérieurement.",
-    "nbResult": "annonces en covoiturages trouvées"
+    "nbResult": "annonces en covoiturages trouvées",
+    "step": "Etape"
   },
   "Help": {
     "title": "Aide"
@@ -114,5 +115,20 @@
     "D": "D",
     "oneWay": "Aller",
     "return": "Retour"
+  },
+  "PostCarpool": {
+    "title": "Publier une annonce",
+    "driver": "Je suis conducteur.rice",
+    "passenger": "Je suis passager.ère",
+    "driverOrPassenger": "Peu importe",
+    "origin":"Lieu de départ",
+    "destination":"Lieu d'arrivée",
+    "regular": "Trajet régulier",
+    "dayOutward": "Date de départ",
+    "dayReturn": "Date de retour",
+    "timeOutward": "Heure de départ",
+    "timeReturn": "Heure de retour",
+    "return": "Retour",
+    "step": "Etape"
   }
 }

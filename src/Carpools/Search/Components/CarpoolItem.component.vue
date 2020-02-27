@@ -41,7 +41,6 @@
         <div class="mc-carpool-time" v-if="isPunctualCarpool">
           <p>{{resultDriveOrPassenger.outward.waypoints[0].time | moment("utc", "HH:mm") }}</p>
           <p>{{ [...resultDriveOrPassenger.outward.waypoints].pop().time  | moment("utc", "HH:mm")}}</p>
-          <!-- <p>{{resultDriveOrPassenger}}</p> -->
         </div>
         <div class='mc-carpool-origin-destination'>
           <div>
@@ -54,8 +53,8 @@
 
     <div class="mc-carpool-footer d-flex align-center">
         <ion-thumbnail>
-          <img v-if="this.carpool.carpooler.avatars[0] && this.avatarLoaded" :src="this.carpool.carpooler.avatars[0]" @load="onImgLoad()">
-          <ion-icon v-if="! this.avatarLoaded" name="contact" size="large" ></ion-icon>
+          <img :hidden="!(this.carpool.carpooler.avatars[0] && this.avatarLoaded)" :src="this.carpool.carpooler.avatars[0]" @load="onImgLoad()">
+          <ion-icon v-if="!this.avatarLoaded" name="contact" size="large" ></ion-icon>
         </ion-thumbnail>
         <strong class="mc-carpool-carpooler">{{this.carpool.carpooler.givenName}} {{this.carpool.carpooler.shortFamilyName}}</strong>
       </div>

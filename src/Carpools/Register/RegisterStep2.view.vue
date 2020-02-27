@@ -170,7 +170,6 @@
                 this.$router.push({ name: "geoSearch", query: { type, action }});
             },
             validate() {
-                console.log(this.user);
                 this.$v.$reset();
                 this.$v.$touch();
                 if (this.$v.$invalid) {
