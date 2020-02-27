@@ -53,8 +53,9 @@
 
     <div class="mc-carpool-footer ">
       <div v-if="this.carpool.carpooler" class="d-flex align-center">
+
         <ion-thumbnail>
-          <img v-if="this.carpool.carpooler.avatar && this.avatarLoaded" :src="this.carpool.carpooler.avatar" @load="onImgLoad()">
+          <img :hidden="!(this.carpool.carpooler.avatar && this.avatarLoaded)" :src="this.carpool.carpooler.avatar" @load="onImgLoad()">
           <ion-icon v-if="! this.avatarLoaded" name="contact" size="large" ></ion-icon>
         </ion-thumbnail>
         <strong class="mc-carpool-carpooler">{{this.carpool.carpooler.givenName}} {{this.carpool.carpooler.shortFamilyName}}</strong>

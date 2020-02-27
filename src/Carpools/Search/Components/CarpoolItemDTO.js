@@ -54,7 +54,7 @@ export default class CarpoolItemDTO {
 
   getCarpooler(carpool) {
     const carpooler = {};
-    carpooler.avater = carpool.carpooler.avatars[0];
+    carpooler.avatar = carpool.carpooler.avatars[0];
     carpooler.givenName = carpool.carpooler.givenName;
     carpooler.shortFamilyName = carpool.carpooler.shortFamilyName;
     return carpooler
