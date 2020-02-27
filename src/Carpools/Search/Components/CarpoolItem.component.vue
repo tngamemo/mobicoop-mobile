@@ -243,7 +243,6 @@
 
       onImgLoad: function () {
         this.avatarLoaded = true;
-        console.log('test')
       }
     }
   }

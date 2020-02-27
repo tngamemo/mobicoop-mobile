@@ -62,11 +62,21 @@
     },
     created () {
       this.$store.state.searchStore.resultsGeo = [];
+       this.unwatch = this.$store.watch(
+        (state, getters) => getters.addressessUseToPost,
+        (newValue, oldValue) => {
+          this.$store.dispatch('getDistanceOfCarpool')
+        },
+      );
+    },
+    beforeDestroy() {
+      this.unwatch();
     },
     data () {
       return {
         type: this.$route.query.type,
         action: this.$route.query.action,
+        index: this.$route.query.index
       }
     },
 
@@ -133,7 +143,7 @@
               }
 
               case 'step': {
-                this.$store.commit('addPostCarpoolStep', { addressDTO });
+                this.$store.commit('addPostCarpoolStep', { addressDTO, index: this.index });
                 break;
               }
 

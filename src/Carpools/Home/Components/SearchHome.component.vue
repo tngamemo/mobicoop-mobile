@@ -117,7 +117,7 @@
     },
     computed: {
       hasSearchOriginAndDestination () {
-        return (!! this.$store.getters.searchOrigin && !! this.$store.getters.searchDestination)
+        return (!! this.$store.getters.searchObject.outwardWaypoints[0] && !! this.$store.getters.searchObject.outwardWaypoints[1])
       }
     },
     methods: {

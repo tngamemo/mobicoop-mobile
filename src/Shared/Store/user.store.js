@@ -5,7 +5,9 @@ export const userStore = {
     status: '',
     tokenUser: localStorage.getItem('tokenUser') || '',
     tokenAnonymousUser: localStorage.getItem('tokenAnonymousUser') || '',
-    user : null
+    user : null,
+    statusUserCommunities: '',
+    userCommunities: null
   },
   mutations: {
     auth_request(state) {
@@ -33,6 +35,21 @@ export const userStore = {
       state.status = '';
       state.tokenUser = '';
       state.user = null;
+      state.statusUserCommunities = '',
+      state.userCommunities = null;
+    },
+
+    user_communities_request(state) {
+      state.statusUserCommunities = 'loading';
+    },
+
+    user_communities_success(state, userCommunities){
+      state.statusUserCommunities = 'success';
+      state.userCommunities = userCommunities;
+    },
+
+    user_communities_error(state){
+      state.statusUserCommunities = 'error';
     },
 
   },
@@ -62,7 +79,7 @@ export const userStore = {
      * Pour pouvoir accéder au fonctionnalité de base en mode déco.
      */
     authAnonymousUser({commit}){
-
+      commit('logout');
       return new Promise((resolve, reject) => {
         http.post("/auth", { "username": 'mobile', "password": 'mobile' })
         .then(resp => {
@@ -142,7 +159,27 @@ export const userStore = {
         localStorage.removeItem('tokenUser')
         resolve()
       })
-    }
+    },
+
+    /**
+     * Fonction pour récupérer les informations d'un utilisateur
+     */
+    getUserCommunities({commit, getters}, params){
+      return new Promise((resolve, reject) => {
+        commit('user_communities_request');
+        http.get(`/communities?communityUsers.user.id=${getters.userId}`)
+        .then(resp => {
+          // On commit et envoie le resultat
+          commit('user_communities_success', resp.data['hydra:member'])
+          resolve(resp)
+        })
+        .catch(err => {
+          commit('user_communities_error')
+          console.log(err)
+          reject(err)
+        })
+      })
+    },
 
 
   },
@@ -151,6 +188,14 @@ export const userStore = {
     userId: state => {
       return !! state.user && state.user.id
     },
+
+    userCommunities: state => {
+      return state.userCommunities
+    },
+
+    statusUserCommunities: state => {
+      return state.statusUserCommunities
+    }
   }
 }
 

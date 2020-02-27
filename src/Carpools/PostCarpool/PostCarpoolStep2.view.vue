@@ -1,8 +1,8 @@
 <template>
-  <div class="mc-form-carpool">
+  <div class="mc-form-carpool-time-ponctual" v-if="isPonctual">
     <ion-row>
       <ion-col>
-        <ion-item v-if="isPonctual">
+        <ion-item >
           <ion-label position="floating">Date de départ</ion-label>
           <ion-datetime
             display-format="DD/MM/YY"
@@ -23,7 +23,7 @@
       </ion-col>
 
       <ion-col>
-        <ion-item v-if="isPonctual">
+        <ion-item>
           <ion-label position="floating">Heure de départ</ion-label>
           <ion-datetime
             display-format="HH:MM"
@@ -35,20 +35,36 @@
             @ionChange="changePostOutwardTime($event)"
           ></ion-datetime>
         </ion-item>
+        <div v-if="$v.carpoolToPost.outwardTime.$error">
+          <div
+            class="mc-error-label"
+            v-if="!$v.carpoolToPost.outwardTime.required"
+          >{{$t('Validation.required')}}</div>
+        </div>
       </ion-col>
     </ion-row>
 
-
     <ion-row>
+      <ion-item lines="none">
+        <ion-label>{{$t('PostCarpool.return')}}</ion-label>
+        <ion-checkbox slot="start"
+          :checked="this.$store.getters.carpoolToPost.oneWay == false"
+          @ionChange="changeOneWay()">
+        </ion-checkbox>
+      </ion-item>
+    </ion-row>
+
+
+    <ion-row v-if="carpoolToPost.oneWay == false">
       <ion-col>
         <ion-item v-if="isPonctual">
-          <ion-label position="floating">Date de retour</ion-label>
+          <ion-label position="floating">{{$t('PostCarpool.dayReturn')}}</ion-label>
           <ion-datetime
             display-format="DD/MM/YY"
             picker-format="DD/MM/YY"
             cancel-text="Annuler"
             done-text="Valider"
-            :placeholder="$t('PostCarpool.dayOutward')"
+            :placeholder="$t('PostCarpool.dayReturn')"
             :value="this.$store.getters.carpoolToPost.returnDate"
             @ionChange="changePostReturnDate($event)"
           ></ion-datetime>
@@ -63,36 +79,36 @@
 
       <ion-col>
         <ion-item v-if="isPonctual">
-          <ion-label position="floating">Heure de retour</ion-label>
+          <ion-label position="floating">{{$t('PostCarpool.timeReturn')}}</ion-label>
           <ion-datetime
             display-format="HH:MM"
             picker-format="HH:MM"
             cancel-text="Annuler"
             done-text="Valider"
-            :placeholder="$t('PostCarpool.timeOutward')"
+            :placeholder="$t('PostCarpool.timeReturn')"
             :value="computeReturnTime"
             @ionChange="changePostReturnTime($event)"
           ></ion-datetime>
         </ion-item>
+        <div v-if="$v.carpoolToPost.returnTime.$error">
+          <div
+            class="mc-error-label"
+            v-if="!$v.carpoolToPost.returnTime.required"
+          >{{$t('Validation.required')}}</div>
+        </div>
       </ion-col>
     </ion-row>
   </div>
 </template>
 
 <style lang="scss">
-.mc-form-carpool {
-  .mc-select-type {
+  .mc-form-carpool-time-ponctual {
     margin-top: 40px;
-    margin-bottom: 40px;
-    ion-radio {
-      margin-right: 10px;
+
+    ion-row {
+      margin-bottom: 40px;
     }
   }
-
-  .mc-select-origin-destination {
-    margin-bottom: 40px;
-  }
-}
 </style>
 
 <script>
@@ -106,7 +122,7 @@ import {
 } from "vuelidate/lib/validators";
 
 export default {
-  name: "post-carpool-step1",
+  name: "post-carpool-step2",
   data() {
     return {
       dateOutwardCarpool: Object.assign({},this.$store.getters.carpoolToPost.outwardDate )
@@ -119,36 +135,24 @@ export default {
       },
       outwardDate: {
         required: requiredIf(function(outwardDate) {
-          console.log('asdasd')
           return this.$store.getters.carpoolToPost.frequency == 1;
         })
       },
       outwardTime: {
         required: requiredIf(function(outwardTime) {
-          console.log('JE PASSE LA')
           return this.$store.getters.carpoolToPost.frequency == 1;
         })
       },
       returnDate: {
         required: requiredIf(function(returnDate) {
-          return this.$store.getters.carpoolToPost.frequency == 1;
+          return this.$store.getters.carpoolToPost.frequency == 1 && !this.$store.getters.carpoolToPost.oneWay;
         })
       },
       returnTime: {
         required: requiredIf(function(returnTime) {
-          console.log('coucou')
-          return this.$store.getters.carpoolToPost.frequency == 1;
+          return this.$store.getters.carpoolToPost.frequency == 1 && !this.$store.getters.carpoolToPost.oneWay;
         })
       },
-    },
-    addressessUseToPost: {
-      origin: {
-        required
-      },
-
-      destination: {
-        required
-      }
     }
   },
   created() {},
@@ -162,29 +166,38 @@ export default {
     },
 
     computeOutWardTime() {
-      const hour = this.$store.getters.carpoolToPost.outwardTime.split(':')[0];
-      const min = this.$store.getters.carpoolToPost.outwardTime.split(':')[1];
 
-      const date = new Date();
-      date.setHours(hour, min);
-      return date.toString()
+      if (!! this.$store.getters.carpoolToPost.outwardTime) {
+        const hour = this.$store.getters.carpoolToPost.outwardTime.split(':')[0];
+        const min = this.$store.getters.carpoolToPost.outwardTime.split(':')[1];
+
+        const date = new Date();
+        date.setHours(hour, min);
+        return date.toString()
+      } else {
+        return '';
+      }
+
     },
 
     computeReturnTime() {
-      const hour = this.$store.getters.carpoolToPost.returnTime.split(':')[0];
-      const min = this.$store.getters.carpoolToPost.returnTime.split(':')[1];
+      if (!! this.$store.getters.carpoolToPost.returnTime) {
+        const hour = this.$store.getters.carpoolToPost.returnTime.split(':')[0];
+        const min = this.$store.getters.carpoolToPost.returnTime.split(':')[1];
+        const date = new Date();
+        date.setHours(hour, min);
+        return date.toString()
 
-      const date = new Date();
-      date.setHours(hour, min);
-      return date.toString()
+      } else {
+
+      }
     }
   },
   methods: {
     validate() {
-      console.log(this.$v);
-      console.log(this.carpoolToPost)
       this.$v.$reset();
       this.$v.$touch();
+
       if (this.$v.$invalid) {
         return false;
       } else {
@@ -207,8 +220,16 @@ export default {
 
     changePostReturnTime($event) {
       const returnTime = this.$moment($event.detail.value).format('HH:MM');
-      this.$store.commit('changeReturnCarpool', {returnTime})
+      this.$store.commit('changeTimeReturnCarpool', {returnTime})
     },
+
+    changeOneWay() {
+      if (this.$store.getters.carpoolToPost.oneWay == false) {
+        this.$store.getters.carpoolToPost.oneWay = true;
+      } else {
+        this.$store.getters.carpoolToPost.oneWay = false;
+      }
+    }
   }
 };
 </script>

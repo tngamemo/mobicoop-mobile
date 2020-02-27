@@ -38,7 +38,8 @@ export const carpoolStore = {
         outwardDriverPrice: "",
         seatsDriver: "",
         solidaryExclusive: false,
-        userId: ""
+        userId: "",
+        communities: ""
       };
       state.addressessUseToPost = {
         origin: '',
@@ -48,7 +49,11 @@ export const carpoolStore = {
     },
 
     addPostCarpoolOrigin(state, payload) {
-      state.addressessUseToPost.origin = payload.addressDTO;
+      const copyAddresses = Object.assign({}, state.addressessUseToPost);
+      copyAddresses.origin = payload.addressDTO;
+
+      state.addressessUseToPost = copyAddresses;
+
     },
 
     addPostCarpoolDestination(state, payload) {
@@ -56,7 +61,11 @@ export const carpoolStore = {
     },
 
     addPostCarpoolStep(state, payload) {
-      state.addressessUseToPost.step.push(payload.addressDTO);
+      state.addressessUseToPost.step[payload.index] = payload.addressDTO;
+    },
+
+    removeStepByIndex(state, payload) {
+      state.addressessUseToPost['step'].splice(payload.index, 1);
     },
 
     changeDateOutwardCarpool(state, payload) {
@@ -73,7 +82,7 @@ export const carpoolStore = {
 
     changeTimeReturnCarpool(state, payload) {
       state.carpoolToPost.returnTime = payload.returnTime;
-    }
+    },
 
   },
   actions: {
@@ -88,6 +97,30 @@ export const carpoolStore = {
       state.addressessUseToPost.destination = newDestination;
       state.addressessUseToPost.origin = newOrigin;
     },
+
+    getDistanceOfCarpool({state}) {
+      // console.log(state.addressessUseToPost.origin);
+      // console.log(state.addressessUseToPost.step);
+      // console.log(state.addressessUseToPost.destination);
+      // const array = [state.addressessUseToPost.origin, ...state.addressessUseToPost.step, state.addressessUseToPost.destination];
+
+      // console.log(array);
+      // return new Promise((resolve, reject) => {
+      //   commit('distance_request');
+      //   return http.get(`/directions/search?points[0][longitude]=${origin.longitude}&points[0][latitude]=${origin.latitude}&points[1][longitude]=${destination.longitude}&points[1][latitude]=${destination.latitude}`)
+      //   .then(resp => {
+      //     console.log(resp.data)
+      //     // On commit et envoie le resultat
+      //     commit('distance_success', resp)
+      //     resolve(resp)
+      //   })
+      //   .catch(err => {
+      //     commit('distance_error')
+      //     console.log(err)
+      //     reject(err)
+      //   })
+      // })
+    }
   },
   getters : {
     carpoolToPost: state => {
@@ -97,7 +130,7 @@ export const carpoolStore = {
     addressessUseToPost: state => {
       return state.addressessUseToPost;
     }
-  }
+  },
 }
 
 export default { carpoolStore };

@@ -25,6 +25,7 @@
   import { toast } from "../../Shared/Mixin/toast.mixin";
   import PostCarpoolStep1 from "./PostCarpoolStep1.view";
   import PostCarpoolStep2 from "./PostCarpoolStep2.view";
+  import PostCarpoolStep3 from "./PostCarpoolStep3.view";
 
   export default {
     name: "post-carpool",
@@ -36,13 +37,18 @@
       return {
         slides: [
           {title: "", component: PostCarpoolStep1},
-          {title: "", component: PostCarpoolStep2}
+          {title: "", component: PostCarpoolStep2},
+          {title: "", component: PostCarpoolStep3}
         ]
       };
     },
-    created() {
+    mounted() {
       if (this.$store.getters.carpoolToPost == null) {
         this.$store.commit('carpoolPost_init');
+      };
+
+      if (this.$store.getters.userId) {
+        this.$store.dispatch('getUserCommunities').then();
       }
     },
     computed: {},

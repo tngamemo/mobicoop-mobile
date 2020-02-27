@@ -59,7 +59,8 @@
     "outwardDate": "JJ/MM",
     "titlePage": "Résultats de recherche",
     "error": "Une erreur est survenue durant la recherche. Veuillez réessayer ultérieurement.",
-    "nbResult": "annonces en covoiturages trouvées"
+    "nbResult": "annonces en covoiturages trouvées",
+    "step": "Etape"
   },
   "Help": {
     "title": "Aide"
@@ -124,6 +125,10 @@
     "destination":"Lieu d'arrivée",
     "regular": "Trajet régulier",
     "dayOutward": "Date de départ",
-    "timeOutward": "Heure de départ"
+    "dayReturn": "Date de retour",
+    "timeOutward": "Heure de départ",
+    "timeReturn": "Heure de retour",
+    "return": "Retour",
+    "step": "Etape"
   }
 }

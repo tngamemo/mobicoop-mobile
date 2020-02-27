@@ -1,0 +1,216 @@
+<template>
+  <div class="mc-form-carpool">
+    <div class="mc-select-step">
+      <!-- Input with placeholder -->
+      <ion-item v-on:click="goGeoSearch('origin', 'post')">
+        <ion-label position="floating">{{$t('PostCarpool.origin')}}</ion-label>
+        <ion-input
+          type="text"
+          class="no-clickable"
+          :placeholder="$t('Search.origin')"
+          :value="displayOrigin"
+        ></ion-input>
+      </ion-item>
+      <div v-if="$v.addressessUseToPost.destination.$error">
+        <div
+          class="mc-error-label"
+          v-if="!$v.addressessUseToPost.destination.required"
+        >{{$t('Validation.required')}}</div>
+      </div>
+
+      <div class="mc-add-step">
+        <div
+          v-if="addressessUseToPost.step.length < 4"
+          v-on:click="addInputStep()"
+          class="text-left d-flex align-center pointer"
+        >
+          <ion-icon name="add-circle-outline"></ion-icon>Ajouter une étape
+        </div>
+
+        <div class="mc-delete-step">
+          <ion-item
+            v-for="(step, index) in addressessUseToPost.step"
+            :key="index"
+            v-on:click="goGeoSearch('step', 'post', index)"
+          >
+            <ion-label position="floating">{{$t('PostCarpool.step')}} {{index + 1}}</ion-label>
+            <ion-input
+              type="text"
+              class="no-clickable"
+              :placeholder="'step'"
+              :value="displayStep(index)"
+            ></ion-input>
+            <ion-icon name="close" v-on:click="clearInputStep($event, index)"></ion-icon>
+          </ion-item>
+        </div>
+      </div>
+
+      <ion-item v-on:click="goGeoSearch('destination', 'post')">
+        <ion-label position="floating">{{$t('PostCarpool.destination')}}</ion-label>
+        <ion-input
+          type="text"
+          class="no-clickable"
+          :placeholder="$t('Search.destination')"
+          :value="displayDestination"
+        ></ion-input>
+      </ion-item>
+      <div v-if="$v.addressessUseToPost.destination.$error">
+        <div
+          class="mc-error-label"
+          v-if="!$v.addressessUseToPost.destination.required"
+        >{{$t('Validation.required')}}</div>
+      </div>
+    </div>
+
+    <div class="mc-select-communities text-left">
+      <ion-icon size="large" color="background" class="rotating" v-if="this.$store.getters.statusUserCommunities == 'loading'" name="md-sync"></ion-icon>
+      <ion-select
+        @ionChange="selectCommunities($event.target.value)"
+        v-if="this.$store.getters.userCommunities && this.$store.getters.statusUserCommunities == 'success'"
+        placeholder="Sélectionnez une communauté"
+        multiple="true"
+        cancelText="Fermer"
+        okText="Valider"
+      >
+        <ion-select-option
+          v-for="community in this.$store.getters.userCommunities"
+          :key="community.id"
+          :value="parseInt(community.id)"
+        >{{ community.name }}</ion-select-option>
+      </ion-select>
+    </div>
+  </div>
+</template>
+
+<style lang="scss">
+.mc-form-carpool {
+  .mc-select-step {
+    margin-bottom: 40px;
+
+    .mc-add-step {
+      margin-top: 20px;
+      margin-bottom: 20px;
+
+      .mc-delete-step {
+        ion-icon {
+          position: absolute;
+          bottom: 0;
+          right: 0;
+        }
+      }
+    }
+  }
+}
+</style>
+
+<script>
+import {
+  required,
+  email,
+  sameAs,
+  minLength,
+  helpers,
+  requiredIf
+} from "vuelidate/lib/validators";
+
+export default {
+  name: "post-carpool-step3",
+  data() {
+    return {};
+  },
+  validations: {
+    addressessUseToPost: {
+      origin: {
+        required
+      },
+
+      destination: {
+        required
+      }
+    }
+  },
+  created() {
+  },
+  destroyed() {
+
+  },
+  computed: {
+    carpoolToPost() {
+      return this.$store.getters.carpoolToPost;
+    },
+
+    addressessUseToPost() {
+      return this.$store.getters.addressessUseToPost;
+    },
+
+    displayOrigin() {
+      let result = "";
+      const addressess = this.$store.getters.addressessUseToPost;
+      if (!!addressess && addressess.origin) {
+        if (!!addressess.origin.displayLabel) {
+          result = `${addressess.origin.displayLabel[0]},  ${addressess.origin.displayLabel[1]}`;
+        } else {
+          result = `${addressess.origin.addressLocality},  ${addressess.origin.addressCountry}`;
+        }
+      }
+      return result;
+    },
+
+    displayDestination() {
+      let result = "";
+      const addressess = this.$store.getters.addressessUseToPost;
+      if (!!addressess && addressess.destination) {
+        if (!!addressess.destination.displayLabel) {
+          result = `${addressess.destination.displayLabel[0]},  ${addressess.destination.displayLabel[1]}`;
+        } else {
+          result = `${addressess.destination.addressLocality},  ${addressess.destination.addressCountry}`;
+        }
+      }
+
+      return result;
+    }
+  },
+  methods: {
+    validate() {
+      this.$v.$reset();
+      this.$v.$touch();
+      if (this.$v.$invalid) {
+        return false;
+      } else {
+        return true;
+      }
+    },
+
+    displayStep(index) {
+      let result = "";
+      const addressess = this.$store.getters.addressessUseToPost;
+      if (!!addressess && addressess.step && addressess.step[index]) {
+        if (!!addressess.step[index].displayLabel) {
+          result = `${addressess.step[index].displayLabel[0]},  ${addressess.step[index].displayLabel[1]}`;
+        } else if (!!addressess.step[index].addressLocality) {
+          result = `${addressess.step[index].addressLocality},  ${addressess.step[index].addressCountry}`;
+        }
+      }
+
+      return result;
+    },
+
+    goGeoSearch: function(type, action, index = null) {
+      this.$router.push({ name: "geoSearch", query: { type, action, index } });
+    },
+
+    clearInputStep: function($event, index) {
+      $event.stopPropagation();
+      this.$store.commit("removeStepByIndex", { index });
+    },
+
+    addInputStep: function() {
+      this.$store.getters.addressessUseToPost["step"].push({});
+    },
+
+    selectCommunities: function(value) {
+      value.forEach(id => this.$store.getters.carpoolToPost.communities.push(parseInt(id)))
+    }
+  }
+};
+</script>

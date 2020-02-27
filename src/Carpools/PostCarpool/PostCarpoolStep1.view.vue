@@ -134,7 +134,6 @@ export default {
       },
       outwardDate: {
         required: requiredIf(function (outwardDate) {
-          console.log('asd')
           return this.$store.getters.carpoolToPost.frequency == 1
         })
       },
