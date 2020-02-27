@@ -6,7 +6,7 @@ export default class CarpoolItemDTO {
 
   carpoolItemFromSearch(carpool){
     this.frequency = carpool.frequency;
-    this.price = carpool.roundPrice;
+    this.price = carpool.roundedPrice;
     this.passenger = !!carpool.resultPassenger;
     this.driver = !!carpool.resultDriver;
     this.seats = carpool.seats;
@@ -19,34 +19,8 @@ export default class CarpoolItemDTO {
     if (carpool.frequency == 1) {
       this.date = carpool.date;
       this.time = carpool.time;
-      this.outwardTime = this.resultDriveOrPassenger().outward.waypoints[0].time;
-      this.returnTime = [...this.resultDriveOrPassenger().outward.waypoints].pop().time;
-    }
-    if (carpool.frequency == 2) {
-      this.regularDays = this.getRegularDays(carpool);
-      this.outwardTime = carpool.outwardTime;
-      this.returnTime = carpool.returnTime;
-
-    }
-  }
-
-  carpoolItemFromSearch(carpool){
-    this.frequency = carpool.frequency;
-    this.price = carpool.roundPrice;
-    this.passenger = !!carpool.resultPassenger;
-    this.driver = !!carpool.resultDriver;
-    this.seats = carpool.seats;
-    this.origin = carpool.origin;
-    this.destination = carpool.destination;
-    this.carpooler = this.getCarpooler(carpool);
-    this.community = carpool.communities;
-    this.pendingAsk = carpool.pendingAsk;
-    this.acceptedAsk = carpool.acceptedAsk;
-    if (carpool.frequency == 1) {
-      this.date = carpool.date;
-      this.time = carpool.time;
-      this.outwardTime = this.resultDriveOrPassenger().outward.waypoints[0].time;
-      this.returnTime = [...this.resultDriveOrPassenger().outward.waypoints].pop().time;
+      this.outwardTime = this.resultDriveOrPassenger(carpool).outward.waypoints[0].time;
+      this.outwardEndTime = [...this.resultDriveOrPassenger(carpool).outward.waypoints].pop().time;
     }
     if (carpool.frequency == 2) {
       this.regularDays = this.getRegularDaysFromSearch(carpool);
@@ -54,14 +28,15 @@ export default class CarpoolItemDTO {
       this.returnTime = carpool.returnTime;
 
     }
+    return this;
   }
 
   carpoolItemFromMyCarpool(carpool){
     this.frequency = carpool.frequency;
     this.passenger = carpool.role == 2 || carpool.role == 3
     this.driver = carpool.role == 1 || carpool.role == 3
-    this.origin = carpool.outwardWaypoints[0].address.addressLocality
-    this.destination = [...carpool.outwardWaypoints].pop().address.addressLocality
+    this.origin = carpool.outwardWaypoints[0].address
+    this.destination = [...carpool.outwardWaypoints].pop().address
     if (carpool.frequency == 1) {
       this.date = carpool.outwardDate;
       this.time = carpool.outwardTime;
@@ -74,6 +49,7 @@ export default class CarpoolItemDTO {
       this.outwardTime = this.getRegularOutwardTime(carpool.schedule);
       this.returnTime = this.getRegularReturnTime(carpool.schedule);
     }
+    return this;
   }
 
   getCarpooler(carpool) {

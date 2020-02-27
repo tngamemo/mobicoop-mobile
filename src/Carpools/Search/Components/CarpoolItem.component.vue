@@ -8,13 +8,13 @@
       </div>
 
       <div v-if="!isPunctualCarpool" class="d-flex">
-        <div v-for="(day, index) in daySelectedOnCarpool" :key="index">
+        <div v-for="(day, index) in carpool.regularDays" :key="index">
           <div class="mc-pastille-day" v-bind:class="{ 'selected': day.value }"><b>{{$t(day.trad)}} </b></div>
         </div>
       </div>
 
-      <div class="">
-        <span>{{ this.carpool.roundedPrice }} €</span>
+      <div v-if="this.carpool.price" class="">
+        <span>{{ this.carpool.price }} €</span>
       </div>
     </div>
 
@@ -34,13 +34,13 @@
 
     <div class="mc-carpool-info d-flex align-center align-stretch">
       <div class="mc-carpool-info-image d-flex flex-col">
-        <div v-if="!! this.carpool.resultDriver" class="mc-carpool-driver"><ion-icon size="large" name="car"></ion-icon></div>
-        <div v-if="!! this.carpool.resultPassenger" class="mc-carpool-passenger"><ion-icon size="large" name="person"></ion-icon></div>
+        <div v-if="this.carpool.driver" class="mc-carpool-driver"><ion-icon size="large" name="car"></ion-icon></div>
+        <div v-if="this.carpool.passenger" class="mc-carpool-passenger"><ion-icon size="large" name="person"></ion-icon></div>
       </div>
       <div class="d-flex mc-carpool-way">
         <div class="mc-carpool-time" v-if="isPunctualCarpool">
-          <p>{{resultDriveOrPassenger.outward.waypoints[0].time | moment("utc", "HH:mm") }}</p>
-          <p>{{ [...resultDriveOrPassenger.outward.waypoints].pop().time  | moment("utc", "HH:mm")}}</p>
+          <p>{{ carpool.outwardTime | moment("utc", "HH:mm") }}</p>
+          <p>{{ carpool.outwardEndTime  | moment("utc", "HH:mm")}}</p>
           <!-- <p>{{resultDriveOrPassenger}}</p> -->
         </div>
         <div class='mc-carpool-origin-destination'>
@@ -52,13 +52,15 @@
       </div>
     </div>
 
-    <div class="mc-carpool-footer d-flex align-center">
+    <div class="mc-carpool-footer ">
+      <div v-if="this.carpool.carpooler" class="d-flex align-center">
         <ion-thumbnail>
-          <img v-if="this.carpool.carpooler.avatars[0] && this.avatarLoaded" :src="this.carpool.carpooler.avatars[0]" @load="onImgLoad()">
+          <img v-if="this.carpool.carpooler.avatar && this.avatarLoaded" :src="this.carpool.carpooler.avatar" @load="onImgLoad()">
           <ion-icon v-if="! this.avatarLoaded" name="contact" size="large" ></ion-icon>
         </ion-thumbnail>
         <strong class="mc-carpool-carpooler">{{this.carpool.carpooler.givenName}} {{this.carpool.carpooler.shortFamilyName}}</strong>
       </div>
+    </div>
   </div>
 </template>
 
@@ -219,26 +221,10 @@
         return this.$moment(this.carpool.date).format('dddd D[.]MM');
       },
 
-      resultDriveOrPassenger() {
-        return !! this.carpool.resultDriver ? this.carpool.resultDriver : this.carpool.resultPassenger;
-      },
-
       isPunctualCarpool() {
         return this.carpool.frequency == 1;
       },
 
-      daySelectedOnCarpool() {
-        const result = [];
-        result.push({trad: 'Carpool.L', value: this.carpool.monCheck});
-        result.push({trad: 'Carpool.Ma', value: this.carpool.tueCheck});
-        result.push({trad: 'Carpool.Me', value: this.carpool.wedCheck});
-        result.push({trad: 'Carpool.J', value: this.carpool.thuCheck});
-        result.push({trad: 'Carpool.V', value: this.carpool.friCheck});
-        result.push({trad: 'Carpool.S', value: this.carpool.satCheck});
-        result.push({trad: 'Carpool.D', value: this.carpool.sunCheck});
-
-        return result;
-      }
     },
     methods: {
 

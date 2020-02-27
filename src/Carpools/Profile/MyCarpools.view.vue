@@ -13,7 +13,7 @@
       <div class="mc-white-container">
 
         <div v-for="carpool in carpools">
-          <CarpoolItem :carpool="carpool" />
+          <CarpoolItem :carpool="getFormattedCarpoolItem(carpool)" />
         </div>
       </div>
     </ion-content>
@@ -26,6 +26,7 @@
 
 <script>
   import CarpoolItem from "../Search/Components/CarpoolItem.component";
+  import CarpoolItemDTO from "../Search/Components/CarpoolItemDTO";
 
   export default {
     name: 'my-carpools',
@@ -49,6 +50,9 @@
       }
     },
     methods: {
+      getFormattedCarpoolItem(carpool) {
+        return new CarpoolItemDTO().carpoolItemFromMyCarpool(carpool)
+      }
     }
   }
 </script>

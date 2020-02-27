@@ -25,7 +25,7 @@
         <div class="" v-if="getStatusOfSearch == 'success'">
           {{numberOfResultsSearch}} {{ $t('Search.nbResult')}}
           <div v-for="(result, index) in this.$store.getters.resultSearch" :key="index">
-            <CarpoolItem :carpool="result" />
+            <CarpoolItem :carpool="getFormattedCarpoolItem(result)" />
           </div>
         </div>
 
@@ -43,6 +43,7 @@
 
   import RecapSearch from './Components/RecapSearch.component';
   import CarpoolItem from './Components/CarpoolItem.component';
+  import CarpoolItemDTO from './Components/CarpoolItemDTO';
 
   export default {
     name: 'search',
@@ -69,7 +70,9 @@
     },
 
     methods: {
-
+      getFormattedCarpoolItem(carpool) {
+        return new CarpoolItemDTO().carpoolItemFromSearch(carpool)
+      }
     }
   }
 </script>
