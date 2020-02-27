@@ -3,7 +3,7 @@
     <ion-header no-border>
       <ion-toolbar color="background">
         <ion-buttons slot="start">
-          <ion-back-button></ion-back-button>
+          <ion-back-button default-href="profile"></ion-back-button>
         </ion-buttons>
         <h1 class="ion-text-center"> {{ $t('MyCarpools.title') }} </h1>
       </ion-toolbar>
@@ -11,8 +11,16 @@
 
     <ion-content color="background" no-bounce>
       <div class="mc-white-container">
-
-        <div v-for="carpool in carpools">
+        <div class="d-flex justify-between">
+          <ion-button class='mc-small-button' color="primary" :fill="archived ? 'outline' : 'solid'" @click="archived = false">
+            {{ $t('MyCarpools.in-progress') }}
+          </ion-button>
+          <ion-button class='mc-small-button' color="primary" :fill="archived ? 'solid' : 'outline'" @click="archived = true">
+            {{ $t('MyCarpools.archived') }}
+          </ion-button>
+        </div>
+        <hr>
+        <div v-for="carpool in filterCarpools(carpools)">
           <CarpoolItem :carpool="getFormattedCarpoolItem(carpool)" />
         </div>
       </div>
@@ -21,7 +29,11 @@
 </template>
 
 <style lang="scss">
-
+  hr {
+    background-color: rgba(0, 0, 0, 0.4);
+    margin-top: 25px;
+    margin-bottom: 25px;
+  }
 </style>
 
 <script>
@@ -32,7 +44,7 @@
     name: 'my-carpools',
     data () {
       return {
-
+        archived : false
       }
     },
     components: {
@@ -52,7 +64,33 @@
     methods: {
       getFormattedCarpoolItem(carpool) {
         return new CarpoolItemDTO().carpoolItemFromMyCarpool(carpool)
-      }
+      },
+      filterCarpools() {
+        return this.carpools.filter(carpool => {
+          if(this.archived) {
+            if (this.isArchivedCarpool(carpool)){
+              return carpool
+            }
+          } else {
+            if (!this.isArchivedCarpool(carpool)){
+              return carpool
+            }
+          }
+        })
+      },
+      isArchivedCarpool(carpool) {
+        let result = false;
+
+        if (carpool.frequency > 1) {
+          result = this.$moment(carpool.outwardLimitDate).isBefore(this.$moment());
+        } else {
+          const dateAndTimeOutwardDate = this.$moment(`${this.$moment(carpool.outwardDate).format('YYYY-MM-DD')} ${this.$moment(carpool.outwardTime).format('HH:mm')}`);
+          const dateAndTimeReturnDate = this.$moment(`${this.$moment(carpool.returnDate).format('YYYY-MM-DD')} ${this.$moment(carpool.returnTime).format('HH:mm')}`);
+          result = this.$moment(dateAndTimeOutwardDate).isBefore(this.$moment()) || this.$moment(dateAndTimeReturnDate).isBefore(moment());
+        }
+
+        return result;
+      },
     }
   }
 </script>
