@@ -170,7 +170,6 @@ export default {
       if (!! this.$store.getters.carpoolToPost.outwardTime) {
         const hour = this.$store.getters.carpoolToPost.outwardTime.split(':')[0];
         const min = this.$store.getters.carpoolToPost.outwardTime.split(':')[1];
-
         const date = new Date();
         date.setHours(hour, min);
         return date.toString()

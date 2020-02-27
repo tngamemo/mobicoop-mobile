@@ -79,6 +79,11 @@
         >{{ community.name }}</ion-select-option>
       </ion-select>
     </div>
+
+    <div class="mc-carpool-distance text-center">
+       <ion-icon size="large" color="background" class="rotating" v-if="this.$store.getters.statusDistanceCarpool == 'loading'" name="md-sync"></ion-icon>
+      <p v-if="this.$store.getters.statusDistanceCarpool == 'success'">{{$t('PostCarpool.distance')}} {{ Math.round(this.$store.getters.distanceCarpool / 1000)}} km</p>
+    </div>
   </div>
 </template>
 
@@ -99,6 +104,17 @@
         }
       }
     }
+  }
+
+  .mc-select-communities {
+    border: 1px solid #FFA000;
+    border-radius: 10px;
+    margin-bottom: 20px;
+  }
+
+  .mc-carpool-distance {
+    border: 1px solid #FFA000;
+    border-radius: 10px;
   }
 }
 </style>
@@ -202,6 +218,7 @@ export default {
     clearInputStep: function($event, index) {
       $event.stopPropagation();
       this.$store.commit("removeStepByIndex", { index });
+      this.$store.dispatch('treatementUpdateAddresses')
     },
 
     addInputStep: function() {

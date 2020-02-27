@@ -153,6 +153,7 @@
     "timeOutward": "Heure de départ",
     "timeReturn": "Heure de retour",
     "return": "Retour",
-    "step": "Etape"
+    "step": "Etape",
+    "distance": "Distance du trajet: "
   }
 }

@@ -65,7 +65,7 @@
        this.unwatch = this.$store.watch(
         (state, getters) => getters.addressessUseToPost,
         (newValue, oldValue) => {
-          this.$store.dispatch('getDistanceOfCarpool')
+          this.$store.dispatch('treatementUpdateAddresses')
         },
       );
     },
