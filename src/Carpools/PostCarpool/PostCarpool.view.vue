@@ -42,7 +42,7 @@
         ]
       };
     },
-    mounted() {
+    created() {
       if (this.$store.getters.carpoolToPost == null) {
         this.$store.commit('carpoolPost_init');
       };

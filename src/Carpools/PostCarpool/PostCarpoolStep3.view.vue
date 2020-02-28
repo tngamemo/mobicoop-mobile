@@ -84,6 +84,13 @@
        <ion-icon size="large" color="background" class="rotating" v-if="this.$store.getters.statusDistanceCarpool == 'loading'" name="md-sync"></ion-icon>
       <p v-if="this.$store.getters.statusDistanceCarpool == 'success'">{{$t('PostCarpool.distance')}} {{ Math.round(this.$store.getters.distanceCarpool / 1000)}} km</p>
     </div>
+    <div class="mc-carpool-map">
+
+      <l-map :hidden="! !!bounds" :ref="'map'" style="height: 350px" :zoom="zoom" :bounds="bounds">
+        <l-tile-layer v-if="bounds" :url="url"></l-tile-layer>
+        <l-polyline v-if="bounds" :lat-lngs="directPointsCarpool" :color="'red'"></l-polyline>
+      </l-map>
+    </div>
   </div>
 </template>
 
@@ -120,114 +127,135 @@
 </style>
 
 <script>
-import {
-  required,
-  email,
-  sameAs,
-  minLength,
-  helpers,
-  requiredIf
-} from "vuelidate/lib/validators";
 
-export default {
-  name: "post-carpool-step3",
-  data() {
-    return {};
-  },
-  validations: {
-    addressessUseToPost: {
-      origin: {
-        required
+  import {LMap, LTileLayer, LPolyline} from 'vue2-leaflet';
+  import {
+    required,
+    email,
+    sameAs,
+    minLength,
+    helpers,
+    requiredIf
+  } from "vuelidate/lib/validators";
+
+
+  export default {
+    name: "post-carpool-step3",
+    data() {
+      return {
+        url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+        zoom: 8,
+        showCard: false,
+      };
+    },
+    validations: {
+      addressessUseToPost: {
+        origin: {
+          required
+        },
+
+        destination: {
+          required
+        }
+      }
+    },
+    components: {
+      LMap,
+      LTileLayer,
+      LPolyline
+    },
+    mounted() {
+      this.$refs.map.mapObject.invalidateSize();
+    },
+    computed: {
+
+      bounds() {
+        const bounds = new L.LatLngBounds(this.$store.getters.directPointsCarpool.directPoints);
+        if (!! this.$refs.map) this.$refs.map.mapObject.invalidateSize();
+        return bounds
       },
 
-      destination: {
-        required
+      carpoolToPost() {
+        return this.$store.getters.carpoolToPost;
+      },
+
+      addressessUseToPost() {
+        return this.$store.getters.addressessUseToPost;
+      },
+
+      displayOrigin() {
+        let result = "";
+        const addressess = this.$store.getters.addressessUseToPost;
+        if (!!addressess && addressess.origin) {
+          if (!!addressess.origin.displayLabel) {
+            result = `${addressess.origin.displayLabel[0]},  ${addressess.origin.displayLabel[1]}`;
+          } else {
+            result = `${addressess.origin.addressLocality},  ${addressess.origin.addressCountry}`;
+          }
+        }
+        return result;
+      },
+
+      displayDestination() {
+        let result = "";
+        const addressess = this.$store.getters.addressessUseToPost;
+        if (!!addressess && addressess.destination) {
+          if (!!addressess.destination.displayLabel) {
+            result = `${addressess.destination.displayLabel[0]},  ${addressess.destination.displayLabel[1]}`;
+          } else {
+            result = `${addressess.destination.addressLocality},  ${addressess.destination.addressCountry}`;
+          }
+        }
+
+        return result;
+      },
+
+      directPointsCarpool() {
+        return this.$store.getters.directPointsCarpool.directPoints;
       }
-    }
-  },
-  created() {
-  },
-  destroyed() {
-
-  },
-  computed: {
-    carpoolToPost() {
-      return this.$store.getters.carpoolToPost;
     },
-
-    addressessUseToPost() {
-      return this.$store.getters.addressessUseToPost;
-    },
-
-    displayOrigin() {
-      let result = "";
-      const addressess = this.$store.getters.addressessUseToPost;
-      if (!!addressess && addressess.origin) {
-        if (!!addressess.origin.displayLabel) {
-          result = `${addressess.origin.displayLabel[0]},  ${addressess.origin.displayLabel[1]}`;
+    methods: {
+      validate() {
+        this.$v.$reset();
+        this.$v.$touch();
+        if (this.$v.$invalid) {
+          return false;
         } else {
-          result = `${addressess.origin.addressLocality},  ${addressess.origin.addressCountry}`;
+          return true;
         }
-      }
-      return result;
-    },
+      },
 
-    displayDestination() {
-      let result = "";
-      const addressess = this.$store.getters.addressessUseToPost;
-      if (!!addressess && addressess.destination) {
-        if (!!addressess.destination.displayLabel) {
-          result = `${addressess.destination.displayLabel[0]},  ${addressess.destination.displayLabel[1]}`;
-        } else {
-          result = `${addressess.destination.addressLocality},  ${addressess.destination.addressCountry}`;
+      displayStep(index) {
+        let result = "";
+        const addressess = this.$store.getters.addressessUseToPost;
+        if (!!addressess && addressess.step && addressess.step[index]) {
+          if (!!addressess.step[index].displayLabel) {
+            result = `${addressess.step[index].displayLabel[0]},  ${addressess.step[index].displayLabel[1]}`;
+          } else if (!!addressess.step[index].addressLocality) {
+            result = `${addressess.step[index].addressLocality},  ${addressess.step[index].addressCountry}`;
+          }
         }
-      }
 
-      return result;
+        return result;
+      },
+
+      goGeoSearch: function(type, action, index = null) {
+        this.$router.push({ name: "geoSearch", query: { type, action, index } });
+      },
+
+      clearInputStep: function($event, index) {
+        $event.stopPropagation();
+        this.$store.commit("removeStepByIndex", { index });
+        this.$store.dispatch('treatementUpdateAddresses')
+      },
+
+      addInputStep: function() {
+        this.$store.getters.addressessUseToPost["step"].push({});
+      },
+
+      selectCommunities: function(value) {
+        value.forEach(id => this.$store.getters.carpoolToPost.communities.push(parseInt(id)))
+      },
     }
-  },
-  methods: {
-    validate() {
-      this.$v.$reset();
-      this.$v.$touch();
-      if (this.$v.$invalid) {
-        return false;
-      } else {
-        return true;
-      }
-    },
-
-    displayStep(index) {
-      let result = "";
-      const addressess = this.$store.getters.addressessUseToPost;
-      if (!!addressess && addressess.step && addressess.step[index]) {
-        if (!!addressess.step[index].displayLabel) {
-          result = `${addressess.step[index].displayLabel[0]},  ${addressess.step[index].displayLabel[1]}`;
-        } else if (!!addressess.step[index].addressLocality) {
-          result = `${addressess.step[index].addressLocality},  ${addressess.step[index].addressCountry}`;
-        }
-      }
-
-      return result;
-    },
-
-    goGeoSearch: function(type, action, index = null) {
-      this.$router.push({ name: "geoSearch", query: { type, action, index } });
-    },
-
-    clearInputStep: function($event, index) {
-      $event.stopPropagation();
-      this.$store.commit("removeStepByIndex", { index });
-      this.$store.dispatch('treatementUpdateAddresses')
-    },
-
-    addInputStep: function() {
-      this.$store.getters.addressessUseToPost["step"].push({});
-    },
-
-    selectCommunities: function(value) {
-      value.forEach(id => this.$store.getters.carpoolToPost.communities.push(parseInt(id)))
-    }
-  }
-};
+  };
 </script>

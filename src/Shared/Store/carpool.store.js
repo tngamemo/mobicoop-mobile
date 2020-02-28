@@ -5,6 +5,7 @@ export const carpoolStore = {
     statusCarpoolPost: '',
     statusDistanceCarpool: '',
     statusPriceCarpool: '',
+    directPointsCarpool: '',
     carpoolToPost: null,
     addressessUseToPost: {
       origin: '',
@@ -32,6 +33,7 @@ export const carpoolStore = {
       state.statusDistanceCarpool = '';
       state.statusPriceCarpool = '';
       state.distanceCarpool = '';
+      state.directPointsCarpool = '';
       state.priceCarpool = '';
       state.carpoolToPost = {
         role: 1,
@@ -124,6 +126,11 @@ export const carpoolStore = {
       state.statusPriceCarpool = 'error';
     },
 
+    carpool_gps(state, payload) {
+      state.directPointsCarpool = payload;
+    },
+
+
   },
   actions: {
 
@@ -169,6 +176,7 @@ export const carpoolStore = {
 
           // On commit et envoie le resultat
           commit('distance_success', {distance: resp.data['hydra:member'][0].distance})
+          commit('carpool_gps', {directPoints: resp.data['hydra:member'][0].directPoints})
           dispatch('getPriceofCarpool')
           resolve(resp)
         })
@@ -218,7 +226,11 @@ export const carpoolStore = {
 
     statusDistanceCarpool: state => {
       return state.statusDistanceCarpool
-    }
+    },
+
+    directPointsCarpool: state => {
+      return state.directPointsCarpool
+    },
   },
 }
 
