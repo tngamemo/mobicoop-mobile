@@ -20,8 +20,17 @@
           </ion-button>
         </div>
         <hr>
-        <div v-for="carpool in filterCarpools(carpools)">
-          <CarpoolItem :carpool="getFormattedCarpoolItem(carpool)" />
+
+        <div class="ion-text-center">
+          <ion-icon size="large" color="background" class="rotating" v-if="$store.state.userStore.statusMyCarpools == 'loading'" name="md-sync"></ion-icon>
+        </div>
+
+        <div class="ion-text-center" v-if="$store.state.userStore.statusMyCarpools == 'error'">
+          {{ $t('MyCarpools.error')}}
+        </div>
+
+        <div v-if="$store.state.userStore.statusMyCarpools == 'success'" v-for="carpool in filterCarpools(carpools)">
+          <CarpoolItem :carpool="getFormattedCarpoolItem(carpool)" :type="'my-carpool'" />
         </div>
       </div>
     </ion-content>

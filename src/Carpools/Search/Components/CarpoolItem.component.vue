@@ -52,13 +52,21 @@
     </div>
 
     <div class="mc-carpool-footer ">
-      <div v-if="this.carpool.carpooler" class="d-flex align-center">
+      <div v-if="this.carpool.carpooler && type == 'search'" class="d-flex align-center">
 
         <ion-thumbnail>
           <img :hidden="!(this.carpool.carpooler.avatar && this.avatarLoaded)" :src="this.carpool.carpooler.avatar" @load="onImgLoad()">
           <ion-icon v-if="! this.avatarLoaded" name="contact" size="large" ></ion-icon>
         </ion-thumbnail>
         <strong class="mc-carpool-carpooler">{{this.carpool.carpooler.givenName}} {{this.carpool.carpooler.shortFamilyName}}</strong>
+      </div>
+      <div v-if="type == 'my-carpool'" class="d-flex align-center justify-between">
+        <div>
+          <div v-if="carpool.dateValidity">{{$t("MyCarpools.validatedUntil")}} {{carpool.dateValidity | moment("utc", 'dddd D[.]MM[.]YYYY')}}</div>
+        </div>
+        <ion-button class='mc-small-button' color="danger" @click="deleteCarpoolAlertConfirm(carpool.id)">
+          <ion-icon  name="trash"></ion-icon> <span class="ion-margin-start">{{$t('Commons.delete')}}</span>
+        </ion-button>
       </div>
     </div>
   </div>
@@ -206,14 +214,17 @@
 
 
 <script>
+  import {toast} from "../../../Shared/Mixin/toast.mixin";
+
   export default {
     name: 'carpool-item',
-    props: ['carpool'],
+    props: ['carpool', 'type'],
     data () {
       return {
         avatarLoaded: false,
       }
     },
+    mixins: [toast],
     mounted() {
     },
     computed: {
@@ -227,7 +238,34 @@
 
     },
     methods: {
-
+      deleteCarpoolAlertConfirm(carpoolId) {
+        return this.$ionic.alertController
+          .create({
+            header: this.$t("MyCarpools.confirmDeleteHeader"),
+            message: this.$t("MyCarpools.confirmDeleteText"),
+            buttons: [
+              {
+                text: this.$t("Commons.cancel"),
+                role: 'cancel',
+                cssClass: 'secondary'
+              },
+              {
+                text: this.$t("Commons.confirm"),
+                handler: () => {
+                  this.deleteCarpool(carpoolId);
+                },
+              },
+            ],
+          })
+          .then(a => a.present())
+      },
+      deleteCarpool(carpoolId) {
+        this.$store.dispatch('deleteCarpool', carpoolId).then(res => {
+            this.presentToast(this.$t("MyCarpools.delete-success"), "success");
+          }).catch(err => {
+            this.presentToast(this.$t("Commons.error"), "tertiary");
+          })
+      },
       onImgLoad: function () {
         this.avatarLoaded = true;
       }

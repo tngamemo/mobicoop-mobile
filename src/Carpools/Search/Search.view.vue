@@ -25,7 +25,7 @@
         <div class="" v-if="getStatusOfSearch == 'success'">
           {{numberOfResultsSearch}} {{ $t('Search.nbResult')}}
           <div v-for="(result, index) in this.$store.getters.resultSearch" :key="index">
-            <CarpoolItem :carpool="getFormattedCarpoolItem(result)" />
+            <CarpoolItem :carpool="getFormattedCarpoolItem(result)" :type="'search'" />
           </div>
         </div>
 
