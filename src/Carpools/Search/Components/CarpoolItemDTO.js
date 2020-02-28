@@ -5,6 +5,7 @@ export default class CarpoolItemDTO {
   }
 
   carpoolItemFromSearch(carpool){
+    this.id = carpool.id;
     this.frequency = carpool.frequency;
     this.price = carpool.roundedPrice;
     this.passenger = !!carpool.resultPassenger;
@@ -32,6 +33,7 @@ export default class CarpoolItemDTO {
   }
 
   carpoolItemFromMyCarpool(carpool){
+    this.id = carpool.id;
     this.frequency = carpool.frequency;
     this.passenger = carpool.role == 2 || carpool.role == 3
     this.driver = carpool.role == 1 || carpool.role == 3
