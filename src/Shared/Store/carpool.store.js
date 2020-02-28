@@ -49,7 +49,11 @@ export const carpoolStore = {
         seatsDriver: "",
         solidaryExclusive: false,
         userId: "",
-        communities: ""
+        communities: "",
+        luggage: false,
+        bike: false,
+        backSeats: false,
+        comment: ''
       };
       state.addressessUseToPost = {
         origin: '',
@@ -130,6 +134,10 @@ export const carpoolStore = {
       state.directPointsCarpool = payload;
     },
 
+    changeOptionsCarpoolPost(state, payload) {
+      state.carpoolToPost[payload.property] = payload.value;
+    }
+
 
   },
   actions: {
@@ -142,8 +150,8 @@ export const carpoolStore = {
       const newDestination = state.addressessUseToPost.origin;
 
       const copyAddresses = Object.assign({}, state.addressessUseToPost);
-      copyAddresses.addressessUseToPost.destination = newDestination;
-      copyAddresses.addressessUseToPost.origin = newOrigin;
+      copyAddresses.destination = newDestination;
+      copyAddresses.origin = newOrigin;
 
       state.addressessUseToPost = copyAddresses;
     },
@@ -159,7 +167,7 @@ export const carpoolStore = {
       }
     },
 
-    getDistanceOfCarpool({commit, dispatch}, payload) {
+    getDistanceOfCarpool({commit, state, dispatch}, payload) {
 
       let query = '';
       payload.addresses.forEach((add, index, array) => {
@@ -177,7 +185,11 @@ export const carpoolStore = {
           // On commit et envoie le resultat
           commit('distance_success', {distance: resp.data['hydra:member'][0].distance})
           commit('carpool_gps', {directPoints: resp.data['hydra:member'][0].directPoints})
-          dispatch('getPriceofCarpool')
+
+          dispatch('getPriceofCarpool', {priceKm: process.env.VUE_APP_PRICE_BY_KM}).then(resp => {
+            // On commit et envoie le resultat
+            commit('price_carpool_success', {price: resp.data.value})
+          })
           resolve(resp)
         })
         .catch(err => {
@@ -188,8 +200,8 @@ export const carpoolStore = {
       })
     },
 
-    getPriceofCarpool({commit, state}) {
-      const priceTmp = Math.round(state.distanceCarpool * state.carpoolToPost.priceKm * 100) / 100 / 1000;
+    getPriceofCarpool({commit, state}, payload) {
+      const priceTmp = Math.round(state.distanceCarpool * payload.priceKm * 100) / 100 / 1000;
 
       return new Promise((resolve, reject) => {
         commit('price_carpool_request');
@@ -198,13 +210,27 @@ export const carpoolStore = {
           frequency: state.carpoolToPost.frequency}
           )
         .then(resp => {
-
-          // On commit et envoie le resultat
-          commit('price_carpool_success', {price: resp.data.value})
+          resp.data.oldPrice = priceTmp;
           resolve(resp)
         })
         .catch(err => {
           commit('price_carpool_error')
+          console.log(err)
+          reject(err)
+        })
+      })
+    },
+
+    postCarpool({state, commit}){
+      return new Promise((resolve, reject) => {
+        commit('carpoolPost_request');
+        return http.post(`/carpools`, state.carpoolToPost)
+        .then(resp => {
+          commit('carpoolPost_success')
+          resolve(resp)
+        })
+        .catch(err => {
+          commit('carpoolPost_error')
           console.log(err)
           reject(err)
         })
@@ -222,6 +248,10 @@ export const carpoolStore = {
 
     distanceCarpool: state => {
       return state.distanceCarpool
+    },
+
+    priceCarpool: state => {
+      return state.priceCarpool
     },
 
     statusDistanceCarpool: state => {

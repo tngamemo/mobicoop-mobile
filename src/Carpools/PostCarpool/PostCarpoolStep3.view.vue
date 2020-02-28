@@ -24,7 +24,7 @@
           v-on:click="addInputStep()"
           class="text-left d-flex align-center pointer"
         >
-          <ion-icon name="add-circle-outline"></ion-icon>Ajouter une étape
+          <ion-icon name="add-circle-outline"></ion-icon>{{$t('PostCarpool.addStep')}}
         </div>
 
         <div class="mc-delete-step">
@@ -165,7 +165,10 @@
       LPolyline
     },
     mounted() {
-      this.$refs.map.mapObject.invalidateSize();
+      setTimeout(() => {
+        this.$refs.map.mapObject.invalidateSize();
+      }, 500)
+      // this.$refs.map.mapObject.invalidateSize();
     },
     computed: {
 

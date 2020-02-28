@@ -56,7 +56,6 @@
     computed: {
       carpools: {
         get() {
-          console.log(this.$store.state.userStore.myCarpools);
           return this.$store.state.userStore.myCarpools
         },
       }

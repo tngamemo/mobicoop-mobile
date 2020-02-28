@@ -26,6 +26,10 @@
   import PostCarpoolStep1 from "./PostCarpoolStep1.view";
   import PostCarpoolStep2 from "./PostCarpoolStep2.view";
   import PostCarpoolStep3 from "./PostCarpoolStep3.view";
+  import PostCarpoolStep4 from "./PostCarpoolStep4.view";
+  import PostCarpoolStep5 from "./PostCarpoolStep5.view";
+  import PostCarpoolStep6 from "./PostCarpoolStep6.view";
+  import PostCarpoolStep7 from "./PostCarpoolStep7.view";
 
   export default {
     name: "post-carpool",
@@ -36,15 +40,20 @@
     data() {
       return {
         slides: [
-          {title: "", component: PostCarpoolStep1},
-          {title: "", component: PostCarpoolStep2},
-          {title: "", component: PostCarpoolStep3}
+          {title: "Commencement", component: PostCarpoolStep1},
+          {title: "Planification", component: PostCarpoolStep2},
+          {title: "Trajet", component: PostCarpoolStep3},
+          {title: "Passagers", component: PostCarpoolStep4},
+          {title: "Participation", component: PostCarpoolStep5},
+          {title: "Message", component: PostCarpoolStep6},
+          {title: "Récap", component: PostCarpoolStep7},
         ]
       };
     },
     created() {
       if (this.$store.getters.carpoolToPost == null) {
         this.$store.commit('carpoolPost_init');
+        this.$store.commit('changeOptionsCarpoolPost', {property: 'userId', value: this.$store.getters.userId});
       };
 
       if (this.$store.getters.userId) {
@@ -56,6 +65,7 @@
     methods: {
       postCarpool: function() {
         console.log('yolo')
+        this.$store.dispatch('postCarpool')
       }
     }
   };

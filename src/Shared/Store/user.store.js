@@ -38,7 +38,6 @@ export const userStore = {
     },
 
     user_my_carpools_request_success(state, data) {
-      console.log(data);
       state.myCarpools = data['hydra:member'];
     },
 
@@ -185,7 +184,7 @@ export const userStore = {
           })
       })
     },
-    
+
     /**
      * Fonction pour récupérer les informations d'un utilisateur
      */
