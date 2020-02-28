@@ -75,6 +75,10 @@
     "confirmDeleteHeader": "Etes-vous sur de vouloir supprimer ce fil de discussion ? ",
     "confirmDeleteText": "Toute suppression est définitive, êtes-vous sur de vouloir supprimer ce fil de discussion ?"
   },
+  "Message" : {
+    "see-carpool" : "Voir l'annonce",
+    "textarea": "Votre message"
+  },
   "Communities": {
     "title": "Communautés"
   },

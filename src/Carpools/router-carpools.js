@@ -15,6 +15,7 @@ import UpdateProfile from './Profile/UpdateProfile.view.vue';
 import ProfileAlerts from './Profile/ProfileAlerts.view.vue';
 import MyCarpools from './Profile/MyCarpools.view.vue';
 import PostCarpool from './PostCarpool/PostCarpool.view.vue';
+import Message from './Messages/Message.view.vue';
 
 import Vue from 'vue'
 
@@ -99,6 +100,14 @@ export default [
     path: 'post-carpool',
     name: 'post-carpool',
     component: PostCarpool
+  },
+  {
+    path: 'message',
+    name: 'message',
+    component: Message,
+    props: (route) => ({
+      ...route.params
+    })
   },
 ]
 

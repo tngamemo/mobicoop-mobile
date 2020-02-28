@@ -37,7 +37,7 @@
 
         <ion-list v-if="direct ?  $store.state.messageStore.statusMessagesDirect == 'success' : $store.state.messageStore.statusMessagesCarpool == 'success'">
           <ion-item-sliding v-for="message in messages" :key="message.id">
-            <ion-item class="message-list">
+            <ion-item class="message-list" @click="goToMessage(message)">
               <ion-avatar class="ion-margin-end ion-margin-start avatar">
                 <img v-if="message.avatarsRecipient" v-bind:src="message.avatarsRecipient" alt=""/>
                 <img v-if="!message.avatarsRecipient" src="/assets/user.png" alt="" />
@@ -90,7 +90,6 @@
       computed: {
           messages : {
               get() {
-                console.log(this.direct);
                   return this.direct ? this.$store.state.messageStore.messagesDirect : this.$store.state.messageStore.messagesCarpool
               },
           }
@@ -101,6 +100,9 @@
           this.$store.dispatch('getAllMessagesDirect', this.$store.state.userStore.user.id );
       },
     methods: {
+      goToMessage(message) {
+        this.$router.push({ name: "message" , params : {thread : message}});
+      },
       deleteThreadAlertConfirm(messageId) {
         return this.$ionic.alertController
           .create({
