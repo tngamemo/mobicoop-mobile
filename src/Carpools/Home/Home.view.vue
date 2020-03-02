@@ -11,7 +11,7 @@
       </ion-toolbar>
     </ion-header>
 
-    <ion-content color="background">
+    <ion-content color="primary">
       <UserHome />
 
       <div class="mc-white-container">
@@ -102,11 +102,11 @@
         this.seeWelcome = false;
       },
 
-      redirectToCommunities() {
+      redirectToCommunities: function() {
         console.log('GO TO COMMU');
       },
 
-      redirectToEvents() {
+      redirectToEvents: function() {
         console.log('GO TO EVENTS');
       }
     }

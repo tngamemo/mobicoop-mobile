@@ -3,14 +3,36 @@
 
       <!-- Listen to before and after tab change events -->
       <ion-tabs>
+
         <ion-tab tab="home" :routes="'carpoolsHome'">
           <Home />
         </ion-tab>
 
-        <!-- Match by "app.speakers" route name -->
-        <ion-tab tab="speakers" :routes="'app.speakers'">
-          <Speakers />
+        <ion-tab tab="help">
+          <Help />
         </ion-tab>
+
+        <ion-tab tab="register">
+          <Register />
+        </ion-tab>
+
+        <ion-tab tab="login">
+          <Login />
+        </ion-tab>
+
+        <ion-tab tab="messages">
+          <Messages />
+        </ion-tab>
+
+        <ion-tab tab="communities">
+          <Communities />
+        </ion-tab>
+
+        <ion-tab tab="profile">
+          <Profile />
+        </ion-tab>
+
+
 
         <!-- Use v-slot:bottom with Vue ^2.6.0 -->
         <template slot="bottom">
@@ -20,7 +42,7 @@
               <ion-label>{{ $t('Nav.home') }}</ion-label>
             </ion-tab-button>
 
-            <ion-tab-button v-if="! !!this.$store.state.userStore.user" tab="help" :to="{ name: 'app.speakers' }">
+            <ion-tab-button v-if="! !!this.$store.state.userStore.user" tab="help" :to="{ name: 'help' }">
               <ion-icon name="help-circle"></ion-icon>
               <ion-label>{{ $t('Nav.help') }}</ion-label>
             </ion-tab-button>
@@ -35,17 +57,17 @@
               <ion-label>{{ $t('Nav.sign-in') }}</ion-label>
             </ion-tab-button>
 
-            <ion-tab-button v-if="!!this.$store.state.userStore.user" tab="help" :to="{ name: 'app.speakers' }">
+            <ion-tab-button v-if="!!this.$store.state.userStore.user" tab="messages" :to="{ name: 'messages' }">
               <ion-icon name="text"></ion-icon>
               <ion-label>{{ $t('Nav.messages') }}</ion-label>
             </ion-tab-button>
 
-            <ion-tab-button v-if="!!this.$store.state.userStore.user" tab="register" :to="{ name: 'register' }">
+            <ion-tab-button v-if="!!this.$store.state.userStore.user" tab="communities" :to="{ name: 'communities' }">
               <ion-icon name="people"></ion-icon>
               <ion-label>{{ $t('Nav.communities') }}</ion-label>
             </ion-tab-button>
 
-            <ion-tab-button v-if="!!this.$store.state.userStore.user" tab="login" :to="{ name: 'login' }">
+            <ion-tab-button v-if="!!this.$store.state.userStore.user" tab="profile" :to="{ name: 'profile' }">
               <ion-icon name="person"></ion-icon>
               <ion-label>{{ $t('Nav.profile') }}</ion-label>
             </ion-tab-button>
@@ -63,25 +85,38 @@
   }
 
   ion-tab-button {
-    --background: ##F5F6FA;
-    --color: var(--ion-color-statusbar) !important;
-    --color-selected: var(--ion-color-statusbar) !important;
+    --background: #F5F6FA;
+    --color: var(--ion-color-primary) !important;
+    --color-selected: var(--ion-color-primary) !important;
   }
 
   ion-tab-button.tab-selected {
-    --background: var(--ion-color-statusbar) !important;
-    --color: var(--ion-color-primary) !important;
-    --color-selected: var(--ion-color-primary) !important;
+    --background: var(--ion-color-primary) !important;
+    --color: var(--ion-color-light) !important;
+    --color-selected: var(--ion-color-light) !important;
   }
 </style>
 
 <script>
 
   import Home from '../Home/Home.view.vue';
+  import Register from '../Register/Register.view.vue';
+  import Login from '../Login/Login.view.vue';
+  import Help from '../Help/Help.view.vue';
+  import Messages from '../Messages/Messages.view.vue';
+  import Communities from '../Communities/Communities.view.vue';
+  import Profile from '../Profile/Profile.view.vue';
+
   export default {
     name: 'carpools',
     components: {
-      Home
+      Home,
+        Register,
+        Login,
+        Help,
+        Profile,
+        Messages,
+        Communities
     },
     data () {
       return {

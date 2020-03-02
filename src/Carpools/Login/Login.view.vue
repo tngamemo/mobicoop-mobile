@@ -68,7 +68,7 @@
 
 <script>
 
-  import { toast } from '../../Shared/toast.mixin';
+  import { toast } from '../../Shared/Mixin/toast.mixin';
   import jwt_decode from "jwt-decode";
 
   export default {

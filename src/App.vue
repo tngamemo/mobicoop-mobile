@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <ion-app>
+    <ion-app v-if="!! this.$store.state.userStore.user || !! this.$store.state.userStore.tokenAnonymousUser">
       <ion-vue-router />
     </ion-app>
   </div>
@@ -19,13 +19,15 @@
 
     created: function () {
 
+      document.title = process.env.VUE_APP_NAME;
       // On change les couleurs en fonction de l'environement
       document.documentElement.style.setProperty('--ion-color-primary', '#' + process.env.VUE_APP_PRIMARY);
-      document.documentElement.style.setProperty('--ion-color-background', '#' + process.env.VUE_APP_BACKGROUND);
-      document.documentElement.style.setProperty('--ion-color-statusbar', '#' + process.env.VUE_APP_BACKGROUND);
+      document.documentElement.style.setProperty('--ion-color-primary-rgb', process.env.VUE_APP_PRIMARY_RGB);
       document.documentElement.style.setProperty('--ion-color-secondary', '#' + process.env.VUE_APP_SECONDARY);
       document.documentElement.style.setProperty('--ion-color-tertiary', '#' + process.env.VUE_APP_TERTIARY);
       document.documentElement.style.setProperty('--ion-color-success', '#' + process.env.VUE_APP_SUCCESS);
+      document.documentElement.style.setProperty('--ion-color-warning', '#' + process.env.VUE_APP_WARNING);
+      document.documentElement.style.setProperty('--ion-color-danger', '#' + process.env.VUE_APP_DANGER);
 
       // Fonction qui va log l'user ou utilisé un user par défault
       this.authUserOnStart();

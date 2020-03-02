@@ -53,7 +53,7 @@
 </style>
 
 <script>
-  import { toast } from '../../Shared/toast.mixin';
+  import { toast } from '../../Shared/Mixin/toast.mixin';
 
   export default {
     name: 'geo-search',
@@ -62,11 +62,21 @@
     },
     created () {
       this.$store.state.searchStore.resultsGeo = [];
+       this.unwatch = this.$store.watch(
+        (state, getters) => getters.addressessUseToPost,
+        (newValue, oldValue) => {
+          this.$store.dispatch('getDistanceOfCarpool')
+        },
+      );
+    },
+    beforeDestroy() {
+      this.unwatch();
     },
     data () {
       return {
         type: this.$route.query.type,
         action: this.$route.query.action,
+        index: this.$route.query.index
       }
     },
 
@@ -82,7 +92,7 @@
       },
 
       selectGeo: function(address) {
-        const addressDTO = {
+        let addressDTO = {
           "@id": address['@id'],
           "@type": address['@type'],
           id: address.id,
@@ -91,20 +101,60 @@
           longitude: address.longitude
         };
 
-        const displayGeo = `${address.addressLocality}, ${address.addressCountry}`;
-
-        if (this.action == 'search') {
-          if (this.type == 'origin') {
-            this.$store.state.searchStore.searchObject.outwardWaypoints.unshift(addressDTO);
-            this.$store.state.searchStore.display.origin = displayGeo;
-          }
-
-          if (this.type == 'destination') {
-            this.$store.state.searchStore.searchObject.outwardWaypoints.push(addressDTO);
-            this.$store.state.searchStore.display.destination = displayGeo;
-          }
+        if (this.action == 'post') {
+          addressDTO = address;
         }
 
+        const displayGeo = `${address.addressLocality}, ${address.addressCountry}`;
+
+        switch (this.action) {
+          case 'search': {
+
+            switch (this.type) {
+              case 'origin': {
+                this.$store.commit('changeOrigin', { addressDTO, displayGeo });
+                break;
+              }
+
+              case 'destination': {
+                this.$store.commit('changeDestination', { addressDTO, displayGeo });
+                break;
+              }
+
+              case 'register_address': {
+                this.$store.commit('changeRegisterAddress', { addressDTO, displayGeo });
+                break;
+              }
+
+            }
+            break;
+          }
+
+          case 'post': {
+            switch (this.type) {
+              case 'origin': {
+                this.$store.commit('addPostCarpoolOrigin', { addressDTO });
+                break;
+              }
+
+              case 'destination': {
+                this.$store.commit('addPostCarpoolDestination', { addressDTO });
+                break;
+              }
+
+              case 'step': {
+                this.$store.commit('addPostCarpoolStep', { addressDTO, index: this.index });
+                break;
+              }
+
+            }
+            break;
+          }
+
+
+          default:
+            break;
+        }
         this.$router.back();
       }
     }
