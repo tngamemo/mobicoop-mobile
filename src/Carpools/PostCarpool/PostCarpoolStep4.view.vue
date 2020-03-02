@@ -7,7 +7,7 @@
         max="4"
         :placeholder="$t('PostCarpool.numberPassenger') + '*'"
         :value="carpoolToPost.seatsDriver"
-        @input="changeOptions('seatsDriver', $event.target.value)"
+        @input="changeOptions('seatsDriver', parseInt($event.target.value))"
       ></ion-input>
     </ion-item>
     <div v-if="$v.carpoolToPost.seatsDriver.$error">

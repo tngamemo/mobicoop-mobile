@@ -1,11 +1,13 @@
 <template>
   <div class="slider-container">
     <div class="slider-container-content">
+
       <ion-slides
         ref="slider"
         class="slider-style swiper-no-swiping"
         pager="true"
         :options="slideOpts"
+        v-if="sliderShow"
       >
         <ion-slide v-for="(slide, index) in slides" :key="index">
           <div class="slide-title">{{slide.title}}</div>
@@ -109,9 +111,15 @@ export default {
       slideOpts: {
         initialSlide: 1,
         speed: 400,
-        allowTouchMove: false
-      }
+        allowTouchMove: false,
+        observer: true
+      },
+      sliderShow: true
     };
+  },
+  async updated() {
+
+
   },
   mounted() {
     // go to slide if there is step param in route
@@ -124,6 +132,12 @@ export default {
 
     this.$watch(
       () => {
+        this.sliderShow = false;
+    this.$nextTick(() => {
+      this.sliderShow = true;
+    })
+    console.log(this.slides)
+    console.log('YOLO')
         return this.$refs.slider;
       },
       val => {

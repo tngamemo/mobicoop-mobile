@@ -199,7 +199,8 @@ export default {
     },
 
     changeRole: function(value) {
-      this.$store.getters.carpoolToPost.role = value;
+      this.$store.getters.carpoolToPost.role = parseInt(value);
+      this.$emit('changeRole', value)
     },
 
     changeFrequency: function() {

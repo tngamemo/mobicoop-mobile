@@ -130,6 +130,8 @@ export default {
       if (this.$v.$invalid) {
         return false;
       } else {
+
+        this.priceRound = !!this.priceRound ? this.priceRound : this.$store.getters.priceCarpool;
         this.$store.commit('changeOptionsCarpoolPost', {property: 'priceKm', value: this.priceKmTmp})
         this.$store.commit('price_carpool_success', {price: this.priceRound})
         return true;

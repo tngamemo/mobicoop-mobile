@@ -21,52 +21,74 @@
 </style>
 
 <script>
-  import Slider from "../../Shared/View/Slider.view";
-  import { toast } from "../../Shared/Mixin/toast.mixin";
-  import PostCarpoolStep1 from "./PostCarpoolStep1.view";
-  import PostCarpoolStep2 from "./PostCarpoolStep2.view";
-  import PostCarpoolStep3 from "./PostCarpoolStep3.view";
-  import PostCarpoolStep4 from "./PostCarpoolStep4.view";
-  import PostCarpoolStep5 from "./PostCarpoolStep5.view";
-  import PostCarpoolStep6 from "./PostCarpoolStep6.view";
-  import PostCarpoolStep7 from "./PostCarpoolStep7.view";
+import Slider from "../../Shared/View/Slider.view";
+import { toast } from "../../Shared/Mixin/toast.mixin";
+import PostCarpoolStep1 from "./PostCarpoolStep1.view";
+import PostCarpoolStep2 from "./PostCarpoolStep2.view";
+import PostCarpoolStep3 from "./PostCarpoolStep3.view";
+import PostCarpoolStep4 from "./PostCarpoolStep4.view";
+import PostCarpoolStep5 from "./PostCarpoolStep5.view";
+import PostCarpoolStep6 from "./PostCarpoolStep6.view";
+import PostCarpoolStep7 from "./PostCarpoolStep7.view";
 
-  export default {
-    name: "post-carpool",
-    mixins: [toast],
-    components: {
-      Slider
-    },
-    data() {
-      return {
-        slides: [
-          {title: "Commencement", component: PostCarpoolStep1},
-          {title: "Planification", component: PostCarpoolStep2},
-          {title: "Trajet", component: PostCarpoolStep3},
-          {title: "Passagers", component: PostCarpoolStep4},
-          {title: "Participation", component: PostCarpoolStep5},
-          {title: "Message", component: PostCarpoolStep6},
-          {title: "Récap", component: PostCarpoolStep7},
-        ]
-      };
-    },
-    created() {
-      if (this.$store.getters.carpoolToPost == null) {
-        this.$store.commit('carpoolPost_init');
-        this.$store.commit('changeOptionsCarpoolPost', {property: 'userId', value: this.$store.getters.userId});
-      };
-
-      if (this.$store.getters.userId) {
-        this.$store.dispatch('getUserCommunities').then();
-      }
-    },
-    computed: {},
-
-    methods: {
-      postCarpool: function() {
-        console.log('yolo')
-        this.$store.dispatch('postCarpool')
-      }
+export default {
+  name: "post-carpool",
+  mixins: [toast],
+  components: {
+    Slider
+  },
+  data() {
+    return {};
+  },
+  created() {
+    if (this.$store.getters.carpoolToPost == null) {
+      this.$store.commit("carpoolPost_init");
     }
-  };
+
+    this.$store.commit("changeOptionsCarpoolPost", {
+      property: "userId",
+      value: this.$store.getters.userId
+    });
+
+    if (this.$store.getters.userId) {
+      this.$store.dispatch("getUserCommunities").then();
+    }
+  },
+  computed: {
+    slides() {
+      let result;
+      if (this.$store.getters.carpoolToPost.role == 2) {
+        result = [
+          { title: "Commencement", component: PostCarpoolStep1 },
+          { title: "Planification", component: PostCarpoolStep2 },
+          { title: "Trajet", component: PostCarpoolStep3 },
+          { title: "Message", component: PostCarpoolStep6 },
+          { title: "Récap", component: PostCarpoolStep7 }
+        ];
+      } else {
+        result = [
+          { title: "Commencement", component: PostCarpoolStep1 },
+          { title: "Planification", component: PostCarpoolStep2 },
+          { title: "Trajet", component: PostCarpoolStep3 },
+          { title: "Passagers", component: PostCarpoolStep4 },
+          { title: "Participation", component: PostCarpoolStep5 },
+          { title: "Message", component: PostCarpoolStep6 },
+          { title: "Récap", component: PostCarpoolStep7 }
+        ];
+      }
+      console.log(result)
+      return result;
+    }
+  },
+
+  methods: {
+    postCarpool: function() {
+      console.log("yolo");
+      this.$store.dispatch("postCarpool").then(resp => {
+        this.presentToast("La publication est un succès", "success");
+        this.$router.push("home");
+      });
+    }
+  }
+};
 </script>

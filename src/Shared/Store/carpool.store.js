@@ -29,6 +29,8 @@ export const carpoolStore = {
     },
 
     carpoolPost_init(state) {
+
+      console.log('INIIIITTTTT')
       state.statusCarpoolPost = '';
       state.statusDistanceCarpool = '';
       state.statusPriceCarpool = '';
@@ -123,7 +125,8 @@ export const carpoolStore = {
 
     price_carpool_success(state, payload) {
       state.statusPriceCarpool = 'success';
-      state.priceCarpool = payload.price
+      state.priceCarpool = payload.price;
+      state.carpoolToPost.outwardDriverPrice = (payload.price).toString();
     },
 
     price_carpool_error(state) {
@@ -224,9 +227,16 @@ export const carpoolStore = {
     postCarpool({state, commit}){
       return new Promise((resolve, reject) => {
         commit('carpoolPost_request');
-        return http.post(`/carpools`, state.carpoolToPost)
+
+        // On va supprimer toutes les données qui sont nulles ou vides
+        const dataToSend = Object.assign({}, state.carpoolToPost);
+        Object.keys(dataToSend).forEach((key) => (dataToSend[key] == null || dataToSend[key] == '') && delete dataToSend[key]);
+
+        console.log(dataToSend);
+        return http.post(`/carpools`, dataToSend)
         .then(resp => {
           commit('carpoolPost_success')
+          commit('carpoolPost_init')
           resolve(resp)
         })
         .catch(err => {

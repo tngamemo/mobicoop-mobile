@@ -86,7 +86,7 @@
     </div>
     <div class="mc-carpool-map">
 
-      <l-map :hidden="! !!bounds" :ref="'map'" style="height: 350px" :zoom="zoom" :bounds="bounds">
+      <l-map :hidden="! !!bounds" :ref="'map'" :options="optionsCard" style="height: 350px" :zoom="zoom" :bounds="bounds">
         <l-tile-layer v-if="bounds" :url="url"></l-tile-layer>
         <l-polyline v-if="bounds" :lat-lngs="directPointsCarpool" :color="'red'"></l-polyline>
       </l-map>
@@ -146,6 +146,10 @@
         url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
         zoom: 8,
         showCard: false,
+        optionsCard: {
+          dragging: false,
+          touchZoom: true,
+        }
       };
     },
     validations: {

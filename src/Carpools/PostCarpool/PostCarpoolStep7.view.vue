@@ -12,7 +12,7 @@
           :key="index"
         >{{displayStep(step)}}</p>
       </div>
-      <div class="mc-recap-footer text-left">
+      <div class="mc-recap-footer text-left" v-if="!! carpoolToPost.seatsDriver">
         Places disponibles
         <div class="d-flex">
           <ion-icon
@@ -42,7 +42,14 @@
     </div>
 
     <div class="mc-carpool-map">
-      <l-map :hidden="! !!bounds" :ref="'mapRecap'" style="height: 350px" :zoom="zoom" :bounds="bounds">
+      <l-map
+        :hidden="! !!bounds"
+        :ref="'mapRecap'"
+        style="height: 350px"
+        :zoom="zoom"
+        :bounds="bounds"
+        :options="optionsCard"
+      >
         <l-tile-layer v-if="bounds" :url="url"></l-tile-layer>
         <l-polyline v-if="bounds" :lat-lngs="directPointsCarpool" :color="'red'"></l-polyline>
       </l-map>
@@ -151,7 +158,11 @@ export default {
     return {
       url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
       zoom: 8,
-      showCard: false
+      showCard: false,
+      optionsCard: {
+        dragging: false,
+        touchZoom: true
+      }
     };
   },
   validations: {},
