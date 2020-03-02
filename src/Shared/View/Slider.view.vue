@@ -1,13 +1,11 @@
 <template>
   <div class="slider-container">
     <div class="slider-container-content">
-
       <ion-slides
         ref="slider"
         class="slider-style swiper-no-swiping"
         pager="true"
         :options="slideOpts"
-        v-if="sliderShow"
       >
         <ion-slide v-for="(slide, index) in slides" :key="index">
           <div class="slide-title">{{slide.title}}</div>
@@ -19,7 +17,7 @@
     </div>
     <div class="mc-swipper-buttons">
       <ion-button
-        :style="{visibility: activeIndex !== 0 ? 'visible' : 'hidden'}"
+        :style="{visibility: (activeIndex !== 0 || this.previous) ? 'visible' : 'hidden'}"
         class="mc-small-button"
         color="background"
         fill="outline"
@@ -117,10 +115,7 @@ export default {
       sliderShow: true
     };
   },
-  async updated() {
-
-
-  },
+  async updated() {},
   mounted() {
     // go to slide if there is step param in route
     if (this.$route.query.step) {
@@ -132,12 +127,6 @@ export default {
 
     this.$watch(
       () => {
-        this.sliderShow = false;
-    this.$nextTick(() => {
-      this.sliderShow = true;
-    })
-    console.log(this.slides)
-    console.log('YOLO')
         return this.$refs.slider;
       },
       val => {
@@ -146,7 +135,7 @@ export default {
     );
   },
   // Pass an array of slides {title, component}
-  props: ["slides"],
+  props: ["slides", "previous"],
   methods: {
     next() {
       if (
@@ -162,9 +151,13 @@ export default {
       }
     },
     prev() {
-      this.activeIndex = this.activeIndex - 1;
-      this.$router.replace({ query: { step: this.activeIndex } });
-      this.$refs.slider.slidePrev();
+      if (this.activeIndex == 0 && !!this.previous) {
+        this.$router.push(this.previous)
+      } else {
+        this.activeIndex = this.activeIndex - 1;
+        this.$router.replace({ query: { step: this.activeIndex } });
+        this.$refs.slider.slidePrev();
+      }
     }
   }
 };

@@ -83,8 +83,6 @@ export default {
       if (property == 'bike' || property == 'luggage' || property == 'backSeats') {
         value = !this.carpoolToPost[property];
       }
-
-      console.log(property)
       this.$store.commit('changeOptionsCarpoolPost', {property, value})
     }
   }

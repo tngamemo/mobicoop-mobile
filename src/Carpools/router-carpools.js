@@ -15,6 +15,7 @@ import UpdateProfile from './Profile/UpdateProfile.view.vue';
 import ProfileAlerts from './Profile/ProfileAlerts.view.vue';
 import MyCarpools from './Profile/MyCarpools.view.vue';
 import PostCarpool from './PostCarpool/PostCarpool.view.vue';
+import PostCarpoolStep from './PostCarpool/PostCarpoolStep.view.vue';
 
 import Vue from 'vue'
 
@@ -96,9 +97,14 @@ export default [
     component: MyCarpools
  },
  {
+  path: 'post-carpool-step',
+  name: 'post-carpool-step',
+  component: PostCarpoolStep
+},
+ {
     path: 'post-carpool',
     name: 'post-carpool',
-    component: PostCarpool
+    component: PostCarpool,
   },
 ]
 

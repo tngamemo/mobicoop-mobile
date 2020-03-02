@@ -2,51 +2,41 @@
   <div class="ion-page">
     <ion-header no-border>
       <ion-toolbar color="background">
-        <ion-buttons slot="start">
-          <ion-back-button v-on:click="goBack($event)"></ion-back-button>
-        </ion-buttons>
         <h1 class="ion-text-center">{{ $t('PostCarpool.title')}}</h1>
       </ion-toolbar>
     </ion-header>
     <!--  -->
     <ion-content color="background" no-bounce>
       <div class="mc-white-container" style="height: 100%">
-        <div style="height: calc(100% - 44px);
-  position: relative;">
-          <PostCarpoolStep1 ref="slideOne" />
-          <div class="mc-swipper-buttons justify-end">
-            <ion-button class="mc-small-button" color="success" @click="next()">Suivant</ion-button>
-          </div>
-        </div>
+        <Slider v-bind:slides="slides" v-on:save="postCarpool()" :previous="previous"></Slider>
       </div>
     </ion-content>
   </div>
 </template>
 
 <style lang="scss">
-.mc-swipper-buttons {
-  position: absolute;
-  bottom: 0px;
-  right: 0px;
-  left: 0px;
-  display: flex;
-  justify-content: space-between;
-}
 </style>
 
 <script>
 import Slider from "../../Shared/View/Slider.view";
 import { toast } from "../../Shared/Mixin/toast.mixin";
-import PostCarpoolStep1 from "./PostCarpoolStep1.view";
+import PostCarpoolStep2 from "./PostCarpoolStep2.view";
+import PostCarpoolStep3 from "./PostCarpoolStep3.view";
+import PostCarpoolStep4 from "./PostCarpoolStep4.view";
+import PostCarpoolStep5 from "./PostCarpoolStep5.view";
+import PostCarpoolStep6 from "./PostCarpoolStep6.view";
+import PostCarpoolStep7 from "./PostCarpoolStep7.view";
 
 export default {
   name: "post-carpool",
   mixins: [toast],
   components: {
-    PostCarpoolStep1
+    Slider
   },
   data() {
-    return {};
+    return {
+      previous: "post-carpool"
+    };
   },
   created() {
     if (this.$store.getters.carpoolToPost == null) {
@@ -67,7 +57,6 @@ export default {
       let result;
       if (this.$store.getters.carpoolToPost.role == 2) {
         result = [
-          { title: "Commencement", component: PostCarpoolStep1 },
           { title: "Planification", component: PostCarpoolStep2 },
           { title: "Trajet", component: PostCarpoolStep3 },
           { title: "Message", component: PostCarpoolStep6 },
@@ -75,7 +64,6 @@ export default {
         ];
       } else {
         result = [
-          { title: "Commencement", component: PostCarpoolStep1 },
           { title: "Planification", component: PostCarpoolStep2 },
           { title: "Trajet", component: PostCarpoolStep3 },
           { title: "Passagers", component: PostCarpoolStep4 },
@@ -84,21 +72,20 @@ export default {
           { title: "Récap", component: PostCarpoolStep7 }
         ];
       }
-      console.log(result);
       return result;
     }
   },
 
   methods: {
-    next() {
-      if (this.$refs.slideOne.validate()) {
-        this.$router.push("/carpools/post-carpool-step");
-      }
-    },
-
-    goBack($event) {
-      $event.stopPropagation();
-      this.$router.push("home");
+    postCarpool: function() {
+      console.log("yolo");
+      this.$store.dispatch("postCarpool").then(resp => {
+        this.presentToast("La publication est un succès", "success");
+        this.$router.push("home");
+        setTimeout(() => {
+          this.$store.commit("carpoolPost_init");
+        }, 2000);
+      });
     }
   }
 };

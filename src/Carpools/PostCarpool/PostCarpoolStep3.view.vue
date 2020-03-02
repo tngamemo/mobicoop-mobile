@@ -172,7 +172,6 @@
       setTimeout(() => {
         this.$refs.map.mapObject.invalidateSize();
       }, 500)
-      // this.$refs.map.mapObject.invalidateSize();
     },
     computed: {
 
