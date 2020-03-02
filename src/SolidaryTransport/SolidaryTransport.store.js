@@ -1,4 +1,4 @@
-import http from '../Shared/http.mixin'
+import http from '../Shared/Mixin/http.mixin'
 
 export const solidaryTransportStore = {
   state: {

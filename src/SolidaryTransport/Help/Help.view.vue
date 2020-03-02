@@ -5,7 +5,7 @@
             <ion-buttons slot="start">
               <ion-back-button text=""></ion-back-button>
             </ion-buttons>
-            <ion-title>{{$t('SolidaryTransport.Help.title')}}</ion-title>
+            <ion-title class="mc-bar-title">{{$t('SolidaryTransport.Help.title')}}</ion-title>
           </ion-toolbar>
         </ion-header>
 
@@ -37,12 +37,12 @@
 <style lang="scss">
   .mc-rounded-cards {
     border-radius: 15px 15px 0px 0px;
-    background-color: var(--ion-color-primary);
+    background-color: var(--ion-color-light);
     padding: 30px;
     min-height: 100%;
 
     .mc-card {
-      background-color: #F5F6FA;
+      background-color: var(--ion-color-light-tint);
       margin-left: 0;
       margin-right: 0;
       box-shadow: none;
@@ -56,7 +56,7 @@
         padding: 13px 20px;
 
         .mc-card-title {
-          color: var(--ion-color-background);
+          color: var(--ion-color-primary);
           font-weight: bold;
           font-size: 16px;
         }
@@ -90,10 +90,11 @@
 
       .mc-loading-spinner {
         display: inline-block;
+        color: var(--ion-color-primary);
       }
 
       .mc-loading-message {
-        color: var(--ion-color-background);
+        color: var(--ion-color-primary);
         margin: 0;
       }
     }
