@@ -16,7 +16,49 @@ export default [
   {
     path: '',
     name: 'solidaryTransport',
-    component: Main
+    component: Main,
+    children: [
+      {
+        path: '/',
+        name: '',
+        redirect: {name: 'solidaryTransport.help'}
+      },
+      {
+        path: 'home',
+        name: 'solidaryTransport.home',
+        component: Help,
+      }
+      // {
+      //   path: 'help',
+      //   name: 'help',
+      //   component: Help,
+      // },
+      // {
+      //   path: 'login',
+      //   name: 'login',
+      //   component: Login,
+      // },
+      // {
+      //   path: 'register',
+      //   name: 'register',
+      //   component: Register,
+      // },
+      // {
+      //   path: 'messages',
+      //   name: 'messages',
+      //   component: Messages,
+      // },
+      // {
+      //   path: 'communities',
+      //   name: 'communities',
+      //   component: Communities,
+      // },
+      // {
+      //   path: 'profile',
+      //   name: 'profile',
+      //   component: Profile,
+      // },
+    ]
   },
   {
     path: 'login',

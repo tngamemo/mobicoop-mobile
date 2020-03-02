@@ -1,5 +1,13 @@
 {
   "SolidaryTransport": {
+    "Navigation": {
+      "home": "Accueil",
+      "help": "Aide"
+    },
+    "Home": {
+      "title": "Home SolidaryTransport",
+      "loading": "Chargement"
+    },
     "Help": {
       "title": "Aide",
       "loading": "Chargement"
