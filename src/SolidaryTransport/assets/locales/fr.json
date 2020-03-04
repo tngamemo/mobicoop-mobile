@@ -1,10 +1,14 @@
 {
-  "SolidaryTransport": {
-    "Navigation": {
+  "solidaryTransport": {
+    "navigation": {
       "home": "Accueil",
-      "help": "Aide"
+      "help": "Aide",
+      "register": "Inscription",
+      "login": "Connexion",
+      "profile": "Profil",
+      "messages": "Messages"
     },
-    "Home": {
+    "home": {
       "title": "Prototype",
       "loading": "Chargement",
       "information": "Bienvenue<br/> sur le service de transport solidaire !<br/> Ce service est destinée aux personnes [critère d’éligibilité] ou souhaitant donner un coup de pouce à un bénéficiaire. Vous pouvez également utiliser notre outil de covoiturage sans inscription.",
@@ -15,9 +19,20 @@
       }
     
     },
-    "Help": {
+    "help": {
       "title": "Aide",
       "loading": "Chargement"
+    },
+    "register": {
+      "title": "Inscription",
+      "form": {
+        "fill": "Remplir le formulaire",
+        "test": "Vérifier mon éligibilité",
+        "actions": {
+          "ask": "Je souhaite demander un coup de pouce",
+          "give": "Je souhaite donner un coup de pouce"
+        }
+      }
     }
   }
 }

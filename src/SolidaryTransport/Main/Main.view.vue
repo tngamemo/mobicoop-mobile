@@ -8,57 +8,68 @@
       <Home/>
     </ion-tab>
 
-    <ion-tab tab="register">
-      <div>register</div>
+    <ion-tab tab="help" :routes="'solidaryTransport.help'">
+      <Help/>
     </ion-tab>
 
-    <ion-tab tab="login">
-      <div>login</div>
-    </ion-tab>
+    <template v-if="!this.$store.state.userStore.user">
+
+      <ion-tab tab="register" :routes="'solidaryTransport.register'">
+        <Register/>
+      </ion-tab>
+
+      <ion-tab tab="login" :routes="'solidaryTransport.login'">
+        <Login/>
+      </ion-tab>
+
+    </template>
+    <template v-else>
+
+      <ion-tab tab="messages" :routes="'solidaryTransport.messages'">
+        <Register/>
+      </ion-tab>
+
+      <ion-tab tab="profile" :routes="'solidaryTransport.profile'">
+        <Login/>
+      </ion-tab>
+
+    </template>
 
     <!-- Use v-slot:bottom with Vue ^2.6.0 -->
     <template slot="bottom">
       <ion-tab-bar>
         <ion-tab-button tab="home" :to="{ name: 'solidaryTransport.home' }">
           <ion-icon name="home"></ion-icon>
-          <ion-label>{{ $t('SolidaryTransport.Navigation.home') }}</ion-label>
+          <ion-label>{{ $t('solidaryTransport.navigation.home') }}</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button tab="help" :to="{ name: 'solidaryTransport.help' }">
+          <ion-icon name="help-circle"></ion-icon>
+          <ion-label>{{ $t('solidaryTransport.navigation.help') }}</ion-label>
         </ion-tab-button>
 
         <template v-if="!this.$store.state.userStore.user">
-          <ion-tab-button v-if="! !!this.$store.state.userStore.user" :to="{ name: 'solidaryTransport.help' }">
-            <ion-icon name="help-circle"></ion-icon>
-            <ion-label>{{ $t('SolidaryTransport.Navigation.help') }}</ion-label>
-          </ion-tab-button>
-
-          <ion-tab-button v-if="! !!this.$store.state.userStore.user" tab="register">
+          <ion-tab-button tab="register" :to="{ name: 'solidaryTransport.register' }">
             <ion-icon name="create"></ion-icon>
-            <ion-label>{{ $t('Nav.register') }}</ion-label>
+            <ion-label>{{ $t('solidaryTransport.navigation.register') }}</ion-label>
           </ion-tab-button>
 
-          <ion-tab-button v-if="! !!this.$store.state.userStore.user" tab="login">
+          <ion-tab-button tab="login" :to="{name: 'login'}">
             <ion-icon name="person"></ion-icon>
-            <ion-label>{{ $t('Nav.sign-in') }}</ion-label>
+            <ion-label>{{ $t('solidaryTransport.navigation.login') }}</ion-label>
           </ion-tab-button>
         </template>
         <template v-else>
+          <ion-tab-button tab="messages" :to="{ name: 'solidaryTransport.messages' }">
+            <ion-icon name="text"></ion-icon>
+            <ion-label>{{ $t('solidaryTransport.navigation.messages') }}</ion-label>
+          </ion-tab-button>
 
+          <ion-tab-button tab="profile" :to="{ name: 'profile' }">
+            <ion-icon name="person"></ion-icon>
+            <ion-label>{{ $t('solidaryTransport.navigation.profile') }}</ion-label>
+          </ion-tab-button>
         </template>
-
-        <!-- <ion-tab-button v-if="!!this.$store.state.userStore.user" tab="messages" :to="{ name: 'messages' }">
-          <ion-icon name="text"></ion-icon>
-          <ion-label>{{ $t('Nav.messages') }}</ion-label>
-        </ion-tab-button>
-
-        <ion-tab-button v-if="!!this.$store.state.userStore.user" tab="communities" :to="{ name: 'communities' }">
-          <ion-icon name="people"></ion-icon>
-          <ion-label>{{ $t('Nav.communities') }}</ion-label>
-        </ion-tab-button>
-
-        <ion-tab-button v-if="!!this.$store.state.userStore.user" tab="profile" :to="{ name: 'profile' }">
-          <ion-icon name="person"></ion-icon>
-          <ion-label>{{ $t('Nav.profile') }}</ion-label>
-        </ion-tab-button> -->
-
 
       </ion-tab-bar>
     </template>
@@ -87,6 +98,8 @@
 <script>
 
   import Home from '../Home/Home.view.vue';
+  import Help from '../Help/Help.view.vue';
+  import Register from '../Register/Register.view.vue';
   // import Register from '../Register/Register.view.vue';
   // import Login from '../Login/Login.view.vue';
   // import Help from '../Help/Help.view.vue';
@@ -95,9 +108,11 @@
   // import Profile from '../Profile/Profile.view.vue';
 
   export default {
-    name: 'solidary.main',
+    name: 'solidaryTransport.main',
     components: {
-      Home
+      Home,
+      Help,
+      Register
     },
     data () {
       return {

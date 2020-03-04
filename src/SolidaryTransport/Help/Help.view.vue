@@ -1,36 +1,36 @@
 <template>
   <ion-page>
     <ion-header no-border>
-        <ion-toolbar color="primary">
-          <ion-buttons slot="start">
-            <ion-back-button text=""></ion-back-button>
-          </ion-buttons>
-          <ion-title class="mc-bar-title">{{$t('SolidaryTransport.Help.title')}}</ion-title>
-        </ion-toolbar>
-      </ion-header>
+      <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+          <ion-back-button text=""></ion-back-button>
+        </ion-buttons>
+        <ion-title text-center>{{$t('solidaryTransport.help.title')}}</ion-title>
+      </ion-toolbar>
+    </ion-header>
 
-      <ion-content color="primary">
-        <div class="mc-rounded-cards" v-if="sections.length !== 0">
-          <ion-card v-for="(section, index) in sections" @click="interactWithCard(index)" :key="index" class="mc-card">
-            <ion-card-header class="mc-card-header">
-              <ion-card-title class="mc-card-title">{{section.title}}</ion-card-title>
-            </ion-card-header>
+    <ion-content color="primary">
+      <div class="mc-rounded-cards" v-if="sections.length !== 0">
+        <ion-card v-for="(section, index) in sections" @click="interactWithCard(index)" :key="index" class="mc-card">
+          <ion-card-header class="mc-card-header">
+            <ion-card-title class="mc-card-title">{{section.title}}</ion-card-title>
+          </ion-card-header>
 
-            <ion-card-content class="mc-card-content">
-              <div class="mc-card-content-wrapper" :class="{'is-active': active === index}">
-                <p v-for="(paragraph, index) in section.paragraphs" v-html="paragraph.text"></p>
-              </div>
-            </ion-card-content>
-          </ion-card>
+          <ion-card-content class="mc-card-content">
+            <div class="mc-card-content-wrapper" :class="{'is-active': active === index}">
+              <p v-for="(paragraph, index) in section.paragraphs" v-html="paragraph.text"></p>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </div>
+
+      <div class="mc-rounded-cards" v-else>
+        <div class="mc-loading">
+          <ion-spinner name="crescent" class="mc-loading-spinner"></ion-spinner>
+          <p class="mc-loading-message">{{$t('solidaryTransport.help.loading')}}</p>
         </div>
-
-        <div class="mc-rounded-cards" v-else>
-          <div class="mc-loading">
-            <ion-spinner name="crescent" class="mc-loading-spinner"></ion-spinner>
-            <p class="mc-loading-message">{{$t('SolidaryTransport.Help.loading')}}</p>
-          </div>
-        </div>
-      </ion-content>
+      </div>
+    </ion-content>
   </ion-page>
 </template>
 
@@ -105,7 +105,7 @@
 import { mapState, mapGetters } from 'vuex'
 
 export default {
-  name: 'solidary.help',
+  name: 'solidaryTransport.help',
   components: {},
   data () {
     return {
