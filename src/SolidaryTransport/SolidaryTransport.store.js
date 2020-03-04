@@ -28,20 +28,26 @@ export const solidaryTransportStore = {
      * from /articles/{id}
      */
     getSectionsForHelp({commit, state}, params){
-      commit('help_request')
-      return new Promise((resolve, reject) => {
-        http.get("/articles/5")
-        .then(response => {
-          if (response) {
-            commit('help_success', response.data)
-            resolve(state.help.sections)
-          }
+      if (state.help.status === 'success') {
+        return new Promise((resolve, reject) => {
+          resolve(state.help.sections)
         })
-        .catch(err => {
-          commit('help_error')
-          reject(err)
+      } else {
+        commit('help_request')
+        return new Promise((resolve, reject) => {
+          http.get("/articles/5")
+          .then(response => {
+            if (response) {
+              commit('help_success', response.data)
+              resolve(state.help.sections)
+            }
+          })
+          .catch(err => {
+            commit('help_error')
+            reject(err)
+          })
         })
-      })
+      }
     }
 
   }

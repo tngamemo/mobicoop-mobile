@@ -1,7 +1,7 @@
 <template>
   <ion-page>
     <ion-header no-border>
-        <ion-toolbar color="background">
+        <ion-toolbar color="primary">
           <ion-buttons slot="start">
             <ion-back-button text=""></ion-back-button>
           </ion-buttons>
@@ -9,7 +9,7 @@
         </ion-toolbar>
       </ion-header>
 
-      <ion-content color="background">
+      <ion-content color="primary">
         <div class="mc-rounded-cards" v-if="sections.length !== 0">
           <ion-card v-for="(section, index) in sections" @click="interactWithCard(index)" :key="index" class="mc-card">
             <ion-card-header class="mc-card-header">

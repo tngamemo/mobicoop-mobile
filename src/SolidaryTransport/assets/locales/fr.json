@@ -5,8 +5,15 @@
       "help": "Aide"
     },
     "Home": {
-      "title": "Home SolidaryTransport",
-      "loading": "Chargement"
+      "title": "Prototype",
+      "loading": "Chargement",
+      "information": "Bienvenue<br/> sur le service de transport solidaire !<br/> Ce service est destinée aux personnes [critère d’éligibilité] ou souhaitant donner un coup de pouce à un bénéficiaire. Vous pouvez également utiliser notre outil de covoiturage sans inscription.",
+      "actions": {
+        "ask": "Je souhaite demander<br/> un coup de pouce",
+        "give": "Je souhaite donner<br/> un coup de pouce",
+        "contact": "Contacter Ouestgo"
+      }
+    
     },
     "Help": {
       "title": "Aide",

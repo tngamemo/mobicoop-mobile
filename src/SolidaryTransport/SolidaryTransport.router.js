@@ -3,6 +3,7 @@ import { IonicVueRouter } from '@ionic/vue'
 
 import Main from './Main/Main.view.vue';
 import Help from './Help/Help.view.vue';
+import Home from './Home/Home.view.vue';
 //import MainTabComponent from './MainTabComponent/MainTabComponent.view.vue';
 // import Login from './Login/Login.view.vue';
 // import Register from './Register/Register.view.vue';
@@ -21,12 +22,12 @@ export default [
       {
         path: '/',
         name: '',
-        redirect: {name: 'solidaryTransport.help'}
+        redirect: {name: 'solidaryTransport.home'}
       },
       {
         path: 'home',
         name: 'solidaryTransport.home',
-        component: Help,
+        component: Home,
       }
       // {
       //   path: 'help',

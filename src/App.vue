@@ -28,6 +28,8 @@
       document.documentElement.style.setProperty('--ion-color-success', '#' + process.env.VUE_APP_SUCCESS);
       document.documentElement.style.setProperty('--ion-color-warning', '#' + process.env.VUE_APP_WARNING);
       document.documentElement.style.setProperty('--ion-color-danger', '#' + process.env.VUE_APP_DANGER);
+      document.documentElement.style.setProperty('--ion-color-light-contrast', '#' + process.env.VUE_APP_PRIMARY);
+      document.documentElement.style.setProperty('--ion-color-light-contrast-rgb', '#' + process.env.VUE_APP_PRIMARY_RGB);
 
       // Fonction qui va log l'user ou utilisé un user par défault
       this.authUserOnStart();
