@@ -4,7 +4,9 @@ import { userStore } from './user.store';
 import { searchStore } from './search.store';
 import { registerStore } from './register.store';
 import { carpoolStore } from './carpool.store';
-import {messageStore} from "./message.store";
+import { messageStore } from "./message.store";
+import { sliderStore } from './slider.store';
+import { appStore } from './app.store';
 import createPersistedState from "vuex-persistedstate";
 
 
@@ -17,6 +19,8 @@ export default new Vuex.Store({
     searchStore: searchStore,
     registerStore: registerStore,
     carpoolStore: carpoolStore,
-    messageStore: messageStore
+    messageStore: messageStore,
+    sliderStore: sliderStore,
+    appStore: appStore
   }
 })

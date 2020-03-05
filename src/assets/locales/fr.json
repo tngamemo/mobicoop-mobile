@@ -158,6 +158,12 @@
     "timeOutward": "Heure de départ",
     "timeReturn": "Heure de retour",
     "return": "Retour",
-    "step": "Etape"
+    "step": "Etape",
+    "distance": "Distance du trajet: ",
+    "addStep": "Ajouter une étape",
+    "luggage": "J'ai de la place pour des gros bagages",
+    "bike": "Je peux transporter un vélo",
+    "backSeats": "Maximum deux personnes à l'arrière",
+    "numberPassenger": "Nombre de places passager disponibles"
   }
 }
