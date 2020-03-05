@@ -174,7 +174,7 @@ export const userStore = {
 
     getMyCarpools({commit}, userId) {
       return new Promise((resolve, reject) => {
-        http.get(`/carpools?userId=${userId}`)
+        http.get(`/carpools`)
           .then(resp => {
             commit('user_my_carpools_request_success', resp.data);
             resolve(resp)

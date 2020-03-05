@@ -1,105 +1,112 @@
 <template>
-  <div class="mc-form-carpool-time-ponctual" v-if="isPonctual">
-    <ion-row>
-      <ion-col>
-        <ion-item>
-          <ion-label position="floating">Date de départ</ion-label>
-          <ion-datetime
-            display-format="DD/MM/YY"
-            picker-format="DD/MM/YY"
-            cancel-text="Annuler"
-            done-text="Valider"
-            :placeholder="$t('PostCarpool.dayOutward')"
-            :value="this.$store.getters.carpoolToPost.outwardDate"
-            @ionChange="changePostOutwardDate($event)"
-          ></ion-datetime>
-        </ion-item>
-        <div v-if="$v.carpoolToPost.outwardDate.$error">
-          <div
-            class="mc-error-label"
-            v-if="!$v.carpoolToPost.outwardDate.required"
-          >{{$t('Validation.required')}}</div>
-        </div>
-      </ion-col>
+  <div>
+    <div class="mc-form-carpool-time-ponctual" v-if="isPonctual">
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating">Date de départ</ion-label>
+            <ion-datetime
+              display-format="DD/MM/YY"
+              picker-format="DD/MM/YY"
+              cancel-text="Annuler"
+              done-text="Valider"
+              :placeholder="$t('PostCarpool.dayOutward')"
+              :value="this.$store.getters.carpoolToPost.outwardDate"
+              @ionChange="changePostOutwardDate($event)"
+            ></ion-datetime>
+          </ion-item>
+          <div v-if="$v.carpoolToPost.outwardDate.$error">
+            <div
+              class="mc-error-label"
+              v-if="!$v.carpoolToPost.outwardDate.required"
+            >{{$t('Validation.required')}}</div>
+          </div>
+        </ion-col>
 
-      <ion-col>
-        <ion-item>
-          <ion-label position="floating">Heure de départ</ion-label>
-          <ion-datetime
-            display-format="HH:mm"
-            picker-format="HH:mm"
-            cancel-text="Annuler"
-            done-text="Valider"
-            :placeholder="$t('PostCarpool.timeOutward')"
-            :value="outwardTimeInit"
-            @ionChange="changePostOutwardTime($event)"
-          ></ion-datetime>
-        </ion-item>
-        <div v-if="$v.outwardTimeCopy.$error">
-          <div
-            class="mc-error-label"
-            v-if="!$v.outwardTimeCopy.required"
-          >{{$t('Validation.required')}}</div>
-        </div>
-      </ion-col>
-    </ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating">Heure de départ</ion-label>
+            <ion-datetime
+              display-format="HH:mm"
+              picker-format="HH:mm"
+              cancel-text="Annuler"
+              done-text="Valider"
+              :placeholder="$t('PostCarpool.timeOutward')"
+              :value="outwardTimeInit"
+              @ionChange="changePostOutwardTime($event)"
+            ></ion-datetime>
+          </ion-item>
+          <div v-if="$v.outwardTimeCopy.$error">
+            <div
+              class="mc-error-label"
+              v-if="!$v.outwardTimeCopy.required"
+            >{{$t('Validation.required')}}</div>
+          </div>
+        </ion-col>
+      </ion-row>
 
-    <ion-row>
-      <ion-item lines="none">
-        <ion-label>{{$t('PostCarpool.return')}}</ion-label>
-        <ion-checkbox
-          slot="start"
-          :checked="this.$store.getters.carpoolToPost.oneWay == false"
-          @ionChange="changeOneWay()"
-        ></ion-checkbox>
-      </ion-item>
-    </ion-row>
-
-    <ion-row v-if="carpoolToPost.oneWay == false">
-      <ion-col>
-        <ion-item v-if="isPonctual">
-          <ion-label position="floating">{{$t('PostCarpool.dayReturn')}}</ion-label>
-          <ion-datetime
-            display-format="DD/MM/YY"
-            picker-format="DD/MM/YY"
-            cancel-text="Annuler"
-            done-text="Valider"
-            :placeholder="$t('PostCarpool.dayReturn')"
-            :value="this.$store.getters.carpoolToPost.returnDate"
-            @ionChange="changePostReturnDate($event)"
-          ></ion-datetime>
+      <ion-row>
+        <ion-item lines="none">
+          <ion-label>{{$t('PostCarpool.return')}}</ion-label>
+          <ion-checkbox
+            slot="start"
+            :checked="this.$store.getters.carpoolToPost.oneWay == false"
+            @ionChange="changeOneWay()"
+          ></ion-checkbox>
         </ion-item>
-        <div v-if="$v.carpoolToPost.returnDate.$error">
-          <div
-            class="mc-error-label"
-            v-if="!$v.carpoolToPost.returnDate.required"
-          >{{$t('Validation.required')}}</div>
-        </div>
-      </ion-col>
+      </ion-row>
 
-      <ion-col>
-        <ion-item v-if="isPonctual">
-          <ion-label position="floating">{{$t('PostCarpool.timeReturn')}}</ion-label>
-          <ion-datetime
-            display-format="HH:mm"
-            picker-format="HH:mm"
-            cancel-text="Annuler"
-            done-text="Valider"
-            :placeholder="$t('PostCarpool.timeReturn')"
-            :value="computeReturnTime"
-            @ionChange="changePostReturnTime($event)"
-          ></ion-datetime>
-        </ion-item>
-        <div v-if="$v.carpoolToPost.returnTime.$error">
-          <div
-            class="mc-error-label"
-            v-if="!$v.carpoolToPost.returnTime.required"
-          >{{$t('Validation.required')}}</div>
-        </div>
-      </ion-col>
-    </ion-row>
+      <ion-row v-if="carpoolToPost.oneWay == false">
+        <ion-col>
+          <ion-item v-if="isPonctual">
+            <ion-label position="floating">{{$t('PostCarpool.dayReturn')}}</ion-label>
+            <ion-datetime
+              display-format="DD/MM/YY"
+              picker-format="DD/MM/YY"
+              cancel-text="Annuler"
+              done-text="Valider"
+              :placeholder="$t('PostCarpool.dayReturn')"
+              :value="this.$store.getters.carpoolToPost.returnDate"
+              @ionChange="changePostReturnDate($event)"
+            ></ion-datetime>
+          </ion-item>
+          <div v-if="$v.carpoolToPost.returnDate.$error">
+            <div
+              class="mc-error-label"
+              v-if="!$v.carpoolToPost.returnDate.required"
+            >{{$t('Validation.required')}}</div>
+          </div>
+        </ion-col>
+
+        <ion-col>
+          <ion-item v-if="isPonctual">
+            <ion-label position="floating">{{$t('PostCarpool.timeReturn')}}</ion-label>
+            <ion-datetime
+              display-format="HH:mm"
+              picker-format="HH:mm"
+              cancel-text="Annuler"
+              done-text="Valider"
+              :placeholder="$t('PostCarpool.timeReturn')"
+              :value="computeReturnTime"
+              @ionChange="changePostReturnTime($event)"
+            ></ion-datetime>
+          </ion-item>
+          <div v-if="$v.carpoolToPost.returnTime.$error">
+            <div
+              class="mc-error-label"
+              v-if="!$v.carpoolToPost.returnTime.required"
+            >{{$t('Validation.required')}}</div>
+          </div>
+        </ion-col>
+      </ion-row>
+    </div>
+
+    <div class="mc-form-carpool-time-regular" v-if="!isPonctual">
+      <div class="mc-schedule-select" v-for="(schedule, index) in carpoolToPost.schedule" :key="index">
+        {{schedule}}
+      </div>
+    </div>
   </div>
-
 </template>
 
 <style lang="scss">

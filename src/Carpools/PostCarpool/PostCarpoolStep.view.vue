@@ -38,7 +38,26 @@ export default {
       previous: "post-carpool"
     };
   },
-  created() {},
+  created() {
+    if (! !!this.$store.getters.carpoolToPost) {
+      this.$router.push('post-carpool');
+    }
+
+    if (!! this.$store.getters.carpoolToPost
+      && this.$store.getters.carpoolToPost.schedule == null
+      && this.$store.getters.carpoolToPost.frequency == 2)
+    {
+      this.$store.commit("carpoolPost_schedule_init");
+      this.$store.commit("carpoolPost_schedule_add");
+    }
+
+    if (!! this.$store.getters.carpoolToPost
+      && this.$store.getters.carpoolToPost.schedule
+      && this.$store.getters.carpoolToPost.frequency == 1)
+    {
+      this.$store.commit("carpoolPost_schedule_delete");
+    }
+  },
   computed: {
     slides() {
       let result;
