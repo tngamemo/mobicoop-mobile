@@ -2,7 +2,7 @@
 
 
   <!-- Listen to before and after tab change events -->
-  <ion-tabs>
+  <ion-tabs @IonTabsWillChange="tabsChange()">
 
     <ion-tab tab="home" :routes="'solidaryTransport.home'">
       <Home/>
@@ -96,10 +96,12 @@
 </style>
 
 <script>
+  import _ from 'lodash'
 
   import Home from '../Home/Home.view.vue';
   import Help from '../Help/Help.view.vue';
   import Register from '../Register/Register.view.vue';
+  import Login from '../Login/Login.view.vue';
   // import Register from '../Register/Register.view.vue';
   // import Login from '../Login/Login.view.vue';
   // import Help from '../Help/Help.view.vue';
@@ -112,10 +114,21 @@
     components: {
       Home,
       Help,
-      Register
+      Register,
+      Login
     },
     data () {
       return {
+      }
+    },
+    methods: {
+      tabsChange: function () {
+        // // Prevent Query Type propagation on tab change
+        // if (!_.isEmpty(this.$route.query.type)) {
+        //   setTimeout(() => {
+        //     this.$router.replace({query: {type: undefined}})
+        //   }, 100)
+        // }
       }
     }
   }

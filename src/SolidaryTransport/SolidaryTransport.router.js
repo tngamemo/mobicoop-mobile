@@ -5,6 +5,7 @@ import Main from './Main/Main.view.vue';
 import Help from './Help/Help.view.vue';
 import Home from './Home/Home.view.vue';
 import Register from './Register/Register.view.vue';
+import Login from './Login/Login.view.vue';
 //import MainTabComponent from './MainTabComponent/MainTabComponent.view.vue';
 // import Login from './Login/Login.view.vue';
 // import Register from './Register/Register.view.vue';
@@ -37,7 +38,7 @@ export default [
       {
         path: 'login',
         name: 'solidaryTransport.login',
-        component: Main
+        component: Login
       },
       {
         path: 'help',

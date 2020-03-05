@@ -43,13 +43,11 @@
                   <ion-label class="no-white-space">{{ $t('solidaryTransport.register.form.actions.give') }}</ion-label>
                 </ion-item>
 
-                <ion-button class="mc-register-form-action as-fill" v-if="type === 'ask'" color="success" v-html="$t('solidaryTransport.register.form.test')" @click="$router.push({name:'solidaryTransport.register', query: {type: 'ask', step: 1}})"></ion-button>
+                <div class="mc-register-form-actions" :class="{'is-active': buttons.fill.active}">
+                  <ion-button class="mc-register-form-action as-fill" v-if="type === 'ask'" color="success" v-html="$t('solidaryTransport.register.form.test')" @click="$router.push({name:'solidaryTransport.register', query: {type: 'ask', step: 1}})"></ion-button>
 
-                <ion-button class="mc-register-form-action as-fill" v-if="type === 'give'" color="success" v-html="$t('solidaryTransport.register.form.fill')" @click="$router.push({name:'solidaryTransport.register', query: {type: 'give', step: 2}})"></ion-button>
-              </div>
-
-              <div class="mc-register-form-actions">
-                
+                  <ion-button class="mc-register-form-action as-fill" v-if="type === 'give'" color="success" v-html="$t('solidaryTransport.register.form.fill')" @click="$router.push({name:'solidaryTransport.register', query: {type: 'give', step: 2}})"></ion-button>
+                </div>
               </div>
 
             </div>
@@ -103,15 +101,27 @@
             }
           }
 
-          .mc-register-form-action {
-            --border-radius: 25px;
-            --padding-start: 30px;
-            --padding-end: 30px;
-            height: 45px;
-            font-size: 14px;
+          .mc-register-form-actions {
+            opacity: 0;
+            transition: opacity .1s;
 
-            &.as-fill {
-              margin-top: 20px;
+            &.is-active {
+              opacity: 1;
+              transition: opacity .3s;
+            }
+
+            .mc-register-form-action {
+              --border-radius: 25px;
+              --padding-start: 30px;
+              --padding-end: 30px;
+              height: 45px;
+              font-size: 14px;
+              font-weight: bold;
+
+
+              &.as-fill {
+                margin-top: 20px;
+              }
             }
           }
         }
@@ -130,7 +140,12 @@ export default {
   data () {
     return {
       step: 0,
-      updating: false
+      updating: false,
+      buttons: {
+        fill: {
+          active: this.$route.query.type !== undefined
+        }
+      }
     }
   },
   computed: {
@@ -140,12 +155,28 @@ export default {
   },
   methods: {
     updateType: function ($event) {
+      console.log('here')
       if (!this.updating) {
         this.updating = true
+        this.buttons.fill.active = false
 
-        let type = $event.detail.value
-        if (type !== this.type) {
-          this.$router.replace({query: {type: type}})
+        let detail = $event.detail
+        if (detail.checked) {
+          if (detail.value !== this.type) {
+            setTimeout(() => {
+              this.$router.replace({query: {type: detail.value}})
+            }, 100)
+          }
+          setTimeout(() => {
+            this.buttons.fill.active = true
+          }, 300)
+        } else {
+          setTimeout(() => {
+            this.$router.replace({query: {type: undefined}})
+          }, 100)
+          setTimeout(() => {
+            this.buttons.fill.active = false
+          }, 300)
         }
 
         setTimeout(() => {
@@ -155,6 +186,8 @@ export default {
       
     }
   },
-  created: function () {}
+  created: function () {
+
+  }
 }
 </script>
