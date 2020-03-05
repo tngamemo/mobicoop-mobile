@@ -6,7 +6,9 @@ export const userStore = {
     tokenUser: localStorage.getItem('tokenUser') || '',
     tokenAnonymousUser: localStorage.getItem('tokenAnonymousUser') || '',
     user: null,
+    statusAlerts: '',
     alerts: [],
+    statusMyCarpools: '',
     myCarpools: [],
     statusUserCommunities: '',
     userCommunities: null
@@ -20,7 +22,7 @@ export const userStore = {
       state.tokenUser = tokenUser;
     },
 
-    auth_error(state) {
+    auth_error(state) {init
       state.status = 'error';
     },
 
@@ -33,11 +35,29 @@ export const userStore = {
       state.user = user;
     },
 
+    user_alerts_request(state) {
+      state.statusAlerts = 'loading';
+    },
+
+    user_alerts_error(state) {
+      state.statusAlerts = 'error';
+    },
+
     user_alerts_request_success(state, data) {
+      state.statusAlerts = 'success';
       state.alerts = data.alerts;
     },
 
+    user_my_carpools_request(state) {
+      state.statusMyCarpools = 'loading';
+    },
+
+    user_my_carpools_error(state) {
+      state.statusMyCarpools = 'error';
+    },
+
     user_my_carpools_request_success(state, data) {
+      state.statusMyCarpools = 'success';
       state.myCarpools = data['hydra:member'];
     },
 
@@ -173,6 +193,7 @@ export const userStore = {
     },
 
     getMyCarpools({commit}, userId) {
+      commit('user_my_carpools_request');
       return new Promise((resolve, reject) => {
         http.get(`/carpools`)
           .then(resp => {
@@ -180,6 +201,22 @@ export const userStore = {
             resolve(resp)
           })
           .catch(err => {
+            commit('user_my_carpools_error');
+            reject(err)
+          })
+      })
+    },
+
+    deleteCarpool({commit, state, dispatch}, carpoolId) {
+      commit('user_my_carpools_request');
+      return new Promise((resolve, reject) => {
+        http.delete(`/proposals/${carpoolId}`)
+          .then(resp => {
+            dispatch('getMyCarpools', state.user.id);
+            resolve(resp)
+          })
+          .catch(err => {
+            console.log('error');
             reject(err)
           })
       })
@@ -198,14 +235,15 @@ export const userStore = {
           resolve(resp)
         })
         .catch(err => {
-          commit('user_communities_error')
-          console.log(err)
+          commit('user_communities_error');
+          console.log(err);
           reject(err)
         })
       })
     },
 
     getAlerts({commit}, userId) {
+      commit('user_alerts_request');
       return new Promise((resolve, reject) => {
         http.get(`/users/${userId}/alerts`)
           .then(resp => {
@@ -213,10 +251,12 @@ export const userStore = {
             resolve(resp)
           })
           .catch(err => {
+            commit('user_alerts_request');
             reject(err)
           })
       })
     },
+
     updateAlert({commit}, params) {
       const alert = {
         alerts: {[params.alertId]: params.alertValue},
