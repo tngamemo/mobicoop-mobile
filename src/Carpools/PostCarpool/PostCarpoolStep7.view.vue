@@ -43,7 +43,7 @@
 
     <div class="mc-carpool-map">
       <l-map
-        :hidden="! !!bounds"
+        v-if="this.$store.getters.statusDistanceCarpool != 'loading' && showCard"
         :ref="'mapRecap'"
         style="height: 350px"
         :zoom="zoom"
@@ -158,7 +158,7 @@ export default {
     return {
       url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
       zoom: 8,
-      showCard: false,
+      showCard: true,
       optionsCard: {
         dragging: false,
         touchZoom: true
@@ -175,7 +175,23 @@ export default {
     setTimeout(() => {
       this.$refs.mapRecap.mapObject.invalidateSize();
     }, 500);
-    // this.$refs.map.mapObject.invalidateSize();
+  },
+  created() {
+    this.unwatch = this.$store.watch(
+      (state, getters) => getters.currentSlider,
+      (newValue, oldValue) => {
+        if (oldValue != newValue && newValue == "post-carpool-step3") {
+          this.showCard = false;
+          setTimeout(() => {
+            this.showCard = true;
+            this.$refs.mapRecap.mapObject.invalidateSize();
+          }, 1);
+        }
+      }
+    );
+  },
+  beforeDestroy() {
+    this.unwatch();
   },
   computed: {
     bounds() {

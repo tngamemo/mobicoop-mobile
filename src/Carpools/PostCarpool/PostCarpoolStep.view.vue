@@ -38,20 +38,7 @@ export default {
       previous: "post-carpool"
     };
   },
-  created() {
-    if (this.$store.getters.carpoolToPost == null) {
-      this.$store.commit("carpoolPost_init");
-    }
-
-    this.$store.commit("changeOptionsCarpoolPost", {
-      property: "userId",
-      value: this.$store.getters.userId
-    });
-
-    if (this.$store.getters.userId) {
-      this.$store.dispatch("getUserCommunities").then();
-    }
-  },
+  created() {},
   computed: {
     slides() {
       let result;

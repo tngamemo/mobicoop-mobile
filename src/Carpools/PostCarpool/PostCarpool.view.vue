@@ -62,32 +62,7 @@ export default {
       this.$store.dispatch("getUserCommunities").then();
     }
   },
-  computed: {
-    slides() {
-      let result;
-      if (this.$store.getters.carpoolToPost.role == 2) {
-        result = [
-          { title: "Commencement", component: PostCarpoolStep1 },
-          { title: "Planification", component: PostCarpoolStep2 },
-          { title: "Trajet", component: PostCarpoolStep3 },
-          { title: "Message", component: PostCarpoolStep6 },
-          { title: "Récap", component: PostCarpoolStep7 }
-        ];
-      } else {
-        result = [
-          { title: "Commencement", component: PostCarpoolStep1 },
-          { title: "Planification", component: PostCarpoolStep2 },
-          { title: "Trajet", component: PostCarpoolStep3 },
-          { title: "Passagers", component: PostCarpoolStep4 },
-          { title: "Participation", component: PostCarpoolStep5 },
-          { title: "Message", component: PostCarpoolStep6 },
-          { title: "Récap", component: PostCarpoolStep7 }
-        ];
-      }
-      console.log(result);
-      return result;
-    }
-  },
+  computed: {},
 
   methods: {
     next() {

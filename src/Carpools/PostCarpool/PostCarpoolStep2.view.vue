@@ -99,6 +99,7 @@
       </ion-col>
     </ion-row>
   </div>
+
 </template>
 
 <style lang="scss">

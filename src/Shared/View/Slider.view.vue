@@ -6,6 +6,7 @@
         class="slider-style swiper-no-swiping"
         pager="true"
         :options="slideOpts"
+        @ionSlideDidChange="slideDidChange()"
       >
         <ion-slide v-for="(slide, index) in slides" :key="index">
           <div class="slide-title">{{slide.title}}</div>
@@ -158,6 +159,15 @@ export default {
         this.$router.replace({ query: { step: this.activeIndex } });
         this.$refs.slider.slidePrev();
       }
+    },
+
+    slideDidChange() {
+      this.$refs.slider.getActiveIndex().then(res => {
+        if (!! this.slides[res]) {
+          this.$store.commit('slider_change', this.slides[res].component.name);
+        }
+      })
+
     }
   }
 };
