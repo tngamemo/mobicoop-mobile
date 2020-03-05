@@ -15,6 +15,7 @@ import UpdateProfile from './Profile/UpdateProfile.view.vue';
 import ProfileAlerts from './Profile/ProfileAlerts.view.vue';
 import MyCarpools from './Profile/MyCarpools.view.vue';
 import PostCarpool from './PostCarpool/PostCarpool.view.vue';
+import Message from './Messages/Message.view.vue';
 import PostCarpoolStep from './PostCarpool/PostCarpoolStep.view.vue';
 
 import Vue from 'vue'
@@ -116,6 +117,14 @@ export default [
     name: 'post-carpool',
     component: PostCarpool,
     beforeEnter: guardAccesByLogin
+  },
+  {
+    path: 'message',
+    name: 'message',
+    component: Message,
+    props: (route) => ({
+      ...route.params
+    })
   },
 ]
 

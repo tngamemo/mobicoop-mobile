@@ -17,7 +17,7 @@
           <div class="mc-user-bloc-info">
             <div class="mc-user-image">
               <ion-thumbnail v-if="!! user.avatars">
-                <img :src="user.avatars[0]">
+                <img :src="user.avatars[0]" alt="">
               </ion-thumbnail>
             </div>
 
