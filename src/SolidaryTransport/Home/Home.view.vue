@@ -1,53 +1,65 @@
 <template>
   <ion-page>
     <ion-header no-border>
-        <ion-toolbar color="primary">
-          <div class='mc-home-header'>
-            <div class="mc-home-log">
-              <img class="background-img ion-margin-end" src="../../assets/icons/home.svg">
-              <h1>{{$t('solidaryTransport.home.title')}}</h1>
-            </div>
-          </div>
-        </ion-toolbar>
-      </ion-header>
+      <ion-toolbar class="on-home" color="primary">
+        <ion-icon name="custom-logo"></ion-icon>
+        <ion-title text-left>{{ $t('solidaryTransport.home.title') }}</ion-title>
+      </ion-toolbar>
+    </ion-header>
 
-      <ion-content color="primary">
-        <div class="mc-home-container">
+    <ion-content color="primary">
+      <div class="mc-home-container">
 
-          <div class="mc-home-logo">
-            <img class="mc-home-vector" src="../../assets/icons/home.svg">
-          </div>
-
-          <template v-if="!this.$store.state.userStore.user">
-
-            <div class="mc-home-content ">
-              <div class="mc-home-information" :class="{'is-active': display.information}">
-                <ion-icon class="mc-information-icon" name="close" @click="closeInformation()"></ion-icon>
-                <div class="mc-information-text" v-html="$t('solidaryTransport.home.information')"></div>
-              </div>
-
-              <div class="mc-home-actions">
-                <ion-button class="mc-action" color="success" v-html="$t('solidaryTransport.home.actions.ask')" @click="$router.push({name:'solidaryTransport.register', query: {type: 'ask'}})"></ion-button>
-                <ion-button class="mc-action" color="success" v-html="$t('solidaryTransport.home.actions.give')" @click="$router.push({name:'solidaryTransport.register', query: {type: 'give'}})"></ion-button>
-                <ion-button class="mc-action as-contact" color="light">
-                  <ion-icon slot="start" name="chatboxes"></ion-icon>
-                  <span v-html="$t('solidaryTransport.home.actions.contact')"></span>
-                </ion-button>
-              </div>
-            </div>
-            
-          </template>
-
-          <template v-else>
-            connected
-          </template>
-
+        <div class="mc-home-logo">
+          <img class="mc-home-vector" src="../assets/icons/home.svg">
         </div>
-      </ion-content>
+
+        <template v-if="!this.$store.state.userStore.user">
+
+          <div class="mc-home-content ">
+            <div class="mc-home-information" :class="{'is-active': display.information}">
+              <ion-icon class="mc-information-icon" name="close" @click="closeInformation()"></ion-icon>
+              <div class="mc-information-text" v-html="$t('solidaryTransport.home.information')"></div>
+            </div>
+
+            <div class="mc-home-actions">
+              <ion-button class="mc-action" color="success" v-html="$t('solidaryTransport.home.actions.ask')" @click="$router.push({name:'solidaryTransport.register', query: {type: 'ask'}})"></ion-button>
+              <ion-button class="mc-action" color="success" v-html="$t('solidaryTransport.home.actions.give')" @click="$router.push({name:'solidaryTransport.register', query: {type: 'give'}})"></ion-button>
+              <ion-button class="mc-action as-contact" color="light">
+                <ion-icon slot="start" name="chatboxes"></ion-icon>
+                <span v-html="$t('solidaryTransport.home.actions.contact')"></span>
+              </ion-button>
+            </div>
+          </div>
+          
+        </template>
+
+        <template v-else>
+          connected
+        </template>
+
+      </div>
+    </ion-content>
   </ion-page>
 </template>
 
 <style lang="scss">
+
+  ion-toolbar.on-home {
+    ion-icon {
+      font-size: 26px;
+      position: relative;
+      top: 2px;
+    }
+
+    ion-title {
+      font-size: 24px;
+      font-weight: bold;
+      padding-left: 66px;
+    }
+  }
+  
+
   .mc-home-container {
     border-radius: 15px 15px 0px 0px;
     padding: 15px 30px 30px;

@@ -1,21 +1,6 @@
 <template>
   <ion-page>
-    <ion-header no-border>
-        <ion-toolbar color="primary">
-          <div class='mc-home-header'>
-            <div class="mc-home-log">
-              <img class="background-img ion-margin-end" src="../../assets/icons/home.svg">
-              <h1>{{$t('solidaryTransport.login.title')}}</h1>
-            </div>
-          </div>
-        </ion-toolbar>
-      </ion-header>
-
-      <ion-content color="primary">
-        <div class="mc-login-container">
-          Login
-        </div>
-      </ion-content>
+    
   </ion-page>
 </template>
 

@@ -5,6 +5,8 @@ import Main from './Main/Main.view.vue';
 import Help from './Help/Help.view.vue';
 import Home from './Home/Home.view.vue';
 import Register from './Register/Register.view.vue';
+import RegisterAsk from './Register/RegisterAsk.view.vue';
+import RegisterGive from './Register/RegisterGive.view.vue';
 import Login from './Login/Login.view.vue';
 //import MainTabComponent from './MainTabComponent/MainTabComponent.view.vue';
 // import Login from './Login/Login.view.vue';
@@ -21,27 +23,43 @@ export default [
     component: Main,
     children: [
       {
-        path: '/',
+        path: '/solidary-transport',
         name: 'solidaryTransport',
         redirect: {name: 'solidaryTransport.home'}
       },
       {
-        path: 'home',
+        path: '/solidary-transport/home',
         name: 'solidaryTransport.home',
         component: Home,
       },
       {
-        path: 'register',
+        path: '/solidary-transport/register',
         name: 'solidaryTransport.register',
-        component: Register
+        components: {
+          register: Register
+        }
       },
       {
-        path: 'login',
+        path: '/solidary-transport/register/ask',
+        name: 'solidaryTransport.register.ask',
+        components: {
+          register: RegisterAsk
+        }
+      },
+      {
+        path: '/solidary-transport/register/give',
+        name: 'solidaryTransport.register.give',
+        components: {
+          register: RegisterGive
+        }
+      },
+      {
+        path: '/solidary-transport/login',
         name: 'solidaryTransport.login',
         component: Login
       },
       {
-        path: 'help',
+        path: '/solidary-transport/help',
         name: 'solidaryTransport.help',
         component: Help
       }

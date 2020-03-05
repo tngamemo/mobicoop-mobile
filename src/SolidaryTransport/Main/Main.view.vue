@@ -14,8 +14,8 @@
 
     <template v-if="!this.$store.state.userStore.user">
 
-      <ion-tab tab="register" :routes="'solidaryTransport.register'">
-        <Register/>
+      <ion-tab tab="register">
+        <ion-vue-router name="register"></ion-vue-router>
       </ion-tab>
 
       <ion-tab tab="login" :routes="'solidaryTransport.login'">
@@ -37,9 +37,10 @@
 
     <!-- Use v-slot:bottom with Vue ^2.6.0 -->
     <template slot="bottom">
-      <ion-tab-bar>
+      <ion-tab-bar class="as-main">
         <ion-tab-button tab="home" :to="{ name: 'solidaryTransport.home' }">
-          <ion-icon name="home"></ion-icon>
+          <ion-icon name="custom-logo"></ion-icon>
+
           <ion-label>{{ $t('solidaryTransport.navigation.home') }}</ion-label>
         </ion-tab-button>
 
@@ -76,22 +77,29 @@
   </ion-tabs>
 </template>
 
-<style>
+<style lang="scss">
 
-  ion-tab-bar {
+  ion-tab-bar.as-main {
     --border: none;
-  }
 
-  ion-tab-button {
-    --background: #F5F6FA;
-    --color: var(--ion-color-primary) !important;
-    --color-selected: var(--ion-color-primary) !important;
-  }
+    ion-tab-button {
+      --background: #F5F6FA;
+      --color: var(--ion-color-primary) !important;
+      --color-selected: var(--ion-color-primary) !important;
 
-  ion-tab-button.tab-selected {
-    --background: var(--ion-color-primary) !important;
-    --color: var(--ion-color-light) !important;
-    --color-selected: var(--ion-color-light) !important;
+      &[tab="home"] {
+        ion-icon {
+          width: .7em;
+          height: 1em;
+        }
+      }
+    }
+
+    ion-tab-button.tab-selected {
+      --background: var(--ion-color-primary) !important;
+      --color: var(--ion-color-light) !important;
+      --color-selected: var(--ion-color-light) !important;
+    }
   }
 </style>
 

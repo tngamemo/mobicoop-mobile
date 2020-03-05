@@ -1,6 +1,10 @@
 <template>
-    <ion-vue-router />
+	<ion-vue-router />
 </template>
+
+<style lang="scss">
+	@import './SolidaryTransport.style.scss';
+</style>
 
 <script>
 export default {
