@@ -65,7 +65,6 @@ export default {
 
   methods: {
     postCarpool: function() {
-      console.log("yolo");
       this.$store.dispatch("postCarpool").then(resp => {
         this.presentToast("La publication est un succès", "success");
         this.$router.push("home");

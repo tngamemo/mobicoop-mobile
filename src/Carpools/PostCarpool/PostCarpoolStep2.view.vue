@@ -215,7 +215,6 @@ export default {
     },
 
     changePostReturnTime($event) {
-      console.log($event.detail.value)
       const returnTime = this.$moment($event.detail.value).format("HH:mm");
       this.returnTimeCopy = returnTime;
     },

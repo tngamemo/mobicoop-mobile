@@ -81,7 +81,6 @@
         password: '',
       }
     },
-
     methods: {
       loginDisable: function () {
         if (!! this.email && !! this.password && this.$store.state.userStore.status != 'loading') {
@@ -111,7 +110,13 @@
         this.$store.dispatch('getUser', { idUser })
        .then(res => {
          this.presentToast("La connexion est un succès", 'success');
-         this.$router.push('home');
+
+         if (!! this.$store.getters.redirectionUrl) {
+            this.$router.push({name: this.$store.getters.redirectionUrl});
+            this.$store.commit('redirectionUrl_reset');
+         } else {
+            this.$router.push('home');
+         }
 
         })
        .catch(err => {

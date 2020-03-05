@@ -264,6 +264,10 @@ export const userStore = {
       return !! state.user && state.user.id
     },
 
+    tokenUser: state => {
+      return !! state.tokenUser && state.tokenUser
+    },
+
     userCommunities: state => {
       return state.userCommunities
     },

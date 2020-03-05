@@ -11,7 +11,6 @@ export const sliderStore = {
     },
 
     slider_change(state, slider) {
-      console.log(slider)
       state.sliderCurrentComponent = slider;
     },
   },
