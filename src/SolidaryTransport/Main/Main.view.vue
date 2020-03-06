@@ -99,6 +99,7 @@
       --background: var(--ion-color-primary) !important;
       --color: var(--ion-color-light) !important;
       --color-selected: var(--ion-color-light) !important;
+      pointer-events: none;
     }
   }
 </style>

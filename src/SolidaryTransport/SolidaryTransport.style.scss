@@ -13,6 +13,16 @@ ion-icon {
   }
 }
 
+ion-toolbar {
+  --padding-start: 10px;
+  --padding-end: 10px;
+
+  ion-title {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+}
+
 .mc-register-container {
   border-radius: 15px 15px 0px 0px;
   padding: 30px;
@@ -22,35 +32,127 @@ ion-icon {
 
   .mc-register-form {
     position: relative;
-    
-    .mc-register-form-item {
-      font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
 
-      .mc-register-form-checkbox {
-        margin-right: 10px;
-        margin-top: 10px;
-        margin-bottom: 10px;
+    .mc-register-form-content {
+      flex: 0 0 auto;
+
+      .mc-register-form-item {
+        font-size: 14px;
+
+        .mc-register-form-checkbox {
+          margin-right: 10px;
+          margin-top: 10px;
+          margin-bottom: 10px;
+        }
+
+        .mc-register-form-input {}
+
+        .mc-register-form-label {
+          font-family: 'Poppins';
+        }
+
+        + .mc-register-form-actions {
+          margin-top: 30px;
+        }
+      }
+
+      .mc-register-form-details {
+        font-size: 12px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        .mc-register-form-note {
+          color: var(--ion-color-light-contrast);
+        }
+
+        .mc-register-form-error {
+          color: var(--ion-color-danger);
+          text-align: right;
+          flex: 1 0 auto;
+        }
+      }
+
+      .mc-register-form-actions {
+        opacity: 0;
+        transition: opacity .1s;
+        text-align: center;
+
+        &.is-active {
+          opacity: 1;
+          transition: opacity .3s;
+        }
+
+        + .mc-register-form-item {
+          margin-top: 10px;
+        }
+
+        .mc-register-form-other {
+          color: var(--ion-color-primary);
+          font-size: 14px;
+
+          + .mc-register-form-action {
+            margin-top: 15px;
+          }
+        }
+
+        .mc-register-form-action {
+          --border-radius: 25px;
+          --padding-start: 30px;
+          --padding-end: 30px;
+          height: 45px;
+          word-break: break-word;
+          white-space: normal;
+          font-weight: bold;
+          text-transform: none;
+          font-size: 14px;
+
+          + .mc-register-form-action, + .mc-register-form-other {
+            margin-top: 15px;
+          }
+
+          ion-icon {
+            + span {
+              margin-left: 10px;
+            }
+          }
+
+          span {
+            display: inline-block;
+          }
+        }
       }
     }
 
-    .mc-register-form-actions {
-      opacity: 0;
-      transition: opacity .1s;
-      text-align: center;
+    .mc-register-form-controls {
+      flex: 1 0 auto;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: flex-end;
 
-      &.is-active {
-        opacity: 1;
-        transition: opacity .3s;
-      }
-
-      .mc-register-form-action {
+      .mc-register-form-control {
         --border-radius: 25px;
         --padding-start: 30px;
         --padding-end: 30px;
         height: 45px;
-        font-size: 14px;
+        word-break: break-word;
+        white-space: normal;
         font-weight: bold;
-        margin-top: 20px;
+        text-transform: none;
+        font-size: 14px;
+
+
+        &.as-back {
+          --background: var(--ion-color-light);
+          --color: var(--ion-color-primary);
+          --border-color: var(--ion-color-primary);
+          --border-style: solid;
+          --border-width: 1px;
+        }
       }
     }
   }

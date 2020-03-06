@@ -6,6 +6,7 @@ import Help from './Help/Help.view.vue';
 import Home from './Home/Home.view.vue';
 import Register from './Register/Register.view.vue';
 import RegisterAsk from './Register/RegisterAsk.view.vue';
+import RegisterSubscribe from './Register/RegisterSubscribe.view.vue';
 import RegisterGive from './Register/RegisterGive.view.vue';
 import Login from './Login/Login.view.vue';
 //import MainTabComponent from './MainTabComponent/MainTabComponent.view.vue';
@@ -47,6 +48,13 @@ export default [
         }
       },
       {
+        path: '/solidary-transport/register/subscribe',
+        name: 'solidaryTransport.register.subscribe',
+        components: {
+          register: RegisterSubscribe
+        }
+      },
+      {
         path: '/solidary-transport/register/give',
         name: 'solidaryTransport.register.give',
         components: {
@@ -63,36 +71,6 @@ export default [
         name: 'solidaryTransport.help',
         component: Help
       }
-      // {
-      //   path: 'help',
-      //   name: 'help',
-      //   component: Help,
-      // },
-      // {
-      //   path: 'login',
-      //   name: 'login',
-      //   component: Login,
-      // },
-      // {
-      //   path: 'register',
-      //   name: 'register',
-      //   component: Register,
-      // },
-      // {
-      //   path: 'messages',
-      //   name: 'messages',
-      //   component: Messages,
-      // },
-      // {
-      //   path: 'communities',
-      //   name: 'communities',
-      //   component: Communities,
-      // },
-      // {
-      //   path: 'profile',
-      //   name: 'profile',
-      //   component: Profile,
-      // },
     ]
   }
 ]

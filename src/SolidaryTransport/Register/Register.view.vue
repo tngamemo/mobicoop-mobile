@@ -2,9 +2,7 @@
   <ion-page>
     <ion-header no-border>
       <ion-toolbar color="primary">
-        <ion-buttons slot="start">
-          <ion-back-button text=""></ion-back-button>
-        </ion-buttons>
+        <ion-buttons slot="start"></ion-buttons>
         <ion-title text-center>{{ $t('solidaryTransport.register.title') }}</ion-title>
       </ion-toolbar>
     </ion-header>
@@ -24,7 +22,7 @@
                 @ionChange="updateType($event)"
                 :checked="type === 'ask'"
               ></ion-checkbox>
-              <ion-label class="no-white-space">{{ $t('solidaryTransport.register.form.actions.ask') }}</ion-label>
+              <ion-label class="mc-register-form-label no-white-space" color="primary">{{ $t('solidaryTransport.register.form.actions.ask') }}</ion-label>
             </ion-item>
 
             <ion-item class="mc-register-form-item" lines="none">
@@ -37,14 +35,18 @@
                 @ionChange="updateType($event)"
                 :checked="type === 'give'"
               ></ion-checkbox>
-              <ion-label class="no-white-space">{{ $t('solidaryTransport.register.form.actions.give') }}</ion-label>
+              <ion-label class="mc-register-form-label no-white-space" color="primary">{{ $t('solidaryTransport.register.form.actions.give') }}</ion-label>
             </ion-item>
 
             <div class="mc-register-form-actions" :class="{'is-active': buttons.fill.active}">
-              <ion-button class="mc-register-form-action" v-if="type === 'ask'" color="success" v-html="$t('solidaryTransport.register.form.check')" @click="$router.push({name:'solidaryTransport.register.ask', query: {}})"></ion-button>
+              <ion-button class="mc-register-form-action" v-if="type === 'ask'" color="success" v-html="$t('solidaryTransport.register.form.check')" @click="$router.push({name:'solidaryTransport.register.ask'})"></ion-button>
 
-              <ion-button class="mc-register-form-action" v-if="type === 'give'" color="success" v-html="$t('solidaryTransport.register.form.fill')" @click="$router.push({name:'solidaryTransport.register.give', query: {}})"></ion-button>
+              <ion-button class="mc-register-form-action" v-if="type === 'give'" color="success" v-html="$t('solidaryTransport.register.form.fill')" @click="$router.push({name:'solidaryTransport.register.subscribe'})"></ion-button>
             </div>
+          </div>
+
+          <div class="mc-register-form-controls">
+            <ion-button class="mc-register-form-control as-back" color="light" v-html="$t('solidaryTransport.buttons.back')" @click="$router.back()"></ion-button>
           </div>
 
         </div>

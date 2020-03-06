@@ -21,17 +21,25 @@
                 :value="item.checked"
                 color="success"
                 slot="start"
-                @ionChange="updateType($event)"
-                @input="item.checked = $event.target.value"
+                @ionChange="item.checked = $event.target.checked"
               ></ion-checkbox>
-              <ion-label class="no-white-space">{{ item.label }} {{item.checked}}</ion-label>
+              <ion-label class="mc-register-form-label no-white-space" color="primary">{{ item.label }}</ion-label>
             </ion-item>
 
-            <!-- <div class="mc-register-form-actions" :class="{'is-active': buttons.fill.active}">
-              <ion-button class="mc-register-form-action as-fill" color="success" v-html="$t('solidaryTransport.register.form.test')" @click="$router.push({name:'solidaryTransport.register.ask', query: {}})"></ion-button>
+            <div class="mc-register-form-actions" :class="{'is-active': validate()}">
+              <ion-button class="mc-register-form-action" color="success" v-html="$t('solidaryTransport.register.form.fill')" @click="$router.push({name:'solidaryTransport.register.subscribe'})"></ion-button>
 
-              <ion-button class="mc-register-form-action as-fill" color="success" v-html="$t('solidaryTransport.register.form.fill')" @click="$router.push({name:'solidaryTransport.register.give', query: {}})"></ion-button> -->
+              <div class="mc-register-form-other" v-html="$t('solidaryTransport.register.form.actions.or')"></div>
+
+              <ion-button class="mc-register-form-action" :href="'tel:' + $t('solidaryTransport.support.phone')" color="success">
+                <ion-icon name="call"></ion-icon>
+                <span v-html="$t('solidaryTransport.register.form.call')"></span>
+              </ion-button>
             </div>
+          </div>
+
+          <div class="mc-register-form-controls">
+            <ion-button class="mc-register-form-control as-back" color="light" v-html="$t('solidaryTransport.buttons.back')" @click="$router.back()"></ion-button>
           </div>
 
         </div>
@@ -57,21 +65,20 @@ export default {
       eligibility: this.$t('solidaryTransport.register.form.eligibility'),
       buttons: {
         fill: {
-          active: false
+          active: true
         }
       }
     }
   },
   mounted: function () {
-    _.each(this.eligibility, (item, index) => {
-      let copy = 
-      this.$root.$set(this.eligibility, index, item)
+    _.each(this.eligibility, (item) => {
+      this.$root.$set(item, 'checked', false)
     })
   },
   computed: {},
   methods: {
-    updateType: function ($event) {
-      console.log(this.eligibility)
+    updateType: function ($event, item) {
+      console.log(item)
       if (!this.updating) {
         this.updating = true
         this.buttons.fill.active = false
@@ -99,7 +106,13 @@ export default {
         //   this.updating = false
         // }, 100)
       }
-      
+    },
+    validate: function () {
+      let isValid = true
+      _.each(this.eligibility, (item) => {
+        isValid = isValid && item.checked
+      })
+      return isValid
     }
   },
   created: function () {}

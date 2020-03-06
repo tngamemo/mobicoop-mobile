@@ -1,5 +1,11 @@
 {
   "solidaryTransport": {
+    "support": {
+      "phone": "+330666869278"
+    },
+    "buttons": {
+      "back": "Retour"
+    },
     "navigation": {
       "home": "Accueil",
       "help": "Aide",
@@ -17,7 +23,6 @@
         "give": "Je souhaite donner<br/> un coup de pouce",
         "contact": "Contacter Ouestgo"
       }
-    
     },
     "help": {
       "title": "Aide",
@@ -28,9 +33,13 @@
       "form": {
         "fill": "Remplir le formulaire",
         "check": "Vérifier mon éligibilité",
+        "call": "Demander de l'aide",
         "actions": {
           "ask": "Je souhaite demander un coup de pouce",
-          "give": "Je souhaite donner un coup de pouce"
+          "give": "Je souhaite donner un coup de pouce",
+          "login": "Se connecter",
+          "or": "ou",
+          "complete": "ou compléter ci-dessous"
         },
         "eligibility": [
           { 
@@ -41,7 +50,14 @@
             "value": "criteria-2",
             "label": "[critère éligibilité 2]"
           }
-        ]
+        ],
+        "fields": {
+          "firstname": "Prénom",
+          "lastname": "Nom",
+          "phone": "Téléphone",
+          "visibility": "Visible par tous",
+          "required": "Ce champ est requis"
+        }
       },
       "ask": {
         "title": "Un service pour vous ?"
