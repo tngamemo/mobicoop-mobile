@@ -23,24 +23,49 @@ ion-toolbar {
   }
 }
 
+ion-content {
+  &.is-scrollable {
+    &:after {
+      content: "";
+      display: block;
+      width: 100%;
+      height: 40px;
+      pointer-events: none;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      background: linear-gradient(180deg, rgba(255,255,255,0) 0%,  rgba(255,255,255,1) 100%);
+    }
+  }
+}
+
 .mc-register-container {
   border-radius: 15px 15px 0px 0px;
   padding: 30px;
-  height: 100%;
+  min-height: 100%;
   position: relative;
   background-color: var(--ion-color-light);
+  display: flex;
+  width: 100%;
 
   .mc-register-form {
     position: relative;
     display: flex;
+    width: 100%;
     flex-direction: column;
     min-height: 100%;
+    margin-bottom: 20px;
 
     .mc-register-form-content {
       flex: 0 0 auto;
+      margin-bottom: 25px;
 
       .mc-register-form-item {
         font-size: 14px;
+
+        &.as-agreement {
+          margin-top: 30px;
+        }
 
         .mc-register-form-checkbox {
           margin-right: 10px;
@@ -133,6 +158,10 @@ ion-toolbar {
       flex-direction: row;
       justify-content: center;
       align-items: flex-end;
+
+      &.with-multiple {
+        justify-content: space-between;
+      }
 
       .mc-register-form-control {
         --border-radius: 25px;

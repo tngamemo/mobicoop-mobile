@@ -4,7 +4,9 @@
       "phone": "+330666869278"
     },
     "buttons": {
-      "back": "Retour"
+      "back": "Retour",
+      "next": "Suivant",
+      "register": "S'inscrire"
     },
     "navigation": {
       "home": "Accueil",
@@ -54,9 +56,14 @@
         "fields": {
           "firstname": "Prénom",
           "lastname": "Nom",
+          "email": "Adresse mail",
+          "password": "Mot de passe",
           "phone": "Téléphone",
+          "birthdate": "Date d'anniversaire",
+          "address": "Commune de résidence",
           "visibility": "Visible par tous",
-          "required": "Ce champ est requis"
+          "required": "Ce champ est requis",
+          "agreement": "J’ai lu et j’accepte les conditions générales d’utilisation du service et la politique de gestion des données pratiquées par [nom de l’opérateur]"
         }
       },
       "ask": {

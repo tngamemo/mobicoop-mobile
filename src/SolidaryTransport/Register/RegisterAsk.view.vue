@@ -9,7 +9,7 @@
       </ion-toolbar>
     </ion-header>
 
-    <ion-content color="primary">
+    <ion-content color="primary" class="is-scrollable">
       <div class="mc-register-container">
         <div class="mc-register-form">
 
@@ -27,7 +27,7 @@
             </ion-item>
 
             <div class="mc-register-form-actions" :class="{'is-active': validate()}">
-              <ion-button class="mc-register-form-action" color="success" v-html="$t('solidaryTransport.register.form.fill')" @click="$router.push({name:'solidaryTransport.register.subscribe'})"></ion-button>
+              <ion-button class="mc-register-form-action" color="success" v-html="$t('solidaryTransport.register.form.fill')" @click="$router.push({name:'solidaryTransport.register.subscribe', query: {type: 'applicant'}})"></ion-button>
 
               <div class="mc-register-form-other" v-html="$t('solidaryTransport.register.form.actions.or')"></div>
 

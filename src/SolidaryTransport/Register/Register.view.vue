@@ -7,7 +7,7 @@
       </ion-toolbar>
     </ion-header>
 
-    <ion-content color="primary">
+    <ion-content color="primary" class="is-scrollable">
       <div class="mc-register-container">
         <div class="mc-register-form">
 
@@ -41,7 +41,7 @@
             <div class="mc-register-form-actions" :class="{'is-active': buttons.fill.active}">
               <ion-button class="mc-register-form-action" v-if="type === 'ask'" color="success" v-html="$t('solidaryTransport.register.form.check')" @click="$router.push({name:'solidaryTransport.register.ask'})"></ion-button>
 
-              <ion-button class="mc-register-form-action" v-if="type === 'give'" color="success" v-html="$t('solidaryTransport.register.form.fill')" @click="$router.push({name:'solidaryTransport.register.subscribe'})"></ion-button>
+              <ion-button class="mc-register-form-action" v-if="type === 'give'" color="success" v-html="$t('solidaryTransport.register.form.fill')" @click="$router.push({name:'solidaryTransport.register.subscribe', query: {type: 'volunteer'}})"></ion-button>
             </div>
           </div>
 
@@ -73,23 +73,8 @@ export default {
           active: this.$route.query.type !== undefined
         }
       }
-      // slider: {
-      //   reference: undefined,
-      //   options: {
-      //     initialSlide: 1,
-      //     speed: 400,
-      //     allowTouchMove: false
-      //   }
-      // }
     }
   },
-  // mounted() {
-  //   console.log(this.slider.options)
-
-  //   if (_.has(this.$refs, 'solidaryTransportRegisterSlider')) {
-  //     this.slider.reference = this.$refs.solidaryTransportRegisterSlider
-  //   }
-  // },
   computed: {
     type: function () {
       return this.$route.query.type
