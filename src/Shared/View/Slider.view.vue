@@ -153,7 +153,7 @@ export default {
     },
     prev() {
       if (this.activeIndex == 0 && !!this.previous) {
-        this.$router.push(this.previous)
+        this.$router.push(this.previous);
       } else {
         this.activeIndex = this.activeIndex - 1;
         this.$router.replace({ query: { step: this.activeIndex } });
@@ -162,12 +162,16 @@ export default {
     },
 
     slideDidChange() {
-      this.$refs.slider.getActiveIndex().then(res => {
-        if (!! this.slides[res]) {
-          this.$store.commit('slider_change', this.slides[res].component.name);
-        }
-      })
-
+      if (!!this.$refs.slider) {
+        this.$refs.slider.getActiveIndex().then(res => {
+          if (!!this.slides[res]) {
+            this.$store.commit(
+              "slider_change",
+              this.slides[res].component.name
+            );
+          }
+        });
+      }
     }
   }
 };

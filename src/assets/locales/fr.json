@@ -176,6 +176,15 @@
     "luggage": "J'ai de la place pour des gros bagages",
     "bike": "Je peux transporter un vélo",
     "backSeats": "Maximum deux personnes à l'arrière",
-    "numberPassenger": "Nombre de places passager disponibles"
+    "numberPassenger": "Nombre de places passager disponibles",
+    "mon": "Lundi",
+    "tue": "Mardi",
+    "wed": "Mercredi",
+    "thu": "Jeudi",
+    "fri": "Vendredi",
+    "sat": "Samedi",
+    "sun": "Dimanche",
+    "scheduleRequired": "Au moins un créneaux est requis",
+    "addSchedule": "Ajouter une créneau"
   }
 }

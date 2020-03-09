@@ -22,7 +22,7 @@ export const userStore = {
       state.tokenUser = tokenUser;
     },
 
-    auth_error(state) {init
+    auth_error(state) {
       state.status = 'error';
     },
 

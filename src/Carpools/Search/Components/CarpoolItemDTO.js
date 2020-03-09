@@ -5,6 +5,7 @@ export default class CarpoolItemDTO {
   }
 
   carpoolItemFromSearch(carpool){
+    console.log(carpool)
     this.id = carpool.id;
     this.frequency = carpool.frequency;
     this.price = carpool.roundedPrice;
