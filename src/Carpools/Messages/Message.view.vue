@@ -30,9 +30,12 @@
         </div>
 
         <div class="messages-zone">
-            <div v-for="n in 1000">
-              texte
-            </div>
+
+          <div class="ion-text-center" v-if="$store.state.messageStore.statusPostMessage == 'loading'">
+            <ion-icon size="large" color="background" class="rotating"  name="md-sync"></ion-icon>
+          </div>
+
+
         </div>
 
         <div class="bottom-message">
@@ -106,6 +109,7 @@
     },
     created() {
       if (this.thread) {
+        console.log(this.thread);
         if (this.thread.idMessage != -99) {
           this.$store.dispatch('getCompleteThread',this.thread.idMessage );
         } else {
@@ -117,6 +121,22 @@
     },
     methods: {
       send() {
+
+        // construction du message
+        let message = {};
+        message.title = "";
+        message.text = this.message;
+        message.user = "/users/" + this.$store.state.userStore.user.id;
+        if (this.thread.idAsk) { message.idAsk = this.thread.idAsk }
+        if (this.thread.idMessage && this.thread.idMessage != -99) { message.message = "/messages/" + this.thread.idMessage }
+        message.recipients = [{}];
+        message.recipients[0].status = 1;
+        if (this.thread.idRecipient) { message.recipients[0].user = "/users/" + this.thread.idRecipient }
+        message.recipients[0].sentDate= new Date();
+
+        this.$store.dispatch('postMessage', message ).then(res => {
+          console.log(res);
+        });
 
       }
     }
