@@ -36,6 +36,7 @@
         "fill": "Remplir le formulaire",
         "check": "Vérifier mon éligibilité",
         "call": "Demander de l'aide",
+        "sendProof": "Envoyer un justificatif",
         "actions": {
           "ask": "Je souhaite demander un coup de pouce",
           "give": "Je souhaite donner un coup de pouce",
@@ -53,6 +54,38 @@
             "label": "[critère éligibilité 2]"
           }
         ],
+        "supporting": [
+          { 
+            "value": "supporting-0",
+            "label": "De ma propre initiative"
+          },
+          { 
+            "value": "supporting-1",
+            "label": "Structure 1"
+          },
+          { 
+            "value": "supporting-2",
+            "label": "Structure 2"
+          }
+        ],
+        "languages": [
+          { 
+            "value": "fr",
+            "label": "Français"
+          },
+          { 
+            "value": "en",
+            "label": "Anglais"
+          },
+          { 
+            "value": "ar",
+            "label": "Arabe"
+          },
+          { 
+            "value": "xx",
+            "label": "Langue"
+          }
+        ],
         "fields": {
           "firstname": "Prénom",
           "lastname": "Nom",
@@ -63,14 +96,21 @@
           "address": "Commune de résidence",
           "visibility": "Visible par tous",
           "required": "Ce champ est requis",
-          "agreement": "J’ai lu et j’accepte les conditions générales d’utilisation du service et la politique de gestion des données pratiquées par [nom de l’opérateur]"
+          "agreement": "J’ai lu et j’accepte les conditions générales d’utilisation du service et la politique de gestion des données pratiquées par [nom de l’opérateur]",
+          "driver": "Je possède un véhicule",
+          "supporting": "Structure accompagnante",
+          "languages": "Langues parlées :",
+          "otherLanguages": "Autre(s) langue(s) parlée(s)"
         }
       },
       "ask": {
         "title": "Un service pour vous ?"
       },
       "subscribe": {
-        "title": "Informations personnelles"
+        "title": "Informations personnelles",
+        "details": {
+          "title": "Informations complémentaires"
+        }
       }
     }
   }

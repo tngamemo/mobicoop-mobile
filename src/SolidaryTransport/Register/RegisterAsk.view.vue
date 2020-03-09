@@ -77,36 +77,6 @@ export default {
   },
   computed: {},
   methods: {
-    updateType: function ($event, item) {
-      console.log(item)
-      if (!this.updating) {
-        this.updating = true
-        this.buttons.fill.active = false
-
-        // let detail = $event.detail
-        // if (detail.checked) {
-        //   if (detail.value !== this.type) {
-        //     setTimeout(() => {
-        //       this.$router.replace({query: {type: detail.value}})
-        //     }, 100)
-        //   }
-        //   setTimeout(() => {
-        //     this.buttons.fill.active = true
-        //   }, 300)
-        // } else {
-        //   setTimeout(() => {
-        //     this.$router.replace({query: {type: undefined}})
-        //   }, 100)
-        //   setTimeout(() => {
-        //     this.buttons.fill.active = false
-        //   }, 300)
-        // }
-
-        // setTimeout(() => {
-        //   this.updating = false
-        // }, 100)
-      }
-    },
     validate: function () {
       let isValid = true
       _.each(this.eligibility, (item) => {

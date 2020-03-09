@@ -7,7 +7,7 @@ import Home from './Home/Home.view.vue';
 import Register from './Register/Register.view.vue';
 import RegisterAsk from './Register/RegisterAsk.view.vue';
 import RegisterSubscribe from './Register/RegisterSubscribe.view.vue';
-import RegisterGive from './Register/RegisterGive.view.vue';
+import RegisterSubscribeDetails from './Register/RegisterSubscribeDetails.view.vue';
 import Login from './Login/Login.view.vue';
 //import MainTabComponent from './MainTabComponent/MainTabComponent.view.vue';
 // import Login from './Login/Login.view.vue';
@@ -55,10 +55,10 @@ export default [
         }
       },
       {
-        path: '/solidary-transport/register/give',
-        name: 'solidaryTransport.register.give',
+        path: '/solidary-transport/register/subscribe/details',
+        name: 'solidaryTransport.register.subscribe.details',
         components: {
-          register: RegisterGive
+          register: RegisterSubscribeDetails
         }
       },
       {

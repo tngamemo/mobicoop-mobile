@@ -115,27 +115,13 @@
                 <span class="mc-register-form-error" v-if="true">{{$t('Validation.required')}}</span>
               </div>
             </template>
-
-            <ion-item class="mc-register-form-item as-agreement" lines="none" >
-              <ion-checkbox
-                class="mc-register-form-checkbox"
-                color="success"
-                slot="start"
-              ></ion-checkbox>
-              <ion-label class="mc-register-form-label no-white-space" color="primary">{{ $t('solidaryTransport.register.form.fields.agreement') }}</ion-label>
-            </ion-item>
             
           </div>
 
           <div class="mc-register-form-controls with-multiple">
             <ion-button class="mc-register-form-control as-back" color="light" v-html="$t('solidaryTransport.buttons.back')" @click="$router.back()"></ion-button>
 
-            <template v-if="type === 'applicant'">
-              <ion-button class="mc-register-form-control" color="success" v-html="$t('solidaryTransport.buttons.register')"></ion-button>
-            </template>
-            <template v-else>
-              <ion-button class="mc-register-form-control" color="success" v-html="$t('solidaryTransport.buttons.next')"></ion-button>
-            </template>
+            <ion-button class="mc-register-form-control" color="success" v-html="$t('solidaryTransport.buttons.next')" @click="$router.push({name:'solidaryTransport.register.subscribe.details', query: {type: type}})"></ion-button>
           </div>
 
         </div>
@@ -158,7 +144,6 @@ export default {
   data () {
     return {
       updating: false,
-      eligibility: this.$t('solidaryTransport.register.form.eligibility'),
       buttons: {
         fill: {
           active: true
@@ -187,9 +172,6 @@ export default {
     },
     validate: function () {
       let isValid = true
-      _.each(this.eligibility, (item) => {
-        isValid = isValid && item.checked
-      })
       return isValid
     }
   },

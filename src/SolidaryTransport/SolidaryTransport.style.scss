@@ -67,6 +67,26 @@ ion-content {
           margin-top: 30px;
         }
 
+        &.as-language {
+          margin-top: 20px;
+        }
+
+        .mc-register-form-checkbox-wrapper {
+          padding-left: 15px;
+          padding-top: 10px;
+          margin-bottom: 20px;
+
+          .mc-register-form-checkbox {
+            margin-top: 0;
+            margin-bottom: 0;
+          }
+
+          .mc-register-form-item.as-other {
+            top: -10px;
+            position: relative;
+          }
+        }
+
         .mc-register-form-checkbox {
           margin-right: 10px;
           margin-top: 10px;
@@ -113,6 +133,10 @@ ion-content {
 
         + .mc-register-form-item {
           margin-top: 10px;
+
+          &.as-agreement {
+            margin-top: 30px;
+          }
         }
 
         .mc-register-form-other {
@@ -137,6 +161,15 @@ ion-content {
 
           + .mc-register-form-action, + .mc-register-form-other {
             margin-top: 15px;
+          }
+
+          &.as-light {
+            --background: var(--ion-color-light);
+            --color: var(--ion-color-primary);
+            --border-color: var(--ion-color-primary);
+            --border-style: solid;
+            --border-width: 1px;
+            width: 100%;
           }
 
           ion-icon {
