@@ -22,7 +22,7 @@ export const userStore = {
       state.tokenUser = tokenUser;
     },
 
-    auth_error(state) {
+    auth_error(state) {init
       state.status = 'error';
     },
 
@@ -195,7 +195,7 @@ export const userStore = {
     getMyCarpools({commit}, userId) {
       commit('user_my_carpools_request');
       return new Promise((resolve, reject) => {
-        http.get(`/carpools?userId=${userId}`)
+        http.get(`/carpools`)
           .then(resp => {
             commit('user_my_carpools_request_success', resp.data);
             resolve(resp)
@@ -302,6 +302,10 @@ export const userStore = {
 
     userId: state => {
       return !! state.user && state.user.id
+    },
+
+    tokenUser: state => {
+      return !! state.tokenUser && state.tokenUser
     },
 
     userCommunities: state => {

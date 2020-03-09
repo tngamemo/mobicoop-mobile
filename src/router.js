@@ -9,7 +9,7 @@ import routerCarpools from './Carpools/router-carpools';
 
 Vue.use(IonicVueRouter);
 
-export default new IonicVueRouter({
+const router = new IonicVueRouter({
   routes: [
     {
       path: '/',
@@ -23,7 +23,13 @@ export default new IonicVueRouter({
       children: [
         ...routerCarpools
       ]
-    },
+    }
   ]
 })
+
+router.onError(err => {
+  console.error("Handling router error", err.message);
+});
+
+export default router;
 

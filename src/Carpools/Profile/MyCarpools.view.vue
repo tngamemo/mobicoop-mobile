@@ -29,7 +29,10 @@
           {{ $t('MyCarpools.error')}}
         </div>
 
-        <div v-if="$store.state.userStore.statusMyCarpools == 'success'" v-for="carpool in filterCarpools(carpools)">
+        <div v-if="$store.state.userStore.statusMyCarpools == 'success'"
+          v-for="(carpool, index) in filterCarpools(carpools)"
+          :key="index"
+        >
           <CarpoolItem :carpool="getFormattedCarpoolItem(carpool)" :type="'my-carpool'" />
         </div>
       </div>
@@ -65,7 +68,6 @@
     computed: {
       carpools: {
         get() {
-          console.log(this.$store.state.userStore.myCarpools);
           return this.$store.state.userStore.myCarpools
         },
       }
