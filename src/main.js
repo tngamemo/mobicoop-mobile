@@ -7,6 +7,7 @@ import store from './Shared/Store/store';
 
 import Ionic from '@ionic/vue';
 import '@ionic/core/css/ionic.bundle.css';
+import 'leaflet/dist/leaflet.css';
 import Vuelidate from 'vuelidate'
 import VueMoment from 'vue-moment'
 const moment = require('moment')

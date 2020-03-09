@@ -15,10 +15,22 @@ import UpdateProfile from './Profile/UpdateProfile.view.vue';
 import ProfileAlerts from './Profile/ProfileAlerts.view.vue';
 import MyCarpools from './Profile/MyCarpools.view.vue';
 import PostCarpool from './PostCarpool/PostCarpool.view.vue';
+import Message from './Messages/Message.view.vue';
+import PostCarpoolStep from './PostCarpool/PostCarpoolStep.view.vue';
 
 import Vue from 'vue'
+import store from '../Shared/Store/store';
 
 Vue.use(IonicVueRouter);
+
+function guardAccesByLogin(to, from, next) {
+  if (to.name !== 'login' && !store.getters.userId && !store.getters.userId){
+    store.commit('redirectionUrl_change', to.name)
+    next({ name: 'login' })
+  } else {
+    next()
+  }
+}
 
 export default [
   {
@@ -29,7 +41,7 @@ export default [
       {
         path: '/',
         name: '',
-        redirect: {name: 'carpoolsHome'}
+        redirect: { name: 'carpoolsHome' }
       },
       {
         path: 'home',
@@ -44,7 +56,7 @@ export default [
       {
         path: 'login',
         name: 'login',
-        component: Login,
+        component: Login
       },
       {
         path: 'register',
@@ -94,11 +106,25 @@ export default [
     path: 'my-carpools',
     name: 'my-carpools',
     component: MyCarpools
- },
- {
+  },
+  {
+    path: 'post-carpool-step',
+    name: 'post-carpool-step',
+    component: PostCarpoolStep
+  },
+  {
     path: 'post-carpool',
     name: 'post-carpool',
-    component: PostCarpool
+    component: PostCarpool,
+    beforeEnter: guardAccesByLogin
+  },
+  {
+    path: 'message',
+    name: 'message',
+    component: Message,
+    props: (route) => ({
+      ...route.params
+    })
   },
 ]
 

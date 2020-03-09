@@ -34,7 +34,6 @@
       // Fonction qui va log l'user ou utilisé un user par défault
       this.authUserOnStart();
     },
-
     methods: {
 
       authUserOnStart: function() {

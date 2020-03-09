@@ -66,7 +66,18 @@
     "title": "Aide"
   },
   "Messages": {
-    "title": "Messages"
+    "title": "Messages",
+    "error": "Une erreur est survenue. Veuillez réessayer ultérieurement.",
+    "carpool": "Covoiturage",
+    "direct": "Direct",
+    "none" : "Aucun message",
+    "delete-success": "Le fil de discussion a été supprimé avec succès",
+    "confirmDeleteHeader": "Etes-vous sur de vouloir supprimer ce fil de discussion ? ",
+    "confirmDeleteText": "Toute suppression est définitive, êtes-vous sur de vouloir supprimer ce fil de discussion ?"
+  },
+  "Message" : {
+    "see-carpool" : "Voir l'annonce",
+    "textarea": "Votre message"
   },
   "Communities": {
     "title": "Communautés"
@@ -110,7 +121,8 @@
     "delete-success": "Votre annonce a été supprimée avec succès",
     "validatedUntil": "Valide jusqu'au",
     "confirmDeleteHeader": "Etes-vous sur de vouloir supprimer cette annonce ? ",
-    "confirmDeleteText": "Toute suppression d'annonce est définitive, êtes-vous sur de vouloir supprimer cette annonce ?"
+    "confirmDeleteText": "Toute suppression d'annonce est définitive, êtes-vous sur de vouloir supprimer cette annonce ?",
+    "error": "Une erreur est survenue. Veuillez réessayer ultérieurement."
   },
   "Slider": {
     "prev": "Précédent",
@@ -158,6 +170,21 @@
     "timeOutward": "Heure de départ",
     "timeReturn": "Heure de retour",
     "return": "Retour",
-    "step": "Etape"
+    "step": "Etape",
+    "distance": "Distance du trajet: ",
+    "addStep": "Ajouter une étape",
+    "luggage": "J'ai de la place pour des gros bagages",
+    "bike": "Je peux transporter un vélo",
+    "backSeats": "Maximum deux personnes à l'arrière",
+    "numberPassenger": "Nombre de places passager disponibles",
+    "mon": "Lundi",
+    "tue": "Mardi",
+    "wed": "Mercredi",
+    "thu": "Jeudi",
+    "fri": "Vendredi",
+    "sat": "Samedi",
+    "sun": "Dimanche",
+    "scheduleRequired": "Au moins un créneaux est requis",
+    "addSchedule": "Ajouter une créneau"
   }
 }

@@ -17,7 +17,6 @@
         <span>{{ this.carpool.price }} €</span>
       </div>
     </div>
-
     <div v-if="!isPunctualCarpool" class="mc-carpool-subheader d-flex justify-around align-center">
       <div v-if="this.carpool.outwardTime" class="d-flex align-center mc-carpool-regular-time">
         <ion-icon name="arrow-down"></ion-icon>

@@ -24,7 +24,8 @@
           v-on:click="addInputStep()"
           class="text-left d-flex align-center pointer"
         >
-          <ion-icon name="add-circle-outline"></ion-icon>Ajouter une étape
+          <ion-icon name="add-circle-outline"></ion-icon>
+          {{$t('PostCarpool.addStep')}}
         </div>
 
         <div class="mc-delete-step">
@@ -63,7 +64,13 @@
     </div>
 
     <div class="mc-select-communities text-left">
-      <ion-icon size="large" color="background" class="rotating" v-if="this.$store.getters.statusUserCommunities == 'loading'" name="md-sync"></ion-icon>
+      <ion-icon
+        size="large"
+        color="background"
+        class="rotating"
+        v-if="this.$store.getters.statusUserCommunities == 'loading'"
+        name="md-sync"
+      ></ion-icon>
       <ion-select
         @ionChange="selectCommunities($event.target.value)"
         v-if="this.$store.getters.userCommunities && this.$store.getters.statusUserCommunities == 'success'"
@@ -78,6 +85,32 @@
           :value="parseInt(community.id)"
         >{{ community.name }}</ion-select-option>
       </ion-select>
+    </div>
+
+    <div class="mc-carpool-distance text-center">
+      <ion-icon
+        size="large"
+        color="background"
+        class="rotating"
+        v-if="this.$store.getters.statusDistanceCarpool == 'loading'"
+        name="md-sync"
+      ></ion-icon>
+      <p
+        v-if="this.$store.getters.statusDistanceCarpool == 'success'"
+      >{{$t('PostCarpool.distance')}} {{ Math.round(this.$store.getters.distanceCarpool / 1000)}} km</p>
+    </div>
+    <div class="mc-carpool-map">
+      <l-map
+        v-if="this.$store.getters.statusDistanceCarpool != 'loading' && showCard"
+        :ref="'map'"
+        :options="optionsCard"
+        style="height: 350px"
+        :zoom="zoom"
+        :bounds="bounds"
+      >
+        <l-tile-layer v-if="bounds" :url="url"></l-tile-layer>
+        <l-polyline v-if="bounds" :lat-lngs="directPointsCarpool" :color="'red'"></l-polyline>
+      </l-map>
     </div>
   </div>
 </template>
@@ -100,10 +133,22 @@
       }
     }
   }
+
+  .mc-select-communities {
+    border: 1px solid #ffa000;
+    border-radius: 10px;
+    margin-bottom: 20px;
+  }
+
+  .mc-carpool-distance {
+    border: 1px solid #ffa000;
+    border-radius: 10px;
+  }
 }
 </style>
 
 <script>
+import { LMap, LTileLayer, LPolyline } from "vue2-leaflet";
 import {
   required,
   email,
@@ -116,7 +161,15 @@ import {
 export default {
   name: "post-carpool-step3",
   data() {
-    return {};
+    return {
+      url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+      zoom: 8,
+      showCard: true,
+      optionsCard: {
+        dragging: false,
+        touchZoom: true
+      }
+    };3000
   },
   validations: {
     addressessUseToPost: {
@@ -129,12 +182,42 @@ export default {
       }
     }
   },
-  created() {
+  components: {
+    LMap,
+    LTileLayer,
+    LPolyline
   },
-  destroyed() {
-
+  mounted() {
+    setTimeout(() => {
+      this.$refs.map.mapObject.invalidateSize();
+    }, 0);
+  },
+  created() {
+    this.unwatch = this.$store.watch(
+      (state, getters) => getters.currentSlider,
+      (newValue, oldValue) => {
+        if (oldValue != newValue && newValue == 'post-carpool-step3') {
+          this.showCard = false;
+          setTimeout(() => {
+            this.showCard = true;
+            this.$refs.map.mapObject.invalidateSize();
+        }, 1);
+        }
+      }
+    );
+  },
+  beforeDestroy() {
+    this.unwatch();
   },
   computed: {
+    bounds() {
+      const bounds = new L.LatLngBounds(
+        this.$store.getters.directPointsCarpool.directPoints
+      );
+      if (!!this.$refs.map) this.$refs.map.mapObject.invalidateSize();
+      return bounds;
+    },
+
     carpoolToPost() {
       return this.$store.getters.carpoolToPost;
     },
@@ -168,6 +251,10 @@ export default {
       }
 
       return result;
+    },
+
+    directPointsCarpool() {
+      return this.$store.getters.directPointsCarpool.directPoints;
     }
   },
   methods: {
@@ -202,6 +289,7 @@ export default {
     clearInputStep: function($event, index) {
       $event.stopPropagation();
       this.$store.commit("removeStepByIndex", { index });
+      this.$store.dispatch("treatementUpdateAddresses");
     },
 
     addInputStep: function() {
@@ -209,7 +297,9 @@ export default {
     },
 
     selectCommunities: function(value) {
-      value.forEach(id => this.$store.getters.carpoolToPost.communities.push(parseInt(id)))
+      value.forEach(id =>
+        this.$store.getters.carpoolToPost.communities.push(parseInt(id))
+      );
     }
   }
 };

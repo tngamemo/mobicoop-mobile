@@ -179,6 +179,12 @@ ion-input {
   padding-left: 0px;
 }
 
+.mc-white-container-no-padding-full{
+  padding-right: 0px;
+  padding-left: 0px;
+  padding-bottom: 0px;
+}
+
 
 @-webkit-keyframes rotating {
   from{
@@ -229,6 +235,10 @@ ion-input {
   justify-content: space-around;
 }
 
+.justify-end {
+  justify-content: flex-end !important;
+}
+
 .align-center {
   align-items: center;
 }
@@ -249,6 +259,10 @@ ion-input {
 
 .pointer {
   cursor: pointer;
+}
+
+ion-thumbnail, ion-avatar {
+  background-color: #C4C4C4 !important;
 }
 
 

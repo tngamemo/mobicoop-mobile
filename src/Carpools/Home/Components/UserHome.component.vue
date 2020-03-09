@@ -19,7 +19,7 @@
         <div class="mc-user-image">
           {{this.$store.state.userStore.avatars}}
           <ion-thumbnail v-if="!! this.$store.state.userStore.user.avatars">
-            <img :src="this.$store.state.userStore.user.avatars[0]">
+            <img :src="this.$store.state.userStore.user.avatars[0]" alt="">
           </ion-thumbnail>
         </div>
 
