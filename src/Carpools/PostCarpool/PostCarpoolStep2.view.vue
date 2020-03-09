@@ -1,6 +1,5 @@
 <template>
   <div>
-    {{hasALeastFirstStepSchedule}}
     <div class="mc-form-carpool-time-ponctual" v-if="isPonctual">
       <ion-row>
         <ion-col>
