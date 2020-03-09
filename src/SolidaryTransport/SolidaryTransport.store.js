@@ -49,7 +49,22 @@ export const solidaryTransportStore = {
         })
       }
     }
+  },
+  getters: {
+    getUserAvatar: () => (user) => {
+      if (user) {
+        return process.env.VUE_APP_API_URL + user.avatars[0]
+      }
+      return undefined
+    },
+    getUserAge: () => (user) => {
+//       calcAge(dateString);
 
+// function calcAge(dateString) {
+//   var birthday = +new Date(dateString);
+//   return~~ ((Date.now() - birthday) / (31557600000));
+// }
+    }
   }
 }
 

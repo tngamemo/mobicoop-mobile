@@ -35,7 +35,27 @@
         </template>
 
         <template v-else>
-          connected
+
+          <div class="mc-home-content">
+            <div class="mc-home-profile">
+              <UserCard/>
+            </div>
+
+            <div class="mc-home-information" :class="{'is-active': display.information}">
+              <ion-icon class="mc-information-icon" name="close" @click="closeInformation()"></ion-icon>
+              <div class="mc-information-text" v-html="$t('solidaryTransport.home.information')"></div>
+            </div>
+
+            <div class="mc-home-actions">
+              <ion-button class="mc-action" color="success" v-html="$t('solidaryTransport.home.actions.ask')" @click="$router.push({name:'solidaryTransport.register', query: {type: 'ask'}})"></ion-button>
+              <ion-button class="mc-action" color="success" v-html="$t('solidaryTransport.home.actions.give')" @click="$router.push({name:'solidaryTransport.register', query: {type: 'give'}})"></ion-button>
+              <ion-button class="mc-action as-contact" color="light">
+                <ion-icon slot="start" name="chatboxes"></ion-icon>
+                <span v-html="$t('solidaryTransport.home.actions.contact')"></span>
+              </ion-button>
+            </div>
+          </div>
+
         </template>
 
       </div>
@@ -148,9 +168,13 @@
 <script>
 import { mapState, mapGetters } from 'vuex'
 
+import UserCard from '../Profile/Card.component.vue';
+
 export default {
   name: 'solidaryTransport.home',
-  components: {},
+  components: {
+    UserCard
+  },
   data () {
     return {
       display: {
