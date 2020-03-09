@@ -28,7 +28,13 @@
         class="mc-small-button"
         color="success"
         @click="next()"
-      >{{ activeIndex >= slides.length - 1 ? $t('Slider.register') : $t('Slider.next') }}</ion-button>
+        :disabled="this.$store.getters.getSliderLoader"
+      >
+      <span v-if="this.$store.getters.getSliderLoader">
+        <ion-icon size="large" class="rotating" name="md-sync"></ion-icon>
+      </span>
+      <span v-if="!this.$store.getters.getSliderLoader">{{ activeIndex >= slides.length - 1 ? $t('Slider.register') : $t('Slider.next') }}</span>
+      </ion-button>
     </div>
   </div>
 </template>

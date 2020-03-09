@@ -28,8 +28,8 @@ export default class CarpoolItemDTO {
       this.regularDays = this.getRegularDaysFromSearch(carpool);
       this.outwardTime = carpool.outwardTime;
       this.returnTime = carpool.returnTime;
-
     }
+    this.resultDriverOrPassenger = this.resultDriveOrPassenger(carpool)
     return this;
   }
 

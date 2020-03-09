@@ -96,7 +96,11 @@
       },
 
       logout: function() {
-        this.$store.dispatch('logout');
+        this.$store.dispatch('logout').then(() => {
+
+          // On va authentifier l'appli via un utilisateur anonyme
+          this.$store.dispatch('authAnonymousUser')
+        });
       }
     }
   }
