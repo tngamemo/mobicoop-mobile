@@ -82,12 +82,11 @@ export const carpoolStore = {
       state.carpoolToPost.schedule.push(newSlot)
     },
 
-    carpoolPost_schedule_delete_slot(state) {
+    carpoolPost_schedule_delete_slot(state, payload) {
       state.carpoolToPost.schedule.splice(payload.index, 1);
     },
 
     carpoolPost_schedule_init(state) {
-      console.log('init')
       state.carpoolToPost.schedule = [];
     },
 
@@ -171,6 +170,20 @@ export const carpoolStore = {
 
     changeOptionsCarpoolPost(state, payload) {
       state.carpoolToPost[payload.property] = payload.value;
+    },
+
+    changeSelectDaySchedule(state, payload) {
+      const copyCarpoolToPost = Object.assign({}, state.carpoolToPost);
+      copyCarpoolToPost.schedule[payload.index][payload.prop] = !copyCarpoolToPost.schedule[payload.index][payload.prop];
+      state.carpoolToPost = copyCarpoolToPost;
+    },
+
+    changeTimeSchedule(state, payload) {
+      const copyCarpoolToPost = Object.assign({}, state.carpoolToPost);
+      copyCarpoolToPost.schedule[payload.index][payload.prop] = payload.value;
+      const propDisable = payload.prop.replace('Time', 'Disabled')
+      copyCarpoolToPost.schedule[payload.index][propDisable] = false;
+      state.carpoolToPost = copyCarpoolToPost;
     }
 
 
