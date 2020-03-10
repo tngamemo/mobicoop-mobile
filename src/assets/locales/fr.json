@@ -143,6 +143,7 @@
     "email" : "Le mail renseigné n'est pas au bon format",
     "sameAsPassword" : "La confirmation et le mot de passe ne sont pas identiques",
     "minLength" : "Le mot de passe doit comprendre 8 caractères minimum",
+    "minLengthTel" : "Le téléphone doit comprendre 10 chiffres minimum",
     "oneUppercase" : "Le mot de passe doit comprendre 1 majuscule",
     "oneDigit" : "Le mot de passe doit comprendre 1 chiffre"
   },

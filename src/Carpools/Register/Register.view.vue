@@ -11,7 +11,7 @@
 
     <ion-content color="background" no-bounce>
       <div class="mc-white-container" style="height: 100%">
-        <Slider v-bind:slides="slides" v-on:save="register()"></Slider>
+        <Slider :key="refresh" v-bind:slides="slides" v-on:save="register()"></Slider>
       </div>
     </ion-content>
   </div>
@@ -37,7 +37,8 @@ export default {
       slides: [
         { title: "", component: RegisterStep1 },
         { title: "", component: RegisterStep2 }
-      ]
+      ],
+      refresh: 0
     };
   },
   created() {
@@ -67,6 +68,8 @@ export default {
           this.$router.push("home");
           this.presentToast(this.$t("Register.success"), "success");
           this.$store.commit("change_sliderloader_visibility");
+          // reload the component
+          this.refresh++
         })
         .catch(err => {
           this.presentToast(this.$t("Commons.error"), "danger");

@@ -17,6 +17,7 @@
             </ion-item>
             <div v-if="$v.user.telephone.$error">
               <div class="mc-error-label"  v-if="!$v.user.telephone.required">{{$t('Validation.required')}}</div>
+              <div class="mc-error-label"  v-if="!$v.user.telephone.minLength">{{$t('Validation.minLengthTel')}}</div>
             </div>
 
             <ion-item v-on:click="goGeoSearch('register_address', 'search')">
@@ -116,7 +117,7 @@
 </style>
 
 <script>
-    import { required, email, sameAs } from 'vuelidate/lib/validators'
+    import { required, email, sameAs, minLength } from 'vuelidate/lib/validators'
     import { mapState } from 'vuex'
 
     const checked = value => value === true;
@@ -132,6 +133,7 @@
             user: {
                 telephone: {
                     required,
+                    minLength: minLength(10)
                 },
                 addresses: {
                     required
