@@ -28,7 +28,8 @@ export default class CarpoolItemDTO {
       this.outwardTime = carpool.outwardTime;
       this.returnTime = carpool.returnTime;
     }
-    this.resultDriverOrPassenger = this.resultDriveOrPassenger(carpool)
+    this.resultDriverOrPassenger = this.resultDriveOrPassenger(carpool);
+    this.isMultipleTimes = this.resultDriverOrPassenger.outward.multipleTimes;
     return this;
   }
 
@@ -39,6 +40,7 @@ export default class CarpoolItemDTO {
     this.driver = carpool.role == 1 || carpool.role == 3
     this.origin = carpool.outwardWaypoints[0].address
     this.destination = [...carpool.outwardWaypoints].pop().address
+    this.isMultipleTimes = false;
     if (carpool.frequency == 1) {
       this.date = carpool.outwardDate;
       this.time = carpool.outwardTime;

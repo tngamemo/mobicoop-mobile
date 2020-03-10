@@ -1,7 +1,7 @@
 <template>
   <div class="ion-page">
     <ion-header no-border>
-      <ion-toolbar color="background">
+      <ion-toolbar color="primary">
         <div class='mc-home-header'>
           <div class="mc-home-log">
             <img class="background-img ion-margin-end" src="../../assets/icons/home.png">

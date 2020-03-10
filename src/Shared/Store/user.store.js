@@ -7,6 +7,7 @@ export const userStore = {
     tokenAnonymousUser: localStorage.getItem('tokenAnonymousUser') || '',
     user: null,
     statusAlerts: '',
+    statusUpdateAlert: '',
     alerts: [],
     statusMyCarpools: '',
     myCarpools: [],
@@ -43,8 +44,17 @@ export const userStore = {
       state.statusAlerts = 'error';
     },
 
+    user_update_alerts_request(state) {
+      state.statusUpdateAlert = 'loading';
+    },
+
+    user_update_alerts_error(state) {
+      state.statusUpdateAlert = 'error';
+    },
+
     user_alerts_request_success(state, data) {
       state.statusAlerts = 'success';
+      state.statusUpdateAlert = 'success';
       state.alerts = data.alerts;
     },
 
@@ -81,6 +91,10 @@ export const userStore = {
 
     user_communities_error(state){
       state.statusUserCommunities = 'error';
+    },
+
+    updateUserAddress(state, payload) {
+      state.user.addresses = [payload.addressDTO];
     },
 
   },
@@ -154,6 +168,7 @@ export const userStore = {
       return new Promise((resolve, reject) => {
         delete params.addresses[0].id;
         delete params.images;
+        delete params.proEmail;
         http.put(`/users/${params.id}`, params)
           .then(resp => {
 
@@ -258,6 +273,7 @@ export const userStore = {
     },
 
     updateAlert({commit}, params) {
+      commit('user_update_alerts_request');
       const alert = {
         alerts: {[params.alertId]: params.alertValue},
       };
@@ -268,6 +284,7 @@ export const userStore = {
             resolve(resp)
           })
           .catch(err => {
+            commit('user_update_alerts_error');
             reject(err)
           })
       })

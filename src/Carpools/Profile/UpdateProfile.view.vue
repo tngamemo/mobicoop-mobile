@@ -128,7 +128,7 @@
           </div>
 
 
-          <ion-item v-on:click="goGeoSearch('register_address', 'search')">
+          <ion-item  v-on:click="goGeoSearch('update_user_address', 'search')">
             <ion-label position="floating">{{$t('Register.address')}} *</ion-label>
             <ion-input
               type="text"
@@ -322,6 +322,9 @@
           .catch(() => {
             this.presentToast(this.$t("Commons.error"), "tertiary");
           });
+      },
+      goGeoSearch(type, action) {
+        this.$router.push({ name: "geoSearch", query: { type, action }});
       },
     }
   }
