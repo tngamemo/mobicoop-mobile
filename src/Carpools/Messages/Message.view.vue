@@ -31,8 +31,12 @@
 
         <div class="messages-zone">
 
-          <div class="ion-text-center" v-if="$store.state.messageStore.statusPostMessage == 'loading'">
+          <div class="ion-text-center" v-if="$store.state.messageStore.statusPostMessage == 'loading' || $store.state.messageStore.statusCompleteThread == 'loading'">
             <ion-icon size="large" color="background" class="rotating"  name="md-sync"></ion-icon>
+          </div>
+
+          <div class="ion-text-center" v-if="this.thread.idMessage == -99">
+            {{$t('Message.no-thread')}}
           </div>
 
 
@@ -90,6 +94,7 @@
     flex: 1;
     background-color: #F5F6FA;
     overflow: scroll;
+    padding-top: 15px;
   }
 </style>
 
@@ -110,10 +115,18 @@
     created() {
       if (this.thread) {
         console.log(this.thread);
+        // Get Complet Thread
         if (this.thread.idMessage != -99) {
           this.$store.dispatch('getCompleteThread',this.thread.idMessage );
         } else {
           this.$store.commit('complete_thread_reset' );
+        }
+
+        // get Carpool Ask
+        if (this.thread.idAsk) {
+          this.$store.dispatch('getCarpoolAsk', { idAsk: this.thread.idAsk, userId : this.$store.state.userStore.user.id} ).then(res => {
+            console.log(res);
+          });
         }
       } else {
         this.$router.push('messages')

@@ -5,6 +5,7 @@ export const carpoolStore = {
     statusCarpoolPost: '',
     statusDistanceCarpool: '',
     statusPriceCarpool: '',
+    statusCarpoolAsk: '',
     directPointsCarpool: '',
     carpoolToPost: null,
     addressessUseToPost: {
@@ -171,7 +172,19 @@ export const carpoolStore = {
 
     changeOptionsCarpoolPost(state, payload) {
       state.carpoolToPost[payload.property] = payload.value;
-    }
+    },
+
+    carpool_ask_request(state) {
+      state.statusCarpoolAsk = 'loading';
+    },
+
+    carpool_ask_success(state) {
+      state.statusCarpoolAsk = 'success';
+    },
+
+    carpool_ask_error(state) {
+      state.statusCarpoolAsk = 'error';
+    },
 
 
   },
@@ -273,6 +286,21 @@ export const carpoolStore = {
           .catch(err => {
             commit('carpoolPost_error')
             console.log(err)
+            reject(err)
+          })
+      })
+    },
+
+    getCarpoolAsk({ state, commit }, data) {
+      return new Promise((resolve, reject) => {
+        commit('carpool_ask_request');
+        return http.get(`/carpools/ask/` + data.idAsk  + "?userId=" + data.userId )
+          .then(resp => {
+            commit('carpool_ask_success');
+            resolve(resp)
+          })
+          .catch(err => {
+            commit('carpool_ask_error');
             reject(err)
           })
       })

@@ -77,7 +77,8 @@
   },
   "Message" : {
     "see-carpool" : "Voir l'annonce",
-    "textarea": "Votre message"
+    "textarea": "Votre message",
+    "no-thread" : "Ecrivez un message pour engager la discussion "
   },
   "Communities": {
     "title": "Communautés"
