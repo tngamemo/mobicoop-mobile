@@ -39,6 +39,12 @@ ion-content {
   }
 }
 
+@keyframes spin { 
+  100% { 
+    transform: rotate(360deg);
+  }
+}
+
 .mc-st-container {
   border-radius: 15px 15px 0px 0px;
   padding: 30px;
@@ -207,6 +213,41 @@ ion-content {
         justify-content: space-between;
       }
 
+      &.is-loading {
+        .mc-st-form-control.as-loader {
+          pointer-events: none;
+
+          ion-icon {
+            opacity: 1;
+            transition: opacity .3s ease .3s;
+          }
+
+          span {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .3s ease 0s;
+          }
+        }
+      }
+
+      &.is-loaded {
+        .mc-st-form-control.as-loader {
+          pointer-events: none;
+
+          ion-icon {
+            opacity: 1;
+            transition: opacity .3s ease .3s;
+            animation: none;
+          }
+
+          span {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .3s ease 0s;
+          }
+        }
+      }
+
       .mc-st-form-control {
         --border-radius: 25px;
         --padding-start: 30px;
@@ -218,6 +259,25 @@ ion-content {
         text-transform: none;
         font-size: 14px;
 
+        &.as-loader {
+          position: relative;
+
+          ion-icon {
+            position: absolute;
+            pointer-events: none;
+            top: calc(50% - 16px);
+            left: calc(50% - 16px);
+            margin: 0;
+            transition: opacity .3s ease 0s;
+            animation: spin 4s linear infinite;
+            opacity: 0;
+          }
+
+          span {
+            opacity: 1;
+            transition: opacity .3s ease .3s;
+          }
+        }
 
         &.as-back {
           --background: var(--ion-color-light);

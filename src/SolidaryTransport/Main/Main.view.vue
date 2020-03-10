@@ -2,38 +2,31 @@
 
 
   <!-- Listen to before and after tab change events -->
-  <ion-tabs @IonTabsWillChange="tabsChange()">
+  <ion-tabs>
 
-    <ion-tab tab="home" :routes="'solidaryTransport.home'">
+    <ion-tab tab="home">
       <Home/>
     </ion-tab>
 
-    <ion-tab tab="help" :routes="'solidaryTransport.help'">
+    <ion-tab tab="help">
       <Help/>
     </ion-tab>
 
-    <template v-if="!this.$store.state.userStore.user">
+    <ion-tab tab="register">
+      <ion-vue-router name="register"></ion-vue-router>
+    </ion-tab>
 
-      <ion-tab tab="register">
-        <ion-vue-router name="register"></ion-vue-router>
-      </ion-tab>
+    <ion-tab tab="login">
+      <Login :init-redirect="{name: 'solidaryTransport.home'}"/>
+    </ion-tab>
 
-      <ion-tab tab="login" :routes="'solidaryTransport.login'">
-        <Login/>
-      </ion-tab>
+    <ion-tab tab="messages">
+      <ion-vue-router name="messages"></ion-vue-router>
+    </ion-tab>
 
-    </template>
-    <template v-else>
-
-      <ion-tab tab="messages" :routes="'solidaryTransport.messages'">
-        <ion-vue-router name="messages"></ion-vue-router>
-      </ion-tab>
-
-      <ion-tab tab="profile" :routes="'solidaryTransport.profile'">
-        <ion-vue-router name="profile"></ion-vue-router>
-      </ion-tab>
-
-    </template>
+    <ion-tab tab="profile">
+      <ion-vue-router name="profile"></ion-vue-router>
+    </ion-tab>
 
     <!-- Use v-slot:bottom with Vue ^2.6.0 -->
     <template slot="bottom">
@@ -131,15 +124,6 @@
       return {
       }
     },
-    methods: {
-      tabsChange: function () {
-        // // Prevent Query Type propagation on tab change
-        // if (!_.isEmpty(this.$route.query.type)) {
-        //   setTimeout(() => {
-        //     this.$router.replace({query: {type: undefined}})
-        //   }, 100)
-        // }
-      }
-    }
+    methods: {}
   }
 </script>
