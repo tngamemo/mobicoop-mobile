@@ -1,7 +1,7 @@
 <template>
   <div class="ion-page">
     <ion-header no-border>
-      <ion-toolbar color="background">
+      <ion-toolbar color="primary">
         <ion-buttons slot="start">
           <ion-back-button v-on:click="goBack($event)"></ion-back-button>
         </ion-buttons>
@@ -9,14 +9,13 @@
       </ion-toolbar>
     </ion-header>
     <!--  -->
-    <ion-content color="background" no-bounce>
-      <div class="mc-white-container" style="height: 100%">
-        <div style="height: calc(100% - 44px);
-  position: relative;">
+    <ion-content color="primary" no-bounce>
+      <div class="mc-white-container mc-relative">
+        <div style="height: calc(100% - 44px); position: relative;">
           <PostCarpoolStep1 ref="slideOne" />
-          <div class="mc-swipper-buttons justify-end">
-            <ion-button class="mc-small-button" color="success" @click="next()">Suivant</ion-button>
-          </div>
+        </div>
+        <div class="mc-nextpost-buttons justify-end">
+          <ion-button class="mc-small-button" color="success" @click="next()">Suivant</ion-button>
         </div>
       </div>
     </ion-content>
@@ -24,7 +23,10 @@
 </template>
 
 <style lang="scss">
-.mc-swipper-buttons {
+.mc-relative {
+  position: relative;
+}
+.mc-nextpost-buttons {
   position: absolute;
   bottom: 0px;
   right: 0px;

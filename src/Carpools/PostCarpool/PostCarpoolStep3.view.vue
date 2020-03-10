@@ -19,15 +19,6 @@
       </div>
 
       <div class="mc-add-step">
-        <div
-          v-if="addressessUseToPost.step.length < 4"
-          v-on:click="addInputStep()"
-          class="text-left d-flex align-center pointer"
-        >
-          <ion-icon name="add-circle-outline"></ion-icon>
-          {{$t('PostCarpool.addStep')}}
-        </div>
-
         <div class="mc-delete-step">
           <ion-item
             v-for="(step, index) in addressessUseToPost.step"
@@ -43,6 +34,15 @@
             ></ion-input>
             <ion-icon name="close" v-on:click="clearInputStep($event, index)"></ion-icon>
           </ion-item>
+        </div>
+
+        <div
+          v-if="addressessUseToPost.step.length < 4"
+          v-on:click="addInputStep()"
+          class="text-left d-flex align-center pointer"
+        >
+          <ion-icon name="add-circle-outline"></ion-icon>
+          {{$t('PostCarpool.addStep')}}
         </div>
       </div>
 
@@ -66,7 +66,7 @@
     <div class="mc-select-communities text-left">
       <ion-icon
         size="large"
-        color="background"
+        color="primary"
         class="rotating"
         v-if="this.$store.getters.statusUserCommunities == 'loading'"
         name="md-sync"
@@ -90,7 +90,7 @@
     <div class="mc-carpool-distance text-center">
       <ion-icon
         size="large"
-        color="background"
+        color="primary"
         class="rotating"
         v-if="this.$store.getters.statusDistanceCarpool == 'loading'"
         name="md-sync"
@@ -158,6 +158,8 @@ import {
   requiredIf
 } from "vuelidate/lib/validators";
 
+import { isPlatform } from "@ionic/core";
+
 export default {
   name: "post-carpool-step3",
   data() {
@@ -166,10 +168,11 @@ export default {
       zoom: 8,
       showCard: true,
       optionsCard: {
-        dragging: false,
-        touchZoom: true
+        dragging: !isPlatform(window.document.defaultView, "mobile"),
+        touchZoom: isPlatform(window.document.defaultView, "mobile"),
+        tap: !isPlatform(window.document.defaultView, "mobile")
       }
-    };3000
+    };
   },
   validations: {
     addressessUseToPost: {
@@ -189,19 +192,19 @@ export default {
   },
   mounted() {
     setTimeout(() => {
-      this.$refs.map.mapObject.invalidateSize();
+      if (!!this.$refs.map) this.$refs.map.mapObject.invalidateSize();
     }, 0);
   },
   created() {
     this.unwatch = this.$store.watch(
       (state, getters) => getters.currentSlider,
       (newValue, oldValue) => {
-        if (oldValue != newValue && newValue == 'post-carpool-step3') {
+        if (oldValue != newValue && newValue == "post-carpool-step3") {
           this.showCard = false;
           setTimeout(() => {
             this.showCard = true;
-            this.$refs.map.mapObject.invalidateSize();
-        }, 1);
+            if (!!this.$refs.map) this.$refs.map.mapObject.invalidateSize();
+          }, 1);
         }
       }
     );

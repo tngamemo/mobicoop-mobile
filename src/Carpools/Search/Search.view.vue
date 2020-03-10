@@ -1,7 +1,7 @@
 <template>
   <div class="ion-page">
     <ion-header no-border>
-      <ion-toolbar color="background">
+      <ion-toolbar color="primary">
         <ion-buttons slot="start">
           <ion-back-button></ion-back-button>
         </ion-buttons>
@@ -15,7 +15,7 @@
 
       <div class="mc-white-container" style="min-height: 100%">
         <div class="ion-text-center">
-          <ion-icon size="large" color="background" class="rotating" v-if="getStatusOfSearch == 'loading'" name="md-sync"></ion-icon>
+          <ion-icon size="large" color="primary" class="rotating" v-if="getStatusOfSearch == 'loading'" name="md-sync"></ion-icon>
         </div>
 
         <div class="ion-text-center" v-if="getStatusOfSearch == 'error'">

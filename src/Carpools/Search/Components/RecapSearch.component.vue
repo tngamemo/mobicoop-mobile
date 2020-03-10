@@ -35,7 +35,7 @@
     },
     computed: {
       formatedSearchDate() {
-        return this.$moment(this.$store.getters.searchObject.outwardDate).format('dddd D[.]MM [à] h:mm');
+        return this.$moment(this.$store.getters.searchObject.outwardDate).format('dddd D[.]MM');
       }
     },
     methods: {

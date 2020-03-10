@@ -1,7 +1,7 @@
 <template>
   <div class="ion-page">
     <ion-header no-border>
-      <ion-toolbar color="background">
+      <ion-toolbar color="primary">
         <ion-buttons slot="start">
           <ion-back-button></ion-back-button>
         </ion-buttons>
@@ -9,7 +9,7 @@
       </ion-toolbar>
     </ion-header>
 
-    <ion-content color="background" no-bounce>
+    <ion-content color="primary" no-bounce>
       <div class="mc-white-container mc-white-container-no-padding">
 
         <div class="d-flex justify-between top-buttons-padding">
@@ -24,7 +24,7 @@
 
 
         <div class="ion-text-center ion-margin-top" v-if="direct ?  $store.state.messageStore.statusMessagesDirect == 'loading' : $store.state.messageStore.statusMessagesCarpool == 'loading'">
-          <ion-icon size="large" color="background" class="rotating"  name="md-sync"></ion-icon>
+          <ion-icon size="large" color="primary" class="rotating"  name="md-sync"></ion-icon>
         </div>
 
         <div class="ion-text-center ion-margin-top" v-if="direct ?  $store.state.messageStore.statusMessagesDirect == 'error' : $store.state.messageStore.statusMessagesCarpool == 'error'">

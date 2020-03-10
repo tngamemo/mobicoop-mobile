@@ -1,7 +1,7 @@
 <template>
   <div class="ion-page">
     <ion-header no-border>
-      <ion-toolbar color="background">
+      <ion-toolbar color="primary">
         <ion-buttons slot="start">
           <ion-back-button default-href="profile"></ion-back-button>
         </ion-buttons>
@@ -9,7 +9,7 @@
       </ion-toolbar>
     </ion-header>
 
-    <ion-content color="background" no-bounce>
+    <ion-content color="primary" no-bounce>
       <div class="mc-white-container">
 
         <div v-if="user">
@@ -114,12 +114,12 @@
           <div class="phone-visibility">
             <ion-item lines="none">
               <ion-radio-group>
-                <ion-item color="background" lines="none" >
+                <ion-item color="primary" lines="none" >
                   <ion-label class="ion-text-wrap">{{$t('UpdateProfile.visibility-accepted')}}</ion-label>
                   <ion-radio slot="start" value="1" :checked="user.phoneDisplay == 1" @ionSelect="user.phoneDisplay = 1"></ion-radio>
                 </ion-item>
 
-                <ion-item color="background" lines="none">
+                <ion-item color="primary" lines="none">
                   <ion-label class="ion-text-wrap">{{$t('UpdateProfile.visibility-all')}}</ion-label>
                   <ion-radio slot="start" value="2" :checked="user.phoneDisplay == 2" @ionSelect="user.phoneDisplay = 2"></ion-radio>
                 </ion-item>
