@@ -12,7 +12,8 @@ export const userStore = {
     statusMyCarpools: '',
     myCarpools: [],
     statusUserCommunities: '',
-    userCommunities: null
+    userCommunities: null,
+    resetPasswordStatus: ''
   },
   mutations: {
     auth_request(state) {
@@ -95,6 +96,18 @@ export const userStore = {
 
     updateUserAddress(state, payload) {
       state.user.addresses = [payload.addressDTO];
+    },
+
+    reset_password_request(state) {
+      state.resetPasswordStatus = 'loading';
+    },
+
+    reset_password_success(state){
+      state.resetPasswordStatus = 'success';
+    },
+
+    reset_password_error(state){
+      state.resetPasswordStatus = 'error';
     },
 
   },
@@ -312,7 +325,21 @@ export const userStore = {
           reject(err)
         })
     })
-  }
+  },
+    resetPassword({commit}, params) {
+      return new Promise((resolve, reject) => {
+        commit('reset_password_request');
+        http.post(`/users/password_update_request`, params)
+          .then(resp => {
+            commit('reset_password_success');
+            resolve(resp)
+          })
+          .catch(err => {
+            commit('reset_password_error');
+            reject(err)
+          })
+      })
+    },
 
   },
   getters : {

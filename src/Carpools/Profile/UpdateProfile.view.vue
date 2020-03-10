@@ -17,7 +17,7 @@
           <div class="mc-user-update-profile ion-margin-bottom" >
             <div class="mc-user-image">
               <ion-thumbnail v-if="!! user.avatars">
-                <img :src="user.avatars[0]">
+                <img :src="user.avatars[0]" alt="">
               </ion-thumbnail>
             </div>
 
@@ -81,6 +81,7 @@
               type="text"
               :placeholder="$t('Register.email') + '*'"
               :value="user.email"
+              disabled
               @input="user.email = $event.target.value;"
             >
             </ion-input>
@@ -99,6 +100,7 @@
               @input="user.telephone = $event.target.value;"
               :placeholder="$t('Register.phone')"
             ></ion-input>
+            <ion-icon slot="end" color="success" class="ion-margin-top" v-if="user.phoneValidatedDate" name="checkmark"></ion-icon>
           </ion-item>
           <div v-if="$v.user.telephone.$error">
             <div class="mc-error-label"  v-if="!$v.user.telephone.required">{{$t('Validation.required')}}</div>

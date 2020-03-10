@@ -30,8 +30,8 @@
       </div>
 
       <div class="mc-user-action">
-        <ion-icon name="create" size="large" class="ion-padding-end"></ion-icon>
-         <ion-icon name="log-out" size="large" v-on:click="logout"></ion-icon>
+        <ion-icon name="create" size="large" class="ion-padding-end pointer" v-on:click="$router.push('profile')"></ion-icon>
+         <ion-icon name="log-out" size="large" class="pointer" v-on:click="logout"></ion-icon>
       </div>
 
     </div>

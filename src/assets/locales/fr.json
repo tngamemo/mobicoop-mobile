@@ -17,8 +17,12 @@
   },
   "Login": {
     "log-in": "Se connecter",
-    "mail-placeholder": "Adresse mail*",
-    "password-placeholder": "Mot de passe*"
+    "mail-placeholder": "Adresse mail",
+    "password-placeholder": "Mot de passe",
+    "forgotPassword": "Mot de passe oublié ?",
+    "resetPassword": "Réinitialisation du mot de passe",
+    "sendResetEmail": "Envoyer le mail de réinitialisation",
+    "passwordSuccess" : "Votre demande à bien été pris en compte. Vous allez recevoir un mail pour la remise à zéro de votre mot de passe"
   },
   "Register" : {
     "title" : "Inscription",
