@@ -48,6 +48,10 @@
       box-shadow: none;
       border-radius: 15px;
 
+      &:first-of-type {
+        margin-top: 0;
+      }
+
       + .mc-card {
         margin-top: 20px;
       }

@@ -23,7 +23,10 @@
       "actions": {
         "ask": "Je souhaite demander<br/> un coup de pouce",
         "give": "Je souhaite donner<br/> un coup de pouce",
-        "contact": "Contacter Ouestgo"
+        "contact": "Contacter Ouestgo",
+        "request": "Faire une demande",
+        "publish": "Publier une annonce",
+        "help": "Aide"
       }
     },
     "help": {
@@ -112,6 +115,9 @@
           "title": "Informations complémentaires"
         }
       }
+    },
+    "profile": {
+      "yearsOld": "ans"
     }
   }
 }

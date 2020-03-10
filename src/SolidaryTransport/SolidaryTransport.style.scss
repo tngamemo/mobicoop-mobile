@@ -46,6 +46,7 @@ ion-content {
   position: relative;
   background-color: var(--ion-color-light);
   display: flex;
+  flex-direction: column;
   width: 100%;
 
   .mc-register-form {
