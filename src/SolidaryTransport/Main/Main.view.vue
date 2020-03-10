@@ -26,11 +26,11 @@
     <template v-else>
 
       <ion-tab tab="messages" :routes="'solidaryTransport.messages'">
-        <Register/>
+        <ion-vue-router name="messages"></ion-vue-router>
       </ion-tab>
 
       <ion-tab tab="profile" :routes="'solidaryTransport.profile'">
-        <Login/>
+        <ion-vue-router name="profile"></ion-vue-router>
       </ion-tab>
 
     </template>
@@ -55,7 +55,7 @@
             <ion-label>{{ $t('solidaryTransport.navigation.register') }}</ion-label>
           </ion-tab-button>
 
-          <ion-tab-button tab="login" :to="{name: 'login'}">
+          <ion-tab-button tab="login" :to="{name: 'solidaryTransport.login' }">
             <ion-icon name="person"></ion-icon>
             <ion-label>{{ $t('solidaryTransport.navigation.login') }}</ion-label>
           </ion-tab-button>
@@ -64,6 +64,7 @@
           <ion-tab-button tab="messages" :to="{ name: 'solidaryTransport.messages' }">
             <ion-icon name="text"></ion-icon>
             <ion-label>{{ $t('solidaryTransport.navigation.messages') }}</ion-label>
+            <ion-badge color="warning">6</ion-badge>
           </ion-tab-button>
 
           <ion-tab-button tab="profile" :to="{ name: 'profile' }">

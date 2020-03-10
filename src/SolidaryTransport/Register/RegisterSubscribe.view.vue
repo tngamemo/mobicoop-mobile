@@ -10,17 +10,17 @@
     </ion-header>
 
     <ion-content color="primary" class="is-scrollable">
-      <div class="mc-register-container">
-        <div class="mc-register-form">
+      <div class="mc-st-container">
+        <div class="mc-st-form">
 
-          <div class="mc-register-form-content">
-            <div class="mc-register-form-actions is-active">
-              <ion-button class="mc-register-form-action" color="success" v-html="$t('solidaryTransport.register.form.actions.login')" @click="$router.push({name:'solidaryTransport.login'})"></ion-button>
+          <div class="mc-st-form-content">
+            <div class="mc-st-form-actions is-active">
+              <ion-button class="mc-st-form-action" color="success" v-html="$t('solidaryTransport.register.form.actions.login')" @click="$router.push({name:'solidaryTransport.login'})"></ion-button>
 
-              <div class="mc-register-form-other" v-html="$t('solidaryTransport.register.form.actions.complete')"></div>
+              <div class="mc-st-form-other" v-html="$t('solidaryTransport.register.form.actions.complete')"></div>
             </div>
 
-            <div class="mc-register-form-item">
+            <div class="mc-st-form-item">
               <ion-segment value="other">
                 <ion-segment-button value="other">
                   <ion-label>Autre</ion-label>
@@ -34,28 +34,28 @@
               </ion-segment>
             </div>
 
-            <ion-item class="mc-register-form-item">
+            <ion-item class="mc-st-form-item">
               <ion-label position="floating">{{$t('solidaryTransport.register.form.fields.firstname')}} *</ion-label>
-              <ion-input class="mc-register-form-input" type="text"></ion-input>
+              <ion-input class="mc-st-form-input" type="text"></ion-input>
             </ion-item>
             <template v-if="true">
-              <div class="mc-register-form-details">
-                <span class="mc-register-form-note" v-if="true">{{$t('solidaryTransport.register.form.fields.visibility')}}</span>
-                <span class="mc-register-form-error" v-if="true">{{$t('solidaryTransport.register.form.fields.required')}}</span>
+              <div class="mc-st-form-details">
+                <span class="mc-st-form-note" v-if="true">{{$t('solidaryTransport.register.form.fields.visibility')}}</span>
+                <span class="mc-st-form-error" v-if="true">{{$t('solidaryTransport.register.form.fields.required')}}</span>
               </div>
             </template>
 
-            <ion-item class="mc-register-form-item">
+            <ion-item class="mc-st-form-item">
               <ion-label position="floating">{{$t('solidaryTransport.register.form.fields.lastname')}} *</ion-label>
-              <ion-input class="mc-register-form-input" type="text"></ion-input>
+              <ion-input class="mc-st-form-input" type="text"></ion-input>
             </ion-item>
             <template v-if="true">
-              <div class="mc-register-form-details">
-                <span class="mc-register-form-error" v-if="true">{{$t('solidaryTransport.register.form.fields.required')}}</span>
+              <div class="mc-st-form-details">
+                <span class="mc-st-form-error" v-if="true">{{$t('solidaryTransport.register.form.fields.required')}}</span>
               </div>
             </template>
 
-            <ion-item class="mc-register-form-item">
+            <ion-item class="mc-st-form-item">
               <ion-label position="floating">{{$t('solidaryTransport.register.form.fields.birthdate')}} *</ion-label>
               <ion-datetime
                 display-format="DD/MM/YYYY"
@@ -65,12 +65,12 @@
               ></ion-datetime>
             </ion-item>
             <template v-if="true">
-              <div class="mc-register-form-details">
-                <span class="mc-register-form-error" v-if="true">{{$t('solidaryTransport.register.form.fields.required')}}</span>
+              <div class="mc-st-form-details">
+                <span class="mc-st-form-error" v-if="true">{{$t('solidaryTransport.register.form.fields.required')}}</span>
               </div>
             </template>
 
-            <ion-item class="mc-register-form-item" v-on:click="displayGeoSearch('register_address', 'search')">
+            <ion-item class="mc-st-form-item" v-on:click="displayGeoSearch('register_address', 'search')">
               <ion-label position="floating">{{$t('Register.address')}} *</ion-label>
               <ion-input
                 type="text"
@@ -81,47 +81,47 @@
               ></ion-input>
             </ion-item>
             <template v-if="true">
-              <div class="mc-register-form-details">
-                <span class="mc-register-form-error" v-if="true">{{$t('solidaryTransport.register.form.fields.required')}}</span>
+              <div class="mc-st-form-details">
+                <span class="mc-st-form-error" v-if="true">{{$t('solidaryTransport.register.form.fields.required')}}</span>
               </div>
             </template>
 
-            <ion-item class="mc-register-form-item">
+            <ion-item class="mc-st-form-item">
               <ion-label position="floating">{{$t('solidaryTransport.register.form.fields.phone')}} *</ion-label>
-              <ion-input class="mc-register-form-input" type="email"></ion-input>
+              <ion-input class="mc-st-form-input" type="email"></ion-input>
             </ion-item>
             <template v-if="true">
-              <div class="mc-register-form-details">
-                <span class="mc-register-form-error" v-if="true">{{$t('Validation.required')}}</span>
+              <div class="mc-st-form-details">
+                <span class="mc-st-form-error" v-if="true">{{$t('Validation.required')}}</span>
               </div>
             </template>
 
-            <ion-item class="mc-register-form-item">
+            <ion-item class="mc-st-form-item">
               <ion-label position="floating">{{$t('solidaryTransport.register.form.fields.email')}} *</ion-label>
-              <ion-input class="mc-register-form-input" type="email"></ion-input>
+              <ion-input class="mc-st-form-input" type="email"></ion-input>
             </ion-item>
             <template v-if="true">
-              <div class="mc-register-form-details">
-                <span class="mc-register-form-error" v-if="true">{{$t('Validation.required')}}</span>
+              <div class="mc-st-form-details">
+                <span class="mc-st-form-error" v-if="true">{{$t('Validation.required')}}</span>
               </div>
             </template>
 
-            <ion-item class="mc-register-form-item">
+            <ion-item class="mc-st-form-item">
               <ion-label position="floating">{{$t('solidaryTransport.register.form.fields.password')}} *</ion-label>
-              <ion-input class="mc-register-form-input" type="text"></ion-input>
+              <ion-input class="mc-st-form-input" type="text"></ion-input>
             </ion-item>
             <template v-if="true">
-              <div class="mc-register-form-details">
-                <span class="mc-register-form-error" v-if="true">{{$t('Validation.required')}}</span>
+              <div class="mc-st-form-details">
+                <span class="mc-st-form-error" v-if="true">{{$t('Validation.required')}}</span>
               </div>
             </template>
             
           </div>
 
-          <div class="mc-register-form-controls with-multiple">
-            <ion-button class="mc-register-form-control as-back" color="light" v-html="$t('solidaryTransport.buttons.back')" @click="$router.back()"></ion-button>
+          <div class="mc-st-form-controls with-multiple">
+            <ion-button class="mc-st-form-control as-back" color="light" v-html="$t('solidaryTransport.buttons.back')" @click="$router.back()"></ion-button>
 
-            <ion-button class="mc-register-form-control" color="success" v-html="$t('solidaryTransport.buttons.next')" @click="$router.push({name:'solidaryTransport.register.subscribe.details', query: {type: type}})"></ion-button>
+            <ion-button class="mc-st-form-control" color="success" v-html="$t('solidaryTransport.buttons.next')" @click="$router.push({name:'solidaryTransport.register.subscribe.details', query: {type: type}})"></ion-button>
           </div>
 
         </div>

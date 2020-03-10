@@ -39,7 +39,7 @@ ion-content {
   }
 }
 
-.mc-register-container {
+.mc-st-container {
   border-radius: 15px 15px 0px 0px;
   padding: 30px;
   min-height: 100%;
@@ -49,19 +49,20 @@ ion-content {
   flex-direction: column;
   width: 100%;
 
-  .mc-register-form {
+  .mc-st-form {
     position: relative;
     display: flex;
+    flex: 1 0 auto;
     width: 100%;
     flex-direction: column;
     min-height: 100%;
     margin-bottom: 20px;
 
-    .mc-register-form-content {
+    .mc-st-form-content {
       flex: 0 0 auto;
       margin-bottom: 25px;
 
-      .mc-register-form-item {
+      .mc-st-form-item {
         font-size: 14px;
 
         &.as-agreement {
@@ -72,57 +73,57 @@ ion-content {
           margin-top: 20px;
         }
 
-        .mc-register-form-checkbox-wrapper {
+        .mc-st-form-checkbox-wrapper {
           padding-left: 15px;
           padding-top: 10px;
           margin-bottom: 20px;
 
-          .mc-register-form-checkbox {
+          .mc-st-form-checkbox {
             margin-top: 0;
             margin-bottom: 0;
           }
 
-          .mc-register-form-item.as-other {
+          .mc-st-form-item.as-other {
             top: -10px;
             position: relative;
           }
         }
 
-        .mc-register-form-checkbox {
+        .mc-st-form-checkbox {
           margin-right: 10px;
           margin-top: 10px;
           margin-bottom: 10px;
         }
 
-        .mc-register-form-input {}
+        .mc-st-form-input {}
 
-        .mc-register-form-label {
+        .mc-st-form-label {
           font-family: 'Poppins';
         }
 
-        + .mc-register-form-actions {
+        + .mc-st-form-actions {
           margin-top: 30px;
         }
       }
 
-      .mc-register-form-details {
+      .mc-st-form-details {
         font-size: 12px;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
 
-        .mc-register-form-note {
+        .mc-st-form-note {
           color: var(--ion-color-light-contrast);
         }
 
-        .mc-register-form-error {
+        .mc-st-form-error {
           color: var(--ion-color-danger);
           text-align: right;
           flex: 1 0 auto;
         }
       }
 
-      .mc-register-form-actions {
+      .mc-st-form-actions {
         opacity: 0;
         transition: opacity .1s;
         text-align: center;
@@ -132,7 +133,7 @@ ion-content {
           transition: opacity .3s;
         }
 
-        + .mc-register-form-item {
+        + .mc-st-form-item {
           margin-top: 10px;
 
           &.as-agreement {
@@ -140,16 +141,16 @@ ion-content {
           }
         }
 
-        .mc-register-form-other {
+        .mc-st-form-other {
           color: var(--ion-color-primary);
           font-size: 14px;
 
-          + .mc-register-form-action {
+          + .mc-st-form-action {
             margin-top: 15px;
           }
         }
 
-        .mc-register-form-action {
+        .mc-st-form-action {
           --border-radius: 25px;
           --padding-start: 30px;
           --padding-end: 30px;
@@ -160,7 +161,7 @@ ion-content {
           text-transform: none;
           font-size: 14px;
 
-          + .mc-register-form-action, + .mc-register-form-other {
+          + .mc-st-form-action, + .mc-st-form-other {
             margin-top: 15px;
           }
 
@@ -186,7 +187,16 @@ ion-content {
       }
     }
 
-    .mc-register-form-controls {
+    .mc-form-alternate {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      flex: 1 0 auto;
+      justify-content: center;
+    }
+
+    .mc-st-form-controls {
       flex: 1 0 auto;
       display: flex;
       flex-direction: row;
@@ -197,7 +207,7 @@ ion-content {
         justify-content: space-between;
       }
 
-      .mc-register-form-control {
+      .mc-st-form-control {
         --border-radius: 25px;
         --padding-start: 30px;
         --padding-end: 30px;
@@ -219,24 +229,4 @@ ion-content {
       }
     }
   }
-
-  // .mc-register-slider {
-  //   position: relative;
-  //   height: 100%;
-
-  //   .swiper-pagination-bullets {
-  //     position: absolute;
-  //     top: -5px;
-  //   }
-    
-  //   .swiper-slide {
-  //     height: 100%;
-  //     overflow: auto;
-  //     color: var(--ion-color-primary);
-  //     padding: 20px 30px 0;
-
-      
-
-  //   }
-  // }
 }

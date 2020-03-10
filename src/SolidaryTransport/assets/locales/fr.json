@@ -6,7 +6,8 @@
     "buttons": {
       "back": "Retour",
       "next": "Suivant",
-      "register": "S'inscrire"
+      "register": "S'inscrire",
+      "validate": "Valider"
     },
     "navigation": {
       "home": "Accueil",
@@ -118,6 +119,17 @@
     },
     "profile": {
       "yearsOld": "ans"
+    },
+    "login": {
+      "title": "Connexion",
+      "form": {
+        "forgotPassword": "Mot de passe oublié ?",
+        "notRegistered": "Pas encore inscrit ? S'inscrire.",
+        "fields": {
+          "login": "Téléphone ou adresse mail",
+          "password": "Mot de passe"
+        }
+      }
     }
   }
 }

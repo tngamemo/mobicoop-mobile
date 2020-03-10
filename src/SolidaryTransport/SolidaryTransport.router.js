@@ -34,6 +34,11 @@ export default [
         component: Home,
       },
       {
+        path: '/solidary-transport/help',
+        name: 'solidaryTransport.help',
+        component: Help
+      },
+      {
         path: '/solidary-transport/register',
         name: 'solidaryTransport.register',
         components: {
@@ -65,11 +70,6 @@ export default [
         path: '/solidary-transport/login',
         name: 'solidaryTransport.login',
         component: Login
-      },
-      {
-        path: '/solidary-transport/help',
-        name: 'solidaryTransport.help',
-        component: Help
       }
     ]
   }
