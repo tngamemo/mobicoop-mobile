@@ -17,18 +17,23 @@
         <span>{{ this.carpool.price }} €</span>
       </div>
     </div>
-
     <div v-if="!isPunctualCarpool" class="mc-carpool-subheader d-flex justify-around align-center">
-      <div v-if="this.carpool.outwardTime" class="d-flex align-center mc-carpool-regular-time">
+      <div v-if="this.carpool.outwardTime && !this.carpool.isMultipleTimes" class="d-flex align-center mc-carpool-regular-time">
         <ion-icon name="arrow-down"></ion-icon>
         <span>{{ $t('Carpool.oneWay') }}</span>
         <span class="time">{{ this.carpool.outwardTime | moment("utc", "HH:mm")}}</span>
       </div>
 
-      <div v-if="this.carpool.returnTime" class="d-flex align-center mc-carpool-regular-time">
+      <div v-if="this.carpool.returnTime && !this.carpool.isMultipleTimes" class="d-flex align-center mc-carpool-regular-time">
         <ion-icon name="arrow-up"></ion-icon>
         <span>{{ $t('Carpool.return') }}  </span>
         <span class="time">{{ this.carpool.returnTime | moment("utc", "HH:mm")}} </span>
+      </div>
+
+      <div v-if="this.carpool.isMultipleTimes" class="d-flex align-center mc-carpool-regular-time">
+        <ion-icon name="arrow-up"></ion-icon>
+        <ion-icon name="arrow-down"></ion-icon>
+        <span>{{ $t('Carpool.multipeTimes') }}  </span>
       </div>
     </div>
 
@@ -261,9 +266,9 @@
       },
       deleteCarpool(carpoolId) {
         this.$store.dispatch('deleteCarpool', carpoolId).then(res => {
-            this.presentToast(this.$t("MyCarpools.delete-success"), "success");
+            this.presentToast(this.$parent.$t("MyCarpools.delete-success"), "success");
           }).catch(err => {
-            this.presentToast(this.$t("Commons.error"), "tertiary");
+            this.presentToast(this.$parent.$t("Commons.error"), "danger");
           })
       },
       onImgLoad: function () {

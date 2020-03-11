@@ -1,7 +1,7 @@
 <template>
   <div class="ion-page">
     <ion-header no-border>
-      <ion-toolbar color="background">
+      <ion-toolbar color="primary">
         <ion-buttons slot="start">
           <ion-back-button default-href="profile"></ion-back-button>
         </ion-buttons>
@@ -9,7 +9,7 @@
       </ion-toolbar>
     </ion-header>
 
-    <ion-content color="background" no-bounce>
+    <ion-content color="primary" no-bounce>
       <div class="mc-white-container">
         <div class="d-flex justify-between">
           <ion-button class='mc-small-button' color="primary" :fill="archived ? 'outline' : 'solid'" @click="archived = false">
@@ -22,7 +22,7 @@
         <hr>
 
         <div class="ion-text-center">
-          <ion-icon size="large" color="background" class="rotating" v-if="$store.state.userStore.statusMyCarpools == 'loading'" name="md-sync"></ion-icon>
+          <ion-icon size="large" color="primary" class="rotating" v-if="$store.state.userStore.statusMyCarpools == 'loading'" name="md-sync"></ion-icon>
         </div>
 
         <div class="ion-text-center" v-if="$store.state.userStore.statusMyCarpools == 'error'">
@@ -97,7 +97,7 @@
         } else {
           const dateAndTimeOutwardDate = this.$moment(`${this.$moment(carpool.outwardDate).format('YYYY-MM-DD')} ${this.$moment(carpool.outwardTime).format('HH:mm')}`);
           const dateAndTimeReturnDate = this.$moment(`${this.$moment(carpool.returnDate).format('YYYY-MM-DD')} ${this.$moment(carpool.returnTime).format('HH:mm')}`);
-          result = this.$moment(dateAndTimeOutwardDate).isBefore(this.$moment()) || this.$moment(dateAndTimeReturnDate).isBefore(moment());
+          result = this.$moment(dateAndTimeOutwardDate).isBefore(this.$moment()) || this.$moment(dateAndTimeReturnDate).isBefore(this.$moment());
         }
 
         return result;

@@ -1,7 +1,7 @@
 <template>
   <div class="ion-page">
     <ion-header no-border>
-      <ion-toolbar color="background">
+      <ion-toolbar color="primary">
         <ion-buttons slot="start">
           <ion-back-button default-href="profile"></ion-back-button>
         </ion-buttons>
@@ -9,7 +9,7 @@
       </ion-toolbar>
     </ion-header>
 
-    <ion-content color="background" no-bounce>
+    <ion-content color="primary" no-bounce>
       <div class="mc-white-container">
 
         <div v-if="user">
@@ -17,7 +17,7 @@
           <div class="mc-user-update-profile ion-margin-bottom" >
             <div class="mc-user-image">
               <ion-thumbnail v-if="!! user.avatars">
-                <img :src="user.avatars[0]">
+                <img :src="user.avatars[0]" alt="">
               </ion-thumbnail>
             </div>
 
@@ -81,6 +81,7 @@
               type="text"
               :placeholder="$t('Register.email') + '*'"
               :value="user.email"
+              disabled
               @input="user.email = $event.target.value;"
             >
             </ion-input>
@@ -99,6 +100,7 @@
               @input="user.telephone = $event.target.value;"
               :placeholder="$t('Register.phone')"
             ></ion-input>
+            <ion-icon slot="end" color="success" class="ion-margin-top" v-if="user.phoneValidatedDate" name="checkmark"></ion-icon>
           </ion-item>
           <div v-if="$v.user.telephone.$error">
             <div class="mc-error-label"  v-if="!$v.user.telephone.required">{{$t('Validation.required')}}</div>
@@ -114,12 +116,12 @@
           <div class="phone-visibility">
             <ion-item lines="none">
               <ion-radio-group>
-                <ion-item color="background" lines="none" >
+                <ion-item color="primary" lines="none" >
                   <ion-label class="ion-text-wrap">{{$t('UpdateProfile.visibility-accepted')}}</ion-label>
                   <ion-radio slot="start" value="1" :checked="user.phoneDisplay == 1" @ionSelect="user.phoneDisplay = 1"></ion-radio>
                 </ion-item>
 
-                <ion-item color="background" lines="none">
+                <ion-item color="primary" lines="none">
                   <ion-label class="ion-text-wrap">{{$t('UpdateProfile.visibility-all')}}</ion-label>
                   <ion-radio slot="start" value="2" :checked="user.phoneDisplay == 2" @ionSelect="user.phoneDisplay = 2"></ion-radio>
                 </ion-item>
@@ -128,7 +130,7 @@
           </div>
 
 
-          <ion-item v-on:click="goGeoSearch('register_address', 'search')">
+          <ion-item  v-on:click="goGeoSearch('update_user_address', 'search')">
             <ion-label position="floating">{{$t('Register.address')}} *</ion-label>
             <ion-input
               type="text"
@@ -322,6 +324,9 @@
           .catch(() => {
             this.presentToast(this.$t("Commons.error"), "tertiary");
           });
+      },
+      goGeoSearch(type, action) {
+        this.$router.push({ name: "geoSearch", query: { type, action }});
       },
     }
   }

@@ -1,7 +1,7 @@
 <template>
  <div class="ion-page">
   <ion-header no-border>
-    <ion-toolbar color="background">
+    <ion-toolbar color="primary">
       <ion-buttons slot="start">
         <ion-back-button></ion-back-button>
       </ion-buttons>
@@ -9,7 +9,7 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-content color="background" no-bounce>
+  <ion-content color="primary" no-bounce>
     <div class="mc-white-container" style="height: 100%">
       <ion-item>
         <ion-input
@@ -19,7 +19,7 @@
           v-bind:placeholder="$t('Search.placeHolder')"
           @input="submitSearch($event)">
         </ion-input>
-        <ion-icon size="large" color="background" class="rotating" v-if="this.$store.state.searchStore.statusGeo == 'loading'" name="md-sync"></ion-icon>
+        <ion-icon size="large" color="primary" class="rotating" v-if="this.$store.state.searchStore.statusGeo == 'loading'" name="md-sync"></ion-icon>
       </ion-item>
 
       <div v-for="address in this.$store.state.searchStore.resultsGeo" :key="address.key">
@@ -92,18 +92,7 @@
       },
 
       selectGeo: function(address) {
-        let addressDTO = {
-          "@id": address['@id'],
-          "@type": address['@type'],
-          id: address.id,
-          addressLocality: address.addressLocality,
-          latitude: address.latitude,
-          longitude: address.longitude
-        };
-
-        if (this.action == 'post') {
-          addressDTO = address;
-        }
+        let addressDTO = address;
 
         const displayGeo = `${address.addressLocality}, ${address.addressCountry}`;
 
@@ -123,6 +112,11 @@
 
               case 'register_address': {
                 this.$store.commit('changeRegisterAddress', { addressDTO, displayGeo });
+                break;
+              }
+
+              case 'update_user_address': {
+                this.$store.commit('updateUserAddress', { addressDTO, displayGeo });
                 break;
               }
 

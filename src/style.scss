@@ -81,6 +81,10 @@
   font-family: 'Poppins'
 }
 
+body {
+  background: var(--ion-color-primary) !important;
+}
+
 ion-toolbar {
   --padding-start: 30px;
   --padding-end: 30px;
@@ -116,7 +120,6 @@ ion-col {
 
 .plt-desktop body {
   max-width: 600px;
-  background: var(--ion-color-primary);
 }
 
 .item-native {
@@ -265,4 +268,8 @@ ion-thumbnail, ion-avatar {
   background-color: #C4C4C4 !important;
 }
 
+ion-toolbar h1 {
+  margin: 0px;
+  line-height: 48px;
+}
 

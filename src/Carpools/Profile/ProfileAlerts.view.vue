@@ -1,7 +1,7 @@
 <template>
   <div class="ion-page">
     <ion-header no-border>
-      <ion-toolbar color="background">
+      <ion-toolbar color="primary">
         <ion-buttons slot="start">
           <ion-back-button default-href="profile"></ion-back-button>
         </ion-buttons>
@@ -9,7 +9,7 @@
       </ion-toolbar>
     </ion-header>
 
-    <ion-content color="background" no-bounce>
+    <ion-content color="primary" no-bounce>
       <div class="mc-white-container">
 
         <div class='mc-profile-alerts'>
@@ -19,6 +19,7 @@
             <ion-item lines="none" v-for="alert in alertItem.alert" v-bind:key="alert.id">
               <ion-label>{{$t(`ProfileAlerts.medium-${alert.medium}`)}}</ion-label>
               <ion-checkbox slot="start" :checked="alert.active" @ionChange="onChange($event, alert)"></ion-checkbox>
+              <ion-icon slot="end" class="rotating" :hidden="!($store.state.userStore.statusUpdateAlert == 'loading' && currentUpdateIds.includes(alert.id))" name="md-sync"></ion-icon>
             </ion-item>
           </div>
         </div>
@@ -45,13 +46,16 @@
 </style>
 
 <script>
+  import {toast} from "../../Shared/Mixin/toast.mixin";
+
   export default {
     name: 'profile-alerts',
     data () {
       return {
-
+        currentUpdateIds : []
       }
     },
+    mixins: [toast],
     created() {
       this.$store.dispatch('getAlerts', this.$store.state.userStore.user.id).then(res => {}).catch(err => {});
     },
@@ -64,11 +68,17 @@
     },
     methods: {
       onChange(event, alert) {
+        this.currentUpdateIds.push(alert.id);
         this.$store.dispatch('updateAlert', {
           userId: this.$store.state.userStore.user.id,
           alertId: alert.id,
           alertValue: event.detail.checked
-        }).then(res => {}).catch(err => {});
+        }).then(res => {
+          this.currentUpdateIds.splice(this.currentUpdateIds.find(item => item.id === alert.id), 1)
+        }).catch(err => {
+          this.currentUpdateIds.splice(this.currentUpdateIds.find(item => item.id === alert.id), 1)
+          this.presentToast(this.$t("Commons.error"), "danger");
+        });
       }
     }
   }

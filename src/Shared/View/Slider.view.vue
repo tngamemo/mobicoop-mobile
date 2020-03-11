@@ -20,7 +20,7 @@
       <ion-button
         :style="{visibility: (activeIndex !== 0 || this.previous) ? 'visible' : 'hidden'}"
         class="mc-small-button"
-        color="background"
+        color="primary"
         fill="outline"
         @click="prev()"
       >{{ $t('Slider.prev') }}</ion-button>
@@ -28,7 +28,13 @@
         class="mc-small-button"
         color="success"
         @click="next()"
-      >{{ activeIndex >= slides.length - 1 ? $t('Slider.register') : $t('Slider.next') }}</ion-button>
+        :disabled="this.$store.getters.getSliderLoader"
+      >
+      <span v-if="this.$store.getters.getSliderLoader">
+        <ion-icon size="large" class="rotating" name="md-sync"></ion-icon>
+      </span>
+      <span v-if="!this.$store.getters.getSliderLoader">{{ activeIndex >= slides.length - 1 ? $t('Slider.register') : $t('Slider.next') }}</span>
+      </ion-button>
     </div>
   </div>
 </template>
@@ -153,7 +159,7 @@ export default {
     },
     prev() {
       if (this.activeIndex == 0 && !!this.previous) {
-        this.$router.push(this.previous)
+        this.$router.push(this.previous);
       } else {
         this.activeIndex = this.activeIndex - 1;
         this.$router.replace({ query: { step: this.activeIndex } });
@@ -162,12 +168,16 @@ export default {
     },
 
     slideDidChange() {
-      this.$refs.slider.getActiveIndex().then(res => {
-        if (!! this.slides[res]) {
-          this.$store.commit('slider_change', this.slides[res].component.name);
-        }
-      })
-
+      if (!!this.$refs.slider) {
+        this.$refs.slider.getActiveIndex().then(res => {
+          if (!!this.slides[res]) {
+            this.$store.commit(
+              "slider_change",
+              this.slides[res].component.name
+            );
+          }
+        });
+      }
     }
   }
 };

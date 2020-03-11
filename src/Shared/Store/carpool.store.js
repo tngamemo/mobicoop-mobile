@@ -64,6 +64,13 @@ export const carpoolStore = {
       }
     },
 
+    carpoolPost_fromSearch(state, payload) {
+      if (!! payload.origin) state.addressessUseToPost.origin = payload.origin;
+      if (!! payload.destination) state.addressessUseToPost.destination = payload.destination;
+      if (!! payload.frequency) state.carpoolToPost.frequency = payload.frequency;
+      if (!! payload.outwardDate) state.carpoolToPost.outwardDate = payload.outwardDate;
+    },
+
     carpoolPost_schedule_add(state) {
       const newSlot = {
         "mon": false,
@@ -83,17 +90,15 @@ export const carpoolStore = {
       state.carpoolToPost.schedule.push(newSlot)
     },
 
-    carpoolPost_schedule_delete_slot(state) {
+    carpoolPost_schedule_delete_slot(state, payload) {
       state.carpoolToPost.schedule.splice(payload.index, 1);
     },
 
     carpoolPost_schedule_init(state) {
-      console.log('init')
       state.carpoolToPost.schedule = [];
     },
 
     carpoolPost_schedule_delete(state) {
-      console.log('delete')
       delete state.carpoolToPost.schedule;
     },
 
@@ -174,6 +179,20 @@ export const carpoolStore = {
       state.carpoolToPost[payload.property] = payload.value;
     },
 
+    changeSelectDaySchedule(state, payload) {
+      const copyCarpoolToPost = Object.assign({}, state.carpoolToPost);
+      copyCarpoolToPost.schedule[payload.index][payload.prop] = !copyCarpoolToPost.schedule[payload.index][payload.prop];
+      state.carpoolToPost = copyCarpoolToPost;
+    },
+
+    changeTimeSchedule(state, payload) {
+      const copyCarpoolToPost = Object.assign({}, state.carpoolToPost);
+      copyCarpoolToPost.schedule[payload.index][payload.prop] = payload.value;
+      const propDisable = payload.prop.replace('Time', 'Disabled')
+      copyCarpoolToPost.schedule[payload.index][propDisable] = false;
+      state.carpoolToPost = copyCarpoolToPost;
+    },
+
     carpool_ask_request(state) {
       state.statusCarpoolAsk = 'loading';
     },
@@ -184,7 +203,7 @@ export const carpoolStore = {
 
     carpool_ask_error(state) {
       state.statusCarpoolAsk = 'error';
-    },
+    }
 
 
   },
@@ -304,7 +323,12 @@ export const carpoolStore = {
             reject(err)
           })
       })
+    },
+    changeOneWayRegular({state, commit}) {
+      const hasReturnTime = state.carpoolToPost.schedule.some(stepSchedule => !!stepSchedule.returnTime);
+      state.carpoolToPost.oneWay = !hasReturnTime;
     }
+
   },
   getters: {
     carpoolToPost: state => {

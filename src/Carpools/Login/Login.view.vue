@@ -1,7 +1,7 @@
 <template>
   <div class="ion-page">
     <ion-header no-border>
-      <ion-toolbar color="background">
+      <ion-toolbar color="primary">
         <ion-buttons slot="start">
           <ion-back-button></ion-back-button>
         </ion-buttons>
@@ -9,7 +9,7 @@
       </ion-toolbar>
     </ion-header>
 
-    <ion-content color="background" no-bounce>
+    <ion-content color="primary" no-bounce>
       <div class="mc-white-container" style="height: 100%">
 
         <div class="mc-form-login">
@@ -18,6 +18,7 @@
             <form>
               <!-- Input with placeholder -->
               <ion-item>
+                <ion-label position="floating">{{$t('Login.mail-placeholder')}} *</ion-label>
                 <ion-input
                   type="email"
                   :placeholder="$t('Login.mail-placeholder')"
@@ -27,6 +28,7 @@
               </ion-item>
 
               <ion-item>
+                <ion-label position="floating">{{$t('Login.password-placeholder')}} *</ion-label>
                 <ion-input
                   type="password"
                   :placeholder="$t('Login.password-placeholder')"
@@ -35,6 +37,11 @@
                 </ion-input>
               </ion-item>
             </form>
+
+            <div class="ion-text-center" style="margin-top: 50px">
+              <a v-if="$store.state.userStore.resetPasswordStatus != 'loading'" class="pointer" @click="resetPassword">{{ $t('Login.forgotPassword') }}</a>
+              <ion-icon size="large" color="background" class="rotating" v-if="$store.state.userStore.resetPasswordStatus == 'loading'" name="md-sync"></ion-icon>
+            </div>
           </div>
 
           <div class="mc-form-login-button">
@@ -110,6 +117,8 @@
         this.$store.dispatch('getUser', { idUser })
        .then(res => {
          this.presentToast("La connexion est un succès", 'success');
+         this.email = '';
+         this.password = '';
 
          if (!! this.$store.getters.redirectionUrl) {
             this.$router.push({name: this.$store.getters.redirectionUrl});
@@ -122,7 +131,41 @@
        .catch(err => {
           this.presentToast("Une erreur est survenue", 'danger')
        })
-      }
+      },
+
+      resetPassword() {
+        return this.$ionic.alertController
+          .create({
+            header: this.$t("Login.resetPassword"),
+            inputs: [
+              {
+                name: "mail",
+                id: "mail",
+                placeholder: this.$t("Login.mail-placeholder")
+              }
+            ],
+            buttons: [
+              {
+                text: this.$t("Commons.cancel"),
+                role: "cancel",
+                cssClass: "secondary",
+                handler: () => {}
+              },
+              {
+                text: this.$t("Login.sendResetEmail"),
+                handler: (data) => {
+                    this.$store.dispatch('resetPassword', data.mail).then(() => {
+                      this.presentToast(this.$t("Login.passwordSuccess"), "secondary");
+                    }).catch(() => {
+                      this.presentToast(this.$t("Commons.error"), "danger");
+                    });
+
+                }
+              }
+            ]
+          })
+          .then(a => a.present());
+      },
     }
   }
 </script>

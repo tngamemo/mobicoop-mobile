@@ -102,8 +102,125 @@
     </div>
 
     <div class="mc-form-carpool-time-regular" v-if="!isPonctual">
-      <div class="mc-schedule-select" v-for="(schedule, index) in carpoolToPost.schedule" :key="index">
-        {{schedule}}
+      <div
+        class="mc-schedule-select"
+        v-for="(schedule, index) in carpoolToPost.schedule"
+        :key="index"
+      >
+        <div class="mc-schedule-delete" v-if="index > 0">
+          <ion-icon name="trash" size="large" v-on:click="deleteStepSchedule(index)"></ion-icon>
+        </div>
+        <ion-item>
+          <ion-label>{{$t(`PostCarpool.mon`)}}</ion-label>
+          <ion-checkbox
+            slot="start"
+            :checked="schedule.mon"
+            @ionChange="setDaySelect($event, index, 'mon')"
+            :disabled="disabledDayIfAlreadySelected('mon', index)"
+          ></ion-checkbox>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>{{$t(`PostCarpool.tue`)}}</ion-label>
+          <ion-checkbox
+            slot="start"
+            :checked="schedule.tue"
+            @ionChange="setDaySelect($event, index, 'tue')"
+            :disabled="disabledDayIfAlreadySelected('tue', index)"
+          ></ion-checkbox>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>{{$t(`PostCarpool.wed`)}}</ion-label>
+          <ion-checkbox
+            slot="start"
+            :checked="schedule.wed"
+            @ionChange="setDaySelect($event, index, 'wed')"
+            :disabled="disabledDayIfAlreadySelected('wed', index)"
+          ></ion-checkbox>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>{{$t(`PostCarpool.thu`)}}</ion-label>
+          <ion-checkbox
+            slot="start"
+            :checked="schedule.thu"
+            @ionChange="setDaySelect($event, index, 'thu')"
+            :disabled="disabledDayIfAlreadySelected('thu', index)"
+          ></ion-checkbox>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>{{$t(`PostCarpool.fri`)}}</ion-label>
+          <ion-checkbox
+            slot="start"
+            :checked="schedule.fri"
+            @ionChange="setDaySelect($event, index, 'fri')"
+            :disabled="disabledDayIfAlreadySelected('fri', index)"
+          ></ion-checkbox>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>{{$t(`PostCarpool.sat`)}}</ion-label>
+          <ion-checkbox
+            slot="start"
+            :checked="schedule.sat"
+            @ionChange="setDaySelect($event, index, 'sat')"
+            :disabled="disabledDayIfAlreadySelected('sat', index)"
+          ></ion-checkbox>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>{{$t(`PostCarpool.sun`)}}</ion-label>
+          <ion-checkbox
+            slot="start"
+            :checked="schedule.sun"
+            @ionChange="setDaySelect($event, index, 'sun')"
+            :disabled="disabledDayIfAlreadySelected('sun', index)"
+          ></ion-checkbox>
+        </ion-item>
+
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating">Heure de départ</ion-label>
+              <ion-datetime
+                display-format="HH:mm"
+                picker-format="HH:mm"
+                cancel-text="Annuler"
+                done-text="Valider"
+                :placeholder="$t('PostCarpool.timeOutward')"
+                :value="getTimeSchedule(index, 'outwardTime')"
+                @ionChange="changeTimeSchedule($event, index, 'outwardTime')"
+              ></ion-datetime>
+            </ion-item>
+          </ion-col>
+
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating">{{$t('PostCarpool.timeReturn')}} (facultatif)</ion-label>
+              <ion-datetime
+                display-format="HH:mm"
+                picker-format="HH:mm"
+                cancel-text="Annuler"
+                done-text="Valider"
+                :placeholder="$t('PostCarpool.timeReturn')"
+                :value="getTimeSchedule(index, 'returnTime')"
+                @ionChange="changeTimeSchedule($event, index, 'returnTime')"
+              ></ion-datetime>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </div>
+      <div
+        v-if="hasALeastFirstStepSchedule"
+        v-on:click="addScheduleStep()"
+        class="text-center d-flex align-center pointer mc-button-step-schedule"
+      >
+        <div>
+          <ion-icon name="add-circle-outline"></ion-icon>
+          {{$t('PostCarpool.addSchedule')}}
+        </div>
       </div>
     </div>
   </div>
@@ -117,6 +234,41 @@
     margin-bottom: 40px;
   }
 }
+
+.mc-button-step-schedule {
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  div {
+    border: 2px solid rgba(0, 0, 0, 0.12);
+    background: white;
+    padding: 10px;
+    border-radius: 20px;
+    z-index: 2;
+  }
+}
+
+.mc-form-carpool-time-regular {
+  margin-bottom: 60px;
+}
+
+.mc-schedule-select {
+  padding: 30px 30px;
+  border-radius: 10px;
+  border: 2px solid rgba(0, 0, 0, 0.12);
+  margin-bottom: 20px;
+  position: relative;
+
+  .mc-schedule-delete {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    z-index: 1;
+  }
+}
 </style>
 
 <script>
@@ -128,6 +280,8 @@ import {
   helpers,
   requiredIf
 } from "vuelidate/lib/validators";
+
+import { toast } from "../../Shared/Mixin/toast.mixin";
 
 export default {
   name: "post-carpool-step2",
@@ -176,6 +330,7 @@ export default {
       })
     }
   },
+  mixins: [toast],
   created() {},
   computed: {
     carpoolToPost() {
@@ -184,7 +339,39 @@ export default {
 
     isPonctual() {
       return this.$store.getters.carpoolToPost.frequency == 1;
+    },
+
+    hasALeastFirstStepSchedule() {
+      let result = false;
+      let resultArray = [];
+
+      if (this.carpoolToPost.frequency == 2) {
+        this.carpoolToPost.schedule.forEach(element => {
+          const hasOneDaySelect = [
+            "mon",
+            "tue",
+            "wed",
+            "thu",
+            "fri",
+            "sat",
+            "sun"
+          ].some(day => {
+            return element[day] == true;
+          });
+          resultArray.push(
+            hasOneDaySelect && (element.returnTime || element.outwardTime)
+              ? true
+              : false
+          );
+        });
+      }
+
+      result = resultArray.every(item => item == true);
+      return result;
     }
+  },
+  updated() {
+    this.scrollToEnd();
   },
   methods: {
     validate() {
@@ -193,13 +380,28 @@ export default {
       if (this.$v.$invalid) {
         return false;
       } else {
-        this.$store.commit("changeTimeOutwardCarpool", {
-          outwardTime: this.outwardTimeCopy
-        });
 
-        this.$store.commit("changeTimeReturnCarpool", {
-          returnTime: this.returnTimeCopy
-        });
+        // Si on est en trajet régulier
+        if (this.carpoolToPost.frequency == 1) {
+          this.$store.commit("changeTimeOutwardCarpool", {
+            outwardTime: this.outwardTimeCopy
+          });
+
+          this.$store.commit("changeTimeReturnCarpool", {
+            returnTime: this.returnTimeCopy
+          });
+        }
+
+        // Si on est en trajet régulier mais que les créneaux ne sont pas bien remplit
+        if (
+          !this.hasALeastFirstStepSchedule &&
+          this.carpoolToPost.frequency == 2
+        ) {
+          this.presentToast("Les créneaux ne sont pas bien définit", "danger");
+          return false;
+        } else if (this.carpoolToPost.frequency == 2) {
+           this.$store.dispatch("changeOneWayRegular");
+        }
         return true;
       }
     },
@@ -268,6 +470,66 @@ export default {
         }
       } else {
         return "";
+      }
+    },
+
+    setDaySelect($event, index, prop) {
+      this.$store.commit("changeSelectDaySchedule", { index, prop });
+    },
+
+    getTimeSchedule(index, prop) {
+      if (!!this.carpoolToPost.schedule[index]) {
+        const hour = this.carpoolToPost.schedule[index][prop].split(":")[0];
+        const min = this.carpoolToPost.schedule[index][prop].split(":")[1];
+
+        if (!!hour && !!min) {
+          const date = new Date();
+          date.setHours(hour, min);
+          return date.toString();
+        } else {
+          return "";
+        }
+      } else {
+        return "";
+      }
+    },
+
+    changeTimeSchedule($event, index, prop) {
+      if (!!this.carpoolToPost.schedule[index]) {
+        const value = this.$moment($event.detail.value).format("HH:mm");
+        this.$store.commit("changeTimeSchedule", { index, prop, value });
+      }
+    },
+
+    addScheduleStep() {
+      this.$store.commit("carpoolPost_schedule_add");
+    },
+
+    scrollToEnd: function() {
+      const container = this.$el.querySelector(".mc-form-carpool-time-regular");
+      if (!!container) {
+        container.scrollTop = container.scrollHeight;
+      }
+    },
+
+    deleteStepSchedule(index) {
+      this.$store.commit("carpoolPost_schedule_delete_slot", { index });
+    },
+
+    disabledDayIfAlreadySelected(day, index) {
+      const arrayTmp = [];
+      this.carpoolToPost.schedule.forEach(stepSchedule => {
+        arrayTmp.push(stepSchedule[`${day}`]);
+      });
+
+      // Si le jour est check une fois
+      const isCheked = arrayTmp.some(value => value == true);
+
+      // On disabled si le jour est checked et que nous ne sommes pas sur la step qui le check.
+      if (isCheked && arrayTmp[index] == false) {
+        return true;
+      } else {
+        return false;
       }
     }
   }

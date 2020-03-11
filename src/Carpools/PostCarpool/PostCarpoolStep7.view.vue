@@ -1,9 +1,37 @@
 <template>
   <div class="mc-form-carpool-recap">
     <div class="mc-recap-item">
-      <div class="mc-recap-header d-flex justify-between">
+      <div class="mc-recap-header d-flex justify-between align-center">
         <span>{{carpoolToPost.outwardDate | moment('DD MMMM YYYY') }}</span>
+        <div v-if="carpoolToPost.frequency == 2" class="d-flex">
+          <div v-for="(day, index) in getRegularDaysFromMyCarpool()" :key="index">
+            <div class="mc-pastille-day" v-bind:class="{ 'selected': day.value }">
+              <b>{{$t(day.trad)}}</b>
+            </div>
+          </div>
+        </div>
         <span>{{priceCarpool}} €</span>
+      </div>
+      <div
+        v-if="carpoolToPost.frequency == 2"
+        class="mc-carpool-subheader d-flex justify-around align-center"
+      >
+        <div
+          v-if="carpoolToPost.schedule.length > 1"
+          class="d-flex align-center mc-carpool-regular-time">
+          Horaires différents selon les jours
+        </div>
+        <div v-if="carpoolToPost.schedule.length == 1 && carpoolToPost.schedule[0].outwardTime" class="d-flex align-center mc-carpool-regular-time">
+          <ion-icon name="arrow-down"></ion-icon>
+          <span>{{ $t('Carpool.oneWay') }}</span>
+          <span class="time">{{ carpoolToPost.schedule[0].outwardTime }}</span>
+        </div>
+
+        <div v-if="carpoolToPost.schedule.length == 1 && carpoolToPost.schedule[0].returnTime" class="d-flex align-center mc-carpool-regular-time">
+          <ion-icon name="arrow-up"></ion-icon>
+          <span>{{ $t('Carpool.return') }}</span>
+          <span class="time">{{ carpoolToPost.schedule[0].returnTime}}</span>
+        </div>
       </div>
       <div class="mc-recap-step">
         <p
@@ -24,7 +52,7 @@
       </div>
     </div>
 
-    <div class="mc-recap-message">{{carpoolToPost.comment}}</div>
+    <div v-if="!!carpoolToPost.comment" class="mc-recap-message">{{carpoolToPost.comment}}</div>
 
     <div class="mc-recap-user" v-if="!!this.$store.state.userStore.user">
       <div class="mc-recap-user-bloc-info">
@@ -60,6 +88,43 @@
 <style lang="scss">
 .mc-form-carpool-recap {
   margin-top: 20px;
+
+  .mc-pastille-day {
+    background: white;
+    color: rgba(var(--ion-color-primary-rgb), 0.5);
+    font-weight: bold;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+
+    &.selected {
+      background: rgba(var(--ion-color-primary-rgb), 0.5);
+      color: white;
+    }
+  }
+
+  .mc-carpool-subheader {
+    background: rgba(255, 255, 255, 0.5);
+    color: var(--ion-color-primary);
+    height: 50px;
+
+    .mc-carpool-regular-time {
+      font-weight: bold;
+
+      span {
+        padding-right: 10px;
+
+        &.time {
+          font-weight: lighter;
+          color: rgba(var(--ion-color-primary-rgb), 0.7);
+        }
+      }
+    }
+  }
 
   .mc-recap-item {
     background: rgba(var(--ion-color-primary-rgb), 0.1);
@@ -109,6 +174,7 @@
     color: rgba(0, 0, 0, 0.6);
     border-radius: 15px 15px 15px 0px;
     margin-bottom: 20px;
+    white-space: pre-line;
   }
 
   .mc-recap-user {
@@ -151,6 +217,7 @@ import {
   requiredIf
 } from "vuelidate/lib/validators";
 import { LMap, LTileLayer, LPolyline } from "vue2-leaflet";
+import { isPlatform } from '@ionic/core';
 
 export default {
   name: "post-carpool-step7",
@@ -160,8 +227,9 @@ export default {
       zoom: 8,
       showCard: true,
       optionsCard: {
-        dragging: false,
-        touchZoom: true
+        dragging: !isPlatform(window.document.defaultView, 'mobile'),
+        touchZoom: isPlatform(window.document.defaultView, 'mobile'),
+        tap: !isPlatform(window.document.defaultView, 'mobile')
       }
     };
   },
@@ -173,18 +241,18 @@ export default {
   },
   mounted() {
     setTimeout(() => {
-      this.$refs.mapRecap.mapObject.invalidateSize();
+      if(!!this.$refs.mapRecap) this.$refs.mapRecap.mapObject.invalidateSize();
     }, 500);
   },
   created() {
     this.unwatch = this.$store.watch(
       (state, getters) => getters.currentSlider,
       (newValue, oldValue) => {
-        if (oldValue != newValue && newValue == "post-carpool-step3") {
+        if (oldValue != newValue && newValue == "post-carpool-step7") {
           this.showCard = false;
           setTimeout(() => {
             this.showCard = true;
-            this.$refs.mapRecap.mapObject.invalidateSize();
+            if(!!this.$refs.mapRecap) this.$refs.mapRecap.mapObject.invalidateSize();
           }, 1);
         }
       }
@@ -233,6 +301,40 @@ export default {
       } else {
         result = `${step.addressLocality},  ${step.addressCountry}`;
       }
+      return result;
+    },
+
+    getRegularDaysFromMyCarpool(carpool) {
+      const result = [];
+      result.push({
+        trad: "Carpool.L",
+        value: this.carpoolToPost.schedule.some(item => item["mon"] == true)
+      });
+      result.push({
+        trad: "Carpool.Ma",
+        value: this.carpoolToPost.schedule.some(item => item["tue"] == true)
+      });
+      result.push({
+        trad: "Carpool.Me",
+        value: this.carpoolToPost.schedule.some(item => item["wed"] == true)
+      });
+      result.push({
+        trad: "Carpool.J",
+        value: this.carpoolToPost.schedule.some(item => item["thu"] == true)
+      });
+      result.push({
+        trad: "Carpool.V",
+        value: this.carpoolToPost.schedule.some(item => item["fri"] == true)
+      });
+      result.push({
+        trad: "Carpool.S",
+        value: this.carpoolToPost.schedule.some(item => item["sat"] == true)
+      });
+      result.push({
+        trad: "Carpool.D",
+        value: this.carpoolToPost.schedule.some(item => item["sun"] == true)
+      });
+
       return result;
     }
   }
