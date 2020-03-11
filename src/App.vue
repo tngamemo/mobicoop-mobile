@@ -35,10 +35,8 @@
     methods: {
 
       authUserOnStart: function() {
-
         // Get the user api Token. If empty, we connect with the anonymous User
         if (this.$store.state.userStore.tokenUser) {
-
             const idUser = jwt_decode(this.$store.state.userStore.tokenUser).id;
             this.$store.dispatch('getUser', { idUser })
             .then(res => {

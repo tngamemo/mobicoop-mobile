@@ -144,7 +144,9 @@
     "sameAsPassword" : "La confirmation et le mot de passe ne sont pas identiques",
     "minLength" : "Le mot de passe doit comprendre 8 caractères minimum",
     "oneUppercase" : "Le mot de passe doit comprendre 1 majuscule",
-    "oneDigit" : "Le mot de passe doit comprendre 1 chiffre"
+    "oneDigit" : "Le mot de passe doit comprendre 1 chiffre",
+    "minValue" : "La valeur ne peut pas être inférieure à {value}",
+    "maxValue" : "La valeur ne peut pas être supérieure à {value}"
   },
   "Carpool" : {
     "L": "L",

@@ -211,15 +211,16 @@
             </ion-item>
           </ion-col>
         </ion-row>
-
       </div>
       <div
         v-if="hasALeastFirstStepSchedule"
         v-on:click="addScheduleStep()"
-        class="text-center d-flex align-center pointer"
+        class="text-center d-flex align-center pointer mc-button-step-schedule"
       >
-        <ion-icon name="add-circle-outline"></ion-icon>
-        {{$t('PostCarpool.addSchedule')}}
+        <div>
+          <ion-icon name="add-circle-outline"></ion-icon>
+          {{$t('PostCarpool.addSchedule')}}
+        </div>
       </div>
     </div>
   </div>
@@ -232,6 +233,26 @@
   ion-row {
     margin-bottom: 40px;
   }
+}
+
+.mc-button-step-schedule {
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  div {
+    border: 2px solid rgba(0, 0, 0, 0.12);
+    background: white;
+    padding: 10px;
+    border-radius: 20px;
+    z-index: 2;
+  }
+}
+
+.mc-form-carpool-time-regular {
+  margin-bottom: 60px;
 }
 
 .mc-schedule-select {
@@ -259,6 +280,8 @@ import {
   helpers,
   requiredIf
 } from "vuelidate/lib/validators";
+
+import { toast } from "../../Shared/Mixin/toast.mixin";
 
 export default {
   name: "post-carpool-step2",
@@ -307,6 +330,7 @@ export default {
       })
     }
   },
+  mixins: [toast],
   created() {},
   computed: {
     carpoolToPost() {
@@ -334,13 +358,17 @@ export default {
           ].some(day => {
             return element[day] == true;
           });
-          resultArray.push(hasOneDaySelect && (element.returnTime || element.outwardTime) ? true : false)
+          resultArray.push(
+            hasOneDaySelect && (element.returnTime || element.outwardTime)
+              ? true
+              : false
+          );
         });
       }
 
       result = resultArray.every(item => item == true);
       return result;
-    },
+    }
   },
   updated() {
     this.scrollToEnd();
@@ -352,19 +380,27 @@ export default {
       if (this.$v.$invalid) {
         return false;
       } else {
-        this.$store.commit("changeTimeOutwardCarpool", {
-          outwardTime: this.outwardTimeCopy
-        });
 
-        this.$store.commit("changeTimeReturnCarpool", {
-          returnTime: this.returnTimeCopy
-        });
+        // Si on est en trajet régulier
+        if (this.carpoolToPost.frequency == 1) {
+          this.$store.commit("changeTimeOutwardCarpool", {
+            outwardTime: this.outwardTimeCopy
+          });
 
+          this.$store.commit("changeTimeReturnCarpool", {
+            returnTime: this.returnTimeCopy
+          });
+        }
+
+        // Si on est en trajet régulier mais que les créneaux ne sont pas bien remplit
         if (
           !this.hasALeastFirstStepSchedule &&
           this.carpoolToPost.frequency == 2
         ) {
+          this.presentToast("Les créneaux ne sont pas bien définit", "danger");
           return false;
+        } else if (this.carpoolToPost.frequency == 2) {
+           this.$store.dispatch("changeOneWayRegular");
         }
         return true;
       }
@@ -471,19 +507,20 @@ export default {
 
     scrollToEnd: function() {
       const container = this.$el.querySelector(".mc-form-carpool-time-regular");
-      container.scrollTop = container.scrollHeight;
+      if (!!container) {
+        container.scrollTop = container.scrollHeight;
+      }
     },
 
-    deleteStepSchedule(index){
-      this.$store.commit('carpoolPost_schedule_delete_slot', {index})
+    deleteStepSchedule(index) {
+      this.$store.commit("carpoolPost_schedule_delete_slot", { index });
     },
 
     disabledDayIfAlreadySelected(day, index) {
       const arrayTmp = [];
       this.carpoolToPost.schedule.forEach(stepSchedule => {
-          arrayTmp.push(stepSchedule[`${day}`]);
+        arrayTmp.push(stepSchedule[`${day}`]);
       });
-
 
       // Si le jour est check une fois
       const isCheked = arrayTmp.some(value => value == true);

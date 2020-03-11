@@ -12,6 +12,8 @@
     </ion-item>
     <div v-if="$v.carpoolToPost.seatsDriver.$error">
       <div class="mc-error-label" v-if="!$v.carpoolToPost.seatsDriver.required">{{$t('Validation.required')}}</div>
+      <div class="mc-error-label" v-if="!$v.carpoolToPost.seatsDriver.minValue">{{$t('Validation.minValue', { value: '0' })}}</div>
+      <div class="mc-error-label" v-if="!$v.carpoolToPost.seatsDriver.maxValue">{{$t('Validation.maxValue', { value: '4' })}}</div>
     </div>
 
     <ion-item lines="none">
@@ -46,6 +48,8 @@ import {
   email,
   sameAs,
   minLength,
+  minValue,
+  maxValue,
   helpers,
   requiredIf
 } from "vuelidate/lib/validators";
@@ -58,6 +62,8 @@ export default {
   validations: {
     carpoolToPost: {
       seatsDriver: {
+        minValue: (value) => value > 0,
+        maxValue: (value) => value <= 4,
         required
       }
     }
