@@ -115,6 +115,11 @@
                 break;
               }
 
+              case 'update_user_address': {
+                this.$store.commit('updateUserAddress', { addressDTO, displayGeo });
+                break;
+              }
+
             }
             break;
           }

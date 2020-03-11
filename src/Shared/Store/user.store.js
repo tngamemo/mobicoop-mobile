@@ -7,11 +7,13 @@ export const userStore = {
     tokenAnonymousUser: localStorage.getItem('tokenAnonymousUser') || '',
     user: null,
     statusAlerts: '',
+    statusUpdateAlert: '',
     alerts: [],
     statusMyCarpools: '',
     myCarpools: [],
     statusUserCommunities: '',
-    userCommunities: null
+    userCommunities: null,
+    resetPasswordStatus: ''
   },
   mutations: {
     auth_request(state) {
@@ -43,8 +45,17 @@ export const userStore = {
       state.statusAlerts = 'error';
     },
 
+    user_update_alerts_request(state) {
+      state.statusUpdateAlert = 'loading';
+    },
+
+    user_update_alerts_error(state) {
+      state.statusUpdateAlert = 'error';
+    },
+
     user_alerts_request_success(state, data) {
       state.statusAlerts = 'success';
+      state.statusUpdateAlert = 'success';
       state.alerts = data.alerts;
     },
 
@@ -81,6 +92,22 @@ export const userStore = {
 
     user_communities_error(state){
       state.statusUserCommunities = 'error';
+    },
+
+    updateUserAddress(state, payload) {
+      state.user.addresses = [payload.addressDTO];
+    },
+
+    reset_password_request(state) {
+      state.resetPasswordStatus = 'loading';
+    },
+
+    reset_password_success(state){
+      state.resetPasswordStatus = 'success';
+    },
+
+    reset_password_error(state){
+      state.resetPasswordStatus = 'error';
     },
 
   },
@@ -154,6 +181,7 @@ export const userStore = {
       return new Promise((resolve, reject) => {
         delete params.addresses[0].id;
         delete params.images;
+        delete params.proEmail;
         http.put(`/users/${params.id}`, params)
           .then(resp => {
 
@@ -258,6 +286,7 @@ export const userStore = {
     },
 
     updateAlert({commit}, params) {
+      commit('user_update_alerts_request');
       const alert = {
         alerts: {[params.alertId]: params.alertValue},
       };
@@ -268,6 +297,7 @@ export const userStore = {
             resolve(resp)
           })
           .catch(err => {
+            commit('user_update_alerts_error');
             reject(err)
           })
       })
@@ -295,7 +325,21 @@ export const userStore = {
           reject(err)
         })
     })
-  }
+  },
+    resetPassword({commit}, params) {
+      return new Promise((resolve, reject) => {
+        commit('reset_password_request');
+        http.post(`/users/password_update_request`, params)
+          .then(resp => {
+            commit('reset_password_success');
+            resolve(resp)
+          })
+          .catch(err => {
+            commit('reset_password_error');
+            reject(err)
+          })
+      })
+    },
 
   },
   getters : {

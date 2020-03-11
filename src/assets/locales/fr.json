@@ -17,8 +17,12 @@
   },
   "Login": {
     "log-in": "Se connecter",
-    "mail-placeholder": "Adresse mail*",
-    "password-placeholder": "Mot de passe*"
+    "mail-placeholder": "Adresse mail",
+    "password-placeholder": "Mot de passe",
+    "forgotPassword": "Mot de passe oublié ?",
+    "resetPassword": "Réinitialisation du mot de passe",
+    "sendResetEmail": "Envoyer le mail de réinitialisation",
+    "passwordSuccess" : "Votre demande à bien été pris en compte. Vous allez recevoir un mail pour la remise à zéro de votre mot de passe"
   },
   "Register" : {
     "title" : "Inscription",
@@ -143,6 +147,7 @@
     "email" : "Le mail renseigné n'est pas au bon format",
     "sameAsPassword" : "La confirmation et le mot de passe ne sont pas identiques",
     "minLength" : "Le mot de passe doit comprendre 8 caractères minimum",
+    "minLengthTel" : "Le téléphone doit comprendre 10 chiffres minimum",
     "oneUppercase" : "Le mot de passe doit comprendre 1 majuscule",
     "oneDigit" : "Le mot de passe doit comprendre 1 chiffre",
     "minValue" : "La valeur ne peut pas être inférieure à {value}",
