@@ -25,17 +25,33 @@
           <div class="d-flex align-center see-carpool"><ion-icon name="eye"></ion-icon> <span style="margin-left: 5px">{{$t('Message.see-carpool')}}</span></div>
         </div>
 
-        <div class="carpool-zone ion-margin">
-          Carpool
+        <div class="carpool-zone ion-margin-start ion-margin-end" v-if="ask" >
+          <div class="d-flex mc-carpool-way">
+            <div class="mc-carpool-time" v-if="this.ask.frequency == 1">
+              <p>{{ this.ask.pickUpTime | moment("utc", "HH:mm") }}</p>
+              <p>{{ this.ask.dropOffTime  | moment("utc", "HH:mm")}}</p>
+            </div>
+            <div class='mc-carpool-origin-destination'>
+              <div>
+                <p class="timeline">{{this.ask.pickUpAddress.addressLocality}}</p>
+                <p class="timeline">{{this.ask.dropOffAddress.addressLocality}}</p>
+              </div>
+            </div>
+          </div>
+          <div class="text-center ion-margin-bottom">
+            <ion-text color="success" class="d-flex justify-center align-center" v-if="this.ask.status == 4 || this.ask.status == 5"><ion-icon  class="status-icon" name="checkmark"></ion-icon> <b>{{$t('Message.accepted')}}</b></ion-text>
+            <ion-text color="danger" class="d-flex justify-center align-center" v-if="this.ask.status == 6 || this.ask.status == 7"><ion-icon class="status-icon" name="close"></ion-icon> <b>{{$t('Message.refused')}}</b></ion-text>
+            <ion-text color="secondary" class="d-flex justify-center align-center" v-if="this.ask.status == 1 || this.ask.status == 2 || this.ask.status == 3"><ion-icon class="status-icon" name="hourglass"></ion-icon> <b>{{$t('Message.waiting')}}</b></ion-text>
+          </div>
         </div>
 
-        <div class="messages-zone">
+        <div class="messages-zone" v-if="this.thread">
 
-          <div class="ion-text-center" v-if="$store.state.messageStore.statusPostMessage == 'loading' || $store.state.messageStore.statusCompleteThread == 'loading'">
+          <div class="ion-text-center" v-if="$store.state.messageStore.statusPostMessage == 'loading' || $store.state.messageStore.statusCompleteThread == 'loading' || $store.state.carpoolStore.statusCarpoolAsk == 'loading'">
             <ion-icon size="large" color="background" class="rotating"  name="md-sync"></ion-icon>
           </div>
 
-          <div class="ion-text-center" v-if="this.thread.idMessage == -99">
+          <div class="ion-text-center" v-if="!($store.state.messageStore.statusPostMessage == 'loading' || $store.state.messageStore.statusCompleteThread == 'loading' || $store.state.carpoolStore.statusCarpoolAsk == 'loading') && this.thread.idMessage == -99">
             {{$t('Message.no-thread')}}
           </div>
 
@@ -68,6 +84,11 @@
     flex-direction: column;
   }
 
+  .status-icon {
+    margin-right: 5px;
+    font-size: 20px;
+  }
+
   .top-message {
     background-color: #F5F6FA;
     color: var(--ion-color-primary);
@@ -96,14 +117,65 @@
     overflow: scroll;
     padding-top: 15px;
   }
+
+  .mc-carpool-way {
+    padding-left: 20px;
+    color: var(--ion-color-primary);
+
+    .mc-carpool-time {
+      padding-right: 10px;
+    }
+
+    .mc-carpool-origin-destination {
+      font-weight: bold;
+
+      div {
+        // border-left: 2px solid red;
+        padding-left: 10px;
+        position: relative;
+
+        &::before {
+          content: '';
+          position: absolute;
+          width: 4px;
+          height: calc(80% - 12px);
+          background-color: var(--ion-color-primary);
+          top: 50%;
+          transform: translateY(-50%);
+          left: 4px;
+        }
+
+        .timeline {
+          position: relative;
+          padding-left: 10px;
+
+          &::before {
+            content: '';
+            position: absolute;
+            margin: auto;
+            width: 12px;
+            height: 12px;
+            border-radius: 6px;
+            background-color: var(--ion-color-primary);
+            top: 0px;
+            bottom: 0;
+            left: -10px;
+          }
+        }
+      }
+    }
+  }
 </style>
 
 <script>
+  import CarpoolItemDTO from "../Search/Components/CarpoolItemDTO";
+
   export default {
     name: 'help',
     data () {
       return {
-        message: ''
+        message: '',
+        ask: null
       }
     },
     props: ['thread'],
@@ -125,7 +197,8 @@
         // get Carpool Ask
         if (this.thread.idAsk) {
           this.$store.dispatch('getCarpoolAsk', { idAsk: this.thread.idAsk, userId : this.$store.state.userStore.user.id} ).then(res => {
-            console.log(res);
+            this.ask = new CarpoolItemDTO().carpoolItemFromAsk(res.data);
+            console.log(this.ask);
           });
         }
       } else {
