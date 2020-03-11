@@ -13,7 +13,7 @@
     </ion-tab>
 
     <ion-tab tab="register">
-      <ion-vue-router name="register"></ion-vue-router>
+      <ion-vue-router name="register" :animated="false"></ion-vue-router>
     </ion-tab>
 
     <ion-tab tab="login">
@@ -21,11 +21,11 @@
     </ion-tab>
 
     <ion-tab tab="messages">
-      <ion-vue-router name="messages"></ion-vue-router>
+      <ion-vue-router name="messages" :animated="false"></ion-vue-router>
     </ion-tab>
 
     <ion-tab tab="profile">
-      <ion-vue-router name="profile"></ion-vue-router>
+      <ion-vue-router name="profile" :animated="false"></ion-vue-router>
     </ion-tab>
 
     <!-- Use v-slot:bottom with Vue ^2.6.0 -->
@@ -60,7 +60,7 @@
             <ion-badge color="warning">6</ion-badge>
           </ion-tab-button>
 
-          <ion-tab-button tab="profile" :to="{ name: 'profile' }">
+          <ion-tab-button tab="profile" :to="{ name: 'solidaryTransport.profile' }">
             <ion-icon name="person"></ion-icon>
             <ion-label>{{ $t('solidaryTransport.navigation.profile') }}</ion-label>
           </ion-tab-button>

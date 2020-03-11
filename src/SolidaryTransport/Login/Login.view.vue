@@ -95,6 +95,9 @@ export default {
         .then(res => {
           console.log("La connexion est un succès", 'success')
           this.$router.push(this.redirect)
+          setTimeout(() => {
+            this.loading = false
+          }, 100)
         })
        .catch(err => {
           this.loading = false

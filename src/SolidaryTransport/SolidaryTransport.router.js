@@ -1,12 +1,23 @@
-// Global
+// Common
 import Main from './Main/Main.view.vue';
 import Help from './Help/Help.view.vue';
 import Home from './Home/Home.view.vue';
+
+// Anonymous
 import Register from './Register/Register.view.vue';
 import RegisterAsk from './Register/RegisterAsk.view.vue';
 import RegisterSubscribe from './Register/RegisterSubscribe.view.vue';
 import RegisterSubscribeDetails from './Register/RegisterSubscribeDetails.view.vue';
 import Login from './Login/Login.view.vue';
+
+// Logged
+import Profile from './Profile/Profile.view.vue';
+import ProfilePersonal from './Profile/ProfilePersonal.view.vue';
+import ProfilePreferences from './Profile/ProfilePreferences.view.vue';
+import ProfileVehicule from './Profile/ProfileVehicule.view.vue';
+import ProfileRealtime from './Profile/ProfileRealtime.view.vue';
+import ProfileAgenda from './Profile/ProfileAgenda.view.vue';
+import Messages from './Messages/Messages.view.vue';
 
 import Vue from 'vue'
 import store from '../Shared/Store/store'
@@ -23,7 +34,13 @@ let preventAccess = function (to, from, next) {
       next()
     }
   } else {
-    next()
+    if (_.includes(to.name, 'solidaryTransport.profile')) {
+      next({name: 'solidaryTransport.login'})
+    } else if (_.includes(to.name, 'solidaryTransport.messages')) {
+      next({name: 'solidaryTransport.login'})
+    } else {
+      next()
+    }
   }
 }
 
@@ -83,6 +100,70 @@ export default [
         path: '/solidary-transport/login',
         name: 'solidaryTransport.login',
         component: Login,
+        beforeEnter: preventAccess
+      },
+      {
+        path: '/solidary-transport/profile',
+        name: 'solidaryTransport.profile',
+        components: {
+          profile: Profile
+        },
+        beforeEnter: preventAccess
+      },
+      {
+        path: '/solidary-transport/profile/personal',
+        name: 'solidaryTransport.profile.personal',
+        components: {
+          profile: ProfilePersonal
+        },
+        beforeEnter: preventAccess
+      },
+      {
+        path: '/solidary-transport/profile/preferences',
+        name: 'solidaryTransport.profile.preferences',
+        components: {
+          profile: ProfilePreferences
+        },
+        beforeEnter: preventAccess
+      },
+      {
+        path: '/solidary-transport/profile/vehicule',
+        name: 'solidaryTransport.profile.vehicule',
+        components: {
+          profile: ProfileVehicule
+        },
+        beforeEnter: preventAccess
+      },
+      {
+        path: '/solidary-transport/profile/realtime',
+        name: 'solidaryTransport.profile.realtime',
+        components: {
+          profile: ProfileRealtime
+        },
+        beforeEnter: preventAccess
+      },
+      {
+        path: '/solidary-transport/profile/agenda',
+        name: 'solidaryTransport.profile.agenda',
+        components: {
+          profile: ProfileAgenda
+        },
+        beforeEnter: preventAccess
+      },
+      {
+        path: '/solidary-transport/profile/notifications',
+        name: 'solidaryTransport.profile.notifications',
+        components: {
+          profile: ProfileAgenda
+        },
+        beforeEnter: preventAccess
+      },
+      {
+        path: '/solidary-transport/messages',
+        name: 'solidaryTransport.messages',
+        components: {
+          messages: Messages
+        },
         beforeEnter: preventAccess
       }
     ]

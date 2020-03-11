@@ -59,6 +59,14 @@ export const solidaryTransportStore = {
       }
       return
     },
+    getUserAddress: () => (user) => {
+      if (user) {
+        if (user.addresses.length !== 0) {
+          return user.addresses[0]
+        }
+      }
+      return
+    },
     getUserAge: () => (user) => {
       if (user) {
         const dateString = user.birthDate

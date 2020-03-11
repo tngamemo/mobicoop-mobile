@@ -118,7 +118,35 @@
       }
     },
     "profile": {
+      "title": "Profil",
+      "actions": {
+        "agenda": "Mon agenda",
+        "manage": "Gérer mes alertes",
+        "logout": "Se déconnecter",
+        "delete": "Supprimer mon compte"
+      },
+      "personal": {
+        "title": "Modifier mon profil"
+      },
+      "preferences": {
+        "title": "Modifier mes préférences"
+      },
+      "vehicule": {
+        "title": "Modifier mon véhicule"
+      },
+      "realtime": {
+        "title": "Mes options temps réel"
+      },
+      "agenda": {
+        "title": "Mon agenda"
+      },
+      "notifications": {
+        "title": "Mes alertes"
+      },
       "yearsOld": "ans"
+    },
+    "messages": {
+      "title": "Messages"
     },
     "login": {
       "title": "Connexion",
