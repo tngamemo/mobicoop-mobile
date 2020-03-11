@@ -18,7 +18,7 @@
 
     <ion-tab tab="login">
       <template v-if="$route.query.redirect">
-        <Login :init-redirect="{name: $route.query.redirect}"/>
+        <Login :init-redirect="{name: $route.query.redirect || 'solidaryTransport.home'}"/>
       </template>
       <template v-else>
         <Login :init-redirect="{name: 'solidaryTransport.home'}"/>

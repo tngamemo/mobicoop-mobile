@@ -19,6 +19,10 @@ import ProfileRealtime from './Profile/ProfileRealtime.view.vue';
 import ProfileAgenda from './Profile/ProfileAgenda.view.vue';
 import Messages from './Messages/Messages.view.vue';
 
+// Solidary related
+import AdPublish from './Ad/AdPublish.view.vue';
+import RequestPublish from './Request/RequestPublish.view.vue';
+
 import Vue from 'vue'
 import store from '../Shared/Store/store'
 import _ from 'lodash'
@@ -59,6 +63,20 @@ export default [
         name: 'solidaryTransport.home',
         components: {
           home: Home
+        }
+      },
+      {
+        path: '/solidary-transport/home/ad',
+        name: 'solidaryTransport.home.ad',
+        components: {
+          home: AdPublish
+        }
+      },
+      {
+        path: '/solidary-transport/home/request',
+        name: 'solidaryTransport.home.request',
+        components: {
+          home: RequestPublish
         }
       },
       {

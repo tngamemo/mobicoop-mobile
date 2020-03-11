@@ -51,9 +51,9 @@
             </div>
 
             <div class="mc-st-actions when-connected">
-              <ion-button class="mc-st-action" color="success" v-html="$t('solidaryTransport.home.actions.request')" @click="$router.push({name:'solidaryTransport.publish'})"></ion-button>
+              <ion-button class="mc-st-action" color="success" v-html="$t('solidaryTransport.home.actions.request')" @click="$router.push({name:'solidaryTransport.home.request'})"></ion-button>
 
-              <ion-button class="mc-st-action as-light" color="light" v-html="$t('solidaryTransport.home.actions.publish')" @click="$router.push({name:'solidaryTransport.register', query: {type: 'give'}})"></ion-button>
+              <ion-button class="mc-st-action as-light" color="light" v-html="$t('solidaryTransport.home.actions.publish')" @click="$router.push({name:'solidaryTransport.home.ad'})"></ion-button>
 
               <ion-button class="mc-st-action as-light" color="light" @click="$router.push({name:'solidaryTransport.help'})">
                 <ion-icon slot="start" name="help-circle"></ion-icon>

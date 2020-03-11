@@ -17,6 +17,45 @@
       "profile": "Profil",
       "messages": "Messages"
     },
+    "ad": {
+      "publish": {
+        "title": "Publier une annonce solidaire"
+      }
+    },
+    "request": {
+      "publish": {
+        "title": "Faire une demande",
+        "step": "1. Votre trajet",
+        "form": {
+          "transports": [
+            { 
+              "value": "transport-1",
+              "label": "Aller à un RDV médical"
+            },
+            { 
+              "value": "transport-2",
+              "label": "Faire mes courses"
+            },
+            { 
+              "value": "transport-3",
+              "label": "Aller à un RDV administratif"
+            },
+            { 
+              "value": "transport-4",
+              "label": "Faire une sortie culturelle"
+            },
+            { 
+              "value": "transport-5",
+              "label": "Liste opérateur"
+            }
+          ],
+          "fields": {
+            "transports": "Je souhaite me déplacer pour :",
+            "otherTransports": "Autre"
+          }
+        }
+      }
+    },
     "home": {
       "title": "Prototype",
       "loading": "Chargement",

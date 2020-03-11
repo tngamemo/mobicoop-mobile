@@ -25,7 +25,7 @@
             </ion-item>
 
             <div class="mc-st-form-item as-language">
-              <ion-label class="mc-st-form-label no-white-space" color="primary">{{$t('solidaryTransport.register.form.fields.languages')}}</ion-label>
+              <ion-label class="mc-st-form-label as-title no-white-space" color="primary">{{$t('solidaryTransport.register.form.fields.languages')}}</ion-label>
 
               <div class="mc-st-form-checkbox-wrapper">
                 <ion-item class="mc-st-form-item" lines="none" v-for="(item, index) in languages.properties" :key="index">

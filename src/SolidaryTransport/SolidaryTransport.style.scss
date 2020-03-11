@@ -64,6 +64,33 @@ ion-content {
     min-height: 100%;
     margin-bottom: 20px;
 
+    .mc-st-form-header {
+      color: var(--ion-color-primary);
+      text-align: center;
+      margin-bottom: 20px;
+
+      .mc-st-form-title {
+        font-weight: bold;
+        opacity: .6;
+        margin-bottom: 10px;
+      }
+
+      .mc-st-form-steps {
+        position: relative;
+        line-height: 0;
+
+        .mc-st-form-step {
+          width: 10px;
+          height: 10px;
+          border-radius: 10px;
+          margin: 2px;
+          display: inline-block;
+          background-color: var(--ion-color-light);
+          border: 1px solid var(--ion-color-primary);
+        }
+      }
+    }
+
     .mc-st-form-content {
       flex: 0 0 auto;
       margin-bottom: 25px;
@@ -75,7 +102,7 @@ ion-content {
           margin-top: 30px;
         }
 
-        &.as-language {
+        &.as-language, &.as-transport {
           margin-top: 20px;
         }
 
@@ -105,6 +132,10 @@ ion-content {
 
         .mc-st-form-label {
           font-family: 'Poppins';
+
+          &.as-title {
+            font-weight: bold;
+          }
         }
 
         + .mc-st-form-actions {
