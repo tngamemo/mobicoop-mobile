@@ -71,7 +71,8 @@
       v-on:click="goToSearchPage()">
         {{ $t('HOME.searchCarpool') }}
       </ion-button>
-      <ion-button class='mc-big-button' color="primary" expand="block" fill="outline" @click="$router.push('post-carpool')">
+
+      <ion-button class='mc-big-button' color="primary" expand="block" fill="outline" @click="goToPostCarpool()">
         {{ $t('HOME.postCarpool') }}
       </ion-button>
   </div>
@@ -150,6 +151,28 @@
           this.$store.commit('changeUserIdOfSearch', null)
         }
         this.$router.push({ name: "search" });
+      },
+
+      goToPostCarpool() {
+
+        const payload = {
+          origin: this.$store.state.searchStore.searchObject.outwardWaypoints[0],
+          destination: this.$store.state.searchStore.searchObject.outwardWaypoints[1],
+          outwardDate: this.$store.state.searchStore.searchObject.outwardDate,
+          frequency: this.$store.state.searchStore.searchObject.frequency,
+        }
+
+        // Si on a un object carpoolToPost inextistant
+        if (! !! this.$store.getters.carpoolToPost) {
+          this.$store.commit("carpoolPost_init");
+        }
+
+        this.$store.commit('carpoolPost_fromSearch', payload)
+        if (payload.origin || payload.outwardDate) {
+          this.$store.dispatch('treatementUpdateAddresses')
+        }
+
+        this.$router.push('post-carpool')
       }
     }
   }

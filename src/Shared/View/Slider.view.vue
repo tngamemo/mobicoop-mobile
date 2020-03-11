@@ -20,7 +20,7 @@
       <ion-button
         :style="{visibility: (activeIndex !== 0 || this.previous) ? 'visible' : 'hidden'}"
         class="mc-small-button"
-        color="background"
+        color="primary"
         fill="outline"
         @click="prev()"
       >{{ $t('Slider.prev') }}</ion-button>

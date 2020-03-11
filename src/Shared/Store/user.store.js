@@ -137,8 +137,8 @@ export const userStore = {
      * Pour pouvoir accéder au fonctionnalité de base en mode déco.
      */
 
-    authAnonymousUser({commit}){
-      commit('logout');
+    authAnonymousUser({commit, dispatch}){
+      dispatch('logout');
       return new Promise((resolve, reject) => {
         http.post("/auth", {"username": 'mobile', "password": 'mobile'})
           .then(resp => {

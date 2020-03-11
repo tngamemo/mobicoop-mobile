@@ -174,6 +174,7 @@
     color: rgba(0, 0, 0, 0.6);
     border-radius: 15px 15px 15px 0px;
     margin-bottom: 20px;
+    white-space: pre-line;
   }
 
   .mc-recap-user {
@@ -216,6 +217,7 @@ import {
   requiredIf
 } from "vuelidate/lib/validators";
 import { LMap, LTileLayer, LPolyline } from "vue2-leaflet";
+import { isPlatform } from '@ionic/core';
 
 export default {
   name: "post-carpool-step7",
@@ -225,8 +227,9 @@ export default {
       zoom: 8,
       showCard: true,
       optionsCard: {
-        dragging: false,
-        touchZoom: true
+        dragging: !isPlatform(window.document.defaultView, 'mobile'),
+        touchZoom: isPlatform(window.document.defaultView, 'mobile'),
+        tap: !isPlatform(window.document.defaultView, 'mobile')
       }
     };
   },

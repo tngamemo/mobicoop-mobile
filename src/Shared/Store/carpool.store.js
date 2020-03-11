@@ -63,6 +63,13 @@ export const carpoolStore = {
       }
     },
 
+    carpoolPost_fromSearch(state, payload) {
+      if (!! payload.origin) state.addressessUseToPost.origin = payload.origin;
+      if (!! payload.destination) state.addressessUseToPost.destination = payload.destination;
+      if (!! payload.frequency) state.carpoolToPost.frequency = payload.frequency;
+      if (!! payload.outwardDate) state.carpoolToPost.outwardDate = payload.outwardDate;
+    },
+
     carpoolPost_schedule_add(state) {
       const newSlot = {
         "mon": false,
@@ -91,7 +98,6 @@ export const carpoolStore = {
     },
 
     carpoolPost_schedule_delete(state) {
-      console.log('delete')
       delete state.carpoolToPost.schedule;
     },
 
@@ -289,6 +295,11 @@ export const carpoolStore = {
             reject(err)
           })
       })
+    },
+
+    changeOneWayRegular({state, commit}) {
+      const hasReturnTime = state.carpoolToPost.schedule.some(stepSchedule => !!stepSchedule.returnTime);
+      state.carpoolToPost.oneWay = !hasReturnTime;
     }
   },
   getters: {

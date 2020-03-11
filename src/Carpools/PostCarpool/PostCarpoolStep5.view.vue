@@ -16,7 +16,8 @@
       <span>par passager</span>
     </div>
     <div v-if="$v.priceCarpool.$error">
-      <div class="mc-error-label" v-if="!$v.priceCarpool.required">{{$t('Validation.required')}}</div>
+      <div class="mc-error-label" v-if="$v.priceCarpool.required">{{$t('Validation.required')}}</div>
+       <div class="mc-error-label" v-if="!$v.priceCarpool.minValue">{{$t('Validation.minValue', { value: '0' })}}</div>
     </div>
 
     <div class="mc-carpool-price-warning">
@@ -92,7 +93,8 @@ import {
   sameAs,
   minLength,
   helpers,
-  requiredIf
+  requiredIf,
+  minValue
 } from "vuelidate/lib/validators";
 
 export default {
@@ -107,7 +109,8 @@ export default {
   },
   validations: {
     priceCarpool: {
-      required
+      required,
+      minValue: (value) => value > 0,
     }
   },
   computed: {
