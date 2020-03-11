@@ -155,7 +155,8 @@
     "S": "S",
     "D": "D",
     "oneWay": "Aller",
-    "return": "Retour"
+    "return": "Retour",
+    "multipeTimes": "Les horaires diffèrent selon les jours"
   },
   "PostCarpool": {
     "title": "Publier une annonce",

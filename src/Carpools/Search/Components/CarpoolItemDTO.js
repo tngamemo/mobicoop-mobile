@@ -5,7 +5,6 @@ export default class CarpoolItemDTO {
   }
 
   carpoolItemFromSearch(carpool){
-    console.log(carpool)
     this.id = carpool.id;
     this.frequency = carpool.frequency;
     this.price = carpool.roundedPrice;
@@ -28,8 +27,8 @@ export default class CarpoolItemDTO {
       this.regularDays = this.getRegularDaysFromSearch(carpool);
       this.outwardTime = carpool.outwardTime;
       this.returnTime = carpool.returnTime;
-
     }
+    this.resultDriverOrPassenger = this.resultDriveOrPassenger(carpool)
     return this;
   }
 
