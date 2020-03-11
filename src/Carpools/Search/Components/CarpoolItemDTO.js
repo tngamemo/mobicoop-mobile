@@ -56,6 +56,31 @@ export default class CarpoolItemDTO {
     return this;
   }
 
+  carpoolItemFromAsk(ask){
+    const carpool = ask.results[0];
+    this.id = carpool.id;
+    this.frequency = carpool.frequency;
+    this.originAddress = this.resultDriveOrPassenger(carpool).outward.waypoints.find(item => item.type === 'origin' && item.person === 'requester').address
+    this.pickUpAddress = this.resultDriveOrPassenger(carpool).outward.waypoints.find(item => item.type === 'origin' && item.person === 'carpooler').address
+    this.dropOffAddress = this.resultDriveOrPassenger(carpool).outward.waypoints.find(item => item.type === 'destination' && item.person === 'carpooler').address
+    this.destinationAddress = this.resultDriveOrPassenger(carpool).outward.waypoints.find(item => item.type === 'destination' && item.person === 'requester').address
+    this.originTime = this.resultDriveOrPassenger(carpool).outward.waypoints.find(item => item.type === 'origin' && item.person === 'requester').time
+    this.pickUpTime = this.resultDriveOrPassenger(carpool).outward.waypoints.find(item => item.type === 'origin' && item.person === 'carpooler').time
+    this.dropOffTime = this.resultDriveOrPassenger(carpool).outward.waypoints.find(item => item.type === 'destination' && item.person === 'carpooler').time
+    this.destinationTime = this.resultDriveOrPassenger(carpool).outward.waypoints.find(item => item.type === 'destination' && item.person === 'requester').time
+    this.distance = this.resultDriveOrPassenger(carpool).outward.commonDistance + this.resultDriveOrPassenger(carpool).outward.detourDistance
+    this.seats = carpool.seats;
+    this.price = carpool.roundedPrice;
+    this.return = carpool.return;
+    this.status = ask.askStatus;
+    if (carpool.frequency == 2) {
+      this.regularDays = this.getRegularDaysFromSearch(carpool);
+      this.outwardTime = this.getTimes(this.resultDriveOrPassenger(carpool).outward);
+      this.returnTime = this.getTimes(this.resultDriveOrPassenger(carpool).return);
+    }
+    return this;
+  }
+
   getCarpooler(carpool) {
     const carpooler = {};
     carpooler.avatar = carpool.carpooler.avatars[0];
@@ -89,6 +114,20 @@ export default class CarpoolItemDTO {
 
     return result;
   }
+
+  getTimes(carpool) {
+    const result = [];
+    result.push({trad: 'Carpool.L', value: carpool.monTime});
+    result.push({trad: 'Carpool.Ma', value: carpool.tueTime});
+    result.push({trad: 'Carpool.Me', value: carpool.wedTime});
+    result.push({trad: 'Carpool.J', value: carpool.thuTime});
+    result.push({trad: 'Carpool.V', value: carpool.friTime});
+    result.push({trad: 'Carpool.S', value: carpool.satTime});
+    result.push({trad: 'Carpool.D', value: carpool.sunTime});
+
+    return result;
+  }
+
 
   getRegularOutwardTime(schedule) {
     const outwardTime =  schedule.monOutwardTime || schedule.tueOutwardTime

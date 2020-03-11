@@ -5,6 +5,7 @@ export const carpoolStore = {
     statusCarpoolPost: '',
     statusDistanceCarpool: '',
     statusPriceCarpool: '',
+    statusCarpoolAsk: '',
     directPointsCarpool: '',
     carpoolToPost: null,
     addressessUseToPost: {
@@ -190,6 +191,18 @@ export const carpoolStore = {
       const propDisable = payload.prop.replace('Time', 'Disabled')
       copyCarpoolToPost.schedule[payload.index][propDisable] = false;
       state.carpoolToPost = copyCarpoolToPost;
+    },
+
+    carpool_ask_request(state) {
+      state.statusCarpoolAsk = 'loading';
+    },
+
+    carpool_ask_success(state) {
+      state.statusCarpoolAsk = 'success';
+    },
+
+    carpool_ask_error(state) {
+      state.statusCarpoolAsk = 'error';
     }
 
 
@@ -297,10 +310,25 @@ export const carpoolStore = {
       })
     },
 
+    getCarpoolAsk({ state, commit }, data) {
+      return new Promise((resolve, reject) => {
+        commit('carpool_ask_request');
+        return http.get(`/carpools/ask/` + data.idAsk  + "?userId=" + data.userId )
+          .then(resp => {
+            commit('carpool_ask_success');
+            resolve(resp)
+          })
+          .catch(err => {
+            commit('carpool_ask_error');
+            reject(err)
+          })
+      })
+    },
     changeOneWayRegular({state, commit}) {
       const hasReturnTime = state.carpoolToPost.schedule.some(stepSchedule => !!stepSchedule.returnTime);
       state.carpoolToPost.oneWay = !hasReturnTime;
     }
+
   },
   getters: {
     carpoolToPost: state => {

@@ -7,7 +7,8 @@ export const messageStore = {
     statusMessagesDirect: '',
     messagesDirect: [],
     statusCompleteThread: '',
-    completeThread: null
+    completeThread: null,
+    statusPostMessage: ''
   },
   mutations: {
     message_carpool_request(state) {
@@ -52,6 +53,19 @@ export const messageStore = {
 
     complete_thread_error(state) {
       state.statusCompleteThread = 'error';
+    },
+
+    post_message_request(state) {
+      state.statusPostMessage = 'loading';
+    },
+
+
+    post_message_success(state, result) {
+      state.statusPostMessage = 'success';
+    },
+
+    post_message_error(state) {
+      state.statusPostMessage = 'error';
     },
 
   },
@@ -104,6 +118,21 @@ export const messageStore = {
           }
         }).catch(err => {
           commit('complete_thread_error');
+          reject(err)
+        })
+      })
+    },
+    postMessage({commit}, message) {
+      commit('post_message_request');
+      return new Promise((resolve, reject) => {
+
+        http.post("/messages", message).then(resp => {
+          if (resp) {
+            commit('post_message_success', resp.data);
+            resolve(resp)
+          }
+        }).catch(err => {
+          commit('post_message_error');
           reject(err)
         })
       })
