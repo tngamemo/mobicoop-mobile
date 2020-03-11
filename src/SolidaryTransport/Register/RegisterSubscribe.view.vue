@@ -15,7 +15,7 @@
 
           <div class="mc-st-form-content">
             <div class="mc-st-form-actions is-active">
-              <ion-button class="mc-st-form-action" color="success" v-html="$t('solidaryTransport.register.form.actions.login')" @click="$router.push({name:'solidaryTransport.login'})"></ion-button>
+              <ion-button class="mc-st-form-action" color="success" v-html="$t('solidaryTransport.register.form.actions.login')" @click="$router.push({name:'solidaryTransport.login', query: {redirect: 'solidaryTransport.register.subscribe.details'}})"></ion-button>
 
               <div class="mc-st-form-other" v-html="$t('solidaryTransport.register.form.actions.complete')"></div>
             </div>
@@ -139,7 +139,7 @@ import { mapState, mapGetters } from 'vuex'
 import _ from 'lodash'
 
 export default {
-  name: 'solidaryTransport.register.ask',
+  name: 'solidaryTransport.register.suscribe',
   components: {},
   data () {
     return {

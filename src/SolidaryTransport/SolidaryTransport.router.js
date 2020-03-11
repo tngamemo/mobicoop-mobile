@@ -26,8 +26,8 @@ import _ from 'lodash'
 let preventAccess = function (to, from, next) {
   let user = store.state.userStore.user
   if (user) {
-    if (_.includes(to.name, 'solidaryTransport.register')) {
-      next({name: 'solidaryTransport.home'})
+    if (_.isEqual(to.name, 'solidaryTransport.register.subscribe')) {
+      next({name: 'solidaryTransport.register.subscribe.details'})
     } else if (_.includes(to.name, 'solidaryTransport.login')) {
       next({name: 'solidaryTransport.home'})
     } else {
@@ -57,7 +57,9 @@ export default [
       {
         path: '/solidary-transport/home',
         name: 'solidaryTransport.home',
-        component: Home,
+        components: {
+          home: Home
+        }
       },
       {
         path: '/solidary-transport/help',

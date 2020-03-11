@@ -57,6 +57,11 @@ export default {
       required: true
     }
   },
+  watch: { 
+    initRedirect: function(redirect) { // watch it
+      this.redirect = redirect
+    }
+  },
   data () {
     return {
       username: undefined,

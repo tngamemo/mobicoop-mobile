@@ -87,7 +87,7 @@ import { mapState, mapGetters } from 'vuex'
 import _ from 'lodash'
 
 export default {
-  name: 'solidaryTransport.register.ask',
+  name: 'solidaryTransport.register.subscribe.details',
   components: {},
   data () {
     return {

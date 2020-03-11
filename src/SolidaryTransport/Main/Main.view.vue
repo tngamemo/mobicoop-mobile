@@ -5,7 +5,7 @@
   <ion-tabs>
 
     <ion-tab tab="home">
-      <Home/>
+      <ion-vue-router name="home" :animated="false"></ion-vue-router>
     </ion-tab>
 
     <ion-tab tab="help">
@@ -17,7 +17,12 @@
     </ion-tab>
 
     <ion-tab tab="login">
-      <Login :init-redirect="{name: 'solidaryTransport.home'}"/>
+      <template v-if="$route.query.redirect">
+        <Login :init-redirect="{name: $route.query.redirect}"/>
+      </template>
+      <template v-else>
+        <Login :init-redirect="{name: 'solidaryTransport.home'}"/>
+      </template>
     </ion-tab>
 
     <ion-tab tab="messages">
@@ -33,7 +38,6 @@
       <ion-tab-bar class="as-main">
         <ion-tab-button tab="home" :to="{ name: 'solidaryTransport.home' }">
           <ion-icon name="custom-logo"></ion-icon>
-
           <ion-label>{{ $t('solidaryTransport.navigation.home') }}</ion-label>
         </ion-tab-button>
 
