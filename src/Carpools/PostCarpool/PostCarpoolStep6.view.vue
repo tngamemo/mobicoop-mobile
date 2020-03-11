@@ -49,6 +49,7 @@ export default {
     },
 
     changeComment(value){
+      console.log(value)
       this.$store.commit('changeOptionsCarpoolPost', {property: 'comment', value: value})
     }
   }

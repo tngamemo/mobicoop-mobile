@@ -28,8 +28,8 @@
 }
 .mc-nextpost-buttons {
   position: absolute;
-  bottom: 0px;
-  right: 0px;
+  bottom: 20px;
+  right: 20px;
   left: 0px;
   display: flex;
   justify-content: space-between;
@@ -69,7 +69,7 @@ export default {
   methods: {
     next() {
       if (this.$refs.slideOne.validate()) {
-        this.$router.push("/carpools/post-carpool-step");
+        this.$router.replace("/carpools/post-carpool-step");
       }
     },
 

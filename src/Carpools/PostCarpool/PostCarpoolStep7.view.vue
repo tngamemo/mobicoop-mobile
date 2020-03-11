@@ -174,6 +174,7 @@
     color: rgba(0, 0, 0, 0.6);
     border-radius: 15px 15px 15px 0px;
     margin-bottom: 20px;
+    white-space: pre-line;
   }
 
   .mc-recap-user {

@@ -29,7 +29,7 @@
             <ion-input
               type="text"
               class="no-clickable"
-              :placeholder="'step'"
+              :placeholder="$t('Search.step')"
               :value="displayStep(index)"
             ></ion-input>
             <ion-icon name="close" v-on:click="clearInputStep($event, index)"></ion-icon>
