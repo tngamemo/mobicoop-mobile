@@ -58,7 +58,7 @@ export default {
     }
   },
   watch: { 
-    initRedirect: function(redirect) { // watch it
+    initRedirect: function(redirect) {
       this.redirect = redirect
     }
   },
