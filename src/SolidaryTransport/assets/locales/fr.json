@@ -7,7 +7,8 @@
       "back": "Retour",
       "next": "Suivant",
       "register": "S'inscrire",
-      "validate": "Valider"
+      "validate": "Valider",
+      "sendRequest": "Envoyer ma demande"
     },
     "navigation": {
       "home": "Accueil",
@@ -189,7 +190,8 @@
               },
               "return": "A quelle heure souhaitez-vous revenir ?",
               "specificReturn": "Heure de retour"
-            }
+            },
+            "summary": "Votre demande :"
           }
         }
       }

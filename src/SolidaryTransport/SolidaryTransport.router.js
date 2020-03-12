@@ -25,7 +25,9 @@ import AdPublish from './Ad/AdPublish.view.vue';
 // Request Related
 import RequestPublish from './Request/RequestPublish.view.vue';
 import RequestPublishPonctual from './Request/RequestPublishPonctual.view.vue';
+import RequestPublishPonctualSummary from './Request/RequestPublishPonctualSummary.view.vue';
 import RequestPublishRegular from './Request/RequestPublishRegular.view.vue';
+import RequestPublishRegularSummary from './Request/RequestPublishRegularSummary.view.vue';
 
 import Vue from 'vue'
 import store from '../Shared/Store/store'
@@ -91,10 +93,24 @@ export default [
         }
       },
       {
+        path: '/solidary-transport/home/request/ponctual/summary',
+        name: 'solidaryTransport.home.request.ponctual.summary',
+        components: {
+          home: RequestPublishPonctualSummary
+        }
+      },
+      {
         path: '/solidary-transport/home/request/regular',
         name: 'solidaryTransport.home.request.regular',
         components: {
           home: RequestPublishRegular
+        }
+      },
+      {
+        path: '/solidary-transport/home/request/regular/summary',
+        name: 'solidaryTransport.home.request.regular.summary',
+        components: {
+          home: RequestPublishRegularSummary
         }
       },
       {

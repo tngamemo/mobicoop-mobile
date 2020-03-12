@@ -25,7 +25,7 @@ ion-toolbar {
     sup {
       font-size: 10px;
       position: absolute;
-      top: 2px;
+      top: 5px;
     }
   }
 }
@@ -108,6 +108,7 @@ ion-content {
 
       .mc-st-form-item {
         font-size: 14px;
+        line-height: 1.1;
 
         ion-label, ion-input {
           font-family: 'Poppins';
@@ -147,11 +148,6 @@ ion-content {
             --border-style: solid;
             --border-width: 1px;
             transition: background .3s, color .3s;
-
-            &.is-active {
-              --background: var(--ion-color-primary);
-              --color: var(--ion-color-light);
-            }
 
             .label {
               font-size: 12px;
@@ -195,6 +191,172 @@ ion-content {
 
         + .mc-st-form-actions {
           margin-top: 30px;
+        }
+      }
+
+      .mc-st-form-summary {
+        margin-top: 20px;
+
+        .mc-st-form-summary-text {
+          color: var(--ion-color-primary);
+          font-size: 14px;
+          line-height: 1.2;
+
+          + .mc-st-form-summary-text, + .mc-st-form-summary-card {
+            margin-top: 20px;
+          }
+
+          .answer {
+            font-weight: bold;
+          }
+        }
+
+        .mc-st-form-summary-card {
+          background-color: var(--ion-color-primary);
+          position: relative;
+          padding: 5px 3px 3px 3px;
+          border-radius: 15px;
+
+          &:before {
+            content: "";
+            display: block;
+            pointer-events: none;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            background-color: var(--ion-color-light);
+            opacity: .7;
+          }
+
+          + .mc-st-form-summary-text, + .mc-st-form-summary-card {
+            margin-top: 20px;
+          }
+
+          .mc-st-form-summary-card-header {
+            position: relative;
+            z-index: 1;
+            padding: 3px 10px;
+            font-size: 14px;
+            font-weight: bold;
+            color: var(--ion-color-primary);
+            line-height: 1;
+            margin-bottom: 4px;
+          }
+
+          .mc-st-form-summary-card-content {
+            position: relative;
+            z-index: 1;
+            background-color: var(--ion-color-light);
+            border-radius: 0 0 13px 13px;
+            color: var(--ion-color-primary);
+            padding: 20px 10px;
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+
+            .times {
+              font-size: 11px;
+              line-height: 1;
+              opacity: .6;
+              display: flex;
+              flex-direction: column;
+              justify-content: space-between;
+              text-align: center;
+              flex: 0 0 40px;
+
+              &.is-empty {
+                flex: 0 0 1px;
+              }
+
+              .time {
+                &.as-from {
+                  padding-top: 2px;
+                }
+
+                &.as-to {
+                  padding-bottom: 1px;
+                }
+              }
+            }
+
+            .places {
+              display: flex;
+              flex-direction: column;
+              justify-content: space-between;
+              line-height: 1;
+              position: relative;
+              margin-left: 20px;
+
+              &:before {
+                content: "";
+                display: block;
+                position: absolute;
+                top: 3px;
+                left: -12px;
+                z-index: 2;
+                width: 6px;
+                height: 6px;
+                border-radius: 5px;
+                background-color: var(--ion-color-primary);
+              }
+
+              &:after {
+                content: "";
+                display: block;
+                position: absolute;
+                top: 3px;
+                left: -10px;
+                z-index: 2;
+                width: 2px;
+                height: calc(100% - 8px);
+                border-radius: 5px;
+                background-color: var(--ion-color-primary);
+              }
+
+              .place {
+                font-size: 14px;
+                line-height: 1.2;
+                position: relative;
+                display: flex;
+                flex-direction: row;
+
+                .city {
+                  font-weight: bold;
+                  padding-left: 5px;
+                  padding-right: 10px;
+                }
+
+                .address {
+                  opacity: .7;
+                }
+
+                + .place {
+                  margin-top: 15px;
+                } 
+
+                &:last-of-type {
+                  align-items: flex-end;
+
+                  &:after {
+                    content: "";
+                    display: block;
+                    position: absolute;
+                    bottom: 4px;
+                    left: -14px;
+                    width: 8px;
+                    height: 8px;
+                    border-right: 2px solid var(--ion-color-primary);
+                    border-bottom: 2px solid var(--ion-color-primary);
+                    transform-origin: center center;
+                    transform: rotate(45deg);
+                  }
+                }
+              }
+            }
+          }
         }
       }
 
@@ -297,6 +459,16 @@ ion-content {
 
       &.with-multiple {
         justify-content: space-between;
+      }
+
+      &.in-summary {
+        flex-wrap: wrap;
+        flex-direction: column-reverse;
+        justify-content: flex-start;
+
+        .mc-st-form-control {
+          width: 100%;
+        }
       }
 
       &.is-loading {

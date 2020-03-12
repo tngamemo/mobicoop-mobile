@@ -18,8 +18,8 @@
               <div class="mc-st-form-title">{{$t('solidaryTransport.request.publish.steps.regular')}}</div>
               <div class="mc-st-form-steps">
                 <span class="mc-st-form-step"></span>
-                <span class="mc-st-form-step is-active"></span>
                 <span class="mc-st-form-step"></span>
+                <span class="mc-st-form-step is-active"></span>
               </div>
             </div>
 
@@ -27,7 +27,7 @@
               <ion-label class="mc-st-form-label as-title no-white-space" color="primary">{{$t('solidaryTransport.request.publish.form.fields.when.departure.day')}}</ion-label>
 
               <div class="mc-st-form-days-wrapper">
-                <ion-button class="mc-st-form-day" color="primary" :class="{'is-active': departureDays.selected[index]}" v-for="(item, index) in departureDays.properties" :key="index" @click="updateDay(index)">
+                <ion-button class="mc-st-form-day" :color="departureDays.selected[index] ? 'primary' : 'light'" v-for="(item, index) in departureDays.properties" :key="index" @click="updateDay(index)">
                   <span class="label">{{item.label}}</span>
                 </ion-button>
               </div>
@@ -70,7 +70,7 @@
           <div class="mc-st-form-controls with-multiple">
             <ion-button class="mc-st-form-control as-back" color="light" v-html="$t('solidaryTransport.buttons.back')" @click="$router.back()"></ion-button>
 
-            <ion-button class="mc-st-form-control" color="success" v-html="$t('solidaryTransport.buttons.next')" @click="$router.push({name:'solidaryTransport.register.subscribe.details', query: {type: type}})"></ion-button>
+            <ion-button class="mc-st-form-control" color="success" v-html="$t('solidaryTransport.buttons.next')" @click="$router.push({name:'solidaryTransport.home.request.regular.summary', query: {type: type}})"></ion-button>
           </div>
 
         </div>
@@ -113,8 +113,8 @@ export default {
     displayGeoSearch: function (type, action) {
       console.log('Call GeoSearch')
     },
-    updateType: function ($event) {
-      console.log($event.detail)
+    updateDay: function(index) {
+      this.$set(this.departureDays.selected, index, !this.departureDays.selected[index])
     },
     frequencyChange: function ($event) {
       if (!this.updating) {
