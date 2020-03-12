@@ -17,6 +17,7 @@ import MyCarpools from './Profile/MyCarpools.view.vue';
 import PostCarpool from './PostCarpool/PostCarpool.view.vue';
 import Message from './Messages/Message.view.vue';
 import PostCarpoolStep from './PostCarpool/PostCarpoolStep.view.vue';
+import SearchDetail from './SearchDetail/SearchDetail.view.vue';
 
 import Vue from 'vue'
 import store from '../Shared/Store/store';
@@ -125,5 +126,11 @@ export default [
     props: (route) => ({
       ...route.params
     })
+  },
+  {
+    path: '/search-detail/:id',
+    name: 'carpool-search-detail',
+    component: SearchDetail,
+    beforeEnter: guardAccesByLogin
   },
 ]

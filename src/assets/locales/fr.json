@@ -198,5 +198,8 @@
     "sun": "Dimanche",
     "scheduleRequired": "Au moins un créneaux est requis",
     "addSchedule": "Ajouter une créneau"
+  },
+  "SearchDetail": {
+    "title": "Détails du covoiturage"
   }
 }

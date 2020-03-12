@@ -24,7 +24,7 @@
 
         <div class="" v-if="getStatusOfSearch == 'success'">
           {{numberOfResultsSearch}} {{ $t('Search.nbResult')}}
-          <div v-for="(result, index) in this.$store.getters.resultSearch" :key="index">
+          <div v-for="(result, index) in this.$store.getters.resultSearch" :key="index" v-on:click="goToSearchDetail(index)">
             <CarpoolItem :carpool="getFormattedCarpoolItem(result)" :type="'search'" />
           </div>
         </div>
@@ -42,8 +42,8 @@
 <script>
 
   import RecapSearch from './Components/RecapSearch.component';
-  import CarpoolItem from './Components/CarpoolItem.component';
-  import CarpoolItemDTO from './Components/CarpoolItemDTO';
+  import CarpoolItem from '../Shared/Components/CarpoolItem.component';
+  import CarpoolItemDTO from '../Shared/CarpoolItemDTO';
 
   export default {
     name: 'search',
@@ -72,6 +72,10 @@
     methods: {
       getFormattedCarpoolItem(carpool) {
         return new CarpoolItemDTO().carpoolItemFromSearch(carpool)
+      },
+
+      goToSearchDetail(index) {
+        this.$router.push({ name: 'carpool-search-detail', params: { id: index } });
       }
     }
   }

@@ -49,8 +49,8 @@
 </style>
 
 <script>
-  import CarpoolItem from "../Search/Components/CarpoolItem.component";
-  import CarpoolItemDTO from "../Search/Components/CarpoolItemDTO";
+  import CarpoolItem from "../Shared/Components/CarpoolItem.component";
+  import CarpoolItemDTO from "../Shared/CarpoolItemDTO";
 
   export default {
     name: 'my-carpools',
