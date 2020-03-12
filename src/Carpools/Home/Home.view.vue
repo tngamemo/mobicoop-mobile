@@ -4,7 +4,7 @@
       <ion-toolbar color="primary">
         <div class='mc-home-header'>
           <div class="mc-home-log">
-            <img class="background-img ion-margin-end" src="../../assets/icons/home.png">
+            <img class="background-img ion-margin-end" src="/assets/home.png">
             <h1>{{ title }}</h1>
           </div>
         </div>
