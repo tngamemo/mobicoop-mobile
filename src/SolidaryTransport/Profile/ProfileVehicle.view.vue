@@ -5,7 +5,7 @@
         <ion-buttons slot="start">
           <ion-back-button text=""></ion-back-button>
         </ion-buttons>
-        <ion-title>{{$t('solidaryTransport.profile.vehicule.title')}}</ion-title>
+        <ion-title>{{$t('solidaryTransport.profile.vehicle.title')}}</ion-title>
       </ion-toolbar>
     </ion-header>
 
@@ -21,7 +21,7 @@
 import { mapState, mapGetters } from 'vuex'
 
 export default {
-  name: 'solidaryTransport.profile.vehicule',
+  name: 'solidaryTransport.profile.vehicle',
   components: {},
   data () {
     return {}

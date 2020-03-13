@@ -24,7 +24,7 @@
             </div>
 
             <ion-item class="mc-st-form-item" v-on:click="displayGeoSearch('register_address', 'search')">
-              <ion-label position="floating">Lieu de départ *</ion-label>
+              <ion-label position="floating">{{$t('solidaryTransport.ad.publish.form.fields.destination.from')}} *</ion-label>
               <ion-input
                 type="text"
                 name="address"
@@ -40,7 +40,7 @@
             </template>
 
             <ion-item class="mc-st-form-item" v-on:click="displayGeoSearch('register_address', 'search')">
-              <ion-label position="floating">Lieu de destination (facultatif)</ion-label>
+              <ion-label position="floating">{{$t('solidaryTransport.ad.publish.form.fields.destination.to')}}</ion-label>
               <ion-input
                 type="text"
                 name="address"

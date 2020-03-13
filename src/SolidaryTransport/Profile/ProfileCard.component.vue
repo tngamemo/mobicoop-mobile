@@ -1,5 +1,5 @@
 <template>
-  <div class="mc-st-profile-card" :class="{'is-detailed': detailed}">
+  <div class="mc-st-profile-card" :class="{'is-detailed': detailed, 'is-extracted': extracted}">
 
     <div class="mc-st-profile-block mc-st-profile-generics">
       <div class="mc-st-profile-avatar">
@@ -24,7 +24,7 @@
         </div>
       </div>
 
-      <div class="mc-st-profile-actions">
+      <div class="mc-st-profile-actions" v-if="!extracted">
         <template v-if="!detailed">
           <ion-icon class="mc-st-profile-action as-edit" @click="$router.push({name:'solidaryTransport.profile'})" name="create"></ion-icon>
           <ion-icon class="mc-st-profile-action as-logout" @click="logout()" name="exit"></ion-icon>
@@ -64,7 +64,7 @@
 
 <style lang="scss">
   .mc-st-profile-card {
-    &.is-detailed {
+    &.is-detailed, &.is-extracted {
       color: var(--ion-color-primary);
 
       .mc-st-profile-actions {
@@ -130,7 +130,7 @@
       border-radius: 0 15px 15px 15px;
       font-size: 12px;
       line-height: 1.3;
-      color: var(--ion-color-step-600, #666);
+      color: var(--ion-color-step-600);
 
       .title {
         font-weight: bold;
@@ -172,11 +172,17 @@ export default {
       type: Boolean,
       required: false,
       default: false
+    },
+    isExtracted: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   data () {
     return {
-      detailed: this.isDetailed
+      detailed: this.isDetailed,
+      extracted: this.isExtracted
     }
   },
   computed: {

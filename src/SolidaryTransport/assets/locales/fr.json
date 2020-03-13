@@ -18,11 +18,6 @@
       "profile": "Profil",
       "messages": "Messages"
     },
-    "ad": {
-      "publish": {
-        "title": "Publier une annonce solidaire"
-      }
-    },
     "request": {
       "publish": {
         "title": "Faire une demande",
@@ -174,6 +169,10 @@
             ]
           },
           "fields": {
+            "destination":{
+              "from": "Lieu de départ",
+              "to": "Lieu de destination (facultatif)"
+            },
             "transports": "Je souhaite me déplacer pour :",
             "otherTransports": "Autre",
             "transportsDetails": "Autres informations :",
@@ -183,12 +182,201 @@
             "when": {
               "departure": {
                 "date": "A quelle date souhaitez-vous partir ?",
-                "specificDate": "Date d’arrivée",
+                "specificDate": "Date du départ",
                 "hour": "A quelle heure souhaitez-vous partir ?",
-                "specificHour": "Heure d’arrivée",
+                "specificHour": "Heure de départ",
                 "day": "Indiquez les jours concernés pour lesquels vous avez besoin d’un trajet régulier :"
               },
               "return": "A quelle heure souhaitez-vous revenir ?",
+              "specificReturn": "Heure de retour"
+            },
+            "summary": "Votre demande :"
+          }
+        }
+      }
+    },
+    "ad": {
+      "publish": {
+        "title": "Publier une annonce solidaire",
+        "steps": {
+          "init": "1. Votre trajet",
+          "ponctual": "2. Votre trajet ponctuel",
+          "regular": "2. Votre trajet régulier",
+          "summary": "3. Récapitulatif"
+        },
+        "form": {
+          "transports": [
+            { 
+              "value": "transport-1",
+              "label": "Aller à un RDV médical"
+            },
+            { 
+              "value": "transport-2",
+              "label": "Faire mes courses"
+            },
+            { 
+              "value": "transport-3",
+              "label": "Aller à un RDV administratif"
+            },
+            { 
+              "value": "transport-4",
+              "label": "Faire une sortie culturelle"
+            },
+            { 
+              "value": "transport-5",
+              "label": "Liste opérateur"
+            }
+          ],
+          "transportsDetails": [
+            { 
+              "value": "transport-details-1",
+              "label": "Accompagner jusqu’à la porte"
+            },
+            { 
+              "value": "transport-details-2",
+              "label": "Monter les courses"
+            },
+            { 
+              "value": "transport-details-3",
+              "label": "Boire un café"
+            }
+          ],
+          "supporting": [
+            { 
+              "value": "supporting-0",
+              "label": "De ma propre initiative"
+            },
+            { 
+              "value": "supporting-1",
+              "label": "Structure 1"
+            },
+            { 
+              "value": "supporting-2",
+              "label": "Structure 2"
+            }
+          ],
+          "frequency": [
+            { 
+              "value": "ponctual",
+              "label": "Trajet ponctuel"
+            },
+            { 
+              "value": "regular",
+              "label": "Trajet régulier"
+            }
+          ],
+          "when": {
+            "departure": {
+              "dates": [
+                { 
+                  "value": "dates-0",
+                  "label": "D’ici une semaine"
+                },
+                { 
+                  "value": "dates-1",
+                  "label": "D’ici deux semaines"
+                },
+                { 
+                  "value": "dates-2",
+                  "label": "D’ici un mois"
+                }
+              ],
+              "days": [
+                { 
+                  "value": "days-0",
+                  "label": "L"
+                },
+                { 
+                  "value": "days-1",
+                  "label": "Ma"
+                },
+                { 
+                  "value": "days-2",
+                  "label": "Me"
+                },
+                { 
+                  "value": "days-3",
+                  "label": "J"
+                },
+                { 
+                  "value": "days-4",
+                  "label": "V"
+                },
+                { 
+                  "value": "days-5",
+                  "label": "S"
+                },
+                { 
+                  "value": "days-6",
+                  "label": "D"
+                }
+              ],
+              "hours": [
+                { 
+                  "value": "hours-0",
+                  "label": "Entre 8h et 13h"
+                },
+                { 
+                  "value": "hours-1",
+                  "label": "Entre 13h et 18h"
+                },
+                { 
+                  "value": "hours-2",
+                  "label": "Entre 18h et 21h"
+                }
+              ]
+            },
+            "return": [
+              { 
+                "value": "return-0",
+                "label": "Une heure plus tard"
+              },
+              { 
+                "value": "return-1",
+                "label": "Deux heures plus tard"
+              },
+              { 
+                "value": "return-2",
+                "label": "Trois heures plus tard"
+              },
+              { 
+                "value": "return-3",
+                "label": "Je n’ai pas besoin qu’on me ramène"
+              }
+            ]
+          },
+          "trip": [
+            { 
+              "value": "one-way",
+              "label": "Aller simple"
+            },
+            { 
+              "value": "round-trip",
+              "label": "Aller-retour"
+            }
+          ],
+          "fields": {
+            "destination":{
+              "from": "Lieu de départ",
+              "to": "Lieu de destination (facultatif)"
+            },
+            "trip": "Trajet :",
+            "transports": "Je me déplace pour :",
+            "otherTransports": "Autre",
+            "transportsDetails": "Je suis prêt à :",
+            "otherTransportsDetails": "Autres précisions",
+            "supporting": "Je donne ce coup de pouce avec :",
+            "comment": "Un commentaire ?",
+            "commentSample": "Commentaire sur votre annonce (par exemple, “je dépose mes enfants à l’école avant d’aller au travail”)",
+            "frequency": "Fréquence du trajet :",
+            "when": {
+              "departure": {
+                "date": "Date du trajet",
+                "hour": "A quelle heure partez-vous ?",
+                "specificHour": "Heure de départ",
+                "day": "Indiquez les jours concernés pour lesquels vous avez besoin d’un trajet régulier :"
+              },
+              "return": "A quelle heure revenez-vous ?",
               "specificReturn": "Heure de retour"
             },
             "summary": "Votre demande :"
@@ -310,7 +498,7 @@
       "preferences": {
         "title": "Modifier mes préférences"
       },
-      "vehicule": {
+      "vehicle": {
         "title": "Modifier mon véhicule"
       },
       "realtime": {

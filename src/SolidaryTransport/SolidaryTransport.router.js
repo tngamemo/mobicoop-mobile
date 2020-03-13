@@ -14,7 +14,8 @@ import Login from './Login/Login.view.vue';
 import Profile from './Profile/Profile.view.vue';
 import ProfilePersonal from './Profile/ProfilePersonal.view.vue';
 import ProfilePreferences from './Profile/ProfilePreferences.view.vue';
-import ProfileVehicule from './Profile/ProfileVehicule.view.vue';
+import ProfileNotifications from './Profile/ProfileNotifications.view.vue';
+import ProfileVehicle from './Profile/ProfileVehicle.view.vue';
 import ProfileRealtime from './Profile/ProfileRealtime.view.vue';
 import ProfileAgenda from './Profile/ProfileAgenda.view.vue';
 import Messages from './Messages/Messages.view.vue';
@@ -22,6 +23,10 @@ import Messages from './Messages/Messages.view.vue';
 // Solidary
 // Ad Related
 import AdPublish from './Ad/AdPublish.view.vue';
+import AdPublishPonctual from './Ad/AdPublishPonctual.view.vue';
+import AdPublishPonctualSummary from './Ad/AdPublishPonctualSummary.view.vue';
+import AdPublishRegular from './Ad/AdPublishRegular.view.vue';
+import AdPublishRegularSummary from './Ad/AdPublishRegularSummary.view.vue';
 // Request Related
 import RequestPublish from './Request/RequestPublish.view.vue';
 import RequestPublishPonctual from './Request/RequestPublishPonctual.view.vue';
@@ -76,6 +81,34 @@ export default [
         name: 'solidaryTransport.home.ad',
         components: {
           home: AdPublish
+        }
+      },
+      {
+        path: '/solidary-transport/home/ad/ponctual',
+        name: 'solidaryTransport.home.ad.ponctual',
+        components: {
+          home: AdPublishPonctual
+        }
+      },
+      {
+        path: '/solidary-transport/home/ad/ponctual/summary',
+        name: 'solidaryTransport.home.ad.ponctual.summary',
+        components: {
+          home: AdPublishPonctualSummary
+        }
+      },
+      {
+        path: '/solidary-transport/home/ad/regular',
+        name: 'solidaryTransport.home.ad.regular',
+        components: {
+          home: AdPublishRegular
+        }
+      },
+      {
+        path: '/solidary-transport/home/ad/regular/summary',
+        name: 'solidaryTransport.home.ad.regular.summary',
+        components: {
+          home: AdPublishRegularSummary
         }
       },
       {
@@ -181,10 +214,10 @@ export default [
         beforeEnter: preventAccess
       },
       {
-        path: '/solidary-transport/profile/vehicule',
-        name: 'solidaryTransport.profile.vehicule',
+        path: '/solidary-transport/profile/vehicle',
+        name: 'solidaryTransport.profile.vehicle',
         components: {
-          profile: ProfileVehicule
+          profile: ProfileVehicle
         },
         beforeEnter: preventAccess
       },
@@ -208,7 +241,7 @@ export default [
         path: '/solidary-transport/profile/notifications',
         name: 'solidaryTransport.profile.notifications',
         components: {
-          profile: ProfileAgenda
+          profile: ProfileNotifications
         },
         beforeEnter: preventAccess
       },
