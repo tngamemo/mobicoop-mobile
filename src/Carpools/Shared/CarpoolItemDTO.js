@@ -91,40 +91,43 @@ export default class CarpoolItemDTO {
 
   getRegularDaysFromSearch(carpool) {
       const result = [];
-      result.push({trad: 'Carpool.L', value: carpool.monCheck});
-      result.push({trad: 'Carpool.Ma', value: carpool.tueCheck});
-      result.push({trad: 'Carpool.Me', value: carpool.wedCheck});
-      result.push({trad: 'Carpool.J', value: carpool.thuCheck});
-      result.push({trad: 'Carpool.V', value: carpool.friCheck});
-      result.push({trad: 'Carpool.S', value: carpool.satCheck});
-      result.push({trad: 'Carpool.D', value: carpool.sunCheck});
-
+      if (carpool) {
+        result.push({trad: 'Carpool.L', value: carpool.monCheck});
+        result.push({trad: 'Carpool.Ma', value: carpool.tueCheck});
+        result.push({trad: 'Carpool.Me', value: carpool.wedCheck});
+        result.push({trad: 'Carpool.J', value: carpool.thuCheck});
+        result.push({trad: 'Carpool.V', value: carpool.friCheck});
+        result.push({trad: 'Carpool.S', value: carpool.satCheck});
+        result.push({trad: 'Carpool.D', value: carpool.sunCheck});
+      }
       return result;
   }
 
   getRegularDaysFromMyCarpool(carpool) {
     const result = [];
-    result.push({trad: 'Carpool.L', value: carpool.schedule.mon});
-    result.push({trad: 'Carpool.Ma', value: carpool.schedule.tue});
-    result.push({trad: 'Carpool.Me', value: carpool.schedule.wed});
-    result.push({trad: 'Carpool.J', value: carpool.schedule.thu});
-    result.push({trad: 'Carpool.V', value: carpool.schedule.fri});
-    result.push({trad: 'Carpool.S', value: carpool.schedule.sat});
-    result.push({trad: 'Carpool.D', value: carpool.schedule.sun});
-
+    if (carpool) {
+      result.push({trad: 'Carpool.L', value: carpool.schedule.mon});
+      result.push({trad: 'Carpool.Ma', value: carpool.schedule.tue});
+      result.push({trad: 'Carpool.Me', value: carpool.schedule.wed});
+      result.push({trad: 'Carpool.J', value: carpool.schedule.thu});
+      result.push({trad: 'Carpool.V', value: carpool.schedule.fri});
+      result.push({trad: 'Carpool.S', value: carpool.schedule.sat});
+      result.push({trad: 'Carpool.D', value: carpool.schedule.sun});
+    }
     return result;
   }
 
   getTimes(carpool) {
     const result = [];
-    result.push({trad: 'Carpool.L', value: carpool.monTime});
-    result.push({trad: 'Carpool.Ma', value: carpool.tueTime});
-    result.push({trad: 'Carpool.Me', value: carpool.wedTime});
-    result.push({trad: 'Carpool.J', value: carpool.thuTime});
-    result.push({trad: 'Carpool.V', value: carpool.friTime});
-    result.push({trad: 'Carpool.S', value: carpool.satTime});
-    result.push({trad: 'Carpool.D', value: carpool.sunTime});
-
+    if (carpool) {
+      result.push({trad: 'Carpool.L', value: carpool.monTime});
+      result.push({trad: 'Carpool.Ma', value: carpool.tueTime});
+      result.push({trad: 'Carpool.Me', value: carpool.wedTime});
+      result.push({trad: 'Carpool.J', value: carpool.thuTime});
+      result.push({trad: 'Carpool.V', value: carpool.friTime});
+      result.push({trad: 'Carpool.S', value: carpool.satTime});
+      result.push({trad: 'Carpool.D', value: carpool.sunTime});
+    }
     return result;
   }
 
