@@ -39,20 +39,14 @@
         </div>
       </div>
       <div class="mc-recap-step">
-        <p
-          class="timeline text-left"
-          v-for="(step, index) in recap.outwardWaypoints"
-          :key="index"
-        >{{displayStep(step)}}</p>
+        <p class="timeline text-left" v-for="(step, index) in recap.outwardWaypoints" :key="index">
+          {{displayStep(step)}}
+        </p>
       </div>
       <div class="mc-recap-footer text-left" v-if="!! recap.seats">
         Places disponibles
         <div class="d-flex">
-          <ion-icon
-            v-for="index in parseInt(recap.seats)"
-            :key="index"
-            name="person"
-          >{{index}}</ion-icon>
+          <ion-icon v-for="index in parseInt(recap.seats)" :key="index" name="person">{{index}}</ion-icon>
         </div>
       </div>
     </div>
@@ -234,7 +228,7 @@ export default {
     LTileLayer,
     LPolyline
   },
-  props: ['recap', 'type'],
+  props: ["recap", "type"],
   mounted() {
     setTimeout(() => {
       if (!!this.$refs.mapRecap) this.$refs.mapRecap.mapObject.invalidateSize();
@@ -242,9 +236,7 @@ export default {
   },
   computed: {
     bounds() {
-      const bounds = new L.LatLngBounds(
-        this.recap.directPoints
-      );
+      const bounds = new L.LatLngBounds(this.recap.directPoints);
       if (!!this.$refs.mapRecap) this.$refs.mapRecap.mapObject.invalidateSize();
       return bounds;
     }
@@ -253,15 +245,14 @@ export default {
     displayStep(step) {
       let result = "";
       console.log(step);
-      if (!!step.displayLabel && step.displayLabel[0] && step.displayLabel[1] ) {
+      if (!!step.displayLabel && step.displayLabel[0] && step.displayLabel[1]) {
         result = `${step.displayLabel[0]},  ${step.displayLabel[1]}`;
       } else {
-        if (!! step.addressCountry) {
+        if (!!step.addressCountry) {
           result = `${step.addressLocality},  ${step.addressCountry}`;
         } else {
           result = `${step.addressLocality}`;
         }
-
       }
       return result;
     },

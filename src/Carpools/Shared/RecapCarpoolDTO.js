@@ -42,9 +42,10 @@ export default class RecapCarpoolDTO {
     this.outwardWaypoints = [];
     result.outward.waypoints.forEach(item => {
       console.log(item)
-      console.log([item.address, item.role, item.time])
-      console.log([...item.address, item.role, item.time])
-      this.outwardWaypoints.push()
+      item.address['role'] = item.role;
+      item.address['time'] = item.time;
+      item.address['type'] = item.type;
+      this.outwardWaypoints.push(item.address);
     })
 
     console.log(this.outwardWaypoints)
