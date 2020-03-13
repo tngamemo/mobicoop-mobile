@@ -80,7 +80,7 @@
             <ion-button class="mc-st-form-control as-back" color="light" v-html="$t('solidaryTransport.buttons.back')" @click="$router.back()"></ion-button>
 
             <ion-button class="mc-st-form-control" color="success" @click="validate()">
-              <ion-icon slot="start" name="checkmark" size="large"></ion-icon>
+              <ion-icon slot="start" name="checkmark" size="small"></ion-icon>
               <span v-html="$t('solidaryTransport.buttons.sendRequest')"></span>
             </ion-button>
           </div>

@@ -92,6 +92,10 @@
                 </l-map>
               </div>
 
+              <div class="mc-st-form-summary-car">
+                <ProfileCard :as-car-only="true"/>
+              </div>
+
             </div>
             
           </div>
@@ -100,8 +104,8 @@
             <ion-button class="mc-st-form-control as-back" color="light" v-html="$t('solidaryTransport.buttons.back')" @click="$router.back()"></ion-button>
 
             <ion-button class="mc-st-form-control" color="success" @click="validate()">
-              <ion-icon slot="start" name="checkmark" size="large"></ion-icon>
-              <span v-html="$t('solidaryTransport.buttons.sendRequest')"></span>
+              <ion-icon slot="start" name="checkmark" size="small"></ion-icon>
+              <span v-html="$t('solidaryTransport.buttons.sendAd')"></span>
             </ion-button>
           </div>
 

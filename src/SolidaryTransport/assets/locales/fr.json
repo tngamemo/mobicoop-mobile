@@ -8,7 +8,8 @@
       "next": "Suivant",
       "register": "S'inscrire",
       "validate": "Valider",
-      "sendRequest": "Envoyer ma demande"
+      "sendRequest": "Envoyer ma demande",
+      "sendAd": "Publier mon annonce"
     },
     "navigation": {
       "home": "Accueil",
