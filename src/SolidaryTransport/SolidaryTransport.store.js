@@ -76,6 +76,13 @@ export const solidaryTransportStore = {
         }
       }
       return 
+    },
+    getUserCar: () => (user) => {
+      if (user) {
+        if (user.cars.length !== 0) {
+          return user.cars[0]
+        }
+      }
     }
   }
 }

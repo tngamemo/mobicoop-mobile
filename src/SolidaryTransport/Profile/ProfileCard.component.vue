@@ -47,6 +47,37 @@
       </div>
     </div>
 
+    <div class="mc-st-profile-block mc-st-vehicle" v-if="getUserCar(userStore.user)">
+      <div class="mc-st-vehicle-image">
+        <ion-thumbnail>
+          <template v-if="getUserCar(userStore.user).image">
+            <img :src="getUserCar(userStore.user).image" :alt="getUserCar(userStore.user).brand">
+          </template>
+          <template v-else>
+            <ion-icon name="car" size="large" color="light"></ion-icon>
+          </template>
+        </ion-thumbnail>
+      </div>
+
+      <div class="mc-st-vehicle-information">
+        <div class="mc-st-vehicle-details">
+          <div class="brand">{{getUserCar(userStore.user).brand || 'Brand'}}</div>
+          <div class="model">{{getUserCar(userStore.user).model || 'Model'}}</div>
+          <div class="color">{{getUserCar(userStore.user).color|| 'Color'}}</div>
+        </div>
+      </div>
+
+      <div class="mc-st-profile-actions" v-if="!extracted">
+        <template v-if="!detailed">
+          <ion-icon class="mc-st-profile-action as-edit" @click="$router.push({name:'solidaryTransport.profile'})" name="create"></ion-icon>
+          <ion-icon class="mc-st-profile-action as-logout" @click="logout()" name="exit"></ion-icon>
+        </template>
+        <template v-else>
+          <ion-icon class="mc-st-profile-action as-edit" @click="$router.push({name:'solidaryTransport.profile.personal'})" name="create"></ion-icon>
+        </template>
+      </div>
+    </div>
+
     <div class="mc-st-profile-block mc-st-profile-realtime" v-if="detailed">
       <div class="mc-st-profile-text">
         <div class="title">Covoiturage temps réel </div>
@@ -138,6 +169,58 @@
       }
     }
 
+    .mc-st-vehicle {
+      .mc-st-vehicle-image {
+        flex: 1;
+        width: 25vw;
+        max-width: 90px;
+        position: relative;
+
+        ion-thumbnail {
+          width: 25vw;
+          height: 25vw;
+          max-width: 90px;
+          max-height: 90px;
+          --border-radius: 25%;
+        }
+
+        ion-icon {
+          top: 50%;
+          left: 50%;
+          position: relative;
+          transform: translate(-50%, -50%);
+          opacity: .7;
+        }
+      }
+
+      .mc-st-vehicle-information {
+        flex: 1;
+        padding: 0 5px 0 15px;
+
+        .mc-st-vehicle-details {
+          position: relative;
+          top: 50%;
+          transform: translateY(-50%);
+          line-height: 1.3;
+          font-size: 12px;
+          color: var(--ion-color-step-600);
+
+          // .name {
+          //   font-size: 14px;
+          //   font-weight: bold;
+
+          //   .given-name {}
+
+          //   .short-family-name {}
+          // }
+
+          // .age, .email, .phone, .locality {
+          //   font-size: 12px;
+          // }
+        }
+      }
+    }
+
     .mc-st-profile-actions {
       flex: 1;
       max-width: 60px;
@@ -192,7 +275,8 @@ export default {
     ...mapGetters([
       'getUserAvatar',
       'getUserAge',
-      'getUserAddress'
+      'getUserAddress',
+      'getUserCar'
     ])
   },
   methods: {
