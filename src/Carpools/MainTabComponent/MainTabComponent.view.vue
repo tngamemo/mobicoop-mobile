@@ -21,7 +21,9 @@
         </ion-tab>
 
         <ion-tab tab="messages">
+          <keep-alive>
           <Messages />
+          </keep-alive>
         </ion-tab>
 
         <ion-tab tab="communities">

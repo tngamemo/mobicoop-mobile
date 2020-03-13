@@ -24,7 +24,7 @@ const router = new IonicVueRouter({
         ...routerCarpools
       ]
     }
-  ]
+  ],
 })
 
 router.onError(err => {
