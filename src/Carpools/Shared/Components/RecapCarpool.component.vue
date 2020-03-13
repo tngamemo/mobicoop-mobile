@@ -39,8 +39,18 @@
         </div>
       </div>
       <div class="mc-recap-step">
-        <p class="timeline text-left" v-for="(step, index) in recap.outwardWaypoints" :key="index">
-          {{displayStep(step)}}
+        <p
+          class="timeline text-left d-flex align-center"
+          v-for="(step, index) in recap.outwardWaypoints"
+          :key="index"
+        >
+          <ion-icon
+            v-if="step.role && step.type"
+            :name="getIconStepName(step).name"
+            class="mc-step-icon"
+            :class="getIconStepName(step).background"
+          ></ion-icon>
+          <span v-html="displayStep(step)"></span>
         </p>
       </div>
       <div class="mc-recap-footer text-left" v-if="!! recap.seats">
@@ -103,6 +113,21 @@
       background: rgba(var(--ion-color-primary-rgb), 0.5);
       color: white;
     }
+  }
+
+  .mc-step-icon {
+    border-radius: 50%;
+    padding: 4px;
+    color: white;
+    margin-right: 10px;
+  }
+
+  .mc-icon-step-background-primary {
+    background-color: var(--ion-color-primary);
+  }
+
+  .mc-icon-step-background-green {
+    background-color: #13a569;
   }
 
   .mc-carpool-subheader {
@@ -244,18 +269,54 @@ export default {
   methods: {
     displayStep(step) {
       let result = "";
-      console.log(step);
+      if (!! step.time) {
+        result =`<b>${this.$moment(step.time).utc().format('hh[h]mm')}</b>: `;
+      }
       if (!!step.displayLabel && step.displayLabel[0] && step.displayLabel[1]) {
-        result = `${step.displayLabel[0]},  ${step.displayLabel[1]}`;
+        result += `${step.displayLabel[0]},  ${step.displayLabel[1]}`;
       } else {
         if (!!step.addressCountry) {
-          result = `${step.addressLocality},  ${step.addressCountry}`;
+          result += `${step.addressLocality},  ${step.addressCountry}`;
         } else {
-          result = `${step.addressLocality}`;
+          result += `${step.addressLocality}`;
         }
       }
       return result;
     },
+
+    getIconStepName(step) {
+      switch (step.type) {
+        case "origin":
+          if (step.role == "driver") {
+            return {
+              name: "home",
+              background: "mc-icon-step-background-green"
+            };
+          } else {
+            return {
+              name: "person",
+              background: "mc-icon-step-background-primary"
+            };
+          }
+          break;
+
+        case "destination":
+          if (step.role == "driver") {
+            return {
+              name: "flag",
+              background: "mc-icon-step-background-green"
+            };
+          } else {
+            return {
+              name: "flag",
+              background: "mc-icon-step-background-primary"
+            };
+          }
+          break;
+        default:
+          break;
+      }
+    }
   }
 };
 </script>
