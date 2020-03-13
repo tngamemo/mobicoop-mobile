@@ -25,7 +25,7 @@
 
           <div
             class="mc-searchDetail-button-action"
-            v-if="!carpoolSelected.acceptedAsk && !carpoolSelected.pendingAsk"
+
           >
             <ion-button class="mc-big-button" color="primary" expand="block" fill="outline">
               <ion-icon name="call" class="ion-padding-end"></ion-icon>
@@ -43,7 +43,7 @@
               {{ $t('SearchDetail.contact') }}
             </ion-button>
 
-            <ion-button class="mc-big-button" color="success" expand="block">
+            <ion-button class="mc-big-button" color="success" expand="block" v-on:click="goToAskCarpool()">
               <ion-icon name="checkmark" class="ion-padding-end"></ion-icon>
               {{ $t('SearchDetail.ask') }}
             </ion-button>
@@ -84,8 +84,8 @@ export default {
 
   methods: {
     async getCarpoolAsk() {
-      const index = this.$route.params.id;
-      this.carpoolSelected = this.$store.getters.resultSearch[index];
+      this.index = this.$route.params.id;
+      this.carpoolSelected = this.$store.getters.resultSearch[this.index];
 
       let resultDriverOrPassenger = this.carpoolSelected.resultDriver;
       if (!!!resultDriverOrPassenger)
@@ -103,6 +103,10 @@ export default {
         this.carpoolSelected,
         resDirectPoint.data["hydra:member"][0].directPoints
       );
+    },
+
+    goToAskCarpool() {
+      this.$router.push({name: 'ask-carpool', id: this.index})
     }
   }
 };

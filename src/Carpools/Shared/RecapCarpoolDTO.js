@@ -18,6 +18,8 @@ export default class RecapCarpoolDTO {
     this.outwardTime = carpoolToPost.schedule && carpoolToPost.schedule[0].outwardTime;
     this.directPoints = directPoints;
     this.priceCarpool = priceCarpool;
+    this.passenger = !!carpoolToPost.resultPassenger;
+    this.driver = !!carpoolToPost.resultDriver;
 
     if (this.frequency == 2) {
       this.regularDays = getRegularDaysFromCarpoolToPost(carpoolToPost)
@@ -35,6 +37,8 @@ export default class RecapCarpoolDTO {
     this.returnTime = moment(carpool.returnTime).utc().format('HH:MM');
     this.outwardTime = moment(carpool.outwardTime).utc().format('HH:MM');
     this.priceCarpool = carpool.roundedPrice;
+    this.passenger = !!carpool.resultPassenger;
+    this.driver = !!carpool.resultDriver;
 
     let result = carpool.resultDriver ;
     if (! !!result) result = carpool.resultPassenger;
@@ -55,6 +59,33 @@ export default class RecapCarpoolDTO {
     if (this.frequency == 2) {
       this.regularDays = this.getRegularDaysFromSearch(carpool)
     }
+
+    return this
+  }
+
+  fromAskCarpool(carpool){
+    this.outwardDate = carpool.date;
+    this.frequency = carpool.frequency;
+    this.seats = carpool.seats;
+    this.comment = carpool.comment;
+    this.user = carpool.carpooler;
+    this.returnTime = moment(carpool.returnTime).utc().format('HH:MM');
+    this.outwardTime = moment(carpool.outwardTime).utc().format('HH:MM');
+    this.passenger = !!carpool.resultPassenger;
+    this.driver = !!carpool.resultDriver;
+
+    let result = carpool.resultDriver ;
+    if (! !!result) result = carpool.resultPassenger;
+
+    this.outwardWaypoints = [];
+    result.outward.waypoints.forEach(item => {
+      item.address['role'] = item.role;
+      item.address['time'] = item.time;
+      item.address['type'] = item.type;
+      this.outwardWaypoints.push(item.address);
+    })
+
+    this.isMultipleTime = result.outward.multipleTimes;
 
     return this
   }
