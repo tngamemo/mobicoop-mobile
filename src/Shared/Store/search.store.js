@@ -63,7 +63,7 @@ export const searchStore = {
     changeDestination(state, payload) {
       state.searchObject.outwardWaypoints[1] = payload.addressDTO;
       state.display.destination = payload.displayGeo;
-    }
+    },
 
   },
   actions: {
@@ -119,6 +119,28 @@ export const searchStore = {
           commit('search_error')
           reject(err)
         })
+      })
+    },
+
+    getDirectPointSearch({}, payload) {
+
+      let query = '';
+      payload.addresses.forEach((add, index, array) => {
+        query += `points[${index}][longitude]=${add.longitude}&points[${index}][latitude]=${add.latitude}`;
+        if (index !== array.length - 1) {
+          query += '&';
+        }
+      });
+
+      return new Promise((resolve, reject) => {
+        return http.get(`/directions/search?${query}`)
+          .then(resp => {
+            resolve(resp)
+          })
+          .catch(err => {
+            console.log(err)
+            reject(err)
+          })
       })
     },
   },

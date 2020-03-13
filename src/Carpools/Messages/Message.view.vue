@@ -168,7 +168,7 @@
 </style>
 
 <script>
-  import CarpoolItemDTO from "../Search/Components/CarpoolItemDTO";
+  import CarpoolItemDTO from "../Shared/CarpoolItemDTO";
 
   export default {
     name: 'help',
