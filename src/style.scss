@@ -271,5 +271,10 @@ ion-thumbnail, ion-avatar {
 ion-toolbar h1 {
   margin: 0px;
   line-height: 48px;
+  white-space: nowrap;
 }
 
+.no-scroll {
+  --overflow: hidden;
+  overflow: hidden
+}

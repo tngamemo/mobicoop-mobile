@@ -60,6 +60,7 @@ export const registerStore = {
       const u = Object.assign({}, state.userToRegister);
       delete u.confirmPassword;
       delete u.addresses[0].id;
+      delete u.addresses[0].geoJson;
       return new Promise((resolve, reject) => {
         http.post("/users", u).then(resp => {
           if (resp) {

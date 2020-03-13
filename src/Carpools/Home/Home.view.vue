@@ -20,16 +20,16 @@
 
         <BlockAction
           :action="'communities'"
-          :color="'#2E499A'"
-          :colorBg="'rgba(46, 73, 154, 0.4)'"
+          :color="'rgba('+ primary+ ', 1)'"
+          :colorBg="'rgba('+ primary+ ', 0.4)'"
           :icon="'briefcase'"
           @clickButton="redirectToCommunities()"
         />
 
         <BlockAction
           :action="'events'"
-          :color="'#C67100'"
-          :colorBg="'#FFD149'"
+          :color="'rgba('+ secondary+ ', 1)'"
+          :colorBg="'rgba('+ secondary+ ', 0.4)'"
           :icon="'musical-note'"
           @clickButton="redirectToEvents()"
         />
@@ -66,14 +66,6 @@
     }
   }
 
-  .mc-welcome-home {
-    text-align: right;
-    h2 {
-      font-weight: bold;
-      text-align: center;
-      margin-bottom: 200px;
-    }
-  }
 
 </style>
 
@@ -93,9 +85,15 @@
     data () {
       return {
         title: process.env.VUE_APP_NAME,
+        primary: '',
+        secondary: ''
       }
     },
-    methods: {
+    created(){
+      this.primary = window.getComputedStyle(document.body).getPropertyValue('--ion-color-primary-rgb');
+      this.secondary = window.getComputedStyle(document.body).getPropertyValue('--ion-color-secondary-rgb');
+    },
+      methods: {
 
       closeWelcome: function() {
         this.seeWelcome = false;
