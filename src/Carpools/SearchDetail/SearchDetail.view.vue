@@ -11,17 +11,53 @@
 
     <ion-content color="primary" no-bounce>
       <div class="mc-white-container">
-      <RecapCarpool
-      v-if="carpoolRecap"
-      ref="recap"
-      :recap="carpoolRecap"
-    ></RecapCarpool>
+         <div class="ion-text-center">
+          <ion-icon size="large" color="primary" class="rotating" v-if="!carpoolRecap" name="md-sync"></ion-icon>
+        </div>
+
+        <RecapCarpool v-if="carpoolRecap" ref="recap" :recap="carpoolRecap"></RecapCarpool>
+
+        <div class="mc-searchDetail-action" v-if="carpoolRecap">
+          <div class="d-flex align-center" v-if="carpoolSelected.acceptedAsk || carpoolSelected.pendingAsk">
+            <ion-icon name="warning" size="large" color="warning"></ion-icon>
+            <ion-text color="warning">Vous avez déjà fait une demande sur cette annonce.</ion-text>
+          </div>
+
+          <div
+            class="mc-searchDetail-button-action"
+            v-if="!carpoolSelected.acceptedAsk && !carpoolSelected.pendingAsk"
+          >
+            <ion-button class="mc-big-button" color="primary" expand="block" fill="outline">
+              <ion-icon name="call" class="ion-padding-end"></ion-icon>
+              {{ $t('SearchDetail.call') }}
+            </ion-button>
+
+            <ion-button
+              class="mc-big-button"
+              color="primary"
+              expand="block"
+              fill="outline"
+              @click="goToPostCarpool()"
+            >
+              <ion-icon name="mail" class="ion-padding-end"></ion-icon>
+              {{ $t('SearchDetail.contact') }}
+            </ion-button>
+
+            <ion-button class="mc-big-button" color="success" expand="block">
+              <ion-icon name="checkmark" class="ion-padding-end"></ion-icon>
+              {{ $t('SearchDetail.ask') }}
+            </ion-button>
+          </div>
+        </div>
       </div>
     </ion-content>
   </div>
 </template>
 
 <style lang="scss">
+.mc-searchDetail-action {
+  margin-top: 50px;
+}
 </style>
 
 <script>
@@ -51,13 +87,22 @@ export default {
       const index = this.$route.params.id;
       this.carpoolSelected = this.$store.getters.resultSearch[index];
 
+      let resultDriverOrPassenger = this.carpoolSelected.resultDriver;
+      if (!!!resultDriverOrPassenger)
+        resultDriverOrPassenger = this.carpoolSelected.resultPassenger;
+      const addresses = resultDriverOrPassenger.outward.waypoints.map(
+        a => a.address
+      );
 
-      let resultDriverOrPassenger = this.carpoolSelected.resultDriver ;
-      if (! !!resultDriverOrPassenger) resultDriverOrPassenger = this.carpoolSelected.resultPassenger;
-      const addresses = resultDriverOrPassenger.outward.waypoints.map(a => a.address);
+      const resDirectPoint = await this.$store.dispatch(
+        "getDirectPointSearch",
+        { addresses }
+      );
 
-      const resDirectPoint = await this.$store.dispatch('getDirectPointSearch', {addresses});
-      this.carpoolRecap = new RecapCarpoolDTO().fromCarpoolSearch(this.carpoolSelected, resDirectPoint.data['hydra:member'][0].directPoints)
+      this.carpoolRecap = new RecapCarpoolDTO().fromCarpoolSearch(
+        this.carpoolSelected,
+        resDirectPoint.data["hydra:member"][0].directPoints
+      );
     }
   }
 };

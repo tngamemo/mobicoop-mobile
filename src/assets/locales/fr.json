@@ -200,6 +200,9 @@
     "addSchedule": "Ajouter une créneau"
   },
   "SearchDetail": {
-    "title": "Détails du covoiturage"
+    "title": "Détails du covoiturage",
+    "call": "Appeler",
+    "contact": "Contacter",
+    "ask": "Demande de covoiturage"
   }
 }
