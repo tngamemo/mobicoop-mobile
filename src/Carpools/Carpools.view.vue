@@ -1,15 +1,12 @@
 <template>
- <keep-alive include='Messages'>
-    <ion-vue-router />
-     </keep-alive>
+  <ion-vue-router />
 </template>
 
 <script>
-  export default {
-    name: 'carpools',
-    data () {
-      return {
-      }
-    }
+export default {
+  name: "carpools",
+  data() {
+    return {};
   }
+};
 </script>
