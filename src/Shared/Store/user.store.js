@@ -178,6 +178,7 @@ export const userStore = {
     },
 
     updateUser({commit}, params) {
+      commit('auth_request');
       return new Promise((resolve, reject) => {
         delete params.addresses[0].id;
         delete params.images;

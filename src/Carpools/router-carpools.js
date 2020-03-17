@@ -13,6 +13,7 @@ import Communities from './Communities/Communities.view.vue';
 import Profile from './Profile/Profile.view.vue';
 import UpdateProfile from './Profile/UpdateProfile.view.vue';
 import ProfileAlerts from './Profile/ProfileAlerts.view.vue';
+import ProfilePrefs from './Profile/ProfilePrefs.view.vue';
 import MyCarpools from './Profile/MyCarpools.view.vue';
 import PostCarpool from './PostCarpool/PostCarpool.view.vue';
 import Message from './Messages/Message.view.vue';
@@ -102,6 +103,11 @@ export default [
     path: 'profile-alerts',
     name: 'profile-alerts',
     component: ProfileAlerts
+  },
+  {
+    path: 'profile-prefs',
+    name: 'profile-prefs',
+    component: ProfilePrefs
   },
   {
     path: 'my-carpools',

@@ -122,6 +122,21 @@
     "medium-2": "Email",
     "medium-3": "SMS"
   },
+  "ProfilePrefs": {
+    "title" : "Modifier mes préférences",
+    "smoke-title" : "En ce qui concerne le tabac en voiture",
+    "smoke0" : "Je ne fume pas",
+    "smoke1" : "Je ne fume pas en voiture",
+    "smoke2" : "Je fume",
+    "music-title" : "En ce qui concerne la musique en voiture",
+    "music0" : "Je préfère rouler sans fond sonore",
+    "music1" : "J’écoute la radio ou de la musique",
+    "music-placeholder" : "Radios/musiques préférées",
+    "chat-title" : "En ce qui concerne les discussions en voiture",
+    "chat0" : "Je ne suis pas bavard",
+    "chat1" : "Je discute",
+    "chat-placeholder" : "Sujets préférés"
+  },
   "MyCarpools": {
     "title": "Mes annonces",
     "in-progress": "En cours",

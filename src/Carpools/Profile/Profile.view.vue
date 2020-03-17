@@ -40,6 +40,27 @@
           </div>
         </div>
 
+        <div class="d-flex justify-between">
+          <div class="user-prefs-bloc">
+            <div v-if="user.smoke === 0">{{ $t('ProfilePrefs.smoke0')}}</div>
+            <div v-if="user.smoke === 1">{{ $t('ProfilePrefs.smoke1')}}</div>
+            <div v-if="user.smoke === 2">{{ $t('ProfilePrefs.smoke2')}}</div>
+            <div v-if="user.music === false">{{ $t('ProfilePrefs.music0')}}</div>
+            <div v-if="user.music === true">{{ $t('ProfilePrefs.music1')}}</div>
+            <div v-if="user.chat === false">{{ $t('ProfilePrefs.chat0')}}</div>
+            <div v-if="user.chat === true">{{ $t('ProfilePrefs.chat1')}}</div>
+          </div>
+          <div class="mc-user-action">
+            <ion-icon
+              @click="$router.push('profile-prefs')"
+              color="primary"
+              name="create"
+              size="large"
+              class="ion-padding-end pointer"
+            ></ion-icon>
+          </div>
+        </div>
+
         <!-- Bloc buttons -->
         <div>
           <ion-button
@@ -107,6 +128,18 @@
       margin: 0;
     }
   }
+
+}
+
+.user-prefs-bloc {
+
+  padding: 15px 20px;
+  background: #F5F6FA;
+  border-radius: 0px 15px 15px 15px;
+  color: rgba(0, 0, 0, 0.4);
+  width: 100%;
+  margin-right: 15px;
+  margin-bottom: 30px;
 }
 </style>
 
