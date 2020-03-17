@@ -20,7 +20,7 @@ export default class RecapCarpoolDTO {
     this.priceCarpool = priceCarpool;
 
     if (this.frequency == 2) {
-      this.regularDays = getRegularDaysFromCarpoolToPost(carpoolToPost)
+      this.regularDays = this.getRegularDaysFromCarpoolToPost(carpoolToPost)
     }
 
     return this
