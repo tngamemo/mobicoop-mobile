@@ -25,7 +25,7 @@
 
           <div
             class="mc-searchDetail-button-action"
-
+            v-if="!carpoolSelected.acceptedAsk && !carpoolSelected.pendingAsk"
           >
             <ion-button class="mc-big-button" color="primary" expand="block" fill="outline">
               <ion-icon name="call" class="ion-padding-end"></ion-icon>
@@ -106,7 +106,9 @@ export default {
     },
 
     goToAskCarpool() {
-      this.$router.push({name: 'ask-carpool', id: this.index})
+      if (this.carpoolSelected.frequency == 2) {
+        this.$router.push({name: 'ask-carpool', id: this.index})
+      }
     }
   }
 };
