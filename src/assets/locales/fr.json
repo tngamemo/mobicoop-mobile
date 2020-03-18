@@ -233,7 +233,17 @@
     "contact": "Contacter",
     "ask": "Demande de covoiturage",
     "askAsDriver": "Demander en tant que conducteur",
-    "askAsPassenger": "Demander en tant que passager"
+    "askAsPassenger": "Demander en tant que passager",
+    "updateSuccess": ":La demande a été mise à jour",
+    "askSend": "Une demande de covoiturage formelle a été envoyée",
+    "askAccepted": "Le covoiturage a été accepté",
+    "askDeclined": "Le covoiturage a été refusé",
+    "askFor": "Demande faite pour :",
+    "outward": "Aller",
+    "return": "Retour",
+    "alreadyAsk": "Vous avez déjà fait une demande sur cette annonce.",
+    "acceptAsk": "Accepter le covoiturage",
+    "declineAsk": "Refuser le covoiturage"
   },
   "AskCarpool":{
     "title": "Demande de covoiturage",

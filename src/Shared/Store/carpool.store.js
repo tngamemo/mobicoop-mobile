@@ -355,6 +355,21 @@ export const carpoolStore = {
             reject(err)
           })
       })
+    },
+
+    updateAskCarpool({ commit }, payload) {
+      return new Promise((resolve, reject) => {
+        commit('carpool_ask_post_request');
+        return http.put(`/carpools/ask/${payload.idAsk}?userId=${payload.userId}`, payload.data)
+          .then(resp => {
+            commit('carpool_ask_post_success');
+            resolve(resp)
+          })
+          .catch(err => {
+            commit('carpool_ask_post_error');
+            reject(err)
+          })
+      })
     }
 
   },

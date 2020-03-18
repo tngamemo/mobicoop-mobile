@@ -75,7 +75,7 @@ async function createToasterLogin() {
       {
         text: 'Se reconnecter',
         handler: () => {
-          existingVueInstance.$router.push('login')
+          existingVueInstance.$router.push({name:'login'})
         }
       }
     ]

@@ -340,7 +340,7 @@ export default {
 
   methods: {
     getCarpoolAsk() {
-      const index = this.$route.params.id;
+      const index = this.$route.params.param;
       this.carpoolSelected = this.$store.getters.resultSearch[index];
 
       if (!!this.carpoolSelected) {

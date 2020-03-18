@@ -8,7 +8,8 @@ export const messageStore = {
     messagesDirect: [],
     statusCompleteThread: '',
     completeThread: null,
-    statusPostMessage: ''
+    statusPostMessage: '',
+    askFromMessage: null
   },
   mutations: {
     message_carpool_request(state) {
@@ -153,6 +154,11 @@ export const messageStore = {
     },
 
   },
+  getters: {
+    askFromMessage: state => {
+      return state.askFromMessage;
+    }
+  }
 
 
 }

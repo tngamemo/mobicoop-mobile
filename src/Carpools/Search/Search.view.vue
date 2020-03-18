@@ -75,7 +75,7 @@
       },
 
       goToDetailCarpool(index) {
-        this.$router.push({ name: 'carpool-detail', params: { id: index } });
+        this.$router.push({ name: 'carpool-detail', params: { param: index } });
       }
     }
   }
