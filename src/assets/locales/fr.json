@@ -96,7 +96,10 @@
     "my-accepted-carpools": "Mes covoiturages acceptés",
     "alerts": "Gérer mes alertes",
     "logout": "Se déconnecter",
-    "delete": "Supprimer mon compte"
+    "delete": "Supprimer mon compte",
+    "confirmDeleteTitle": "Supprimer mon compte",
+    "confirmDeleteText": "Vous allez supprimer votre compte et l'ensemble des données liées. Cette opération est irréversible. Êtes vous sur de vouloir supprimer votre compte",
+    "delete-success" : "Votre compte a été supprimé"
   },
   "UpdateProfile": {
     "title" : "Modifier mon profil",

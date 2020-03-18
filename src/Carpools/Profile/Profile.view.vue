@@ -90,11 +90,12 @@
             <ion-icon class="ion-margin-end" name="log-out"></ion-icon>
             {{ $t('Profile.logout') }}
           </ion-button>
-          <!--
-          <ion-button class='mc-big-button' color="danger" expand="block" @click="">
+
+          <ion-button class='mc-big-button' color="danger" expand="block" @click="deleteUser()">
             <ion-icon class="ion-margin-end" name="trash"></ion-icon> {{ $t('Profile.delete') }}
           </ion-button>
-          -->
+
+
         </div>
       </div>
     </ion-content>
@@ -144,11 +145,14 @@
 </style>
 
 <script>
+import {toast} from "../../Shared/Mixin/toast.mixin";
+
 export default {
   name: "profile",
   data() {
     return {};
   },
+  mixins: [toast],
   computed: {
     user: {
       get() {
@@ -164,6 +168,32 @@ export default {
         this.$store.dispatch("authAnonymousUser");
       });
       this.$router.push("home");
+    },
+    deleteUser() {
+      return this.$ionic.alertController
+        .create({
+          header: this.$t("Profile.confirmDeleteTitle"),
+          message: this.$t("Profile.confirmDeleteText"),
+          buttons: [
+            {
+              text: this.$t("Commons.cancel"),
+              role: 'cancel',
+              cssClass: 'secondary'
+            },
+            {
+              text: this.$t("Commons.confirm"),
+              handler: () => {
+                this.$store.dispatch('deleteUser').then(() => {
+                  this.presentToast(this.$t("Profile.delete-success"), "success");
+                  this.logout();
+                }).catch(() => {
+                  this.presentToast(this.$t("Commons.error"), "danger");
+                })
+              },
+            },
+          ],
+        })
+        .then(a => a.present())
     }
   }
 };
