@@ -206,7 +206,7 @@
   import CarpoolItemDTO from "../Shared/CarpoolItemDTO";
 
   export default {
-    name: 'help',
+    name: 'message',
     data () {
       return {
         message: '',
