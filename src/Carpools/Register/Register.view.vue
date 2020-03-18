@@ -60,12 +60,14 @@ export default {
 
   methods: {
     register() {
+      const email = this.$store.state.registerStore.userToRegister.email;
       this.$store.commit("change_sliderloader_visibility");
       this.$store
         .dispatch("register")
         .then(res => {
           this.$store.commit("register_reset");
           this.$router.push("home");
+          this.$router.push({path: "/confirm-registration/" + email});
           this.presentToast(this.$t("Register.success"), "success");
           this.$store.commit("change_sliderloader_visibility");
           // reload the component

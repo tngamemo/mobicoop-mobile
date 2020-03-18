@@ -20,6 +20,7 @@ import Message from './Messages/Message.view.vue';
 import PostCarpoolStep from './PostCarpool/PostCarpoolStep.view.vue';
 import DetailCarpool from './DetailCarpool/DetailCarpool.view.vue';
 import AskCarpool from './AskCarpool/AskCarpool.view.vue';
+import ConfirmRegistration from './Register/ConfirmRegistration.view.vue';
 
 import Vue from 'vue'
 import store from '../Shared/Store/store';
@@ -138,6 +139,11 @@ export default [
     path: '/article/:id',
     name: 'article',
     component: Article,
+  },
+  {
+    path: '/confirm-registration/:email',
+    name: 'confirm-registration',
+    component: ConfirmRegistration,
   },
   {
     path: '/carpool-detail/:id',
