@@ -40,6 +40,27 @@
           </div>
         </div>
 
+        <div class="d-flex justify-between">
+          <div class="user-prefs-bloc">
+            <div v-if="user.smoke === 0">{{ $t('ProfilePrefs.smoke0')}}</div>
+            <div v-if="user.smoke === 1">{{ $t('ProfilePrefs.smoke1')}}</div>
+            <div v-if="user.smoke === 2">{{ $t('ProfilePrefs.smoke2')}}</div>
+            <div v-if="user.music === false">{{ $t('ProfilePrefs.music0')}}</div>
+            <div v-if="user.music === true">{{ $t('ProfilePrefs.music1')}}</div>
+            <div v-if="user.chat === false">{{ $t('ProfilePrefs.chat0')}}</div>
+            <div v-if="user.chat === true">{{ $t('ProfilePrefs.chat1')}}</div>
+          </div>
+          <div class="mc-user-action">
+            <ion-icon
+              @click="$router.push('profile-prefs')"
+              color="primary"
+              name="create"
+              size="large"
+              class="ion-padding-end pointer"
+            ></ion-icon>
+          </div>
+        </div>
+
         <!-- Bloc buttons -->
         <div>
           <ion-button
@@ -69,11 +90,12 @@
             <ion-icon class="ion-margin-end" name="log-out"></ion-icon>
             {{ $t('Profile.logout') }}
           </ion-button>
-          <!--
-          <ion-button class='mc-big-button' color="danger" expand="block" @click="">
+
+          <ion-button class='mc-big-button' color="danger" expand="block" @click="deleteUser()">
             <ion-icon class="ion-margin-end" name="trash"></ion-icon> {{ $t('Profile.delete') }}
           </ion-button>
-          -->
+
+
         </div>
       </div>
     </ion-content>
@@ -107,15 +129,30 @@
       margin: 0;
     }
   }
+
+}
+
+.user-prefs-bloc {
+
+  padding: 15px 20px;
+  background: #F5F6FA;
+  border-radius: 0px 15px 15px 15px;
+  color: rgba(0, 0, 0, 0.4);
+  width: 100%;
+  margin-right: 15px;
+  margin-bottom: 30px;
 }
 </style>
 
 <script>
+import {toast} from "../../Shared/Mixin/toast.mixin";
+
 export default {
   name: "profile",
   data() {
     return {};
   },
+  mixins: [toast],
   computed: {
     user: {
       get() {
@@ -131,6 +168,32 @@ export default {
         this.$store.dispatch("authAnonymousUser");
       });
       this.$router.push("home");
+    },
+    deleteUser() {
+      return this.$ionic.alertController
+        .create({
+          header: this.$t("Profile.confirmDeleteTitle"),
+          message: this.$t("Profile.confirmDeleteText"),
+          buttons: [
+            {
+              text: this.$t("Commons.cancel"),
+              role: 'cancel',
+              cssClass: 'secondary'
+            },
+            {
+              text: this.$t("Commons.confirm"),
+              handler: () => {
+                this.$store.dispatch('deleteUser').then(() => {
+                  this.presentToast(this.$t("Profile.delete-success"), "success");
+                  this.logout();
+                }).catch(() => {
+                  this.presentToast(this.$t("Commons.error"), "danger");
+                })
+              },
+            },
+          ],
+        })
+        .then(a => a.present())
     }
   }
 };

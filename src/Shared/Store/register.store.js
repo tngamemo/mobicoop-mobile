@@ -62,7 +62,7 @@ export const registerStore = {
       delete u.addresses[0].id;
       delete u.addresses[0].geoJson;
       return new Promise((resolve, reject) => {
-        http.post("/users", u).then(resp => {
+        http.post("/users/register", u).then(resp => {
           if (resp) {
             commit('register_success');
             resolve(resp)

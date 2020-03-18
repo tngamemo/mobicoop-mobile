@@ -163,7 +163,12 @@
 
           <br>
           <ion-button class='mc-small-button' color="success" expand="block" @click="updateUser">
-            {{ $t('Commons.save') }}
+            <span v-if="this.$store.state.userStore.status == 'loading'">
+            <ion-icon size="large" class="rotating" name="md-sync"></ion-icon>
+          </span>
+            <span v-if="this.$store.state.userStore.status != 'loading'">
+          {{ $t('Commons.save') }}
+          </span>
           </ion-button>
 
         </div>
