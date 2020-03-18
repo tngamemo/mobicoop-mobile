@@ -29,8 +29,6 @@ export default {
     setTimeout(() => {
       if (!!this.$refs.recap.$refs.mapRecap) this.$refs.recap.$refs.mapRecap.mapObject.invalidateSize();
     }, 500);
-
-    console.log();
   },
   created() {
     this.unwatch = this.$store.watch(

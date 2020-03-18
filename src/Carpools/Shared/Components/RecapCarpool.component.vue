@@ -1,7 +1,7 @@
 <template>
   <div class="mc-form-carpool-recap">
     <div class="mc-recap-item">
-      <div class="mc-recap-header d-flex justify-between align-center">
+      <div class="mc-recap-header d-flex justify-between align-center" v-if="type != 'askCarpool'">
         <span>{{recap.outwardDate | moment('DD MMMM YYYY') }}</span>
         <div v-if="recap.frequency == 2" class="d-flex">
           <div v-for="(day, index) in recap.regularDays" :key="index">
@@ -38,22 +38,35 @@
           <span class="time">{{ recap.returnTime }}</span>
         </div>
       </div>
-      <div class="mc-recap-step">
-        <p
-          class="timeline text-left d-flex align-center"
-          v-for="(step, index) in recap.outwardWaypoints"
-          :key="index"
-        >
-          <ion-icon
-            v-if="step.role && step.type"
-            :name="getIconStepName(step).name"
-            class="mc-step-icon"
-            :class="getIconStepName(step).background"
-          ></ion-icon>
-          <span v-html="displayStep(step)"></span>
-        </p>
+      <div class="mc-recap-step d-flex">
+        <div class="mc-carpool-info-image d-flex flex-col">
+          <div v-if="recap.driver" class="mc-carpool-driver">
+            <ion-icon size="large" name="car"></ion-icon>
+          </div>
+          <div v-if="recap.passenger" class="mc-carpool-passenger">
+            <ion-icon size="large" name="person"></ion-icon>
+          </div>
+        </div>
+
+        <div class="d-flex flex-col">
+          <p
+            class="timeline text-left d-flex align-center"
+            v-for="(step, index) in recap.outwardWaypoints"
+            :key="index"
+          >
+            <ion-icon
+              v-if="step.role && step.type"
+              :name="getIconStepName(step).name"
+              class="mc-step-icon"
+              :class="getIconStepName(step).background"
+            ></ion-icon>
+            <span v-html="displayStep(step)"></span>
+          </p>
+        </div>
       </div>
-      <div class="mc-recap-footer text-left" v-if="!! recap.seats">
+
+
+      <div class="mc-recap-footer text-left" v-if="!! recap.seats && type != 'askCarpool'">
         Places disponibles
         <div class="d-flex">
           <ion-icon v-for="index in parseInt(recap.seats)" :key="index" name="person">{{index}}</ion-icon>
@@ -63,7 +76,7 @@
 
     <div v-if="!!recap.comment" class="mc-recap-message">{{recap.comment}}</div>
 
-    <div class="mc-recap-user" v-if="!!recap.user">
+    <div class="mc-recap-user" v-if="!!recap.user && type != 'askCarpool'">
       <div class="mc-recap-user-bloc-info">
         <div class="mc-user-image">
           <ion-thumbnail v-if="!! recap.user.avatars">
@@ -77,7 +90,7 @@
       </div>
     </div>
 
-    <div class="mc-carpool-map">
+    <div class="mc-carpool-map" v-if="type != 'askCarpool'">
       <l-map
         v-if="showCard"
         :ref="'mapRecap'"
@@ -149,10 +162,33 @@
     }
   }
 
+  .mc-carpool-info-image {
+    margin-right: 10px;
+
+    .mc-carpool-driver {
+      flex: 1;
+      justify-content: center;
+      align-items: center;
+      width: 40px;
+      display: flex;
+      background: var(--ion-color-success);
+      color: white;
+    }
+
+    .mc-carpool-passenger {
+      flex: 1;
+      justify-content: center;
+      align-items: center;
+      width: 40px;
+      display: flex;
+      background: var(--ion-color-primary);
+      color: white;
+    }
+  }
+
   .mc-recap-item {
     background: rgba(var(--ion-color-primary-rgb), 0.1);
     border: 1px solid rgba(var(--ion-color-primary-rgb), 0.1);
-    margin-bottom: 45px;
     border-radius: 20px;
 
     .mc-recap-header {
@@ -163,8 +199,8 @@
 
     .mc-recap-step {
       background: white;
+      border-radius: inherit;
       color: var(--ion-color-primary);
-      padding: 10px;
 
       .timeline {
         position: relative;
@@ -204,6 +240,7 @@
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
+    margin-top: 45px;
 
     .mc-recap-user-bloc-info {
       color: var(--ion-color-primary);
@@ -220,6 +257,7 @@
       justify-content: center;
       flex-direction: column;
       margin-left: 20px;
+
 
       p {
         margin: 0;
@@ -269,8 +307,10 @@ export default {
   methods: {
     displayStep(step) {
       let result = "";
-      if (!! step.time) {
-        result =`<b>${this.$moment(step.time).utc().format('hh[h]mm')}</b>: `;
+      if (!!step.time) {
+        result = `<b>${this.$moment(step.time)
+          .utc()
+          .format("HH[h]mm")}</b>: `;
       }
       if (!!step.displayLabel && step.displayLabel[0] && step.displayLabel[1]) {
         result += `${step.displayLabel[0]},  ${step.displayLabel[1]}`;

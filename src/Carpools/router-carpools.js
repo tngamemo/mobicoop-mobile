@@ -17,7 +17,8 @@ import MyCarpools from './Profile/MyCarpools.view.vue';
 import PostCarpool from './PostCarpool/PostCarpool.view.vue';
 import Message from './Messages/Message.view.vue';
 import PostCarpoolStep from './PostCarpool/PostCarpoolStep.view.vue';
-import SearchDetail from './SearchDetail/SearchDetail.view.vue';
+import DetailCarpool from './DetailCarpool/DetailCarpool.view.vue';
+import AskCarpool from './AskCarpool/AskCarpool.view.vue';
 
 import Vue from 'vue'
 import store from '../Shared/Store/store';
@@ -25,7 +26,7 @@ import store from '../Shared/Store/store';
 Vue.use(IonicVueRouter);
 
 function guardAccesByLogin(to, from, next) {
-  if (to.name !== 'login' && !store.getters.userId && !store.getters.userId){
+  if (to.name !== 'login' && !store.getters.userId && !store.getters.userId) {
     store.commit('redirectionUrl_change', to.name)
     next({ name: 'login' })
   } else {
@@ -128,9 +129,15 @@ export default [
     })
   },
   {
-    path: '/search-detail/:id',
-    name: 'carpool-search-detail',
-    component: SearchDetail,
+    path: '/carpool-detail/:id',
+    name: 'carpool-detail',
+    component: DetailCarpool,
+    beforeEnter: guardAccesByLogin
+  },
+  {
+    path: '/ask-carpool/:id',
+    name: 'ask-carpool',
+    component: AskCarpool,
     beforeEnter: guardAccesByLogin
   },
 ]

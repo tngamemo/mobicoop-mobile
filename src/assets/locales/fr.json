@@ -199,10 +199,32 @@
     "scheduleRequired": "Au moins un créneaux est requis",
     "addSchedule": "Ajouter une créneau"
   },
-  "SearchDetail": {
+  "DetailCarpool": {
     "title": "Détails du covoiturage",
     "call": "Appeler",
     "contact": "Contacter",
-    "ask": "Demande de covoiturage"
+    "ask": "Demande de covoiturage",
+    "askAsDriver": "Demander en tant que conducteur",
+    "askAsPassenger": "Demander en tant que passager"
+  },
+  "AskCarpool":{
+    "title": "Demande de covoiturage",
+    "askRole": "Je souhaite faire une demande en tant que...",
+    "driver": "Conducteur",
+    "passenger": "Passager",
+    "chooseRole": "Choisir le role",
+    "askDate": "Je souhaite faire une demande en tant pour...",
+    "week": "Une semaine",
+    "month": "Un mois",
+    "specificDate": "Jusqu'à une date précise",
+    "outWardDate": "Date de début",
+    "outwardLimitDate": "Date de fin",
+    "ask": "Covoiturer",
+    "askSchedule": "Je souhaite covoiturer pour...",
+    "askScheduleSubQuestion": "Sélectionnez le ou les trajets souhaités",
+    "outward": "L'Aller",
+    "return": "Retour",
+    "chooseSchedule": "Choisir les trajets",
+    "success" : "Demande envoyé"
   }
 }
