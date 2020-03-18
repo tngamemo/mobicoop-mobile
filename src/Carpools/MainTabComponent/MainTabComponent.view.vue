@@ -9,7 +9,7 @@
         </ion-tab>
 
         <ion-tab tab="help">
-          <Help />
+          <Article :title="$t('Help.title')" id="10"/>
         </ion-tab>
 
         <ion-tab tab="register">
@@ -104,7 +104,7 @@
   import Home from '../Home/Home.view.vue';
   import Register from '../Register/Register.view.vue';
   import Login from '../Login/Login.view.vue';
-  import Help from '../Help/Help.view.vue';
+  import Article from '../Article/Article.view.vue';
   import Messages from '../Messages/Messages.view.vue';
   import Communities from '../Communities/Communities.view.vue';
   import Profile from '../Profile/Profile.view.vue';
@@ -115,7 +115,7 @@
       Home,
         Register,
         Login,
-        Help,
+        Article,
         Profile,
         Messages,
         Communities

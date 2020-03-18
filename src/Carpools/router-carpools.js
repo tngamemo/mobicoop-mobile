@@ -3,7 +3,7 @@ import { IonicVueRouter } from '@ionic/vue'
 
 import Home from './Home/Home.view.vue';
 import MainTabComponent from './MainTabComponent/MainTabComponent.view.vue';
-import Help from './Help/Help.view.vue';
+import Article from './Article/Article.view.vue';
 import Login from './Login/Login.view.vue';
 import Register from './Register/Register.view.vue';
 import GeoSearch from './GeoSearch/GeoSearch.view.vue';
@@ -54,7 +54,7 @@ export default [
       {
         path: 'help',
         name: 'help',
-        component: Help,
+        component: Article,
       },
       {
         path: 'login',
@@ -133,6 +133,11 @@ export default [
     props: (route) => ({
       ...route.params
     })
+  },
+  {
+    path: '/article/:id',
+    name: 'article',
+    component: Article,
   },
   {
     path: '/carpool-detail/:id',

@@ -87,7 +87,7 @@
             </div>
 
             <br>
-            <!--<a class="text-center" v-on:click="$router.push('cgu')">Voir les conditions</a>-->
+            <a class="text-center pointer" v-on:click="$router.push('/article/1')">Voir les conditions</a>
 
           </div>
 
