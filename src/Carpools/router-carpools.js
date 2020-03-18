@@ -129,13 +129,13 @@ export default [
     })
   },
   {
-    path: '/carpool-detail/:id',
+    path: '/carpool-detail/:param',
     name: 'carpool-detail',
     component: DetailCarpool,
     beforeEnter: guardAccesByLogin
   },
   {
-    path: '/ask-carpool/:id',
+    path: '/ask-carpool/:param',
     name: 'ask-carpool',
     component: AskCarpool,
     beforeEnter: guardAccesByLogin

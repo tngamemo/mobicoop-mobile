@@ -21,24 +21,57 @@
           ></ion-icon>
         </div>
 
+        <div class="ion-text-center" v-if="carpoolRecap && this.fromMessage">
+          <ion-badge color="secondary" style="white-space: normal">
+            <div v-if="askFromMessage.askStatus == 2">{{ $t('DetailCarpool.askSend')}}</div>
+            <div v-if="askFromMessage.askStatus == 3">{{ $t('DetailCarpool.askSend')}}</div>
+            <div v-if="askFromMessage.askStatus == 4">{{ $t('DetailCarpool.askAccepted')}}</div>
+            <div v-if="askFromMessage.askStatus == 5">{{ $t('DetailCarpool.askAccepted')}}</div>
+            <div v-if="askFromMessage.askStatus == 6">{{ $t('DetailCarpool.askDeclined')}}</div>
+            <div v-if="askFromMessage.askStatus == 7">{{ $t('DetailCarpool.askDeclined')}}</div>
+          </ion-badge>
+        </div>
+
         <RecapCarpool v-if="carpoolRecap" ref="recap" :recap="carpoolRecap"></RecapCarpool>
+
+        <div
+          v-if="carpoolRecap && carpoolRecap.frequency == 2 && fromMessage && askFromMessage.askStatus !== 1 && !!selectedDay"
+          class="mc-recap-choose-day"
+        >
+          <div class="mc-ask-header">{{ $t('DetailCarpool.askFor')}}</div>
+          <ion-item v-for="(day, index) in selectedDay" :key="index">
+            <div class="mc-choose-day d-flex justify-between">
+              <b>{{$t(day.trad)}}</b>
+              <span
+                v-if="day.outwardTime"
+              >{{ $t('DetailCarpool.outward')}} : {{day.outwardTime | moment("utc", "HH:mm")}}</span>
+              <span
+                v-if="day.returnTime"
+              >{{ $t('DetailCarpool.return')}} : {{day.returnTime | moment("utc", "HH:mm")}}</span>
+            </div>
+          </ion-item>
+        </div>
 
         <div class="mc-DetailCarpool-action" v-if="carpoolRecap">
           <div
             class="d-flex align-center"
-            v-if="carpoolSelected.acceptedAsk || carpoolSelected.pendingAsk"
+            v-if="(carpoolSelected.acceptedAsk || carpoolSelected.pendingAsk) && !this.fromMessage"
           >
             <ion-icon name="warning" size="large" color="warning"></ion-icon>
-            <ion-text color="warning">Vous avez déjà fait une demande sur cette annonce.</ion-text>
+            <ion-text color="warning">{{ $t('DetailCarpool.alreadyAsk')}}</ion-text>
           </div>
 
-          <div class="mc-DetailCarpool-button-action" v-if="!carpoolSelected.acceptedAsk && !carpoolSelected.pendingAsk">
+          <div
+            class="mc-DetailCarpool-button-action"
+            v-if="!carpoolSelected.acceptedAsk && !carpoolSelected.pendingAsk"
+          >
             <ion-button class="mc-big-button" color="primary" expand="block" fill="outline">
               <ion-icon name="call" class="ion-padding-end"></ion-icon>
               {{ $t('DetailCarpool.call') }}
             </ion-button>
 
             <ion-button
+              v-if="!this.fromMessage"
               class="mc-big-button"
               color="primary"
               expand="block"
@@ -49,7 +82,7 @@
             </ion-button>
 
             <ion-button
-              v-if="carpoolRecap.frequency == 2"
+              v-if="canSeeButton(3)"
               class="mc-big-button"
               color="success"
               expand="block"
@@ -60,7 +93,7 @@
             </ion-button>
 
             <ion-button
-              v-if="!! carpoolSelected.resultDriver"
+              v-if="canSeeButton(1)"
               class="mc-big-button"
               color="success"
               expand="block"
@@ -80,7 +113,7 @@
             </ion-button>
 
             <ion-button
-              v-if="!! carpoolSelected.resultPassenger"
+              v-if="canSeeButton(2)"
               class="mc-big-button"
               color="success"
               expand="block"
@@ -100,6 +133,91 @@
             </ion-button>
           </div>
         </div>
+
+        <div
+          class
+          v-if="carpoolRecap && this.fromMessage && askFromMessage.canUpdateAsk "
+          justify-content-center
+        >
+          <ion-button
+            v-on:click="updateAsk(4)"
+            v-if="askFromMessage.askStatus == 2"
+            class="mc-big-button"
+            color="success"
+            expand="block"
+          >
+            <ion-icon
+              size="large"
+              color="background"
+              class="rotating"
+              v-if="$store.state.carpoolStore.statusCarpoolAskPost == 'loading'"
+              name="md-sync"
+            ></ion-icon>
+            <div
+              v-if="$store.state.carpoolStore.statusCarpoolAskPost != 'loading'"
+            >{{ $t('DetailCarpool.acceptAsk') }}</div>
+          </ion-button>
+          <br />
+
+          <ion-button
+            v-on:click="updateAsk(6)"
+            v-if="askFromMessage.askStatus == 2"
+            class="mc-big-button"
+            color="danher"
+            expand="block"
+          >
+            <ion-icon
+              size="large"
+              color="background"
+              class="rotating"
+              v-if="$store.state.carpoolStore.statusCarpoolAskPost == 'loading'"
+              name="md-sync"
+            ></ion-icon>
+            <div
+              v-if="$store.state.carpoolStore.statusCarpoolAskPost != 'loading'"
+            >{{ $t('DetailCarpool.declineAsk') }}</div>
+          </ion-button>
+
+          <ion-button
+            v-on:click="updateAsk(5)"
+            v-if="askFromMessage.askStatus == 3"
+            class="mc-big-button"
+            color="success"
+            expand="block"
+          >
+            <ion-icon
+              size="large"
+              color="background"
+              class="rotating"
+              v-if="$store.state.carpoolStore.statusCarpoolAskPost == 'loading'"
+              name="md-sync"
+            ></ion-icon>
+            <div
+              v-if="$store.state.carpoolStore.statusCarpoolAskPost != 'loading'"
+            >{{ $t('DetailCarpool.acceptAsk') }}</div>
+          </ion-button>
+          <br />
+
+          <ion-button
+            v-on:click="updateAsk(7)"
+            v-if="askFromMessage.askStatus == 3"
+            class="mc-big-button"
+            color="danger"
+            expand="block"
+          >
+            <ion-icon
+              size="large"
+              color="background"
+              class="rotating"
+              v-if="$store.state.carpoolStore.statusCarpoolAskPost == 'loading'"
+              name="md-sync"
+            ></ion-icon>
+            <div
+              v-if="$store.state.carpoolStore.statusCarpoolAskPost != 'loading'"
+            >{{ $t('DetailCarpool.declineAsk') }}</div>
+          </ion-button>
+          <br />
+        </div>
       </div>
     </ion-content>
   </div>
@@ -108,6 +226,24 @@
 <style lang="scss">
 .mc-DetailCarpool-action {
   margin-top: 50px;
+}
+
+.mc-recap-choose-day {
+  background: rgba(var(--ion-color-primary-rgb), 0.1);
+  border-radius: 20px;
+  padding: 20px;
+  color: var(--ion-color-primary);
+  margin-top: 20px;
+  .mc-ask-header {
+    background: #f5f6fa;
+    text-align: center;
+    font-weight: bold;
+    padding: 10px;
+  }
+  .mc-choose-day {
+    width: 100%;
+    color: var(--ion-color-primary);
+  }
 }
 </style>
 
@@ -125,18 +261,28 @@ export default {
   data() {
     return {
       carpoolSelected: null,
-      carpoolRecap: null
+      carpoolRecap: null,
+      fromMessage: false,
+      askFromMessage: null,
+      selectedDay: []
     };
   },
   created() {
-    this.getCarpoolAskFromSearch();
+    this.getCarpoolAsk();
   },
   computed: {},
 
   methods: {
-    async getCarpoolAskFromSearch() {
-      this.index = this.$route.params.id;
-      this.carpoolSelected = this.$store.getters.resultSearch[this.index];
+    async getCarpoolAsk() {
+      this.fromMessage = this.$route.params.param == "fromMessage";
+      if (this.fromMessage) {
+        this.carpoolSelected = this.$store.getters.askFromMessage.results[0];
+        this.askFromMessage = this.$store.getters.askFromMessage;
+        this.setSelectedByUserDay();
+      } else {
+        this.index = this.$route.params.param;
+        this.carpoolSelected = this.$store.getters.resultSearch[this.index];
+      }
 
       if (!!this.carpoolSelected) {
         let resultDriverOrPassenger = this.carpoolSelected.resultDriver;
@@ -169,7 +315,7 @@ export default {
 
     goToAskCarpool() {
       if (this.carpoolSelected.frequency == 2) {
-        this.$router.push({ name: "ask-carpool", id: this.index });
+        this.$router.push({ name: "ask-carpool", param: this.index });
       }
     },
 
@@ -196,6 +342,128 @@ export default {
             console.log(err);
             this.presentToast(this.$t("Commons.error"), "danger");
           });
+      }
+    },
+
+    setSelectedByUserDay() {
+      const resultDriverOrPassenger = this.getResultDriveOrPassenger();
+      if (!!resultDriverOrPassenger.outward) {
+        if (resultDriverOrPassenger.outward["monCheck"])
+          this.pushInSelectDay(resultDriverOrPassenger, "mon", "outward");
+        if (resultDriverOrPassenger.outward["tueCheck"])
+          this.pushInSelectDay(resultDriverOrPassenger, "tue", "outward");
+        if (resultDriverOrPassenger.outward["wedCheck"])
+          this.pushInSelectDay(resultDriverOrPassenger, "wed", "outward");
+        if (resultDriverOrPassenger.outward["thuCheck"])
+          this.pushInSelectDay(resultDriverOrPassenger, "thu", "outward");
+        if (resultDriverOrPassenger.outward["friCheck"])
+          this.pushInSelectDay(resultDriverOrPassenger, "fri", "outward");
+        if (resultDriverOrPassenger.outward["satCheck"])
+          this.pushInSelectDay(resultDriverOrPassenger, "sat", "outward");
+        if (resultDriverOrPassenger.outward["sunCheck"])
+          this.pushInSelectDay(resultDriverOrPassenger, "sun", "outward");
+      }
+
+      if (!!resultDriverOrPassenger.return) {
+        if (resultDriverOrPassenger.return["monCheck"])
+          this.pushInSelectDay(resultDriverOrPassenger, "mon", "return");
+        if (resultDriverOrPassenger.return["tueCheck"])
+          this.pushInSelectDay(resultDriverOrPassenger, "tue", "return");
+        if (resultDriverOrPassenger.return["wedCheck"])
+          this.pushInSelectDay(resultDriverOrPassenger, "wed", "return");
+        if (resultDriverOrPassenger.return["thuCheck"])
+          this.pushInSelectDay(resultDriverOrPassenger, "thu", "return");
+        if (resultDriverOrPassenger.return["friCheck"])
+          this.pushInSelectDay(resultDriverOrPassenger, "fri", "return");
+        if (resultDriverOrPassenger.return["satCheck"])
+          this.pushInSelectDay(resultDriverOrPassenger, "sat", "return");
+        if (resultDriverOrPassenger.return["sunCheck"])
+          this.pushInSelectDay(resultDriverOrPassenger, "sun", "return");
+      }
+    },
+
+    pushInSelectDay(resultDriverOrPassenger, day, type) {
+      const existInSelectDay = this.selectedDay.find(item => item.name == day);
+      if (existInSelectDay) {
+        existInSelectDay[`${type}Time`] =
+          resultDriverOrPassenger[type][`${day}Time`];
+      } else {
+        let object = {};
+        object[`${type}Time`] = resultDriverOrPassenger[type][`${day}Time`];
+        object["trad"] = `PostCarpool.${day}`;
+        object["name"] = day;
+        this.selectedDay.push(object);
+      }
+    },
+
+    updateAsk(status) {
+      console.log(this.askFromMessage);
+      const payload = {
+        idAsk: this.askFromMessage.askId,
+        userId: this.$store.getters.userId,
+        data: { askStatus: status }
+      };
+      this.$store
+        .dispatch("updateAskCarpool", payload)
+        .then(res => {
+          this.presentToast(this.$t("DetailCarpool.updateSuccess"), "success");
+
+          this.$router.push({ name: "carpoolsHome" });
+        })
+        .catch(err => {
+          console.log(err);
+          this.presentToast(this.$t("Commons.error"), "danger");
+        });
+    },
+
+    canSeeButton(type) {
+      switch (type) {
+        case 3:
+          if (this.fromMessage) {
+            return (
+              this.carpoolRecap.frequency == 2 &&
+              this.askFromMessage.askStatus == 1 &&
+              this.askFromMessage.canUpdateAsk
+            );
+          } else {
+            return this.carpoolRecap.frequency == 2;
+          }
+          break;
+
+        case 1:
+          if (this.fromMessage) {
+            return (
+              this.askFromMessage.askStatus == 1 &&
+              this.askFromMessage.canUpdateAsk &&
+              !!this.carpoolSelected.resultDriver &&
+              this.carpoolRecap.frequency == 1
+            );
+          } else {
+            return (
+              !!this.carpoolSelected.resultDriver &&
+              this.carpoolRecap.frequency == 1
+            );
+          }
+          break;
+
+        case 2:
+          if (this.fromMessage) {
+            return (
+              this.askFromMessage.askStatus == 1 &&
+              this.askFromMessage.canUpdateAsk &&
+              !!this.carpoolSelected.resultPassenger &&
+              this.carpoolRecap.frequency == 1
+            );
+          } else {
+            return (
+              !!this.carpoolSelected.resultPassenger &&
+              this.carpoolRecap.frequency == 1
+            );
+          }
+          break;
+
+        default:
+          break;
       }
     }
   }
