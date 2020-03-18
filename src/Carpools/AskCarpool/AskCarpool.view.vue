@@ -45,7 +45,8 @@
             expand="block"
             v-on:click="goToNextStep()"
           >
-            <ion-icon name="checkmark" class="ion-padding-end"></ion-icon>{{ $t('AskCarpool.chooseRole')}}
+            <ion-icon name="checkmark" class="ion-padding-end"></ion-icon>
+            {{ $t('AskCarpool.chooseRole')}}
           </ion-button>
         </div>
 
@@ -124,7 +125,8 @@
             :disabled="disabledStepSched"
             v-on:click="goToNextStep()"
           >
-            <ion-icon name="checkmark" class="ion-padding-end"></ion-icon>{{ $t('AskCarpool.chooseSchedule')}}
+            <ion-icon name="checkmark" class="ion-padding-end"></ion-icon>
+            {{ $t('AskCarpool.chooseSchedule')}}
           </ion-button>
         </div>
 
@@ -195,7 +197,8 @@
               name="md-sync"
             ></ion-icon>
             <div v-if="$store.state.carpoolStore.statusCarpoolAskPost != 'loading'">
-              <ion-icon name="checkmark" class="ion-padding-end"></ion-icon>{{ $t('AskCarpool.ask')}}
+              <ion-icon name="checkmark" class="ion-padding-end"></ion-icon>
+              {{ $t('AskCarpool.ask')}}
             </div>
           </ion-button>
         </div>
@@ -339,11 +342,16 @@ export default {
     getCarpoolAsk() {
       const index = this.$route.params.id;
       this.carpoolSelected = this.$store.getters.resultSearch[index];
-      this.carpoolRecap = new RecapCarpoolDTO().fromAskCarpool(
-        this.carpoolSelected
-      );
 
-      this.checkDaySlot();
+      if (!!this.carpoolSelected) {
+        this.carpoolRecap = new RecapCarpoolDTO().fromAskCarpool(
+          this.carpoolSelected
+        );
+
+        this.checkDaySlot();
+      } else {
+        this.$router.push({ name: "carpoolsHome" });
+      }
     },
 
     checkDaySlot() {
@@ -530,8 +538,6 @@ export default {
     },
 
     askCarpool() {
-      // On va controler le schedule
-      // this.checkSchedule
       const resultDriverOrPassenger = this.getResultDriveOrPassenger();
       const adId = resultDriverOrPassenger.outward.proposalId;
       const matchingId = resultDriverOrPassenger.outward.matchingId;
@@ -548,12 +554,9 @@ export default {
       this.$store
         .dispatch("postAskCarpool", ask)
         .then(res => {
-          this.presentToast(
-            $t('AskCarpool.success'),
-            "success"
-          );
+          this.presentToast(this.$t("AskCarpool.success"), "success");
 
-          this.$router.push('home')
+          this.$router.push({ name: "carpoolsHome" });
         })
         .catch(err => {
           this.presentToast(this.$t("Commons.error"), "danger");

@@ -203,7 +203,9 @@
     "title": "Détails du covoiturage",
     "call": "Appeler",
     "contact": "Contacter",
-    "ask": "Demande de covoiturage"
+    "ask": "Demande de covoiturage",
+    "askAsDriver": "Demander en tant que conducteur",
+    "askAsPassenger": "Demander en tant que passager"
   },
   "AskCarpool":{
     "title": "Demande de covoiturage",
