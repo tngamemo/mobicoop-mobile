@@ -6,6 +6,7 @@ export const carpoolStore = {
     statusDistanceCarpool: '',
     statusPriceCarpool: '',
     statusCarpoolAsk: '',
+    statusCarpoolAskPost: '',
     directPointsCarpool: '',
     carpoolToPost: null,
     addressessUseToPost: {
@@ -65,10 +66,10 @@ export const carpoolStore = {
     },
 
     carpoolPost_fromSearch(state, payload) {
-      if (!! payload.origin) state.addressessUseToPost.origin = payload.origin;
-      if (!! payload.destination) state.addressessUseToPost.destination = payload.destination;
-      if (!! payload.frequency) state.carpoolToPost.frequency = payload.frequency;
-      if (!! payload.outwardDate) state.carpoolToPost.outwardDate = payload.outwardDate;
+      if (!!payload.origin) state.addressessUseToPost.origin = payload.origin;
+      if (!!payload.destination) state.addressessUseToPost.destination = payload.destination;
+      if (!!payload.frequency) state.carpoolToPost.frequency = payload.frequency;
+      if (!!payload.outwardDate) state.carpoolToPost.outwardDate = payload.outwardDate;
     },
 
     carpoolPost_schedule_add(state) {
@@ -203,6 +204,18 @@ export const carpoolStore = {
 
     carpool_ask_error(state) {
       state.statusCarpoolAsk = 'error';
+    },
+
+    carpool_ask_post_request(state) {
+      state.statusCarpoolAskPost = 'loading';
+    },
+
+    carpool_ask_post_success(state) {
+      state.statusCarpoolAskPost = 'success';
+    },
+
+    carpool_ask_post_error(state) {
+      state.statusCarpoolAskPost = 'error';
     }
 
 
@@ -313,7 +326,7 @@ export const carpoolStore = {
     getCarpoolAsk({ state, commit }, data) {
       return new Promise((resolve, reject) => {
         commit('carpool_ask_request');
-        return http.get(`/carpools/ask/` + data.idAsk  + "?userId=" + data.userId )
+        return http.get(`/carpools/ask/` + data.idAsk + "?userId=" + data.userId)
           .then(resp => {
             commit('carpool_ask_success');
             resolve(resp)
@@ -324,9 +337,24 @@ export const carpoolStore = {
           })
       })
     },
-    changeOneWayRegular({state, commit}) {
+    changeOneWayRegular({ state, commit }) {
       const hasReturnTime = state.carpoolToPost.schedule.some(stepSchedule => !!stepSchedule.returnTime);
       state.carpoolToPost.oneWay = !hasReturnTime;
+    },
+
+    postAskCarpool({ commit }, data) {
+      return new Promise((resolve, reject) => {
+        commit('carpool_ask_post_request');
+        return http.post(`/carpools/ask`, data)
+          .then(resp => {
+            commit('carpool_ask_post_success');
+            resolve(resp)
+          })
+          .catch(err => {
+            commit('carpool_ask_post_error');
+            reject(err)
+          })
+      })
     }
 
   },

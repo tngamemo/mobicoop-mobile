@@ -24,7 +24,7 @@
 
         <div class="" v-if="getStatusOfSearch == 'success'">
           {{numberOfResultsSearch}} {{ $t('Search.nbResult')}}
-          <div v-for="(result, index) in this.$store.getters.resultSearch" :key="index" v-on:click="goToSearchDetail(index)">
+          <div v-for="(result, index) in this.$store.getters.resultSearch" :key="index" v-on:click="goToDetailCarpool(index)">
             <CarpoolItem :carpool="getFormattedCarpoolItem(result)" :type="'search'" />
           </div>
         </div>
@@ -74,8 +74,8 @@
         return new CarpoolItemDTO().carpoolItemFromSearch(carpool)
       },
 
-      goToSearchDetail(index) {
-        this.$router.push({ name: 'carpool-search-detail', params: { id: index } });
+      goToDetailCarpool(index) {
+        this.$router.push({ name: 'carpool-detail', params: { id: index } });
       }
     }
   }

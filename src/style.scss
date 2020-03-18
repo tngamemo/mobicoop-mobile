@@ -223,6 +223,10 @@ ion-input {
   display: flex;
 }
 
+.flex-1 {
+  flex: 1;
+}
+
 .flex-col {
   flex-direction: column;
 }
@@ -273,6 +277,10 @@ ion-toolbar h1 {
   margin: 0px;
   line-height: 48px;
   white-space: nowrap;
+}
+
+.bg-primary-transparent {
+  --background: rgba(var(--ion-color-primary-rgb), 0.1);
 }
 
 .no-scroll {
