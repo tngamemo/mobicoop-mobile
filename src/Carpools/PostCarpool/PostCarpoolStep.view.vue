@@ -9,7 +9,7 @@
       </ion-toolbar>
     </ion-header>
     <!--  -->
-    <ion-content color="primary" no-bounce>
+    <ion-content color="primary" no-bounce class="no-scroll">
       <div class="mc-white-container" style="height: 100%">
         <Slider v-bind:slides="slides" v-on:save="postCarpool()" :previous="previous"></Slider>
       </div>

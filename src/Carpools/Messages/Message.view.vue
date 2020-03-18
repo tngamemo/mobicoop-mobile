@@ -45,7 +45,7 @@
           </div>
         </div>
 
-        <div class="messages-zone" v-if="this.thread">
+        <div ref="messagesZone" class="messages-zone" v-if="this.thread">
 
           <div class="ion-text-center" v-if="$store.state.messageStore.statusPostMessage == 'loading' || $store.state.messageStore.statusCompleteThread == 'loading' || $store.state.carpoolStore.statusCarpoolAsk == 'loading'">
             <ion-icon size="large" color="background" class="rotating"  name="md-sync"></ion-icon>
@@ -55,6 +55,14 @@
             {{$t('Message.no-thread')}}
           </div>
 
+          <div v-for="day in days">
+            <div class="text-center from-now">{{ $moment(day.date).fromNow()}}</div>
+            <div class="message-flex" v-for="m in day.messages">
+              <div :class="m.user.id === $store.state.userStore.user.id ? 'day-message-right' : 'day-message-left'">
+                {{m.text}}
+              </div>
+            </div>
+          </div>
 
         </div>
 
@@ -65,12 +73,13 @@
               v-bind:value="message"
               @input="message = $event.target.value"
             ></ion-textarea>
-            <ion-icon
+            <ion-icon :hidden="($store.state.messageStore.statusPostMessage == 'loading' || $store.state.messageStore.statusCompleteThread == 'loading')"
               color="primary"
               name="send"
               v-on:click="send(); $event.stopPropagation();"
               slot="end"
             ></ion-icon>
+            <ion-icon :hidden="!($store.state.messageStore.statusPostMessage == 'loading' || $store.state.messageStore.statusCompleteThread == 'loading')" slot="end" color="primary" class="rotating" name="md-sync"></ion-icon>
           </ion-item>
         </div>
       </div>
@@ -116,6 +125,32 @@
     background-color: #F5F6FA;
     overflow: scroll;
     padding-top: 15px;
+
+    .from-now {
+      color : #979797
+    }
+
+    .day-message-left {
+      padding: 15px 20px;
+      margin: 10px 15px;
+      background: #FFFFFF;
+      border-radius: 15px 15px 15px 0px;
+      display: inline-block;
+      max-width: 70%;
+      align-self: flex-start;
+      color: rgba(0, 0, 0, 0.6);
+    }
+
+    .day-message-right {
+      padding: 15px 20px;
+      margin: 10px 15px;
+      background: rgba(var(--ion-color-primary-rgb), 0.2);
+      border-radius: 15px 15px 0px 15px;
+      display: inline-block;
+      max-width: 70%;
+      align-self: flex-end;
+      color: rgba(0, 0, 0, 0.6);
+    }
   }
 
   .mc-carpool-way {
@@ -175,7 +210,8 @@
     data () {
       return {
         message: '',
-        ask: null
+        ask: null,
+        days: []
       }
     },
     props: ['thread'],
@@ -189,7 +225,7 @@
         console.log(this.thread);
         // Get Complet Thread
         if (this.thread.idMessage != -99) {
-          this.$store.dispatch('getCompleteThread',this.thread.idMessage );
+          this.getCompleteThread();
         } else {
           this.$store.commit('complete_thread_reset' );
         }
@@ -198,7 +234,6 @@
         if (this.thread.idAsk) {
           this.$store.dispatch('getCarpoolAsk', { idAsk: this.thread.idAsk, userId : this.$store.state.userStore.user.id} ).then(res => {
             this.ask = new CarpoolItemDTO().carpoolItemFromAsk(res.data);
-            console.log(this.ask);
           });
         }
       } else {
@@ -206,6 +241,26 @@
       }
     },
     methods: {
+      getCompleteThread() {
+        this.$store.dispatch('getCompleteThread',this.thread.idMessage).then(res => {
+          this.days = [];
+          res.data['hydra:member'].forEach(item => {
+            const m  = this.days.find(mes => mes.date === this.$moment(item.createdDate).format('YYYY-MM-DD'));
+            if(m) {
+              m.messages.push(item)
+            } else {
+              this.days.push({date: this.$moment(item.createdDate).format('YYYY-MM-DD'), messages: [item]})
+            }
+          });
+          // go to bottom of message zone
+          this.$nextTick(() => {
+            this.message = '';
+            console.log(this.$refs.messagesZone.clientHeight);
+            console.log(this.$refs.messagesZone);
+            this.$refs.messagesZone.scrollTop = this.$refs.messagesZone.scrollHeight
+          });
+        });
+      },
       send() {
 
         // construction du message
@@ -221,7 +276,7 @@
         message.recipients[0].sentDate= new Date();
 
         this.$store.dispatch('postMessage', message ).then(res => {
-          console.log(res);
+          this.getCompleteThread();
         });
 
       }

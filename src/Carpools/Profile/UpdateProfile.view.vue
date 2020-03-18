@@ -116,12 +116,12 @@
           <div class="phone-visibility">
             <ion-item lines="none">
               <ion-radio-group>
-                <ion-item color="primary" lines="none" >
+                <ion-item lines="none" >
                   <ion-label class="ion-text-wrap">{{$t('UpdateProfile.visibility-accepted')}}</ion-label>
                   <ion-radio slot="start" value="1" :checked="user.phoneDisplay == 1" @ionSelect="user.phoneDisplay = 1"></ion-radio>
                 </ion-item>
 
-                <ion-item color="primary" lines="none">
+                <ion-item lines="none">
                   <ion-label class="ion-text-wrap">{{$t('UpdateProfile.visibility-all')}}</ion-label>
                   <ion-radio slot="start" value="2" :checked="user.phoneDisplay == 2" @ionSelect="user.phoneDisplay = 2"></ion-radio>
                 </ion-item>

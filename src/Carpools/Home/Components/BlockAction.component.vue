@@ -65,7 +65,6 @@
         background: #FFFFFF;
         border-radius: 37px;
         padding: 0px 37px;
-        height: 35px;
         display: flex;
         justify-content: center;
         align-items: center;

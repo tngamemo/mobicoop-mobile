@@ -45,7 +45,7 @@
     h2 {
       font-weight: bold;
       text-align: center;
-      margin-bottom: 200px;
+      margin-bottom: 30%;
     }
   }
 

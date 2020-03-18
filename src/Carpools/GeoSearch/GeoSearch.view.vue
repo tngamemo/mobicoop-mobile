@@ -10,7 +10,7 @@
     </ion-header>
 
     <ion-content color="primary" no-bounce>
-      <div class="mc-white-container" style="height: 100%">
+      <div class="mc-white-container">
         <ion-item>
           <ion-input
             ref="inputSearch"

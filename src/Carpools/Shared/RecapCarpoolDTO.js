@@ -22,7 +22,7 @@ export default class RecapCarpoolDTO {
     this.driver = !!carpoolToPost.resultDriver;
 
     if (this.frequency == 2) {
-      this.regularDays = getRegularDaysFromCarpoolToPost(carpoolToPost)
+      this.regularDays = this.getRegularDaysFromCarpoolToPost(carpoolToPost)
     }
 
     return this

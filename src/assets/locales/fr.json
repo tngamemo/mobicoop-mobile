@@ -199,7 +199,7 @@
     "scheduleRequired": "Au moins un créneaux est requis",
     "addSchedule": "Ajouter une créneau"
   },
-  "SearchDetail": {
+  "DetailCarpool": {
     "title": "Détails du covoiturage",
     "call": "Appeler",
     "contact": "Contacter",

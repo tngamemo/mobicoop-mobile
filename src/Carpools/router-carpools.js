@@ -17,7 +17,7 @@ import MyCarpools from './Profile/MyCarpools.view.vue';
 import PostCarpool from './PostCarpool/PostCarpool.view.vue';
 import Message from './Messages/Message.view.vue';
 import PostCarpoolStep from './PostCarpool/PostCarpoolStep.view.vue';
-import SearchDetail from './SearchDetail/SearchDetail.view.vue';
+import DetailCarpool from './DetailCarpool/DetailCarpool.view.vue';
 import AskCarpool from './AskCarpool/AskCarpool.view.vue';
 
 import Vue from 'vue'
@@ -129,9 +129,9 @@ export default [
     })
   },
   {
-    path: '/search-detail/:id',
-    name: 'carpool-search-detail',
-    component: SearchDetail,
+    path: '/carpool-detail/:id',
+    name: 'carpool-detail',
+    component: DetailCarpool,
     beforeEnter: guardAccesByLogin
   },
   {

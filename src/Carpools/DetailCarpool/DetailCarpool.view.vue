@@ -5,7 +5,7 @@
         <ion-buttons slot="start">
           <ion-back-button></ion-back-button>
         </ion-buttons>
-        <h1 class="ion-text-center">{{ $t('SearchDetail.title')}}</h1>
+        <h1 class="ion-text-center">{{ $t('DetailCarpool.title')}}</h1>
       </ion-toolbar>
     </ion-header>
 
@@ -23,7 +23,7 @@
 
         <RecapCarpool v-if="carpoolRecap" ref="recap" :recap="carpoolRecap"></RecapCarpool>
 
-        <div class="mc-searchDetail-action" v-if="carpoolRecap">
+        <div class="mc-DetailCarpool-action" v-if="carpoolRecap">
           <div
             class="d-flex align-center"
             v-if="carpoolSelected.acceptedAsk || carpoolSelected.pendingAsk"
@@ -32,10 +32,10 @@
             <ion-text color="warning">Vous avez déjà fait une demande sur cette annonce.</ion-text>
           </div>
 
-          <div class="mc-searchDetail-button-action">
+          <div class="mc-DetailCarpool-button-action" v-if="!carpoolSelected.acceptedAsk && !carpoolSelected.pendingAsk">
             <ion-button class="mc-big-button" color="primary" expand="block" fill="outline">
               <ion-icon name="call" class="ion-padding-end"></ion-icon>
-              {{ $t('SearchDetail.call') }}
+              {{ $t('DetailCarpool.call') }}
             </ion-button>
 
             <ion-button
@@ -43,10 +43,9 @@
               color="primary"
               expand="block"
               fill="outline"
-              @click="goToPostCarpool()"
             >
               <ion-icon name="mail" class="ion-padding-end"></ion-icon>
-              {{ $t('SearchDetail.contact') }}
+              {{ $t('DetailCarpool.contact') }}
             </ion-button>
 
             <ion-button
@@ -57,18 +56,7 @@
               v-on:click="goToAskCarpool()"
             >
               <ion-icon name="checkmark" class="ion-padding-end"></ion-icon>
-              {{ $t('SearchDetail.ask') }}
-            </ion-button>
-
-            <ion-button
-              v-if="carpoolRecap.frequency == 2"
-              class="mc-big-button"
-              color="success"
-              expand="block"
-              v-on:click="goToAskCarpool()"
-            >
-              <ion-icon name="checkmark" class="ion-padding-end"></ion-icon>
-              {{ $t('SearchDetail.ask') }}
+              {{ $t('DetailCarpool.ask') }}
             </ion-button>
 
             <ion-button
@@ -87,7 +75,7 @@
               ></ion-icon>
               <div v-if="$store.state.carpoolStore.statusCarpoolAskPost != 'loading'">
                 <ion-icon name="checkmark" class="ion-padding-end"></ion-icon>
-                {{ $t('SearchDetail.askAsDriver') }}
+                {{ $t('DetailCarpool.askAsDriver') }}
               </div>
             </ion-button>
 
@@ -107,7 +95,7 @@
               ></ion-icon>
               <div v-if="$store.state.carpoolStore.statusCarpoolAskPost != 'loading'">
                 <ion-icon name="checkmark" class="ion-padding-end"></ion-icon>
-                {{ $t('SearchDetail.askAsPassenger') }}
+                {{ $t('DetailCarpool.askAsPassenger') }}
               </div>
             </ion-button>
           </div>
@@ -118,7 +106,7 @@
 </template>
 
 <style lang="scss">
-.mc-searchDetail-action {
+.mc-DetailCarpool-action {
   margin-top: 50px;
 }
 </style>
