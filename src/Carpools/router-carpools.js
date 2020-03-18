@@ -3,7 +3,7 @@ import { IonicVueRouter } from '@ionic/vue'
 
 import Home from './Home/Home.view.vue';
 import MainTabComponent from './MainTabComponent/MainTabComponent.view.vue';
-import Help from './Help/Help.view.vue';
+import Article from './Article/Article.view.vue';
 import Login from './Login/Login.view.vue';
 import Register from './Register/Register.view.vue';
 import GeoSearch from './GeoSearch/GeoSearch.view.vue';
@@ -13,12 +13,14 @@ import Communities from './Communities/Communities.view.vue';
 import Profile from './Profile/Profile.view.vue';
 import UpdateProfile from './Profile/UpdateProfile.view.vue';
 import ProfileAlerts from './Profile/ProfileAlerts.view.vue';
+import ProfilePrefs from './Profile/ProfilePrefs.view.vue';
 import MyCarpools from './Profile/MyCarpools.view.vue';
 import PostCarpool from './PostCarpool/PostCarpool.view.vue';
 import Message from './Messages/Message.view.vue';
 import PostCarpoolStep from './PostCarpool/PostCarpoolStep.view.vue';
 import DetailCarpool from './DetailCarpool/DetailCarpool.view.vue';
 import AskCarpool from './AskCarpool/AskCarpool.view.vue';
+import ConfirmRegistration from './Register/ConfirmRegistration.view.vue';
 
 import Vue from 'vue'
 import store from '../Shared/Store/store';
@@ -53,7 +55,7 @@ export default [
       {
         path: 'help',
         name: 'help',
-        component: Help,
+        component: Article,
       },
       {
         path: 'login',
@@ -105,6 +107,11 @@ export default [
     component: ProfileAlerts
   },
   {
+    path: 'profile-prefs',
+    name: 'profile-prefs',
+    component: ProfilePrefs
+  },
+  {
     path: 'my-carpools',
     name: 'my-carpools',
     component: MyCarpools
@@ -127,6 +134,16 @@ export default [
     props: (route) => ({
       ...route.params
     })
+  },
+  {
+    path: '/article/:id',
+    name: 'article',
+    component: Article,
+  },
+  {
+    path: '/confirm-registration/:email',
+    name: 'confirm-registration',
+    component: ConfirmRegistration,
   },
   {
     path: '/carpool-detail/:param',

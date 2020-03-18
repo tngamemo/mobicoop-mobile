@@ -3,6 +3,7 @@ import http from '../Mixin/http.mixin'
 export const registerStore = {
   state: {
     statusRegister: '',
+    statusValidateToken: '',
     displayAddress : '',
     userToRegister: null
   },
@@ -17,6 +18,18 @@ export const registerStore = {
 
     register_error(state) {
       state.statusRegister = 'error';
+    },
+
+    validate_token_request(state) {
+      state.statusValidateToken = 'loading';
+    },
+
+    validate_token_success(state) {
+      state.statusValidateToken = 'success';
+    },
+
+    validate_token_error(state) {
+      state.statusValidateToken = 'error';
     },
 
     register_update (state, value) {
@@ -62,13 +75,32 @@ export const registerStore = {
       delete u.addresses[0].id;
       delete u.addresses[0].geoJson;
       return new Promise((resolve, reject) => {
-        http.post("/users", u).then(resp => {
+        http.post("/users/register", u).then(resp => {
           if (resp) {
             commit('register_success');
             resolve(resp)
           }
         }).catch(err => {
           commit('register_error');
+          reject(err)
+        })
+      })
+    },
+    validateToken: ({commit, state}, params) => {
+      commit('validate_token_request');
+      return new Promise((resolve, reject) => {
+        http.post("/users/checkSignUpValidationToken", params).then(resp => {
+          if (resp) {
+            /*
+            const tokenUser = resp.data.token
+            localStorage.setItem('tokenUser', tokenUser)
+            commit('auth_success', tokenUser)
+             */
+            commit('validate_token_success');
+            resolve(resp)
+          }
+        }).catch(err => {
+          commit('validate_token_error');
           reject(err)
         })
       })

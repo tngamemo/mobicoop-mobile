@@ -13,7 +13,8 @@ export const userStore = {
     myCarpools: [],
     statusUserCommunities: '',
     userCommunities: null,
-    resetPasswordStatus: ''
+    resetPasswordStatus: '',
+    statusDeleteUser: ''
   },
   mutations: {
     auth_request(state) {
@@ -110,6 +111,18 @@ export const userStore = {
       state.resetPasswordStatus = 'error';
     },
 
+    delete_user_request(state) {
+      state.statusDeleteUser = 'loading';
+    },
+
+    delete_user_success(state){
+      state.statusDeleteUser = 'success';
+    },
+
+    delete_user_error(state){
+      state.statusDeleteUser = 'error';
+    },
+
   },
   actions: {
     login({commit}, params) {
@@ -178,6 +191,7 @@ export const userStore = {
     },
 
     updateUser({commit}, params) {
+      commit('auth_request');
       return new Promise((resolve, reject) => {
         delete params.addresses[0].id;
         delete params.images;
@@ -336,6 +350,20 @@ export const userStore = {
           })
           .catch(err => {
             commit('reset_password_error');
+            reject(err)
+          })
+      })
+    },
+    deleteUser({commit, state}) {
+      return new Promise((resolve, reject) => {
+        commit('delete_user_request');
+        http.delete(`/users/` + state.user.id)
+          .then(resp => {
+            commit('delete_user_success');
+            resolve(resp)
+          })
+          .catch(err => {
+            commit('delete_user_error');
             reject(err)
           })
       })

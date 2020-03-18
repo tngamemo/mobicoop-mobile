@@ -247,7 +247,7 @@
 import CarpoolItemDTO from "../Shared/CarpoolItemDTO";
 
 export default {
-  name: "help",
+  name: "message",
   data() {
     return {
       message: "",
@@ -263,6 +263,7 @@ export default {
   },
   created() {
     if (this.thread) {
+      console.log(this.thread);
       // Get Complet Thread
       if (this.thread.idMessage != -99) {
         this.getCompleteThread();

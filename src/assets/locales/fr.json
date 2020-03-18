@@ -43,6 +43,16 @@
     "visible-by-all": "Visible par tous",
     "see-cgu": "Voir les CGU"
   },
+  "ConfirmRegistration" : {
+    "title" : "Vérification de votre email",
+    "register-almost-done" : "L'inscription est presque finie.",
+    "mail-sent" : "Un email de validation a été envoyé.",
+    "copy" : "Vous pouvez maintenant valider votre compte en cliquant sur le lien de validation contenu dans l'email ou bien copier-coller le code directement ci-dessous.",
+    "my-code" : "Votre code de vérification",
+    "confirm" : "Confirmer votre inscription",
+    "paste" : "Collez ici",
+    "success" : "Vote email a bien été validé"
+  },
   "BlockAction": {
     "communities": {
       "title": "Communautés",
@@ -96,7 +106,10 @@
     "my-accepted-carpools": "Mes covoiturages acceptés",
     "alerts": "Gérer mes alertes",
     "logout": "Se déconnecter",
-    "delete": "Supprimer mon compte"
+    "delete": "Supprimer mon compte",
+    "confirmDeleteTitle": "Supprimer mon compte",
+    "confirmDeleteText": "Vous allez supprimer votre compte et l'ensemble des données liées. Cette opération est irréversible. Êtes vous sur de vouloir supprimer votre compte",
+    "delete-success" : "Votre compte a été supprimé"
   },
   "UpdateProfile": {
     "title" : "Modifier mon profil",
@@ -121,6 +134,21 @@
     "medium-1": "Message",
     "medium-2": "Email",
     "medium-3": "SMS"
+  },
+  "ProfilePrefs": {
+    "title" : "Modifier mes préférences",
+    "smoke-title" : "En ce qui concerne le tabac en voiture",
+    "smoke0" : "Je ne fume pas",
+    "smoke1" : "Je ne fume pas en voiture",
+    "smoke2" : "Je fume",
+    "music-title" : "En ce qui concerne la musique en voiture",
+    "music0" : "Je préfère rouler sans fond sonore",
+    "music1" : "J’écoute la radio ou de la musique",
+    "music-placeholder" : "Radios/musiques préférées",
+    "chat-title" : "En ce qui concerne les discussions en voiture",
+    "chat0" : "Je ne suis pas bavard",
+    "chat1" : "Je discute",
+    "chat-placeholder" : "Sujets préférés"
   },
   "MyCarpools": {
     "title": "Mes annonces",
