@@ -84,6 +84,7 @@
 
 body {
   background: var(--ion-color-primary) !important;
+  padding-top: env(safe-area-inset-top); /* Status bar height on iOS 11+ */
 }
 
 ion-toolbar {

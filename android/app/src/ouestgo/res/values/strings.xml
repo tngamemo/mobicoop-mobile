@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">OuestGo</string>
+    <string name="title_activity_main">OuestGo</string>
+    <string name="package_name">eu.covivo.ouestgo</string>
+    <string name="custom_url_scheme">eu.covivo.ouestgo</string>
+</resources>
