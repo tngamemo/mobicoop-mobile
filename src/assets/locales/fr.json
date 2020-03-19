@@ -98,7 +98,8 @@
     "waiting" : "En attente"
   },
   "Communities": {
-    "title": "Communautés"
+    "title": "Communautés",
+    "see": "Voir la communauté"
   },
   "Profile": {
     "title": "Profil",
