@@ -16,7 +16,7 @@
 
       <div class="mc-white-container">
 
-        <SearchHome />
+        <SearchQuick />
 
         <BlockAction
           :action="'communities'"
@@ -73,14 +73,14 @@
 
   import UserHome from './Components/UserHome.component';
   import BlockAction from './Components/BlockAction.component';
-  import SearchHome from './Components/SearchHome.component';
+  import SearchQuick from '../Shared/Components/SearchQuick.component';
 
   export default {
     name: 'home',
     components: {
       UserHome,
       BlockAction,
-      SearchHome
+      SearchQuick
     },
     data () {
       return {

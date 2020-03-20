@@ -7,6 +7,7 @@ import { carpoolStore } from './carpool.store';
 import { messageStore } from "./message.store";
 import { sliderStore } from './slider.store';
 import { articleStore } from './article.store';
+import { communityStore } from './community.store';
 import { appStore } from './app.store';
 import createPersistedState from "vuex-persistedstate";
 
@@ -23,6 +24,7 @@ export default new Vuex.Store({
     messageStore: messageStore,
     sliderStore: sliderStore,
     appStore: appStore,
-    articleStore: articleStore
+    articleStore: articleStore,
+    communityStore: communityStore,
   }
 })

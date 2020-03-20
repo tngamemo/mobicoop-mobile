@@ -21,6 +21,7 @@ import PostCarpoolStep from './PostCarpool/PostCarpoolStep.view.vue';
 import DetailCarpool from './DetailCarpool/DetailCarpool.view.vue';
 import AskCarpool from './AskCarpool/AskCarpool.view.vue';
 import ConfirmRegistration from './Register/ConfirmRegistration.view.vue';
+import Community from './Community/Community.view.vue';
 
 import Vue from 'vue'
 import store from '../Shared/Store/store';
@@ -155,6 +156,13 @@ export default [
     path: '/ask-carpool/:param',
     name: 'ask-carpool',
     component: AskCarpool,
+    beforeEnter: guardAccesByLogin
+  },
+
+  {
+    path: 'community/:id',
+    name: 'carpool-community',
+    component: Community,
     beforeEnter: guardAccesByLogin
   },
 ]

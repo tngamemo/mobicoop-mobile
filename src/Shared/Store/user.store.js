@@ -376,6 +376,10 @@ export const userStore = {
       return !! state.user && state.user.id
     },
 
+    user: state => {
+      return !! state.user && state.user
+    },
+
     tokenUser: state => {
       return !! state.tokenUser && state.tokenUser
     },
