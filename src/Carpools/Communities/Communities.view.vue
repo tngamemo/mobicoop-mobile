@@ -12,7 +12,7 @@
     <ion-content color="primary" no-bounce>
       <div class="mc-communities-first-block">
         <div class="mc-my-communities" v-if="!!userCommunities">
-          <p>Mes communautés:</p>
+          <p>{{ $t('Communities.myCommunities')}}</p>
           <div class="d-flex">
             <div
               item
@@ -37,12 +37,21 @@
           ></ion-searchbar>
         </div>
 
-        <ion-button class="mc-big-button" color="success" expand="block">
-          <ion-icon name="add" class="ion-padding-end"></ion-icon>Créer une communauté
+        <ion-button class="mc-big-button" color="success" expand="block" v-on:click="showToast()">
+          <ion-icon name="add" class="ion-padding-end"></ion-icon>
+          {{ $t('Communities.create')}}
         </ion-button>
       </div>
       <div class="mc-white-container">
-        <ion-item item v-for="(commu, index) in communities" :key="index">
+        <div class="ion-text-center ion-margin-top" v-if="!communities">
+          <ion-icon size="large" color="primary" class="rotating" name="md-sync"></ion-icon>
+        </div>
+        <ion-item
+          item
+          v-for="(commu, index) in communities"
+          :key="index"
+          v-on:click="goToCommunity(commu.id)"
+        >
           <div class="d-flex mc-communities-community">
             <div class="mc-communities-avatar">
               <ion-thumbnail>
@@ -120,8 +129,11 @@
 </style>
 
 <script>
+import { toast } from "../../Shared/Mixin/toast.mixin";
+
 export default {
   name: "carpool-communities",
+  mixins: [toast],
   data() {
     return {
       searchText: ""
@@ -129,17 +141,20 @@ export default {
   },
   created() {
     // On récupére les communities
-    this.$store.dispatch("getAllCommunities");
+    this.$store.dispatch("getAllCommunities").catch(error => {
+      this.presentToast(this.$t("Commons.error"), "danger");
+    });
 
     if (!!this.$store.getters.userId) {
-      this.$store.dispatch("getUserCommunities");
+      this.$store.dispatch("getUserCommunities").catch(error => {
+        this.presentToast(this.$t("Commons.error"), "danger");
+      });
     }
   },
   computed: {
     communities() {
       return this.$store.getters.communities.filter(commu => {
-        console.log(commu.name.toUpperCase())
-        return commu.name.toUpperCase().includes(this.searchText.toUpperCase())
+        return commu.name.toUpperCase().includes(this.searchText.toUpperCase());
       });
     },
 
@@ -147,6 +162,17 @@ export default {
       return this.$store.getters.userCommunities;
     }
   },
-  methods: {}
+  methods: {
+    showToast() {
+      this.presentToast(this.$t("Communities.notDevelopp"), "warning");
+    },
+
+    goToCommunity(idCommu) {
+      this.$router.push({
+        name: "carpool-community",
+        params: { id: idCommu }
+      });
+    }
+  }
 };
 </script>

@@ -52,10 +52,10 @@ export const communityStore = {
       })
     },
 
-    getSpecificCommunity({commit}) {
+    getSpecificCommunity({commit}, communityId) {
       commit('community_request');
       return new Promise((resolve, reject) => {
-        http.get(`/communities/${carpoolId}`)
+        http.get(`/communities/${communityId}`)
           .then(resp => {
             resolve(resp)
             commit('community_success');
