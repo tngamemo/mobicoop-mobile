@@ -24,6 +24,7 @@
       document.documentElement.style.setProperty('--ion-color-primary', '#' + process.env.VUE_APP_PRIMARY);
       document.documentElement.style.setProperty('--ion-color-primary-rgb', process.env.VUE_APP_PRIMARY_RGB);
       document.documentElement.style.setProperty('--ion-color-secondary', '#' + process.env.VUE_APP_SECONDARY);
+      document.documentElement.style.setProperty('--ion-color-secondary-rgb', process.env.VUE_APP_SECONDARY_RGB);
       document.documentElement.style.setProperty('--ion-color-tertiary', '#' + process.env.VUE_APP_TERTIARY);
       document.documentElement.style.setProperty('--ion-color-success', '#' + process.env.VUE_APP_SUCCESS);
       document.documentElement.style.setProperty('--ion-color-warning', '#' + process.env.VUE_APP_WARNING);

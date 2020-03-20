@@ -1,6 +1,6 @@
 <template>
   <div class="mc-container mc-user-home">
-    <div class="mc-welcome-home" v-if="seeWelcome">
+    <div v-bind:class="seeWelcome ? 'mc-welcome-home' : 'mc-welcome-home is-hidden'">
       <ion-icon name="close" item-right @click="closeWelcome()"></ion-icon>
       <h2 v-html="$t('HOME.title', { title })"></h2>
     </div>
@@ -42,6 +42,14 @@
 
   .mc-welcome-home {
     text-align: right;
+    transition: max-height .7s ease, opacity .5s ease, padding .1s ease;
+    max-height: 600px;
+    overflow: hidden;
+
+    &.is-hidden {
+      max-height: 0px !important;
+    }
+
     h2 {
       font-weight: bold;
       text-align: center;
@@ -85,14 +93,18 @@
     data () {
       return {
         title: process.env.VUE_APP_NAME,
-        seeWelcome: true
+        seeWelcome: localStorage.getItem('seeWelcome', true)
       }
     },
     mounted() {},
+    created() {
+      console.log(this.seeWelcome);
+    },
     methods: {
 
       closeWelcome: function() {
         this.seeWelcome = false;
+        localStorage.setItem('seeWelcome', false)
       },
 
       logout: function() {

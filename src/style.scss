@@ -84,6 +84,7 @@
 
 body {
   background: var(--ion-color-primary) !important;
+  // linear-gradient(var(--ion-color-primary) 50%, #ffffff 50%)
 }
 
 ion-toolbar {
@@ -289,3 +290,4 @@ ion-toolbar h1 {
   --overflow: hidden;
   overflow: hidden
 }
+

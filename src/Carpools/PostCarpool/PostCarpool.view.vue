@@ -9,9 +9,9 @@
       </ion-toolbar>
     </ion-header>
     <!--  -->
-    <ion-content color="primary" no-bounce>
-      <div class="mc-white-container mc-relative">
-        <div style="height: calc(100% - 44px); position: relative;">
+    <ion-content color="primary no-scroll" style="height: 100%">
+      <div class="mc-white-container mc-relative" style="height: 100%">
+        <div style="height: calc(100% - 44px); position: relative; overflow: scroll">
           <PostCarpoolStep1 ref="slideOne" />
         </div>
         <div class="mc-nextpost-buttons justify-end">

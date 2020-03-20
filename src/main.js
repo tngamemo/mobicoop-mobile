@@ -13,7 +13,7 @@ import VueMoment from 'vue-moment'
 const moment = require('moment')
 require('moment/locale/fr')
 
-Vue.use(Ionic);
+Vue.use(Ionic, { 'backButtonText' : ''});
 Vue.use(Vuelidate);
 Vue.use(VueMoment, { moment });
 Vue.config.productionTip = false;
