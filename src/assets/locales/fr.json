@@ -268,5 +268,12 @@
     "return": "Retour",
     "chooseSchedule": "Choisir les trajets",
     "success" : "Demande envoyé"
+  },
+  "Community" : {
+    "title": "Communauté",
+    "leaveCommu": "Quitter la communauté",
+    "joinCommu": "Rejoindre la communauté",
+    "join_success": "Vous avez rejoins la communauté",
+    "leave_success": "Vous avez quitté la communauté"
   }
 }

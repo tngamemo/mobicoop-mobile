@@ -23,7 +23,6 @@
               <ion-thumbnail>
                 <img :src="!!commu.images[0] && commu.images[0].versions.square_250" />
               </ion-thumbnail>
-              {{commu.name}}
             </div>
           </div>
         </div>
@@ -81,10 +80,7 @@
     font-weight: bold;
     border-bottom: 1px solid white;
     .mc-my-community {
-      border: 1px solid white;
-      border-radius: 50%;
-      width: 80px;
-      height: 80px;
+
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -93,6 +89,8 @@
 
       ion-thumbnail {
         --border-radius: 50%;
+        --size: 60px;
+        margin-right: 20px;
       }
     }
   }

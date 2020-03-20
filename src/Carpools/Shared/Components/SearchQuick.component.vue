@@ -1,27 +1,25 @@
 <template>
-
   <div class="mc-home-search">
-
     <div class="mc-search-block">
       <form>
         <!-- Input with placeholder -->
-        <ion-item  v-on:click="goGeoSearch('origin', 'search')">
+        <ion-item v-on:click="goGeoSearch('origin', 'search')">
           <ion-input
             type="text"
             class="no-clickable"
             :placeholder="$t('Search.origin')"
             :value="this.$store.state.searchStore.display.origin"
-            >
-          </ion-input>
+          ></ion-input>
         </ion-item>
 
         <div class="mc-div-icon-swap">
-         <ion-icon v-on:click="swapDestinationAndOrigin()"
+          <ion-icon
+            v-on:click="swapDestinationAndOrigin()"
             class="mc-rotate-icon"
             name="swap"
             color="primary"
-            size="large">
-          </ion-icon>
+            size="large"
+          ></ion-icon>
         </div>
 
         <!-- Input with placeholder -->
@@ -31,8 +29,7 @@
             class="no-clickable"
             :placeholder="$t('Search.destination')"
             :value="this.$store.state.searchStore.display.destination"
-            >
-          </ion-input>
+          ></ion-input>
         </ion-item>
 
         <ion-grid class="ion-margin-bottom mc-block-date">
@@ -52,10 +49,11 @@
             <ion-col size="6">
               <ion-item lines="none">
                 <ion-label>Trajet régulier</ion-label>
-                <ion-checkbox slot="start"
+                <ion-checkbox
+                  slot="start"
                   :checked="this.$store.state.searchStore.searchObject.frequency == 2"
-                  @ionChange="changeFrequency($event)">
-                </ion-checkbox>
+                  @ionChange="changeFrequency($event)"
+                ></ion-checkbox>
               </ion-item>
             </ion-col>
           </ion-row>
@@ -63,117 +61,129 @@
       </form>
     </div>
 
-     <ion-button
-      class='mc-big-button'
+    <ion-button
+      class="mc-big-button"
       color="success"
       expand="block"
       :disabled="!hasSearchOriginAndDestination"
-      v-on:click="goToSearchPage()">
-        {{ $t('HOME.searchCarpool') }}
-      </ion-button>
+      v-on:click="goToSearchPage()"
+    >{{ $t('HOME.searchCarpool') }}</ion-button>
 
-      <ion-button class='mc-big-button' color="primary" expand="block" fill="outline" @click="goToPostCarpool()">
-        {{ $t('HOME.postCarpool') }}
-      </ion-button>
+    <ion-button
+      v-if="showPostCarpool"
+      class="mc-big-button"
+      color="primary"
+      expand="block"
+      fill="outline"
+      @click="goToPostCarpool()"
+    >{{ $t('HOME.postCarpool') }}</ion-button>
   </div>
-
 </template>
 
 <style lang="scss">
-  .mc-home-search {
-    margin-bottom : 30px;
+.mc-home-search {
+  margin-bottom: 30px;
+}
+
+.no-clickable {
+  pointer-events: none;
+  touch-action: none;
+}
+
+.mc-div-icon-swap {
+  margin-top: 20px;
+  .mc-rotate-icon {
+    transform: rotate(90deg);
   }
+}
 
-  .no-clickable {
-    pointer-events: none;
-    touch-action: none;
-  }
+.mc-block-date {
+  margin-top: 20px;
+}
 
-  .mc-div-icon-swap {
-    margin-top: 20px;
-    .mc-rotate-icon {
-      transform: rotate(90deg)
-    }
-  }
-
-  .mc-block-date {
-    margin-top: 20px;
-  }
-
-
-  ion-datetime {
-    padding-left: 0px !important;
-  }
-
+ion-datetime {
+  padding-left: 0px !important;
+}
 </style>
 
 <script>
+export default {
+  name: "search-home",
+  props: ["showPost"],
+  data() {
+    return {
+      showPostCarpool: true
+    };
+  },
+  created() {
+      if (this.showPost != null) this.showPostCarpool = this.showPost;
+  },
+  mounted() {},
+  computed: {
+    hasSearchOriginAndDestination() {
+      return (
+        !!this.$store.getters.searchObject.outwardWaypoints[0] &&
+        !!this.$store.getters.searchObject.outwardWaypoints[1]
+      );
+    }
+  },
+  methods: {
+    goGeoSearch(type, action) {
+      this.$router.push({ name: "geoSearch", query: { type, action } });
+    },
 
-  export default {
-    name: 'search-home',
-    data () {
-      return {}
+    /**
+     * Fonction qui change la date pour la recherche
+     */
+    changeDate($event) {
+      this.$store.state.searchStore.searchObject.outwardDate = new Date(
+        $event.detail.value
+      );
     },
-    mounted() {
+
+    swapDestinationAndOrigin() {
+      this.$store.dispatch("swapDestinationAndOrigin");
     },
-    computed: {
-      hasSearchOriginAndDestination () {
-        return (!! this.$store.getters.searchObject.outwardWaypoints[0] && !! this.$store.getters.searchObject.outwardWaypoints[1])
+
+    /**
+     * Fonction qui change la frequence d'un carpooling pour la recherche
+     */
+    changeFrequency(event) {
+      event.detail.checked
+        ? (this.$store.state.searchStore.searchObject.frequency = 2)
+        : (this.$store.state.searchStore.searchObject.frequency = 1);
+    },
+
+    goToSearchPage() {
+      if (this.$store.getters.userId) {
+        this.$store.commit("changeUserIdOfSearch", this.$store.getters.userId);
+      } else {
+        this.$store.commit("changeUserIdOfSearch", null);
       }
+      this.$router.push({ name: "search" });
     },
-    methods: {
-      goGeoSearch(type, action) {
-        this.$router.push({ name: "geoSearch", query: { type, action } });
-      },
 
-      /**
-       * Fonction qui change la date pour la recherche
-       */
-      changeDate($event) {
-       this.$store.state.searchStore.searchObject.outwardDate = new Date($event.detail.value)
-      },
+    goToPostCarpool() {
+      const payload = {
+        origin: this.$store.state.searchStore.searchObject.outwardWaypoints[0],
+        destination: this.$store.state.searchStore.searchObject
+          .outwardWaypoints[1],
+        outwardDate: this.$store.state.searchStore.searchObject.outwardDate,
+        frequency: this.$store.state.searchStore.searchObject.frequency
+      };
 
-      swapDestinationAndOrigin() {
-        this.$store.dispatch('swapDestinationAndOrigin');
-      },
-
-      /**
-       * Fonction qui change la frequence d'un carpooling pour la recherche
-       */
-      changeFrequency(event) {
-          event.detail.checked ? ( this.$store.state.searchStore.searchObject.frequency = 2) : (this.$store.state.searchStore.searchObject.frequency = 1);
-      },
-
-      goToSearchPage() {
-        if (this.$store.getters.userId) {
-          this.$store.commit('changeUserIdOfSearch', this.$store.getters.userId)
-        } else {
-          this.$store.commit('changeUserIdOfSearch', null)
-        }
-        this.$router.push({ name: "search" });
-      },
-
-      goToPostCarpool() {
-
-        const payload = {
-          origin: this.$store.state.searchStore.searchObject.outwardWaypoints[0],
-          destination: this.$store.state.searchStore.searchObject.outwardWaypoints[1],
-          outwardDate: this.$store.state.searchStore.searchObject.outwardDate,
-          frequency: this.$store.state.searchStore.searchObject.frequency,
-        }
-
-        // Si on a un object carpoolToPost inextistant
-        if (! !! this.$store.getters.carpoolToPost) {
-          this.$store.commit("carpoolPost_init");
-        }
-
-        this.$store.commit('carpoolPost_fromSearch', payload)
-        if (payload.origin || payload.outwardDate) {
-          this.$store.dispatch('treatementUpdateAddresses')
-        }
-
-        this.$router.push('post-carpool')
+      // Si on a un object carpoolToPost inextistant
+      if (!!!this.$store.getters.carpoolToPost) {
+        this.$store.commit("carpoolPost_init");
       }
+
+      this.$store.commit("carpoolPost_fromSearch", payload);
+      if (payload.origin || payload.outwardDate) {
+        this.$store.dispatch("treatementUpdateAddresses");
+      }
+
+      this.$router.push("post-carpool");
     }
   }
+};
 </script>

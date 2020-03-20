@@ -6,14 +6,22 @@
           <ion-back-button></ion-back-button>
         </ion-buttons>
         <h1 v-if="community" class="ion-text-center">{{ community.name}}</h1>
-        <h1 v-if="!community" class="ion-text-center">Communauté</h1>
+        <h1 v-if="!community" class="ion-text-center">{{ $t('Community.title')}}</h1>
       </ion-toolbar>
     </ion-header>
 
     <ion-content class="mc-carpool-community" color="primary" no-bounce>
-      <div class="ion-text-center ion-margin-top" v-if="!community">
+      <div
+        class="ion-text-center ion-margin-top"
+        v-if="this.$store.getters.statusGetCommunity == 'loading'"
+      >
         <ion-icon size="large" color="light" class="rotating" name="md-sync"></ion-icon>
       </div>
+
+      <div
+        class="ion-text-center ion-margin-top"
+        v-if="this.$store.getters.statusGetCommunity != 'loading' && !community"
+      >Une erreur est survenue</div>
 
       <div v-if="community">
         <div class="mc-community-avatar">
@@ -29,9 +37,18 @@
             class="mc-big-button"
             color="success"
             expand="block"
-            v-on:click="showToast()"
+            v-on:click="joinCommunity()"
           >
-            <ion-icon name="add" class="ion-padding-end"></ion-icon>Rejoindre la communauté
+            <ion-icon
+              size="large"
+              color="light"
+              class="rotating"
+              name="md-sync"
+              v-if="this.$store.getters.statusJoinCommunity == 'loading'"
+            ></ion-icon>
+            <div v-if="this.$store.getters.statusJoinCommunity != 'loading'">
+              <ion-icon name="add" class="ion-padding-end"></ion-icon>{{ $t('Community.joinCommu')}}
+            </div>
           </ion-button>
         </div>
       </div>
@@ -53,16 +70,26 @@
             </ion-scroll>
           </ion-row>
         </div>
-        <SearchQuick />
+
+        <SearchQuick :showPost="isInCommunity" />
 
         <ion-button
           v-if="isInCommunity"
           class="mc-big-button"
           color="danger"
           expand="block"
-          v-on:click="showToast()"
+          v-on:click="leaveCommunity()"
         >
-          <ion-icon name="close" class="ion-padding-end"></ion-icon>Quitter la communauté
+          <ion-icon
+            size="large"
+            color="light"
+            class="rotating"
+            name="md-sync"
+            v-if="this.$store.getters.statusLeaveCommunity == 'loading'"
+          ></ion-icon>
+          <div v-if="this.$store.getters.statusLeaveCommunity != 'loading'">
+            <ion-icon name="close" class="ion-padding-end"></ion-icon>{{ $t('Community.leaveCommu')}}
+          </div>
         </ion-button>
       </div>
     </ion-content>
@@ -131,25 +158,64 @@ export default {
     };
   },
   created() {
-    // On récupére les communities\
-    const communityId = this.$route.params.id;
-    this.$store
-      .dispatch("getSpecificCommunity", communityId)
-      .then(resp => {
-        this.community = resp.data;
-      })
-      .catch(error => {
-        this.presentToast(this.$t("Commons.error"), "danger");
-      });
+    this.getSpecificCommunity();
   },
   computed: {
     isInCommunity() {
       const isInCommunity = this.community.communityUsers.find(
-        item => item.id == this.$store.getters.userId
+        item => item.user.id == this.$store.getters.userId
       );
       return !!isInCommunity;
     }
   },
-  methods: {}
+  methods: {
+    getSpecificCommunity() {
+      // On récupére les communities\
+      const communityId = this.$route.params.id;
+      this.$store
+        .dispatch("getSpecificCommunity", communityId)
+        .then(resp => {
+          this.community = resp.data;
+        })
+        .catch(error => {
+          this.presentToast(this.$t("Commons.error"), "danger");
+        });
+    },
+
+    joinCommunity() {
+      const payload = {
+        community: this.community["@id"],
+        user: this.$store.getters.user["@id"]
+      };
+
+      this.$store
+        .dispatch("joinCommunity", payload)
+        .then(resp => {
+          console.log(resp);
+          this.presentToast(this.$t("Community.join_success"), "success");
+          this.getSpecificCommunity()
+        })
+        .catch(error => {
+          this.presentToast(this.$t("Commons.error"), "danger");
+        });
+    },
+
+    leaveCommunity() {
+      const communityUser = this.community.communityUsers.find(item => item.user.id == this.$store.getters.userId);
+      const payload = {
+        cummunityUserId: communityUser["id"],
+      };
+
+      this.$store
+        .dispatch("leaveCommunity", payload)
+        .then(resp => {
+          this.presentToast(this.$t("Community.leave_success"), "success");
+          this.getSpecificCommunity()
+        })
+        .catch(error => {
+          this.presentToast(this.$t("Commons.error"), "danger");
+        });
+    }
+  }
 };
 </script>
