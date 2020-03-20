@@ -60,3 +60,35 @@ try {
 } catch(Exception e) {
     logger.warn("google-services.json not found, google-services plugin not applied. Push Notifications won't work")
 }
+
+import java.util.regex.Matcher
+import java.util.regex.Pattern
+
+task flavourCheck() {
+  println "Vérification de la flavour"
+  String fileContents = new File('app/src/main/assets/public/build.info').text
+  Gradle gradle = getGradle()
+  String tskReqStr = gradle.getStartParameter().getTaskRequests().toString()
+  println tskReqStr
+  Pattern pattern
+  if (tskReqStr.contains("assemble")) {
+    pattern = Pattern.compile("assemble(\\w+)(Release|Debug)")
+  } else  if (tskReqStr.contains("generate")) {
+    pattern = Pattern.compile("generate(\\w+)(Release|Debug)")
+  } else {
+    println "skipCheckFlavour"
+    return
+  }
+  Matcher matcher = pattern.matcher(tskReqStr)
+  if (matcher.find()) {
+    if (!fileContents.toLowerCase().startsWith(matcher.group(1).toLowerCase())) {
+      println matcher.group(1).toLowerCase()
+      throw new GradleException('error flavor occurred')
+    }
+    println "OK"
+    return
+  } else {
+    println "NO MATCH FOUND"
+    throw new GradleException('error flavor occurred')
+  }
+}

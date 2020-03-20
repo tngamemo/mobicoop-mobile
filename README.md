@@ -46,6 +46,7 @@ npx cap open [platform]
     * Préciser le nom [instance-name]-Info.plist dans Build Settings -> Info plist File
     * Créer un fichier XCAssets [instance-name]Assets.xcassets et modifier ses Target Membership
     * Ajouter logo et splash dans le fichier XCAssets
+    * Ajouter le scheme control script dans Build Phases
 
 # Dans le projet Android :
     * Ajouter un productFlavors dans le fichier build.gradle (Module: app)
