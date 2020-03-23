@@ -226,7 +226,8 @@
     "sat": "Samedi",
     "sun": "Dimanche",
     "scheduleRequired": "Au moins un créneaux est requis",
-    "addSchedule": "Ajouter une créneau"
+    "addSchedule": "Ajouter une créneau",
+    "comment" : "Commentez votre annonce"
   },
   "DetailCarpool": {
     "title": "Détails du covoiturage",

@@ -1,15 +1,15 @@
 <template>
   <div class="mc-form-carpool-recap">
     <div class="mc-recap-item">
-      <div class="mc-recap-header d-flex justify-between align-center" v-if="type != 'askCarpool'">
-        <span>{{recap.outwardDate | moment('DD MMMM YYYY') }}</span>
-        <div v-if="recap.frequency == 2" class="d-flex">
+      <div class="mc-recap-header d-flex flex-wrap justify-between align-center" v-if="type != 'askCarpool'">
+        <div v-if="recap.frequency == 2" class="d-flex flex-wrap">
           <div v-for="(day, index) in recap.regularDays" :key="index">
             <div class="mc-pastille-day" v-bind:class="{ 'selected': day.value }">
               <b>{{$t(day.trad)}}</b>
             </div>
           </div>
         </div>
+        <span>{{recap.outwardDate | moment('DD MMMM YYYY') }}</span>
         <span>{{recap.priceCarpool}} €</span>
       </div>
       <div
@@ -74,7 +74,7 @@
       </div>
     </div>
 
-    <div v-if="!!recap.comment" class="mc-recap-message">{{recap.comment}}</div>
+    <div v-if="!!recap.comment" class="mc-recap-message ion-margin-top">{{recap.comment}}</div>
 
     <div class="mc-recap-user" v-if="!!recap.user && type != 'askCarpool'">
       <div class="mc-recap-user-bloc-info">
@@ -114,13 +114,15 @@
     background: white;
     color: rgba(var(--ion-color-primary-rgb), 0.5);
     font-weight: bold;
-    width: 40px;
-    height: 40px;
+    font-size: 14px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-right: 10px;
+    margin-right: 5px;
+    margin-bottom: 5px;
 
     &.selected {
       background: rgba(var(--ion-color-primary-rgb), 0.5);
@@ -199,7 +201,6 @@
 
     .mc-recap-step {
       background: white;
-      border-radius: inherit;
       color: var(--ion-color-primary);
 
       .timeline {

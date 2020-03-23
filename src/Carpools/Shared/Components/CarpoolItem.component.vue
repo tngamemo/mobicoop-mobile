@@ -1,13 +1,13 @@
 <template>
   <div class="mc-carpool-item">
 
-    <div class="mc-carpool-header d-flex justify-between align-center">
+    <div class="mc-carpool-header d-flex justify-between align-center flex-wrap">
 
       <div v-if="isPunctualCarpool">
         <span>{{ getDateCarpoolItem }}</span>
       </div>
 
-      <div v-if="!isPunctualCarpool" class="d-flex">
+      <div v-if="!isPunctualCarpool" class="d-flex flex-wrap">
         <div v-for="(day, index) in carpool.regularDays" :key="index">
           <div class="mc-pastille-day" v-bind:class="{ 'selected': day.value }"><b>{{$t(day.trad)}} </b></div>
         </div>
@@ -113,13 +113,15 @@
       background: white;
       color: rgba(var(--ion-color-primary-rgb), 0.5);
       font-weight: bold;
-      width: 40px;
-      height: 40px;
+      font-size: 14px;
+      width: 30px;
+      height: 30px;
       border-radius: 50%;
       display: flex;
       justify-content: center;
       align-items: center;
-      margin-right: 10px;
+      margin-right: 5px;
+      margin-bottom: 5px;
 
       &.selected {
         background: rgba(var(--ion-color-primary-rgb), 0.5);
