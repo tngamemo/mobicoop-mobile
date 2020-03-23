@@ -22,6 +22,8 @@ import DetailCarpool from './DetailCarpool/DetailCarpool.view.vue';
 import AskCarpool from './AskCarpool/AskCarpool.view.vue';
 import ConfirmRegistration from './Register/ConfirmRegistration.view.vue';
 import Community from './Community/Community.view.vue';
+import Events from './Events/Events.view.vue';
+import Event from './Event/Event.view.vue';
 
 import Vue from 'vue'
 import store from '../Shared/Store/store';
@@ -163,6 +165,20 @@ export default [
     path: 'community/:id',
     name: 'carpool-community',
     component: Community,
+    beforeEnter: guardAccesByLogin
+  },
+
+  {
+    path: '/events',
+    name: 'carpool-events',
+    component: Events,
+    beforeEnter: guardAccesByLogin
+  },
+
+  {
+    path: 'event/:id',
+    name: 'carpool-event',
+    component: Event,
     beforeEnter: guardAccesByLogin
   },
 ]

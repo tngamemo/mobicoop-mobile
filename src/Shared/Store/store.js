@@ -8,6 +8,7 @@ import { messageStore } from "./message.store";
 import { sliderStore } from './slider.store';
 import { articleStore } from './article.store';
 import { communityStore } from './community.store';
+import { eventStore } from './event.store';
 import { appStore } from './app.store';
 import createPersistedState from "vuex-persistedstate";
 
@@ -26,5 +27,6 @@ export default new Vuex.Store({
     appStore: appStore,
     articleStore: articleStore,
     communityStore: communityStore,
+    eventStore: eventStore,
   }
 })

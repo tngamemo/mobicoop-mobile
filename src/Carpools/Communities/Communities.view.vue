@@ -10,6 +10,10 @@
     </ion-header>
 
     <ion-content color="primary" no-bounce>
+      <div class="ion-text-center ion-margin-top" v-if="this.$store.getters.statusGetCommunities != 'loading'">
+        <ion-icon size="large" color="primary" class="rotating" name="md-sync"></ion-icon>
+      </div>
+
       <div class="mc-communities-first-block">
         <div class="mc-my-communities" v-if="!!userCommunities">
           <p>{{ $t('Communities.myCommunities')}}</p>
@@ -80,7 +84,6 @@
     font-weight: bold;
     border-bottom: 1px solid white;
     .mc-my-community {
-
       display: flex;
       flex-direction: column;
       align-items: center;

@@ -1,0 +1,165 @@
+<template>
+  <div class="ion-page">
+    <ion-header no-border>
+      <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+          <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <h1 v-if="event" class="ion-text-center">{{ event.name}}</h1>
+        <h1 v-if="!event" class="ion-text-center">{{ $t('Event.title')}}</h1>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content class="mc-carpool-event" color="primary" no-bounce>
+      <div
+        class="ion-text-center ion-margin-top"
+        v-if="this.$store.getters.statusGetEvent == 'loading'"
+      >
+        <ion-icon size="large" color="light" class="rotating" name="md-sync"></ion-icon>
+      </div>
+
+      <div
+        class="ion-text-center ion-margin-top"
+        v-if="this.$store.getters.statusGetEvent != 'loading' && !event"
+      >Une erreur est survenue</div>
+
+      <div v-if="event">
+        <div class="mc-event-avatar">
+          <ion-thumbnail>
+            <img :src="!!event.images[0] && event.images[0].versions.square_250" />
+          </ion-thumbnail>
+        </div>
+
+        <div class="mc-event-description mc-event-padding">{{event.description}}</div>
+      </div>
+      <div class="mc-white-container" v-if="event">
+        <SearchQuick />
+
+        <ion-button class="mc-big-button" color="danger" expand="block" v-on:click="signalEvent()">
+          <ion-icon
+            size="large"
+            color="light"
+            class="rotating"
+            name="md-sync"
+            v-if="this.$store.getters.statusSignalEvent == 'loading'"
+          ></ion-icon>
+          <div v-if="this.$store.getters.statusSignalEvent != 'loading'">
+            <ion-icon name="close" class="ion-padding-end"></ion-icon>
+            {{ $t('Event.signalEvent')}}
+          </div>
+        </ion-button>
+      </div>
+    </ion-content>
+  </div>
+</template>
+
+<style lang="scss">
+.mc-carpool-event {
+  .mc-event-padding {
+    padding: 30px;
+  }
+  .mc-event-avatar {
+    display: flex;
+    justify-content: center;
+    ion-thumbnail {
+      --size: 90px;
+      --border-radius: 50%;
+    }
+  }
+}
+</style>
+
+<script>
+import { toast } from "../../Shared/Mixin/toast.mixin";
+import SearchQuick from "../Shared/Components/SearchQuick.component";
+
+export default {
+  name: "carpool-event",
+  mixins: [toast],
+  components: { SearchQuick },
+  data() {
+    return {
+      event: "",
+      eventId: null
+    };
+  },
+  created() {
+    this.getSpecificEvent();
+  },
+  computed: {},
+  methods: {
+    getSpecificEvent() {
+      // On récupére l'event\
+      this.eventId = this.$route.params.id;
+      this.$store
+        .dispatch("getSpecificEvent", this.eventId)
+        .then(resp => {
+          this.event = resp.data;
+
+          if (!!this.event.address) {
+            this.$store.commit("changeDestination", {
+              addressDTO: this.event.address,
+              displayGeo: `${this.event.address.displayLabel[0]} , ${this.event.address.displayLabel[1]}`
+            });
+          }
+        })
+        .catch(error => {
+          this.presentToast(this.$t("Commons.error"), "danger");
+        });
+    },
+
+    signalEvent() {
+      return this.$ionic.alertController
+        .create({
+          header: this.$t("Event.signalTitle"),
+          message: this.$t("Event.signalDesc"),
+          inputs: [
+            {
+              name: "signalEventEmail",
+              id: "signalEventEmail",
+              placeholder: this.$t("Event.signalEventEmail")
+            },
+            {
+              name: "signalEventExplication",
+              id: "signalEventExplication",
+              placeholder: this.$t("Event.signalEventExplication")
+            }
+          ],
+          buttons: [
+            {
+              text: "Annuler",
+              role: "cancel",
+              cssClass: "secondary",
+              handler: () => {}
+            },
+            {
+              text: "Signaler",
+              handler: data => {
+                if (data.signalEventEmail && data.signalEventExplication) {
+                  const payload = {
+                    eventId: this.eventId,
+                    data: {
+                      email: data.signalEventEmail,
+                      description: data.signalEventExplication
+                    }
+                  };
+                  this.$store
+                    .dispatch("signalEvent", payload)
+                    .then(
+                      this.presentToast(
+                        this.$t("Event.signalSend"),
+                        "success"
+                      )
+                    );
+                } else {
+                  this.presentToast(this.$t("Event.missingInfo"), "danger");
+                }
+              }
+            }
+          ]
+        })
+        .then(a => a.present());
+    }
+  }
+};
+</script>
