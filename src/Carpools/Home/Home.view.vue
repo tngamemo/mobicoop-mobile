@@ -100,11 +100,11 @@
       },
 
       redirectToCommunities: function() {
-        console.log('GO TO COMMU');
+       this.$router.push({name: 'communities'});
       },
 
       redirectToEvents: function() {
-        console.log('GO TO EVENTS');
+        this.$router.push({name: 'carpool-events'})
       }
     }
   }

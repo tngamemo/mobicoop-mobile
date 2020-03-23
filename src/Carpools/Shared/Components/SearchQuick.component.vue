@@ -182,7 +182,7 @@ export default {
         this.$store.dispatch("treatementUpdateAddresses");
       }
 
-      this.$router.push("post-carpool");
+      this.$router.push({name: "post-carpool"});
     }
   }
 };
