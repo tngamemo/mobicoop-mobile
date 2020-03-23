@@ -191,7 +191,6 @@ export default {
       this.$store
         .dispatch("joinCommunity", payload)
         .then(resp => {
-          console.log(resp);
           this.presentToast(this.$t("Community.join_success"), "success");
           this.getSpecificCommunity()
         })

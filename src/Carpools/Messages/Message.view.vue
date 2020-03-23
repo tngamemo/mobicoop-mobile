@@ -263,7 +263,6 @@ export default {
   },
   created() {
     if (this.thread) {
-      console.log(this.thread);
       // Get Complet Thread
       if (this.thread.idMessage != -99) {
         this.getCompleteThread();

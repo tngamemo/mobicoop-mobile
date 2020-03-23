@@ -4,7 +4,9 @@
     "sign-in": "Connexion",
     "register": "Inscription",
     "searchCarpool": "Rechercher un covoiturage",
-    "postCarpool": "Publier une annonce"
+    "postCarpool": "Publier une annonce",
+    "FAQ": "FAQ",
+    "contact": "Contacter"
   },
   "Nav": {
     "home": "Accueil",
@@ -293,6 +295,20 @@
     "signalEventEmail": "Merci de renseigner votre email",
     "missingInfo": "Il manque des informations",
     "signalSend": "Le signalement a été envoyé"
+  },
+
+  "Contact": {
+    "title": "Nous contacter",
+    "familyName": "Votre nom",
+    "givenName": "Votre prénom",
+    "email": "Votre adresse mail",
+    "asking": "Votre demande concerne",
+    "message": "Votre message",
+    "cgu": "En cochant cette case et en soumettant ce formulaire, j'accepte que mes données personnelles soient utilisées pour me recontacter dans le cadre de ma demande indiquée dans ce formulaire. Aucun autre traitement ne sera effectué avec mes informations. *",
+    "cancel": "Annuler",
+    "send": "Envoyer",
+    "missing": "Les informations ne sont pas correctement données",
+    "success": "La demande de contact a été envoyé"
   }
 
 }

@@ -24,6 +24,7 @@ import ConfirmRegistration from './Register/ConfirmRegistration.view.vue';
 import Community from './Community/Community.view.vue';
 import Events from './Events/Events.view.vue';
 import Event from './Event/Event.view.vue';
+import Contact from './Contact/Contact.view.vue';
 
 import Vue from 'vue'
 import store from '../Shared/Store/store';
@@ -180,5 +181,11 @@ export default [
     name: 'carpool-event',
     component: Event,
     beforeEnter: guardAccesByLogin
+  },
+
+  {
+    path: 'contact',
+    name: 'carpool-contact',
+    component: Contact,
   },
 ]

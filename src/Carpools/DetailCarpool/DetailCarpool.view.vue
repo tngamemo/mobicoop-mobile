@@ -65,7 +65,14 @@
             class="mc-DetailCarpool-button-action"
             v-if="!carpoolSelected.acceptedAsk && !carpoolSelected.pendingAsk"
           >
-            <ion-button class="mc-big-button" color="primary" expand="block" fill="outline">
+            <ion-button
+              class="mc-big-button"
+              color="primary"
+              expand="block"
+              fill="outline"
+              v-if="hasPhoneNumber"
+              :href="'tel:'+ carpoolSelected.carpooler.phone"
+            >
               <ion-icon name="call" class="ion-padding-end"></ion-icon>
               {{ $t('DetailCarpool.call') }}
             </ion-button>
@@ -270,7 +277,23 @@ export default {
   created() {
     this.getCarpoolAsk();
   },
-  computed: {},
+  computed: {
+    hasPhoneNumber() {
+      let result = false;
+      if (!!this.carpoolSelected) {
+        if (!!this.carpoolSelected && !!this.carpoolSelected.carpooler) {
+          if (
+            !!this.carpoolSelected.carpooler.phone &&
+            this.carpoolSelected.carpooler.phoneDisplay == 2
+          ) {
+            result = true;
+          }
+        }
+      }
+
+      return result;
+    }
+  },
 
   methods: {
     async getCarpoolAsk() {
@@ -397,7 +420,6 @@ export default {
     },
 
     updateAsk(status) {
-      console.log(this.askFromMessage);
       const payload = {
         idAsk: this.askFromMessage.askId,
         userId: this.$store.getters.userId,
