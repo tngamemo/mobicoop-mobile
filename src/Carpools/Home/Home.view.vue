@@ -24,13 +24,21 @@
           :icon="'briefcase'"
           @clickButton="redirectToCommunities()"
         />
-
         <BlockAction
           :action="'events'"
           :color="'rgba('+ secondary+ ', 1)'"
           :colorBg="'rgba('+ secondary+ ', 0.4)'"
           :icon="'musical-note'"
           @clickButton="redirectToEvents()"
+        />
+        <BlockAction
+          :action="'solidarity'"
+          :color="'rgba('+ success+ ', 1)'"
+          :colorBg="'rgba('+ success+ ', 0.4)'"
+          :icon="'thumbs-up'"
+          :secondButton="true"
+          @clickButton="redirectToSolidarity()"
+          @clickSecondButton="redirectToSolidarityPost()"
         />
 
         <ion-button
@@ -111,6 +119,7 @@ export default {
       title: process.env.VUE_APP_NAME,
       primary: "",
       secondary: "",
+      success: "",
       partner: JSON.parse(process.env.VUE_APP_PARTNER)
     };
   },
@@ -121,6 +130,10 @@ export default {
     this.secondary = window
       .getComputedStyle(document.body)
       .getPropertyValue("--ion-color-secondary-rgb");
+
+    this.success = window
+      .getComputedStyle(document.body)
+      .getPropertyValue("--ion-color-success-rgb");
   },
   methods: {
     closeWelcome: function() {
@@ -144,6 +157,14 @@ export default {
 
     redirectToContact: function() {
       this.$router.push({ name: "carpool-contact" });
+    },
+
+    redirectToSolidarity: function() {
+      this.$router.push({ name: "carpool-solidarity" });
+    },
+
+    redirectToSolidarityPost: function() {
+      this.$router.push({ name: "post-carpool" ,params : {solidarity : true} });
     }
   }
 };

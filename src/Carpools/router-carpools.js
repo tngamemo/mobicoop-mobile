@@ -25,6 +25,7 @@ import Community from './Community/Community.view.vue';
 import Events from './Events/Events.view.vue';
 import Event from './Event/Event.view.vue';
 import Contact from './Contact/Contact.view.vue';
+import Solidarity from './Solidarity/Solidarity.view.vue';
 
 import Vue from 'vue'
 import store from '../Shared/Store/store';
@@ -129,6 +130,9 @@ export default [
     path: 'post-carpool',
     name: 'post-carpool',
     component: PostCarpool,
+    props: (route) => ({
+      ...route.params
+    }),
     beforeEnter: guardAccesByLogin
   },
   {
@@ -163,31 +167,32 @@ export default [
     component: AskCarpool,
     beforeEnter: guardAccesByLogin
   },
-
   {
     path: 'community/:id',
     name: 'carpool-community',
     component: Community,
     beforeEnter: guardAccesByLogin
   },
-
   {
     path: '/events',
     name: 'carpool-events',
     component: Events,
     beforeEnter: guardAccesByLogin
   },
-
   {
     path: 'event/:id',
     name: 'carpool-event',
     component: Event,
     beforeEnter: guardAccesByLogin
   },
-
   {
     path: 'contact',
     name: 'carpool-contact',
     component: Contact,
+  },
+  {
+    path: 'solidarity',
+    name: 'carpool-solidarity',
+    component: Solidarity,
   },
 ]

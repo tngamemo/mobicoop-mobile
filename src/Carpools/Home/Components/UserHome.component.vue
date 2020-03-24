@@ -97,9 +97,7 @@
       }
     },
     mounted() {},
-    created() {
-      console.log(this.seeWelcome);
-    },
+    created() {},
     methods: {
 
       closeWelcome: function() {
