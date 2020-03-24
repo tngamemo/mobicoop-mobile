@@ -18,17 +18,17 @@
 
     <ion-item lines="none">
       <ion-label>{{$t('PostCarpool.luggage')}}</ion-label>
-      <ion-toggle :checked="carpoolToPost.luggage" @ionChange="changeOptions('luggage', $event.target.value)"></ion-toggle>
+      <ion-toggle :checked="carpoolToPost.luggage" @ionChange="changeOptions('luggage', $event.target.checked)"></ion-toggle>
     </ion-item>
 
     <ion-item lines="none">
       <ion-label>{{$t('PostCarpool.bike')}}</ion-label>
-      <ion-toggle :checked="carpoolToPost.bike"  @ionChange="changeOptions('bike', $event.target.value)"></ion-toggle>
+      <ion-toggle :checked="carpoolToPost.bike"  @ionChange="changeOptions('bike', $event.target.checked)"></ion-toggle>
     </ion-item>
 
     <ion-item lines="none">
       <ion-label>{{$t('PostCarpool.backSeats')}}</ion-label>
-      <ion-toggle :checked="carpoolToPost.backSeats"  @ionChange="changeOptions('backSeats', $event.target.value)"></ion-toggle>
+      <ion-toggle :checked="carpoolToPost.backSeats"  @ionChange="changeOptions('backSeats', $event.target.checked)"></ion-toggle>
     </ion-item>
   </div>
 </template>
