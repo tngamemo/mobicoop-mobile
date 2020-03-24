@@ -54,6 +54,10 @@
           <ion-icon name="chatboxes" class="ion-padding-end"></ion-icon>
           {{ $t('HOME.contact') }}
         </ion-button>
+
+        <div v-if="partner" class="d-flex justify-center ion-margin">
+          <img alt="" class="partner-img" src="/assets/partner.png">
+        </div>
       </div>
     </ion-content>
   </div>
@@ -62,9 +66,13 @@
 <style lang="scss">
 .mc-container {
   padding: 30px;
-  background-image: url("/assets/background.png");
+  background-image: url("/assets/banner.png");
   background-repeat: no-repeat;
   background-size: 40%;
+}
+
+.partner-img {
+  width: 50%;
 }
 
 .mc-home-header {
@@ -102,7 +110,8 @@ export default {
     return {
       title: process.env.VUE_APP_NAME,
       primary: "",
-      secondary: ""
+      secondary: "",
+      partner: JSON.parse(process.env.VUE_APP_PARTNER)
     };
   },
   created() {
