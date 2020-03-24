@@ -258,7 +258,6 @@ export const userStore = {
             resolve(resp)
           })
           .catch(err => {
-            console.log('error');
             reject(err)
           })
       })
