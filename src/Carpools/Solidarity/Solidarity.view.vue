@@ -3,13 +3,13 @@
     <ion-header no-border>
       <ion-toolbar color="primary">
         <ion-buttons slot="start">
-          <ion-back-button></ion-back-button>
+          <ion-back-button default-href="home"></ion-back-button>
         </ion-buttons>
         <h1 class="ion-text-center">{{ this.$t("Solidarity.title") }}</h1>
       </ion-toolbar>
     </ion-header>
 
-    <ion-content color="primary" no-bounce class="mc-carpool-solidarity">
+    <ion-content color="light" no-bounce class="mc-carpool-solidarity no-scroll">
        <iframe :src="link"  style="width:100%;height:100%" ></iframe>
     </ion-content>
   </div>
