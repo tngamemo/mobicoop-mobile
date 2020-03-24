@@ -1,8 +1,8 @@
 <template>
   <div class="mc-form-carpool-message">
     <ion-item>
-      <ion-label position="floating">Mon message aux passagers</ion-label>
-      <ion-textarea rows="20" cols="12"
+      <ion-label position="floating">{{$t('PostCarpool.comment')}}</ion-label>
+      <ion-textarea rows="10" cols="12"
         :value="carpoolToPost.comment"
         @ionInput="changeComment($event.target.value)">
       </ion-textarea>

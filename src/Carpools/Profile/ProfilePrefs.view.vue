@@ -40,7 +40,7 @@
               <ion-radio-group>
                 <ion-item lines="none" >
                   <ion-label class="ion-text-wrap">{{$t('ProfilePrefs.music0')}}</ion-label>
-                  <ion-radio slot="start" value="false" :checked="user.music == false" @ionSelect="user.smoke = false"></ion-radio>
+                  <ion-radio slot="start" value="false" :checked="user.music == false" @ionSelect="user.music = false"></ion-radio>
                 </ion-item>
                 <ion-item lines="none" >
                   <ion-label class="ion-text-wrap">{{$t('ProfilePrefs.music1')}}</ion-label>

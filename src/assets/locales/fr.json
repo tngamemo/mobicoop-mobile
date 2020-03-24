@@ -72,8 +72,9 @@
     "register_address": "Adresse",
     "destination": "Lieu d'arrivée",
     "placeHolder": "Veuillez renseigner une adresse (Ville, etc...)",
+    "date": "Date",
     "outwardDate": "JJ/MM",
-    "titlePage": "Résultats de recherche",
+    "titlePage": "Résultats",
     "error": "Une erreur est survenue durant la recherche. Veuillez réessayer ultérieurement.",
     "nbResult": "annonces en covoiturages trouvées",
     "step": "Etape"
@@ -142,7 +143,7 @@
     "medium-3": "SMS"
   },
   "ProfilePrefs": {
-    "title" : "Modifier mes préférences",
+    "title" : "Préférences",
     "smoke-title" : "En ce qui concerne le tabac en voiture",
     "smoke0" : "Je ne fume pas",
     "smoke1" : "Je ne fume pas en voiture",
@@ -231,7 +232,8 @@
     "sat": "Samedi",
     "sun": "Dimanche",
     "scheduleRequired": "Au moins un créneaux est requis",
-    "addSchedule": "Ajouter une créneau"
+    "addSchedule": "Ajouter une créneau",
+    "comment" : "Commentez votre annonce"
   },
   "DetailCarpool": {
     "title": "Détails du covoiturage",
@@ -247,7 +249,7 @@
     "askFor": "Demande faite pour :",
     "outward": "Aller",
     "return": "Retour",
-    "alreadyAsk": "Vous avez déjà fait une demande sur cette annonce.",
+    "alreadyAsk": "Vous avez déjà pris contact sur cette annonce.",
     "acceptAsk": "Accepter le covoiturage",
     "declineAsk": "Refuser le covoiturage"
   },

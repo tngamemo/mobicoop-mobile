@@ -95,7 +95,7 @@
         v-if="this.$store.getters.statusDistanceCarpool == 'loading'"
         name="md-sync"
       ></ion-icon>
-      <p
+      <p class="mc-carpool-distance-text"
         v-if="this.$store.getters.statusDistanceCarpool == 'success'"
       >{{$t('PostCarpool.distance')}} {{ Math.round(this.$store.getters.distanceCarpool / 1000)}} km</p>
     </div>
@@ -142,7 +142,12 @@
 
   .mc-carpool-distance {
     border: 1px solid #ffa000;
-    border-radius: 10px;
+    border-radius: 10px 10px 0px 0px;
+
+    .mc-carpool-distance-text{
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
   }
 }
 </style>

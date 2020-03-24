@@ -15,7 +15,7 @@
       <p class="text-center"><b v-html="$t(`BlockAction.${action}.text`)"></b></p>
 
       <div class="mc-block-action-container-button">
-        <div class="mc-block-action-button" v-bind:style="style.text" @click="$emit('clickButton')">
+        <div class="mc-block-action-button pointer" v-bind:style="style.text" @click="$emit('clickButton')">
          <ion-icon :name="icon" size="medium" class="ion-padding-end"></ion-icon>{{ $t(`BlockAction.${action}.button`)}}
         </div>
       </div>
@@ -65,6 +65,7 @@
         background: #FFFFFF;
         border-radius: 37px;
         padding: 0px 37px;
+        min-height: 35px;
         display: flex;
         justify-content: center;
         align-items: center;
