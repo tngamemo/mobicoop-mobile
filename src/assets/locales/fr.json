@@ -4,7 +4,9 @@
     "sign-in": "Connexion",
     "register": "Inscription",
     "searchCarpool": "Rechercher un covoiturage",
-    "postCarpool": "Publier une annonce"
+    "postCarpool": "Publier une annonce",
+    "FAQ": "FAQ",
+    "contact": "Contacter"
   },
   "Nav": {
     "home": "Accueil",
@@ -99,7 +101,11 @@
     "waiting" : "En attente"
   },
   "Communities": {
-    "title": "Communautés"
+    "title": "Communautés",
+    "see": "Voir la communauté",
+    "myCommunities": "Mes communautés:",
+    "create": "Créer une communauté",
+    "notDevelopp": "Cette fonctionnalité n'est pas encore présente sur l'appli mobile. Nous vous invitons à aller sur le site web."
   },
   "Profile": {
     "title": "Profil",
@@ -266,5 +272,45 @@
     "return": "Retour",
     "chooseSchedule": "Choisir les trajets",
     "success" : "Demande envoyé"
+  },
+  "Community" : {
+    "title": "Communauté",
+    "leaveCommu": "Quitter la communauté",
+    "joinCommu": "Rejoindre la communauté",
+    "join_success": "Vous avez rejoins la communauté",
+    "leave_success": "Vous avez quitté la communauté"
+  },
+  "Events" : {
+    "title": "Tous les événements",
+    "see": "Voir l'événement",
+    "create":"Créer un événement",
+    "notDevelopp":"Cette fonctionnalité n'est pas encore présente sur l'appli mobile. Nous vous invitons à aller sur le site web.",
+    "signalEvent":"Signaler l'événement"
+  },
+
+  "Event": {
+    "title": "Événement",
+    "signalEvent": "Signaler l'événement",
+    "signalTitle": "Signalement d'événement",
+    "signalDesc": "Vous avez constaté du contenu inapproprié sur l'événement ? Signalez-le à notre équipe qui prendra les mesures nécessaires. Merci de préciser ce qui vous paraît inapproprié :",
+    "signalEventExplication": "Explication",
+    "signalEventEmail": "Merci de renseigner votre email",
+    "missingInfo": "Il manque des informations",
+    "signalSend": "Le signalement a été envoyé"
+  },
+
+  "Contact": {
+    "title": "Nous contacter",
+    "familyName": "Votre nom",
+    "givenName": "Votre prénom",
+    "email": "Votre adresse mail",
+    "asking": "Votre demande concerne",
+    "message": "Votre message",
+    "cgu": "En cochant cette case et en soumettant ce formulaire, j'accepte que mes données personnelles soient utilisées pour me recontacter dans le cadre de ma demande indiquée dans ce formulaire. Aucun autre traitement ne sera effectué avec mes informations. *",
+    "cancel": "Annuler",
+    "send": "Envoyer",
+    "missing": "Les informations ne sont pas correctement données",
+    "success": "La demande de contact a été envoyé"
   }
+
 }

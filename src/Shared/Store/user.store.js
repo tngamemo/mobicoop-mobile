@@ -258,7 +258,6 @@ export const userStore = {
             resolve(resp)
           })
           .catch(err => {
-            console.log('error');
             reject(err)
           })
       })
@@ -374,6 +373,10 @@ export const userStore = {
 
     userId: state => {
       return !! state.user && state.user.id
+    },
+
+    user: state => {
+      return !! state.user && state.user
     },
 
     tokenUser: state => {
