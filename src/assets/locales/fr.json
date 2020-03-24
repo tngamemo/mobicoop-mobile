@@ -65,6 +65,12 @@
       "title": "Evénements",
       "text": "Trouver des covoitureurs<br> allant au même événement.",
       "button": "Voir les événements"
+    },
+    "solidarity": {
+      "title": "Covoiturage Solidaire",
+      "text": "S'entraider pour l'accès à l'emploi",
+      "button": "Besoin d'un coup de pouce ?",
+      "secondButton": "Donner un coup de pouce"
     }
   },
   "Search": {
@@ -233,7 +239,9 @@
     "sun": "Dimanche",
     "scheduleRequired": "Au moins un créneaux est requis",
     "addSchedule": "Ajouter une créneau",
-    "comment" : "Commentez votre annonce"
+    "comment" : "Commentez votre annonce",
+    "solidarityAlert": "Cette annonce sera une annonce de covoiturage solidaire exclusif, si vous maintenez l'option ci-dessous. Elle ne sera visible alors que par les opérateurs solidaires pour vous mettre en relation avec un demandeur solidaire. Si vous décochez cette option, votre annonce deviendra une annonce ordinaire visible à la fois par les autres covoitureurs et les opérateurs solidaires.",
+    "solidarity": "Annonce de covoiturage solidaire exclusif"
   },
   "DetailCarpool": {
     "title": "Détails du covoiturage",
@@ -287,7 +295,6 @@
     "notDevelopp":"Cette fonctionnalité n'est pas encore présente sur l'appli mobile. Nous vous invitons à aller sur le site web.",
     "signalEvent":"Signaler l'événement"
   },
-
   "Event": {
     "title": "Événement",
     "signalEvent": "Signaler l'événement",
@@ -298,7 +305,6 @@
     "missingInfo": "Il manque des informations",
     "signalSend": "Le signalement a été envoyé"
   },
-
   "Contact": {
     "title": "Nous contacter",
     "familyName": "Votre nom",
@@ -311,6 +317,9 @@
     "send": "Envoyer",
     "missing": "Les informations ne sont pas correctement données",
     "success": "La demande de contact a été envoyé"
+  },
+  "Solidarity": {
+    "title": "Solidarité"
   }
 
 }
