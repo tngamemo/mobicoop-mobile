@@ -252,16 +252,23 @@ export default {
     return {
       message: "",
       ask: null,
-      days: []
+      days: [],
+      thread : null
     };
   },
-  props: ["thread"],
+  props: [],
   message: {
     get() {
       return this.$store.state.messageStore.completeThread;
     }
   },
   created() {
+    if(this.$route.params.idAsk && this.$route.params.idAsk != -99) {
+      this.thread = this.$store.state.messageStore.messagesCarpool.find(item => item.idAsk == this.$route.params.idAsk && item.idRecipient == this.$route.params.idRecipient)
+    } else {
+      this.thread = this.$store.state.messageStore.messagesDirect.find(item => item.idRecipient == this.$route.params.idRecipient)
+    }
+
     if (this.thread) {
       // Get Complet Thread
       if (this.thread.idMessage != -99) {
@@ -335,6 +342,8 @@ export default {
 
       this.$store.dispatch("postMessage", message).then(res => {
         this.getCompleteThread();
+      }).catch(() => {
+        this.presentToast(this.$t("Commons.error"), "tertiary");
       });
     },
 

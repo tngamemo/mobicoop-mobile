@@ -136,12 +136,14 @@ export default [
     beforeEnter: guardAccesByLogin
   },
   {
-    path: 'message',
+    path: 'message/:idRecipient/:idAsk',
     name: 'message',
     component: Message,
+    /*
     props: (route) => ({
       ...route.params
     })
+     */
   },
   {
     path: '/article/:id',
