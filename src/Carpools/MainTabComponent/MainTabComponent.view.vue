@@ -8,29 +8,29 @@
           <Home />
         </ion-tab>
 
-        <ion-tab tab="help">
+        <ion-tab tab="help"  v-if="! !!this.$store.state.userStore.user">
           <Article :title="$t('Help.title')" id="10"/>
         </ion-tab>
 
-        <ion-tab tab="register">
+        <ion-tab tab="register"  v-if="! !!this.$store.state.userStore.user">
           <Register />
         </ion-tab>
 
-        <ion-tab tab="login">
+        <ion-tab tab="login"  v-if="! !!this.$store.state.userStore.user">
           <Login />
         </ion-tab>
 
-        <ion-tab tab="messages">
+        <ion-tab tab="messages" v-if="!!this.$store.state.userStore.user">
           <keep-alive>
           <Messages />
           </keep-alive>
         </ion-tab>
 
-        <ion-tab tab="communities">
+        <ion-tab tab="communities"  v-if="!!this.$store.state.userStore.user">
           <Communities />
         </ion-tab>
 
-        <ion-tab tab="profile">
+        <ion-tab tab="profile"  v-if="!!this.$store.state.userStore.user">
           <Profile />
         </ion-tab>
 

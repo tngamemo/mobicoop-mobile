@@ -101,7 +101,7 @@
       },
     methods: {
       goToMessage(message) {
-        this.$router.push({ name: "message" , params : {thread : message}});
+        this.$router.push({ name: "message" , params : {idAsk : (message.idAsk ? message.idAsk : -99), idRecipient : message.idRecipient}});
       },
       deleteThreadAlertConfirm(messageId) {
         return this.$ionic.alertController
