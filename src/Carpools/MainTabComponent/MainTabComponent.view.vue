@@ -1,5 +1,6 @@
 <template>
-
+  <div>
+  <BannerCookie />
 
       <!-- Listen to before and after tab change events -->
       <ion-tabs>
@@ -78,6 +79,7 @@
           </ion-tab-bar>
         </template>
       </ion-tabs>
+  </div>
 </template>
 
 <style>
@@ -100,7 +102,7 @@
 </style>
 
 <script>
-
+  import BannerCookie from "../Shared/Components/BannerCookie.component";
   import Home from '../Home/Home.view.vue';
   import Register from '../Register/Register.view.vue';
   import Login from '../Login/Login.view.vue';
@@ -118,7 +120,8 @@
         Article,
         Profile,
         Messages,
-        Communities
+        Communities,
+        BannerCookie
     },
     data () {
       return {

@@ -4,7 +4,8 @@ export const appStore = {
   state: {
     redirectionUrl: '',
     seeSliderLoader: false,
-    statusContact: ''
+    statusContact: '',
+    userCookies: false
   },
   mutations: {
     redirectionUrl_reset(state) {
@@ -33,6 +34,10 @@ export const appStore = {
 
     contact_error(state) {
       state.statusContact = 'error'
+    },
+
+    changeUserCookies(state, value) {
+      state.userCookies = value
     }
   },
   actions: {
@@ -62,6 +67,10 @@ export const appStore = {
 
     statusContact: state => {
       return state.statusContact;
+    },
+
+    userCookies: state => {
+      return state.userCookies;
     }
   }
 }
