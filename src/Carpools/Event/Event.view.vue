@@ -31,6 +31,11 @@
         </div>
 
         <div class="mc-event-description mc-event-padding">{{event.description}}</div>
+
+        <div class="mc-event-padding">
+          <MiniMap :LMarker="LMarker" />
+        </div>
+
       </div>
       <div class="mc-white-container" v-if="event">
         <SearchQuick />
@@ -72,15 +77,17 @@
 <script>
 import { toast } from "../../Shared/Mixin/toast.mixin";
 import SearchQuick from "../Shared/Components/SearchQuick.component";
+import MiniMap from "../Shared/Components/MiniMap.component";
 
 export default {
   name: "carpool-event",
   mixins: [toast],
-  components: { SearchQuick },
+  components: { SearchQuick, MiniMap },
   data() {
     return {
       event: "",
-      eventId: null
+      eventId: null,
+      LMarker: []
     };
   },
   created() {
@@ -101,6 +108,8 @@ export default {
               addressDTO: this.event.address,
               displayGeo: `${this.event.address.displayLabel[0]} , ${this.event.address.displayLabel[1]}`
             });
+
+            this.LMarker.push({latlng: [this.event.address.latitude, this.event.address.longitude], name: this.event.name});
           }
         })
         .catch(error => {
