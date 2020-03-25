@@ -33,6 +33,10 @@
 
       // Fonction qui va log l'user ou utilisé un user par défault
       this.authUserOnStart();
+
+      if(JSON.parse(process.env.VUE_APP_ANALYTICS_ACTIVATED)) {
+        this.initAnalytics();
+      }
     },
     methods: {
 
@@ -54,6 +58,22 @@
           // On va authentifier l'appli via un utilisateur anonyme
           this.$store.dispatch('authAnonymousUser')
         }
+      },
+      initAnalytics() {
+        var _paq = window._paq || [];
+        /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+        _paq.push(["setDocumentTitle", document.domain+"/"+document.title]);
+        _paq.push(["setCookieDomain", "*." + process.env.VUE_APP_ANALYTICS_DOMAIN]);
+        _paq.push(["setDomains", ["*." + process.env.VUE_APP_ANALYTICS_DOMAIN ]]);
+        _paq.push(['trackPageView']);
+        _paq.push(['enableLinkTracking']);
+        (function() {
+          var u = process.env.VUE_APP_ANALYTICS_ENDPOINT;
+          _paq.push(['setTrackerUrl', "https://"+u+'/matomo.php']);
+          _paq.push(['setSiteId', '1']);
+          var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+          g.type='text/javascript'; g.async=true; g.defer=true; g.src= "https://"+u+'/matomo.js'; s.parentNode.insertBefore(g,s);
+        })();
       }
     }
   }

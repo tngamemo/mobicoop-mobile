@@ -26,7 +26,7 @@
       <div v-if="community">
         <div class="mc-community-avatar">
           <ion-thumbnail>
-            <img :src="!!community.images[0] && community.images[0].versions.square_250" />
+            <img :src="!!community.images[0] && community.images[0].versions.square_250" alt="" />
           </ion-thumbnail>
         </div>
 
@@ -66,7 +66,7 @@
                 class="scroll-item"
               >
                 <ion-thumbnail>
-                  <img :src="user.user.avatars[0]" />
+                  <img :src="user.user.avatars[0]" alt="" />
                 </ion-thumbnail>
                 {{user.user.givenName}}
               </div>
