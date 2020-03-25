@@ -62,8 +62,8 @@
               </ion-thumbnail>
             </div>
             <div class="mc-communities-text">
-              {{commu.name}}
-              <ion-button color="success" expand="block">
+              <div>{{commu.name}}</div>
+              <ion-button color="success">
                 <ion-icon name="eye" class="ion-padding-end"></ion-icon>
                 {{ $t('Communities.see') }}
               </ion-button>
