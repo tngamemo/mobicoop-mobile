@@ -11,7 +11,7 @@
 
     <ion-content color="primary" no-bounce>
       <div class="mc-events-first-block">
-
+        <MiniMap :LMarker="LMarker" />
         <div class="mc-events-search">
           <ion-searchbar
             @ionInput="searchText = $event.target.value"
@@ -93,27 +93,37 @@
 
 <script>
 import { toast } from "../../Shared/Mixin/toast.mixin";
+import MiniMap from "../Shared/Components/MiniMap.component";
 
 export default {
   name: "carpool-events",
   mixins: [toast],
   data() {
     return {
-      searchText: ""
+      searchText: "",
+      LMarker: null
     };
+  },
+  components: {
+    MiniMap
   },
   created() {
     // On récupére les communities
-    this.$store.dispatch("getAllEvents").catch(error => {
-      this.presentToast(this.$t("Commons.error"), "danger");
-    });
+    this.$store
+      .dispatch("getAllEvents")
+      .then(resp => {
+        this.getMarkerMap(resp.data["hydra:member"]);
+      })
+      .catch(error => {
+        this.presentToast(this.$t("Commons.error"), "danger");
+      });
   },
   computed: {
     events() {
       return this.$store.getters.events.filter(event => {
         return event.name.toUpperCase().includes(this.searchText.toUpperCase());
       });
-    },
+    }
   },
   methods: {
     showToast() {
@@ -125,6 +135,17 @@ export default {
         name: "carpool-event",
         params: { id: idEvent }
       });
+    },
+
+    getMarkerMap(data) {
+      const result = [];
+      data.forEach(element => {
+        result.push({
+          latlng: [element.address.latitude, element.address.longitude],
+          name: element.name
+        });
+      });
+      this.LMarker = result;
     }
   }
 };
