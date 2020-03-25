@@ -6,6 +6,7 @@ export const searchStore = {
     statusGeo: '',
     resultsSearch: [],
     resultsGeo: [],
+    previousSearch: [],
     display: {
       origin: '',
       destination: '',
@@ -64,6 +65,10 @@ export const searchStore = {
       state.searchObject.outwardWaypoints[1] = payload.addressDTO;
       state.display.destination = payload.displayGeo;
     },
+
+    changePreviousSearch(state, previousSearch) {
+      state.previousSearch = previousSearch;
+    }
 
   },
   actions: {
@@ -143,6 +148,18 @@ export const searchStore = {
           })
       })
     },
+
+    setPreviousSearch({ commit, getters }, address) {
+      let previousSearch = getters.previousSearch;
+
+      previousSearch = previousSearch.filter(item => item.county !== address.county);
+      previousSearch.unshift(address);
+
+      previousSearch = previousSearch.slice(0, 3)
+
+      // previousSearch.push(address);
+      commit('changePreviousSearch', previousSearch)
+    }
   },
 
   getters: {
@@ -173,6 +190,10 @@ export const searchStore = {
     statusSearch: state => {
       return state.statusSearch;
     },
+
+    previousSearch: state => {
+      return state.previousSearch;
+    }
   }
 }
 

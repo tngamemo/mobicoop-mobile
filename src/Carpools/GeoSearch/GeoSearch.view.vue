@@ -45,12 +45,36 @@
             </ion-card-header>
           </ion-item>
         </div>
+
+        <p class="mc-carpool-previousSearch" v-if="this.$store.getters.previousSearch">Recherches précédentes</p>
+        <div v-for="address in this.$store.getters.previousSearch" :key="address.key">
+          <ion-item
+            class="flex-card"
+            v-if="address.displayLabel[0]"
+            v-on:click="selectGeo(address)"
+          >
+            <div class="iconSearch">
+              <img v-bind:src="address.icon" alt />
+            </div>
+            <ion-card-header>
+              <ion-card-title>{{ address.displayLabel[0] }}</ion-card-title>
+              <ion-card-subtitle>
+                <div>{{ address.displayLabel[1] }}</div>
+              </ion-card-subtitle>
+            </ion-card-header>
+          </ion-item>
+        </div>
       </div>
     </ion-content>
   </div>
 </template>
 
 <style lang="scss">
+
+.mc-carpool-previousSearch {
+  margin-bottom: 0px;
+}
+
 .flex-card {
   display: flex;
   align-items: center;
@@ -104,7 +128,7 @@ export default {
 
     selectGeo: function(address) {
       let addressDTO = address;
-
+      this.$store.dispatch('setPreviousSearch', address);
       const displayGeo = `${address.addressLocality}, ${address.addressCountry}`;
 
       switch (this.action) {
