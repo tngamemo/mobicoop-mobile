@@ -31,7 +31,7 @@
           :icon="'musical-note'"
           @clickButton="redirectToEvents()"
         />
-        <BlockAction
+        <BlockAction v-if="showSolidarity"
           :action="'solidarity'"
           :color="'rgba('+ success+ ', 1)'"
           :colorBg="'rgba('+ success+ ', 0.4)'"
@@ -120,7 +120,8 @@ export default {
       primary: "",
       secondary: "",
       success: "",
-      partner: JSON.parse(process.env.VUE_APP_PARTNER)
+      partner: JSON.parse(process.env.VUE_APP_PARTNER),
+      showSolidarity: JSON.parse(process.env.VUE_APP_SHOW_SOLIDARITY_TRANSPORT)
     };
   },
   created() {
