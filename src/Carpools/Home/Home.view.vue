@@ -64,7 +64,7 @@
         </ion-button>
 
         <div v-if="partner" class="d-flex justify-center ion-margin">
-          <img alt="" class="partner-img" src="/assets/partner.png">
+          <img alt class="partner-img" src="/assets/partner.png" />
         </div>
       </div>
     </ion-content>
@@ -164,7 +164,7 @@ export default {
     },
 
     redirectToSolidarityPost: function() {
-      this.$router.push({ name: "post-carpool" ,params : {solidarity : true} });
+      this.$router.push({ name: "post-carpool", params: { solidarity: true } });
     }
   }
 };
