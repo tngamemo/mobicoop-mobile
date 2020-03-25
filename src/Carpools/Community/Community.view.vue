@@ -32,6 +32,8 @@
 
         <div class="mc-community-description mc-community-padding">
           {{community.description}}
+          <MiniMap :LPolyline="LPolyline" />
+
           <ion-button
             v-if="!isInCommunity"
             class="mc-big-button"
@@ -47,7 +49,8 @@
               v-if="this.$store.getters.statusJoinCommunity == 'loading'"
             ></ion-icon>
             <div v-if="this.$store.getters.statusJoinCommunity != 'loading'">
-              <ion-icon name="add" class="ion-padding-end"></ion-icon>{{ $t('Community.joinCommu')}}
+              <ion-icon name="add" class="ion-padding-end"></ion-icon>
+              {{ $t('Community.joinCommu')}}
             </div>
           </ion-button>
         </div>
@@ -88,7 +91,8 @@
             v-if="this.$store.getters.statusLeaveCommunity == 'loading'"
           ></ion-icon>
           <div v-if="this.$store.getters.statusLeaveCommunity != 'loading'">
-            <ion-icon name="close" class="ion-padding-end"></ion-icon>{{ $t('Community.leaveCommu')}}
+            <ion-icon name="close" class="ion-padding-end"></ion-icon>
+            {{ $t('Community.leaveCommu')}}
           </div>
         </ion-button>
       </div>
@@ -147,18 +151,21 @@
 <script>
 import { toast } from "../../Shared/Mixin/toast.mixin";
 import SearchQuick from "../Shared/Components/SearchQuick.component";
+import MiniMap from "../Shared/Components/MiniMap.component";
 
 export default {
   name: "carpool-community",
   mixins: [toast],
-  components: { SearchQuick },
+  components: { SearchQuick, MiniMap },
   data() {
     return {
-      community: ""
+      community: "",
+      LPolyline: []
     };
   },
   created() {
     this.getSpecificCommunity();
+    this.getAdsCommunity();
   },
   computed: {
     isInCommunity() {
@@ -182,6 +189,20 @@ export default {
         });
     },
 
+    getAdsCommunity() {
+      // On récupére les communities\
+      const communityId = this.$route.params.id;
+      this.$store
+        .dispatch("getAdsCommunity", communityId)
+        .then(resp => {
+          this.constructDataMap(resp.data['hydra:member']);
+        })
+        .catch(error => {
+          console.log(error)
+          this.presentToast(this.$t("Commons.error"), "danger");
+        });
+    },
+
     joinCommunity() {
       const payload = {
         community: this.community["@id"],
@@ -192,7 +213,7 @@ export default {
         .dispatch("joinCommunity", payload)
         .then(resp => {
           this.presentToast(this.$t("Community.join_success"), "success");
-          this.getSpecificCommunity()
+          this.getSpecificCommunity();
         })
         .catch(error => {
           this.presentToast(this.$t("Commons.error"), "danger");
@@ -200,20 +221,36 @@ export default {
     },
 
     leaveCommunity() {
-      const communityUser = this.community.communityUsers.find(item => item.user.id == this.$store.getters.userId);
+      const communityUser = this.community.communityUsers.find(
+        item => item.user.id == this.$store.getters.userId
+      );
       const payload = {
-        cummunityUserId: communityUser["id"],
+        cummunityUserId: communityUser["id"]
       };
 
       this.$store
         .dispatch("leaveCommunity", payload)
         .then(resp => {
           this.presentToast(this.$t("Community.leave_success"), "success");
-          this.getSpecificCommunity()
+          this.getSpecificCommunity();
         })
         .catch(error => {
           this.presentToast(this.$t("Commons.error"), "danger");
         });
+    },
+
+    constructDataMap(data) {
+      let polyline = [];
+      data.forEach(element => {
+        let result = [];
+        element.outwardWaypoints.forEach(wayPoint => {
+          result.push([wayPoint.address.latitude, wayPoint.address.longitude])
+        });
+
+        polyline.push(result)
+      });
+
+     this.LPolyline = polyline;
     }
   }
 };

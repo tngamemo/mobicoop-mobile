@@ -39,7 +39,7 @@ export const carpoolStore = {
       state.directPointsCarpool = '';
       state.priceCarpool = '';
       state.carpoolToPost = {
-        role: 1,
+        role: !!process.env.VUE_APP_DEFAULT_CARPOOL_FREQUENCY ? process.env.VUE_APP_DEFAULT_CARPOOL_FREQUENCY : 1,
         oneWay: false,
         frequency: 1,
         outwardWaypoints: [],

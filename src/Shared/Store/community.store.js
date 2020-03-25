@@ -6,6 +6,7 @@ export const communityStore = {
     statusGetCommunity: '',
     statusJoinCommunity: '',
     statusLeaveCommunity: '',
+    statusAdsCommunity: '',
     communities: null,
   },
   mutations: {
@@ -57,6 +58,18 @@ export const communityStore = {
 
     leave_community_error(state) {
       state.statusLeaveCommunity = 'error';
+    },
+
+    ads_community_request(state) {
+      state.statusAdsCommunity = 'loading';
+    },
+
+    ads_community_success(state) {
+      state.statusAdsCommunity = 'success';
+    },
+
+    ads_community_error(state) {
+      state.statusAdsCommunity = 'error';
     }
 
   },
@@ -121,6 +134,22 @@ export const communityStore = {
           .catch(err => {
             console.log('error');
             commit('leave_community_error');
+            reject(err)
+          })
+      })
+    },
+
+    getAdsCommunity({commit}, communityId) {
+      commit('ads_community_request');
+      return new Promise((resolve, reject) => {
+        http.get(`/communities/${communityId}/ads`)
+          .then(resp => {
+            resolve(resp)
+            commit('ads_community_success');
+          })
+          .catch(err => {
+            console.log('error');
+            commit('ads_community_error');
             reject(err)
           })
       })
