@@ -173,7 +173,8 @@
     "validatedUntil": "Valide jusqu'au",
     "confirmDeleteHeader": "Etes-vous sur de vouloir supprimer cette annonce ? ",
     "confirmDeleteText": "Toute suppression d'annonce est définitive, êtes-vous sur de vouloir supprimer cette annonce ?",
-    "error": "Une erreur est survenue. Veuillez réessayer ultérieurement."
+    "error": "Une erreur est survenue. Veuillez réessayer ultérieurement.",
+    "potentialCarpoolers": "covoiturages potentiels"
   },
   "Slider": {
     "prev": "Précédent",
