@@ -132,7 +132,8 @@
     "visibility-accepted": "Visible seulement après acceptation du covoiturage, uniquement par les participants",
     "visibility-all": "Visible dès la publication de l'annonce, par tous les inscrits",
     "phoneToken": "Envoyer un code de vérification",
-    "phoneTokenPopup": "Vérification du téléphone"
+    "phoneTokenPopup": "Vérification du téléphone",
+    "newsSubscription" : "Recevoir les actualités"
   },
   "ProfileAlerts": {
     "title": "Mes alertes",
