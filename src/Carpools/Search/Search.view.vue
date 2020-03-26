@@ -11,7 +11,7 @@
 
     <ion-content color="primary">
 
-      <RecapSearch />
+      <RecapSearch :filters="this.$route.params.filters" />
 
       <div class="mc-white-container" style="min-height: 100%">
         <div class="ion-text-center">

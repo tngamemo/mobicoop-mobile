@@ -9,6 +9,11 @@
       <p>{{ this.$store.getters.displayOrigin }}</p>
       <p>{{ this.$store.getters.displayDestination }}</p>
     </div>
+
+    <div class="mc-recap-search-filters" v-if="!!this.filters">
+      <p>{{$t('RecapSearch.filters')}} :</p>
+      <span v-if="!!this.filters.communities" class="mc-recap-search-filter">{{$t('RecapSearch.communities')}}</span>
+    </div>
   </div>
 </template>
 
@@ -21,6 +26,16 @@
 
     font-weight: bold;
     color: white;
+
+    .mc-recap-search-filters {
+      border-top: 1px solid white;
+
+      .mc-recap-search-filter {
+        border: 1px solid white;
+        border-radius: 30px;
+        padding: 10px;
+      }
+    }
   }
 </style>
 
@@ -28,6 +43,7 @@
 <script>
   export default {
     name: 'recap-search',
+    props: ['filters'],
     data () {
       return {}
     },
