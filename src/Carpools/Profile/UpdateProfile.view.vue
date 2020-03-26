@@ -160,6 +160,17 @@
           <div v-if="$v.user.birthDate.$error">
             <div class="mc-error-label"  v-if="!$v.user.birthDate.required">{{$t('Validation.required')}}</div>
           </div>
+          <ion-item lines="none">
+            <ion-checkbox
+              name="newsSubscription"
+              :value="user.newsSubscription"
+              color="primary"
+              slot="start"
+              @ionChange="changeNewsSubscription($event)"
+              :checked="user.newsSubscription"
+            ></ion-checkbox>
+            <ion-label class="no-white-space">{{ $t('UpdateProfile.newsSubscription') }}</ion-label>
+          </ion-item>
 
           <br>
           <ion-button class='mc-small-button' color="success" expand="block" @click="updateUser">
@@ -333,6 +344,9 @@
       goGeoSearch(type, action) {
         this.$router.push({ name: "geoSearch", query: { type, action }});
       },
+      changeNewsSubscription(event){
+        this.user.newsSubscription = event.detail.checked
+      }
     }
   }
 </script>
