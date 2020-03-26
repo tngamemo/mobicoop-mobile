@@ -26,7 +26,7 @@
       <div v-if="community">
         <div class="mc-community-avatar">
           <ion-thumbnail>
-            <img :src="!!community.images[0] && community.images[0].versions.square_250" alt="" />
+            <img :src="!!community.images[0] && community.images[0].versions.square_250" alt />
           </ion-thumbnail>
         </div>
 
@@ -66,9 +66,23 @@
                 class="scroll-item"
               >
                 <ion-thumbnail>
-                  <img :src="user.user.avatars[0]" alt="" />
+                  <img :src="user.user.avatars[0]" alt />
                 </ion-thumbnail>
+
                 {{user.user.givenName}}
+                <ion-icon
+                  size="large"
+                  color="primary"
+                  name="star"
+                  v-if="idCommunityReferent == user.user.id"
+                ></ion-icon>
+
+                <ion-icon
+                  size="large"
+                  color="primary"
+                  name="star-half"
+                  v-if="user.status == 2 && !idCommunityReferent == user.user.id"
+                ></ion-icon>
               </div>
             </ion-scroll>
           </ion-row>
@@ -173,6 +187,10 @@ export default {
         item => item.user.id == this.$store.getters.userId
       );
       return !!isInCommunity;
+    },
+
+    idCommunityReferent() {
+      return this.community.user.id;
     }
   },
   methods: {
@@ -195,10 +213,10 @@ export default {
       this.$store
         .dispatch("getAdsCommunity", communityId)
         .then(resp => {
-          this.constructDataMap(resp.data['hydra:member']);
+          this.constructDataMap(resp.data["hydra:member"]);
         })
         .catch(error => {
-          console.log(error)
+          console.log(error);
           this.presentToast(this.$t("Commons.error"), "danger");
         });
     },
@@ -244,13 +262,13 @@ export default {
       data.forEach(element => {
         let result = [];
         element.outwardWaypoints.forEach(wayPoint => {
-          result.push([wayPoint.address.latitude, wayPoint.address.longitude])
+          result.push([wayPoint.address.latitude, wayPoint.address.longitude]);
         });
 
-        polyline.push(result)
+        polyline.push(result);
       });
 
-     this.LPolyline = polyline;
+      this.LPolyline = polyline;
     }
   }
 };
