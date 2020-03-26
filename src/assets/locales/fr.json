@@ -169,6 +169,7 @@
     "in-progress": "En cours",
     "archived": "Archivées",
     "delete-success": "Votre annonce a été supprimée avec succès",
+    "pause-success": "Le status de votre annonce a été changé",
     "validatedUntil": "Valide jusqu'au",
     "confirmDeleteHeader": "Etes-vous sur de vouloir supprimer cette annonce ? ",
     "confirmDeleteText": "Toute suppression d'annonce est définitive, êtes-vous sur de vouloir supprimer cette annonce ?",
