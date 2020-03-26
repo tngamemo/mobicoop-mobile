@@ -4,7 +4,9 @@
     "sign-in": "Connexion",
     "register": "Inscription",
     "searchCarpool": "Rechercher un covoiturage",
-    "postCarpool": "Publier une annonce"
+    "postCarpool": "Publier une annonce",
+    "FAQ": "FAQ",
+    "contact": "Contacter"
   },
   "Nav": {
     "home": "Accueil",
@@ -63,6 +65,12 @@
       "title": "Evénements",
       "text": "Trouver des covoitureurs<br> allant au même événement.",
       "button": "Voir les événements"
+    },
+    "solidarity": {
+      "title": "Covoiturage Solidaire",
+      "text": "S'entraider pour l'accès à l'emploi",
+      "button": "Besoin d'un coup de pouce ?",
+      "secondButton": "Donner un coup de pouce"
     }
   },
   "Search": {
@@ -70,8 +78,9 @@
     "register_address": "Adresse",
     "destination": "Lieu d'arrivée",
     "placeHolder": "Veuillez renseigner une adresse (Ville, etc...)",
+    "date": "Date",
     "outwardDate": "JJ/MM",
-    "titlePage": "Résultats de recherche",
+    "titlePage": "Résultats",
     "error": "Une erreur est survenue durant la recherche. Veuillez réessayer ultérieurement.",
     "nbResult": "annonces en covoiturages trouvées",
     "step": "Etape"
@@ -98,7 +107,11 @@
     "waiting" : "En attente"
   },
   "Communities": {
-    "title": "Communautés"
+    "title": "Communautés",
+    "see": "Voir la communauté",
+    "myCommunities": "Mes communautés:",
+    "create": "Créer une communauté",
+    "notDevelopp": "Cette fonctionnalité n'est pas encore présente sur l'appli mobile. Nous vous invitons à aller sur le site web."
   },
   "Profile": {
     "title": "Profil",
@@ -119,7 +132,8 @@
     "visibility-accepted": "Visible seulement après acceptation du covoiturage, uniquement par les participants",
     "visibility-all": "Visible dès la publication de l'annonce, par tous les inscrits",
     "phoneToken": "Envoyer un code de vérification",
-    "phoneTokenPopup": "Vérification du téléphone"
+    "phoneTokenPopup": "Vérification du téléphone",
+    "newsSubscription" : "Recevoir les actualités"
   },
   "ProfileAlerts": {
     "title": "Mes alertes",
@@ -136,7 +150,7 @@
     "medium-3": "SMS"
   },
   "ProfilePrefs": {
-    "title" : "Modifier mes préférences",
+    "title" : "Préférences",
     "smoke-title" : "En ce qui concerne le tabac en voiture",
     "smoke0" : "Je ne fume pas",
     "smoke1" : "Je ne fume pas en voiture",
@@ -155,6 +169,7 @@
     "in-progress": "En cours",
     "archived": "Archivées",
     "delete-success": "Votre annonce a été supprimée avec succès",
+    "pause-success": "Le status de votre annonce a été changé",
     "validatedUntil": "Valide jusqu'au",
     "confirmDeleteHeader": "Etes-vous sur de vouloir supprimer cette annonce ? ",
     "confirmDeleteText": "Toute suppression d'annonce est définitive, êtes-vous sur de vouloir supprimer cette annonce ?",
@@ -225,7 +240,10 @@
     "sat": "Samedi",
     "sun": "Dimanche",
     "scheduleRequired": "Au moins un créneaux est requis",
-    "addSchedule": "Ajouter une créneau"
+    "addSchedule": "Ajouter une créneau",
+    "comment" : "Commentez votre annonce",
+    "solidarityAlert": "Cette annonce sera une annonce de covoiturage solidaire exclusif, si vous maintenez l'option ci-dessous. Elle ne sera visible alors que par les opérateurs solidaires pour vous mettre en relation avec un demandeur solidaire. Si vous décochez cette option, votre annonce deviendra une annonce ordinaire visible à la fois par les autres covoitureurs et les opérateurs solidaires.",
+    "solidarity": "Annonce de covoiturage solidaire exclusif"
   },
   "DetailCarpool": {
     "title": "Détails du covoiturage",
@@ -241,7 +259,7 @@
     "askFor": "Demande faite pour :",
     "outward": "Aller",
     "return": "Retour",
-    "alreadyAsk": "Vous avez déjà fait une demande sur cette annonce.",
+    "alreadyAsk": "Vous avez déjà pris contact sur cette annonce.",
     "acceptAsk": "Accepter le covoiturage",
     "declineAsk": "Refuser le covoiturage"
   },
@@ -264,5 +282,55 @@
     "return": "Retour",
     "chooseSchedule": "Choisir les trajets",
     "success" : "Demande envoyé"
+  },
+  "Community" : {
+    "title": "Communauté",
+    "leaveCommu": "Quitter la communauté",
+    "joinCommu": "Rejoindre la communauté",
+    "join_success": "Vous avez rejoins la communauté",
+    "leave_success": "Vous avez quitté la communauté"
+  },
+  "Events" : {
+    "title": "Tous les événements",
+    "see": "Voir l'événement",
+    "create":"Créer un événement",
+    "notDevelopp":"Cette fonctionnalité n'est pas encore présente sur l'appli mobile. Nous vous invitons à aller sur le site web.",
+    "signalEvent":"Signaler l'événement"
+  },
+  "Event": {
+    "title": "Événement",
+    "signalEvent": "Signaler l'événement",
+    "signalTitle": "Signalement d'événement",
+    "signalDesc": "Vous avez constaté du contenu inapproprié sur l'événement ? Signalez-le à notre équipe qui prendra les mesures nécessaires. Merci de préciser ce qui vous paraît inapproprié :",
+    "signalEventExplication": "Explication",
+    "signalEventEmail": "Merci de renseigner votre email",
+    "missingInfo": "Il manque des informations",
+    "signalSend": "Le signalement a été envoyé"
+  },
+  "Contact": {
+    "title": "Nous contacter",
+    "familyName": "Votre nom",
+    "givenName": "Votre prénom",
+    "email": "Votre adresse mail",
+    "asking": "Votre demande concerne",
+    "message": "Votre message",
+    "cgu": "En cochant cette case et en soumettant ce formulaire, j'accepte que mes données personnelles soient utilisées pour me recontacter dans le cadre de ma demande indiquée dans ce formulaire. Aucun autre traitement ne sera effectué avec mes informations. *",
+    "cancel": "Annuler",
+    "send": "Envoyer",
+    "missing": "Les informations ne sont pas correctement données",
+    "success": "La demande de contact a été envoyé"
+  },
+  "Solidarity": {
+    "title": "Solidarité"
+  },
+  "BannerCookie": {
+    "desc": "Pour son fonctionnement, cette application utilise des cookies pour maintenir active votre connexion au site et réaliser des statistiques de visite sans aucune finalité commerciale. Ces statistiques sont anonymisées et leurs données restent dans un outil interne. Elles ne sont pas transmises à un tiers.",
+    "politic": "Politique de confidentialité",
+    "agree": "J'ai compris"
+  },
+  "RecapSearch": {
+    "filters": "Filtres",
+    "communities": "Communautés"
   }
+
 }

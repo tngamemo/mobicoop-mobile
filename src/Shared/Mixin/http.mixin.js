@@ -50,13 +50,14 @@ http.interceptors.response.use((response) => {
   const regex = /^\/users\/\w+$/g
   const regexIsMatching = error.response.config.url.match(regex);
   // Return any error which is not due to authentication back to the calling service
-  if (error.response.status !== 401 || !regexIsMatching) {
+  if (error.response.status !== 401) {
     return new Promise((resolve, reject) => {
       reject(error);
     });
   } else {
-
-    createToasterLogin();
+    if (!regexIsMatching) {
+      createToasterLogin();
+    }
     return new Promise((resolve, reject) => {
       reject(error);
     });
@@ -75,7 +76,7 @@ async function createToasterLogin() {
       {
         text: 'Se reconnecter',
         handler: () => {
-          existingVueInstance.$router.push({name:'login'})
+          existingVueInstance.$router.push({ name: 'login' })
         }
       }
     ]

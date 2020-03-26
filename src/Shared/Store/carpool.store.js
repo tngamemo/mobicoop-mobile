@@ -7,6 +7,7 @@ export const carpoolStore = {
     statusPriceCarpool: '',
     statusCarpoolAsk: '',
     statusCarpoolAskPost: '',
+    statusPauseCarpool: '',
     directPointsCarpool: '',
     carpoolToPost: null,
     addressessUseToPost: {
@@ -39,7 +40,7 @@ export const carpoolStore = {
       state.directPointsCarpool = '';
       state.priceCarpool = '';
       state.carpoolToPost = {
-        role: 1,
+        role: !!process.env.VUE_APP_DEFAULT_CARPOOL_FREQUENCY ? process.env.VUE_APP_DEFAULT_CARPOOL_FREQUENCY : 1,
         oneWay: false,
         frequency: 1,
         outwardWaypoints: [],
@@ -216,6 +217,18 @@ export const carpoolStore = {
 
     carpool_ask_post_error(state) {
       state.statusCarpoolAskPost = 'error';
+    },
+
+    carpool_pause_request(state) {
+      state.statusPauseCarpool = 'loading';
+    },
+
+    carpool_pause_success(state) {
+      state.statusPauseCarpool = 'success';
+    },
+
+    carpool_pause_error(state) {
+      state.statusPauseCarpool = 'error';
     }
 
 
@@ -370,6 +383,21 @@ export const carpoolStore = {
             reject(err)
           })
       })
+    },
+
+    pauseCarpool({commit}, payload) {
+      return new Promise((resolve, reject) => {
+        commit('carpool_pause_request');
+        return http.put(`/carpools/${payload.carpoolId}`, payload.data)
+          .then(resp => {
+            commit('carpool_pause_success');
+            resolve(resp)
+          })
+          .catch(err => {
+            commit('carpool_pause_error');
+            reject(err)
+          })
+      })
     }
 
   },
@@ -396,6 +424,10 @@ export const carpoolStore = {
 
     directPointsCarpool: state => {
       return state.directPointsCarpool
+    },
+
+    statusPauseCarpool: state => {
+      return state.statusPauseCarpool
     },
   },
 }

@@ -7,13 +7,24 @@ import store from './Shared/Store/store';
 
 import Ionic from '@ionic/vue';
 import '@ionic/core/css/ionic.bundle.css';
-import 'leaflet/dist/leaflet.css';
 import Vuelidate from 'vuelidate'
 import VueMoment from 'vue-moment'
 const moment = require('moment')
 require('moment/locale/fr')
 
-Vue.use(Ionic);
+delete L.Icon.Default.prototype._getIconUrl;
+
+L.Icon.Default.mergeOptions({
+   iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
+   iconUrl: require('leaflet/dist/images/marker-icon.png'),
+   shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
+});
+
+import 'leaflet/dist/leaflet.css';
+import 'leaflet-fullscreen/dist/leaflet.fullscreen.css';
+import 'leaflet-fullscreen/dist/Leaflet.fullscreen';
+
+Vue.use(Ionic, { 'backButtonText' : ''});
 Vue.use(Vuelidate);
 Vue.use(VueMoment, { moment });
 Vue.config.productionTip = false;

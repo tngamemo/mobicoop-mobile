@@ -6,6 +6,7 @@ export const searchStore = {
     statusGeo: '',
     resultsSearch: [],
     resultsGeo: [],
+    previousSearch: [],
     display: {
       origin: '',
       destination: '',
@@ -14,7 +15,7 @@ export const searchStore = {
     searchObject: {
       search: true,
       role: 3,
-      frequency: 1,
+      frequency: !!process.env.VUE_APP_DEFAULT_CARPOOL_FREQUENCY ? parseInt(process.env.VUE_APP_DEFAULT_CARPOOL_FREQUENCY) : 1,
       outwardWaypoints: [],
       outwardDate: new Date(),
       userId: null,
@@ -65,13 +66,17 @@ export const searchStore = {
       state.display.destination = payload.displayGeo;
     },
 
+    changePreviousSearch(state, previousSearch) {
+      state.previousSearch = previousSearch;
+    }
+
   },
   actions: {
 
     /**
      * Fonction qui retourne des addresses en fonction d'un string
      */
-    geoSearch: ({commit}, params) => {
+    geoSearch: ({ commit }, params) => {
       commit('geo_request')
       return new Promise((resolve, reject) => {
         http.get("/addresses/search?q=" + params.searchQuery).then(resp => {
@@ -89,7 +94,7 @@ export const searchStore = {
     /**
      * Fonction qui intervetit l'origine et la desitnation
      */
-    swapDestinationAndOrigin({commit, state}) {
+    swapDestinationAndOrigin({ commit, state }) {
       state.searchObject.outwardWaypoints.reverse();
       const newOrigin = state.display.destination;
       const newDestination = state.display.origin;
@@ -101,13 +106,17 @@ export const searchStore = {
     /**
      * Fonction qui effectue la recherche
      */
-    searchCarpools({commit, getters}) {
+    searchCarpools({ commit, getters }, filters) {
       commit('search_request')
       return new Promise((resolve, reject) => {
 
         const data = Object.assign({}, getters.searchObject);
         if (data.frequency == 2) {
           delete data.outwardDate;
+        }
+
+        if (!!filters && !!filters.communities) {
+          data.communities = filters.communities
         }
 
         http.post("/carpools", data).then(resp => {
@@ -122,7 +131,7 @@ export const searchStore = {
       })
     },
 
-    getDirectPointSearch({}, payload) {
+    getDirectPointSearch({ }, payload) {
 
       let query = '';
       payload.addresses.forEach((add, index, array) => {
@@ -143,9 +152,21 @@ export const searchStore = {
           })
       })
     },
+
+    setPreviousSearch({ commit, getters }, address) {
+      let previousSearch = getters.previousSearch;
+
+      previousSearch = previousSearch.filter(item => item.county !== address.county);
+      previousSearch.unshift(address);
+
+      previousSearch = previousSearch.slice(0, 3)
+
+      // previousSearch.push(address);
+      commit('changePreviousSearch', previousSearch)
+    }
   },
 
-  getters : {
+  getters: {
     searchOrigin: state => {
       return state.searchObject.outwardWaypoints[0];
     },
@@ -173,6 +194,10 @@ export const searchStore = {
     statusSearch: state => {
       return state.statusSearch;
     },
+
+    previousSearch: state => {
+      return state.previousSearch;
+    }
   }
 }
 

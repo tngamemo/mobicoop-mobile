@@ -84,6 +84,7 @@
 
 body {
   background: var(--ion-color-primary) !important;
+  // linear-gradient(var(--ion-color-primary) 50%, #ffffff 50%)
   padding-top: env(safe-area-inset-top); /* Status bar height on iOS 11+ */
 }
 
@@ -232,6 +233,10 @@ ion-input {
   flex-direction: column;
 }
 
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
 .justify-center {
   justify-content: center;
 }
@@ -290,3 +295,4 @@ ion-toolbar h1 {
   --overflow: hidden;
   overflow: hidden
 }
+
