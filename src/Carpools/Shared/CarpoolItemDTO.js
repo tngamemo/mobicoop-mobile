@@ -41,6 +41,8 @@ export default class CarpoolItemDTO {
     this.origin = carpool.outwardWaypoints[0].address
     this.destination = [...carpool.outwardWaypoints].pop().address
     this.isMultipleTimes = false;
+    this.paused = carpool.paused;
+    this.proposalId = carpool.proposalId
     if (carpool.frequency == 1) {
       this.date = carpool.outwardDate;
       this.time = carpool.outwardTime;
