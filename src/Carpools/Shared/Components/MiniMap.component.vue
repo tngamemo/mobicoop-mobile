@@ -38,7 +38,10 @@ export default {
       optionsCard: {
         dragging: false,
         touchZoom: false,
-        tap: false
+        tap: false,
+        fullscreenControl: {
+          pseudoFullscreen: true
+        }
       }
     };
   },
@@ -53,7 +56,7 @@ export default {
   mounted() {
     setTimeout(() => {
       if (!!this.$refs.map) this.$refs.map.mapObject.invalidateSize();
-      this.$refs.map.mapObject.addControl(new L.Control.Fullscreen());
+      console.log(this.$refs.map.mapObject);
     }, 0);
   },
   computed: {
