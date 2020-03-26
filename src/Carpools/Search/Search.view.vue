@@ -61,7 +61,7 @@
       }
     },
     created() {
-      this.$store.dispatch('searchCarpools')
+      this.$store.dispatch('searchCarpools', this.$route.params.filters)
     },
     data () {
       return {

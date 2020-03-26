@@ -15,7 +15,7 @@ export const searchStore = {
     searchObject: {
       search: true,
       role: 3,
-      frequency: !!process.env.VUE_APP_DEFAULT_CARPOOL_FREQUENCY ? process.env.VUE_APP_DEFAULT_CARPOOL_FREQUENCY : 1,
+      frequency: !!process.env.VUE_APP_DEFAULT_CARPOOL_FREQUENCY ? parseInt(process.env.VUE_APP_DEFAULT_CARPOOL_FREQUENCY) : 1,
       outwardWaypoints: [],
       outwardDate: new Date(),
       userId: null,
@@ -106,13 +106,17 @@ export const searchStore = {
     /**
      * Fonction qui effectue la recherche
      */
-    searchCarpools({ commit, getters }) {
+    searchCarpools({ commit, getters }, filters) {
       commit('search_request')
       return new Promise((resolve, reject) => {
 
         const data = Object.assign({}, getters.searchObject);
         if (data.frequency == 2) {
           delete data.outwardDate;
+        }
+
+        if (!!filters && !!filters.communities) {
+          data.communities = filters.communities
         }
 
         http.post("/carpools", data).then(resp => {

@@ -68,7 +68,6 @@
                 <ion-thumbnail>
                   <img :src="user.user.avatars[0]" alt />
                 </ion-thumbnail>
-
                 {{user.user.givenName}}
                 <ion-icon
                   size="large"
@@ -88,7 +87,11 @@
           </ion-row>
         </div>
 
-        <SearchQuick :showPost="isInCommunity" />
+        <SearchQuick
+          :showPost="isInCommunity"
+          :searchWithFilter="true"
+          :communities="[this.community.id]"
+        />
 
         <ion-button
           v-if="isInCommunity"

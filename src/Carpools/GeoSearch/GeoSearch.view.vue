@@ -46,7 +46,7 @@
           </ion-item>
         </div>
 
-        <p class="mc-carpool-previousSearch" v-if="this.$store.getters.previousSearch">Recherches précédentes</p>
+        <p class="mc-carpool-previousSearch" v-if="this.$store.getters.previousSearch.length > 0">Recherches précédentes</p>
         <div v-for="address in this.$store.getters.previousSearch" :key="address.key">
           <ion-item
             class="flex-card"

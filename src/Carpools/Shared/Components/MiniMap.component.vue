@@ -56,7 +56,6 @@ export default {
   mounted() {
     setTimeout(() => {
       if (!!this.$refs.map) this.$refs.map.mapObject.invalidateSize();
-      console.log(this.$refs.map.mapObject);
     }, 0);
   },
   computed: {

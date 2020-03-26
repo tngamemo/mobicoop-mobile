@@ -14,7 +14,7 @@
         <ion-icon size="large" color="light" class="rotating" name="md-sync"></ion-icon>
       </div>
 
-      <div class="mc-communities-first-block">
+      <div class="mc-communities-first-block" v-if="this.$store.getters.statusGetCommunities != 'loading'">
         <div class="mc-my-communities" v-if="!!userCommunities">
           <p>{{ $t('Communities.myCommunities')}}</p>
           <div class="d-flex">
