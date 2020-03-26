@@ -76,7 +76,7 @@
   padding: 30px;
   background-image: url("/assets/banner.png");
   background-repeat: no-repeat;
-  background-size: 40%;
+  background-size: 100%;
 }
 
 .partner-img {
