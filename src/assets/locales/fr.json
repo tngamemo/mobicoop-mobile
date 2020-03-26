@@ -326,6 +326,10 @@
     "desc": "Pour son fonctionnement, cette application utilise des cookies pour maintenir active votre connexion au site et réaliser des statistiques de visite sans aucune finalité commerciale. Ces statistiques sont anonymisées et leurs données restent dans un outil interne. Elles ne sont pas transmises à un tiers.",
     "politic": "Politique de confidentialité",
     "agree": "J'ai compris"
+  },
+  "RecapSearch": {
+    "filters": "Filtres",
+    "communities": "Communautés"
   }
 
 }
