@@ -28,6 +28,11 @@ android {
             versionName '2.0.0'
             dimension "api"
         }
+        picholines {
+          applicationId 'eu.covivo.picholines'
+          versionName '2.0.0'
+          dimension "api"
+        }
     }
 }
 

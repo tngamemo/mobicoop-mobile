@@ -22,10 +22,10 @@
     "i18n:report": "vue-cli-service i18n:report --src './src/**/*.?(js|vue)' --locales './src/locales/**/*.json'"
   },
   "dependencies": {
-    "@capacitor/android": "^1.5.1",
-    "@capacitor/cli": "^1.5.1",
-    "@capacitor/core": "^1.5.1",
-    "@capacitor/ios": "^1.5.1",
+    "@capacitor/android": "2.0.0-beta.1",
+    "@capacitor/cli": "2.0.0-beta.1",
+    "@capacitor/core": "2.0.0-beta.1",
+    "@capacitor/ios": "2.0.0-beta.1",
     "@ionic/core": "^4.11.10",
     "@ionic/vue": "0.0.9",
     "axios": "^0.19.2",

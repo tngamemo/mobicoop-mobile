@@ -81,6 +81,8 @@
 
 .partner-img {
   width: 50%;
+  object-fit: contain;
+  max-height: 100px;
 }
 
 .mc-home-header {

@@ -18,3 +18,18 @@ target 'App' do
   capacitor_pods
   # Add your Pods here
 end
+
+target 'OuestGo' do
+  capacitor_pods
+  # Add your Pods here
+end
+
+target 'Movici' do
+  capacitor_pods
+  # Add your Pods here
+end
+
+target 'Picholines' do
+  capacitor_pods
+  # Add your Pods here
+end

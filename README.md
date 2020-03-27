@@ -47,6 +47,7 @@ npx cap open [platform]
     * Créer un fichier XCAssets [instance-name]Assets.xcassets et modifier ses Target Membership
     * Ajouter logo et splash dans le fichier XCAssets
     * Ajouter le scheme control script dans Build Phases
+    * Ajouter la target dans le Podfile et faire npx cap sync ios
 
 # Dans le projet Android :
     * Ajouter un productFlavors dans le fichier build.gradle (Module: app)
