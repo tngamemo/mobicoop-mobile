@@ -353,6 +353,19 @@ export default {
               background: "mc-icon-step-background-primary"
             };
           }
+
+          case "step":
+          if (step.role == "driver") {
+            return {
+              name: "flag",
+              background: "mc-icon-step-background-green"
+            };
+          } else {
+            return {
+              name: "flag",
+              background: "mc-icon-step-background-primary"
+            };
+          }
           break;
         default:
           break;

@@ -282,7 +282,8 @@
     "outward": "L'Aller",
     "return": "Retour",
     "chooseSchedule": "Choisir les trajets",
-    "success" : "Demande envoyé"
+    "success" : "Demande envoyé",
+    "contactSuccess": "La demande de contact a été envoyé"
   },
   "Community" : {
     "title": "Communauté",
