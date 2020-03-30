@@ -83,6 +83,7 @@
               color="primary"
               expand="block"
               fill="outline"
+              v-on:click="contact()"
             >
               <ion-icon name="mail" class="ion-padding-end"></ion-icon>
               {{ $t('DetailCarpool.contact') }}
@@ -487,6 +488,41 @@ export default {
         default:
           break;
       }
+    },
+
+    contact() {
+      let role = 1;
+      let result = this.carpoolSelected.resultDriver;
+      if (
+        !!this.carpoolSelected.resultDriver &&
+        !!this.carpoolSelected.resultPassenger
+      ) {
+        role = 3;
+      } else if (!!this.carpoolSelected.resultPassenger) {
+        role = 2;
+        result = this.carpoolSelected.resultPassenger;
+      }
+
+      const adId = result.outward.proposalId;
+      const matchingId = result.outward.matchingId;
+
+      const payload = {
+        role,
+        adId,
+        matchingId,
+        paused: false
+      };
+
+      this.$store
+        .dispatch("contactCarpool", payload)
+        .then(resp => {
+          this.presentToast(this.$t("AskCarpool.contactSuccess"), "success");
+          this.$router.push({name: 'messages'})
+        })
+        .catch(err => {
+          console.log(err);
+          this.presentToast(this.$t("Commons.error"), "danger");
+        });
     }
   }
 };

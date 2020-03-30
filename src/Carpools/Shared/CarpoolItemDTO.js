@@ -43,6 +43,7 @@ export default class CarpoolItemDTO {
     this.isMultipleTimes = false;
     this.paused = carpool.paused;
     this.proposalId = carpool.proposalId
+    this.potentialCarpoolers = carpool.potentialCarpoolers;
     if (carpool.frequency == 1) {
       this.date = carpool.outwardDate;
       this.time = carpool.outwardTime;

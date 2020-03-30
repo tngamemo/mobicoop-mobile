@@ -340,8 +340,14 @@ export default {
 
   methods: {
     getCarpoolAsk() {
-      const index = this.$route.params.param;
-      this.carpoolSelected = this.$store.getters.resultSearch[index];
+      this.fromMessage = this.$route.params.param == "fromMessage";
+      if (this.fromMessage) {
+        this.carpoolSelected = this.$store.getters.askFromMessage.results[0];
+        this.askFromMessage = this.$store.getters.askFromMessage;
+      } else {
+        const index = this.$route.params.param;
+        this.carpoolSelected = this.$store.getters.resultSearch[index];
+      }
 
       if (!!this.carpoolSelected) {
         this.carpoolRecap = new RecapCarpoolDTO().fromAskCarpool(

@@ -36,6 +36,7 @@ export const carpoolStore = {
       state.statusCarpoolPost = '';
       state.statusDistanceCarpool = '';
       state.statusPriceCarpool = '';
+      state.statusContactCarpool = '';
       state.distanceCarpool = '';
       state.directPointsCarpool = '';
       state.priceCarpool = '';
@@ -229,6 +230,18 @@ export const carpoolStore = {
 
     carpool_pause_error(state) {
       state.statusPauseCarpool = 'error';
+    },
+
+    carpool_contact_request(state) {
+      state.statusContactCarpool = 'loading';
+    },
+
+    carpool_contact_success(state) {
+      state.statusContactCarpool = 'success';
+    },
+
+    carpool_contact_error(state) {
+      state.statusContactCarpool = 'error';
     }
 
 
@@ -398,6 +411,21 @@ export const carpoolStore = {
             reject(err)
           })
       })
+    },
+
+    contactCarpool({commit}, payload) {
+      return new Promise((resolve, reject) => {
+        commit('carpool_contact_request');
+        return http.post(`/carpools/contact`, payload)
+          .then(resp => {
+            commit('carpool_contact_success');
+            resolve(resp)
+          })
+          .catch(err => {
+            commit('carpool_contact_error');
+            reject(err)
+          })
+      })
     }
 
   },
@@ -428,6 +456,10 @@ export const carpoolStore = {
 
     statusPauseCarpool: state => {
       return state.statusPauseCarpool
+    },
+
+    statusContactCarpool: state => {
+      return state.statusContactCarpool
     },
   },
 }

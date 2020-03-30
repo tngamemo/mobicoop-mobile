@@ -95,12 +95,40 @@
           <span class="ion-margin-start">{{$t('Commons.delete')}}</span>
         </ion-button>
 
-
-        <ion-button :ref="'test'" class="mc-small-button" color="primary" @click="pauseCarpool(carpool.id)">
-          <ion-icon color="light" v-if="!paused && this.$store.getters.statusPauseCarpool != 'loading'" name="pause"></ion-icon>
-          <ion-icon color="light" v-if="paused && this.$store.getters.statusPauseCarpool != 'loading'" name="play"></ion-icon>
-          <ion-icon color="light" v-if="this.$store.getters.statusPauseCarpool == 'loading'" name="md-sync"></ion-icon>
+        <ion-button
+          :ref="'test'"
+          class="mc-small-button"
+          color="primary"
+          @click="pauseCarpool(carpool.id)"
+        >
+          <ion-icon
+            color="light"
+            v-if="!paused && this.$store.getters.statusPauseCarpool != 'loading'"
+            name="pause"
+          ></ion-icon>
+          <ion-icon
+            color="light"
+            v-if="paused && this.$store.getters.statusPauseCarpool != 'loading'"
+            name="play"
+          ></ion-icon>
+          <ion-icon
+            color="light"
+            v-if="this.$store.getters.statusPauseCarpool == 'loading'"
+            name="md-sync"
+          ></ion-icon>
         </ion-button>
+      </div>
+      <div
+        v-if="type == 'my-carpool' && carpool.potentialCarpoolers > 0"
+        class="mc-carpool-potential-carpoolers"
+      >
+        <ion-button
+          class="mc-big-button"
+          fill="outline"
+          color="success"
+          expand="block"
+          @click="searchPotentialCarpoolers()"
+        >{{carpool.potentialCarpoolers}} {{$t("MyCarpools.potentialCarpoolers")}}</ion-button>
       </div>
     </div>
   </div>
@@ -244,6 +272,10 @@
       --size: 40px;
       --border-radius: 50%;
     }
+
+    .mc-carpool-potential-carpoolers {
+      margin-top: 20px;
+    }
   }
 }
 </style>
@@ -333,6 +365,36 @@ export default {
         .catch(err => {
           this.presentToast(this.$parent.$t("Commons.error"), "danger");
         });
+    },
+
+    searchPotentialCarpoolers() {
+      let addressDTOOrigin = this.carpool.origin;
+      const displayGeoOrigin = `${
+        !!addressDTOOrigin.addressLocality
+          ? addressDTOOrigin.addressLocality
+          : ""
+      }, ${
+        !!addressDTOOrigin.addressCountry ? addressDTOOrigin.addressCountry : ""
+      }`;
+      let addressDTODestination = this.carpool.destination;
+      const displayGeoDestination = `${
+        !!addressDTODestination.addressLocality
+          ? addressDTODestination.addressLocality
+          : ""
+      }, ${
+        !!addressDTOOrigin.addressCountry ? addressDTOOrigin.addressCountry : ""
+      }`;
+      this.$store.commit("changeOrigin", {
+        addressDTO: addressDTOOrigin,
+        displayGeo: displayGeoOrigin
+      });
+      this.$store.commit("changeDestination", {
+        addressDTO: addressDTODestination,
+        displayGeo: displayGeoDestination
+      });
+
+      this.$store.state.searchStore.searchObject.frequency = this.carpool.frequency;
+      this.$router.push({ name: "search" });
     }
   }
 };
