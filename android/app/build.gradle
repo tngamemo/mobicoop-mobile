@@ -1,0 +1,99 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "eu.covivo.covisoft"
+        minSdkVersion 21
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    flavorDimensions "api"
+    productFlavors {
+        ouestgo {
+            applicationId 'eu.covivo.ouestgo'
+            versionName '2.0.0'
+            dimension "api"
+        }
+        movici {
+            applicationId 'fr.auvergnerhonealpes.movici'
+            versionName '2.0.0'
+            dimension "api"
+        }
+        picholines {
+          applicationId 'eu.covivo.picholines'
+          versionName '2.0.0'
+          dimension "api"
+        }
+    }
+}
+
+repositories {
+    maven {
+        url  "https://dl.bintray.com/ionic-team/capacitor"
+    }
+    flatDir{
+        dirs '../capacitor-cordova-android-plugins/src/main/libs', 'libs'
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation project(':capacitor-android')
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation project(':capacitor-cordova-android-plugins')
+}
+
+apply from: 'capacitor.build.gradle'
+
+try {
+    def servicesJSON = file('google-services.json')
+    if (servicesJSON.text) {
+        apply plugin: 'com.google.gms.google-services'
+    }
+} catch(Exception e) {
+    logger.warn("google-services.json not found, google-services plugin not applied. Push Notifications won't work")
+}
+
+import java.util.regex.Matcher
+import java.util.regex.Pattern
+
+task flavourCheck() {
+  println "Vérification de la flavour"
+  String fileContents = new File('app/src/main/assets/public/build.info').text
+  Gradle gradle = getGradle()
+  String tskReqStr = gradle.getStartParameter().getTaskRequests().toString()
+  println tskReqStr
+  Pattern pattern
+  if (tskReqStr.contains("assemble")) {
+    pattern = Pattern.compile("assemble(\\w+)(Release|Debug)")
+  } else  if (tskReqStr.contains("generate")) {
+    pattern = Pattern.compile("generate(\\w+)(Release|Debug)")
+  } else {
+    println "skipCheckFlavour"
+    return
+  }
+  Matcher matcher = pattern.matcher(tskReqStr)
+  if (matcher.find()) {
+    if (!fileContents.toLowerCase().startsWith(matcher.group(1).toLowerCase())) {
+      println matcher.group(1).toLowerCase()
+      throw new GradleException('error flavor occurred')
+    }
+    println "OK"
+    return
+  } else {
+    println "NO MATCH FOUND"
+    throw new GradleException('error flavor occurred')
+  }
+}
