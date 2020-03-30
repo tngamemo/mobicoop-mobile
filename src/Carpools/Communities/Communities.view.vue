@@ -22,9 +22,10 @@
               item
               v-for="(commu, index) in userCommunities"
               :key="index"
-              class="mc-my-community"
+              class="mc-my-community pointer"
+              v-on:click="goToCommunity(commu.id)"
             >
-              <ion-thumbnail>
+              <ion-thumbnail >
                 <img :src="!!commu.images[0] && commu.images[0].versions.square_250" />
               </ion-thumbnail>
             </div>
@@ -58,7 +59,7 @@
           <div class="d-flex mc-communities-community">
             <div class="mc-communities-avatar">
               <ion-thumbnail>
-                <img :src="!!commu.images[0] && commu.images[0].versions.square_250" />
+                <img :src="!!commu.images[0] && commu.images[0].versions.square_250" alt="" />
               </ion-thumbnail>
             </div>
             <div class="mc-communities-text">
