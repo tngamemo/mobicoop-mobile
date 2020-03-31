@@ -1,7 +1,7 @@
 <template>
   <div class="mc-form-carpool-price">
     <div class="mc-carpool-price">
-      <span>Participation de</span>
+      <span>Participation (<span>par passager</span>)</span>
       <div class="mc-carpool-price-input">
         <ion-item>
           <ion-input
@@ -13,7 +13,7 @@
         </ion-item>
         <span>{{priceKmTmp}}€/km</span>
       </div>
-      <span>par passager</span>
+
     </div>
     <div v-if="$v.priceCarpool.$error">
       <div class="mc-error-label" v-if="$v.priceCarpool.required">{{$t('Validation.required')}}</div>
@@ -51,6 +51,7 @@
   flex-direction: column;
   .mc-carpool-price {
     display: flex;
+    flex-direction: column;
     color: var(--ion-color-primary);
     justify-content: center;
     align-items: center;
@@ -62,7 +63,7 @@
       flex: 1;
 
       span {
-        color: #F2994A;
+        color: var(--ion-color-primary);
         font-size: smaller;
       }
     }
@@ -144,8 +145,10 @@ export default {
     changePrice(value) {
       // this.$store.commit("changeOptionsCarpoolPost", { property, value });
       const price = value;
-
       this.priceKmTmp = (price / this.distanceCarpool * 1000).toFixed(2);
+      if (isNaN(this.priceKmTmp)) {
+        this.priceKmTmp = 0;
+      }
       const initialPriceKm = process.env.VUE_APP_PRICE_BY_KM;
 
       if (this.priceKmTmp >= (initialPriceKm * 2) && this.priceKmTmp < 0.30) {
@@ -158,6 +161,7 @@ export default {
           this.warningPriceKm = 0;
       }
 
+    console.log(this.priceKmTmp)
       this.$store.dispatch('getPriceofCarpool', {priceKm: this.priceKmTmp}).then(resp => {
         this.priceRound = resp.data.value;
         if (resp.data.value != price) {
