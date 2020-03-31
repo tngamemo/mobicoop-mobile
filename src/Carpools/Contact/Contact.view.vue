@@ -52,6 +52,11 @@
           ></ion-textarea>
         </ion-item>
 
+        <p class="mc-contact-rgpd">
+          {{$t('Contact.rgpd')}}
+          <a class="link" :href="link">{{ $t('Contact.protectionLink') }}</a>.
+        </p>
+
         <ion-button class="mc-small-button" color="success" expand="block" @click="sendContact()">
           <span v-if="this.$store.getters.statusContact == 'loading'">
             <ion-icon size="large" class="rotating" name="md-sync"></ion-icon>
@@ -73,6 +78,15 @@
     border: 1px solid var(--ion-color-primary);
     border-radius: 20px;
     padding: 10px;
+  }
+
+  .mc-contact-rgpd {
+    font-size: small;
+    font-style: italic;
+
+    .link {
+      color: var(--ion-color-warning);
+    }
   }
 }
 </style>
@@ -98,7 +112,8 @@ export default {
         demand: "",
         message: "",
         type: 0
-      }
+      },
+      link: process.env.VUE_APP_PRIVACY_LINK
     };
   },
   validations: {
@@ -128,12 +143,15 @@ export default {
       if (this.$v.$invalid) {
         this.presentToast(this.$t("Contact.missing"), "danger");
       } else {
-        this.$store.dispatch('sendContact', this.contactForm).then(resp => {
-          this.presentToast(this.$t("Contact.success"), "success");
-        }).catch(err => {
-          console.log(err)
-          this.presentToast(this.$t("Commons.error"), "danger");
-        })
+        this.$store
+          .dispatch("sendContact", this.contactForm)
+          .then(resp => {
+            this.presentToast(this.$t("Contact.success"), "success");
+          })
+          .catch(err => {
+            console.log(err);
+            this.presentToast(this.$t("Commons.error"), "danger");
+          });
       }
     }
   }
