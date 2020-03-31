@@ -259,6 +259,18 @@
     methods: {
       changePicture(e) {
         const file = e.target.files[0];
+        if (this.user.images.length > 0) {
+          Promise.all([this.user.images.map(item => {
+            return this.$store.dispatch('deleteImage', item.id );
+          })]).then(() => {
+            this.updateUserPicture(file);
+          })
+        }else {
+          this.updateUserPicture(file);
+        }
+
+      },
+      updateUserPicture(file) {
         this.$store.dispatch('updateUserPicture', { userId : this.user.id, file: file })
           .then(res => {
             this.$store.dispatch('getUser', { idUser: this.user.id }).then(res => {

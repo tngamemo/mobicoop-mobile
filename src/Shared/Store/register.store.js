@@ -42,6 +42,9 @@ export const registerStore = {
     },
 
     register_reset(state) {
+      let n = new Date();
+      n.setFullYear(n.getFullYear() - 16);
+
       state.userToRegister = {
         status: 1,
           givenName: '',
@@ -54,7 +57,7 @@ export const registerStore = {
           multiTransportMode: true,
           userAgreementAccepted: false,
           phoneDisplay: 1,
-          birthDate: new Date().toISOString(),
+          birthDate: n.toISOString(),
           maxDeviationTime:600,
           maxDeviationDistance:10000,
           anyRouteAsPassenger:false,

@@ -7,7 +7,7 @@ export const communityStore = {
     statusJoinCommunity: '',
     statusLeaveCommunity: '',
     statusAdsCommunity: '',
-    communities: null,
+    communities: [],
   },
   mutations: {
     communities_request(state) {

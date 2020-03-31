@@ -41,7 +41,7 @@
           ></ion-searchbar>
         </div>
 
-        <ion-button class="mc-big-button" color="success" expand="block" v-on:click="showToast()">
+        <ion-button v-if="canCreateCommunity" class="mc-big-button" color="success" expand="block" v-on:click="showToast()">
           <ion-icon name="add" class="ion-padding-end"></ion-icon>
           {{ $t('Communities.create')}}
         </ion-button>
@@ -138,7 +138,8 @@ export default {
   mixins: [toast],
   data() {
     return {
-      searchText: ""
+      searchText: "",
+      canCreateCommunity: JSON.parse(process.env.VUE_APP_CAN_CREATE_COMMUNITY)
     };
   },
   created() {

@@ -226,6 +226,18 @@ export const userStore = {
       })
     },
 
+    deleteImage({commit}, id) {
+      return new Promise((resolve, reject) => {
+        http.delete(`/images/` + id)
+          .then(resp => {
+            resolve(resp)
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
+    },
+
     logout({commit}) {
       return new Promise((resolve, reject) => {
         commit('logout');
