@@ -135,6 +135,7 @@
     padding: 4px;
     color: white;
     margin-right: 10px;
+    min-width: 16px;
   }
 
   .mc-icon-step-background-primary {

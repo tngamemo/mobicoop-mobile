@@ -76,7 +76,11 @@ async function createToasterLogin() {
       {
         text: 'Se reconnecter',
         handler: () => {
-          existingVueInstance.$router.push({ name: 'login' })
+          existingVueInstance.$store.dispatch("logout").then(() => {
+            // On va authentifier l'appli via un utilisateur anonyme
+            existingVueInstance.$store.dispatch("authAnonymousUser");
+            existingVueInstance.$router.push({ name: 'login' })
+          });
         }
       }
     ]

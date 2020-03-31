@@ -63,25 +63,31 @@
               <div
                 v-for="(user, index) in community.communityUsers"
                 :key="index"
-                class="scroll-item"
+                class="scroll-item pointer"
+                @click="goToMessage(user.user)"
               >
                 <ion-thumbnail>
                   <img :src="user.user.avatars[0]" alt />
                 </ion-thumbnail>
                 {{user.user.givenName}}
-                <ion-icon
-                  size="large"
-                  color="primary"
-                  name="star"
-                  v-if="idCommunityReferent == user.user.id"
-                ></ion-icon>
 
-                <ion-icon
-                  size="large"
-                  color="primary"
-                  name="star-half"
-                  v-if="user.status == 2 && !idCommunityReferent == user.user.id"
-                ></ion-icon>
+                <div>
+                  <ion-icon
+                    size="large"
+                    color="primary"
+                    name="star"
+                    v-if="idCommunityReferent == user.user.id"
+                  ></ion-icon>
+                  <ion-icon
+                    size="large"
+                    color="primary"
+                    name="star-half"
+                    v-if="user.status == 2 && !idCommunityReferent == user.user.id"
+                  ></ion-icon>
+                  <ion-icon size="large" color="primary" name="chatboxes"></ion-icon>
+                </div>
+
+
               </div>
             </ion-scroll>
           </ion-row>
@@ -155,6 +161,7 @@
         align-items: center;
         justify-content: space-around;
         width: 120px;
+        min-width: 120px;
         height: 160px;
         ion-thumbnail {
           --border-radius: 50%;
@@ -272,6 +279,11 @@ export default {
       });
 
       this.LPolyline = polyline;
+    },
+
+    goToMessage(user) {
+      this.$store.commit('set_temp_direct_thread', user);
+      this.$router.push({ name: "message" , params : {idAsk : -99, idRecipient : user.id}});
     }
   }
 };
