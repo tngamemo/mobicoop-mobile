@@ -1,7 +1,10 @@
 <template>
   <div class="mc-form-carpool-recap">
     <div class="mc-recap-item">
-      <div class="mc-recap-header d-flex flex-wrap justify-between align-center" v-if="type != 'askCarpool'">
+      <div
+        class="mc-recap-header d-flex flex-wrap justify-between align-center"
+        v-if="type != 'askCarpool'"
+      >
         <div v-if="recap.frequency == 2" class="d-flex flex-wrap">
           <div v-for="(day, index) in recap.regularDays" :key="index">
             <div class="mc-pastille-day" v-bind:class="{ 'selected': day.value }">
@@ -65,7 +68,6 @@
         </div>
       </div>
 
-
       <div class="mc-recap-footer text-left" v-if="!! recap.seats && type != 'askCarpool'">
         Places disponibles
         <div class="d-flex">
@@ -100,7 +102,13 @@
         :options="optionsCard"
       >
         <l-tile-layer v-if="bounds" :url="url"></l-tile-layer>
-        <l-polyline v-if="bounds" :lat-lngs="recap.directPoints" :color="'red'"></l-polyline>
+        <l-polyline v-if="bounds" :lat-lngs="recap.directPoints" :color="'blue'"></l-polyline>
+        <l-marker
+          :lat-lng="[recap.outwardWaypoints[0].latitude, recap.outwardWaypoints[0].longitude]"
+        ></l-marker>
+        <l-marker
+          :lat-lng="[recap.outwardWaypoints[recap.outwardWaypoints.length - 1].latitude, recap.outwardWaypoints[recap.outwardWaypoints.length - 1].longitude]"
+        ></l-marker>-->
       </l-map>
     </div>
   </div>
@@ -259,7 +267,6 @@
       flex-direction: column;
       margin-left: 20px;
 
-
       p {
         margin: 0;
         font-weight: bold;
@@ -270,7 +277,7 @@
 </style>
 
 <script>
-import { LMap, LTileLayer, LPolyline } from "vue2-leaflet";
+import { LMap, LTileLayer, LPolyline, LMarker } from "vue2-leaflet";
 import { isPlatform } from "@ionic/core";
 
 export default {
@@ -290,10 +297,12 @@ export default {
   components: {
     LMap,
     LTileLayer,
-    LPolyline
+    LPolyline,
+    LMarker
   },
   props: ["recap", "type"],
   mounted() {
+    console.log(this.recap);
     setTimeout(() => {
       if (!!this.$refs.mapRecap) this.$refs.mapRecap.mapObject.invalidateSize();
     }, 500);
@@ -354,7 +363,7 @@ export default {
             };
           }
 
-          case "step":
+        case "step":
           if (step.role == "driver") {
             return {
               name: "flag",

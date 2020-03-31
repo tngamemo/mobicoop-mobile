@@ -96,6 +96,7 @@
         </ion-button>
 
         <ion-button
+          v-if="carpool.frequency == 2"
           :ref="'test'"
           class="mc-small-button"
           color="primary"

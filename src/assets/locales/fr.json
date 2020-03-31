@@ -320,7 +320,9 @@
     "cancel": "Annuler",
     "send": "Envoyer",
     "missing": "Les informations ne sont pas correctement données",
-    "success": "La demande de contact a été envoyé"
+    "success": "La demande de contact a été envoyé",
+    "rgpd": "Pour connaitre et exercer vos droits, notamment de retrait de votre consentement à l'utilisation de données collectées par ce formulaire, veuillez consulter notre politique de ",
+    "protectionLink": "protection des données"
   },
   "Solidarity": {
     "title": "Solidarité"
