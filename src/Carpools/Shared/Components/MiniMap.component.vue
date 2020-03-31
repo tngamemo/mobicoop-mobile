@@ -9,7 +9,7 @@
     :options="optionsCard"
   >
     <l-tile-layer :url="url"></l-tile-layer>
-    <l-polyline v-if="bounds && this.LPolyline" :lat-lngs="this.LPolyline" :color="'red'"></l-polyline>
+    <l-polyline v-if="bounds && this.LPolyline" :lat-lngs="this.LPolyline" :color="'blue'"></l-polyline>
     <div v-if="LMarker">
       <l-marker v-for="(marker, index) in  LMarker" :lat-lng="marker.latlng" :key="index">
         <l-popup

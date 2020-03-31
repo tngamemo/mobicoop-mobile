@@ -109,7 +109,7 @@
   import Login from '../Login/Login.view.vue';
   import Article from '../Article/Article.view.vue';
   import Messages from '../Messages/Messages.view.vue';
-  import Communities from '../Communities/Communities.view.vue';
+  import Communities from '../Communities/Communities/Communities.view.vue';
   import Profile from '../Profile/Profile.view.vue';
   import { isPlatform } from "@ionic/core";
 

@@ -166,9 +166,9 @@
 </style>
 
 <script>
-import { toast } from "../../Shared/Mixin/toast.mixin";
-import SearchQuick from "../Shared/Components/SearchQuick.component";
-import MiniMap from "../Shared/Components/MiniMap.component";
+import { toast } from "../../../Shared/Mixin/toast.mixin";
+import SearchQuick from "../../Shared/Components/SearchQuick.component";
+import MiniMap from "../../Shared/Components/MiniMap.component";
 
 export default {
   name: "carpool-community",

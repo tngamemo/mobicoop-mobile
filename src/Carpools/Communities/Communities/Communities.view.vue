@@ -47,7 +47,7 @@
           ></ion-searchbar>
         </div>
 
-        <ion-button class="mc-big-button" color="success" expand="block" v-on:click="showToast()">
+        <ion-button class="mc-big-button" color="success" expand="block" v-on:click="goToPostCommunity()">
           <ion-icon name="add" class="ion-padding-end"></ion-icon>
           {{ $t('Communities.create')}}
         </ion-button>
@@ -137,7 +137,7 @@
 </style>
 
 <script>
-import { toast } from "../../Shared/Mixin/toast.mixin";
+import { toast } from "../../../Shared/Mixin/toast.mixin";
 
 export default {
   name: "carpool-communities",
@@ -175,8 +175,10 @@ export default {
     }
   },
   methods: {
-    showToast() {
-      this.presentToast(this.$t("Communities.notDevelopp"), "warning");
+    goToPostCommunity() {
+      this.$router.push({
+        name: "post-community",
+      });
     },
 
     goToCommunity(idCommu) {

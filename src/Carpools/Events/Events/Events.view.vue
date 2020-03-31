@@ -21,7 +21,12 @@
           ></ion-searchbar>
         </div>
 
-        <ion-button class="mc-big-button" color="success" expand="block" v-on:click="showToast()">
+        <ion-button
+          class="mc-big-button"
+          color="success"
+          expand="block"
+          v-on:click="goToPostEvent()"
+        >
           <ion-icon name="add" class="ion-padding-end"></ion-icon>
           {{ $t('Events.create')}}
         </ion-button>
@@ -92,8 +97,8 @@
 </style>
 
 <script>
-import { toast } from "../../Shared/Mixin/toast.mixin";
-import MiniMap from "../Shared/Components/MiniMap.component";
+import { toast } from "../../../Shared/Mixin/toast.mixin";
+import MiniMap from "../../Shared/Components/MiniMap.component";
 
 export default {
   name: "carpool-events",
@@ -120,14 +125,20 @@ export default {
   },
   computed: {
     events() {
-      return this.$store.getters.events.filter(event => {
-        return event.name.toUpperCase().includes(this.searchText.toUpperCase());
-      });
+      if (!!this.$store.getters.events) {
+        return this.$store.getters.events.filter(event => {
+          return event.name
+            .toUpperCase()
+            .includes(this.searchText.toUpperCase());
+        });
+      }
     }
   },
   methods: {
-    showToast() {
-      this.presentToast(this.$t("Events.notDevelopp"), "warning");
+    goToPostEvent() {
+      this.$router.push({
+        name: "post-event"
+      });
     },
 
     goToEvent(idEvent) {
