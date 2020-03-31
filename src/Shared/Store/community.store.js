@@ -7,7 +7,9 @@ export const communityStore = {
     statusJoinCommunity: '',
     statusLeaveCommunity: '',
     statusAdsCommunity: '',
+    statusPostCommunity: '',
     communities: null,
+    postCommunity: null
   },
   mutations: {
     communities_request(state) {
@@ -70,7 +72,35 @@ export const communityStore = {
 
     ads_community_error(state) {
       state.statusAdsCommunity = 'error';
-    }
+    },
+
+    init_post_community(state) {
+      state.postCommunity = {
+        name: '',
+        description: '',
+        fullDescription: '',
+        address: {},
+        secured: false,
+        user: '',
+        communityUsers: ''
+      };
+    },
+
+    post_community_request(state) {
+      state.statusPostCommunity = 'loading';
+    },
+
+    post_community_success(state) {
+      state.statusPostCommunity = 'success';
+    },
+
+    post_community_error(state) {
+      state.statusPostCommunity = 'error';
+    },
+
+    updateCommunityAddress(state, payload) {
+      state.postCommunity.address = payload.addressDTO;
+    },
 
   },
   actions: {
@@ -154,6 +184,22 @@ export const communityStore = {
           })
       })
     },
+
+    postCommunity({commit}, payload) {
+      commit('post_community_request');
+      return new Promise((resolve, reject) => {
+        http.post(`/communities`, payload)
+          .then(resp => {
+            resolve(resp)
+            commit('post_community_success');
+          })
+          .catch(err => {
+            console.log('error');
+            commit('post_community_error');
+            reject(err)
+          })
+      })
+    },
   },
   getters : {
     communities: state => {
@@ -170,6 +216,14 @@ export const communityStore = {
 
     statusLeaveCommunity: state => {
       return state.statusLeaveCommunity;
+    },
+
+    postCommunity: state => {
+      return state.postCommunity;
+    },
+
+    statusPostCommunity: state => {
+      return state.statusPostCommunity;
     }
   }
 }
