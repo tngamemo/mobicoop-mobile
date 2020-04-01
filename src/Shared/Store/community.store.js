@@ -8,7 +8,7 @@ export const communityStore = {
     statusLeaveCommunity: '',
     statusAdsCommunity: '',
     statusPostCommunity: '',
-    communities: null,
+    communities: [],
     postCommunity: null
   },
   mutations: {

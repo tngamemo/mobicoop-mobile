@@ -126,7 +126,7 @@
         name: 'registerStep2',
         data () {
             return {
-                maxBirthDate: new Date().toISOString()
+                maxBirthDate: this.getMaxBirthDate()
             }
         },
         validations: {
@@ -168,6 +168,11 @@
         created() {
         },
         methods: {
+            getMaxBirthDate() {
+              let n = new Date();
+              n.setFullYear(n.getFullYear() - 16);
+              return n.toISOString();
+            },
             goGeoSearch(type, action) {
                 this.$router.push({ name: "geoSearch", query: { type, action }});
             },

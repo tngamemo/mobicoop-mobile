@@ -70,7 +70,7 @@ export const userStore = {
 
     user_my_carpools_request_success(state, data) {
       state.statusMyCarpools = 'success';
-      state.myCarpools = data['hydra:member'];
+      state.myCarpools = data['hydra:member'].reverse();
     },
 
 
@@ -217,6 +217,18 @@ export const userStore = {
         formData.append('userId', Number(params.userId));
 
         http.post(`/images`, formData)
+          .then(resp => {
+            resolve(resp)
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
+    },
+
+    deleteImage({commit}, id) {
+      return new Promise((resolve, reject) => {
+        http.delete(`/images/` + id)
           .then(resp => {
             resolve(resp)
           })

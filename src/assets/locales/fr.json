@@ -270,7 +270,7 @@
     "driver": "Conducteur",
     "passenger": "Passager",
     "chooseRole": "Choisir le role",
-    "askDate": "Je souhaite faire une demande en tant pour...",
+    "askDate": "Je souhaite faire une demande pour...",
     "week": "Une semaine",
     "month": "Un mois",
     "specificDate": "Jusqu'à une date précise",

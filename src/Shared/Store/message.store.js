@@ -9,7 +9,8 @@ export const messageStore = {
     statusCompleteThread: '',
     completeThread: null,
     statusPostMessage: '',
-    askFromMessage: null
+    askFromMessage: null,
+    tempDirectThread: null
   },
   mutations: {
     message_carpool_request(state) {
@@ -68,6 +69,20 @@ export const messageStore = {
     post_message_error(state) {
       state.statusPostMessage = 'error';
     },
+
+    set_temp_direct_thread(state, user) {
+      let n = {};
+      n.idRecipient = user.id;
+      n.givenName = user.givenName;
+      n.shortFamilyName = user.shortFamilyName;
+      n.avatarsRecipient = user.avatars[0];
+      n.date = new Date();
+      state.tempDirectThread = n;
+    },
+
+    reset_temp_direct_thread(state) {
+      state.tempDirectThread = null;
+    }
 
   },
   actions: {
