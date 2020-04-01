@@ -10,11 +10,17 @@
     </ion-header>
 
     <ion-content color="primary" no-bounce>
-      <div class="ion-text-center ion-margin-top" v-if="this.$store.getters.statusGetCommunities == 'loading'">
+      <div
+        class="ion-text-center ion-margin-top"
+        v-if="this.$store.getters.statusGetCommunities == 'loading'"
+      >
         <ion-icon size="large" color="light" class="rotating" name="md-sync"></ion-icon>
       </div>
 
-      <div class="mc-communities-first-block" v-if="this.$store.getters.statusGetCommunities != 'loading'">
+      <div
+        class="mc-communities-first-block"
+        v-if="this.$store.getters.statusGetCommunities != 'loading'"
+      >
         <div class="mc-my-communities" v-if="!!userCommunities">
           <p>{{ $t('Communities.myCommunities')}}</p>
           <div class="d-flex">
@@ -25,7 +31,7 @@
               class="mc-my-community pointer"
               v-on:click="goToCommunity(commu.id)"
             >
-              <ion-thumbnail >
+              <ion-thumbnail>
                 <img :src="!!commu.images[0] && commu.images[0].versions.square_250" />
               </ion-thumbnail>
             </div>
@@ -41,7 +47,7 @@
           ></ion-searchbar>
         </div>
 
-        <ion-button v-if="canCreateCommunity" class="mc-big-button" color="success" expand="block" v-on:click="showToast()">
+        <ion-button v-if="canCreateCommunity" class="mc-big-button" color="success" expand="block" v-on:click="goToPostCommunity()">
           <ion-icon name="add" class="ion-padding-end"></ion-icon>
           {{ $t('Communities.create')}}
         </ion-button>
@@ -59,7 +65,7 @@
           <div class="d-flex mc-communities-community">
             <div class="mc-communities-avatar">
               <ion-thumbnail>
-                <img :src="!!commu.images[0] && commu.images[0].versions.square_250" alt="" />
+                <img :src="!!commu.images[0] && commu.images[0].versions.square_250" alt />
               </ion-thumbnail>
             </div>
             <div class="mc-communities-text">
@@ -131,7 +137,7 @@
 </style>
 
 <script>
-import { toast } from "../../Shared/Mixin/toast.mixin";
+import { toast } from "../../../Shared/Mixin/toast.mixin";
 
 export default {
   name: "carpool-communities",
@@ -156,9 +162,13 @@ export default {
   },
   computed: {
     communities() {
-      return this.$store.getters.communities.filter(commu => {
-        return commu.name.toUpperCase().includes(this.searchText.toUpperCase());
-      });
+      if (!!this.$store.getters.communities) {
+        return this.$store.getters.communities.filter(commu => {
+          return commu.name
+            .toUpperCase()
+            .includes(this.searchText.toUpperCase());
+        });
+      }
     },
 
     userCommunities() {
@@ -166,8 +176,10 @@ export default {
     }
   },
   methods: {
-    showToast() {
-      this.presentToast(this.$t("Communities.notDevelopp"), "warning");
+    goToPostCommunity() {
+      this.$router.push({
+        name: "post-community",
+      });
     },
 
     goToCommunity(idCommu) {

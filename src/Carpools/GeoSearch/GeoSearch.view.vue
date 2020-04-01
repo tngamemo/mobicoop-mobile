@@ -130,7 +130,6 @@ export default {
       let addressDTO = address;
       this.$store.dispatch('setPreviousSearch', address);
       const displayGeo = `${address.addressLocality}, ${address.addressCountry}`;
-
       switch (this.action) {
         case "search": {
           switch (this.type) {
@@ -157,6 +156,22 @@ export default {
 
             case "update_user_address": {
               this.$store.commit("updateUserAddress", {
+                addressDTO,
+                displayGeo
+              });
+              break;
+            }
+
+            case "update_community_address": {
+              this.$store.commit("updateCommunityAddress", {
+                addressDTO,
+                displayGeo
+              });
+              break;
+            }
+
+            case "update_event_address": {
+              this.$store.commit("updateEventAddress", {
                 addressDTO,
                 displayGeo
               });

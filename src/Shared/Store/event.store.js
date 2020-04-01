@@ -5,7 +5,9 @@ export const eventStore = {
     statusGetEvents: '',
     statusGetEvent: '',
     statusSignalEvent: '',
+    statusPostEvent: '',
     events: null,
+    postEvent: null
   },
   mutations: {
     events_request(state) {
@@ -43,7 +45,43 @@ export const eventStore = {
 
     signal_event_error(state) {
       state.statusSignalEvent = 'error';
-    }
+    },
+
+    init_post_event(state) {
+      state.postEvent = {
+        name: '',
+        description: '',
+        fullDescription: '',
+        address: {},
+        fromDate: '',
+        toDate: '',
+        status: 1,
+        useTime: false,
+        url: '',
+        user: ''
+      };
+    },
+
+    post_event_request(state) {
+      state.statusPostEvent = 'loading';
+    },
+
+    post_event_success(state) {
+      state.statusPostEvent = 'success';
+    },
+
+    post_event_error(state) {
+      state.statusPostEvent = 'error';
+    },
+
+    updateEventAddress(state, payload) {
+      delete payload.addressDTO['@id'];
+      delete payload.addressDTO['id'];
+      delete payload.addressDTO['@type'];
+      delete payload.addressDTO['geoJson'];
+
+      state.postEvent.address = payload.addressDTO;
+    },
 
   },
   actions: {
@@ -95,6 +133,22 @@ export const eventStore = {
           })
       })
     },
+
+    postEvent({commit}, payload) {
+      commit('post_event_request');
+      return new Promise((resolve, reject) => {
+        http.post(`/events`, payload)
+          .then(resp => {
+            resolve(resp)
+            commit('post_event_success');
+          })
+          .catch(err => {
+            console.log('error');
+            commit('post_event_error');
+            reject(err)
+          })
+      })
+    },
   },
   getters: {
     events: state => {
@@ -111,6 +165,14 @@ export const eventStore = {
 
     statusSignalEvent: state => {
       return state.statusSignalEvent;
+    },
+
+    postEvent: state => {
+      return state.postEvent;
+    },
+
+    statusPostEvent: state => {
+      return state.statusPostEvent;
     }
   }
 }

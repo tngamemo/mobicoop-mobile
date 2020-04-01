@@ -109,7 +109,7 @@
         :bounds="bounds"
       >
         <l-tile-layer v-if="bounds" :url="url"></l-tile-layer>
-        <l-polyline v-if="bounds" :lat-lngs="directPointsCarpool" :color="'red'"></l-polyline>
+        <l-polyline v-if="bounds" :lat-lngs="directPointsCarpool" :color="'blue'"></l-polyline>
       </l-map>
     </div>
   </div>

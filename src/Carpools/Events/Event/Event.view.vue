@@ -30,12 +30,18 @@
           </ion-thumbnail>
         </div>
 
-        <div class="mc-event-description mc-event-padding">{{event.description}}</div>
+        <div class="mc-event-description mc-event-padding">
+          <span>{{event.description}}</span>
+          <div class="d-flex justify-between">
+            <span><b>Début : </b>{{event.fromDate | moment("utc", "DD/MM/YY") }}</span>
+            <span><b>Fin : </b>{{event.toDate | moment("utc", "DD/MM/YY") }}</span>
+          </div>
+          <p class="mc-event-address">{{event.address.displayLabel[0]}}, {{event.address.displayLabel[1]}}</p>
+        </div>
 
         <div class="mc-event-padding">
           <MiniMap :LMarker="LMarker" />
         </div>
-
       </div>
       <div class="mc-white-container" v-if="event">
         <SearchQuick />
@@ -63,6 +69,9 @@
   .mc-event-padding {
     padding: 30px;
   }
+  .mc-event-description {
+    padding-bottom: 0px !important;
+  }
   .mc-event-avatar {
     display: flex;
     justify-content: center;
@@ -71,13 +80,18 @@
       --border-radius: 50%;
     }
   }
+  .mc-event-address {
+    margin-bottom: 0;
+    font-style:  italic;
+    font-size: small;
+  }
 }
 </style>
 
 <script>
-import { toast } from "../../Shared/Mixin/toast.mixin";
-import SearchQuick from "../Shared/Components/SearchQuick.component";
-import MiniMap from "../Shared/Components/MiniMap.component";
+import { toast } from "../../../Shared/Mixin/toast.mixin";
+import SearchQuick from "../../Shared/Components/SearchQuick.component";
+import MiniMap from "../../Shared/Components/MiniMap.component";
 
 export default {
   name: "carpool-event",
@@ -109,7 +123,13 @@ export default {
               displayGeo: `${this.event.address.displayLabel[0]} , ${this.event.address.displayLabel[1]}`
             });
 
-            this.LMarker.push({latlng: [this.event.address.latitude, this.event.address.longitude], name: this.event.name});
+            this.LMarker.push({
+              latlng: [
+                this.event.address.latitude,
+                this.event.address.longitude
+              ],
+              name: this.event.name
+            });
           }
         })
         .catch(error => {
@@ -155,10 +175,7 @@ export default {
                   this.$store
                     .dispatch("signalEvent", payload)
                     .then(
-                      this.presentToast(
-                        this.$t("Event.signalSend"),
-                        "success"
-                      )
+                      this.presentToast(this.$t("Event.signalSend"), "success")
                     );
                 } else {
                   this.presentToast(this.$t("Event.missingInfo"), "danger");

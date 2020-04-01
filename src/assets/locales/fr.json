@@ -320,7 +320,9 @@
     "cancel": "Annuler",
     "send": "Envoyer",
     "missing": "Les informations ne sont pas correctement données",
-    "success": "La demande de contact a été envoyé"
+    "success": "La demande de contact a été envoyé",
+    "rgpd": "Pour connaitre et exercer vos droits, notamment de retrait de votre consentement à l'utilisation de données collectées par ce formulaire, veuillez consulter notre politique de ",
+    "protectionLink": "protection des données"
   },
   "Solidarity": {
     "title": "Solidarité"
@@ -333,6 +335,28 @@
   "RecapSearch": {
     "filters": "Filtres",
     "communities": "Communautés"
+  },
+  "PostCommunity": {
+    "title": "Créer",
+    "name": "Nom de la communauté",
+    "description": "Description courte de la communauté",
+    "maxiDescription": "Description détaillée de la communauté",
+    "address": "Adresse de la communauté",
+    "avatar": "Avatar de la communauté",
+    "create": "Créer la communauté",
+    "missingInfo": "Il manque des informations",
+    "success": "La communauté a été créé"
+  },
+  "PostEvent": {
+    "title": "Créer",
+    "name": "Nom de l'événement",
+    "url": "Url de l'événement",
+    "description": "Description courte de l'événement",
+    "fullDescription": "Description détaillée de l'événement",
+    "address": "Adresse de l'événement",
+    "avatar": "Avatar de l'événement",
+    "create": "Créer l'événement",
+    "missingInfo": "Il manque des informations"
   }
 
 }

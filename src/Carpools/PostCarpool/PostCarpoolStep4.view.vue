@@ -1,7 +1,7 @@
 <template>
   <div class="mc-form-carpool">
     <ion-item>
-      <ion-label position="floating">{{$t('PostCarpool.numberPassenger')}} *</ion-label>
+      <ion-label class="ion-text-wrap" position="floating">{{$t('PostCarpool.numberPassenger')}} *</ion-label>
       <ion-input
         type="number"
         max="4"
@@ -17,17 +17,17 @@
     </div>
 
     <ion-item lines="none">
-      <ion-label>{{$t('PostCarpool.luggage')}}</ion-label>
+      <ion-label class="ion-text-wrap">{{$t('PostCarpool.luggage')}}</ion-label>
       <ion-toggle :checked="carpoolToPost.luggage" @ionChange="changeOptions('luggage', $event.target.checked)"></ion-toggle>
     </ion-item>
 
     <ion-item lines="none">
-      <ion-label>{{$t('PostCarpool.bike')}}</ion-label>
+      <ion-label class="ion-text-wrap">{{$t('PostCarpool.bike')}}</ion-label>
       <ion-toggle :checked="carpoolToPost.bike"  @ionChange="changeOptions('bike', $event.target.checked)"></ion-toggle>
     </ion-item>
 
     <ion-item lines="none">
-      <ion-label>{{$t('PostCarpool.backSeats')}}</ion-label>
+      <ion-label class="ion-text-wrap">{{$t('PostCarpool.backSeats')}}</ion-label>
       <ion-toggle :checked="carpoolToPost.backSeats"  @ionChange="changeOptions('backSeats', $event.target.checked)"></ion-toggle>
     </ion-item>
   </div>
