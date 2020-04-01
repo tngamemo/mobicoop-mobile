@@ -14,8 +14,8 @@ export default class RecapCarpoolDTO {
     this.comment = carpoolToPost.comment;
     this.user = user;
     this.isMultipleTime = carpoolToPost.schedule && carpoolToPost.schedule.length > 1;
-    this.returnTime = carpoolToPost.schedule && carpoolToPost.schedule[0].returnTime;
-    this.outwardTime = carpoolToPost.schedule && carpoolToPost.schedule[0].outwardTime;
+    this.returnTime = (carpoolToPost.schedule && carpoolToPost.schedule[0].returnTime) ? carpoolToPost.schedule[0].returnTime : carpoolToPost.returnTime;
+    this.outwardTime = (carpoolToPost.schedule && carpoolToPost.schedule[0].outwardTime) ? carpoolToPost.schedule[0].outwardTime : carpoolToPost.outwardTime;
     this.directPoints = directPoints;
     this.priceCarpool = priceCarpool;
     this.passenger = !!carpoolToPost.resultPassenger;

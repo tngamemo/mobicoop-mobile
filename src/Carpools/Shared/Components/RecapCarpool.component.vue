@@ -16,6 +16,24 @@
         <span>{{recap.priceCarpool}} €</span>
       </div>
       <div
+        v-if="recap.frequency == 1"
+        class="mc-carpool-subheader d-flex justify-around align-center"
+      >
+        <div v-if="recap.outwardTime" class="d-flex align-center mc-carpool-regular-time">
+          <ion-icon name="arrow-down"></ion-icon>
+          <span>{{ $t('Carpool.oneWay') }}</span>
+          <span class="time">{{ recap.outwardTime }}</span>
+        </div>
+        <div
+          v-if="recap.returnTime"
+          class="d-flex align-center mc-carpool-regular-time"
+        >
+          <ion-icon name="arrow-up"></ion-icon>
+          <span>{{ $t('Carpool.return') }}</span>
+          <span class="time">{{ recap.returnTime }}</span>
+        </div>
+      </div>
+      <div
         v-if="recap.frequency == 2"
         class="mc-carpool-subheader d-flex justify-around align-center"
       >
@@ -108,7 +126,7 @@
         ></l-marker>
         <l-marker
           :lat-lng="[recap.outwardWaypoints[recap.outwardWaypoints.length - 1].latitude, recap.outwardWaypoints[recap.outwardWaypoints.length - 1].longitude]"
-        ></l-marker>-->
+        ></l-marker>
       </l-map>
     </div>
   </div>
@@ -323,7 +341,7 @@ export default {
           .format("HH[h]mm")}</b>: `;
       }
       if (!!step.displayLabel && step.displayLabel[0] && step.displayLabel[1]) {
-        result += `${step.displayLabel[0]},  ${step.displayLabel[1]}`;
+        result += `${step.displayLabel[0]}`;
       } else {
         if (!!step.addressCountry) {
           result += `${step.addressLocality},  ${step.addressCountry}`;
