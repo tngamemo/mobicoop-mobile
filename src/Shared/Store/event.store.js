@@ -75,6 +75,11 @@ export const eventStore = {
     },
 
     updateEventAddress(state, payload) {
+      delete payload.addressDTO['@id'];
+      delete payload.addressDTO['id'];
+      delete payload.addressDTO['@type'];
+      delete payload.addressDTO['geoJson'];
+
       state.postEvent.address = payload.addressDTO;
     },
 

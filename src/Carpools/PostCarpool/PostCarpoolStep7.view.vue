@@ -2,6 +2,7 @@
   <div class="mc-form-carpool-recap">
 
     <RecapCarpool
+    v-if="showRecap"
       ref="recap"
       :recap="recap"
     ></RecapCarpool>
@@ -19,7 +20,9 @@ import RecapCarpoolDTO from "../Shared/RecapCarpoolDTO";
 export default {
   name: "post-carpool-step7",
   data() {
-    return {};
+    return {
+      showRecap: true
+    };
   },
   validations: {},
   components: {
@@ -35,11 +38,9 @@ export default {
       (state, getters) => getters.currentSlider,
       (newValue, oldValue) => {
         if (oldValue != newValue && newValue == "post-carpool-step7") {
-          this.showCard = false;
+         this.showRecap = false;
           setTimeout(() => {
-            this.showCard = true;
-            if (!!this.$refs.recap.$refs.mapRecap)
-              this.$refs.recap.$refs.mapRecap.mapObject.invalidateSize();
+            this.showRecap = true;
           }, 1);
         }
       }
@@ -62,6 +63,7 @@ export default {
     },
 
     recap() {
+      console.log(this.carpoolToPost)
       return new RecapCarpoolDTO().fromCarpoolToPost(
         this.carpoolToPost,
         this.$store.state.userStore.user,

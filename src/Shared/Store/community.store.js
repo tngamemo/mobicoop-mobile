@@ -99,6 +99,11 @@ export const communityStore = {
     },
 
     updateCommunityAddress(state, payload) {
+      delete payload.addressDTO['@id'];
+      delete payload.addressDTO['id'];
+      delete payload.addressDTO['@type'];
+      delete payload.addressDTO['geoJson'];
+
       state.postCommunity.address = payload.addressDTO;
     },
 
