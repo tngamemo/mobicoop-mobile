@@ -82,7 +82,7 @@
     "outwardDate": "JJ/MM",
     "titlePage": "Résultats",
     "error": "Une erreur est survenue durant la recherche. Veuillez réessayer ultérieurement.",
-    "nbResult": "annonces en covoiturages trouvées",
+    "nbResult": "Aucun résultats |{count} annonce de covoiturage trouvée | {count} annonces de covoiturages trouvées",
     "step": "Etape"
   },
   "Help": {
@@ -356,7 +356,9 @@
     "address": "Adresse de l'événement",
     "avatar": "Avatar de l'événement",
     "create": "Créer l'événement",
-    "missingInfo": "Il manque des informations"
+    "missingInfo": "Il manque des informations",
+    "fromDate": "Date de début",
+    "toDate": "Date de fin"
   }
 
 }

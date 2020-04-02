@@ -86,6 +86,10 @@ export default {
       this.$store.dispatch("getUserCommunities").then();
     }
 
+    if (!!this.$route.params.filters) {
+      this.$store.getters.carpoolToPost.communities = this.$route.params.filters.communities;
+    }
+
     if (!!this.solidarity) {
       this.$store.commit("changeOptionsCarpoolPost", {
         property: "solidaryExclusive",
@@ -117,7 +121,7 @@ export default {
     },
 
     changeOptions(property, value) {
-      this.$store.commit('changeOptionsCarpoolPost', {property, value})
+      this.$store.commit("changeOptionsCarpoolPost", { property, value });
     }
   }
 };

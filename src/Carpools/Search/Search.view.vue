@@ -23,7 +23,7 @@
         </div>
 
         <div class="" v-if="getStatusOfSearch == 'success'">
-          <div class="ion-margin-bottom"> {{numberOfResultsSearch}} {{ $t('Search.nbResult')}}</div>
+          <div class="ion-margin-bottom"> {{ $tc('Search.nbResult', numberOfResultsSearch )}}</div>
           <div v-for="(result, index) in this.$store.getters.resultSearch" :key="index" v-on:click="goToDetailCarpool(index)">
             <CarpoolItem :carpool="getFormattedCarpoolItem(result)" :type="'search'" />
           </div>

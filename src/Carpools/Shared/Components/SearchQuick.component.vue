@@ -113,7 +113,7 @@ ion-datetime {
 <script>
 export default {
   name: "search-home",
-  props: ["showPost", "searchWithFilter", "communities"],
+  props: ["showPost", "searchWithFilter", "postWithFilter", "communities"],
   data() {
     return {
       showPostCarpool: true
@@ -192,7 +192,13 @@ export default {
         this.$store.dispatch("treatementUpdateAddresses");
       }
 
-      this.$router.push({name: "post-carpool"});
+      let filters = null;
+      if (this.postWithFilter) {
+
+        filters = {communities: this.communities};
+      }
+
+      this.$router.push({name: "post-carpool", params: {filters}});
     }
   }
 };
