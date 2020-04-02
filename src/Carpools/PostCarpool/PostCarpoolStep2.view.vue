@@ -87,14 +87,14 @@
               cancel-text="Annuler"
               done-text="Valider"
               :placeholder="$t('PostCarpool.timeReturn')"
-              :value="computeReturnTime"
+              :value="returnTimeInit"
               @ionChange="changePostReturnTime($event)"
             ></ion-datetime>
           </ion-item>
-          <div v-if="$v.carpoolToPost.returnTime.$error">
+          <div v-if="$v.returnTimeCopy.$error">
             <div
               class="mc-error-label"
-              v-if="!$v.carpoolToPost.returnTime.required"
+              v-if="!$v.returnTimeCopy.required"
             >{{$t('Validation.required')}}</div>
           </div>
         </ion-col>
@@ -314,18 +314,15 @@ export default {
             !this.$store.getters.carpoolToPost.oneWay
           );
         })
-      },
-      returnTime: {
-        required: requiredIf(function(returnTime) {
-          return (
-            this.$store.getters.carpoolToPost.frequency == 1 &&
-            !this.$store.getters.carpoolToPost.oneWay
-          );
-        })
       }
     },
     outwardTimeCopy: {
       required: requiredIf(function(outwardTime) {
+        return this.$store.getters.carpoolToPost.frequency == 1;
+      })
+    },
+    returnTimeCopy: {
+      required: requiredIf(function(returnTimeCopy) {
         return this.$store.getters.carpoolToPost.frequency == 1;
       })
     }
