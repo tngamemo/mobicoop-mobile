@@ -5,7 +5,7 @@
         <b>{{ $t(`BlockAction.${action}.title`) }}</b>
       </p>
     </div>
-    <div>
+    <div style="padding: 10px">
       <div class="mc-block-action-visuel">
         <div class="mc-block-action-image">
           <img class src="/assets/background.png" />
@@ -24,7 +24,7 @@
           v-bind:style="style.text"
           @click="$emit('clickButton')"
         >
-          <ion-icon :name="icon" size="medium" class="ion-padding-end"></ion-icon>
+          <ion-icon :name="icon" size="large" class="ion-padding-end hidden-xs"></ion-icon>
           {{ $t(`BlockAction.${action}.button`)}}
         </div>
 
@@ -34,7 +34,7 @@
           v-bind:style="style.text"
           @click="$emit('clickSecondButton')"
         >
-          <ion-icon :name="icon" size="medium" class="ion-padding-end"></ion-icon>
+          <ion-icon :name="icon" size="large" class="ion-padding-end hidden-xs"></ion-icon>
           {{ $t(`BlockAction.${action}.secondButton`)}}
         </div>
       </div>
@@ -83,7 +83,7 @@
       text-align: center;
       background: #ffffff;
       border-radius: 37px;
-      padding: 0px 37px;
+      padding: 10px 20px;
       min-height: 35px;
       display: flex;
       justify-content: center;

@@ -96,13 +96,13 @@
               expand="block"
               v-on:click="goToAskCarpool()"
             >
-              <ion-icon name="checkmark" class="ion-padding-end"></ion-icon>
+              <ion-icon name="checkmark" class="ion-padding-end hidden-xs"></ion-icon>
               {{ $t('DetailCarpool.ask') }}
             </ion-button>
 
             <ion-button
               v-if="canSeeButton(1)"
-              class="mc-big-button"
+              class="mc-big-button ion-text-wrap"
               color="success"
               expand="block"
               v-on:click="askCarpool(1)"
@@ -115,14 +115,14 @@
                 name="md-sync"
               ></ion-icon>
               <div v-if="$store.state.carpoolStore.statusCarpoolAskPost != 'loading'">
-                <ion-icon name="checkmark" class="ion-padding-end"></ion-icon>
+                <ion-icon name="checkmark" class="ion-padding-end hidden-xs"></ion-icon>
                 {{ $t('DetailCarpool.askAsDriver') }}
               </div>
             </ion-button>
 
             <ion-button
               v-if="canSeeButton(2)"
-              class="mc-big-button"
+              class="mc-big-button ion-text-wrap"
               color="success"
               expand="block"
               v-on:click="askCarpool(2)"
@@ -135,7 +135,7 @@
                 name="md-sync"
               ></ion-icon>
               <div v-if="$store.state.carpoolStore.statusCarpoolAskPost != 'loading'">
-                <ion-icon name="checkmark" class="ion-padding-end"></ion-icon>
+                <ion-icon name="checkmark" class="ion-padding-end hidden-xs"></ion-icon>
                 {{ $t('DetailCarpool.askAsPassenger') }}
               </div>
             </ion-button>
@@ -150,7 +150,7 @@
           <ion-button
             v-on:click="updateAsk(4)"
             v-if="askFromMessage.askStatus == 2"
-            class="mc-big-button"
+            class="mc-big-button ion-text-wrap"
             color="success"
             expand="block"
           >
@@ -170,7 +170,7 @@
           <ion-button
             v-on:click="updateAsk(6)"
             v-if="askFromMessage.askStatus == 2"
-            class="mc-big-button"
+            class="mc-big-button ion-text-wrap"
             color="danher"
             expand="block"
           >
@@ -189,7 +189,7 @@
           <ion-button
             v-on:click="updateAsk(5)"
             v-if="askFromMessage.askStatus == 3"
-            class="mc-big-button"
+            class="mc-big-button ion-text-wrap"
             color="success"
             expand="block"
           >

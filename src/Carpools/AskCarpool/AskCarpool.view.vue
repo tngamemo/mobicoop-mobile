@@ -88,7 +88,7 @@
                 <div class="mc-ask-outward-choose-day">
                   <div v-for="(item, index) in getOutwardOrReturnDay('outward')" v-bind:key="index">
                     <ion-item>
-                      <ion-label>{{ $t(`${item.trad}`) }}: {{item.time}}</ion-label>
+                      <ion-label>{{ $t(`${item.trad}`) }}: {{item.time == false ? 'Indisponible' : item.time}}</ion-label>
                       <ion-checkbox
                         slot="end"
                         :disabled="!item.value"
@@ -138,22 +138,22 @@
                 <ion-radio-group @ionChange="changeDateOption($event.target.value)">
                   <ion-item lines="none">
                     <ion-radio value="1" :checked="dateOption == 1"></ion-radio>
-                    <ion-label>{{ $t('AskCarpool.week')}}</ion-label>
+                    <ion-label class="ion-text-wrap">{{ $t('AskCarpool.week')}}</ion-label>
                   </ion-item>
                   <ion-item lines="none">
                     <ion-radio value="2" :checked="dateOption == 2"></ion-radio>
-                    <ion-label>{{ $t('AskCarpool.month')}}</ion-label>
+                    <ion-label class="ion-text-wrap">{{ $t('AskCarpool.month')}}</ion-label>
                   </ion-item>
                   <ion-item lines="none">
                     <ion-radio value="3" :checked="dateOption == 3"></ion-radio>
-                    <ion-label>{{ $t('AskCarpool.specificDate')}}</ion-label>
+                    <ion-label class="ion-text-wrap">{{ $t('AskCarpool.specificDate')}}</ion-label>
                   </ion-item>
                 </ion-radio-group>
               </div>
             </div>
             <div class="mc-ask-timeBegin">
               <div class="mc-ask-header">{{ $t('AskCarpool.outWardDate')}}</div>
-              <ion-item>
+              <ion-item lines="none">
                 <ion-datetime
                   display-format="DD/MM/YY"
                   picker-format="DD/MM/YY"
@@ -168,7 +168,7 @@
 
             <div class="mc-ask-timeEnd" v-if="dateOption == 3">
               <div class="mc-ask-header">{{ $t('AskCarpool.outwardLimitDate')}}</div>
-              <ion-item>
+              <ion-item lines="none">
                 <ion-datetime
                   display-format="DD/MM/YY"
                   picker-format="DD/MM/YY"
@@ -211,6 +211,13 @@
 .mc-carpool-ask {
   .mc-button-nextStep {
     margin-top: 40px;
+  }
+
+  .mc-carpool-role-choose {
+    @media screen and (max-width: 320px) {
+      flex-wrap: wrap;
+
+    }
   }
 
   .mc-carpool-ask-select-time {

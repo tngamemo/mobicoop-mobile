@@ -63,7 +63,7 @@
       </div>
     </div>
 
-    <div class="mc-select-communities text-left">
+    <div class="mc-select-communities text-left" v-if="this.$store.getters.userCommunities">
       <ion-icon
         size="large"
         color="primary"
@@ -104,7 +104,7 @@
         v-if="this.$store.getters.statusDistanceCarpool != 'loading' && showCard"
         :ref="'map'"
         :options="optionsCard"
-        style="height: 350px"
+        style="height: 250px"
         :zoom="zoom"
         :bounds="bounds"
       >
