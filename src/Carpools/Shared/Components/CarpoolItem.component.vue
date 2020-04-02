@@ -348,11 +348,12 @@ export default {
     },
 
     pauseCarpool(carpoolId) {
+      console.log(this.carpool)
       const payload = {
         carpoolId,
         data: {
           paused: !this.carpool.paused,
-          proposalId: this.carpool.proposalId
+          adId: this.carpool.id
         }
       };
 
