@@ -96,6 +96,7 @@
         <SearchQuick
           :showPost="isInCommunity"
           :searchWithFilter="true"
+          :postWithFilter="true"
           :communities="[this.community.id]"
         />
 

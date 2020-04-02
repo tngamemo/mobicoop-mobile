@@ -356,7 +356,9 @@
     "address": "Adresse de l'événement",
     "avatar": "Avatar de l'événement",
     "create": "Créer l'événement",
-    "missingInfo": "Il manque des informations"
+    "missingInfo": "Il manque des informations",
+    "fromDate": "Date de début",
+    "toDate": "Date de fin"
   }
 
 }

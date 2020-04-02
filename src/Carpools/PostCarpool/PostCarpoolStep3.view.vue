@@ -78,6 +78,7 @@
         multiple="true"
         cancelText="Fermer"
         okText="Valider"
+        :value="this.$store.getters.carpoolToPost.communities"
       >
         <ion-select-option
           v-for="community in this.$store.getters.userCommunities"
