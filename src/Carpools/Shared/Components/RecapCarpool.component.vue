@@ -16,7 +16,7 @@
         <span>{{recap.priceCarpool}} €</span>
       </div>
       <div
-        v-if="recap.frequency == 1"
+        v-if="recap.frequency == 1 && (!!recap.outwardTime || !!recap.returnTime)"
         class="mc-carpool-subheader d-flex justify-around align-center"
       >
         <div v-if="recap.outwardTime" class="d-flex align-center mc-carpool-regular-time">

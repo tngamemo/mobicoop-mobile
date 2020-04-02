@@ -81,43 +81,46 @@
         >{{this.carpool.carpooler.givenName}} {{this.carpool.carpooler.shortFamilyName}}</strong>
       </div>
       <div v-if="type == 'my-carpool'" class="d-flex align-center justify-between">
-        <div>
+        <div class="ion-text-start">
           <div
             v-if="carpool.dateValidity"
           >{{$t("MyCarpools.validatedUntil")}} {{carpool.dateValidity | moment("utc", 'dddd D[.]MM[.]YYYY')}}</div>
         </div>
-        <ion-button
-          class="mc-small-button"
-          color="danger"
-          @click="deleteCarpoolAlertConfirm(carpool.id)"
-        >
-          <ion-icon name="trash"></ion-icon>
-          <span class="ion-margin-start">{{$t('Commons.delete')}}</span>
-        </ion-button>
 
-        <ion-button
-          v-if="carpool.frequency == 2"
-          :ref="'test'"
-          class="mc-small-button"
-          color="primary"
-          @click="pauseCarpool(carpool.id)"
-        >
-          <ion-icon
-            color="light"
-            v-if="!paused && this.$store.getters.statusPauseCarpool != 'loading'"
-            name="pause"
-          ></ion-icon>
-          <ion-icon
-            color="light"
-            v-if="paused && this.$store.getters.statusPauseCarpool != 'loading'"
-            name="play"
-          ></ion-icon>
-          <ion-icon
-            color="light"
-            v-if="this.$store.getters.statusPauseCarpool == 'loading'"
-            name="md-sync"
-          ></ion-icon>
-        </ion-button>
+        <div class="ion-text-end">
+          <ion-button
+            class="mc-small-button"
+            color="danger"
+            @click="deleteCarpoolAlertConfirm(carpool.id)"
+          >
+            <ion-icon name="trash"></ion-icon>
+            <span class="ion-margin-start">{{$t('Commons.delete')}}</span>
+          </ion-button>
+
+          <ion-button
+            v-if="carpool.frequency == 2"
+            :ref="'test'"
+            class="mc-small-button"
+            color="primary"
+            @click="pauseCarpool(carpool.id)"
+          >
+            <ion-icon
+              color="light"
+              v-if="!paused && this.$store.getters.statusPauseCarpool != 'loading'"
+              name="pause"
+            ></ion-icon>
+            <ion-icon
+              color="light"
+              v-if="paused && this.$store.getters.statusPauseCarpool != 'loading'"
+              name="play"
+            ></ion-icon>
+            <ion-icon
+              color="light"
+              v-if="this.$store.getters.statusPauseCarpool == 'loading'"
+              name="md-sync"
+            ></ion-icon>
+          </ion-button>
+        </div>
       </div>
       <div
         v-if="type == 'my-carpool' && carpool.potentialCarpoolers > 0"

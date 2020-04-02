@@ -6,12 +6,19 @@
     </div>
 
     <div class="mc-user-home-login" v-if="! !!this.$store.state.userStore.user">
-      <ion-button class='mc-big-button' color="success" expand="block" @click="$router.push('login')">
-        {{ $t('HOME.sign-in') }}
-      </ion-button>
-      <ion-button class='mc-big-button' color="light" expand="block" fill="outline" @click="$router.push('register')">
-        {{ $t('HOME.register') }}
-      </ion-button>
+      <ion-button
+        class="mc-big-button"
+        color="success"
+        expand="block"
+        @click="$router.push('login')"
+      >{{ $t('HOME.sign-in') }}</ion-button>
+      <ion-button
+        class="mc-big-button"
+        color="light"
+        expand="block"
+        fill="outline"
+        @click="$router.push('register')"
+      >{{ $t('HOME.register') }}</ion-button>
     </div>
 
     <div class="mc-user-home-profile" v-if="!!this.$store.state.userStore.user">
@@ -19,7 +26,7 @@
         <div class="mc-user-image">
           {{this.$store.state.userStore.avatars}}
           <ion-thumbnail v-if="!! this.$store.state.userStore.user.avatars">
-            <img :src="this.$store.state.userStore.user.avatars[0]" alt="">
+            <img :src="this.$store.state.userStore.user.avatars[0]" alt />
           </ion-thumbnail>
         </div>
 
@@ -30,88 +37,97 @@
       </div>
 
       <div class="mc-user-action">
-        <ion-icon name="create" size="large" class="ion-padding-end pointer" v-on:click="$router.push('profile')"></ion-icon>
-         <ion-icon name="log-out" size="large" class="pointer" v-on:click="logout"></ion-icon>
+        <ion-icon
+          name="create"
+          size="large"
+          class="pointer mc-user-action-first-action"
+          v-on:click="$router.push('profile')"
+        ></ion-icon>
+        <ion-icon name="log-out" size="large" class="pointer" v-on:click="logout"></ion-icon>
       </div>
-
     </div>
   </div>
 </template>
 
 <style lang="scss">
+.mc-welcome-home {
+  text-align: right;
+  transition: max-height 0.7s ease, opacity 0.5s ease, padding 0.1s ease;
+  max-height: 600px;
+  overflow: hidden;
 
-  .mc-welcome-home {
-    text-align: right;
-    transition: max-height .7s ease, opacity .5s ease, padding .1s ease;
-    max-height: 600px;
-    overflow: hidden;
-
-    &.is-hidden {
-      max-height: 0px !important;
-    }
-
-    h2 {
-      font-weight: bold;
-      text-align: center;
-      margin-bottom: 30%;
-    }
+  &.is-hidden {
+    max-height: 0px !important;
   }
 
-  .mc-user-home-profile {
+  h2 {
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 30%;
+  }
+}
+
+.mc-user-action {
+  display: flex;
+  flex-direction: row;
+}
+
+@media screen and (max-width: 320px) {
+  .mc-user-action {
+    flex-direction: column;
+  }
+}
+
+.mc-user-home-profile {
+  display: flex;
+  justify-content: space-between;
+
+  .mc-user-bloc-info {
     display: flex;
-    justify-content: space-between;
-
-    .mc-user-bloc-info {
-      display: flex;
-    }
-
-    ion-thumbnail {
-      --size: 90px;
-      --border-radius: 50%;
-    }
-
-    .mc-user-info {
-      display: flex;
-      justify-content: center;
-      flex-direction: column;
-      margin-left: 20px;
-
-      p {
-        margin: 0;
-        font-weight: bold;
-      }
-    }
-
   }
 
+  ion-thumbnail {
+    --size: 90px;
+    --border-radius: 50%;
+  }
+
+  .mc-user-info {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin-left: 20px;
+
+    p {
+      margin: 0;
+      font-weight: bold;
+    }
+  }
+}
 </style>
 
 <script>
-
-  export default {
-    name: 'user-home',
-    data () {
-      return {
-        title: process.env.VUE_APP_NAME,
-        seeWelcome: localStorage.getItem('seeWelcome', true)
-      }
+export default {
+  name: "user-home",
+  data() {
+    return {
+      title: process.env.VUE_APP_NAME,
+      seeWelcome: localStorage.getItem("seeWelcome", true)
+    };
+  },
+  mounted() {},
+  created() {},
+  methods: {
+    closeWelcome: function() {
+      this.seeWelcome = false;
+      localStorage.setItem("seeWelcome", false);
     },
-    mounted() {},
-    created() {},
-    methods: {
 
-      closeWelcome: function() {
-        this.seeWelcome = false;
-        localStorage.setItem('seeWelcome', false)
-      },
-
-      logout: function() {
-        this.$store.dispatch('logout').then(() => {
-
-          // On va authentifier l'appli via un utilisateur anonyme
-          this.$store.dispatch('authAnonymousUser')
-        });
-      }
+    logout: function() {
+      this.$store.dispatch("logout").then(() => {
+        // On va authentifier l'appli via un utilisateur anonyme
+        this.$store.dispatch("authAnonymousUser");
+      });
     }
   }
+};
 </script>
