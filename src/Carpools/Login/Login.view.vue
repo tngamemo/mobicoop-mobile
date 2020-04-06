@@ -116,7 +116,7 @@
         const idUser = jwt_decode(res.data.token).id;
         this.$store.dispatch('getUser', { idUser })
        .then(res => {
-         this.presentToast("La connexion est un succès", 'success');
+         this.presentToast("Vous êtes connecté", 'success');
          this.email = '';
          this.password = '';
 
