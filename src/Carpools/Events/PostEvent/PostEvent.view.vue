@@ -93,7 +93,6 @@
             cancel-text="Annuler"
             done-text="Valider"
             :placeholder="$t('PostEvent.fromDate')"
-            :value="eventToPost.fromDate"
             @ionChange="eventToPost.fromDate = $event.detail.value"
           ></ion-datetime>
         </ion-item>
@@ -106,8 +105,31 @@
             cancel-text="Annuler"
             done-text="Valider"
             :placeholder="$t('PostEvent.toDate')"
-            :value="eventToPost.toDate"
             @ionChange="eventToPost.toDate = $event.detail.value"
+          ></ion-datetime>
+        </ion-item>
+
+        <ion-item v-if="!! eventToPost.fromDate">
+          <ion-label position="floating">Heure de début</ion-label>
+          <ion-datetime
+            display-format="HH:mm"
+            picker-format="HH:mm"
+            cancel-text="Annuler"
+            done-text="Valider"
+            placeholder="Heure de début"
+            @ionChange="changeBeginHour($event.detail.value)"
+          ></ion-datetime>
+        </ion-item>
+
+        <ion-item v-if="!! eventToPost.toDate">
+          <ion-label position="floating">Heure de fin</ion-label>
+          <ion-datetime
+            display-format="HH:mm"
+            picker-format="HH:mm"
+            cancel-text="Annuler"
+            done-text="Valider"
+            placeholder="Heure de fin"
+            @ionChange="changeEndHour($event.detail.value)"
           ></ion-datetime>
         </ion-item>
 
@@ -188,9 +210,7 @@ export default {
       if (this.$v.$invalid) {
         this.presentToast(this.$t("PostEvent.missingInfo"), "danger");
       } else {
-        if (!! this.eventToPost.fromDate || !! this.eventToPost.toDate) {
-          this.eventToPost.useTime = true;
-        }
+
          this.eventToPost.user = this.$store.getters.user["@id"];
 
          this.$store
@@ -198,18 +218,41 @@ export default {
           .then(resp => {
             this.presentToast(this.$t("EventPost.success"), "success");
             this.$store.commit("init_post_event");
-            this.$router.push({ name: "events" });
+            this.$router.push({ name: "carpool-events" });
           })
           .catch(err => {
             this.presentToast(this.$t("Commons.error"), "danger");
           });
       }
     },
+
     goGeoSearch(type, action) {
       this.$router.push({
         name: "geoSearch",
         query: { type: "update_event_address", action: "search" }
       });
+    },
+
+    changeBeginHour(value) {
+      const hour = this.$moment(value).format('HH');
+      const min = this.$moment(value).format('mm');
+
+      const date = new Date(this.eventToPost.fromDate);
+      date.setHours(hour);
+      date.setMinutes(min);
+      this.eventToPost.fromDate = this.$moment(date).utc().format();
+      this.eventToPost.useTime = true;
+    },
+
+    changeEndHour(value) {
+      const hour = this.$moment(value).format('HH');
+      const min = this.$moment(value).format('mm');
+
+      const date = new Date(this.eventToPost.toDate);
+      date.setHours(hour);
+      date.setMinutes(min);
+      this.eventToPost.toDate = this.$moment(date).utc().format();
+      this.eventToPost.useTime = true;
     }
   }
 };

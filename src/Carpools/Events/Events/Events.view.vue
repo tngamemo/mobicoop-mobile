@@ -30,6 +30,12 @@
           <ion-icon name="add" class="ion-padding-end"></ion-icon>
           {{ $t('Events.create')}}
         </ion-button>
+
+        <div class="mc-events-see-history">
+          <span
+            v-on:click="changeSortEvent()"
+          >{{ this.sortEvent == "currentEvents" ? $t('Events.seePastEvent') : $t('Events.seeCurrentEvent')}}</span>
+        </div>
       </div>
       <div class="mc-white-container">
         <div class="ion-text-center ion-margin-top" v-if="!events">
@@ -49,7 +55,19 @@
             </div>
             <div class="mc-events-text">
               {{event.name}}
-              <ion-button color="success" expand="block">
+              <p class="mc-events-date" v-if="event.fromDate">
+                Début: {{event.fromDate | moment('utc', 'DD/MM/YYYY')}}
+                <span
+                  v-if="event.useTime"
+                >à {{event.fromDate | moment('utc', 'HH[h]mm')}}</span>
+              </p>
+              <p class="mc-events-date" v-if="event.toDate">
+                Fin: {{event.toDate | moment('utc', 'DD/MM/YYYY')}}
+                <span
+                  v-if="event.useTime"
+                >à {{event.toDate | moment('utc', 'HH[h]mm')}}</span>
+              </p>
+              <ion-button v-if="sortEvent == 'currentEvents'" color="success" expand="block">
                 <ion-icon name="eye" class="ion-padding-end"></ion-icon>
                 {{ $t('Events.see') }}
               </ion-button>
@@ -74,6 +92,14 @@
       border-bottom: 1px solid white;
     }
   }
+
+  .mc-events-see-history {
+    text-align: right;
+    span {
+      opacity: 0.5;
+      cursor: pointer;
+    }
+  }
 }
 
 .mc-events-item {
@@ -92,6 +118,13 @@
     ion-button {
       --border-radius: 30px !important;
     }
+
+    .mc-events-date {
+      margin: 0px;
+      font-style: italic !important;
+      font-weight: initial;
+      font-size: small;
+    }
   }
 }
 </style>
@@ -106,7 +139,8 @@ export default {
   data() {
     return {
       searchText: "",
-      LMarker: null
+      LMarker: null,
+      sortEvent: "currentEvents"
     };
   },
   components: {
@@ -117,7 +151,7 @@ export default {
     this.$store
       .dispatch("getAllEvents")
       .then(resp => {
-        this.getMarkerMap(resp.data["hydra:member"]);
+        this.getMarkerMap(this.$store.getters[this.sortEvent]);
       })
       .catch(error => {
         this.presentToast(this.$t("Commons.error"), "danger");
@@ -125,8 +159,8 @@ export default {
   },
   computed: {
     events() {
-      if (!!this.$store.getters.events) {
-        return this.$store.getters.events.filter(event => {
+      if (!!this.$store.getters[this.sortEvent]) {
+        return this.$store.getters[this.sortEvent].filter(event => {
           return event.name
             .toUpperCase()
             .includes(this.searchText.toUpperCase());
@@ -142,10 +176,12 @@ export default {
     },
 
     goToEvent(idEvent) {
-      this.$router.push({
-        name: "carpool-event",
-        params: { id: idEvent }
-      });
+      if (this.sortEvent == "currentEvents") {
+        this.$router.push({
+          name: "carpool-event",
+          params: { id: idEvent }
+        });
+      }
     },
 
     getMarkerMap(data) {
@@ -157,6 +193,16 @@ export default {
         });
       });
       this.LMarker = result;
+    },
+
+    changeSortEvent() {
+      if (this.sortEvent == "currentEvents") {
+        this.sortEvent = "pastEvents";
+      } else {
+        this.sortEvent = "currentEvents";
+      }
+
+      this.getMarkerMap(this.$store.getters[this.sortEvent]);
     }
   }
 };
