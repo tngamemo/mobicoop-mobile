@@ -321,10 +321,17 @@ export default {
           { addresses }
         );
 
-        this.carpoolRecap = new RecapCarpoolDTO().fromCarpoolSearch(
-          this.carpoolSelected,
-          resDirectPoint.data["hydra:member"][0].directPoints
-        );
+        if (this.fromMessage) {
+          this.carpoolRecap = new RecapCarpoolDTO().fromMessage(
+            this.carpoolSelected,
+            resDirectPoint.data["hydra:member"][0].directPoints
+          );
+        } else {
+          this.carpoolRecap = new RecapCarpoolDTO().fromCarpoolSearch(
+            this.carpoolSelected,
+            resDirectPoint.data["hydra:member"][0].directPoints
+          );
+        }
       } else {
         this.$router.push({ name: "carpoolsHome" });
       }
@@ -517,7 +524,7 @@ export default {
         .dispatch("contactCarpool", payload)
         .then(resp => {
           this.presentToast(this.$t("AskCarpool.contactSuccess"), "success");
-          this.$router.push({name: 'messages'})
+          this.$router.push({ name: "messages" });
         })
         .catch(err => {
           console.log(err);
