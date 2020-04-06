@@ -1,4 +1,5 @@
 import http from '../Mixin/http.mixin'
+import moment from 'moment'
 
 export const searchStore = {
   state: {
@@ -163,6 +164,14 @@ export const searchStore = {
 
       // previousSearch.push(address);
       commit('changePreviousSearch', previousSearch)
+    },
+
+    checkOutWardDate({commit, state}) {
+      let date = moment(state.searchObject.outwardDate);
+      const todayDate = moment();
+      if (date.isBefore(todayDate)) {
+        state.searchObject.outwardDate = new Date();
+      }
     }
   },
 

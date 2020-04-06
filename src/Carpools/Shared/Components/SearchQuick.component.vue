@@ -46,6 +46,7 @@
                   done-text="Valider"
                   :disabled="this.$store.state.searchStore.searchObject.frequency == 2"
                   :value="this.$store.state.searchStore.searchObject.outwardDate"
+                  :min="$moment().format('YYYY-MM-DD')"
                   @ionChange="changeDate($event)"
                 ></ion-datetime>
               </ion-item>
@@ -121,6 +122,7 @@ export default {
   },
   created() {
       if (this.showPost != null) this.showPostCarpool = this.showPost;
+      this.$store.dispatch('checkOutWardDate');
   },
   mounted() {},
   computed: {
