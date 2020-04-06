@@ -408,7 +408,6 @@ export default {
     getOutwardOrReturnDay(type) {
       const resultDriverOrPassenger = this.getResultDriveOrPassenger();
       if (!!resultDriverOrPassenger[type]) {
-        console.log(resultDriverOrPassenger)
         const result = [];
         result.push({
           name: "mon",

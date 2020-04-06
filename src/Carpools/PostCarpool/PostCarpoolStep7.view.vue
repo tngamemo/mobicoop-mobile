@@ -63,7 +63,6 @@ export default {
     },
 
     recap() {
-      console.log(this.carpoolToPost)
       return new RecapCarpoolDTO().fromCarpoolToPost(
         this.carpoolToPost,
         this.$store.state.userStore.user,

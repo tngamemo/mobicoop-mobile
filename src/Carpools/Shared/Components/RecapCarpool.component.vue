@@ -321,7 +321,6 @@ export default {
   },
   props: ["recap", "type"],
   mounted() {
-    console.log(this.recap);
     setTimeout(() => {
       if (!!this.$refs.mapRecap) this.$refs.mapRecap.mapObject.invalidateSize();
     }, 500);

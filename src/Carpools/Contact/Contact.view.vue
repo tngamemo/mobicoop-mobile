@@ -41,6 +41,21 @@
           ></ion-input>
         </ion-item>
 
+        <ion-item>
+          <ion-label position="floating">Votre demande</ion-label>
+          <ion-select
+            required
+            @ionChange="changeDemand($event.target.value)"
+            :cancel-text="$t('Commons.cancel')"
+          >
+            <ion-select-option
+              v-for="(type, index) in contactType"
+              :key="index"
+              :value="index"
+            >{{$t(`Contact.${type.key}`)}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+
         <ion-item lines="none">
           <ion-textarea
             color="primary"
@@ -136,6 +151,15 @@ export default {
   mixins: [toast],
   props: [],
   created() {},
+  computed: {
+    contactType() {
+      const test = Object.assign(
+        [],
+        this.json2array(JSON.parse(process.env.VUE_APP_CONTACT_TYPES))
+      );
+      return test;
+    }
+  },
   methods: {
     sendContact() {
       this.$v.$reset();
@@ -147,12 +171,29 @@ export default {
           .dispatch("sendContact", this.contactForm)
           .then(resp => {
             this.presentToast(this.$t("Contact.success"), "success");
+            this.$router.push({ name: "carpoolsHome" });
           })
           .catch(err => {
             console.log(err);
             this.presentToast(this.$t("Commons.error"), "danger");
           });
       }
+    },
+
+    json2array(json) {
+      const result = [];
+      var keys = Object.keys(json);
+      keys.forEach(key => {
+        result.push({ key, value: json[key] });
+      });
+
+      return result;
+    },
+
+    changeDemand(index) {
+      const contactType = this.contactType[index];
+      this.contactForm.demand = contactType.key;
+      this.contactForm.type = contactType.value == 'contact' ? 1 : 2;
     }
   }
 };

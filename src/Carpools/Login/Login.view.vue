@@ -120,7 +120,6 @@
          this.email = '';
          this.password = '';
 
-          console.log(this.$store.getters.redirectionUrl)
          if (!! this.$store.getters.redirectionUrl) {
             this.$router.push({path: this.$store.getters.redirectionUrl});
             this.$store.commit('redirectionUrl_reset');
