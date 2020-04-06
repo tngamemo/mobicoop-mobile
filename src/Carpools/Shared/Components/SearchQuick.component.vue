@@ -36,7 +36,7 @@
 
         <ion-grid class="ion-margin-bottom mc-block-date">
           <ion-row>
-            <ion-col size="5">
+            <ion-col size="5" v-if="this.from != 'event'">
               <ion-item>
                 <ion-label position="floating">{{$t('Search.date')}}</ion-label>
                 <ion-datetime
@@ -113,7 +113,7 @@ ion-datetime {
 <script>
 export default {
   name: "search-home",
-  props: ["showPost", "searchWithFilter", "postWithFilter", "communities"],
+  props: ["showPost", "searchWithFilter", "postWithFilter", "communities", "from"],
   data() {
     return {
       showPostCarpool: true
