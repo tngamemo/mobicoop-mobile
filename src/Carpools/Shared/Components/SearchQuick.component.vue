@@ -36,7 +36,7 @@
 
         <ion-grid class="ion-margin-bottom mc-block-date">
           <ion-row>
-            <ion-col size="5">
+            <ion-col size="5" v-if="this.from != 'event'">
               <ion-item>
                 <ion-label position="floating">{{$t('Search.date')}}</ion-label>
                 <ion-datetime
@@ -46,6 +46,7 @@
                   done-text="Valider"
                   :disabled="this.$store.state.searchStore.searchObject.frequency == 2"
                   :value="this.$store.state.searchStore.searchObject.outwardDate"
+                  :min="$moment().format('YYYY-MM-DD')"
                   @ionChange="changeDate($event)"
                 ></ion-datetime>
               </ion-item>
@@ -113,7 +114,7 @@ ion-datetime {
 <script>
 export default {
   name: "search-home",
-  props: ["showPost", "searchWithFilter", "postWithFilter", "communities"],
+  props: ["showPost", "searchWithFilter", "postWithFilter", "communities", "from"],
   data() {
     return {
       showPostCarpool: true
@@ -121,6 +122,7 @@ export default {
   },
   created() {
       if (this.showPost != null) this.showPostCarpool = this.showPost;
+      this.$store.dispatch('checkOutWardDate');
   },
   mounted() {},
   computed: {

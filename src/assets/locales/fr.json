@@ -297,7 +297,9 @@
     "see": "Voir l'événement",
     "create":"Créer un événement",
     "notDevelopp":"Cette fonctionnalité n'est pas encore présente sur l'appli mobile. Nous vous invitons à aller sur le site web.",
-    "signalEvent":"Signaler l'événement"
+    "signalEvent":"Signaler l'événement",
+    "seePastEvent": "Voir événements passés",
+    "seeCurrentEvent": "Voir événements actuels"
   },
   "Event": {
     "title": "Événement",
@@ -322,7 +324,11 @@
     "missing": "Les informations ne sont pas correctement données",
     "success": "La demande de contact a été envoyé",
     "rgpd": "Pour connaitre et exercer vos droits, notamment de retrait de votre consentement à l'utilisation de données collectées par ce formulaire, veuillez consulter notre politique de ",
-    "protectionLink": "protection des données"
+    "protectionLink": "protection des données",
+    "infos": "Informations",
+    "technicalIssues": "Problèmes techniques",
+    "partnership": "Partenariat",
+    "community": "Communauté"
   },
   "Solidarity": {
     "title": "Solidarité"

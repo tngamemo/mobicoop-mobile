@@ -5,66 +5,66 @@
         class="mc-recap-header d-flex flex-wrap justify-between align-center"
         v-if="type != 'askCarpool'"
       >
-        <div v-if="recap.frequency == 2" class="d-flex flex-wrap">
-          <div v-for="(day, index) in recap.regularDays" :key="index">
+        <div v-if="recapCarpool.frequency == 2" class="d-flex flex-wrap">
+          <div v-for="(day, index) in recapCarpool.regularDays" :key="index">
             <div class="mc-pastille-day" v-bind:class="{ 'selected': day.value }">
               <b>{{$t(day.trad)}}</b>
             </div>
           </div>
         </div>
-        <span>{{recap.outwardDate | moment('DD MMMM YYYY') }}</span>
-        <span>{{recap.priceCarpool}} €</span>
+        <span>{{recapCarpool.outwardDate | moment('DD MMMM YYYY') }}</span>
+        <span>{{recapCarpool.priceCarpool}} €</span>
       </div>
       <div
-        v-if="recap.frequency == 1 && (!!recap.outwardTime || !!recap.returnTime)"
+        v-if="recapCarpool.frequency == 1 && (!!recapCarpool.outwardTime || !!recapCarpool.returnTime)"
         class="mc-carpool-subheader d-flex justify-around align-center"
       >
-        <div v-if="recap.outwardTime" class="d-flex align-center mc-carpool-regular-time">
+        <div v-if="recapCarpool.outwardTime" class="d-flex align-center mc-carpool-regular-time">
           <ion-icon name="arrow-down"></ion-icon>
           <span>{{ $t('Carpool.oneWay') }}</span>
-          <span class="time">{{ recap.outwardTime }}</span>
+          <span class="time">{{ recapCarpool.outwardTime }}</span>
         </div>
         <div
-          v-if="recap.returnTime"
+          v-if="recapCarpool.returnTime"
           class="d-flex align-center mc-carpool-regular-time"
         >
           <ion-icon name="arrow-up"></ion-icon>
           <span>{{ $t('Carpool.return') }}</span>
-          <span class="time">{{ recap.returnTime }}</span>
+          <span class="time">{{ recapCarpool.returnTime }}</span>
         </div>
       </div>
       <div
-        v-if="recap.frequency == 2"
+        v-if="recapCarpool.frequency == 2"
         class="mc-carpool-subheader d-flex justify-around align-center"
       >
         <div
-          v-if="recap.isMultipleTime"
+          v-if="recapCarpool.isMultipleTime"
           class="d-flex align-center mc-carpool-regular-time"
         >Horaires différents selon les jours</div>
         <div
-          v-if="!recap.isMultipleTime && recap.outwardTime"
+          v-if="!recapCarpool.isMultipleTime && recapCarpool.outwardTime"
           class="d-flex align-center mc-carpool-regular-time"
         >
           <ion-icon name="arrow-down"></ion-icon>
           <span>{{ $t('Carpool.oneWay') }}</span>
-          <span class="time">{{ recap.outwardTime }}</span>
+          <span class="time">{{ recapCarpool.outwardTime }}</span>
         </div>
 
         <div
-          v-if="!recap.isMultipleTime && recap.returnTime"
+          v-if="!recapCarpool.isMultipleTime && recapCarpool.returnTime"
           class="d-flex align-center mc-carpool-regular-time"
         >
           <ion-icon name="arrow-up"></ion-icon>
           <span>{{ $t('Carpool.return') }}</span>
-          <span class="time">{{ recap.returnTime }}</span>
+          <span class="time">{{ recapCarpool.returnTime }}</span>
         </div>
       </div>
       <div class="mc-recap-step d-flex">
         <div class="mc-carpool-info-image d-flex flex-col">
-          <div v-if="recap.driver" class="mc-carpool-driver">
+          <div v-if="recapCarpool.driver" class="mc-carpool-driver">
             <ion-icon size="large" name="car"></ion-icon>
           </div>
-          <div v-if="recap.passenger" class="mc-carpool-passenger">
+          <div v-if="recapCarpool.passenger" class="mc-carpool-passenger">
             <ion-icon size="large" name="person"></ion-icon>
           </div>
         </div>
@@ -72,7 +72,7 @@
         <div class="d-flex flex-col">
           <p
             class="timeline text-left d-flex align-center"
-            v-for="(step, index) in recap.outwardWaypoints"
+            v-for="(step, index) in recapCarpool.outwardWaypoints"
             :key="index"
           >
             <ion-icon
@@ -86,26 +86,26 @@
         </div>
       </div>
 
-      <div class="mc-recap-footer text-left" v-if="!! recap.seats && type != 'askCarpool'">
+      <div class="mc-recap-footer text-left" v-if="!! recapCarpool.seats && type != 'askCarpool'">
         Places disponibles
         <div class="d-flex">
-          <ion-icon v-for="index in parseInt(recap.seats)" :key="index" name="person">{{index}}</ion-icon>
+          <ion-icon v-for="index in parseInt(recapCarpool.seats)" :key="index" name="person">{{index}}</ion-icon>
         </div>
       </div>
     </div>
 
-    <div v-if="!!recap.comment" class="mc-recap-message ion-margin-top">{{recap.comment}}</div>
+    <div v-if="!!recapCarpool.comment" class="mc-recap-message ion-margin-top">{{recapCarpool.comment}}</div>
 
-    <div class="mc-recap-user" v-if="!!recap.user && type != 'askCarpool'">
+    <div class="mc-recap-user" v-if="!!recapCarpool.user && type != 'askCarpool'">
       <div class="mc-recap-user-bloc-info">
         <div class="mc-user-image">
-          <ion-thumbnail v-if="!! recap.user.avatars">
-            <img :src="recap.user.avatars[0]" />
+          <ion-thumbnail v-if="!! recapCarpool.user.avatars">
+            <img :src="recapCarpool.user.avatars[0]" />
           </ion-thumbnail>
         </div>
 
         <div class="mc-recap-user-info">
-          <p>{{recap.user.givenName }} {{recap.user.shortFamilyName }}</p>
+          <p>{{recapCarpool.user.givenName }} {{recapCarpool.user.shortFamilyName }}</p>
         </div>
       </div>
     </div>
@@ -120,12 +120,12 @@
         :options="optionsCard"
       >
         <l-tile-layer v-if="bounds" :url="url"></l-tile-layer>
-        <l-polyline v-if="bounds" :lat-lngs="recap.directPoints" :color="'blue'"></l-polyline>
+        <l-polyline v-if="bounds" :lat-lngs="recapCarpool.directPoints" :color="'blue'"></l-polyline>
         <l-marker
-          :lat-lng="[recap.outwardWaypoints[0].latitude, recap.outwardWaypoints[0].longitude]"
+          :lat-lng="[recapCarpool.outwardWaypoints[0].latitude, recapCarpool.outwardWaypoints[0].longitude]"
         ></l-marker>
         <l-marker
-          :lat-lng="[recap.outwardWaypoints[recap.outwardWaypoints.length - 1].latitude, recap.outwardWaypoints[recap.outwardWaypoints.length - 1].longitude]"
+          :lat-lng="[recapCarpool.outwardWaypoints[recapCarpool.outwardWaypoints.length - 1].latitude, recapCarpool.outwardWaypoints[recapCarpool.outwardWaypoints.length - 1].longitude]"
         ></l-marker>
       </l-map>
     </div>
@@ -321,7 +321,6 @@ export default {
   },
   props: ["recap", "type"],
   mounted() {
-    console.log(this.recap);
     setTimeout(() => {
       if (!!this.$refs.mapRecap) this.$refs.mapRecap.mapObject.invalidateSize();
     }, 500);
@@ -331,6 +330,10 @@ export default {
       const bounds = new L.LatLngBounds(this.recap.directPoints);
       if (!!this.$refs.mapRecap) this.$refs.mapRecap.mapObject.invalidateSize();
       return bounds;
+    },
+
+    recapCarpool() {
+      return this.recap
     }
   },
   methods: {

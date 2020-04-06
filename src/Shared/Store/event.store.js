@@ -1,4 +1,5 @@
 import http from '../Mixin/http.mixin'
+import moment from 'moment'
 
 export const eventStore = {
   state: {
@@ -6,7 +7,8 @@ export const eventStore = {
     statusGetEvent: '',
     statusSignalEvent: '',
     statusPostEvent: '',
-    events: null,
+    currentEvents: null,
+    pastEvents: null,
     postEvent: null
   },
   mutations: {
@@ -16,7 +18,8 @@ export const eventStore = {
 
     events_success(state, events) {
       state.statusGetEvents = 'success';
-      state.events = events;
+      state.pastEvents = events.pastEvents;
+      state.currentEvents = events.currentEvents;
     },
 
     events_error(state) {
@@ -92,7 +95,15 @@ export const eventStore = {
         http.get(`/events`)
           .then(resp => {
             resolve(resp)
-            commit('events_success', resp.data['hydra:member']);
+            const allEvents = resp.data['hydra:member'];
+            const pastEvents = allEvents.filter(event => {
+              return moment(event.toDate).isBefore(moment())
+            })
+
+            const currentEvents = allEvents.filter(event => {
+              return ! moment(event.toDate).isBefore(moment())
+            })
+            commit('events_success', {currentEvents, pastEvents});
           })
           .catch(err => {
             console.log('error');
@@ -151,8 +162,12 @@ export const eventStore = {
     },
   },
   getters: {
-    events: state => {
-      return state.events
+    currentEvents: state => {
+      return state.currentEvents
+    },
+
+    pastEvents: state => {
+      return state.pastEvents
     },
 
     statusGetEvents: state => {

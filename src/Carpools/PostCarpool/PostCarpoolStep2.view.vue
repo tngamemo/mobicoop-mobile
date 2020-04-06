@@ -34,6 +34,7 @@
               :placeholder="$t('PostCarpool.timeOutward')"
               :value="outwardTimeInit"
               @ionChange="changePostOutwardTime($event)"
+              minute-values="0,5,10,15,20,25,30,35,40,45,50,55"
             ></ion-datetime>
           </ion-item>
           <div v-if="$v.outwardTimeCopy.$error">
@@ -89,6 +90,7 @@
               :placeholder="$t('PostCarpool.timeReturn')"
               :value="returnTimeInit"
               @ionChange="changePostReturnTime($event)"
+              minute-values="0,5,10,15,20,25,30,35,40,45,50,55"
             ></ion-datetime>
           </ion-item>
           <div v-if="$v.returnTimeCopy.$error">

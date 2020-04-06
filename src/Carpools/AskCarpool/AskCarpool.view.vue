@@ -411,58 +411,58 @@ export default {
         result.push({
           name: "mon",
           trad: "Carpool.L",
-          value: !!resultDriverOrPassenger[type].monCheck,
+          value: !!resultDriverOrPassenger[type].monTime,
           time:
             !!resultDriverOrPassenger[type].monTime &&
-            this.$moment(resultDriverOrPassenger[type].monTime).format("HH:mm")
+            this.$moment(resultDriverOrPassenger[type].monTime).utc().format("HH:mm")
         });
         result.push({
           name: "tue",
           trad: "Carpool.Ma",
-          value: !!resultDriverOrPassenger[type].tueCheck,
+          value: !!resultDriverOrPassenger[type].tueTime,
           time:
             !!resultDriverOrPassenger[type].tueTime &&
-            this.$moment(resultDriverOrPassenger[type].tueTime).format("HH:mm")
+            this.$moment(resultDriverOrPassenger[type].tueTime).utc().format("HH:mm")
         });
         result.push({
           name: "wed",
           trad: "Carpool.Me",
-          value: !!resultDriverOrPassenger[type].wedCheck,
+          value: !!resultDriverOrPassenger[type].wedTime,
           time:
             !!resultDriverOrPassenger[type].wedTime &&
-            this.$moment(resultDriverOrPassenger[type].wedTime).format("HH:mm")
+            this.$moment(resultDriverOrPassenger[type].wedTime).utc().format("HH:mm")
         });
         result.push({
           name: "thu",
           trad: "Carpool.J",
-          value: !!resultDriverOrPassenger[type].thuCheck,
+          value: !!resultDriverOrPassenger[type].thuTime,
           time:
             !!resultDriverOrPassenger[type].thuTime &&
-            this.$moment(resultDriverOrPassenger[type].thuTime).format("HH:mm")
+            this.$moment(resultDriverOrPassenger[type].thuTime).utc().format("HH:mm")
         });
         result.push({
           name: "fri",
           trad: "Carpool.V",
-          value: !!resultDriverOrPassenger[type].friCheck,
+          value: !!resultDriverOrPassenger[type].friTime,
           time:
             !!resultDriverOrPassenger[type].friTime &&
-            this.$moment(resultDriverOrPassenger[type].friTime).format("HH:mm")
+            this.$moment(resultDriverOrPassenger[type].friTime).utc().format("HH:mm")
         });
         result.push({
           name: "sat",
           trad: "Carpool.S",
-          value: !!resultDriverOrPassenger[type].satCheck,
+          value: !!resultDriverOrPassenger[type].satTime,
           time:
             !!resultDriverOrPassenger[type].satTime &&
-            this.$moment(resultDriverOrPassenger[type].satTime).format("HH:mm")
+            this.$moment(resultDriverOrPassenger[type].satTime).utc().format("HH:mm")
         });
         result.push({
           name: "sun",
           trad: "Carpool.D",
-          value: !!resultDriverOrPassenger[type].sunCheck,
+          value: !!resultDriverOrPassenger[type].sunTime,
           time:
             !!resultDriverOrPassenger[type].sunTime &&
-            this.$moment(resultDriverOrPassenger[type].sunTime).format("HH:mm")
+            this.$moment(resultDriverOrPassenger[type].sunTime).utc().format("HH:mm")
         });
 
         return result;

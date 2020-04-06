@@ -264,13 +264,10 @@ export default {
   },
   created() {
     if (this.$store.state.messageStore.tempDirectThread) {
-      console.log('TEMP');
       this.thread = this.$store.state.messageStore.tempDirectThread;
     } else if(this.$route.params.idAsk && this.$route.params.idAsk != -99) {
-      console.log('CARPOOL');
       this.thread = this.$store.state.messageStore.messagesCarpool.find(item => item.idAsk == this.$route.params.idAsk && item.idRecipient == this.$route.params.idRecipient)
     } else {
-      console.log('DIRECT');
       this.thread = this.$store.state.messageStore.messagesDirect.find(item => item.idRecipient == this.$route.params.idRecipient)
     }
 

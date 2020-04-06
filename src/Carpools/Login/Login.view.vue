@@ -116,12 +116,12 @@
         const idUser = jwt_decode(res.data.token).id;
         this.$store.dispatch('getUser', { idUser })
        .then(res => {
-         this.presentToast("La connexion est un succès", 'success');
+         this.presentToast("Vous êtes connecté", 'success');
          this.email = '';
          this.password = '';
 
          if (!! this.$store.getters.redirectionUrl) {
-            this.$router.push({name: this.$store.getters.redirectionUrl});
+            this.$router.push({path: this.$store.getters.redirectionUrl});
             this.$store.commit('redirectionUrl_reset');
          } else {
             this.$router.push('home');

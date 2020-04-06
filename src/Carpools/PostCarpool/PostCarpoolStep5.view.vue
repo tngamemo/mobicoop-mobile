@@ -143,7 +143,6 @@ export default {
     },
 
     priceColor() {
-      console.log(this.warningPriceKm)
       if (this.warningPriceKm == 0) {
         return "mc-price-success";
       } else if (this.warningPriceKm == 1) {
@@ -191,7 +190,6 @@ export default {
         this.warningPriceKm = 0;
       }
 
-      console.log(this.priceKmTmp);
       this.$store
         .dispatch("getPriceofCarpool", { priceKm: this.priceKmTmp })
         .then(resp => {
