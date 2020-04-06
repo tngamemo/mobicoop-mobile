@@ -44,7 +44,7 @@
         </div>
       </div>
       <div class="mc-white-container" v-if="event">
-        <SearchQuick />
+        <SearchQuick :from="'event'" />
 
         <ion-button class="mc-big-button" color="danger" expand="block" v-on:click="signalEvent()">
           <ion-icon

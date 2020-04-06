@@ -87,6 +87,7 @@
                 <div class="mc-ask-header">{{ $t('AskCarpool.outward')}}</div>
                 <div class="mc-ask-outward-choose-day">
                   <div v-for="(item, index) in getOutwardOrReturnDay('outward')" v-bind:key="index">
+                    {{item}}
                     <ion-item>
                       <ion-label>{{ $t(`${item.trad}`) }}: {{item.time == false ? 'Indisponible' : item.time}}</ion-label>
                       <ion-checkbox
@@ -407,6 +408,7 @@ export default {
     getOutwardOrReturnDay(type) {
       const resultDriverOrPassenger = this.getResultDriveOrPassenger();
       if (!!resultDriverOrPassenger[type]) {
+        console.log(resultDriverOrPassenger)
         const result = [];
         result.push({
           name: "mon",
