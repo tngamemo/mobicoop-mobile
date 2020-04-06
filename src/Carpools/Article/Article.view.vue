@@ -76,7 +76,7 @@
         &.is-active {
           padding: 0 20px 15px;
           opacity: 1;
-          max-height: 1000px;
+          max-height: 2000px;
         }
       }
 

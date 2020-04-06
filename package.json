@@ -16,7 +16,8 @@
     "build:ouestgo:test": "export NODE_ENV=production && export VUE_APP_API_URL=https://api.test.lab.ouestgo.fr && vue-cli-service build --mode ouestgo",
     "build:ouestgo:staging": "export NODE_ENV=production && export VUE_APP_API_URL=https://api.staging.ouestgo.fr && vue-cli-service build --mode ouestgo",
     "build:movici:test": "export NODE_ENV=production && export VUE_APP_API_URL=https://api.test.movici.mobicoop.io && vue-cli-service build --mode movici",
-    "build:picholines:test": "export NODE_ENV=production && export VUE_APP_API_URL=https://api.test.movici.mobicoop.io && vue-cli-service build --mode picholines",
+    "build:movici:staging": "export NODE_ENV=production && export VUE_APP_API_URL=https://api.staging.moviciv2.auvergnerhonealpes.fr && vue-cli-service build --mode movici",
+    "build:picholines:test": "export NODE_ENV=production && export VUE_APP_API_URL=https://api.test.picholines.mobicoop.io && vue-cli-service build --mode picholines",
     "lint": "vue-cli-service lint",
     "i18n:report": "vue-cli-service i18n:report --src './src/**/*.?(js|vue)' --locales './src/locales/**/*.json'"
   },
