@@ -351,6 +351,18 @@ export default {
     },
 
     askCarpool(role) {
+      if(this.fromMessage) {
+        if (role == 1) {
+          this.updateAsk(2)
+        } else {
+          this.updateAsk(3)
+        }
+      } else {
+        this.postAskCarpool(role)
+      }
+    },
+
+    postAskCarpool(role) {
       if (this.carpoolSelected.frequency == 1) {
         const resultDriverOrPassenger = this.getResultDriveOrPassenger();
         const adId = resultDriverOrPassenger.outward.proposalId;
@@ -372,7 +384,7 @@ export default {
           .catch(err => {
             console.log(err);
             this.presentToast(this.$t("Commons.error"), "danger");
-          });
+        });
       }
     },
 
