@@ -7,6 +7,7 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
+    "serve:solidary": "vue-cli-service serve --mode solidary",
     "serve:mobicoop": "vue-cli-service serve --mode mobicoop",
     "serve:ouestgo": "vue-cli-service serve --mode ouestgo",
     "serve:movici": "vue-cli-service serve --mode movici",
@@ -32,6 +33,7 @@
     "copy-webpack-plugin": "^5.1.1",
     "ionicons": "^4.5.10-0",
     "jwt-decode": "^2.2.0",
+    "lodash": "^4.17.15",
     "leaflet": "^1.6.0",
     "leaflet-fullscreen": "^1.0.2",
     "vue": "^2.5.11",

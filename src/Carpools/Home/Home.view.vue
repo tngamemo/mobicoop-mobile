@@ -6,8 +6,11 @@
           <div class="mc-home-log">
             <img class="background-img ion-margin-end" src="/assets/home.png" />
             <h1>{{ title }}</h1>
+            <ion-icon v-if="numberOfModule > 1" name="apps" size="large" class="mc-home-switch" v-on:click="showModule()"></ion-icon>
           </div>
+
         </div>
+
       </ion-toolbar>
     </ion-header>
 
@@ -100,6 +103,10 @@
       padding: 0;
       font-weight: bold;
     }
+
+    .mc-home-switch {
+      margin-left: auto;
+    }
   }
 }
 </style>
@@ -107,7 +114,9 @@
 <script>
 import UserHome from "./Components/UserHome.component";
 import BlockAction from "./Components/BlockAction.component";
+import ModuleModal from "../../Shared/Component/ModuleModal.component";
 import SearchQuick from "../Shared/Components/SearchQuick.component";
+
 
 export default {
   name: "home",
@@ -123,7 +132,8 @@ export default {
       secondary: "",
       success: "",
       partner: JSON.parse(process.env.VUE_APP_PARTNER),
-      showSolidarity: JSON.parse(process.env.VUE_APP_SHOW_SOLIDARITY_TRANSPORT)
+      showSolidarity: JSON.parse(process.env.VUE_APP_SHOW_SOLIDARITY_TRANSPORT),
+      appModule: JSON.parse(process.env.VUE_APP_MODULE)
     };
   },
   created() {
@@ -137,6 +147,11 @@ export default {
     this.success = window
       .getComputedStyle(document.body)
       .getPropertyValue("--ion-color-success-rgb");
+  },
+  computed: {
+    numberOfModule() {
+      return Object.values(this.appModule).filter(item => item == "true").length;
+    }
   },
   methods: {
     closeWelcome: function() {
@@ -168,6 +183,21 @@ export default {
 
     redirectToSolidarityPost: function() {
       this.$router.push({ name: "post-carpool", params: { solidarity: true } });
+    },
+
+    showModule: async function() {
+       const modal = await this.$ionic.modalController
+        .create({
+          component: ModuleModal,
+          componentProps: {
+            propsData: {
+              appModule: this.appModule,
+              router: this.$router
+            },
+          },
+        })
+
+        await modal.present();
     }
   }
 };

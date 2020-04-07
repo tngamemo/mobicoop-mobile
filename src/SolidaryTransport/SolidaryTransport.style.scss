@@ -1,0 +1,800 @@
+// Colors
+:root {
+  --ion-color-step-50: #f2f2f2;
+  --ion-color-step-100: #e6e6e6;
+  --ion-color-step-150: #d9d9d9;
+  --ion-color-step-200: #cccccc;
+  --ion-color-step-250: #bfbfbf;
+  --ion-color-step-300: #b3b3b3;
+  --ion-color-step-350: #a6a6a6;
+  --ion-color-step-400: #999999;
+  --ion-color-step-450: #8c8c8c;
+  --ion-color-step-500: #808080;
+  --ion-color-step-550: #737373;
+  --ion-color-step-600: #666666;
+  --ion-color-step-650: #595959;
+  --ion-color-step-700: #4d4d4d;
+  --ion-color-step-750: #404040;
+  --ion-color-step-800: #333333;
+  --ion-color-step-850: #262626;
+  --ion-color-step-900: #191919;
+  --ion-color-step-950: #0d0d0d;
+}
+
+ion-icon {
+  &[name*="custom-"] {
+    mask-size: contain;
+    mask-position: 50% 50%;
+    mask-repeat: no-repeat;
+    background: currentColor;
+    width: 1em;
+    height: 1em;
+  }
+
+  &[name*="custom-logo"] {
+    mask-image: url(./assets/icons/logo.svg);
+  }
+}
+
+ion-toolbar {
+  --padding-start: 10px;
+  --padding-end: 10px;
+
+  ion-title {
+    padding-left: 5px;
+    padding-right: 5px;
+    position: relative;
+
+    sup {
+      font-size: 10px;
+      position: absolute;
+      top: 5px;
+      opacity: .7;
+    }
+  }
+}
+
+ion-content {
+  &.is-scrollable {
+    &:after {
+      content: "";
+      display: block;
+      width: 100%;
+      height: 40px;
+      pointer-events: none;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      background: linear-gradient(180deg, rgba(255,255,255,0) 0%,  rgba(255,255,255,1) 100%);
+    }
+  }
+}
+
+@keyframes spin { 
+  100% { 
+    transform: rotate(360deg);
+  }
+}
+
+.mc-st-container {
+  border-radius: 15px 15px 0px 0px;
+  padding: 30px;
+  min-height: 100%;
+  position: relative;
+  background-color: var(--ion-color-light);
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  .mc-st-form {
+    position: relative;
+    display: flex;
+    flex: 1 0 auto;
+    width: 100%;
+    flex-direction: column;
+    min-height: 100%;
+    margin-bottom: 20px;
+
+    .mc-st-form-header {
+      color: var(--ion-color-primary);
+      text-align: center;
+      margin-bottom: 20px;
+
+      .mc-st-form-title {
+        font-weight: bold;
+        opacity: .6;
+        margin-bottom: 10px;
+      }
+
+      .mc-st-form-steps {
+        position: relative;
+        line-height: 0;
+
+        .mc-st-form-step {
+          width: 10px;
+          height: 10px;
+          border-radius: 10px;
+          margin: 2px;
+          display: inline-block;
+          background-color: var(--ion-color-light);
+          border: 1px solid var(--ion-color-primary);
+
+          &.is-active {
+            background-color: var(--ion-color-primary);
+          }
+        }
+      }
+    }
+
+    .mc-st-form-content {
+      flex: 0 0 auto;
+      margin-bottom: 25px;
+
+      .mc-st-form-item {
+        font-size: 14px;
+        line-height: 1.1;
+
+        ion-label, ion-input, ion-textarea {
+          font-family: 'Poppins';
+        }
+
+        ion-select {
+          width: 100%;
+          max-width: none;
+        }
+
+        &.as-agreement {
+          margin-top: 30px;
+        }
+
+        &.as-language {
+          margin-top: 20px;
+        }
+
+        &.as-transport, &.as-supporting, &.as-comment, &.as-trip {
+          margin-top: 40px;
+        }
+
+        &.as-textarea {
+          margin-top: 10px;
+          padding: 10px 20px;
+          border: 1px solid var(--ion-color-step-300);
+          border-radius: 0 15px 15px;
+          min-height: 100px;
+        }
+
+        .mc-st-form-days-wrapper {
+          padding-top: 10px;
+          margin-bottom: 20px;
+          text-align: center;
+
+          .mc-st-form-day {
+            --background: var(--ion-color-light);
+            --color: var(--ion-color-primary);
+            width: 32px;
+            height: 32px;
+            --padding-start: 0;
+            --padding-end: 0;
+            --border-radius: 32px;
+            --border-color: var(--ion-color-primary);
+            --border-style: solid;
+            --border-width: 1px;
+            transition: background .3s, color .3s;
+
+            .label {
+              font-size: 12px;
+              text-transform: none;
+              font-weight: bold;
+            }
+          }
+        }
+
+        .mc-st-form-checkbox-wrapper {
+          padding-left: 15px;
+          padding-top: 10px;
+          margin-bottom: 20px;
+
+          .mc-st-form-checkbox {
+            margin-top: 0;
+            margin-bottom: 0;
+          }
+
+          .mc-st-form-item.as-other {
+            top: -10px;
+            position: relative;
+          }
+        }
+
+        .mc-st-form-checkbox {
+          margin-right: 10px;
+          margin-top: 10px;
+          margin-bottom: 10px;
+        }
+
+        .mc-st-form-label {
+          font-family: 'Poppins';
+
+          &.as-title {
+            font-weight: bold;
+          }
+        }
+
+        + .mc-st-form-actions {
+          margin-top: 30px;
+        }
+      }
+
+      .mc-st-form-summary {
+        margin-top: 20px;
+
+        .mc-st-form-summary-text {
+          color: var(--ion-color-primary);
+          font-size: 14px;
+          line-height: 1.2;
+
+          + .mc-st-form-summary-text, + .mc-st-form-summary-card {
+            margin-top: 20px;
+          }
+
+          .answer {
+            font-weight: bold;
+          }
+        }
+
+        .mc-st-form-summary-card {
+          background-color: var(--ion-color-primary);
+          position: relative;
+          padding: 5px 3px 3px 3px;
+          border-radius: 15px;
+
+          &:before {
+            content: "";
+            display: block;
+            pointer-events: none;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            background-color: var(--ion-color-light);
+            opacity: .7;
+          }
+
+          + .mc-st-form-summary-text, + .mc-st-form-summary-card {
+            margin-top: 20px;
+          }
+
+          .mc-st-form-summary-card-header {
+            position: relative;
+            z-index: 1;
+            padding: 3px 10px;
+            font-size: 14px;
+            font-weight: bold;
+            color: var(--ion-color-primary);
+            line-height: 1;
+            margin-bottom: 4px;
+          }
+
+          .mc-st-form-summary-card-content {
+            position: relative;
+            z-index: 1;
+            background-color: var(--ion-color-light);
+            border-radius: 0 0 13px 13px;
+            color: var(--ion-color-primary);
+            padding: 20px 10px;
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+
+            .times {
+              font-size: 11px;
+              line-height: 1;
+              opacity: .6;
+              display: flex;
+              flex-direction: column;
+              justify-content: space-between;
+              text-align: center;
+              flex: 0 0 40px;
+
+              &.is-empty {
+                flex: 0 0 1px;
+              }
+
+              .time {
+                &.as-from {
+                  padding-top: 2px;
+                }
+
+                &.as-to {
+                  padding-bottom: 1px;
+                }
+              }
+            }
+
+            .places {
+              display: flex;
+              flex-direction: column;
+              justify-content: space-between;
+              line-height: 1;
+              position: relative;
+              margin-left: 20px;
+
+              &:before {
+                content: "";
+                display: block;
+                position: absolute;
+                top: 3px;
+                left: -12px;
+                z-index: 2;
+                width: 6px;
+                height: 6px;
+                border-radius: 5px;
+                background-color: var(--ion-color-primary);
+              }
+
+              &:after {
+                content: "";
+                display: block;
+                position: absolute;
+                top: 3px;
+                left: -10px;
+                z-index: 2;
+                width: 2px;
+                height: calc(100% - 8px);
+                border-radius: 5px;
+                background-color: var(--ion-color-primary);
+              }
+
+              .place {
+                font-size: 14px;
+                line-height: 1.2;
+                position: relative;
+                display: flex;
+                flex-direction: row;
+
+                .city {
+                  font-weight: bold;
+                  padding-left: 5px;
+                  padding-right: 10px;
+                }
+
+                .address {
+                  opacity: .7;
+                }
+
+                + .place {
+                  margin-top: 15px;
+                } 
+
+                &:last-of-type {
+                  align-items: flex-end;
+
+                  &:after {
+                    content: "";
+                    display: block;
+                    position: absolute;
+                    bottom: 4px;
+                    left: -14px;
+                    width: 8px;
+                    height: 8px;
+                    border-right: 2px solid var(--ion-color-primary);
+                    border-bottom: 2px solid var(--ion-color-primary);
+                    transform-origin: center center;
+                    transform: rotate(45deg);
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        .mc-st-form-summary-comment {
+          margin-top: 40px;
+          
+          .mc-st-form-summary-comment-message {
+            margin-top: 10px;
+            padding: 10px 20px;
+            border-radius: 15px 15px 15px 0;
+            min-height: 100px;
+            color: var(--ion-color-step-600);
+            background-color: var(--ion-color-step-50);
+            font-size: 14px;
+            line-height: 1.3;
+          }
+
+          .mc-st-form-summary-comment-user {
+            margin-top: 20px;
+          }
+        }
+
+        .mc-st-form-summary-map {
+          margin-top: 10px;
+          height: 320px;
+          margin-left: -30px;
+          margin-right: -30px;
+          position: relative;
+
+          &:before, &:after {
+            content: "";
+            display: block;
+            width: 100%;
+            height: 20px;
+            background-color: var(--ion-color-light);
+            overflow: hidden;
+            position: absolute;
+            z-index: 9999999999;
+          }
+
+          &:before {
+            border-radius: 0 0 15px 15px;
+            top: 0;
+          }
+
+          &:after {
+            border-radius: 15px 15px 0 0;
+            bottom: 0;
+          }
+        }
+      }
+
+      .mc-st-form-details {
+        font-size: 12px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        + .mc-st-form-item {
+          margin-top: 10px;
+        }
+
+        .mc-st-form-note {
+          color: var(--ion-color-light-contrast);
+        }
+
+        .mc-st-form-error {
+          color: var(--ion-color-danger);
+          text-align: right;
+          flex: 1 0 auto;
+        }
+      }
+
+      .mc-st-form-actions {
+        opacity: 0;
+        transition: opacity .1s;
+        text-align: center;
+
+        &.is-active {
+          opacity: 1;
+          transition: opacity .3s;
+        }
+
+        + .mc-st-form-item {
+          margin-top: 10px;
+
+          &.as-agreement {
+            margin-top: 30px;
+          }
+        }
+
+        .mc-st-form-other {
+          color: var(--ion-color-primary);
+          font-size: 14px;
+
+          + .mc-st-form-action {
+            margin-top: 15px;
+          }
+        }
+
+        .mc-st-form-action {
+          --border-radius: 25px;
+          --padding-start: 30px;
+          --padding-end: 30px;
+          height: 45px;
+          word-break: break-word;
+          white-space: normal;
+          font-weight: bold;
+          text-transform: none;
+          font-size: 14px;
+
+          + .mc-st-form-action, + .mc-st-form-other {
+            margin-top: 15px;
+          }
+
+          &.as-light {
+            --background: var(--ion-color-light);
+            --color: var(--ion-color-primary);
+            --border-color: var(--ion-color-primary);
+            --border-style: solid;
+            --border-width: 1px;
+            width: 100%;
+          }
+
+          ion-icon {
+            + span {
+              margin-left: 10px;
+            }
+          }
+
+          span {
+            display: inline-block;
+          }
+        }
+      }
+    }
+
+    .mc-form-alternate {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      flex: 1 0 auto;
+      justify-content: center;
+    }
+
+    .mc-st-form-controls {
+      flex: 1 0 auto;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: flex-end;
+
+      &.with-multiple {
+        justify-content: space-between;
+      }
+
+      &.in-summary {
+        flex-wrap: wrap;
+        flex-direction: column-reverse;
+        justify-content: flex-start;
+
+        .mc-st-form-control {
+          width: 100%;
+        }
+      }
+
+      &.is-loading {
+        .mc-st-form-control.as-loader {
+          pointer-events: none;
+
+          ion-icon {
+            opacity: 1;
+            transition: opacity .3s ease .3s;
+          }
+
+          span {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .3s ease 0s;
+          }
+        }
+      }
+
+      &.is-loaded {
+        .mc-st-form-control.as-loader {
+          pointer-events: none;
+
+          ion-icon {
+            opacity: 1;
+            transition: opacity .3s ease .3s;
+            animation: none;
+          }
+
+          span {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .3s ease 0s;
+          }
+        }
+      }
+
+      .mc-st-form-control {
+        --border-radius: 25px;
+        --padding-start: 30px;
+        --padding-end: 30px;
+        height: 45px;
+        word-break: break-word;
+        white-space: normal;
+        font-weight: bold;
+        text-transform: none;
+        font-size: 14px;
+
+        &.as-loader {
+          position: relative;
+
+          ion-icon {
+            position: absolute;
+            pointer-events: none;
+            top: calc(50% - 16px);
+            left: calc(50% - 16px);
+            margin: 0;
+            transition: opacity .3s ease 0s;
+            animation: spin 4s linear infinite;
+            opacity: 0;
+          }
+
+          span {
+            opacity: 1;
+            transition: opacity .3s ease .3s;
+          }
+        }
+
+        &.as-back {
+          --background: var(--ion-color-light);
+          --color: var(--ion-color-primary);
+          --border-color: var(--ion-color-primary);
+          --border-style: solid;
+          --border-width: 1px;
+        }
+      }
+    }
+  }
+
+  .mc-st-logo {
+    position: absolute;
+    z-index: 0;
+    width: 44%;
+    right: -5%;
+    top: 0;
+    opacity: .2;
+
+    .mc-st-vector {
+      width: 100%
+    }
+  }
+
+  .mc-st-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    min-height: 100%;
+    flex: 1 0 auto;
+
+    .mc-st-profile {
+      margin-bottom: 20px;
+    }
+
+    .mc-st-information {
+      max-height: 0;
+      opacity: 0;
+      transition: max-height .7s ease, opacity .5s ease;
+
+      &.is-active {
+        opacity: 1;
+        max-height: 600px;
+
+        + .mc-st-actions {
+          margin-top: 20px;
+        }
+      }
+
+      .mc-information-icon {
+        font-size: 18px;
+        float: right;
+      }
+
+      .mc-information-text {
+        font-size: 14px;
+        text-align: center;
+        padding: 0 10px;
+      }
+
+      + .mc-st-actions {
+        margin-top: 0;
+      }
+    }
+
+    .mc-st-actions {
+      transition: margin-top .4s ease .4s;
+      flex: 1 0 auto;
+
+      &.when-connected {
+        margin-left: -30px;
+        margin-right: -30px;
+        border-radius: 15px 15px 0px 0px;
+        background-color: var(--ion-color-light);
+        padding: 30px;
+      }
+
+      .mc-st-action {
+        --border-radius: 25px;
+        --padding-start: 30px;
+        --padding-end: 30px;
+        height: 45px;
+        width: 100%;
+        word-break: break-word;
+        white-space: normal;
+        font-weight: bold;
+        text-transform: none;
+        font-size: 14px;
+
+        + .mc-st-action {
+          margin-top: 10px
+        }
+
+        &.is-high {
+          height: 60px;
+        }
+
+        &.as-light {
+          --background: var(--ion-color-light);
+          --color: var(--ion-color-primary);
+          --border-color: var(--ion-color-primary);
+          --border-style: solid;
+          --border-width: 1px;
+          width: 100%;
+        }
+      }
+
+
+    }
+  }
+
+  .mc-st-rounded-cards {
+
+    .mc-st-card {
+      background-color: var(--ion-color-light-tint);
+      margin-left: 0;
+      margin-right: 0;
+      margin-bottom: 0;
+      box-shadow: none;
+      border-radius: 15px;
+
+      &:first-of-type {
+        margin-top: 0;
+      }
+
+      + .mc-st-card {
+        margin-top: 20px;
+      }
+
+      .mc-st-card-header {
+        padding: 13px 20px;
+
+        .mc-st-card-title {
+          color: var(--ion-color-primary);
+          font-weight: bold;
+          font-size: 16px;
+        }
+      }
+
+      .mc-st-card-content {
+        font-size: 14px;
+        padding: 0;
+
+        .mc-st-card-content-wrapper {
+          padding: 0 20px;
+          max-height: 0;
+          opacity: 0;
+          transition: max-height .7s ease, opacity .5s ease, padding .1s ease;
+
+          &.is-active {
+            padding: 0 20px 15px;
+            opacity: 1;
+            max-height: 600px;
+          }
+        }
+
+        p + p {
+          margin-top: 10px;
+        }
+      }
+    }
+
+    .mc-st-loading {
+      text-align: center;
+
+      .mc-st-loading-spinner {
+        display: inline-block;
+        color: var(--ion-color-primary);
+      }
+
+      .mc-st-loading-message {
+        color: var(--ion-color-primary);
+        margin: 0;
+      }
+    }
+  }
+}

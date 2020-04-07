@@ -1,0 +1,531 @@
+{
+  "solidaryTransport": {
+    "support": {
+      "phone": "+330666869278"
+    },
+    "buttons": {
+      "back": "Retour",
+      "next": "Suivant",
+      "register": "S'inscrire",
+      "validate": "Valider",
+      "sendRequest": "Envoyer ma demande",
+      "sendAd": "Publier mon annonce"
+    },
+    "navigation": {
+      "home": "Accueil",
+      "help": "Aide",
+      "register": "Inscription",
+      "login": "Connexion",
+      "profile": "Profil",
+      "messages": "Messages"
+    },
+    "request": {
+      "publish": {
+        "title": "Faire une demande",
+        "steps": {
+          "init": "1. Votre trajet",
+          "ponctual": "2. Votre trajet ponctuel",
+          "regular": "2. Votre trajet régulier",
+          "summary": "3. Récapitulatif"
+        },
+        "form": {
+          "transports": [
+            { 
+              "value": "transport-1",
+              "label": "Aller à un RDV médical"
+            },
+            { 
+              "value": "transport-2",
+              "label": "Faire mes courses"
+            },
+            { 
+              "value": "transport-3",
+              "label": "Aller à un RDV administratif"
+            },
+            { 
+              "value": "transport-4",
+              "label": "Faire une sortie culturelle"
+            },
+            { 
+              "value": "transport-5",
+              "label": "Liste opérateur"
+            }
+          ],
+          "transportsDetails": [
+            { 
+              "value": "transport-details-1",
+              "label": "J’ai besoin d’être accompagné jusqu’à ma porte"
+            },
+            { 
+              "value": "transport-details-2",
+              "label": "J’ai besoin qu’on monte mes courses"
+            },
+            { 
+              "value": "transport-details-3",
+              "label": "J’invite à prendre un café."
+            }
+          ],
+          "supporting": [
+            { 
+              "value": "supporting-0",
+              "label": "De ma propre initiative"
+            },
+            { 
+              "value": "supporting-1",
+              "label": "Structure 1"
+            },
+            { 
+              "value": "supporting-2",
+              "label": "Structure 2"
+            }
+          ],
+          "frequency": [
+            { 
+              "value": "ponctual",
+              "label": "Trajet ponctuel"
+            },
+            { 
+              "value": "regular",
+              "label": "Trajet régulier"
+            }
+          ],
+          "when": {
+            "departure": {
+              "dates": [
+                { 
+                  "value": "dates-0",
+                  "label": "D’ici une semaine"
+                },
+                { 
+                  "value": "dates-1",
+                  "label": "D’ici deux semaines"
+                },
+                { 
+                  "value": "dates-2",
+                  "label": "D’ici un mois"
+                }
+              ],
+              "days": [
+                { 
+                  "value": "days-0",
+                  "label": "L"
+                },
+                { 
+                  "value": "days-1",
+                  "label": "Ma"
+                },
+                { 
+                  "value": "days-2",
+                  "label": "Me"
+                },
+                { 
+                  "value": "days-3",
+                  "label": "J"
+                },
+                { 
+                  "value": "days-4",
+                  "label": "V"
+                },
+                { 
+                  "value": "days-5",
+                  "label": "S"
+                },
+                { 
+                  "value": "days-6",
+                  "label": "D"
+                }
+              ],
+              "hours": [
+                { 
+                  "value": "hours-0",
+                  "label": "Entre 8h et 13h"
+                },
+                { 
+                  "value": "hours-1",
+                  "label": "Entre 13h et 18h"
+                },
+                { 
+                  "value": "hours-2",
+                  "label": "Entre 18h et 21h"
+                }
+              ]
+            },
+            "return": [
+              { 
+                "value": "return-0",
+                "label": "Une heure plus tard"
+              },
+              { 
+                "value": "return-1",
+                "label": "Deux heures plus tard"
+              },
+              { 
+                "value": "return-2",
+                "label": "Trois heures plus tard"
+              },
+              { 
+                "value": "return-3",
+                "label": "Je n’ai pas besoin qu’on me ramène"
+              }
+            ]
+          },
+          "fields": {
+            "destination":{
+              "from": "Lieu de départ",
+              "to": "Lieu de destination (facultatif)"
+            },
+            "transports": "Je souhaite me déplacer pour :",
+            "otherTransports": "Autre",
+            "transportsDetails": "Autres informations :",
+            "otherTransportsDetails": "Autres précisions",
+            "supporting": "Structure accompagnante :",
+            "frequency": "Fréquence du trajet :",
+            "when": {
+              "departure": {
+                "date": "A quelle date souhaitez-vous partir ?",
+                "specificDate": "Date du départ",
+                "hour": "A quelle heure souhaitez-vous partir ?",
+                "specificHour": "Heure de départ",
+                "day": "Indiquez les jours concernés pour lesquels vous avez besoin d’un trajet régulier :"
+              },
+              "return": "A quelle heure souhaitez-vous revenir ?",
+              "specificReturn": "Heure de retour"
+            },
+            "summary": "Votre demande :"
+          }
+        }
+      }
+    },
+    "ad": {
+      "publish": {
+        "title": "Publier une annonce solidaire",
+        "steps": {
+          "init": "1. Votre trajet",
+          "ponctual": "2. Votre trajet ponctuel",
+          "regular": "2. Votre trajet régulier",
+          "summary": "3. Récapitulatif"
+        },
+        "form": {
+          "transports": [
+            { 
+              "value": "transport-1",
+              "label": "Aller à un RDV médical"
+            },
+            { 
+              "value": "transport-2",
+              "label": "Faire mes courses"
+            },
+            { 
+              "value": "transport-3",
+              "label": "Aller à un RDV administratif"
+            },
+            { 
+              "value": "transport-4",
+              "label": "Faire une sortie culturelle"
+            },
+            { 
+              "value": "transport-5",
+              "label": "Liste opérateur"
+            }
+          ],
+          "transportsDetails": [
+            { 
+              "value": "transport-details-1",
+              "label": "Accompagner jusqu’à la porte"
+            },
+            { 
+              "value": "transport-details-2",
+              "label": "Monter les courses"
+            },
+            { 
+              "value": "transport-details-3",
+              "label": "Boire un café"
+            }
+          ],
+          "supporting": [
+            { 
+              "value": "supporting-0",
+              "label": "De ma propre initiative"
+            },
+            { 
+              "value": "supporting-1",
+              "label": "Structure 1"
+            },
+            { 
+              "value": "supporting-2",
+              "label": "Structure 2"
+            }
+          ],
+          "frequency": [
+            { 
+              "value": "ponctual",
+              "label": "Trajet ponctuel"
+            },
+            { 
+              "value": "regular",
+              "label": "Trajet régulier"
+            }
+          ],
+          "when": {
+            "departure": {
+              "dates": [
+                { 
+                  "value": "dates-0",
+                  "label": "D’ici une semaine"
+                },
+                { 
+                  "value": "dates-1",
+                  "label": "D’ici deux semaines"
+                },
+                { 
+                  "value": "dates-2",
+                  "label": "D’ici un mois"
+                }
+              ],
+              "days": [
+                { 
+                  "value": "days-0",
+                  "label": "L"
+                },
+                { 
+                  "value": "days-1",
+                  "label": "Ma"
+                },
+                { 
+                  "value": "days-2",
+                  "label": "Me"
+                },
+                { 
+                  "value": "days-3",
+                  "label": "J"
+                },
+                { 
+                  "value": "days-4",
+                  "label": "V"
+                },
+                { 
+                  "value": "days-5",
+                  "label": "S"
+                },
+                { 
+                  "value": "days-6",
+                  "label": "D"
+                }
+              ],
+              "hours": [
+                { 
+                  "value": "hours-0",
+                  "label": "Entre 8h et 13h"
+                },
+                { 
+                  "value": "hours-1",
+                  "label": "Entre 13h et 18h"
+                },
+                { 
+                  "value": "hours-2",
+                  "label": "Entre 18h et 21h"
+                }
+              ]
+            },
+            "return": [
+              { 
+                "value": "return-0",
+                "label": "Une heure plus tard"
+              },
+              { 
+                "value": "return-1",
+                "label": "Deux heures plus tard"
+              },
+              { 
+                "value": "return-2",
+                "label": "Trois heures plus tard"
+              },
+              { 
+                "value": "return-3",
+                "label": "Je n’ai pas besoin qu’on me ramène"
+              }
+            ]
+          },
+          "trip": [
+            { 
+              "value": "one-way",
+              "label": "Aller simple"
+            },
+            { 
+              "value": "round-trip",
+              "label": "Aller-retour"
+            }
+          ],
+          "fields": {
+            "destination":{
+              "from": "Lieu de départ",
+              "to": "Lieu de destination (facultatif)"
+            },
+            "trip": "Trajet :",
+            "transports": "Je me déplace pour :",
+            "otherTransports": "Autre",
+            "transportsDetails": "Je suis prêt à :",
+            "otherTransportsDetails": "Autres précisions",
+            "supporting": "Je donne ce coup de pouce avec :",
+            "comment": "Un commentaire ?",
+            "commentSample": "Commentaire sur votre annonce (par exemple, “je dépose mes enfants à l’école avant d’aller au travail”)",
+            "frequency": "Fréquence du trajet :",
+            "when": {
+              "departure": {
+                "date": "Date du trajet",
+                "hour": "A quelle heure partez-vous ?",
+                "specificHour": "Heure de départ",
+                "day": "Indiquez les jours concernés pour lesquels vous avez besoin d’un trajet régulier :"
+              },
+              "return": "A quelle heure revenez-vous ?",
+              "specificReturn": "Heure de retour"
+            },
+            "summary": "Votre demande :"
+          }
+        }
+      }
+    },
+    "home": {
+      "title": "Prototype",
+      "loading": "Chargement",
+      "information": "Bienvenue<br/> sur le service de transport solidaire !<br/> Ce service est destinée aux personnes [critère d’éligibilité] ou souhaitant donner un coup de pouce à un bénéficiaire. Vous pouvez également utiliser notre outil de covoiturage sans inscription.",
+      "actions": {
+        "ask": "Je souhaite demander<br/> un coup de pouce",
+        "give": "Je souhaite donner<br/> un coup de pouce",
+        "contact": "Contacter Ouestgo",
+        "request": "Faire une demande",
+        "publish": "Publier une annonce",
+        "help": "Aide"
+      }
+    },
+    "help": {
+      "title": "Aide",
+      "loading": "Chargement"
+    },
+    "register": {
+      "title": "Inscription",
+      "form": {
+        "fill": "Remplir le formulaire",
+        "check": "Vérifier mon éligibilité",
+        "call": "Demander de l'aide",
+        "sendProof": "Envoyer un justificatif",
+        "actions": {
+          "ask": "Je souhaite demander un coup de pouce",
+          "give": "Je souhaite donner un coup de pouce",
+          "login": "Se connecter",
+          "or": "ou",
+          "complete": "ou compléter ci-dessous"
+        },
+        "eligibility": [
+          { 
+            "value": "criteria-1",
+            "label": "Je suis sans solution de transport pour me rendre à mon travail, mon stage ou ma formation [exemple critère éligibilité 1]"
+          },
+          { 
+            "value": "criteria-2",
+            "label": "[critère éligibilité 2]"
+          }
+        ],
+        "supporting": [
+          { 
+            "value": "supporting-0",
+            "label": "De ma propre initiative"
+          },
+          { 
+            "value": "supporting-1",
+            "label": "Structure 1"
+          },
+          { 
+            "value": "supporting-2",
+            "label": "Structure 2"
+          }
+        ],
+        "languages": [
+          { 
+            "value": "fr",
+            "label": "Français"
+          },
+          { 
+            "value": "en",
+            "label": "Anglais"
+          },
+          { 
+            "value": "ar",
+            "label": "Arabe"
+          },
+          { 
+            "value": "xx",
+            "label": "Langue"
+          }
+        ],
+        "fields": {
+          "firstname": "Prénom",
+          "lastname": "Nom",
+          "email": "Adresse mail",
+          "password": "Mot de passe",
+          "phone": "Téléphone",
+          "birthdate": "Date d'anniversaire",
+          "address": "Commune de résidence",
+          "visibility": "Visible par tous",
+          "required": "Ce champ est requis",
+          "agreement": "J’ai lu et j’accepte les conditions générales d’utilisation du service et la politique de gestion des données pratiquées par [nom de l’opérateur]",
+          "driver": "Je possède un véhicule",
+          "supporting": "Structure accompagnante",
+          "languages": "Langues parlées :",
+          "otherLanguages": "Autre(s) langue(s) parlée(s)"
+        }
+      },
+      "ask": {
+        "title": "Un service pour vous ?"
+      },
+      "subscribe": {
+        "title": "Informations personnelles",
+        "details": {
+          "title": "Informations complémentaires"
+        }
+      }
+    },
+    "profile": {
+      "title": "Profil",
+      "actions": {
+        "agenda": "Mon agenda",
+        "manage": "Gérer mes alertes",
+        "logout": "Se déconnecter",
+        "delete": "Supprimer mon compte"
+      },
+      "personal": {
+        "title": "Modifier mon profil"
+      },
+      "preferences": {
+        "title": "Modifier mes préférences"
+      },
+      "vehicle": {
+        "title": "Modifier mon véhicule"
+      },
+      "realtime": {
+        "title": "Mes options temps réel"
+      },
+      "agenda": {
+        "title": "Mon agenda"
+      },
+      "notifications": {
+        "title": "Mes alertes"
+      },
+      "yearsOld": "ans"
+    },
+    "messages": {
+      "title": "Messages"
+    },
+    "login": {
+      "title": "Connexion",
+      "form": {
+        "forgotPassword": "Mot de passe oublié ?",
+        "notRegistered": "Pas encore inscrit ? S'inscrire.",
+        "fields": {
+          "login": "Téléphone ou adresse mail",
+          "password": "Mot de passe"
+        }
+      }
+    }
+  }
+}
