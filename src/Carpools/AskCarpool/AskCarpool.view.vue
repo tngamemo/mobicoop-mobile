@@ -555,26 +555,63 @@ export default {
       const adId = resultDriverOrPassenger.outward.proposalId;
       const matchingId = resultDriverOrPassenger.outward.matchingId;
 
-      let ask = {};
-      ask.schedule = this.scheduleSelected;
-      ask.role = this.roleSelected;
-      ask.paused = false;
-      ask.outwardLimitDate = this.$moment(this.outwardLimitDate).format();
-      ask.outwardDate = this.$moment(this.outwardDate).format();
-      ask.matchingId = matchingId;
-      ask.adId = adId;
+      if (this.fromMessage) {
+        console.log(this.carpoolSelected.askId)
+        console.log(this.carpoolSelected)
+        const payload = {
+          idAsk: this.carpoolSelected.id,
+          userId: this.$store.getters.userId,
+          data: {
+            askStatus: this.roleSelected == 1 ? 2 : 3,
+            outwardDate: this.$moment(this.outwardDate).format(),
+            outwardLimitDate: this.$moment(this.outwardLimitDate).format(),
+            paused: false,
+            schedule: this.scheduleSelected
+          }
+        };
 
+        this.updateAsk(payload)
+      } else {
+
+        let ask = {};
+        ask.schedule = this.scheduleSelected;
+        ask.role = this.roleSelected;
+        ask.paused = false;
+        ask.outwardLimitDate = this.$moment(this.outwardLimitDate).format();
+        ask.outwardDate = this.$moment(this.outwardDate).format();
+        ask.matchingId = matchingId;
+        ask.adId = adId;
+
+
+
+        this.$store
+          .dispatch("postAskCarpool", ask)
+          .then(res => {
+            this.presentToast(this.$t("AskCarpool.success"), "success");
+
+            this.$router.push({ name: "carpoolsHome" });
+          })
+          .catch(err => {
+            this.presentToast(this.$t("Commons.error"), "danger");
+          });
+      }
+
+
+    },
+
+    updateAsk(payload) {
       this.$store
-        .dispatch("postAskCarpool", ask)
+        .dispatch("updateAskCarpool", payload)
         .then(res => {
-          this.presentToast(this.$t("AskCarpool.success"), "success");
+          this.presentToast(this.$t("DetailCarpool.updateSuccess"), "success");
 
           this.$router.push({ name: "carpoolsHome" });
         })
         .catch(err => {
+          console.log(err);
           this.presentToast(this.$t("Commons.error"), "danger");
         });
-    }
+    },
   }
 };
 </script>
