@@ -525,6 +525,18 @@
           "login": "Téléphone ou adresse mail",
           "password": "Mot de passe"
         }
+      },
+      "forgotPassword": {
+        "title": "Mot de passe oublié ?",
+        "email": "Votre adresse mail",
+        "actions": {
+          "cancel": "Annuler",
+          "validate": "Valider"
+        },
+        "messages": {
+          "success": "Votre demande de réinitialisation de mot de passe à bien été prise en compte. Consultez votre boite pour finaliser sa récupération.",
+          "error": "Une erreur est survenue durant la récupération de votre mot de passe."
+        }
       }
     }
   }

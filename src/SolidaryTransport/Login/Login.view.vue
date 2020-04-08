@@ -24,8 +24,8 @@
           </div>
 
           <div class="mc-form-alternate">
-            <ion-router-link>{{$t('solidaryTransport.login.form.forgotPassword')}}</ion-router-link>
-            <ion-router-link>{{$t('solidaryTransport.login.form.notRegistered')}}</ion-router-link>
+            <span @click="forgotPassword()">{{$t('solidaryTransport.login.form.forgotPassword')}}</span>
+            <span @click="$router.push({name: 'solidaryTransport.register' })">{{$t('solidaryTransport.login.form.notRegistered')}}</span>
           </div>
 
           <div class="mc-st-form-controls with-multiple" :class="{'is-loading': loading}">
@@ -47,9 +47,11 @@
 
 <script>
 import jwt_decode from 'jwt-decode'
+import { toast } from '../../Shared/Mixin/toast.mixin'
 
 export default {
   name: 'solidaryTransport.login',
+  mixins: [toast],
   components: {},
   props: {
     initRedirect: {
@@ -67,7 +69,8 @@ export default {
       username: undefined,
       password: undefined,
       loading: false,
-      redirect: this.initRedirect
+      redirect: this.initRedirect,
+      alert: undefined
     }
   },
   computed: {},
@@ -109,7 +112,42 @@ export default {
           console.log("Une erreur est survenue", 'danger')
        })
     },
+    forgotPassword() {
+      return this.$ionic.alertController
+        .create({
+          header: this.$t('solidaryTransport.login.forgotPassword.title'),
+          inputs: [
+            {
+              name: 'email',
+              id: 'email',
+              placeholder: this.$t('solidaryTransport.login.forgotPassword.email')
+            }
+          ],
+          buttons: [
+            {
+              text: this.$t('solidaryTransport.login.forgotPassword.actions.cancel'),
+              role: 'cancel',
+              cssClass: 'secondary',
+              handler: () => {}
+            },
+            {
+              text: this.$t('solidaryTransport.login.forgotPassword.actions.validate'),
+              handler: (data) => {
+                this.$store.dispatch('resetPassword', data.email).then(() => {
+                  this.presentToast(this.$t('solidaryTransport.login.forgotPassword.messages.success'), 'secondary')
+                }).catch(() => {
+                  this.presentToast(this.$t('solidaryTransport.login.forgotPassword.messages.error'), 'danger')
+                })
+              }
+            }
+          ]
+        })
+        .then((alert) => {
+          alert.present()
+        })
+    }
   },
-  created: function () {}
+  created: function () {},
+  beforeDestroy: function() {}
 }
 </script>
