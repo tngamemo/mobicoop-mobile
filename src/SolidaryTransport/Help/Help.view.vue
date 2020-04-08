@@ -9,10 +9,10 @@
       </ion-toolbar>
     </ion-header>
 
-    <ion-content color="primary">
+    <ion-content ref="help" color="primary">
       <div class="mc-st-container">
         <div class="mc-st-rounded-cards" v-if="sections.length !== 0">
-          <ion-card v-for="(section, index) in sections" @click="interactWithCard(index)" :key="index" class="mc-st-card">
+          <ion-card v-for="(section, index) in sections" @click="interactWithCard(index)" :key="index" class="mc-st-card" :ref="'help-' + index">
             <ion-card-header class="mc-st-card-header">
               <ion-card-title class="mc-st-card-title">{{section.title}}</ion-card-title>
             </ion-card-header>
@@ -54,6 +54,18 @@ export default {
   methods: {
     interactWithCard: function (index) {
       this.active = index
+
+      this.$refs.help.getScrollElement().then((parent) => {
+        if (index === 0) {
+          this.$refs.help.scrollToPoint(0, 0, 0)
+        } else {
+          let child = this.$refs['help-' + index][0]
+          var childPos = child.offsetTop;
+          var parentPos = parent.offsetTop;
+          var top = childPos - parentPos - 20
+          this.$refs.help.scrollToPoint(0, top, 0)
+        }
+      })
     }   
   },
   created: function () {

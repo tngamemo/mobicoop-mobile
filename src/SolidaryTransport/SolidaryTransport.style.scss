@@ -768,8 +768,8 @@ ion-content {
         .mc-st-card-content-wrapper {
           padding: 0 20px;
           max-height: 0;
-          opacity: 0;
-          transition: max-height .7s ease, opacity .5s ease, padding .1s ease;
+          opacity: .5;
+          transition: opacity .9s ease;
 
           &.is-active {
             padding: 0 20px 15px;
