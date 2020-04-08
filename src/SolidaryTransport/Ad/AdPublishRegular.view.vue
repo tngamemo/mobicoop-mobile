@@ -50,6 +50,22 @@
                 </ion-item>
               </div>
             </div>
+
+            <div class="mc-st-form-item as-trip">
+              <ion-label class="mc-st-form-label as-title no-white-space" color="primary">{{$t('solidaryTransport.ad.publish.form.fields.when.departure.hour')}}</ion-label>
+
+              <div class="mc-st-form-checkbox-wrapper">
+                <ion-item class="mc-st-form-item">
+                  <ion-checkbox class="mc-st-form-checkbox" slot="start" :checked="true" color="success"></ion-checkbox>
+                  <ion-input class="mc-st-form-input" type="text" :placeholder="$t('solidaryTransport.ad.publish.form.fields.when.departure.specificHour')"></ion-input>
+                </ion-item>
+                <ion-item class="mc-st-form-item" lines="none" v-for="(item, index) in departureHours.properties" :key="index">
+                  <ion-checkbox class="mc-st-form-checkbox" :name="item.value" :value="item.checked" color="success" slot="start" @ionChange="item.checked = $event.target.checked"
+                  ></ion-checkbox>
+                  <ion-label class="mc-st-form-label no-white-space" color="primary">{{ item.label }}</ion-label>
+                </ion-item>
+              </div>
+            </div>
             
           </div>
 
