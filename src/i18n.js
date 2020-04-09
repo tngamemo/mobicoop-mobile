@@ -23,7 +23,7 @@ function loadLocaleMessages() {
   let appModule = JSON.parse(process.env.VUE_APP_MODULE);
   // Merge locales if Solidarity Transport module enabled
   if (appModule.SOLIDARYTRANSPORT == "true") {
-    const solidaryTransportLocales = require.context(`./${process.env.VUE_APP_MODULE_SOLIDARYTRANSPORT_ROUTENAME}/assets/locales`, true, /[A-Za-z0-9-_,\s]+\.json$/i)
+    const solidaryTransportLocales = require.context(`./${process.env.VUE_APP_SOLIDARY_ROUTENAME}/assets/locales`, true, /[A-Za-z0-9-_,\s]+\.json$/i)
     const solidaryTransportLocaleMessages = loadMessages(solidaryTransportLocales)
 
     localeMessages = _.merge(localeMessages, solidaryTransportLocaleMessages)

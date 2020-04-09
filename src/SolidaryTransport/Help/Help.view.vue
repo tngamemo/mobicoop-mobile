@@ -11,25 +11,40 @@
 
     <ion-content ref="help" color="primary">
       <div class="mc-st-container">
-        <div class="mc-st-rounded-cards" v-if="sections.length !== 0">
-          <ion-card v-for="(section, index) in sections" @click="interactWithCard(index)" :key="index" class="mc-st-card" :ref="'help-' + index">
-            <ion-card-header class="mc-st-card-header">
-              <ion-card-title class="mc-st-card-title">{{section.title}}</ion-card-title>
-            </ion-card-header>
+        <div class="mc-st-rounded-cards">
 
-            <ion-card-content class="mc-st-card-content">
-              <div class="mc-st-card-content-wrapper" :class="{'is-active': active === index}">
-                <p v-for="(paragraph, index) in section.paragraphs" v-html="paragraph.text"></p>
+          <template v-if="typeof article === 'undefined'">
+            <div class="mc-st-loading">
+              <ion-spinner name="crescent" class="mc-st-loading-spinner"></ion-spinner>
+              <p class="mc-st-loading-message">{{$t('solidaryTransport.help.loading')}}</p>
+            </div>
+          </template>
+
+          <template v-else>
+
+            <template v-if="article.sections.length !== 0">
+              <ion-card v-for="(section, index) in article.sections" @click="interactWithCard(index)" :key="index" class="mc-st-card" :ref="'help-' + index">
+                <ion-card-header class="mc-st-card-header">
+                  <ion-card-title class="mc-st-card-title">{{section.title}}</ion-card-title>
+                </ion-card-header>
+
+                <ion-card-content class="mc-st-card-content">
+                  <div class="mc-st-card-content-wrapper" :class="{'is-active': active === index}">
+                    <p v-for="(paragraph, index) in section.paragraphs" v-html="paragraph.text"></p>
+                  </div>
+                </ion-card-content>
+              </ion-card>
+            </template>
+
+            <template v-else>
+              <div class="mc-st-loading">
+                <ion-icon name="alert" size="large" class="mc-st-loading-spinner"></ion-icon>
+                <p class="mc-st-loading-message">{{$t('solidaryTransport.help.noContent')}}</p>
               </div>
-            </ion-card-content>
-          </ion-card>
-        </div>
+            </template>
 
-        <div class="mc-st-rounded-cards" v-else>
-          <div class="mc-st-loading">
-            <ion-spinner name="crescent" class="mc-st-loading-spinner"></ion-spinner>
-            <p class="mc-st-loading-message">{{$t('solidaryTransport.help.loading')}}</p>
-          </div>
+          </template>
+
         </div>
       </div>
     </ion-content>
@@ -47,7 +62,7 @@ export default {
   data () {
     return {
       active: 0,
-      sections: []
+      article: undefined
     }
   },
   computed: {},
@@ -70,9 +85,9 @@ export default {
   },
   created: function () {
     // Get articles for help
-    this.$store.dispatch('getSectionsForHelp')
-      .then((sections) => {
-        this.sections = sections
+    this.$store.dispatch('getArticleForHelp', process.env.VUE_APP_SOLIDARY_HELP_ARTICLE_ID)
+      .then((article) => {
+        this.article = article
       })
       .catch((error) => {
         console.error(error)

@@ -400,7 +400,8 @@
     },
     "help": {
       "title": "Aide",
-      "loading": "Chargement"
+      "loading": "Chargement",
+      "noContent": "Aucun contenu disponible"
     },
     "register": {
       "title": "Inscription",

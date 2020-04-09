@@ -3,8 +3,11 @@ import http from '../Shared/Mixin/http.mixin'
 export const solidaryTransportStore = {
   state: {
     help: {
-      sections: undefined,
+      article: undefined,
       status: ''
+    },
+    solidaryUser: {
+
     }
   },
   mutations: {
@@ -14,32 +17,32 @@ export const solidaryTransportStore = {
 
     help_success(state, article){
       state.help.status = 'success';
-      state.help.sections = article.sections
+      state.help.article = article
     },
 
     help_error(state){
       state.help.status = 'error';
     }
-
   },
   actions: {
     /**
      * Function that request the api to get "Help" information
      * from /articles/{id}
      */
-    getSectionsForHelp({commit, state}, params){
+    getArticleForHelp({commit, state}, id){
       if (state.help.status === 'success') {
         return new Promise((resolve, reject) => {
-          resolve(state.help.sections)
+          resolve(state.help.article)
         })
       } else {
         commit('help_request')
         return new Promise((resolve, reject) => {
-          http.get("/articles/5")
+          http.get("/articles/" + id)
           .then(response => {
             if (response) {
+              console.log(response.data)
               commit('help_success', response.data)
-              resolve(state.help.sections)
+              resolve(state.help.article)
             }
           })
           .catch(err => {
