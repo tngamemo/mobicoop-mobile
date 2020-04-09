@@ -6,6 +6,7 @@
     "searchCarpool": "Rechercher un covoiturage",
     "postCarpool": "Publier une annonce",
     "FAQ": "FAQ",
+    "CGU": "CGU",
     "contact": "Contacter"
   },
   "Nav": {
@@ -147,7 +148,8 @@
     "validate_create_event": "Confirmation de création d'événement",
     "medium-1": "Message",
     "medium-2": "Email",
-    "medium-3": "SMS"
+    "medium-3": "SMS",
+    "medium-4": "Notification Push"
   },
   "ProfilePrefs": {
     "title" : "Préférences",

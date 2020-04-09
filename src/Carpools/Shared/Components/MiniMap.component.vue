@@ -26,6 +26,7 @@
 
 <script>
 import { LMap, LMarker, LTileLayer, LPolyline, LPopup } from "vue2-leaflet";
+import {isPlatform} from "@ionic/core";
 
 export default {
   name: "mini-map",
@@ -36,9 +37,9 @@ export default {
       center: [47.2350952, 2.0426357],
       showCard: true,
       optionsCard: {
-        dragging: false,
-        touchZoom: false,
-        tap: false,
+        dragging: !isPlatform(window.document.defaultView, "mobile"),
+        touchZoom: isPlatform(window.document.defaultView, "mobile"),
+        tap: !isPlatform(window.document.defaultView, "mobile"),
         fullscreenControl: {
           pseudoFullscreen: true
         }

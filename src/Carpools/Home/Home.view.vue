@@ -57,6 +57,17 @@
           color="primary"
           expand="block"
           fill="outline"
+          v-on:click="redirectToCGU()"
+        >
+          <ion-icon name="document" class="ion-padding-end"></ion-icon>
+          {{ $t('HOME.CGU') }}
+        </ion-button>
+
+        <ion-button
+          class="mc-big-button"
+          color="primary"
+          expand="block"
+          fill="outline"
           v-on:click="redirectToContact()"
         >
           <ion-icon name="chatboxes" class="ion-padding-end"></ion-icon>
@@ -155,6 +166,13 @@ export default {
       this.$router.push({
         name: "article",
         params: { id: 10 }
+      });
+    },
+
+    redirectToCGU: function() {
+      this.$router.push({
+        name: "article",
+        params: { id: 1 }
       });
     },
 

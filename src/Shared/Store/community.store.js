@@ -205,6 +205,22 @@ export const communityStore = {
           })
       })
     },
+    updateCommunityPicture({commit}, params) {
+      return new Promise((resolve, reject) => {
+        const formData = new FormData();
+        //todo
+        formData.append('userFile', params.file);
+        formData.append('userId', Number(params.userId));
+
+        http.post(`/images`, formData)
+          .then(resp => {
+            resolve(resp)
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
+    },
   },
   getters : {
     communities: state => {
