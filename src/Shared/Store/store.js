@@ -10,6 +10,7 @@ import { articleStore } from './article.store';
 import { communityStore } from './community.store';
 import { eventStore } from './event.store';
 import { appStore } from './app.store';
+import { dynamicStore } from './dynamic.store';
 import createPersistedState from "vuex-persistedstate";
 
 
@@ -28,5 +29,6 @@ export default new Vuex.Store({
     articleStore: articleStore,
     communityStore: communityStore,
     eventStore: eventStore,
+    dynamicStore: dynamicStore
   }
 })

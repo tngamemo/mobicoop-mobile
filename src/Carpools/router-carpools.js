@@ -28,6 +28,7 @@ import Contact from './Contact/Contact.view.vue';
 import Solidarity from './Solidarity/Solidarity.view.vue';
 import PostCommunity from './Communities/PostCommunity/PostCommunity.view.vue';
 import PostEvent from './Events/PostEvent/PostEvent.view.vue';
+import Dynamic from './Dynamic/Dynamic.view.vue';
 
 import Vue from 'vue'
 import store from '../Shared/Store/store';
@@ -208,5 +209,10 @@ export default [
     path: 'solidarity',
     name: 'carpool-solidarity',
     component: Solidarity,
+  },
+  {
+    path: 'dynamic',
+    name: 'dynamic',
+    component: Dynamic,
   },
 ]

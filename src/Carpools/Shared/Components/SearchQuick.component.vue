@@ -82,6 +82,15 @@
       fill="outline"
       @click="goToPostCarpool()"
     >{{ $t('HOME.postCarpool') }}</ion-button>
+
+    <ion-button
+      v-if="showPostCarpool"
+      class="mc-big-button"
+      color="primary"
+      expand="block"
+      fill="outline"
+      @click="goToDynamic()"
+    >{{ $t('HOME.dynamic') }}</ion-button>
   </div>
 </template>
 
@@ -201,6 +210,10 @@ export default {
       }
 
       this.$router.push({name: "post-carpool", params: {filters}});
+    },
+
+    goToDynamic() {
+      this.$router.push({name: "dynamic"});
     }
   }
 };

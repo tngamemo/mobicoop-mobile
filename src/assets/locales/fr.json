@@ -5,6 +5,7 @@
     "register": "Inscription",
     "searchCarpool": "Rechercher un covoiturage",
     "postCarpool": "Publier une annonce",
+    "dynamic": "Covoiturage dynamique",
     "FAQ": "FAQ",
     "contact": "Contacter"
   },
@@ -365,6 +366,13 @@
     "missingInfo": "Il manque des informations",
     "fromDate": "Date de début",
     "toDate": "Date de fin"
+  },
+  "Dynamic": {
+    "title" : "Covoiturage dynamique",
+    "launch" : "Démarrer",
+    "iam" : "Je suis",
+    "comment": "Commentaire",
+    "reset" : "Reset"
   }
 
 }
