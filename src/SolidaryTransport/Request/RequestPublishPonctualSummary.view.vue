@@ -76,14 +76,44 @@
             
           </div>
 
-          <div class="mc-st-form-controls in-summary">
-            <ion-button class="mc-st-form-control as-back" color="light" v-html="$t('solidaryTransport.buttons.back')" @click="$router.back()"></ion-button>
+          <!-- There is a connected user -->
+          <template v-if="userStore.user">
+            
+              <!-- There is a related solidary user -->
+              <template v-if="userStore.user.solidaryUser">
+                <div class="mc-st-form-controls in-summary">
+                  <ion-button class="mc-st-form-control as-back" color="light" v-html="$t('solidaryTransport.buttons.back')" @click="$router.back()"></ion-button>
 
-            <ion-button class="mc-st-form-control" color="success" @click="validate()">
-              <ion-icon slot="start" name="checkmark" size="small"></ion-icon>
-              <span v-html="$t('solidaryTransport.buttons.sendRequest')"></span>
-            </ion-button>
-          </div>
+                  <ion-button class="mc-st-form-control" color="success" @click="validate()">
+                    <ion-icon slot="start" name="checkmark" size="small"></ion-icon>
+                    <span v-html="$t('solidaryTransport.buttons.sendRequest')"></span>
+                  </ion-button>
+                </div>
+              </template>
+
+              <!-- There is no related solidary user -->
+              <template v-else>
+                <div class="mc-st-form-controls with-multiple">
+                  <ion-button class="mc-st-form-control as-back" color="light" v-html="$t('solidaryTransport.buttons.back')" @click="$router.back()"></ion-button>
+
+                  <ion-button class="mc-st-form-control" color="success" @click="$router.push({name: 'solidaryTransport.register.subscribe.details'})">
+                    <span v-html="$t('solidaryTransport.buttons.next')"></span>
+                  </ion-button>
+                </div>
+              </template>
+
+          </template>
+
+          <!-- There is no connected user -->
+          <template v-else>
+            <div class="mc-st-form-controls with-multiple">
+              <ion-button class="mc-st-form-control as-back" color="light" v-html="$t('solidaryTransport.buttons.back')" @click="$router.back()"></ion-button>
+
+              <ion-button class="mc-st-form-control" color="success" @click="$router.push()">
+                <span v-html="$t('solidaryTransport.buttons.next')"></span>
+              </ion-button>
+            </div>
+          </template>
 
         </div>
       </div>
@@ -120,7 +150,11 @@ export default {
       }
     }
   },
-  computed: {},
+  computed: {
+    ...mapState([
+      'userStore'
+    ])
+  },
   methods: {
     validate: function () {
       console.log('Post request')

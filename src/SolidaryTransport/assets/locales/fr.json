@@ -406,7 +406,10 @@
     "register": {
       "title": "Inscription",
       "form": {
-        "fill": "Remplir le formulaire",
+        "fill": {
+          "request": "Renseigner ma demande",
+          "ad": "Remplir le formulaire"
+        },
         "check": "Vérifier mon éligibilité",
         "call": "Demander de l'aide",
         "sendProof": "Envoyer un justificatif",

@@ -41,7 +41,7 @@
             <div class="mc-st-form-actions" :class="{'is-active': buttons.fill.active}">
               <ion-button class="mc-st-form-action" v-if="type === 'ask'" color="success" v-html="$t('solidaryTransport.register.form.check')" @click="$router.push({name:'solidaryTransport.register.ask'})"></ion-button>
 
-              <ion-button class="mc-st-form-action" v-if="type === 'give'" color="success" v-html="$t('solidaryTransport.register.form.fill')" @click="$router.push({name:'solidaryTransport.register.subscribe', query: {type: 'volunteer'}})"></ion-button>
+              <ion-button class="mc-st-form-action" v-if="type === 'give'" color="success" v-html="$t('solidaryTransport.register.form.fill.ad')" @click="$router.push({name:'solidaryTransport.register.subscribe', query: {type: 'volunteer'}})"></ion-button>
             </div>
           </div>
 

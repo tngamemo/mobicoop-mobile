@@ -4,25 +4,36 @@ export const solidaryTransportStore = {
   state: {
     help: {
       article: undefined,
-      status: ''
+      status: '' // loading | success | error
     },
-    solidaryUser: {
+    temporary: {
+      user: {
+        
+      },
+      request: {
 
+      },
+      ad: {
+
+      }
     }
   },
   mutations: {
-    help_request(state) {
+    // Help Mutations below
+    helpRequest(state) {
       state.help.status = 'loading';
     },
 
-    help_success(state, article){
+    helpSuccess(state, article){
       state.help.status = 'success';
       state.help.article = article
     },
 
-    help_error(state){
+    helpError(state){
       state.help.status = 'error';
     }
+
+    // Temporary Objects mutation below
   },
   actions: {
     /**
@@ -35,18 +46,18 @@ export const solidaryTransportStore = {
           resolve(state.help.article)
         })
       } else {
-        commit('help_request')
+        commit('helpRequest')
         return new Promise((resolve, reject) => {
           http.get("/articles/" + id)
           .then(response => {
             if (response) {
               console.log(response.data)
-              commit('help_success', response.data)
+              commit('helpSuccess', response.data)
               resolve(state.help.article)
             }
           })
           .catch(err => {
-            commit('help_error')
+            commit('helpError')
             reject(err)
           })
         })

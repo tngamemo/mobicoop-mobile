@@ -76,7 +76,7 @@
           <div class="mc-st-form-controls with-multiple">
             <ion-button class="mc-st-form-control as-back" color="light" v-html="$t('solidaryTransport.buttons.back')" @click="$router.back()"></ion-button>
 
-            <ion-button class="mc-st-form-control" color="success" v-html="$t('solidaryTransport.buttons.next')" @click="$router.push({name:'solidaryTransport.home.request.ponctual.summary', query: {type: type}})"></ion-button>
+            <ion-button class="mc-st-form-control" color="success" v-html="$t('solidaryTransport.buttons.next')" @click="$router.push({name: $route.name + '.summary'})"></ion-button>
           </div>
 
         </div>

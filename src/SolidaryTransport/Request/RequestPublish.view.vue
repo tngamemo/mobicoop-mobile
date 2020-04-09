@@ -110,10 +110,10 @@
             <ion-button class="mc-st-form-control as-back" color="light" v-html="$t('solidaryTransport.buttons.back')" @click="$router.back()"></ion-button>
 
             <template v-if="frequency.selected === 'ponctual'">
-              <ion-button class="mc-st-form-control" color="success" v-html="$t('solidaryTransport.buttons.next')" @click="$router.push({name:'solidaryTransport.home.request.ponctual'})"></ion-button>
+              <ion-button class="mc-st-form-control" color="success" v-html="$t('solidaryTransport.buttons.next')" @click="$router.push({name: $route.name + '.ponctual'})"></ion-button>
             </template>
             <template v-if="frequency.selected === 'regular'">
-              <ion-button class="mc-st-form-control" color="success" v-html="$t('solidaryTransport.buttons.next')" @click="$router.push({name:'solidaryTransport.home.request.regular'})"></ion-button>
+              <ion-button class="mc-st-form-control" color="success" v-html="$t('solidaryTransport.buttons.next')" @click="$router.push({name: $route.name + '.regular'})"></ion-button>
             </template>
           </div>
 

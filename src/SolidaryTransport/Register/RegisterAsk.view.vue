@@ -27,7 +27,8 @@
             </ion-item>
 
             <div class="mc-st-form-actions" :class="{'is-active': validate()}">
-              <ion-button class="mc-st-form-action" color="success" v-html="$t('solidaryTransport.register.form.fill')" @click="$router.push({name:'solidaryTransport.register.subscribe', query: {type: 'applicant'}})"></ion-button>
+              <!-- <ion-button class="mc-st-form-action" color="success" v-html="$t('solidaryTransport.register.form.fill')" @click="$router.push({name:'solidaryTransport.register.subscribe', query: {type: 'applicant'}})"></ion-button> -->
+              <ion-button class="mc-st-form-action" color="success" v-html="$t('solidaryTransport.register.form.fill.request')" @click="$router.push({name:'solidaryTransport.register.request'})"></ion-button>
 
               <div class="mc-st-form-other" v-html="$t('solidaryTransport.register.form.actions.or')"></div>
 

@@ -151,6 +151,8 @@ export default [
         name: 'solidaryTransport.help',
         component: Help
       },
+
+      // REGISTER ----- ( start here )
       {
         path: '/solidary-transport/register',
         name: 'solidaryTransport.register',
@@ -168,6 +170,42 @@ export default [
         beforeEnter: preventAccess
       },
       {
+        path: '/solidary-transport/register/request',
+        name: 'solidaryTransport.register.request',
+        components: {
+          register: RequestPublish
+        },
+        beforeEnter: preventAccess
+      },
+      {
+        path: '/solidary-transport/register/request/ponctual',
+        name: 'solidaryTransport.register.request.ponctual',
+        components: {
+          register: RequestPublishPonctual
+        }
+      },
+      {
+        path: '/solidary-transport/register/request/ponctual/summary',
+        name: 'solidaryTransport.register.request.ponctual.summary',
+        components: {
+          register: RequestPublishPonctualSummary
+        }
+      },
+      {
+        path: '/solidary-transport/register/request/regular',
+        name: 'solidaryTransport.register.request.regular',
+        components: {
+          register: RequestPublishRegular
+        }
+      },
+      {
+        path: '/solidary-transport/register/request/regular/summary',
+        name: 'solidaryTransport.register.request.regular.summary',
+        components: {
+          register: RequestPublishRegularSummary
+        }
+      },
+      {
         path: '/solidary-transport/register/subscribe',
         name: 'solidaryTransport.register.subscribe',
         components: {
@@ -183,6 +221,8 @@ export default [
         },
         beforeEnter: preventAccess
       },
+      // REGISTER ----- ( end here )
+
       {
         path: '/solidary-transport/login',
         name: 'solidaryTransport.login',
