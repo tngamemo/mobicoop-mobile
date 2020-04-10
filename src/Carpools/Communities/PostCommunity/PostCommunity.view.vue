@@ -12,7 +12,8 @@
     <ion-content color="primary" no-bounce>
       <div class="mc-white-container mc-post-community" v-if="communityToPost">
         <!-- Bloc photo -->
-        <!-- <div class="mc-post-community-avatar ion-margin-bottom">
+        <!--
+        <div class="mc-post-community-avatar ion-margin-bottom">
           <div class="mc-community-image">
             <ion-thumbnail>
               <img :src="communityToPost.avatar[0]" alt />
@@ -29,7 +30,8 @@
             {{ $t('PostCommunity.avatar') }}
           </ion-button>
           <input ref="imageInput" style="display: none" type="file" @change="changePicture($event)" />
-        </div>-->
+        </div>
+        -->
 
         <!-- Form -->
 
@@ -197,7 +199,11 @@ export default {
         name: "geoSearch",
         query: { type: "update_community_address", action: "search" }
       });
-    }
+    },
+    changePicture(e) {
+      const file = e.target.files[0];
+      //todo updateCommunityPicture
+    },
   }
 };
 </script>
