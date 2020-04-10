@@ -6,7 +6,7 @@
           <div class="mc-home-log">
             <img class="background-img ion-margin-end" src="/assets/home.png" />
             <h1>{{ title }}</h1>
-            <ion-icon v-if="numberOfModule > 1" name="apps" size="large" class="mc-home-switch" v-on:click="showModule()"></ion-icon>
+            <ion-icon v-if="numberOfModule > 1" name="apps" size="large" class="mc-home-switch pointer" v-on:click="showModule()"></ion-icon>
           </div>
 
         </div>

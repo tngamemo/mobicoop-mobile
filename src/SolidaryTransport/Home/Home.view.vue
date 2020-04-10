@@ -13,7 +13,7 @@
           v-if="numberOfModule > 1"
           name="apps"
           size="large"
-          class="mc-home-switch"
+          class="mc-home-switch pointer"
           v-on:click="showModule()"
         ></ion-icon>
       </ion-toolbar>
