@@ -42,8 +42,26 @@
 		81AC970F2422758500C2029E /* config.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2FAD9762203C412B000D30F8 /* config.xml */; };
 		81AC9719242276F500C2029E /* Movici-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 81AC97162422758500C2029E /* Movici-Info.plist */; };
 		81AC971A242276FD00C2029E /* MoviciAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 81AC9717242276EC00C2029E /* MoviciAssets.xcassets */; };
+		81B68633243F6CC200A2FBC5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504EC3071FED79650016851F /* AppDelegate.swift */; };
+		81B68637243F6CC200A2FBC5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 504EC3101FED79650016851F /* LaunchScreen.storyboard */; };
+		81B68638243F6CC200A2FBC5 /* public in Resources */ = {isa = PBXBuildFile; fileRef = 50B271D01FEDC1A000F3C39B /* public */; };
+		81B6863A243F6CC200A2FBC5 /* capacitor.config.json in Resources */ = {isa = PBXBuildFile; fileRef = 50379B222058CBB4000EE86E /* capacitor.config.json */; };
+		81B6863B243F6CC200A2FBC5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 504EC30B1FED79650016851F /* Main.storyboard */; };
+		81B6863D243F6CC200A2FBC5 /* config.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2FAD9762203C412B000D30F8 /* config.xml */; };
+		81B68648243F6D0F00A2FBC5 /* PassPass-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 81B68644243F6CC300A2FBC5 /* PassPass-Info.plist */; };
+		81B6864C243F752800A2FBC5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504EC3071FED79650016851F /* AppDelegate.swift */; };
+		81B6864E243F752800A2FBC5 /* Pods_PassPass.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E67C0BAF98B68423BB4EBEF2 /* Pods_PassPass.framework */; };
+		81B68650243F752800A2FBC5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 504EC3101FED79650016851F /* LaunchScreen.storyboard */; };
+		81B68652243F752800A2FBC5 /* public in Resources */ = {isa = PBXBuildFile; fileRef = 50B271D01FEDC1A000F3C39B /* public */; };
+		81B68653243F752800A2FBC5 /* capacitor.config.json in Resources */ = {isa = PBXBuildFile; fileRef = 50379B222058CBB4000EE86E /* capacitor.config.json */; };
+		81B68655243F752800A2FBC5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 504EC30B1FED79650016851F /* Main.storyboard */; };
+		81B68656243F752800A2FBC5 /* config.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2FAD9762203C412B000D30F8 /* config.xml */; };
+		81B6865E243F754400A2FBC5 /* Mobicoop-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 81B6865D243F752900A2FBC5 /* Mobicoop-Info.plist */; };
+		81B68661243F756300A2FBC5 /* MobicoopAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 81B6865F243F755D00A2FBC5 /* MobicoopAssets.xcassets */; };
+		81B68662243F759100A2FBC5 /* PassPassAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 81B68645243F6D0500A2FBC5 /* PassPassAssets.xcassets */; };
 		A084ECDBA7D38E1E42DFC39D /* (null) in Frameworks */ = {isa = PBXBuildFile; };
-		C4931EAFBB76EA38FDF8219C /* Pods_Movici.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AA337E68C6CC7EC38FCE38D /* Pods_Movici.framework */; };
+		C4931EAFBB76EA38FDF8219C /* (null) in Frameworks */ = {isa = PBXBuildFile; };
+		D2DE11C465D056F6074C85A7 /* Pods_PassPass.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E67C0BAF98B68423BB4EBEF2 /* Pods_PassPass.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,7 +80,7 @@
 		504EC3131FED79650016851F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		50B271D01FEDC1A000F3C39B /* public */ = {isa = PBXFileReference; lastKnownFileType = folder; path = public; sourceTree = SOURCE_ROOT; };
 		582D0F00A9C256EA7C0CC948 /* Pods_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		5AA337E68C6CC7EC38FCE38D /* Pods_Movici.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Movici.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6E5E368851CC37A5365C271C /* Pods-PassPass.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PassPass.release.xcconfig"; path = "Pods/Target Support Files/Pods-PassPass/Pods-PassPass.release.xcconfig"; sourceTree = "<group>"; };
 		8112C86D242CF0FE0081909B /* Capacitor.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Capacitor.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8112C870242CF1040081909B /* Cordova.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Cordova.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		816F3EC5242CE44D0015981B /* Picholines.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Picholines.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -74,10 +92,18 @@
 		81AC97152422758500C2029E /* Movici.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Movici.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AC97162422758500C2029E /* Movici-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Movici-Info.plist"; path = "/Users/volteris/Documents/idea/mobicoop-v2/ios/App/Movici-Info.plist"; sourceTree = "<absolute>"; };
 		81AC9717242276EC00C2029E /* MoviciAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MoviciAssets.xcassets; sourceTree = "<group>"; };
+		81B68643243F6CC200A2FBC5 /* PassPass.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PassPass.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		81B68644243F6CC300A2FBC5 /* PassPass-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "PassPass-Info.plist"; path = "/Users/volteris/Documents/idea/mobicoop-v2/ios/App/PassPass-Info.plist"; sourceTree = "<absolute>"; };
+		81B68645243F6D0500A2FBC5 /* PassPassAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = PassPassAssets.xcassets; sourceTree = "<group>"; };
+		81B6865C243F752800A2FBC5 /* Mobicoop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mobicoop.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		81B6865D243F752900A2FBC5 /* Mobicoop-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Mobicoop-Info.plist"; path = "/Users/volteris/Documents/idea/mobicoop-v2/ios/App/Mobicoop-Info.plist"; sourceTree = "<absolute>"; };
+		81B6865F243F755D00A2FBC5 /* MobicoopAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MobicoopAssets.xcassets; sourceTree = "<group>"; };
+		8F1D384758E366D43D44D615 /* Pods-PassPass.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PassPass.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PassPass/Pods-PassPass.debug.xcconfig"; sourceTree = "<group>"; };
 		902C98C63362C39935A4385D /* Pods-App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App.debug.xcconfig"; path = "Pods/Target Support Files/Pods-App/Pods-App.debug.xcconfig"; sourceTree = "<group>"; };
 		B5B1B0CD92260C1F49F7FC15 /* Pods-Movici.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Movici.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Movici/Pods-Movici.debug.xcconfig"; sourceTree = "<group>"; };
 		C158460EBE96AC05638CC10C /* Pods_OuestGo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OuestGo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D12368848BA50F09F7676E42 /* Pods-OuestGo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OuestGo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OuestGo/Pods-OuestGo.debug.xcconfig"; sourceTree = "<group>"; };
+		E67C0BAF98B68423BB4EBEF2 /* Pods_PassPass.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PassPass.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F13E884ADDDCBC572AFDB82C /* Pods-Picholines.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Picholines.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Picholines/Pods-Picholines.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -111,7 +137,23 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C4931EAFBB76EA38FDF8219C /* Pods_Movici.framework in Frameworks */,
+				C4931EAFBB76EA38FDF8219C /* (null) in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		81B68634243F6CC200A2FBC5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D2DE11C465D056F6074C85A7 /* Pods_PassPass.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		81B6864D243F752800A2FBC5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				81B6864E243F752800A2FBC5 /* Pods_PassPass.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -123,10 +165,10 @@
 			children = (
 				8112C870242CF1040081909B /* Cordova.framework */,
 				8112C86D242CF0FE0081909B /* Capacitor.framework */,
-				5AA337E68C6CC7EC38FCE38D /* Pods_Movici.framework */,
 				C158460EBE96AC05638CC10C /* Pods_OuestGo.framework */,
 				3D11685C518975AB688D52EA /* Pods_Picholines.framework */,
 				582D0F00A9C256EA7C0CC948 /* Pods_App.framework */,
+				E67C0BAF98B68423BB4EBEF2 /* Pods_PassPass.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -148,6 +190,8 @@
 				81AC96FC24226D6300C2029E /* OuestGo.app */,
 				81AC97152422758500C2029E /* Movici.app */,
 				816F3EC5242CE44D0015981B /* Picholines.app */,
+				81B68643243F6CC200A2FBC5 /* PassPass.app */,
+				81B6865C243F752800A2FBC5 /* Mobicoop.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -159,14 +203,18 @@
 				504EC3071FED79650016851F /* AppDelegate.swift */,
 				504EC30B1FED79650016851F /* Main.storyboard */,
 				504EC30E1FED79650016851F /* Assets.xcassets */,
+				81B6865F243F755D00A2FBC5 /* MobicoopAssets.xcassets */,
 				81AC970024226F5B00C2029E /* OuestGoAssets.xcassets */,
 				81AC9717242276EC00C2029E /* MoviciAssets.xcassets */,
 				816F3EC7242CE4AA0015981B /* PicholinesAssets.xcassets */,
+				81B68645243F6D0500A2FBC5 /* PassPassAssets.xcassets */,
 				504EC3101FED79650016851F /* LaunchScreen.storyboard */,
 				504EC3131FED79650016851F /* Info.plist */,
+				81B6865D243F752900A2FBC5 /* Mobicoop-Info.plist */,
 				81AC96FD24226D6300C2029E /* OuestGo-Info.plist */,
 				81AC97162422758500C2029E /* Movici-Info.plist */,
 				816F3EC6242CE44E0015981B /* Picholines-Info.plist */,
+				81B68644243F6CC300A2FBC5 /* PassPass-Info.plist */,
 				2FAD9762203C412B000D30F8 /* config.xml */,
 				50B271D01FEDC1A000F3C39B /* public */,
 			);
@@ -184,6 +232,8 @@
 				48879B0654E0117D90BA6767 /* Pods-OuestGo.release.xcconfig */,
 				F13E884ADDDCBC572AFDB82C /* Pods-Picholines.debug.xcconfig */,
 				015B17DD3DE27CDFE48FBFD6 /* Pods-Picholines.release.xcconfig */,
+				8F1D384758E366D43D44D615 /* Pods-PassPass.debug.xcconfig */,
+				6E5E368851CC37A5365C271C /* Pods-PassPass.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -270,6 +320,46 @@
 			productReference = 81AC97152422758500C2029E /* Movici.app */;
 			productType = "com.apple.product-type.application";
 		};
+		81B68630243F6CC200A2FBC5 /* PassPass */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 81B68640243F6CC200A2FBC5 /* Build configuration list for PBXNativeTarget "PassPass" */;
+			buildPhases = (
+				81B68631243F6CC200A2FBC5 /* [CP] Check Pods Manifest.lock */,
+				81B68632243F6CC200A2FBC5 /* Sources */,
+				81B68634243F6CC200A2FBC5 /* Frameworks */,
+				81B68636243F6CC200A2FBC5 /* Resources */,
+				81B6863E243F6CC200A2FBC5 /* Scheme Control Script */,
+				81B6863F243F6CC200A2FBC5 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PassPass;
+			productName = App;
+			productReference = 81B68643243F6CC200A2FBC5 /* PassPass.app */;
+			productType = "com.apple.product-type.application";
+		};
+		81B68649243F752800A2FBC5 /* Mobicoop */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 81B68659243F752800A2FBC5 /* Build configuration list for PBXNativeTarget "Mobicoop" */;
+			buildPhases = (
+				81B6864A243F752800A2FBC5 /* [CP] Check Pods Manifest.lock */,
+				81B6864B243F752800A2FBC5 /* Sources */,
+				81B6864D243F752800A2FBC5 /* Frameworks */,
+				81B6864F243F752800A2FBC5 /* Resources */,
+				81B68657243F752800A2FBC5 /* Scheme Control Script */,
+				81B68658243F752800A2FBC5 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Mobicoop;
+			productName = App;
+			productReference = 81B6865C243F752800A2FBC5 /* Mobicoop.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -292,6 +382,12 @@
 					81AC97032422758500C2029E = {
 						ProvisioningStyle = Automatic;
 					};
+					81B68630243F6CC200A2FBC5 = {
+						ProvisioningStyle = Automatic;
+					};
+					81B68649243F752800A2FBC5 = {
+						ProvisioningStyle = Automatic;
+					};
 				};
 			};
 			buildConfigurationList = 504EC2FF1FED79650016851F /* Build configuration list for PBXProject "App" */;
@@ -308,9 +404,11 @@
 			projectRoot = "";
 			targets = (
 				504EC3031FED79650016851F /* App */,
+				81B68649243F752800A2FBC5 /* Mobicoop */,
 				81AC96EB24226D6300C2029E /* OuestGo */,
 				81AC97032422758500C2029E /* Movici */,
 				816F3EB2242CE44D0015981B /* Picholines */,
+				81B68630243F6CC200A2FBC5 /* PassPass */,
 			);
 		};
 /* End PBXProject section */
@@ -369,6 +467,34 @@
 				81AC970E2422758500C2029E /* Main.storyboard in Resources */,
 				81AC971A242276FD00C2029E /* MoviciAssets.xcassets in Resources */,
 				81AC970F2422758500C2029E /* config.xml in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		81B68636243F6CC200A2FBC5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				81B68662243F759100A2FBC5 /* PassPassAssets.xcassets in Resources */,
+				81B68637243F6CC200A2FBC5 /* LaunchScreen.storyboard in Resources */,
+				81B68648243F6D0F00A2FBC5 /* PassPass-Info.plist in Resources */,
+				81B68638243F6CC200A2FBC5 /* public in Resources */,
+				81B6863A243F6CC200A2FBC5 /* capacitor.config.json in Resources */,
+				81B6863B243F6CC200A2FBC5 /* Main.storyboard in Resources */,
+				81B6863D243F6CC200A2FBC5 /* config.xml in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		81B6864F243F752800A2FBC5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				81B68650243F752800A2FBC5 /* LaunchScreen.storyboard in Resources */,
+				81B68652243F752800A2FBC5 /* public in Resources */,
+				81B68661243F756300A2FBC5 /* MobicoopAssets.xcassets in Resources */,
+				81B68653243F752800A2FBC5 /* capacitor.config.json in Resources */,
+				81B68655243F752800A2FBC5 /* Main.storyboard in Resources */,
+				81B6865E243F754400A2FBC5 /* Mobicoop-Info.plist in Resources */,
+				81B68656243F752800A2FBC5 /* config.xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -500,6 +626,116 @@
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nvalue=$(cat $SRCROOT/public/build.info)\necho \"$value\"\n\nif [ \"$value\" = \"picholines\" ]; \nthen\n    echo \"SCHEME OK\"\nelse\n    echo \"NOT GOOD SCHEME\"\n    exit 1\nfi;\n";
 		};
+		81B68631243F6CC200A2FBC5 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PassPass-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		81B6863E243F6CC200A2FBC5 /* Scheme Control Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Scheme Control Script";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nvalue=$(cat $SRCROOT/public/build.info)\necho \"$value\"\n\nif [ \"$value\" = \"passpass\" ]; \nthen\n    echo \"SCHEME OK\"\nelse\n    echo \"NOT GOOD SCHEME\"\n    exit 1\nfi;\n";
+		};
+		81B6863F243F6CC200A2FBC5 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PassPass/Pods-PassPass-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		81B6864A243F752800A2FBC5 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PassPass-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		81B68657243F752800A2FBC5 /* Scheme Control Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Scheme Control Script";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nvalue=$(cat $SRCROOT/public/build.info)\necho \"$value\"\n\nif [ \"$value\" = \"mobicoop\" ]; \nthen\n    echo \"SCHEME OK\"\nelse\n    echo \"NOT GOOD SCHEME\"\n    exit 1\nfi;\n";
+		};
+		81B68658243F752800A2FBC5 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PassPass/Pods-PassPass-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		81D08C5B2424DBFC002CDB49 /* Scheme Control Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -605,6 +841,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				81AC97062422758500C2029E /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		81B68632243F6CC200A2FBC5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				81B68633243F6CC200A2FBC5 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		81B6864B243F752800A2FBC5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				81B6864C243F752800A2FBC5 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -784,7 +1036,7 @@
 				INFOPLIST_FILE = "Picholines-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 2.0;
+				MARKETING_VERSION = 2.0.1;
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-DDEBUG\"";
 				PRODUCT_BUNDLE_IDENTIFIER = eu.covivo.picholines;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -804,7 +1056,7 @@
 				INFOPLIST_FILE = "Picholines-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 2.0;
+				MARKETING_VERSION = 2.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = eu.covivo.picholines;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = USE_PUSH;
@@ -824,7 +1076,7 @@
 				INFOPLIST_FILE = "OuestGo-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 2.0;
+				MARKETING_VERSION = 2.0.1;
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-DDEBUG\"";
 				PRODUCT_BUNDLE_IDENTIFIER = eu.covivo.ouestgo;
 				PRODUCT_NAME = OuestGo;
@@ -845,7 +1097,7 @@
 				INFOPLIST_FILE = "OuestGo-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 2.0;
+				MARKETING_VERSION = 2.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = eu.covivo.ouestgo;
 				PRODUCT_NAME = OuestGo;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = USE_PUSH;
@@ -860,12 +1112,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6RT7MUDED3;
 				INFOPLIST_FILE = "Movici-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 2.0;
+				MARKETING_VERSION = 2.0.1;
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-DDEBUG\"";
 				PRODUCT_BUNDLE_IDENTIFIER = fr.auvergnerhonealpes.movici;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -881,13 +1133,95 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6RT7MUDED3;
 				INFOPLIST_FILE = "Movici-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 2.0;
+				MARKETING_VERSION = 2.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = fr.auvergnerhonealpes.movici;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = USE_PUSH;
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		81B68641243F6CC200A2FBC5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8F1D384758E366D43D44D615 /* Pods-PassPass.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8X98ZWRY77;
+				INFOPLIST_FILE = "PassPass-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 2.0.1;
+				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-DDEBUG\"";
+				PRODUCT_BUNDLE_IDENTIFIER = com.covivo.passpass;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG USE_PUSH";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		81B68642243F6CC200A2FBC5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6E5E368851CC37A5365C271C /* Pods-PassPass.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8X98ZWRY77;
+				INFOPLIST_FILE = "PassPass-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 2.0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.covivo.passpass;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = USE_PUSH;
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		81B6865A243F752800A2FBC5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8F1D384758E366D43D44D615 /* Pods-PassPass.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8X98ZWRY77;
+				INFOPLIST_FILE = "Mobicoop-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 2.0.1;
+				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-DDEBUG\"";
+				PRODUCT_BUNDLE_IDENTIFIER = com.covivo.covisoft;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG USE_PUSH";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		81B6865B243F752800A2FBC5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6E5E368851CC37A5365C271C /* Pods-PassPass.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8X98ZWRY77;
+				INFOPLIST_FILE = "Mobicoop-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 2.0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.covivo.covisoft;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = USE_PUSH;
 				SWIFT_VERSION = 4.2;
@@ -939,6 +1273,24 @@
 			buildConfigurations = (
 				81AC97132422758500C2029E /* Debug */,
 				81AC97142422758500C2029E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		81B68640243F6CC200A2FBC5 /* Build configuration list for PBXNativeTarget "PassPass" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				81B68641243F6CC200A2FBC5 /* Debug */,
+				81B68642243F6CC200A2FBC5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		81B68659243F752800A2FBC5 /* Build configuration list for PBXNativeTarget "Mobicoop" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				81B6865A243F752800A2FBC5 /* Debug */,
+				81B6865B243F752800A2FBC5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
