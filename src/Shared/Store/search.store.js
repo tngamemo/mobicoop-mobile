@@ -5,7 +5,7 @@ export const searchStore = {
   state: {
     statusSearch: '',
     statusGeo: '',
-    resultsSearch: [],
+    resultSearch: [],
     resultsGeo: [],
     previousSearch: [],
     display: {

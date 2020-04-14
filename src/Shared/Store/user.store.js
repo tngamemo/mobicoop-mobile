@@ -264,7 +264,7 @@ export const userStore = {
     deleteCarpool({commit, state, dispatch}, carpoolId) {
       commit('user_my_carpools_request');
       return new Promise((resolve, reject) => {
-        http.delete(`/proposals/${carpoolId}`)
+        http.delete(`/carpools/${carpoolId}`)
           .then(resp => {
             dispatch('getMyCarpools', state.user.id);
             resolve(resp)

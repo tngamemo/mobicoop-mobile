@@ -61,13 +61,13 @@
                 picker-format="DD/MM/YYYY"
                 :cancel-text="$t('Commons.cancel')"
                 :done-text="$t('Commons.validate')"
-                :max="maxBirthDate"
                 :value="user.birthDate"
                 @ionChange="user.birthDate = $event.detail.value"
               ></ion-datetime>
             </ion-item>
             <div v-if="$v.user.birthDate.$error">
               <div class="mc-error-label"  v-if="!$v.user.birthDate.required">{{$t('Validation.required')}}</div>
+              <div class="mc-error-label"  v-if="!$v.user.birthDate.isMaxBirthDate">{{$t('Validation.age', { value: minAge })}}</div>
             </div>
             <br>
             <ion-item lines="none">
@@ -121,12 +121,19 @@
     import { mapState } from 'vuex'
 
     const checked = value => value === true;
+    const isMaxBirthDate = (value, vm) => {
+      let n = new Date();
+      n.setHours(0); n.setMinutes(0);
+      n.setFullYear(n.getFullYear() - process.env.VUE_APP_REGISTER_MIN_AGE);
+      return value >= n.toISOString();
+    }
 
     export default {
         name: 'registerStep2',
         data () {
             return {
-                maxBirthDate: this.getMaxBirthDate()
+                maxBirthDate: this.getMaxBirthDate(),
+                minAge: process.env.VUE_APP_REGISTER_MIN_AGE
             }
         },
         validations: {
@@ -142,7 +149,8 @@
                     required,
                 },
                 birthDate: {
-                    required
+                    required,
+                    isMaxBirthDate
                 },
                 userAgreementAccepted: {
                     required,
@@ -170,7 +178,7 @@
         methods: {
             getMaxBirthDate() {
               let n = new Date();
-              n.setFullYear(n.getFullYear() - 16);
+              n.setFullYear(n.getFullYear() - process.env.VUE_APP_REGISTER_MIN_AGE);
               return n.toISOString();
             },
             goGeoSearch(type, action) {

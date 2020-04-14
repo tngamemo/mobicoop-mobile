@@ -348,7 +348,7 @@ export default {
       message.recipients[0].sentDate = this.$moment().format();
 
       this.$store.dispatch("postMessage", message).then(res => {
-        if (!this.thread.idMessage) {
+        if (!this.thread.idMessage || this.thread.idMessage == -99) {
           this.thread.idMessage = res.data.id
         }
         this.getCompleteThread();

@@ -55,7 +55,7 @@ http.interceptors.response.use((response) => {
       reject(error);
     });
   } else {
-    if (!regexIsMatching) {
+    if (!regexIsMatching && error.response.config.url != '/login') {
       createToasterLogin();
     }
     return new Promise((resolve, reject) => {

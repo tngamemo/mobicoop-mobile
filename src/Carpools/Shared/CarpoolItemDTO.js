@@ -46,9 +46,9 @@ export default class CarpoolItemDTO {
     this.potentialCarpoolers = carpool.potentialCarpoolers;
     if (carpool.frequency == 1) {
       this.date = carpool.outwardDate;
-      this.time = carpool.outwardTime;
-      this.outwardTime = carpool.outwardTime;
-      this.returnTime = carpool.returnTime;
+      this.time = carpool.outwardTime + "+00:00" ;
+      this.outwardTime = carpool.outwardTime + "+00:00";
+      this.returnTime = carpool.returnTime + "+00:00";
     }
     if (carpool.frequency == 2) {
       this.dateValidity = carpool.outwardLimitDate;

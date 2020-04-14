@@ -77,6 +77,7 @@
   "Search": {
     "origin": "Lieu de départ",
     "register_address": "Adresse",
+    "update_user_address": "Adresse",
     "destination": "Lieu d'arrivée",
     "placeHolder": "Veuillez renseigner une adresse (Ville, etc...)",
     "date": "Date",
@@ -201,7 +202,8 @@
     "oneUppercase" : "Le mot de passe doit comprendre 1 majuscule",
     "oneDigit" : "Le mot de passe doit comprendre 1 chiffre",
     "minValue" : "La valeur ne peut pas être inférieure à {value}",
-    "maxValue" : "La valeur ne peut pas être supérieure à {value}"
+    "maxValue" : "La valeur ne peut pas être supérieure à {value}",
+    "age" : "Votre âge doit être supérieur à {value} ans"
   },
   "Carpool" : {
     "L": "L",
