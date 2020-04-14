@@ -69,7 +69,7 @@
             <ion-text
               color="secondary"
               class="d-flex justify-center align-center"
-              v-if="this.ask.status == 1 || this.ask.status == 2 || this.ask.status == 3"
+              v-if="this.ask.status == 2 || this.ask.status == 3"
             >
               <ion-icon class="status-icon" name="hourglass"></ion-icon>
               <b>{{$t('Message.waiting')}}</b>
