@@ -11,17 +11,18 @@
     <!--  -->
     <ion-content color="primary no-scroll" style="height: 100%">
       <div class="mc-white-container mc-relative" style="height: 100%">
-        <div class="mc-carpool-post-solidarity" v-if="!!solidarity">
-          <div class="mc-carpool-post-solidarity-alert">{{ $t('PostCarpool.solidarityAlert')}}</div>
-          <ion-item lines="none">
-            <ion-label>{{$t('PostCarpool.solidarity')}}</ion-label>
-            <ion-toggle
-              :checked="carpoolToPost.solidaryExclusive"
-              @ionChange="changeOptions('solidaryExclusive', $event.target.checked)"
-            ></ion-toggle>
-          </ion-item>
-        </div>
+
         <div style="height: calc(100% - 44px); position: relative; overflow: scroll">
+          <div class="mc-carpool-post-solidarity" v-if="!!solidarity">
+            <div class="mc-carpool-post-solidarity-alert">{{ $t('PostCarpool.solidarityAlert')}}</div>
+            <ion-item lines="none">
+              <ion-label class="ion-text-wrap">{{$t('PostCarpool.solidarity')}}</ion-label>
+              <ion-toggle
+                :checked="carpoolToPost.solidaryExclusive"
+                @ionChange="changeOptions('solidaryExclusive', $event.target.checked)"
+              ></ion-toggle>
+            </ion-item>
+          </div>
           <PostCarpoolStep1 ref="slideOne" />
         </div>
         <div class="mc-nextpost-buttons justify-end">
@@ -51,6 +52,7 @@
   border: 2px solid rgba(var(--ion-color-primary-rgb), 0.4);
   .mc-carpool-post-solidarity-alert {
     padding: 10px;
+    font-size: 0.8rem;
     border-radius: 20px;
     background: rgba(var(--ion-color-primary-rgb), 0.1);
   }

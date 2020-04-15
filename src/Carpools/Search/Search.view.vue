@@ -61,7 +61,7 @@
       }
     },
     created() {
-      this.$store.dispatch('searchCarpools', this.$route.params.filters)
+      this.search(2);
     },
     data () {
       return {
@@ -70,6 +70,10 @@
     },
 
     methods: {
+      search(role) {
+        this.$store.state.searchStore.searchObject.role = role;
+        this.$store.dispatch('searchCarpools', this.$route.params.filters)
+      },
       getFormattedCarpoolItem(carpool) {
         return new CarpoolItemDTO().carpoolItemFromSearch(carpool)
       },
