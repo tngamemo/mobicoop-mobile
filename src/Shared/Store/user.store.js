@@ -6,6 +6,7 @@ export const userStore = {
     tokenUser: localStorage.getItem('tokenUser') || '',
     tokenAnonymousUser: localStorage.getItem('tokenAnonymousUser') || '',
     user: null,
+    userToUpdate: null,
     statusAlerts: '',
     statusUpdateAlert: '',
     alerts: [],
@@ -96,7 +97,7 @@ export const userStore = {
     },
 
     updateUserAddress(state, payload) {
-      state.user.addresses = [payload.addressDTO];
+      state.userToUpdate.addresses = [payload.addressDTO];
     },
 
     reset_password_request(state) {
@@ -153,7 +154,7 @@ export const userStore = {
     authAnonymousUser({commit, dispatch}){
       dispatch('logout');
       return new Promise((resolve, reject) => {
-        http.post("/auth", {"username": 'mobile', "password": 'mobile'})
+        http.post("/auth", {"username": process.env.VUE_APP_API_USERNAME, "password": process.env.VUE_APP_API_PASSWORD})
           .then(resp => {
 
             const tokenAnonymousUser = resp.data.token
@@ -194,6 +195,7 @@ export const userStore = {
       commit('auth_request');
       return new Promise((resolve, reject) => {
         delete params.addresses[0].id;
+        delete params.addresses[0].geoJson;
         delete params.images;
         delete params.proEmail;
         http.put(`/users/${params.id}`, params)
@@ -264,7 +266,7 @@ export const userStore = {
     deleteCarpool({commit, state, dispatch}, carpoolId) {
       commit('user_my_carpools_request');
       return new Promise((resolve, reject) => {
-        http.delete(`/proposals/${carpoolId}`)
+        http.delete(`/carpools/${carpoolId}`)
           .then(resp => {
             dispatch('getMyCarpools', state.user.id);
             resolve(resp)

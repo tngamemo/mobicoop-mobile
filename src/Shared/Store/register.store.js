@@ -43,7 +43,7 @@ export const registerStore = {
 
     register_reset(state) {
       let n = new Date();
-      n.setFullYear(n.getFullYear() - 16);
+      n.setFullYear(n.getFullYear() - process.env.VUE_APP_REGISTER_MIN_AGE);
 
       state.userToRegister = {
         status: 1,
@@ -92,13 +92,12 @@ export const registerStore = {
     validateToken: ({commit, state}, params) => {
       commit('validate_token_request');
       return new Promise((resolve, reject) => {
-        http.post("/users/checkSignUpValidationToken", params).then(resp => {
+        http.post("/login-token", params).then(resp => {
           if (resp) {
-            /*
-            const tokenUser = resp.data.token
-            localStorage.setItem('tokenUser', tokenUser)
-            commit('auth_success', tokenUser)
-             */
+            const tokenUser = resp.data.token;
+            localStorage.setItem('tokenUser', tokenUser);
+            commit('auth_success', tokenUser);
+
             commit('validate_token_success');
             resolve(resp)
           }

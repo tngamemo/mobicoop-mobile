@@ -55,4 +55,12 @@ npx cap open [platform]
     * Ajouter à l'intérieur une copy des fichier res avec les bons logo et splash screen et en modifiant le fichier strings.xml
 
 ```
+
+
+## Icon & Splash
+```
+$ cordova-res ios --skip-config --copy
+$ cordova-res android --skip-config --copy
+```
+
 For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).

@@ -74,7 +74,7 @@
             :src="this.carpool.carpooler.avatar"
             @load="onImgLoad()"
           />
-          <ion-icon v-if="! this.avatarLoaded" name="contact" size="large"></ion-icon>
+          <!--<ion-icon v-if="! this.avatarLoaded" name="contact" size="large"></ion-icon>-->
         </ion-thumbnail>
         <strong
           class="mc-carpool-carpooler"

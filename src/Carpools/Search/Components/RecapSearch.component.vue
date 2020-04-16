@@ -14,6 +14,17 @@
       <p>{{$t('RecapSearch.filters')}} :</p>
       <span v-if="!!this.filters.communities" class="mc-recap-search-filter">{{$t('RecapSearch.communities')}}</span>
     </div>
+
+    <div>
+      <ion-item lines="none" class="background-transparent">
+        <ion-label class="ion-text-wrap">Voir les annonces passager</ion-label>
+        <ion-toggle slot="start"
+                    color="success"
+                    :checked="$store.state.searchStore.searchObject.role == 3"
+                    @ionChange="search($store.state.searchStore.searchObject.role == 3 ? 2 : 3)">
+        </ion-toggle>
+      </ion-item>
+    </div>
   </div>
 </template>
 
@@ -37,6 +48,11 @@
       }
     }
   }
+
+  .background-transparent{
+    --ion-background-color: transparent !important;
+    color: white;
+  }
 </style>
 
 
@@ -55,6 +71,10 @@
       }
     },
     methods: {
+      search(role) {
+        this.$store.state.searchStore.searchObject.role = role;
+        this.$store.dispatch('searchCarpools', this.$route.params.filters)
+      },
 
       goToHome: function() {
         this.$router.push('home');

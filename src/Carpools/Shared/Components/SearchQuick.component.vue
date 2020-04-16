@@ -51,6 +51,11 @@
                 ></ion-datetime>
               </ion-item>
             </ion-col>
+            <!--
+            <ion-col size="2" v-if="this.from != 'event'">
+              <div class="pointer"><ion-icon class="reset-color" size="large" name="close" @click="resetDate()" style="margin-top: 20px"></ion-icon></div>
+            </ion-col>
+            -->
             <ion-col size="7" class="d-flex ion-align-items-end">
               <ion-item lines="none">
                 <ion-label>Trajet régulier</ion-label>
@@ -118,6 +123,10 @@
 ion-datetime {
   padding-left: 0px !important;
 }
+
+  .reset-color {
+    color:rgba(0, 0, 0, 0.3)
+  }
 </style>
 
 <script>
@@ -126,7 +135,7 @@ export default {
   props: ["showPost", "searchWithFilter", "postWithFilter", "communities", "from"],
   data() {
     return {
-      showPostCarpool: true
+      showPostCarpool: true,
     };
   },
   created() {
@@ -154,6 +163,10 @@ export default {
       this.$store.state.searchStore.searchObject.outwardDate = new Date(
         $event.detail.value
       );
+    },
+
+    resetDate() {
+      this.$store.state.searchStore.searchObject.outwardDate = null
     },
 
     swapDestinationAndOrigin() {

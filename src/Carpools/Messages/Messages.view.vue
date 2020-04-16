@@ -66,7 +66,7 @@
                 <p
                   v-if="message.carpoolInfos"
                 >{{message.carpoolInfos.origin}} → {{message.carpoolInfos.destination}}</p>
-                <p>{{message.date | moment('utc', 'ddd D MMMM à HH[h]mm')}}</p>
+                <p>{{message.date | moment('ddd D MMMM à HH[h]mm')}}</p>
               </ion-label>
             </ion-item>
             <!--

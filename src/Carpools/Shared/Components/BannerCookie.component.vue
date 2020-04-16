@@ -22,7 +22,7 @@
   border-top-right-radius: 30px;
   border: 1px solid var(--ion-color-primary);
   p {
-    font-size: 0.8 rem;
+    font-size: 0.8rem;
     margin-bottom: 0;
   }
 

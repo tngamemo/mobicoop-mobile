@@ -216,7 +216,7 @@ export default {
          this.$store
           .dispatch("postEvent", this.eventToPost)
           .then(resp => {
-            this.presentToast(this.$t("EventPost.success"), "success");
+            this.presentToast(this.$t("Event.success"), "success");
             this.$store.commit("init_post_event");
             this.$router.push({ name: "carpool-events" });
           })

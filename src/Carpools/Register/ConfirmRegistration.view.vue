@@ -62,6 +62,7 @@
 <script>
   import {toast} from "../../Shared/Mixin/toast.mixin";
   import { required} from 'vuelidate/lib/validators'
+  import jwt_decode from "jwt-decode";
 
   export default {
     name: 'confirm-registration',
@@ -87,14 +88,27 @@
             const email = this.$route.params.email;
             this.$store.dispatch('validateToken', {
               email: email,
-              validatedDateToken: this.validatedDateToken
+              emailToken: this.validatedDateToken
             }).then(res => {
-              this.presentToast(this.$t("ConfirmRegistration.success"), 'success');
-              this.$router.back()
+              // this.presentToast(this.$t("ConfirmRegistration.success"), 'success');
+              //this.$router.back()
+              this.getUser(res);
             }).catch(() => {
               this.presentToast(this.$t("Commons.error"), 'danger')
             })
         }
+      },
+      getUser(res) {
+        const idUser = jwt_decode(res.data.token).id;
+        this.$store.dispatch('getUser', { idUser })
+          .then(res => {
+            this.presentToast("Vous êtes connecté", 'success');
+            this.$router.back();
+
+          })
+          .catch(err => {
+            this.presentToast("Une erreur est survenue", 'danger')
+          })
       },
     }
   }

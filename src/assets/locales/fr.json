@@ -7,6 +7,7 @@
     "postCarpool": "Publier une annonce",
     "dynamic": "Covoiturage dynamique",
     "FAQ": "FAQ",
+    "CGU": "CGU",
     "contact": "Contacter"
   },
   "Nav": {
@@ -77,13 +78,14 @@
   "Search": {
     "origin": "Lieu de départ",
     "register_address": "Adresse",
+    "update_user_address": "Adresse",
     "destination": "Lieu d'arrivée",
     "placeHolder": "Veuillez renseigner une adresse (Ville, etc...)",
     "date": "Date",
     "outwardDate": "JJ/MM",
     "titlePage": "Résultats",
     "error": "Une erreur est survenue durant la recherche. Veuillez réessayer ultérieurement.",
-    "nbResult": "Aucun résultats |{count} annonce de covoiturage trouvée | {count} annonces de covoiturages trouvées",
+    "nbResult": "Aucun résultat |{count} annonce de covoiturage trouvée | {count} annonces de covoiturages trouvées",
     "step": "Etape"
   },
   "Help": {
@@ -148,7 +150,8 @@
     "validate_create_event": "Confirmation de création d'événement",
     "medium-1": "Message",
     "medium-2": "Email",
-    "medium-3": "SMS"
+    "medium-3": "SMS",
+    "medium-4": "Notification Push"
   },
   "ProfilePrefs": {
     "title" : "Préférences",
@@ -200,7 +203,8 @@
     "oneUppercase" : "Le mot de passe doit comprendre 1 majuscule",
     "oneDigit" : "Le mot de passe doit comprendre 1 chiffre",
     "minValue" : "La valeur ne peut pas être inférieure à {value}",
-    "maxValue" : "La valeur ne peut pas être supérieure à {value}"
+    "maxValue" : "La valeur ne peut pas être supérieure à {value}",
+    "age" : "Votre âge doit être supérieur à {value} ans"
   },
   "Carpool" : {
     "L": "L",
@@ -245,7 +249,9 @@
     "addSchedule": "Ajouter une créneau",
     "comment" : "Commentez votre annonce",
     "solidarityAlert": "Cette annonce sera une annonce de covoiturage solidaire exclusif, si vous maintenez l'option ci-dessous. Elle ne sera visible alors que par les opérateurs solidaires pour vous mettre en relation avec un demandeur solidaire. Si vous décochez cette option, votre annonce deviendra une annonce ordinaire visible à la fois par les autres covoitureurs et les opérateurs solidaires.",
-    "solidarity": "Annonce de covoiturage solidaire exclusif"
+    "solidarity": "Annonce de covoiturage solidaire exclusif",
+    "no-communities": "Rejoignez des communautés pour pouvoir publier votre trajet dans une communauté.",
+    "my-communities": "Publier dans mes communautés"
   },
   "DetailCarpool": {
     "title": "Détails du covoiturage",
@@ -283,7 +289,7 @@
     "outward": "L'Aller",
     "return": "Retour",
     "chooseSchedule": "Choisir les trajets",
-    "success" : "Demande envoyé",
+    "success" : "Demande envoyée",
     "contactSuccess": "La demande de contact a été envoyé"
   },
   "Community" : {
@@ -310,7 +316,8 @@
     "signalEventExplication": "Explication",
     "signalEventEmail": "Merci de renseigner votre email",
     "missingInfo": "Il manque des informations",
-    "signalSend": "Le signalement a été envoyé"
+    "signalSend": "Le signalement a été envoyé",
+    "success" : "Événement créé avec succès"
   },
   "Contact": {
     "title": "Nous contacter",
