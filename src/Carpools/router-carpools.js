@@ -83,6 +83,7 @@ export default [
         path: 'communities',
         name: 'communities',
         component: Communities,
+        beforeEnter: guardAccesByLogin
       },
       {
         path: 'profile',

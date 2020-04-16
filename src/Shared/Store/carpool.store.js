@@ -54,7 +54,7 @@ export const carpoolStore = {
         seatsDriver: "",
         solidaryExclusive: false,
         userId: "",
-        communities: "",
+        communities: [],
         luggage: false,
         bike: false,
         backSeats: false,

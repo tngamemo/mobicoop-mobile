@@ -395,7 +395,7 @@ export default {
           !this.hasALeastFirstStepSchedule &&
           this.carpoolToPost.frequency == 2
         ) {
-          this.presentToast("Les créneaux ne sont pas bien définit", "danger");
+          this.presentToast("Les créneaux ne sont pas bien définis", "danger");
           return false;
         } else if (this.carpoolToPost.frequency == 2) {
            this.$store.dispatch("changeOneWayRegular");

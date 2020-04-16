@@ -84,7 +84,7 @@
     "outwardDate": "JJ/MM",
     "titlePage": "Résultats",
     "error": "Une erreur est survenue durant la recherche. Veuillez réessayer ultérieurement.",
-    "nbResult": "Aucun résultats |{count} annonce de covoiturage trouvée | {count} annonces de covoiturages trouvées",
+    "nbResult": "Aucun résultat |{count} annonce de covoiturage trouvée | {count} annonces de covoiturages trouvées",
     "step": "Etape"
   },
   "Help": {
@@ -248,7 +248,9 @@
     "addSchedule": "Ajouter une créneau",
     "comment" : "Commentez votre annonce",
     "solidarityAlert": "Cette annonce sera une annonce de covoiturage solidaire exclusif, si vous maintenez l'option ci-dessous. Elle ne sera visible alors que par les opérateurs solidaires pour vous mettre en relation avec un demandeur solidaire. Si vous décochez cette option, votre annonce deviendra une annonce ordinaire visible à la fois par les autres covoitureurs et les opérateurs solidaires.",
-    "solidarity": "Annonce de covoiturage solidaire exclusif"
+    "solidarity": "Annonce de covoiturage solidaire exclusif",
+    "no-communities": "Rejoignez des communautés pour pouvoir publier votre trajet dans une communauté.",
+    "my-communities": "Publier dans mes communautés"
   },
   "DetailCarpool": {
     "title": "Détails du covoiturage",
@@ -313,7 +315,8 @@
     "signalEventExplication": "Explication",
     "signalEventEmail": "Merci de renseigner votre email",
     "missingInfo": "Il manque des informations",
-    "signalSend": "Le signalement a été envoyé"
+    "signalSend": "Le signalement a été envoyé",
+    "success" : "Événement créé avec succès"
   },
   "Contact": {
     "title": "Nous contacter",
