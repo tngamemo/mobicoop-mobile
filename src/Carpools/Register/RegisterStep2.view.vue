@@ -119,13 +119,13 @@
 <script>
     import { required, email, sameAs, minLength } from 'vuelidate/lib/validators'
     import { mapState } from 'vuex'
+    var moment = require('moment');
 
     const checked = value => value === true;
     const isMaxBirthDate = (value, vm) => {
       let n = new Date();
-      n.setHours(0); n.setMinutes(0);
       n.setFullYear(n.getFullYear() - process.env.VUE_APP_REGISTER_MIN_AGE);
-      return value >= n.toISOString();
+      return moment(value).isBefore(moment(n.toISOString()));
     }
 
     export default {
