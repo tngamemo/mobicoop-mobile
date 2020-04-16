@@ -9,6 +9,8 @@ export const communityStore = {
     statusAdsCommunity: '',
     statusPostCommunity: '',
     communities: [],
+    page: 1,
+    total: 0,
     postCommunity: null
   },
   mutations: {
@@ -18,7 +20,11 @@ export const communityStore = {
 
     communities_success(state, communities) {
       state.statusGetCommunities = 'success';
-      state.communities = communities;
+      if(state.page == 1) {
+        state.communities = communities;
+      } else {
+        state.communities.push(...communities);
+      }
     },
 
     communities_error(state) {
@@ -32,6 +38,7 @@ export const communityStore = {
     community_success(state, community) {
       state.statusGetCommunity = 'success';
       state.community = community;
+
     },
 
     community_error(state) {
@@ -110,12 +117,13 @@ export const communityStore = {
   },
   actions: {
 
-    getAllCommunities({commit}) {
+    getAllCommunities({commit, state}) {
       commit('communities_request');
       return new Promise((resolve, reject) => {
-        http.get(`/communities`)
+        http.get(`/communities?page=`+ state.page + '&perPage=30')
           .then(resp => {
             resolve(resp)
+            state.total = resp.data['hydra:totalItems'];
             commit('communities_success', resp.data['hydra:member']);
           })
           .catch(err => {

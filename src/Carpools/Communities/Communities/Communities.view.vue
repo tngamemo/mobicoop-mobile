@@ -77,6 +77,14 @@
             </div>
           </div>
         </ion-item>
+
+        <ion-infinite-scroll threshold="100px" id="infinite-scroll">
+          <ion-infinite-scroll-content
+            loadingSpinner="circles"
+            loadingText="Chargement...">
+          </ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+
       </div>
     </ion-content>
   </div>
@@ -150,15 +158,33 @@ export default {
   },
   created() {
     // On récupére les communities
-    this.$store.dispatch("getAllCommunities").catch(error => {
-      this.presentToast(this.$t("Commons.error"), "danger");
-    });
+    this.$store.state.communityStore.page = 1;
+    this.getAllCommunities();
 
     if (!!this.$store.getters.userId) {
       this.$store.dispatch("getUserCommunities").catch(error => {
         this.presentToast(this.$t("Commons.error"), "danger");
       });
     }
+
+
+  },
+  mounted() {
+    const infiniteScroll = document.getElementById('infinite-scroll');
+
+    infiniteScroll.addEventListener('ionInfinite', event => {
+      setTimeout(() => {
+        this.$store.state.communityStore.page = this.$store.state.communityStore.page + 1;
+        this.getAllCommunities();
+        event.target.complete();
+
+        // App logic to determine if all data is loaded
+        // and disable the infinite scroll
+        if (this.$store.state.communityStore.communities.length >= this.$store.state.communityStore.total) {
+          event.target.disabled = true;
+        }
+      }, 500);
+    });
   },
   computed: {
     communities() {
@@ -176,6 +202,11 @@ export default {
     }
   },
   methods: {
+    getAllCommunities() {
+      this.$store.dispatch("getAllCommunities").catch(error => {
+        this.presentToast(this.$t("Commons.error"), "danger");
+      });
+    },
     goToPostCommunity() {
       this.$router.push({
         name: "post-community",
