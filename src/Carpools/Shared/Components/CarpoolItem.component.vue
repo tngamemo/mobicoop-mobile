@@ -398,6 +398,7 @@ export default {
       });
 
       this.$store.state.searchStore.searchObject.frequency = this.carpool.frequency;
+      this.$store.state.searchStore.searchObject.adId = this.carpool.id;
       this.$router.push({ name: "search" });
     }
   }
