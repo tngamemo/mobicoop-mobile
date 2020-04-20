@@ -15,6 +15,7 @@ import UpdateProfile from './Profile/UpdateProfile.view.vue';
 import ProfileAlerts from './Profile/ProfileAlerts.view.vue';
 import ProfilePrefs from './Profile/ProfilePrefs.view.vue';
 import MyCarpools from './Profile/MyCarpools.view.vue';
+import AcceptedCarpools from './Profile/AcceptedCarpools.view.vue';
 import PostCarpool from './PostCarpool/PostCarpool.view.vue';
 import Message from './Messages/Message.view.vue';
 import PostCarpoolStep from './PostCarpool/PostCarpoolStep.view.vue';
@@ -123,6 +124,11 @@ export default [
     path: 'my-carpools',
     name: 'my-carpools',
     component: MyCarpools
+  },
+  {
+    path: 'accepted-carpools',
+    name: 'accepted-carpools',
+    component: AcceptedCarpools
   },
   {
     path: 'post-carpool-step',

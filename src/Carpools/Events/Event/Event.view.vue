@@ -40,11 +40,11 @@
         </div>
 
         <div class="mc-event-padding">
-          <MiniMap :LMarker="LMarker" />
+          <MiniMap :LMarker="LMarker" :LPolyline="LPolyline" />
         </div>
       </div>
       <div class="mc-white-container" v-if="event">
-        <SearchQuick :from="'event'" />
+        <SearchQuick :from="'event'" :eventId="this.event.id"/>
 
         <ion-button class="mc-big-button" color="danger" expand="block" v-on:click="signalEvent()">
           <ion-icon
@@ -101,7 +101,8 @@ export default {
     return {
       event: "",
       eventId: null,
-      LMarker: []
+      LMarker: [],
+      LPolyline: []
     };
   },
   created() {
@@ -116,6 +117,7 @@ export default {
         .dispatch("getSpecificEvent", this.eventId)
         .then(resp => {
           this.event = resp.data;
+          this.getAdsEvent();
 
           if (!!this.event.address) {
             this.$store.commit("changeDestination", {
@@ -135,6 +137,34 @@ export default {
         .catch(error => {
           this.presentToast(this.$t("Commons.error"), "danger");
         });
+    },
+
+    getAdsEvent() {
+      // On récupére les communities\
+      this.$store
+        .dispatch("getAdsEvent", this.eventId)
+        .then(resp => {
+          this.constructDataMap(resp.data["hydra:member"]);
+        })
+        .catch(error => {
+          console.log(error);
+          this.presentToast(this.$t("Commons.error"), "danger");
+        });
+    },
+
+
+    constructDataMap(data) {
+      let polyline = [];
+      data.forEach(element => {
+        let result = [];
+        element.outwardWaypoints.forEach(wayPoint => {
+          result.push([wayPoint.address.latitude, wayPoint.address.longitude]);
+        });
+
+        polyline.push(result);
+      });
+
+      this.LPolyline = polyline;
     },
 
     signalEvent() {

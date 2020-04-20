@@ -7,6 +7,7 @@ export const eventStore = {
     statusGetEvent: '',
     statusSignalEvent: '',
     statusPostEvent: '',
+    statusAdsEvent: '',
     currentEvents: null,
     pastEvents: null,
     postEvent: null
@@ -86,6 +87,18 @@ export const eventStore = {
       state.postEvent.address = payload.addressDTO;
     },
 
+    ads_event_request(state) {
+      state.statusAdsEvent = 'loading';
+    },
+
+    ads_event_success(state) {
+      state.statusAdsEvent = 'success';
+    },
+
+    ads_event_error(state) {
+      state.statusAdsEvent = 'error';
+    },
+
   },
   actions: {
 
@@ -156,6 +169,22 @@ export const eventStore = {
           .catch(err => {
             console.log('error');
             commit('post_event_error');
+            reject(err)
+          })
+      })
+    },
+
+    getAdsEvent({commit}, eventId) {
+      commit('ads_event_request');
+      return new Promise((resolve, reject) => {
+        http.get(`/events/${eventId}/ads`)
+          .then(resp => {
+            resolve(resp)
+            commit('ads_event_success');
+          })
+          .catch(err => {
+            console.log('error');
+            commit('ads_event_error');
             reject(err)
           })
       })

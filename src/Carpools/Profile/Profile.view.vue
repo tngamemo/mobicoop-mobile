@@ -72,11 +72,11 @@
             <ion-icon class="ion-margin-end" name="list-box"></ion-icon>
             {{ $t('Profile.my-announce') }}
           </ion-button>
-          <!--
-          <ion-button class='mc-big-button' color="success" expand="block" @click="">
+
+          <ion-button class='mc-big-button' color="success" expand="block" @click="$router.push('accepted-carpools')">
             <ion-icon class="ion-margin-end" name="checkmark-circle"></ion-icon> {{ $t('Profile.my-accepted-carpools') }}
           </ion-button>
-          -->
+
           <ion-button
             class="mc-big-button"
             color="success"

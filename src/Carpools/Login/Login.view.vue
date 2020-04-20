@@ -154,7 +154,7 @@
               {
                 text: this.$t("Login.sendResetEmail"),
                 handler: (data) => {
-                    this.$store.dispatch('resetPassword', data.mail).then(() => {
+                    this.$store.dispatch('resetPassword', {email: data.mail}).then(() => {
                       this.presentToast(this.$t("Login.passwordSuccess"), "secondary");
                     }).catch(() => {
                       this.presentToast(this.$t("Commons.error"), "danger");

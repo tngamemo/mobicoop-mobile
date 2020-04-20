@@ -179,6 +179,18 @@
     "error": "Une erreur est survenue. Veuillez réessayer ultérieurement.",
     "potentialCarpoolers": "covoiturages potentiels"
   },
+  "AcceptedCarpools": {
+    "title": "Mes covoiturages acceptés",
+    "come-up": "À venir",
+    "past": "Passés",
+    "delete-success": "Votre annonce a été supprimée avec succès",
+    "pause-success": "Le status de votre annonce a été changé",
+    "validatedUntil": "Valide jusqu'au",
+    "confirmDeleteHeader": "Etes-vous sur de vouloir supprimer cette annonce ? ",
+    "confirmDeleteText": "Toute suppression d'annonce est définitive, êtes-vous sur de vouloir supprimer cette annonce ?",
+    "error": "Une erreur est survenue. Veuillez réessayer ultérieurement.",
+    "potentialCarpoolers": "covoiturages potentiels"
+  },
   "Slider": {
     "prev": "Précédent",
     "next": "Suivant",
