@@ -50,6 +50,19 @@
         <!-- State 2  -->
         <div v-if="state == 2">
 
+          <div v-if="currentDynamic.role === 2 && currentDynamic.results && currentDynamic.results.length > 0">
+            <div v-for="(result, index) in currentDynamic.results">
+              {{result.carpooler.givenName}} {{result.carpooler.shortFamilyName}}
+              <ion-button @click="postDynamicAskAlert(result.resultPassenger.outward.matchingId)">Covoiturer</ion-button>
+            </div>
+          </div>
+
+          <div v-if="currentDynamic.role === 1 && currentDynamic.asks && currentDynamic.asks.length > 0">
+            <div v-for="(result, index) in currentDynamic.asks">
+              {{result.user.givenName}} {{result.user.shortFamilyName}}
+              <ion-button @click="putDynamicAsk(result.id, '')">Accepter</ion-button>
+            </div>
+          </div>
         </div>
 
         <ion-button class='mc-big-button' color="danger" expand="block" @click="closeDynamics()">
@@ -79,7 +92,7 @@
 <script>
   import {toast} from "../../Shared/Mixin/toast.mixin";
   // import { BackgroundGeolocation } from '@mauron85/cordova-plugin-background-geolocation';
-  import { BackgroundGeolocation } from '@ionic-native/background-geolocation';
+  import { BackgroundGeolocation, BackgroundGeolocationEvents } from '@ionic-native/background-geolocation';
 
 
 
@@ -111,17 +124,65 @@
           console.log(this.currentDynamic);
         });
       },
-      closeDynamics() {
+      updateDynamics(result, body) {
         this.$store.dispatch('putDynamics', {
           id : this.currentDynamic['@id'].replace('/dynamics/',''),
-          body : {
-            "latitude": "48.741958",
-            "longitude": "7.086686",
-            "finished": true
-          },
-          result : 'reset_current_dynamic'
+          body : body,
+          result : result
         }).then( () => {
           console.log(this.currentDynamic);
+        });
+      },
+      closeDynamics() {
+        this.updateDynamics('reset_current_dynamic',{
+          "latitude": "48.741958",
+          "longitude": "7.086686",
+          "finished": true
+        });
+      },
+      updatePosition(lat, lng) {
+        this.updateDynamics('update_position',{
+          "latitude": lat.toString(),
+          "longitude": lng.toString()
+        });
+      },
+      postDynamicAskAlert(matchingId) {
+        return this.$ionic.alertController
+          .create({
+            header: "Demande de covoiturage",
+            inputs: [
+              {
+                name: "message",
+                id: "message",
+                placeholder: "message"
+              }
+            ],
+            buttons: [
+              {
+                text: 'Annuler',
+                role: "cancel",
+                cssClass: "secondary",
+              },
+              {
+                text: 'Vérifier',
+                handler: data => {
+                  this.postDynamicAsks(matchingId, data.message)
+                }
+              }
+            ]
+          })
+          .then(a => a.present());
+      },
+      postDynamicAsks(matchingId, message) {
+        this.$store.dispatch('postDynamicAsks', {
+          "matchingId": matchingId,
+          "message": message
+        });
+      },
+      putDynamicAsks(askId, message) {
+        this.$store.dispatch('putDynamicAsks', {
+          "status": 2,
+          "message": message
         });
       },
       startBackgroundGeolocation() {
@@ -138,6 +199,8 @@
 
             BackgroundGeolocation.on(BackgroundGeolocationEvents.location).subscribe((location) => {
               console.log(location);
+
+              this.updatePosition(location.latitude, location.longitude);
 
               // IMPORTANT:  You must execute the finish method here to inform the native plugin that you're finished,
               // and the background-task may be completed.  You must do this regardless if your operations are successful or not.
