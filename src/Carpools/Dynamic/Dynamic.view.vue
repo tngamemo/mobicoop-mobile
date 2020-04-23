@@ -12,7 +12,7 @@
     <ion-content color="primary" no-bounce>
       <div class="mc-white-container" >
 
-        <div class="ion-text-center" v-if="$store.state.dynamicStore.status == 'loading'" >
+        <div class="ion-text-center" v-if="$store.state.dynamicStore.status == 'loading' || $store.state.dynamicStore.statusAsk == 'loading'" >
           <ion-icon size="large" color="primary" class="rotating"  name="md-sync"></ion-icon>
         </div>
 
@@ -50,31 +50,55 @@
         <!-- State 2  -->
         <div v-if="state == 2">
 
-          <div v-if="currentDynamic.role === 2 && currentDynamic.results && currentDynamic.results.length > 0">
-            <div v-for="(result, index) in currentDynamic.results">
-              {{result.carpooler.givenName}} {{result.carpooler.shortFamilyName}}
+          <ion-card v-if="currentDynamic['@id']">
+            <ion-card-content>
+              <div class="text-center" >Current Dynamic : {{currentDynamic['@id']}}</div>
+              <div v-if="currentDynamic.comment" class="text-center" ><small>{{currentDynamic.comment}}</small></div>
+            </ion-card-content>
+          </ion-card>
+
+          <ion-card v-if="currentAsk.id">
+            <ion-card-content>
+              <div class="text-center">Current Ask : {{currentAsk.id}}</div>
+            </ion-card-content>
+          </ion-card>
+
+
+          <div v-if="!currentAsk.id && currentDynamic.role === 2 && currentDynamic.results && currentDynamic.results.length > 0">
+            <ion-card v-for="(result, index) in currentDynamic.results">
+              <ion-card-content class="d-flex justify-between">
+                <div>
+                  {{result.carpooler.givenName}} {{result.carpooler.shortFamilyName}} <br>
+                  <ion-icon name="flag"></ion-icon> {{result.resultPassenger.outward.destination.displayLabel[0]}}
+                </div>
               <ion-button @click="postDynamicAskAlert(result.resultPassenger.outward.matchingId)">Covoiturer</ion-button>
-            </div>
+              </ion-card-content>
+            </ion-card>
           </div>
 
-          <div v-if="currentDynamic.role === 1 && currentDynamic.asks && currentDynamic.asks.length > 0">
-            <div v-for="(result, index) in currentDynamic.asks">
-              {{result.user.givenName}} {{result.user.shortFamilyName}}
-              <ion-button @click="putDynamicAsk(result.id, '')">Accepter</ion-button>
-            </div>
+          <div v-if="!currentAsk.id && currentDynamic.role === 1 && currentDynamic.asks && currentDynamic.asks.length > 0">
+            <ion-card v-for="(result, index) in currentDynamic.asks">
+              <ion-card-content class="d-flex justify-between">
+                <div>
+                  {{result.user.givenName}} {{result.user.shortFamilyName}}<br>
+                  <ion-icon name="locate"></ion-icon> {{result.user.position.displayLabel[0]}}
+                </div>
+              <ion-button @click="putDynamicAsks(result.id, '')">Accepter</ion-button>
+              </ion-card-content>
+            </ion-card>
           </div>
         </div>
 
         <ion-button class='mc-big-button' color="danger" expand="block" @click="closeDynamics()">
-          {{ $t('Dynamic.reset') }}
+          {{ $t('Dynamic.close') }}
         </ion-button>
 
         <ion-button class='mc-big-button' color="primary" expand="block" @click="startBackgroundGeolocation()">
-          Start
+          Start geolocation
         </ion-button>
 
         <ion-button class='mc-big-button' color="warning" expand="block" @click="stopBackgroundGeolocation()">
-          Stop
+          Stop geolocation
         </ion-button>
 
       </div>
@@ -109,6 +133,9 @@
       },
       currentDynamic() {
         return this.$store.state.dynamicStore.currentDynamic
+      },
+      currentAsk() {
+        return this.$store.state.dynamicStore.currentAsk
       }
     },
     mixins: [toast],
@@ -138,6 +165,8 @@
           "latitude": "48.741958",
           "longitude": "7.086686",
           "finished": true
+        }).then(() => {
+          this.stopBackgroundGeolocation();
         });
       },
       updatePosition(lat, lng) {
@@ -164,7 +193,7 @@
                 cssClass: "secondary",
               },
               {
-                text: 'Vérifier',
+                text: 'Demander',
                 handler: data => {
                   this.postDynamicAsks(matchingId, data.message)
                 }
@@ -188,8 +217,9 @@
       startBackgroundGeolocation() {
         const config = {
           desiredAccuracy: 10,
-          stationaryRadius: 20,
-          distanceFilter: 30,
+          stationaryRadius: 1, // 20
+          distanceFilter: 1, // 30
+          interval: 15000,
           debug: true, //  enable this hear sounds for background-geolocation life-cycle.
           stopOnTerminate: false, // enable this to clear background location settings when the app terminates
         };

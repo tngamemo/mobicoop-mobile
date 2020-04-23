@@ -379,7 +379,8 @@
     "launch" : "Démarrer",
     "iam" : "Je suis",
     "comment": "Commentaire",
-    "reset" : "Reset"
+    "reset" : "Reset",
+    "close" : "Fermer"
   }
 
 }

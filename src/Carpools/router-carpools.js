@@ -215,5 +215,6 @@ export default [
     path: 'dynamic',
     name: 'dynamic',
     component: Dynamic,
+    beforeEnter: guardAccesByLogin
   },
 ]

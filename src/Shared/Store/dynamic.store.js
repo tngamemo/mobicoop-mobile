@@ -63,14 +63,15 @@ export const dynamicStore = {
           }
         ],
         comment: ''
-      }
+      },
+        state.currentAsk = {}
     },
 
     update_position(state, res) {
-      console.log("CURRENT");
-      console.log( state.currentDynamic);
-      console.log("UPDATE");
       console.log(res);
+      state.status = 'success';
+      res.data.role = state.currentDynamic.role;
+      state.currentDynamic = res.data
     }
 
   },
