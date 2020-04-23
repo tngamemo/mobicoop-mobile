@@ -174,6 +174,8 @@ export default {
     },
 
     goToSearchPage() {
+      this.$store.commit('reset_search_object');
+
       if (this.$store.getters.userId) {
         this.$store.commit("changeUserIdOfSearch", this.$store.getters.userId);
       } else {

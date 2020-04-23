@@ -78,6 +78,7 @@
     "origin": "Lieu de départ",
     "register_address": "Adresse",
     "update_user_address": "Adresse",
+    "update_event_address": "Adresse",
     "destination": "Lieu d'arrivée",
     "placeHolder": "Veuillez renseigner une adresse (Ville, etc...)",
     "date": "Date",
@@ -215,7 +216,9 @@
     "oneDigit" : "Le mot de passe doit comprendre 1 chiffre",
     "minValue" : "La valeur ne peut pas être inférieure à {value}",
     "maxValue" : "La valeur ne peut pas être supérieure à {value}",
-    "age" : "Votre âge doit être supérieur à {value} ans"
+    "age" : "Votre âge doit être supérieur à {value} ans",
+    "maxLength" : "Ce champ ne peut pas contenir plus de {value} caractères",
+    "isAfterDate" : "La date doit être supérieure à la date d'aller"
   },
   "Carpool" : {
     "L": "L",
@@ -271,7 +274,7 @@
     "ask": "Demande de covoiturage",
     "askAsDriver": "Demander en tant que conducteur",
     "askAsPassenger": "Demander en tant que passager",
-    "updateSuccess": ":La demande a été mise à jour",
+    "updateSuccess": "La demande a été mise à jour",
     "askSend": "Une demande de covoiturage formelle a été envoyée",
     "askAccepted": "Le covoiturage a été accepté",
     "askDeclined": "Le covoiturage a été refusé",

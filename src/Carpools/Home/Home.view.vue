@@ -149,6 +149,12 @@ export default {
       .getComputedStyle(document.body)
       .getPropertyValue("--ion-color-success-rgb");
   },
+  mounted() {
+    // caching for crawlers
+    setTimeout(() => {
+      window.prerenderReady = true;
+    }, 1000)
+  },
   methods: {
     closeWelcome: function() {
       this.seeWelcome = false;
