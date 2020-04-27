@@ -127,7 +127,7 @@
         class="mc-carpool-potential-carpoolers"
       >
         <ion-button
-          class="mc-big-button"
+          class="mc-big-button normal-wrap"
           fill="outline"
           color="success"
           expand="block"

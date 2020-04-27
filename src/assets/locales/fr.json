@@ -136,7 +136,8 @@
     "visibility-all": "Visible dès la publication de l'annonce, par tous les inscrits",
     "phoneToken": "Envoyer un code de vérification",
     "phoneTokenPopup": "Vérification du téléphone",
-    "newsSubscription" : "Recevoir les actualités"
+    "newsSubscription" : "Recevoir les actualités",
+    "file-size": "L'image ne doit pas dépasser 1 Mo"
   },
   "ProfileAlerts": {
     "title": "Mes alertes",
@@ -178,7 +179,7 @@
     "confirmDeleteHeader": "Etes-vous sur de vouloir supprimer cette annonce ? ",
     "confirmDeleteText": "Toute suppression d'annonce est définitive, êtes-vous sur de vouloir supprimer cette annonce ?",
     "error": "Une erreur est survenue. Veuillez réessayer ultérieurement.",
-    "potentialCarpoolers": "covoiturages potentiels"
+    "potentialCarpoolers": "covoiturage(s) potentiel(s)"
   },
   "AcceptedCarpools": {
     "title": "Mes covoiturages acceptés",
@@ -265,7 +266,8 @@
     "solidarityAlert": "Cette annonce sera une annonce de covoiturage solidaire exclusif, si vous maintenez l'option ci-dessous. Elle ne sera visible alors que par les opérateurs solidaires pour vous mettre en relation avec un demandeur solidaire. Si vous décochez cette option, votre annonce deviendra une annonce ordinaire visible à la fois par les autres covoitureurs et les opérateurs solidaires.",
     "solidarity": "Annonce de covoiturage solidaire exclusif",
     "no-communities": "Rejoignez des communautés pour pouvoir publier votre trajet dans une communauté.",
-    "my-communities": "Publier dans mes communautés"
+    "my-communities": "Publier dans mes communautés",
+    "price-info": "Tarif indicatif"
   },
   "DetailCarpool": {
     "title": "Détails du covoiturage",
@@ -311,7 +313,9 @@
     "leaveCommu": "Quitter la communauté",
     "joinCommu": "Rejoindre la communauté",
     "join_success": "Vous avez rejoins la communauté",
-    "leave_success": "Vous avez quitté la communauté"
+    "leave_success": "Vous avez quitté la communauté",
+    "domain": "Votre adresse mail doit faire partie d'un de ces domaines : ",
+    "join-error": "Vous ne pouvez pas rejoindre cette communauté"
   },
   "Events" : {
     "title": "Tous les événements",
@@ -373,7 +377,9 @@
     "avatar": "Avatar de la communauté",
     "create": "Créer la communauté",
     "missingInfo": "Il manque des informations",
-    "success": "La communauté a été créé"
+    "success": "La communauté a été créé",
+    "restriction": "Restriction du domaine",
+    "restriction-detail": "Si vous souhaitez restreindre l'accès à la communauté à des emails spécifiques, saisissez ses noms de domaines (exemple: monentreeprise.fr) séparés par un ;"
   },
   "PostEvent": {
     "title": "Créer",

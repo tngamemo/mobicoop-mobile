@@ -13,7 +13,10 @@
           </div>
         </div>
         <span>{{recapCarpool.outwardDate | moment('DD MMMM YYYY') }}</span>
-        <span>{{recapCarpool.priceCarpool}} €</span>
+        <div class="d-flex align-center">
+          <div>{{recapCarpool.priceCarpool}} €</div>
+          <ion-icon v-if="$store.state.carpoolStore.carpoolToPost.role == 2" color="secondary" class="price-info" @click="priceInfo()" name="information-circle-outline"></ion-icon>
+        </div>
       </div>
       <div
         v-if="recapCarpool.frequency == 1 && (!!recapCarpool.outwardTime || !!recapCarpool.returnTime)"
@@ -100,7 +103,7 @@
       <div class="mc-recap-user-bloc-info">
         <div class="mc-user-image">
           <ion-thumbnail v-if="!! recapCarpool.user.avatars">
-            <img :src="recapCarpool.user.avatars[0]" />
+            <img alt="" :src="recapCarpool.user.avatars[0]" />
           </ion-thumbnail>
         </div>
 
@@ -292,15 +295,23 @@
       }
     }
   }
+
+  .price-info {
+    cursor: pointer;
+    font-size: 20px;
+    margin-left: 5px;
+  }
 }
 </style>
 
 <script>
 import { LMap, LTileLayer, LPolyline, LMarker } from "vue2-leaflet";
 import { isPlatform } from "@ionic/core";
+import {toast} from "../../../Shared/Mixin/toast.mixin";
 
 export default {
   name: "recap-carpool",
+  mixins: [toast],
   data() {
     return {
       url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
@@ -337,6 +348,10 @@ export default {
     }
   },
   methods: {
+    priceInfo() {
+      console.log(this.recapCarpool);
+      this.presentToast(this.$t("PostCarpool.price-info"), "secondary");
+    },
     displayStep(step) {
       let result = "";
       if (!!step.time) {

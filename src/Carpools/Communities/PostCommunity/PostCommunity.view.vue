@@ -68,6 +68,7 @@
         </div>
 
         <ion-item>
+          <ion-label position="floating">{{$t('PostCommunity.maxiDescription')}}</ion-label>
           <ion-textarea
             required
             :value="communityToPost.fullDescription"
@@ -98,6 +99,16 @@
             v-if="!$v.communityToPost.address.required"
           >{{$t('Validation.required')}}</div>
         </div>
+        <ion-item>
+          <ion-label position="floating">{{$t('PostCommunity.restriction')}}</ion-label>
+          <ion-input
+            type="text"
+            :placeholder="$t('PostCommunity.restriction')"
+            :value="communityToPost.domain"
+            @input="communityToPost.domain = $event.target.value;"
+          ></ion-input>
+          <ion-icon style="margin-top:20px" @click="domainInfo()" slot="end" name="information-circle-outline"></ion-icon>
+        </ion-item>
 
         <br />
         <ion-button class="mc-small-button" color="success" expand="block" @click="postCommunity()">
@@ -204,6 +215,9 @@ export default {
       const file = e.target.files[0];
       //todo updateCommunityPicture
     },
+    domainInfo() {
+      this.presentToast(this.$t("PostCommunity.restriction-detail"), "secondary");
+    }
   }
 };
 </script>

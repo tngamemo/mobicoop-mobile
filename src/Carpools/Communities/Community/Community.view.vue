@@ -3,7 +3,7 @@
     <ion-header no-border>
       <ion-toolbar color="primary">
         <ion-buttons slot="start">
-          <ion-back-button></ion-back-button>
+          <ion-back-button default-href="/carpools/communities"></ion-back-button>
         </ion-buttons>
         <h1 v-if="community" class="ion-text-center">{{ community.name}}</h1>
         <h1 v-if="!community" class="ion-text-center">{{ $t('Community.title')}}</h1>
@@ -32,11 +32,11 @@
 
         <div class="mc-community-description mc-community-padding">
           {{community.description}}
-          <MiniMap :LPolyline="LPolyline" />
+          <MiniMap :LMarker="LMarker" :LPolyline="LPolyline" />
 
           <ion-button
             v-if="!isInCommunity"
-            class="mc-big-button"
+            class="mc-big-button join-community"
             color="success"
             expand="block"
             v-on:click="joinCommunity()"
@@ -53,6 +53,7 @@
               {{ $t('Community.joinCommu')}}
             </div>
           </ion-button>
+          <div v-if="!isInCommunity && community.domain" class="text-center">{{ $t('Community.domain')}} {{community.domain}}</div>
         </div>
       </div>
       <div class="mc-white-container" v-if="community">
@@ -171,6 +172,10 @@
     }
   }
 }
+
+  .join-community {
+    margin-top: 20px;
+  }
 </style>
 
 <script>
@@ -185,7 +190,8 @@ export default {
   data() {
     return {
       community: "",
-      LPolyline: []
+      LPolyline: [],
+      LMarker: [],
     };
   },
   created() {
@@ -212,6 +218,14 @@ export default {
         .dispatch("getSpecificCommunity", communityId)
         .then(resp => {
           this.community = resp.data;
+
+          this.LMarker.push({
+            latlng: [
+              this.community.address.latitude,
+              this.community.address.longitude
+            ],
+            name: this.community.name
+          });
         })
         .catch(error => {
           this.presentToast(this.$t("Commons.error"), "danger");
@@ -245,7 +259,11 @@ export default {
           this.getSpecificCommunity();
         })
         .catch(error => {
-          this.presentToast(this.$t("Commons.error"), "danger");
+          if(error.response.status === 403) {
+            this.presentToast(this.$t("Community.join-error"), "danger");
+          } else {
+            this.presentToast(this.$t("Commons.error"), "danger");
+          }
         });
     },
 
@@ -285,7 +303,8 @@ export default {
     goToMessage(user) {
       this.$store.commit('set_temp_direct_thread', user);
       this.$router.push({ name: "message" , params : {idAsk : -99, idRecipient : user.id}});
-    }
+    },
+
   }
 };
 </script>
