@@ -73,7 +73,9 @@
     },
     mixins: [toast],
     created() {
-
+      if (this.$route.query.token) {
+        this.validatedDateToken = this.$route.query.token;
+      }
     },
     validations: {
       validatedDateToken: {

@@ -30,11 +30,12 @@
               <ion-item>
                 <ion-label position="floating">{{$t('Login.password-placeholder')}} *</ion-label>
                 <ion-input
-                  type="password"
+                  :type="passwordType"
                   :placeholder="$t('Login.password-placeholder')"
                   :value="password"
                   @input="password = $event.target.value">
                 </ion-input>
+                <ion-icon style="margin-top: 20px" @click="switchPasswordType" slot="end" :name="passwordType == 'password' ? 'eye-off' : 'eye'"></ion-icon>
               </ion-item>
             </form>
 
@@ -86,6 +87,7 @@
         title: 'Connexion',
         email: '',
         password: '',
+        passwordType: 'password'
       }
     },
     methods: {
@@ -95,7 +97,13 @@
         }
         return true;
       },
-
+      switchPasswordType() {
+        if (this.passwordType == 'password') {
+          this.passwordType = 'text'
+        } else {
+          this.passwordType = 'password'
+        }
+      },
       loginUser: function() {
 
         let username = this.email

@@ -62,6 +62,7 @@ export const registerStore = {
           maxDeviationDistance:10000,
           anyRouteAsPassenger:false,
           newsSubscription:true,
+          registerFromMobile: true,
           language: "fr_FR",
           addresses: '',
       };
