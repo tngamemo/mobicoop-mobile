@@ -217,6 +217,7 @@
     "oneDigit" : "Le mot de passe doit comprendre 1 chiffre",
     "minValue" : "La valeur ne peut pas être inférieure à {value}",
     "maxValue" : "La valeur ne peut pas être supérieure à {value}",
+    "checkEmail" : "Ce mail existe déjà en base de donnée",
     "age" : "Votre âge doit être supérieur à {value} ans",
     "maxLength" : "Ce champ ne peut pas contenir plus de {value} caractères",
     "isAfterDate" : "La date doit être supérieure à la date d'aller"
