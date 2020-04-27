@@ -1,11 +1,18 @@
 import http from '../Mixin/http.mixin'
+import moment from 'moment'
 
 export const eventStore = {
   state: {
     statusGetEvents: '',
     statusGetEvent: '',
     statusSignalEvent: '',
-    events: null,
+    statusPostEvent: '',
+    statusAdsEvent: '',
+    currentEvents: null,
+    page: 1,
+    total: 0,
+    type: 'after', // after || stricly_before
+    events: []
   },
   mutations: {
     events_request(state) {
@@ -14,7 +21,11 @@ export const eventStore = {
 
     events_success(state, events) {
       state.statusGetEvents = 'success';
-      state.events = events;
+      if(state.page == 1) {
+        state.events = events;
+      } else {
+        state.events.push(...events);
+      }
     },
 
     events_error(state) {
@@ -43,20 +54,68 @@ export const eventStore = {
 
     signal_event_error(state) {
       state.statusSignalEvent = 'error';
-    }
+    },
+
+    init_post_event(state) {
+      state.postEvent = {
+        name: '',
+        description: '',
+        fullDescription: '',
+        address: {},
+        fromDate: '',
+        toDate: '',
+        status: 1,
+        useTime: false,
+        url: '',
+        user: ''
+      };
+    },
+
+    post_event_request(state) {
+      state.statusPostEvent = 'loading';
+    },
+
+    post_event_success(state) {
+      state.statusPostEvent = 'success';
+    },
+
+    post_event_error(state) {
+      state.statusPostEvent = 'error';
+    },
+
+    updateEventAddress(state, payload) {
+      delete payload.addressDTO['@id'];
+      delete payload.addressDTO['id'];
+      delete payload.addressDTO['@type'];
+      delete payload.addressDTO['geoJson'];
+
+      state.postEvent.address = payload.addressDTO;
+    },
+
+    ads_event_request(state) {
+      state.statusAdsEvent = 'loading';
+    },
+
+    ads_event_success(state) {
+      state.statusAdsEvent = 'success';
+    },
+
+    ads_event_error(state) {
+      state.statusAdsEvent = 'error';
+    },
 
   },
   actions: {
 
-    getAllEvents({ commit }) {
+    getAllEvents({ commit, state }) {
       commit('events_request');
       return new Promise((resolve, reject) => {
-        http.get(`/events`)
-          .then(resp => {
+        http.get(`/events?toDate[` + state.type + `]=` + moment().format('YYYY-MM-DD') + `&order[fromDate]=asc&perPage=30&page=` + state.page).then(resp => {
+            const allEvents = resp.data['hydra:member'];
+            state.total = resp.data['hydra:totalItems'];
+            commit('events_success', allEvents);
             resolve(resp)
-            commit('events_success', resp.data['hydra:member']);
-          })
-          .catch(err => {
+          }).catch(err => {
             console.log('error');
             commit('events_error');
             reject(err)
@@ -95,10 +154,46 @@ export const eventStore = {
           })
       })
     },
+
+    postEvent({commit}, payload) {
+      commit('post_event_request');
+      return new Promise((resolve, reject) => {
+        http.post(`/events`, payload)
+          .then(resp => {
+            resolve(resp)
+            commit('post_event_success');
+          })
+          .catch(err => {
+            console.log('error');
+            commit('post_event_error');
+            reject(err)
+          })
+      })
+    },
+
+    getAdsEvent({commit}, eventId) {
+      commit('ads_event_request');
+      return new Promise((resolve, reject) => {
+        http.get(`/events/${eventId}/ads`)
+          .then(resp => {
+            resolve(resp)
+            commit('ads_event_success');
+          })
+          .catch(err => {
+            console.log('error');
+            commit('ads_event_error');
+            reject(err)
+          })
+      })
+    },
   },
   getters: {
-    events: state => {
-      return state.events
+    currentEvents: state => {
+      return state.currentEvents
+    },
+
+    pastEvents: state => {
+      return state.pastEvents
     },
 
     statusGetEvents: state => {
@@ -111,6 +206,14 @@ export const eventStore = {
 
     statusSignalEvent: state => {
       return state.statusSignalEvent;
+    },
+
+    postEvent: state => {
+      return state.postEvent;
+    },
+
+    statusPostEvent: state => {
+      return state.statusPostEvent;
     }
   }
 }

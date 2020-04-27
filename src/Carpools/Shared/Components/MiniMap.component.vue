@@ -5,12 +5,13 @@
     style="height: 200px"
     :center="center"
     :zoom="zoom"
+    :maxZoom="maxZoom"
     :bounds="bounds"
     :options="optionsCard"
   >
     <l-tile-layer :url="url"></l-tile-layer>
-    <l-polyline v-if="bounds && this.LPolyline" :lat-lngs="this.LPolyline" :color="'red'"></l-polyline>
-    <div v-if="LMarker">
+    <l-polyline v-if="bounds && this.LPolyline" :lat-lngs="this.LPolyline" :color="'blue'"></l-polyline>
+    <div v-if="bounds && LMarker">
       <l-marker v-for="(marker, index) in  LMarker" :lat-lng="marker.latlng" :key="index">
         <l-popup
           :content="'<div>'+marker.name+'</div>'"
@@ -26,6 +27,7 @@
 
 <script>
 import { LMap, LMarker, LTileLayer, LPolyline, LPopup } from "vue2-leaflet";
+import {isPlatform} from "@ionic/core";
 
 export default {
   name: "mini-map",
@@ -33,12 +35,16 @@ export default {
     return {
       url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
       zoom: 5,
+      maxZoom: 10,
       center: [47.2350952, 2.0426357],
       showCard: true,
       optionsCard: {
-        dragging: false,
-        touchZoom: false,
-        tap: false
+        dragging: !isPlatform(window.document.defaultView, "mobile"),
+        touchZoom: isPlatform(window.document.defaultView, "mobile"),
+        tap: !isPlatform(window.document.defaultView, "mobile"),
+        fullscreenControl: {
+          pseudoFullscreen: true
+        }
       }
     };
   },
@@ -53,14 +59,25 @@ export default {
   mounted() {
     setTimeout(() => {
       if (!!this.$refs.map) this.$refs.map.mapObject.invalidateSize();
-      this.$refs.map.mapObject.addControl(new L.Control.Fullscreen());
     }, 0);
+
+    setTimeout(() => {
+      this.maxZoom = 18;
+    }, 1000);
   },
-  computed: {
+  watch: {
+    LPolyline: function(newVal, oldVal) {
+      this.bounds();
+    },
+    LMarker: function(newVal, oldVal) {
+      this.bounds();
+    }
+  },
+    computed: {
     bounds() {
       let bounds;
+      if (this.LMarker) bounds = new L.LatLngBounds(this.LMarker.map(item => item.latlng));
       if (this.LPolyline) bounds = new L.LatLngBounds(this.LPolyline);
-      if (this.LMarker) bounds = new L.LatLngBounds(this.LMarker);
       if (!!this.$refs.map) this.$refs.map.mapObject.invalidateSize();
       return bounds;
     }

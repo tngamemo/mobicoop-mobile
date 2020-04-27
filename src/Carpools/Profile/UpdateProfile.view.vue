@@ -35,7 +35,7 @@
               type="text"
               :placeholder="$t('Register.givenName') + '*'"
               :value="user.givenName"
-              @input="user.givenName = $event.target.value;"
+              @input="user.givenName = $event.target.value"
             >
             </ion-input>
           </ion-item>
@@ -49,7 +49,7 @@
               type="text"
               :placeholder="$t('Register.familyName') + '*'"
               :value="user.familyName"
-              @input="user.familyName = $event.target.value;"
+              @input="user.familyName = $event.target.value"
             >
             </ion-input>
           </ion-item>
@@ -82,7 +82,7 @@
               :placeholder="$t('Register.email') + '*'"
               :value="user.email"
               disabled
-              @input="user.email = $event.target.value;"
+              @input="user.email = $event.target.value"
             >
             </ion-input>
           </ion-item>
@@ -97,7 +97,7 @@
               type="text"
               name="telephone"
               :value="user.telephone"
-              @input="user.telephone = $event.target.value;"
+              @input="user.telephone = $event.target.value"
               :placeholder="$t('Register.phone')"
             ></ion-input>
             <ion-icon slot="end" color="success" class="ion-margin-top" v-if="user.phoneValidatedDate" name="checkmark"></ion-icon>
@@ -225,7 +225,7 @@
     name: 'update-profile',
     data () {
       return {
-        user: Object.assign({}, this.$store.state.userStore.user ),
+        user: null,
         maxBirthDate: new Date().toISOString()
       }
     },
@@ -256,13 +256,35 @@
         }
       }
     },
+    created() {
+      if(this.$store.state.userStore.userToUpdate == null) {
+        this.$store.state.userStore.userToUpdate = this.$store.state.userStore.user;
+      }
+      this.user = this.$store.state.userStore.userToUpdate;
+    },
     methods: {
       changePicture(e) {
         const file = e.target.files[0];
+        if (file.size <= 1000000) {
+          if (this.user.images.length > 0) {
+            Promise.all([this.user.images.map(item => {
+              return this.$store.dispatch('deleteImage', item.id);
+            })]).then(() => {
+              this.updateUserPicture(file);
+            })
+          } else {
+            this.updateUserPicture(file);
+          }
+        } else {
+          this.presentToast(this.$t("UpdateProfile.file-size"), 'danger')
+        }
+
+      },
+      updateUserPicture(file) {
         this.$store.dispatch('updateUserPicture', { userId : this.user.id, file: file })
           .then(res => {
             this.$store.dispatch('getUser', { idUser: this.user.id }).then(res => {
-              this.user = Object.assign({}, this.$store.state.userStore.user );
+              this.user.avatars = this.$store.state.userStore.user.avatars;
             });
             this.presentToast(this.$t("UpdateProfile.picture-success"), 'success')
           })
@@ -274,6 +296,7 @@
         this.$store.dispatch('updateUser', this.user)
           .then(res => {
             this.$router.push('profile');
+            this.$store.state.userStore.userToUpdate = null;
             this.presentToast(this.$t("UpdateProfile.success"), 'success')
           })
           .catch(err => {

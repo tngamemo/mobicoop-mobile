@@ -63,7 +63,10 @@
       </div>
     </div>
 
-    <div class="mc-select-communities text-left">
+    <div class="mc-select-communities text-left mc-no-communities" v-if="this.$store.getters.userCommunities.length == 0">
+      {{$t('PostCarpool.no-communities')}}
+    </div>
+    <div class="mc-select-communities text-left" v-if="this.$store.getters.userCommunities.length > 0">
       <ion-icon
         size="large"
         color="primary"
@@ -71,13 +74,17 @@
         v-if="this.$store.getters.statusUserCommunities == 'loading'"
         name="md-sync"
       ></ion-icon>
+      <ion-item lines="none" class="item-communities">
+      <ion-label position="floating">{{$t('PostCarpool.my-communities')}}</ion-label>
       <ion-select
         @ionChange="selectCommunities($event.target.value)"
         v-if="this.$store.getters.userCommunities && this.$store.getters.statusUserCommunities == 'success'"
         placeholder="Sélectionnez une communauté"
+        interface="alert"
         multiple="true"
-        cancelText="Fermer"
-        okText="Valider"
+        cancel-text="Fermer"
+        ok-text="Valider"
+        :value="selectedCommunities"
       >
         <ion-select-option
           v-for="community in this.$store.getters.userCommunities"
@@ -85,6 +92,7 @@
           :value="parseInt(community.id)"
         >{{ community.name }}</ion-select-option>
       </ion-select>
+      </ion-item>
     </div>
 
     <div class="mc-carpool-distance text-center">
@@ -104,12 +112,12 @@
         v-if="this.$store.getters.statusDistanceCarpool != 'loading' && showCard"
         :ref="'map'"
         :options="optionsCard"
-        style="height: 350px"
+        style="height: 250px"
         :zoom="zoom"
         :bounds="bounds"
       >
         <l-tile-layer v-if="bounds" :url="url"></l-tile-layer>
-        <l-polyline v-if="bounds" :lat-lngs="directPointsCarpool" :color="'red'"></l-polyline>
+        <l-polyline v-if="bounds" :lat-lngs="directPointsCarpool" :color="'blue'"></l-polyline>
       </l-map>
     </div>
   </div>
@@ -149,6 +157,18 @@
       margin-bottom: 10px;
     }
   }
+
+  .mc-no-communities {
+    padding: 10px;
+    text-align: center;
+    font-size: 14px;
+  }
+
+  .item-communities {
+    margin: 0px;
+    padding: 5px;
+    --background: transparent;
+  }
 }
 </style>
 
@@ -176,7 +196,8 @@ export default {
         dragging: !isPlatform(window.document.defaultView, "mobile"),
         touchZoom: isPlatform(window.document.defaultView, "mobile"),
         tap: !isPlatform(window.document.defaultView, "mobile")
-      }
+      },
+      selectedCommunities: []
     };
   },
   validations: {
@@ -304,9 +325,10 @@ export default {
       this.$store.getters.addressessUseToPost["step"].push({});
     },
 
-    selectCommunities: function(value) {
+    selectCommunities(value) {
+      this.$store.state.carpoolStore.carpoolToPost.communities = [];
       value.forEach(id =>
-        this.$store.getters.carpoolToPost.communities.push(parseInt(id))
+        this.$store.state.carpoolStore.carpoolToPost.communities.push(parseInt(id))
       );
     }
   }

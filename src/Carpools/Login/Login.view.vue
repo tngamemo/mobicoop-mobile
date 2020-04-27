@@ -30,11 +30,12 @@
               <ion-item>
                 <ion-label position="floating">{{$t('Login.password-placeholder')}} *</ion-label>
                 <ion-input
-                  type="password"
+                  :type="passwordType"
                   :placeholder="$t('Login.password-placeholder')"
                   :value="password"
                   @input="password = $event.target.value">
                 </ion-input>
+                <ion-icon style="margin-top: 20px" @click="switchPasswordType" slot="end" :name="passwordType == 'password' ? 'eye-off' : 'eye'"></ion-icon>
               </ion-item>
             </form>
 
@@ -86,6 +87,7 @@
         title: 'Connexion',
         email: '',
         password: '',
+        passwordType: 'password'
       }
     },
     methods: {
@@ -95,7 +97,13 @@
         }
         return true;
       },
-
+      switchPasswordType() {
+        if (this.passwordType == 'password') {
+          this.passwordType = 'text'
+        } else {
+          this.passwordType = 'password'
+        }
+      },
       loginUser: function() {
 
         let username = this.email
@@ -116,12 +124,12 @@
         const idUser = jwt_decode(res.data.token).id;
         this.$store.dispatch('getUser', { idUser })
        .then(res => {
-         this.presentToast("La connexion est un succès", 'success');
+         this.presentToast("Vous êtes connecté", 'success');
          this.email = '';
          this.password = '';
 
          if (!! this.$store.getters.redirectionUrl) {
-            this.$router.push({name: this.$store.getters.redirectionUrl});
+            this.$router.push({path: this.$store.getters.redirectionUrl});
             this.$store.commit('redirectionUrl_reset');
          } else {
             this.$router.push('home');
@@ -154,7 +162,7 @@
               {
                 text: this.$t("Login.sendResetEmail"),
                 handler: (data) => {
-                    this.$store.dispatch('resetPassword', data.mail).then(() => {
+                    this.$store.dispatch('resetPassword', {email: data.mail}).then(() => {
                       this.presentToast(this.$t("Login.passwordSuccess"), "secondary");
                     }).catch(() => {
                       this.presentToast(this.$t("Commons.error"), "danger");

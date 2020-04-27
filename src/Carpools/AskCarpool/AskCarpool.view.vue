@@ -88,7 +88,7 @@
                 <div class="mc-ask-outward-choose-day">
                   <div v-for="(item, index) in getOutwardOrReturnDay('outward')" v-bind:key="index">
                     <ion-item>
-                      <ion-label>{{ $t(`${item.trad}`) }}: {{item.time}}</ion-label>
+                      <ion-label>{{ $t(`${item.trad}`) }}: {{item.time == false ? 'Indisponible' : item.time}}</ion-label>
                       <ion-checkbox
                         slot="end"
                         :disabled="!item.value"
@@ -138,22 +138,22 @@
                 <ion-radio-group @ionChange="changeDateOption($event.target.value)">
                   <ion-item lines="none">
                     <ion-radio value="1" :checked="dateOption == 1"></ion-radio>
-                    <ion-label>{{ $t('AskCarpool.week')}}</ion-label>
+                    <ion-label class="ion-text-wrap">{{ $t('AskCarpool.week')}}</ion-label>
                   </ion-item>
                   <ion-item lines="none">
                     <ion-radio value="2" :checked="dateOption == 2"></ion-radio>
-                    <ion-label>{{ $t('AskCarpool.month')}}</ion-label>
+                    <ion-label class="ion-text-wrap">{{ $t('AskCarpool.month')}}</ion-label>
                   </ion-item>
                   <ion-item lines="none">
                     <ion-radio value="3" :checked="dateOption == 3"></ion-radio>
-                    <ion-label>{{ $t('AskCarpool.specificDate')}}</ion-label>
+                    <ion-label class="ion-text-wrap">{{ $t('AskCarpool.specificDate')}}</ion-label>
                   </ion-item>
                 </ion-radio-group>
               </div>
             </div>
             <div class="mc-ask-timeBegin">
               <div class="mc-ask-header">{{ $t('AskCarpool.outWardDate')}}</div>
-              <ion-item>
+              <ion-item lines="none">
                 <ion-datetime
                   display-format="DD/MM/YY"
                   picker-format="DD/MM/YY"
@@ -168,7 +168,7 @@
 
             <div class="mc-ask-timeEnd" v-if="dateOption == 3">
               <div class="mc-ask-header">{{ $t('AskCarpool.outwardLimitDate')}}</div>
-              <ion-item>
+              <ion-item lines="none">
                 <ion-datetime
                   display-format="DD/MM/YY"
                   picker-format="DD/MM/YY"
@@ -211,6 +211,13 @@
 .mc-carpool-ask {
   .mc-button-nextStep {
     margin-top: 40px;
+  }
+
+  .mc-carpool-role-choose {
+    @media screen and (max-width: 320px) {
+      flex-wrap: wrap;
+
+    }
   }
 
   .mc-carpool-ask-select-time {
@@ -340,8 +347,14 @@ export default {
 
   methods: {
     getCarpoolAsk() {
-      const index = this.$route.params.param;
-      this.carpoolSelected = this.$store.getters.resultSearch[index];
+      this.fromMessage = this.$route.params.param == "fromMessage";
+      if (this.fromMessage) {
+        this.carpoolSelected = this.$store.getters.askFromMessage.results[0];
+        this.askFromMessage = this.$store.getters.askFromMessage;
+      } else {
+        const index = this.$route.params.param;
+        this.carpoolSelected = this.$store.getters.resultSearch[index];
+      }
 
       if (!!this.carpoolSelected) {
         this.carpoolRecap = new RecapCarpoolDTO().fromAskCarpool(
@@ -398,58 +411,58 @@ export default {
         result.push({
           name: "mon",
           trad: "Carpool.L",
-          value: !!resultDriverOrPassenger[type].monCheck,
+          value: !!resultDriverOrPassenger[type].monTime,
           time:
             !!resultDriverOrPassenger[type].monTime &&
-            this.$moment(resultDriverOrPassenger[type].monTime).format("HH:mm")
+            this.$moment(resultDriverOrPassenger[type].monTime).utc().format("HH:mm")
         });
         result.push({
           name: "tue",
           trad: "Carpool.Ma",
-          value: !!resultDriverOrPassenger[type].tueCheck,
+          value: !!resultDriverOrPassenger[type].tueTime,
           time:
             !!resultDriverOrPassenger[type].tueTime &&
-            this.$moment(resultDriverOrPassenger[type].tueTime).format("HH:mm")
+            this.$moment(resultDriverOrPassenger[type].tueTime).utc().format("HH:mm")
         });
         result.push({
           name: "wed",
           trad: "Carpool.Me",
-          value: !!resultDriverOrPassenger[type].wedCheck,
+          value: !!resultDriverOrPassenger[type].wedTime,
           time:
             !!resultDriverOrPassenger[type].wedTime &&
-            this.$moment(resultDriverOrPassenger[type].wedTime).format("HH:mm")
+            this.$moment(resultDriverOrPassenger[type].wedTime).utc().format("HH:mm")
         });
         result.push({
           name: "thu",
           trad: "Carpool.J",
-          value: !!resultDriverOrPassenger[type].thuCheck,
+          value: !!resultDriverOrPassenger[type].thuTime,
           time:
             !!resultDriverOrPassenger[type].thuTime &&
-            this.$moment(resultDriverOrPassenger[type].thuTime).format("HH:mm")
+            this.$moment(resultDriverOrPassenger[type].thuTime).utc().format("HH:mm")
         });
         result.push({
           name: "fri",
           trad: "Carpool.V",
-          value: !!resultDriverOrPassenger[type].friCheck,
+          value: !!resultDriverOrPassenger[type].friTime,
           time:
             !!resultDriverOrPassenger[type].friTime &&
-            this.$moment(resultDriverOrPassenger[type].friTime).format("HH:mm")
+            this.$moment(resultDriverOrPassenger[type].friTime).utc().format("HH:mm")
         });
         result.push({
           name: "sat",
           trad: "Carpool.S",
-          value: !!resultDriverOrPassenger[type].satCheck,
+          value: !!resultDriverOrPassenger[type].satTime,
           time:
             !!resultDriverOrPassenger[type].satTime &&
-            this.$moment(resultDriverOrPassenger[type].satTime).format("HH:mm")
+            this.$moment(resultDriverOrPassenger[type].satTime).utc().format("HH:mm")
         });
         result.push({
           name: "sun",
           trad: "Carpool.D",
-          value: !!resultDriverOrPassenger[type].sunCheck,
+          value: !!resultDriverOrPassenger[type].sunTime,
           time:
             !!resultDriverOrPassenger[type].sunTime &&
-            this.$moment(resultDriverOrPassenger[type].sunTime).format("HH:mm")
+            this.$moment(resultDriverOrPassenger[type].sunTime).utc().format("HH:mm")
         });
 
         return result;
@@ -542,26 +555,63 @@ export default {
       const adId = resultDriverOrPassenger.outward.proposalId;
       const matchingId = resultDriverOrPassenger.outward.matchingId;
 
-      let ask = {};
-      ask.schedule = this.scheduleSelected;
-      ask.role = this.roleSelected;
-      ask.paused = false;
-      ask.outwardLimitDate = this.$moment(this.outwardLimitDate).format();
-      ask.outwardDate = this.$moment(this.outwardDate).format();
-      ask.matchingId = matchingId;
-      ask.adId = adId;
+      if (this.fromMessage) {
+        console.log(this.carpoolSelected.askId)
+        console.log(this.carpoolSelected)
+        const payload = {
+          idAsk: this.carpoolSelected.id,
+          userId: this.$store.getters.userId,
+          data: {
+            askStatus: this.roleSelected == 1 ? 2 : 3,
+            outwardDate: this.$moment(this.outwardDate).format(),
+            outwardLimitDate: this.$moment(this.outwardLimitDate).format(),
+            paused: false,
+            schedule: this.scheduleSelected
+          }
+        };
 
+        this.updateAsk(payload)
+      } else {
+
+        let ask = {};
+        ask.schedule = this.scheduleSelected;
+        ask.role = this.roleSelected;
+        ask.paused = false;
+        ask.outwardLimitDate = this.$moment(this.outwardLimitDate).format();
+        ask.outwardDate = this.$moment(this.outwardDate).format();
+        ask.matchingId = matchingId;
+        ask.adId = adId;
+
+
+
+        this.$store
+          .dispatch("postAskCarpool", ask)
+          .then(res => {
+            this.presentToast(this.$t("AskCarpool.success"), "success");
+
+            this.$router.push({ name: "carpoolsHome" });
+          })
+          .catch(err => {
+            this.presentToast(this.$t("Commons.error"), "danger");
+          });
+      }
+
+
+    },
+
+    updateAsk(payload) {
       this.$store
-        .dispatch("postAskCarpool", ask)
+        .dispatch("updateAskCarpool", payload)
         .then(res => {
-          this.presentToast(this.$t("AskCarpool.success"), "success");
+          this.presentToast(this.$t("DetailCarpool.updateSuccess"), "success");
 
           this.$router.push({ name: "carpoolsHome" });
         })
         .catch(err => {
+          console.log(err);
           this.presentToast(this.$t("Commons.error"), "danger");
         });
-    }
+    },
   }
 };
 </script>

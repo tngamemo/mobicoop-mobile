@@ -9,23 +9,26 @@ import Register from './Register/Register.view.vue';
 import GeoSearch from './GeoSearch/GeoSearch.view.vue';
 import Search from './Search/Search.view.vue';
 import Messages from './Messages/Messages.view.vue';
-import Communities from './Communities/Communities.view.vue';
+import Communities from './Communities/Communities/Communities.view.vue';
 import Profile from './Profile/Profile.view.vue';
 import UpdateProfile from './Profile/UpdateProfile.view.vue';
 import ProfileAlerts from './Profile/ProfileAlerts.view.vue';
 import ProfilePrefs from './Profile/ProfilePrefs.view.vue';
 import MyCarpools from './Profile/MyCarpools.view.vue';
+import AcceptedCarpools from './Profile/AcceptedCarpools.view.vue';
 import PostCarpool from './PostCarpool/PostCarpool.view.vue';
 import Message from './Messages/Message.view.vue';
 import PostCarpoolStep from './PostCarpool/PostCarpoolStep.view.vue';
 import DetailCarpool from './DetailCarpool/DetailCarpool.view.vue';
 import AskCarpool from './AskCarpool/AskCarpool.view.vue';
 import ConfirmRegistration from './Register/ConfirmRegistration.view.vue';
-import Community from './Community/Community.view.vue';
-import Events from './Events/Events.view.vue';
-import Event from './Event/Event.view.vue';
+import Community from './Communities/Community/Community.view.vue';
+import Events from './Events/Events/Events.view.vue';
+import Event from './Events/Event/Event.view.vue';
 import Contact from './Contact/Contact.view.vue';
 import Solidarity from './Solidarity/Solidarity.view.vue';
+import PostCommunity from './Communities/PostCommunity/PostCommunity.view.vue';
+import PostEvent from './Events/PostEvent/PostEvent.view.vue';
 
 import Vue from 'vue'
 import store from '../Shared/Store/store';
@@ -34,7 +37,7 @@ Vue.use(IonicVueRouter);
 
 function guardAccesByLogin(to, from, next) {
   if (to.name !== 'login' && !store.getters.userId && !store.getters.userId) {
-    store.commit('redirectionUrl_change', to.name)
+    store.commit('redirectionUrl_change', to.path)
     next({ name: 'login' })
   } else {
     next()
@@ -81,6 +84,7 @@ export default [
         path: 'communities',
         name: 'communities',
         component: Communities,
+        beforeEnter: guardAccesByLogin
       },
       {
         path: 'profile',
@@ -120,6 +124,11 @@ export default [
     path: 'my-carpools',
     name: 'my-carpools',
     component: MyCarpools
+  },
+  {
+    path: 'accepted-carpools',
+    name: 'accepted-carpools',
+    component: AcceptedCarpools
   },
   {
     path: 'post-carpool-step',
@@ -174,6 +183,12 @@ export default [
     beforeEnter: guardAccesByLogin
   },
   {
+    path: 'post-community',
+    name: 'post-community',
+    component: PostCommunity,
+    beforeEnter: guardAccesByLogin
+  },
+  {
     path: '/events',
     name: 'carpool-events',
     component: Events,
@@ -183,6 +198,12 @@ export default [
     path: 'event/:id',
     name: 'carpool-event',
     component: Event,
+    beforeEnter: guardAccesByLogin
+  },
+  {
+    path: 'post-event',
+    name: 'post-event',
+    component: PostEvent,
     beforeEnter: guardAccesByLogin
   },
   {

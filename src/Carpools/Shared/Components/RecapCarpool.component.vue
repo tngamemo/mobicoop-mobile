@@ -1,49 +1,73 @@
 <template>
   <div class="mc-form-carpool-recap">
     <div class="mc-recap-item">
-      <div class="mc-recap-header d-flex flex-wrap justify-between align-center" v-if="type != 'askCarpool'">
-        <div v-if="recap.frequency == 2" class="d-flex flex-wrap">
-          <div v-for="(day, index) in recap.regularDays" :key="index">
+      <div
+        class="mc-recap-header d-flex flex-wrap justify-between align-center"
+        v-if="type != 'askCarpool'"
+      >
+        <div v-if="recapCarpool.frequency == 2" class="d-flex flex-wrap">
+          <div v-for="(day, index) in recapCarpool.regularDays" :key="index">
             <div class="mc-pastille-day" v-bind:class="{ 'selected': day.value }">
               <b>{{$t(day.trad)}}</b>
             </div>
           </div>
         </div>
-        <span>{{recap.outwardDate | moment('DD MMMM YYYY') }}</span>
-        <span>{{recap.priceCarpool}} €</span>
+        <span>{{recapCarpool.outwardDate | moment('DD MMMM YYYY') }}</span>
+        <div class="d-flex align-center">
+          <div>{{recapCarpool.priceCarpool}} €</div>
+          <ion-icon v-if="$store.state.carpoolStore.carpoolToPost.role == 2" color="secondary" class="price-info" @click="priceInfo()" name="information-circle-outline"></ion-icon>
+        </div>
       </div>
       <div
-        v-if="recap.frequency == 2"
+        v-if="recapCarpool.frequency == 1 && (!!recapCarpool.outwardTime || !!recapCarpool.returnTime)"
         class="mc-carpool-subheader d-flex justify-around align-center"
       >
-        <div
-          v-if="recap.isMultipleTime"
-          class="d-flex align-center mc-carpool-regular-time"
-        >Horaires différents selon les jours</div>
-        <div
-          v-if="!recap.isMultipleTime && recap.outwardTime"
-          class="d-flex align-center mc-carpool-regular-time"
-        >
+        <div v-if="recapCarpool.outwardTime" class="d-flex align-center mc-carpool-regular-time">
           <ion-icon name="arrow-down"></ion-icon>
           <span>{{ $t('Carpool.oneWay') }}</span>
-          <span class="time">{{ recap.outwardTime }}</span>
+          <span class="time">{{ recapCarpool.outwardTime }}</span>
         </div>
-
         <div
-          v-if="!recap.isMultipleTime && recap.returnTime"
+          v-if="recapCarpool.returnTime"
           class="d-flex align-center mc-carpool-regular-time"
         >
           <ion-icon name="arrow-up"></ion-icon>
           <span>{{ $t('Carpool.return') }}</span>
-          <span class="time">{{ recap.returnTime }}</span>
+          <span class="time">{{ recapCarpool.returnTime }}</span>
+        </div>
+      </div>
+      <div
+        v-if="recapCarpool.frequency == 2"
+        class="mc-carpool-subheader d-flex justify-around align-center"
+      >
+        <div
+          v-if="recapCarpool.isMultipleTime"
+          class="d-flex align-center mc-carpool-regular-time"
+        >Horaires différents selon les jours</div>
+        <div
+          v-if="!recapCarpool.isMultipleTime && recapCarpool.outwardTime"
+          class="d-flex align-center mc-carpool-regular-time"
+        >
+          <ion-icon name="arrow-down"></ion-icon>
+          <span>{{ $t('Carpool.oneWay') }}</span>
+          <span class="time">{{ recapCarpool.outwardTime }}</span>
+        </div>
+
+        <div
+          v-if="!recapCarpool.isMultipleTime && recapCarpool.returnTime"
+          class="d-flex align-center mc-carpool-regular-time"
+        >
+          <ion-icon name="arrow-up"></ion-icon>
+          <span>{{ $t('Carpool.return') }}</span>
+          <span class="time">{{ recapCarpool.returnTime }}</span>
         </div>
       </div>
       <div class="mc-recap-step d-flex">
         <div class="mc-carpool-info-image d-flex flex-col">
-          <div v-if="recap.driver" class="mc-carpool-driver">
+          <div v-if="recapCarpool.driver" class="mc-carpool-driver">
             <ion-icon size="large" name="car"></ion-icon>
           </div>
-          <div v-if="recap.passenger" class="mc-carpool-passenger">
+          <div v-if="recapCarpool.passenger" class="mc-carpool-passenger">
             <ion-icon size="large" name="person"></ion-icon>
           </div>
         </div>
@@ -51,7 +75,7 @@
         <div class="d-flex flex-col">
           <p
             class="timeline text-left d-flex align-center"
-            v-for="(step, index) in recap.outwardWaypoints"
+            v-for="(step, index) in recapCarpool.outwardWaypoints"
             :key="index"
           >
             <ion-icon
@@ -65,27 +89,26 @@
         </div>
       </div>
 
-
-      <div class="mc-recap-footer text-left" v-if="!! recap.seats && type != 'askCarpool'">
+      <div class="mc-recap-footer text-left" v-if="!! recapCarpool.seats && type != 'askCarpool'">
         Places disponibles
         <div class="d-flex">
-          <ion-icon v-for="index in parseInt(recap.seats)" :key="index" name="person">{{index}}</ion-icon>
+          <ion-icon v-for="index in parseInt(recapCarpool.seats)" :key="index" name="person">{{index}}</ion-icon>
         </div>
       </div>
     </div>
 
-    <div v-if="!!recap.comment" class="mc-recap-message ion-margin-top">{{recap.comment}}</div>
+    <div v-if="!!recapCarpool.comment" class="mc-recap-message ion-margin-top">{{recapCarpool.comment}}</div>
 
-    <div class="mc-recap-user" v-if="!!recap.user && type != 'askCarpool'">
+    <div class="mc-recap-user" v-if="!!recapCarpool.user && type != 'askCarpool'">
       <div class="mc-recap-user-bloc-info">
         <div class="mc-user-image">
-          <ion-thumbnail v-if="!! recap.user.avatars">
-            <img :src="recap.user.avatars[0]" />
+          <ion-thumbnail v-if="!! recapCarpool.user.avatars">
+            <img alt="" :src="recapCarpool.user.avatars[0]" />
           </ion-thumbnail>
         </div>
 
         <div class="mc-recap-user-info">
-          <p>{{recap.user.givenName }} {{recap.user.shortFamilyName }}</p>
+          <p>{{recapCarpool.user.givenName }} {{recapCarpool.user.shortFamilyName }}</p>
         </div>
       </div>
     </div>
@@ -100,7 +123,13 @@
         :options="optionsCard"
       >
         <l-tile-layer v-if="bounds" :url="url"></l-tile-layer>
-        <l-polyline v-if="bounds" :lat-lngs="recap.directPoints" :color="'red'"></l-polyline>
+        <l-polyline v-if="bounds" :lat-lngs="recapCarpool.directPoints" :color="'blue'"></l-polyline>
+        <l-marker
+          :lat-lng="[recapCarpool.outwardWaypoints[0].latitude, recapCarpool.outwardWaypoints[0].longitude]"
+        ></l-marker>
+        <l-marker
+          :lat-lng="[recapCarpool.outwardWaypoints[recapCarpool.outwardWaypoints.length - 1].latitude, recapCarpool.outwardWaypoints[recapCarpool.outwardWaypoints.length - 1].longitude]"
+        ></l-marker>
       </l-map>
     </div>
   </div>
@@ -135,6 +164,7 @@
     padding: 4px;
     color: white;
     margin-right: 10px;
+    min-width: 16px;
   }
 
   .mc-icon-step-background-primary {
@@ -259,22 +289,29 @@
       flex-direction: column;
       margin-left: 20px;
 
-
       p {
         margin: 0;
         font-weight: bold;
       }
     }
   }
+
+  .price-info {
+    cursor: pointer;
+    font-size: 20px;
+    margin-left: 5px;
+  }
 }
 </style>
 
 <script>
-import { LMap, LTileLayer, LPolyline } from "vue2-leaflet";
+import { LMap, LTileLayer, LPolyline, LMarker } from "vue2-leaflet";
 import { isPlatform } from "@ionic/core";
+import {toast} from "../../../Shared/Mixin/toast.mixin";
 
 export default {
   name: "recap-carpool",
+  mixins: [toast],
   data() {
     return {
       url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
@@ -290,7 +327,8 @@ export default {
   components: {
     LMap,
     LTileLayer,
-    LPolyline
+    LPolyline,
+    LMarker
   },
   props: ["recap", "type"],
   mounted() {
@@ -303,9 +341,17 @@ export default {
       const bounds = new L.LatLngBounds(this.recap.directPoints);
       if (!!this.$refs.mapRecap) this.$refs.mapRecap.mapObject.invalidateSize();
       return bounds;
+    },
+
+    recapCarpool() {
+      return this.recap
     }
   },
   methods: {
+    priceInfo() {
+      console.log(this.recapCarpool);
+      this.presentToast(this.$t("PostCarpool.price-info"), "secondary");
+    },
     displayStep(step) {
       let result = "";
       if (!!step.time) {
@@ -314,7 +360,7 @@ export default {
           .format("HH[h]mm")}</b>: `;
       }
       if (!!step.displayLabel && step.displayLabel[0] && step.displayLabel[1]) {
-        result += `${step.displayLabel[0]},  ${step.displayLabel[1]}`;
+        result += `${step.displayLabel[0]}`;
       } else {
         if (!!step.addressCountry) {
           result += `${step.addressLocality},  ${step.addressCountry}`;
@@ -342,6 +388,19 @@ export default {
           break;
 
         case "destination":
+          if (step.role == "driver") {
+            return {
+              name: "flag",
+              background: "mc-icon-step-background-green"
+            };
+          } else {
+            return {
+              name: "flag",
+              background: "mc-icon-step-background-primary"
+            };
+          }
+
+        case "step":
           if (step.role == "driver") {
             return {
               name: "flag",

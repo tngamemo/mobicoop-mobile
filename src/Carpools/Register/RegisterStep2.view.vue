@@ -61,13 +61,13 @@
                 picker-format="DD/MM/YYYY"
                 :cancel-text="$t('Commons.cancel')"
                 :done-text="$t('Commons.validate')"
-                :max="maxBirthDate"
                 :value="user.birthDate"
                 @ionChange="user.birthDate = $event.detail.value"
               ></ion-datetime>
             </ion-item>
             <div v-if="$v.user.birthDate.$error">
               <div class="mc-error-label"  v-if="!$v.user.birthDate.required">{{$t('Validation.required')}}</div>
+              <div class="mc-error-label"  v-if="!$v.user.birthDate.isMaxBirthDate">{{$t('Validation.age', { value: minAge })}}</div>
             </div>
             <br>
             <ion-item lines="none">
@@ -119,14 +119,21 @@
 <script>
     import { required, email, sameAs, minLength } from 'vuelidate/lib/validators'
     import { mapState } from 'vuex'
+    var moment = require('moment');
 
     const checked = value => value === true;
+    const isMaxBirthDate = (value, vm) => {
+      let n = new Date();
+      n.setFullYear(n.getFullYear() - process.env.VUE_APP_REGISTER_MIN_AGE);
+      return moment(value).isBefore(moment(n.toISOString()));
+    }
 
     export default {
         name: 'registerStep2',
         data () {
             return {
-                maxBirthDate: new Date().toISOString()
+                maxBirthDate: this.getMaxBirthDate(),
+                minAge: process.env.VUE_APP_REGISTER_MIN_AGE
             }
         },
         validations: {
@@ -142,7 +149,8 @@
                     required,
                 },
                 birthDate: {
-                    required
+                    required,
+                    isMaxBirthDate
                 },
                 userAgreementAccepted: {
                     required,
@@ -168,6 +176,11 @@
         created() {
         },
         methods: {
+            getMaxBirthDate() {
+              let n = new Date();
+              n.setFullYear(n.getFullYear() - process.env.VUE_APP_REGISTER_MIN_AGE);
+              return n.toISOString();
+            },
             goGeoSearch(type, action) {
                 this.$router.push({ name: "geoSearch", query: { type, action }});
             },

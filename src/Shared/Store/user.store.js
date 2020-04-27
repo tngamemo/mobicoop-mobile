@@ -6,11 +6,14 @@ export const userStore = {
     tokenUser: localStorage.getItem('tokenUser') || '',
     tokenAnonymousUser: localStorage.getItem('tokenAnonymousUser') || '',
     user: null,
+    userToUpdate: null,
     statusAlerts: '',
     statusUpdateAlert: '',
     alerts: [],
     statusMyCarpools: '',
     myCarpools: [],
+    statusAcceptedCarpools: '',
+    acceptedCarpools: [],
     statusUserCommunities: '',
     userCommunities: null,
     resetPasswordStatus: '',
@@ -70,7 +73,20 @@ export const userStore = {
 
     user_my_carpools_request_success(state, data) {
       state.statusMyCarpools = 'success';
-      state.myCarpools = data['hydra:member'];
+      state.myCarpools = data['hydra:member'].reverse();
+    },
+
+    user_accepted_carpools_request(state) {
+      state.statusAcceptedCarpools = 'loading';
+    },
+
+    user_accepted_carpools_error(state) {
+      state.statusAcceptedCarpools = 'error';
+    },
+
+    user_accepted_carpools_request_success(state, data) {
+      state.statusAcceptedCarpools = 'success';
+      state.acceptedCarpools = data['hydra:member'].reverse();
     },
 
 
@@ -96,7 +112,7 @@ export const userStore = {
     },
 
     updateUserAddress(state, payload) {
-      state.user.addresses = [payload.addressDTO];
+      state.userToUpdate.addresses = [payload.addressDTO];
     },
 
     reset_password_request(state) {
@@ -153,7 +169,7 @@ export const userStore = {
     authAnonymousUser({commit, dispatch}){
       dispatch('logout');
       return new Promise((resolve, reject) => {
-        http.post("/auth", {"username": 'mobile', "password": 'mobile'})
+        http.post("/auth", {"username": process.env.VUE_APP_API_USERNAME, "password": process.env.VUE_APP_API_PASSWORD})
           .then(resp => {
 
             const tokenAnonymousUser = resp.data.token
@@ -194,6 +210,7 @@ export const userStore = {
       commit('auth_request');
       return new Promise((resolve, reject) => {
         delete params.addresses[0].id;
+        delete params.addresses[0].geoJson;
         delete params.images;
         delete params.proEmail;
         http.put(`/users/${params.id}`, params)
@@ -226,6 +243,18 @@ export const userStore = {
       })
     },
 
+    deleteImage({commit}, id) {
+      return new Promise((resolve, reject) => {
+        http.delete(`/images/` + id)
+          .then(resp => {
+            resolve(resp)
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
+    },
+
     logout({commit}) {
       return new Promise((resolve, reject) => {
         commit('logout');
@@ -249,10 +278,25 @@ export const userStore = {
       })
     },
 
+    getAcceptedCarpools({commit}, userId) {
+      commit('user_accepted_carpools_request');
+      return new Promise((resolve, reject) => {
+        http.get(`/carpools/accepted`)
+          .then(resp => {
+            commit('user_accepted_carpools_request_success', resp.data);
+            resolve(resp)
+          })
+          .catch(err => {
+            commit('user_accepted_carpools_error');
+            reject(err)
+          })
+      })
+    },
+
     deleteCarpool({commit, state, dispatch}, carpoolId) {
       commit('user_my_carpools_request');
       return new Promise((resolve, reject) => {
-        http.delete(`/proposals/${carpoolId}`)
+        http.delete(`/carpools/${carpoolId}`)
           .then(resp => {
             dispatch('getMyCarpools', state.user.id);
             resolve(resp)

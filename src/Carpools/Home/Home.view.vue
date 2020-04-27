@@ -57,6 +57,17 @@
           color="primary"
           expand="block"
           fill="outline"
+          v-on:click="redirectToCGU()"
+        >
+          <ion-icon name="document" class="ion-padding-end"></ion-icon>
+          {{ $t('HOME.CGU') }}
+        </ion-button>
+
+        <ion-button
+          class="mc-big-button"
+          color="primary"
+          expand="block"
+          fill="outline"
           v-on:click="redirectToContact()"
         >
           <ion-icon name="chatboxes" class="ion-padding-end"></ion-icon>
@@ -76,11 +87,13 @@
   padding: 30px;
   background-image: url("/assets/banner.png");
   background-repeat: no-repeat;
-  background-size: 40%;
+  background-size: 100%;
 }
 
 .partner-img {
   width: 50%;
+  object-fit: contain;
+  max-height: 100px;
 }
 
 .mc-home-header {
@@ -136,6 +149,12 @@ export default {
       .getComputedStyle(document.body)
       .getPropertyValue("--ion-color-success-rgb");
   },
+  mounted() {
+    // caching for crawlers
+    setTimeout(() => {
+      window.prerenderReady = true;
+    }, 1000)
+  },
   methods: {
     closeWelcome: function() {
       this.seeWelcome = false;
@@ -153,6 +172,13 @@ export default {
       this.$router.push({
         name: "article",
         params: { id: 10 }
+      });
+    },
+
+    redirectToCGU: function() {
+      this.$router.push({
+        name: "article",
+        params: { id: 1 }
       });
     },
 

@@ -30,7 +30,7 @@
               <b>{{thread.date | moment('utc', 'ddd D MMMM')}}</b>
             </div>
           </div>
-          <div class="d-flex align-center see-carpool" v-on:click="goToDetail()">
+          <div class="d-flex align-center see-carpool" v-if="ask" v-on:click="goToDetail()">
             <ion-icon name="eye"></ion-icon>
             <span style="margin-left: 5px">{{$t('Message.see-carpool')}}</span>
           </div>
@@ -69,7 +69,7 @@
             <ion-text
               color="secondary"
               class="d-flex justify-center align-center"
-              v-if="this.ask.status == 1 || this.ask.status == 2 || this.ask.status == 3"
+              v-if="this.ask.status == 2 || this.ask.status == 3"
             >
               <ion-icon class="status-icon" name="hourglass"></ion-icon>
               <b>{{$t('Message.waiting')}}</b>
@@ -91,7 +91,7 @@
           >{{$t('Message.no-thread')}}</div>
 
           <div v-for="(day, index) in days" :key="index">
-            <div class="text-center from-now">{{ $moment(day.date).fromNow()}}</div>
+            <div class="text-center from-now">{{ $moment(day.date).utc().fromNow()}}</div>
             <div class="message-flex" v-for="(m, index) in day.messages" :key="index">
               <div
                 :class="m.user.id === $store.state.userStore.user.id ? 'day-message-right' : 'day-message-left'"
@@ -253,7 +253,7 @@ export default {
       message: "",
       ask: null,
       days: [],
-      thread : null
+      thread : null,
     };
   },
   props: [],
@@ -263,7 +263,9 @@ export default {
     }
   },
   created() {
-    if(this.$route.params.idAsk && this.$route.params.idAsk != -99) {
+    if (this.$store.state.messageStore.tempDirectThread) {
+      this.thread = this.$store.state.messageStore.tempDirectThread;
+    } else if(this.$route.params.idAsk && this.$route.params.idAsk != -99) {
       this.thread = this.$store.state.messageStore.messagesCarpool.find(item => item.idAsk == this.$route.params.idAsk && item.idRecipient == this.$route.params.idRecipient)
     } else {
       this.thread = this.$store.state.messageStore.messagesDirect.find(item => item.idRecipient == this.$route.params.idRecipient)
@@ -293,32 +295,37 @@ export default {
       this.$router.push("messages");
     }
   },
+  destroyed() {
+    this.$store.commit('reset_temp_direct_thread');
+  },
   methods: {
     getCompleteThread() {
-      this.$store
-        .dispatch("getCompleteThread", this.thread.idMessage)
-        .then(res => {
-          this.days = [];
-          res.data["hydra:member"].forEach(item => {
-            const m = this.days.find(
-              mes =>
-                mes.date === this.$moment(item.createdDate).format("YYYY-MM-DD")
-            );
-            if (m) {
-              m.messages.push(item);
-            } else {
-              this.days.push({
-                date: this.$moment(item.createdDate).format("YYYY-MM-DD"),
-                messages: [item]
-              });
-            }
+      if( this.thread.idMessage) {
+        this.$store
+          .dispatch("getCompleteThread", this.thread.idMessage)
+          .then(res => {
+            this.days = [];
+            res.data["hydra:member"].forEach(item => {
+              const m = this.days.find(
+                mes =>
+                  this.$moment(mes.date).format("YYYY-MM-DD") === this.$moment(item.createdDate).format("YYYY-MM-DD")
+              );
+              if (m) {
+                m.messages.push(item);
+              } else {
+                this.days.push({
+                  date: this.$moment(item.createdDate).format(),
+                  messages: [item]
+                });
+              }
+            });
+            // go to bottom of message zone
+            this.$nextTick(() => {
+              this.message = "";
+              this.$refs.messagesZone.scrollTop = this.$refs.messagesZone.scrollHeight;
+            });
           });
-          // go to bottom of message zone
-          this.$nextTick(() => {
-            this.message = "";
-            this.$refs.messagesZone.scrollTop = this.$refs.messagesZone.scrollHeight;
-          });
-        });
+      }
     },
 
     send() {
@@ -338,9 +345,12 @@ export default {
       if (this.thread.idRecipient) {
         message.recipients[0].user = "/users/" + this.thread.idRecipient;
       }
-      message.recipients[0].sentDate = new Date();
+      message.recipients[0].sentDate = this.$moment().format();
 
       this.$store.dispatch("postMessage", message).then(res => {
+        if (!this.thread.idMessage || this.thread.idMessage == -99) {
+          this.thread.idMessage = res.data.id
+        }
         this.getCompleteThread();
       }).catch(() => {
         this.presentToast(this.$t("Commons.error"), "tertiary");

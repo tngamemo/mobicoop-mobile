@@ -10,6 +10,7 @@
               picker-format="DD/MM/YY"
               cancel-text="Annuler"
               done-text="Valider"
+              :max="'2099-12-31T23:59:59.000Z'"
               :placeholder="$t('PostCarpool.dayOutward')"
               :value="this.$store.getters.carpoolToPost.outwardDate"
               @ionChange="changePostOutwardDate($event)"
@@ -34,6 +35,7 @@
               :placeholder="$t('PostCarpool.timeOutward')"
               :value="outwardTimeInit"
               @ionChange="changePostOutwardTime($event)"
+              minute-values="0,5,10,15,20,25,30,35,40,45,50,55"
             ></ion-datetime>
           </ion-item>
           <div v-if="$v.outwardTimeCopy.$error">
@@ -65,6 +67,7 @@
               picker-format="DD/MM/YY"
               cancel-text="Annuler"
               done-text="Valider"
+              :max="'2099-12-31T23:59:59.000Z'"
               :placeholder="$t('PostCarpool.dayReturn')"
               :value="this.$store.getters.carpoolToPost.returnDate"
               @ionChange="changePostReturnDate($event)"
@@ -75,6 +78,10 @@
               class="mc-error-label"
               v-if="!$v.carpoolToPost.returnDate.required"
             >{{$t('Validation.required')}}</div>
+            <div
+              class="mc-error-label"
+              v-if="!$v.carpoolToPost.returnDate.isAfterDate"
+            >{{$t('Validation.isAfterDate')}}</div>
           </div>
         </ion-col>
 
@@ -87,14 +94,15 @@
               cancel-text="Annuler"
               done-text="Valider"
               :placeholder="$t('PostCarpool.timeReturn')"
-              :value="computeReturnTime"
+              :value="returnTimeInit"
               @ionChange="changePostReturnTime($event)"
+              minute-values="0,5,10,15,20,25,30,35,40,45,50,55"
             ></ion-datetime>
           </ion-item>
-          <div v-if="$v.carpoolToPost.returnTime.$error">
+          <div v-if="$v.returnTimeCopy.$error">
             <div
               class="mc-error-label"
-              v-if="!$v.carpoolToPost.returnTime.required"
+              v-if="!$v.returnTimeCopy.required"
             >{{$t('Validation.required')}}</div>
           </div>
         </ion-col>
@@ -282,6 +290,9 @@ import {
 } from "vuelidate/lib/validators";
 
 import { toast } from "../../Shared/Mixin/toast.mixin";
+var moment = require('moment');
+
+
 
 export default {
   name: "post-carpool-step2",
@@ -310,23 +321,26 @@ export default {
       returnDate: {
         required: requiredIf(function(returnDate) {
           return (
-            this.$store.getters.carpoolToPost.frequency == 1 &&
-            !this.$store.getters.carpoolToPost.oneWay
+            this.$store.getters.carpoolToPost.frequency == 1 && !this.$store.getters.carpoolToPost.oneWay
           );
-        })
-      },
-      returnTime: {
-        required: requiredIf(function(returnTime) {
-          return (
-            this.$store.getters.carpoolToPost.frequency == 1 &&
-            !this.$store.getters.carpoolToPost.oneWay
-          );
-        })
+        }),
+        isAfterDate : function isAfterDate(value) {
+          if (this.$store.getters.carpoolToPost.frequency == 1 && !this.$store.getters.carpoolToPost.oneWay) {
+            return moment(value).isSameOrAfter(moment(this.$store.getters.carpoolToPost.outwardDate));
+          } else {
+            return true;
+          }
+        }
       }
     },
     outwardTimeCopy: {
       required: requiredIf(function(outwardTime) {
         return this.$store.getters.carpoolToPost.frequency == 1;
+      })
+    },
+    returnTimeCopy: {
+      required: requiredIf(function(returnTimeCopy) {
+        return this.$store.getters.carpoolToPost.frequency == 1 && !this.$store.getters.carpoolToPost.oneWay;
       })
     }
   },
@@ -397,7 +411,7 @@ export default {
           !this.hasALeastFirstStepSchedule &&
           this.carpoolToPost.frequency == 2
         ) {
-          this.presentToast("Les créneaux ne sont pas bien définit", "danger");
+          this.presentToast("Les créneaux ne sont pas bien définis", "danger");
           return false;
         } else if (this.carpoolToPost.frequency == 2) {
            this.$store.dispatch("changeOneWayRegular");

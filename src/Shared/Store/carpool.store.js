@@ -7,6 +7,7 @@ export const carpoolStore = {
     statusPriceCarpool: '',
     statusCarpoolAsk: '',
     statusCarpoolAskPost: '',
+    statusPauseCarpool: '',
     directPointsCarpool: '',
     carpoolToPost: null,
     addressessUseToPost: {
@@ -35,6 +36,7 @@ export const carpoolStore = {
       state.statusCarpoolPost = '';
       state.statusDistanceCarpool = '';
       state.statusPriceCarpool = '';
+      state.statusContactCarpool = '';
       state.distanceCarpool = '';
       state.directPointsCarpool = '';
       state.priceCarpool = '';
@@ -52,11 +54,12 @@ export const carpoolStore = {
         seatsDriver: "",
         solidaryExclusive: false,
         userId: "",
-        communities: "",
+        communities: [],
         luggage: false,
         bike: false,
         backSeats: false,
-        comment: ''
+        comment: '',
+        eventId: ''
       };
       state.addressessUseToPost = {
         origin: '',
@@ -216,6 +219,30 @@ export const carpoolStore = {
 
     carpool_ask_post_error(state) {
       state.statusCarpoolAskPost = 'error';
+    },
+
+    carpool_pause_request(state) {
+      state.statusPauseCarpool = 'loading';
+    },
+
+    carpool_pause_success(state) {
+      state.statusPauseCarpool = 'success';
+    },
+
+    carpool_pause_error(state) {
+      state.statusPauseCarpool = 'error';
+    },
+
+    carpool_contact_request(state) {
+      state.statusContactCarpool = 'loading';
+    },
+
+    carpool_contact_success(state) {
+      state.statusContactCarpool = 'success';
+    },
+
+    carpool_contact_error(state) {
+      state.statusContactCarpool = 'error';
     }
 
 
@@ -370,6 +397,36 @@ export const carpoolStore = {
             reject(err)
           })
       })
+    },
+
+    pauseCarpool({commit}, payload) {
+      return new Promise((resolve, reject) => {
+        commit('carpool_pause_request');
+        return http.put(`/carpools/${payload.carpoolId}`, payload.data)
+          .then(resp => {
+            commit('carpool_pause_success');
+            resolve(resp)
+          })
+          .catch(err => {
+            commit('carpool_pause_error');
+            reject(err)
+          })
+      })
+    },
+
+    contactCarpool({commit}, payload) {
+      return new Promise((resolve, reject) => {
+        commit('carpool_contact_request');
+        return http.post(`/carpools/contact`, payload)
+          .then(resp => {
+            commit('carpool_contact_success');
+            resolve(resp)
+          })
+          .catch(err => {
+            commit('carpool_contact_error');
+            reject(err)
+          })
+      })
     }
 
   },
@@ -396,6 +453,14 @@ export const carpoolStore = {
 
     directPointsCarpool: state => {
       return state.directPointsCarpool
+    },
+
+    statusPauseCarpool: state => {
+      return state.statusPauseCarpool
+    },
+
+    statusContactCarpool: state => {
+      return state.statusContactCarpool
     },
   },
 }

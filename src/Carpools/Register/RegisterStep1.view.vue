@@ -35,7 +35,7 @@
       <ion-item>
         <ion-label position="floating">{{$t('Register.email')}} *</ion-label>
         <ion-input
-          type="text"
+          type="email"
           :placeholder="$t('Register.email') + '*'"
           :value="user.email"
           @ionBlur="checkedEmail = null"

@@ -6,6 +6,7 @@
     "searchCarpool": "Rechercher un covoiturage",
     "postCarpool": "Publier une annonce",
     "FAQ": "FAQ",
+    "CGU": "CGU",
     "contact": "Contacter"
   },
   "Nav": {
@@ -76,13 +77,15 @@
   "Search": {
     "origin": "Lieu de départ",
     "register_address": "Adresse",
+    "update_user_address": "Adresse",
+    "update_event_address": "Adresse",
     "destination": "Lieu d'arrivée",
     "placeHolder": "Veuillez renseigner une adresse (Ville, etc...)",
     "date": "Date",
     "outwardDate": "JJ/MM",
     "titlePage": "Résultats",
     "error": "Une erreur est survenue durant la recherche. Veuillez réessayer ultérieurement.",
-    "nbResult": "annonces en covoiturages trouvées",
+    "nbResult": "Aucun résultat |{count} annonce de covoiturage trouvée | {count} annonces de covoiturages trouvées",
     "step": "Etape"
   },
   "Help": {
@@ -133,7 +136,8 @@
     "visibility-all": "Visible dès la publication de l'annonce, par tous les inscrits",
     "phoneToken": "Envoyer un code de vérification",
     "phoneTokenPopup": "Vérification du téléphone",
-    "newsSubscription" : "Recevoir les actualités"
+    "newsSubscription" : "Recevoir les actualités",
+    "file-size": "L'image ne doit pas dépasser 1 Mo"
   },
   "ProfileAlerts": {
     "title": "Mes alertes",
@@ -147,7 +151,8 @@
     "validate_create_event": "Confirmation de création d'événement",
     "medium-1": "Message",
     "medium-2": "Email",
-    "medium-3": "SMS"
+    "medium-3": "SMS",
+    "medium-4": "Notification Push"
   },
   "ProfilePrefs": {
     "title" : "Préférences",
@@ -169,10 +174,24 @@
     "in-progress": "En cours",
     "archived": "Archivées",
     "delete-success": "Votre annonce a été supprimée avec succès",
+    "pause-success": "Le status de votre annonce a été changé",
     "validatedUntil": "Valide jusqu'au",
     "confirmDeleteHeader": "Etes-vous sur de vouloir supprimer cette annonce ? ",
     "confirmDeleteText": "Toute suppression d'annonce est définitive, êtes-vous sur de vouloir supprimer cette annonce ?",
-    "error": "Une erreur est survenue. Veuillez réessayer ultérieurement."
+    "error": "Une erreur est survenue. Veuillez réessayer ultérieurement.",
+    "potentialCarpoolers": "covoiturage(s) potentiel(s)"
+  },
+  "AcceptedCarpools": {
+    "title": "Mes covoiturages acceptés",
+    "come-up": "À venir",
+    "past": "Passés",
+    "delete-success": "Votre annonce a été supprimée avec succès",
+    "pause-success": "Le status de votre annonce a été changé",
+    "validatedUntil": "Valide jusqu'au",
+    "confirmDeleteHeader": "Etes-vous sur de vouloir supprimer cette annonce ? ",
+    "confirmDeleteText": "Toute suppression d'annonce est définitive, êtes-vous sur de vouloir supprimer cette annonce ?",
+    "error": "Une erreur est survenue. Veuillez réessayer ultérieurement.",
+    "potentialCarpoolers": "covoiturages potentiels"
   },
   "Slider": {
     "prev": "Précédent",
@@ -198,7 +217,10 @@
     "oneDigit" : "Le mot de passe doit comprendre 1 chiffre",
     "minValue" : "La valeur ne peut pas être inférieure à {value}",
     "maxValue" : "La valeur ne peut pas être supérieure à {value}",
-    "checkEmail" : "Ce mail existe déjà en base de donnée"
+    "checkEmail" : "Ce mail existe déjà en base de donnée",
+    "age" : "Votre âge doit être supérieur à {value} ans",
+    "maxLength" : "Ce champ ne peut pas contenir plus de {value} caractères",
+    "isAfterDate" : "La date doit être supérieure à la date d'aller"
   },
   "Carpool" : {
     "L": "L",
@@ -243,7 +265,10 @@
     "addSchedule": "Ajouter une créneau",
     "comment" : "Commentez votre annonce",
     "solidarityAlert": "Cette annonce sera une annonce de covoiturage solidaire exclusif, si vous maintenez l'option ci-dessous. Elle ne sera visible alors que par les opérateurs solidaires pour vous mettre en relation avec un demandeur solidaire. Si vous décochez cette option, votre annonce deviendra une annonce ordinaire visible à la fois par les autres covoitureurs et les opérateurs solidaires.",
-    "solidarity": "Annonce de covoiturage solidaire exclusif"
+    "solidarity": "Annonce de covoiturage solidaire exclusif",
+    "no-communities": "Rejoignez des communautés pour pouvoir publier votre trajet dans une communauté.",
+    "my-communities": "Publier dans mes communautés",
+    "price-info": "Tarif indicatif"
   },
   "DetailCarpool": {
     "title": "Détails du covoiturage",
@@ -252,7 +277,7 @@
     "ask": "Demande de covoiturage",
     "askAsDriver": "Demander en tant que conducteur",
     "askAsPassenger": "Demander en tant que passager",
-    "updateSuccess": ":La demande a été mise à jour",
+    "updateSuccess": "La demande a été mise à jour",
     "askSend": "Une demande de covoiturage formelle a été envoyée",
     "askAccepted": "Le covoiturage a été accepté",
     "askDeclined": "Le covoiturage a été refusé",
@@ -269,7 +294,7 @@
     "driver": "Conducteur",
     "passenger": "Passager",
     "chooseRole": "Choisir le role",
-    "askDate": "Je souhaite faire une demande en tant pour...",
+    "askDate": "Je souhaite faire une demande pour...",
     "week": "Une semaine",
     "month": "Un mois",
     "specificDate": "Jusqu'à une date précise",
@@ -281,21 +306,26 @@
     "outward": "L'Aller",
     "return": "Retour",
     "chooseSchedule": "Choisir les trajets",
-    "success" : "Demande envoyé"
+    "success" : "Demande envoyée",
+    "contactSuccess": "La demande de contact a été envoyé"
   },
   "Community" : {
     "title": "Communauté",
     "leaveCommu": "Quitter la communauté",
     "joinCommu": "Rejoindre la communauté",
     "join_success": "Vous avez rejoins la communauté",
-    "leave_success": "Vous avez quitté la communauté"
+    "leave_success": "Vous avez quitté la communauté",
+    "domain": "Votre adresse mail doit faire partie d'un de ces domaines : ",
+    "join-error": "Vous ne pouvez pas rejoindre cette communauté"
   },
   "Events" : {
     "title": "Tous les événements",
     "see": "Voir l'événement",
     "create":"Créer un événement",
     "notDevelopp":"Cette fonctionnalité n'est pas encore présente sur l'appli mobile. Nous vous invitons à aller sur le site web.",
-    "signalEvent":"Signaler l'événement"
+    "signalEvent":"Signaler l'événement",
+    "seePastEvent": "Voir événements passés",
+    "seeCurrentEvent": "Voir événements actuels"
   },
   "Event": {
     "title": "Événement",
@@ -305,7 +335,8 @@
     "signalEventExplication": "Explication",
     "signalEventEmail": "Merci de renseigner votre email",
     "missingInfo": "Il manque des informations",
-    "signalSend": "Le signalement a été envoyé"
+    "signalSend": "Le signalement a été envoyé",
+    "success" : "Événement créé avec succès"
   },
   "Contact": {
     "title": "Nous contacter",
@@ -318,7 +349,13 @@
     "cancel": "Annuler",
     "send": "Envoyer",
     "missing": "Les informations ne sont pas correctement données",
-    "success": "La demande de contact a été envoyé"
+    "success": "La demande de contact a été envoyé",
+    "rgpd": "Pour connaitre et exercer vos droits, notamment de retrait de votre consentement à l'utilisation de données collectées par ce formulaire, veuillez consulter notre politique de ",
+    "protectionLink": "protection des données",
+    "infos": "Renseignement",
+    "technicalIssues": "Problème technique",
+    "partnership": "Partenariat",
+    "community": "Communauté"
   },
   "Solidarity": {
     "title": "Solidarité"
@@ -327,6 +364,36 @@
     "desc": "Pour son fonctionnement, cette application utilise des cookies pour maintenir active votre connexion au site et réaliser des statistiques de visite sans aucune finalité commerciale. Ces statistiques sont anonymisées et leurs données restent dans un outil interne. Elles ne sont pas transmises à un tiers.",
     "politic": "Politique de confidentialité",
     "agree": "J'ai compris"
+  },
+  "RecapSearch": {
+    "filters": "Filtres",
+    "communities": "Communautés"
+  },
+  "PostCommunity": {
+    "title": "Créer",
+    "name": "Nom de la communauté",
+    "description": "Description courte de la communauté",
+    "maxiDescription": "Description détaillée de la communauté",
+    "address": "Adresse de la communauté",
+    "avatar": "Avatar de la communauté",
+    "create": "Créer la communauté",
+    "missingInfo": "Il manque des informations",
+    "success": "La communauté a été créé",
+    "restriction": "Restriction du domaine",
+    "restriction-detail": "Si vous souhaitez restreindre l'accès à la communauté à des emails spécifiques, saisissez ses noms de domaines (exemple: monentreeprise.fr) séparés par un ;"
+  },
+  "PostEvent": {
+    "title": "Créer",
+    "name": "Nom de l'événement",
+    "url": "Url de l'événement",
+    "description": "Description courte de l'événement",
+    "fullDescription": "Description détaillée de l'événement",
+    "address": "Adresse de l'événement",
+    "avatar": "Avatar de l'événement",
+    "create": "Créer l'événement",
+    "missingInfo": "Il manque des informations",
+    "fromDate": "Date de début",
+    "toDate": "Date de fin"
   }
 
 }

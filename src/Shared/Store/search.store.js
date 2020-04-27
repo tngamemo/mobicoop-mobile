@@ -1,10 +1,11 @@
 import http from '../Mixin/http.mixin'
+import moment from 'moment'
 
 export const searchStore = {
   state: {
     statusSearch: '',
     statusGeo: '',
-    resultsSearch: [],
+    resultSearch: [],
     resultsGeo: [],
     previousSearch: [],
     display: {
@@ -15,10 +16,11 @@ export const searchStore = {
     searchObject: {
       search: true,
       role: 3,
-      frequency: !!process.env.VUE_APP_DEFAULT_CARPOOL_FREQUENCY ? process.env.VUE_APP_DEFAULT_CARPOOL_FREQUENCY : 1,
+      frequency: !!process.env.VUE_APP_DEFAULT_CARPOOL_FREQUENCY ? parseInt(process.env.VUE_APP_DEFAULT_CARPOOL_FREQUENCY) : 1,
       outwardWaypoints: [],
       outwardDate: new Date(),
       userId: null,
+      adId: null
     },
 
   },
@@ -68,6 +70,10 @@ export const searchStore = {
 
     changePreviousSearch(state, previousSearch) {
       state.previousSearch = previousSearch;
+    },
+
+    reset_search_object(state) {
+      state.searchObject.adId = null
     }
 
   },
@@ -106,7 +112,7 @@ export const searchStore = {
     /**
      * Fonction qui effectue la recherche
      */
-    searchCarpools({ commit, getters }) {
+    searchCarpools({ commit, getters }, filters) {
       commit('search_request')
       return new Promise((resolve, reject) => {
 
@@ -115,15 +121,32 @@ export const searchStore = {
           delete data.outwardDate;
         }
 
-        http.post("/carpools", data).then(resp => {
-          if (resp) {
-            commit('search_succes', resp.data["results"])
-            resolve(resp)
-          }
-        }).catch(err => {
-          commit('search_error')
-          reject(err)
-        })
+        if (!!filters && !!filters.communities) {
+          data.communities = filters.communities
+        }
+
+        if (data.adId) {
+          http.get("/carpools/" + data.adId, data).then(resp => {
+            if (resp) {
+              commit('search_succes', resp.data["results"])
+              resolve(resp)
+            }
+          }).catch(err => {
+            commit('search_error')
+            reject(err)
+          })
+        } else {
+          http.post( "/carpools", data).then(resp => {
+            if (resp) {
+              commit('search_succes', resp.data["results"])
+              resolve(resp)
+            }
+          }).catch(err => {
+            commit('search_error')
+            reject(err)
+          })
+        }
+
       })
     },
 
@@ -159,6 +182,14 @@ export const searchStore = {
 
       // previousSearch.push(address);
       commit('changePreviousSearch', previousSearch)
+    },
+
+    checkOutWardDate({commit, state}) {
+      let date = moment(state.searchObject.outwardDate);
+      const todayDate = moment();
+      if (date.isBefore(todayDate)) {
+        state.searchObject.outwardDate = new Date();
+      }
     }
   },
 

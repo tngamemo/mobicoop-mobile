@@ -36,7 +36,7 @@
 
         <ion-grid class="ion-margin-bottom mc-block-date">
           <ion-row>
-            <ion-col size="5">
+            <ion-col size="5" v-if="this.from != 'event'">
               <ion-item>
                 <ion-label position="floating">{{$t('Search.date')}}</ion-label>
                 <ion-datetime
@@ -46,10 +46,16 @@
                   done-text="Valider"
                   :disabled="this.$store.state.searchStore.searchObject.frequency == 2"
                   :value="this.$store.state.searchStore.searchObject.outwardDate"
+                  :min="$moment().format('YYYY-MM-DD')"
                   @ionChange="changeDate($event)"
                 ></ion-datetime>
               </ion-item>
             </ion-col>
+            <!--
+            <ion-col size="2" v-if="this.from != 'event'">
+              <div class="pointer"><ion-icon class="reset-color" size="large" name="close" @click="resetDate()" style="margin-top: 20px"></ion-icon></div>
+            </ion-col>
+            -->
             <ion-col size="7" class="d-flex ion-align-items-end">
               <ion-item lines="none">
                 <ion-label>Trajet régulier</ion-label>
@@ -108,19 +114,24 @@
 ion-datetime {
   padding-left: 0px !important;
 }
+
+  .reset-color {
+    color:rgba(0, 0, 0, 0.3)
+  }
 </style>
 
 <script>
 export default {
   name: "search-home",
-  props: ["showPost"],
+  props: ["showPost", "searchWithFilter", "postWithFilter", "communities", "from", "eventId"],
   data() {
     return {
-      showPostCarpool: true
+      showPostCarpool: true,
     };
   },
   created() {
       if (this.showPost != null) this.showPostCarpool = this.showPost;
+      this.$store.dispatch('checkOutWardDate');
   },
   mounted() {},
   computed: {
@@ -145,6 +156,10 @@ export default {
       );
     },
 
+    resetDate() {
+      this.$store.state.searchStore.searchObject.outwardDate = null
+    },
+
     swapDestinationAndOrigin() {
       this.$store.dispatch("swapDestinationAndOrigin");
     },
@@ -159,12 +174,19 @@ export default {
     },
 
     goToSearchPage() {
+      this.$store.commit('reset_search_object');
+
       if (this.$store.getters.userId) {
         this.$store.commit("changeUserIdOfSearch", this.$store.getters.userId);
       } else {
         this.$store.commit("changeUserIdOfSearch", null);
       }
-      this.$router.push({ name: "search" });
+
+      let filters = null;
+      if (this.searchWithFilter) {
+        filters = {communities: this.communities};
+      }
+      this.$router.push({ name: "search", params: {filters} });
     },
 
     goToPostCarpool() {
@@ -186,7 +208,16 @@ export default {
         this.$store.dispatch("treatementUpdateAddresses");
       }
 
-      this.$router.push({name: "post-carpool"});
+      let filters = null;
+      if (this.postWithFilter) {
+        filters = {communities: this.communities};
+      }
+
+      if (this.eventId) {
+        filters = {eventId: this.eventId};
+      }
+
+      this.$router.push({name: "post-carpool", params: {filters}});
     }
   }
 };

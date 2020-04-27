@@ -7,7 +7,11 @@ export const communityStore = {
     statusJoinCommunity: '',
     statusLeaveCommunity: '',
     statusAdsCommunity: '',
-    communities: null,
+    statusPostCommunity: '',
+    communities: [],
+    page: 1,
+    total: 0,
+    postCommunity: null
   },
   mutations: {
     communities_request(state) {
@@ -16,7 +20,11 @@ export const communityStore = {
 
     communities_success(state, communities) {
       state.statusGetCommunities = 'success';
-      state.communities = communities;
+      if(state.page == 1) {
+        state.communities = communities;
+      } else {
+        state.communities.push(...communities);
+      }
     },
 
     communities_error(state) {
@@ -30,6 +38,7 @@ export const communityStore = {
     community_success(state, community) {
       state.statusGetCommunity = 'success';
       state.community = community;
+
     },
 
     community_error(state) {
@@ -70,17 +79,51 @@ export const communityStore = {
 
     ads_community_error(state) {
       state.statusAdsCommunity = 'error';
-    }
+    },
+
+    init_post_community(state) {
+      state.postCommunity = {
+        name: '',
+        description: '',
+        fullDescription: '',
+        address: {},
+        secured: false,
+        user: '',
+        communityUsers: ''
+      };
+    },
+
+    post_community_request(state) {
+      state.statusPostCommunity = 'loading';
+    },
+
+    post_community_success(state) {
+      state.statusPostCommunity = 'success';
+    },
+
+    post_community_error(state) {
+      state.statusPostCommunity = 'error';
+    },
+
+    updateCommunityAddress(state, payload) {
+      delete payload.addressDTO['@id'];
+      delete payload.addressDTO['id'];
+      delete payload.addressDTO['@type'];
+      delete payload.addressDTO['geoJson'];
+
+      state.postCommunity.address = payload.addressDTO;
+    },
 
   },
   actions: {
 
-    getAllCommunities({commit}) {
+    getAllCommunities({commit, state}) {
       commit('communities_request');
       return new Promise((resolve, reject) => {
-        http.get(`/communities`)
+        http.get(`/communities?page=`+ state.page + '&perPage=30')
           .then(resp => {
             resolve(resp)
+            state.total = resp.data['hydra:totalItems'];
             commit('communities_success', resp.data['hydra:member']);
           })
           .catch(err => {
@@ -154,6 +197,38 @@ export const communityStore = {
           })
       })
     },
+
+    postCommunity({commit}, payload) {
+      commit('post_community_request');
+      return new Promise((resolve, reject) => {
+        http.post(`/communities`, payload)
+          .then(resp => {
+            resolve(resp)
+            commit('post_community_success');
+          })
+          .catch(err => {
+            console.log('error');
+            commit('post_community_error');
+            reject(err)
+          })
+      })
+    },
+    updateCommunityPicture({commit}, params) {
+      return new Promise((resolve, reject) => {
+        const formData = new FormData();
+        //todo
+        formData.append('userFile', params.file);
+        formData.append('userId', Number(params.userId));
+
+        http.post(`/images`, formData)
+          .then(resp => {
+            resolve(resp)
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
+    },
   },
   getters : {
     communities: state => {
@@ -170,6 +245,14 @@ export const communityStore = {
 
     statusLeaveCommunity: state => {
       return state.statusLeaveCommunity;
+    },
+
+    postCommunity: state => {
+      return state.postCommunity;
+    },
+
+    statusPostCommunity: state => {
+      return state.statusPostCommunity;
     }
   }
 }

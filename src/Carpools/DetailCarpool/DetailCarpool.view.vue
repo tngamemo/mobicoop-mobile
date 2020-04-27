@@ -83,6 +83,7 @@
               color="primary"
               expand="block"
               fill="outline"
+              v-on:click="contact()"
             >
               <ion-icon name="mail" class="ion-padding-end"></ion-icon>
               {{ $t('DetailCarpool.contact') }}
@@ -95,13 +96,13 @@
               expand="block"
               v-on:click="goToAskCarpool()"
             >
-              <ion-icon name="checkmark" class="ion-padding-end"></ion-icon>
+              <ion-icon name="checkmark" class="ion-padding-end hidden-xs"></ion-icon>
               {{ $t('DetailCarpool.ask') }}
             </ion-button>
 
             <ion-button
               v-if="canSeeButton(1)"
-              class="mc-big-button"
+              class="mc-big-button ion-text-wrap"
               color="success"
               expand="block"
               v-on:click="askCarpool(1)"
@@ -114,14 +115,14 @@
                 name="md-sync"
               ></ion-icon>
               <div v-if="$store.state.carpoolStore.statusCarpoolAskPost != 'loading'">
-                <ion-icon name="checkmark" class="ion-padding-end"></ion-icon>
+                <ion-icon name="checkmark" class="ion-padding-end hidden-xs"></ion-icon>
                 {{ $t('DetailCarpool.askAsDriver') }}
               </div>
             </ion-button>
 
             <ion-button
               v-if="canSeeButton(2)"
-              class="mc-big-button"
+              class="mc-big-button ion-text-wrap"
               color="success"
               expand="block"
               v-on:click="askCarpool(2)"
@@ -134,7 +135,7 @@
                 name="md-sync"
               ></ion-icon>
               <div v-if="$store.state.carpoolStore.statusCarpoolAskPost != 'loading'">
-                <ion-icon name="checkmark" class="ion-padding-end"></ion-icon>
+                <ion-icon name="checkmark" class="ion-padding-end hidden-xs"></ion-icon>
                 {{ $t('DetailCarpool.askAsPassenger') }}
               </div>
             </ion-button>
@@ -149,7 +150,7 @@
           <ion-button
             v-on:click="updateAsk(4)"
             v-if="askFromMessage.askStatus == 2"
-            class="mc-big-button"
+            class="mc-big-button ion-text-wrap"
             color="success"
             expand="block"
           >
@@ -169,7 +170,7 @@
           <ion-button
             v-on:click="updateAsk(6)"
             v-if="askFromMessage.askStatus == 2"
-            class="mc-big-button"
+            class="mc-big-button ion-text-wrap"
             color="danher"
             expand="block"
           >
@@ -188,7 +189,7 @@
           <ion-button
             v-on:click="updateAsk(5)"
             v-if="askFromMessage.askStatus == 3"
-            class="mc-big-button"
+            class="mc-big-button ion-text-wrap"
             color="success"
             expand="block"
           >
@@ -320,10 +321,17 @@ export default {
           { addresses }
         );
 
-        this.carpoolRecap = new RecapCarpoolDTO().fromCarpoolSearch(
-          this.carpoolSelected,
-          resDirectPoint.data["hydra:member"][0].directPoints
-        );
+        if (this.fromMessage) {
+          this.carpoolRecap = new RecapCarpoolDTO().fromMessage(
+            this.carpoolSelected,
+            resDirectPoint.data["hydra:member"][0].directPoints
+          );
+        } else {
+          this.carpoolRecap = new RecapCarpoolDTO().fromCarpoolSearch(
+            this.carpoolSelected,
+            resDirectPoint.data["hydra:member"][0].directPoints
+          );
+        }
       } else {
         this.$router.push({ name: "carpoolsHome" });
       }
@@ -343,6 +351,18 @@ export default {
     },
 
     askCarpool(role) {
+      if(this.fromMessage) {
+        if (role == 1) {
+          this.updateAsk(2)
+        } else {
+          this.updateAsk(3)
+        }
+      } else {
+        this.postAskCarpool(role)
+      }
+    },
+
+    postAskCarpool(role) {
       if (this.carpoolSelected.frequency == 1) {
         const resultDriverOrPassenger = this.getResultDriveOrPassenger();
         const adId = resultDriverOrPassenger.outward.proposalId;
@@ -364,7 +384,7 @@ export default {
           .catch(err => {
             console.log(err);
             this.presentToast(this.$t("Commons.error"), "danger");
-          });
+        });
       }
     },
 
@@ -487,6 +507,42 @@ export default {
         default:
           break;
       }
+    },
+
+    contact() {
+      let role = 1;
+      let result = this.carpoolSelected.resultDriver;
+      if (
+        !!this.carpoolSelected.resultDriver &&
+        !!this.carpoolSelected.resultPassenger
+      ) {
+        role = 3;
+      } else if (!!this.carpoolSelected.resultPassenger) {
+        role = 2;
+        result = this.carpoolSelected.resultPassenger;
+      }
+
+      const adId = result.outward.proposalId;
+      const matchingId = result.outward.matchingId;
+
+      const payload = {
+        role,
+        adId,
+        matchingId,
+        paused: false
+      };
+
+      this.$store
+        .dispatch("contactCarpool", payload)
+        .then(resp => {
+          console.log(resp);
+          // this.presentToast(this.$t("AskCarpool.contactSuccess"), "success");
+          this.$router.push({ name: "messages" });
+        })
+        .catch(err => {
+          console.log(err);
+          this.presentToast(this.$t("Commons.error"), "danger");
+        });
     }
   }
 };
