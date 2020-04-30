@@ -15,7 +15,7 @@
         <span>{{recapCarpool.outwardDate | moment('DD MMMM YYYY') }}</span>
         <div class="d-flex align-center">
           <div>{{recapCarpool.priceCarpool}} €</div>
-          <ion-icon v-if="$store.state.carpoolStore.carpoolToPost.role == 2" color="secondary" class="price-info" @click="priceInfo()" name="information-circle-outline"></ion-icon>
+          <ion-icon v-if="recapCarpool.passenger" color="secondary" class="price-info" @click="priceInfo()" name="information-circle-outline"></ion-icon>
         </div>
       </div>
       <div
