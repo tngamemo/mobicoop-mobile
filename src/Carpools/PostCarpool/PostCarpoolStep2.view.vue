@@ -10,6 +10,7 @@
               picker-format="DD/MM/YY"
               cancel-text="Annuler"
               done-text="Valider"
+              :max="'2099-12-31T23:59:59.000Z'"
               :placeholder="$t('PostCarpool.dayOutward')"
               :value="this.$store.getters.carpoolToPost.outwardDate"
               @ionChange="changePostOutwardDate($event)"
@@ -66,6 +67,7 @@
               picker-format="DD/MM/YY"
               cancel-text="Annuler"
               done-text="Valider"
+              :max="'2099-12-31T23:59:59.000Z'"
               :placeholder="$t('PostCarpool.dayReturn')"
               :value="this.$store.getters.carpoolToPost.returnDate"
               @ionChange="changePostReturnDate($event)"
@@ -76,6 +78,10 @@
               class="mc-error-label"
               v-if="!$v.carpoolToPost.returnDate.required"
             >{{$t('Validation.required')}}</div>
+            <div
+              class="mc-error-label"
+              v-if="!$v.carpoolToPost.returnDate.isAfterDate"
+            >{{$t('Validation.isAfterDate')}}</div>
           </div>
         </ion-col>
 
@@ -284,6 +290,9 @@ import {
 } from "vuelidate/lib/validators";
 
 import { toast } from "../../Shared/Mixin/toast.mixin";
+var moment = require('moment');
+
+
 
 export default {
   name: "post-carpool-step2",
@@ -314,7 +323,14 @@ export default {
           return (
             this.$store.getters.carpoolToPost.frequency == 1 && !this.$store.getters.carpoolToPost.oneWay
           );
-        })
+        }),
+        isAfterDate : function isAfterDate(value) {
+          if (this.$store.getters.carpoolToPost.frequency == 1 && !this.$store.getters.carpoolToPost.oneWay) {
+            return moment(value).isSameOrAfter(moment(this.$store.getters.carpoolToPost.outwardDate));
+          } else {
+            return true;
+          }
+        }
       }
     },
     outwardTimeCopy: {

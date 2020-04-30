@@ -16,9 +16,9 @@ module.exports = {
   configureWebpack: {
     plugins: [
       new CopyPlugin([
-        { from: 'instanceAssets/' + process.env.VUE_APP_NAME.toLowerCase(), to: 'assets', force: true},
+        { from: 'instanceAssets/' + process.env.VUE_APP_INSTANCE.toLowerCase(), to: 'assets', force: true},
       ]),
-      new CreateFileWebpack({path: './www', fileName: 'build.info', content: process.env.VUE_APP_NAME.toLowerCase()})
+      new CreateFileWebpack({path: './www', fileName: 'build.info', content: process.env.VUE_APP_INSTANCE.toLowerCase()})
     ]
   }
 }

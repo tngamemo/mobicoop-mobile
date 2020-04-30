@@ -58,7 +58,8 @@ export const carpoolStore = {
         luggage: false,
         bike: false,
         backSeats: false,
-        comment: ''
+        comment: '',
+        eventId: ''
       };
       state.addressessUseToPost = {
         origin: '',

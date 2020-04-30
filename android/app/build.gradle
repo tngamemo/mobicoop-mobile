@@ -6,7 +6,7 @@ android {
         applicationId "eu.covivo.covisoft"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 78
+        versionCode 79
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -39,7 +39,7 @@ android {
       dimension "api"
     }
     passpass {
-      applicationId 'com.covivo.passpass'
+      applicationId 'fr.covivo.passpass'
       versionName '2.0.1'
       dimension "api"
     }

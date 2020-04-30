@@ -51,6 +51,7 @@
             class="mc-error-label"
             v-if="!$v.eventToPost.description.required"
           >{{$t('Validation.required')}}</div>
+          <div class="mc-error-label"  v-if="!$v.eventToPost.description.maxLength">{{$t('Validation.maxLength', { value: 255 })}}</div>
         </div>
 
         <ion-item>
@@ -86,7 +87,7 @@
         </div>
 
         <ion-item>
-          <ion-label position="floating">Date de début</ion-label>
+          <ion-label position="floating">Date de début *</ion-label>
           <ion-datetime
             display-format="DD/MM/YY"
             picker-format="DD/MM/YY"
@@ -96,18 +97,13 @@
             @ionChange="eventToPost.fromDate = $event.detail.value"
           ></ion-datetime>
         </ion-item>
+        <div v-if="$v.eventToPost.fromDate.$error">
+          <div
+            class="mc-error-label"
+            v-if="!$v.eventToPost.fromDate.required"
+          >{{$t('Validation.required')}}</div>
+        </div>
 
-        <ion-item>
-          <ion-label position="floating">Date de fin</ion-label>
-          <ion-datetime
-            display-format="DD/MM/YY"
-            picker-format="DD/MM/YY"
-            cancel-text="Annuler"
-            done-text="Valider"
-            :placeholder="$t('PostEvent.toDate')"
-            @ionChange="eventToPost.toDate = $event.detail.value"
-          ></ion-datetime>
-        </ion-item>
 
         <ion-item v-if="!! eventToPost.fromDate">
           <ion-label position="floating">Heure de début</ion-label>
@@ -120,6 +116,24 @@
             @ionChange="changeBeginHour($event.detail.value)"
           ></ion-datetime>
         </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Date de fin *</ion-label>
+          <ion-datetime
+            display-format="DD/MM/YY"
+            picker-format="DD/MM/YY"
+            cancel-text="Annuler"
+            done-text="Valider"
+            :placeholder="$t('PostEvent.toDate')"
+            @ionChange="eventToPost.toDate = $event.detail.value"
+          ></ion-datetime>
+        </ion-item>
+        <div v-if="$v.eventToPost.toDate.$error">
+          <div
+            class="mc-error-label"
+            v-if="!$v.eventToPost.toDate.required"
+          >{{$t('Validation.required')}}</div>
+        </div>
 
         <ion-item v-if="!! eventToPost.toDate">
           <ion-label position="floating">Heure de fin</ion-label>
@@ -159,7 +173,7 @@
     }
   }
   ion-item {
-    margin-bottom: 20px;
+    margin-top: 20px;
   }
 }
 </style>
@@ -167,10 +181,7 @@
 <script>
 import {
   required,
-  email,
-  sameAs,
-  minLength,
-  helpers
+  maxLength,
 } from "vuelidate/lib/validators";
 import { toast } from "../../../Shared/Mixin/toast.mixin";
 
@@ -183,12 +194,19 @@ export default {
         required
       },
       description: {
-        required
+        required,
+        maxLength: maxLength(255)
       },
       fullDescription: {
         required
       },
       address: {
+        required
+      },
+      fromDate: {
+        required
+      },
+      toDate: {
         required
       }
     }

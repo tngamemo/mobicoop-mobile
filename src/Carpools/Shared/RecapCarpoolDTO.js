@@ -18,8 +18,8 @@ export default class RecapCarpoolDTO {
     this.outwardTime = (carpoolToPost.schedule && carpoolToPost.schedule[0].outwardTime) ? carpoolToPost.schedule[0].outwardTime : carpoolToPost.outwardTime;
     this.directPoints = directPoints;
     this.priceCarpool = priceCarpool;
-    this.passenger = !!carpoolToPost.resultPassenger;
-    this.driver = !!carpoolToPost.resultDriver;
+    this.passenger = carpoolToPost.role == 2 || carpoolToPost.role == 3;
+    this.driver = carpoolToPost.role == 1 || carpoolToPost.role == 3;
 
     if (this.frequency == 2) {
       this.regularDays = this.getRegularDaysFromCarpoolToPost(carpoolToPost)

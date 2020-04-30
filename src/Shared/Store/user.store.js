@@ -12,6 +12,8 @@ export const userStore = {
     alerts: [],
     statusMyCarpools: '',
     myCarpools: [],
+    statusAcceptedCarpools: '',
+    acceptedCarpools: [],
     statusUserCommunities: '',
     userCommunities: null,
     resetPasswordStatus: '',
@@ -72,6 +74,19 @@ export const userStore = {
     user_my_carpools_request_success(state, data) {
       state.statusMyCarpools = 'success';
       state.myCarpools = data['hydra:member'].reverse();
+    },
+
+    user_accepted_carpools_request(state) {
+      state.statusAcceptedCarpools = 'loading';
+    },
+
+    user_accepted_carpools_error(state) {
+      state.statusAcceptedCarpools = 'error';
+    },
+
+    user_accepted_carpools_request_success(state, data) {
+      state.statusAcceptedCarpools = 'success';
+      state.acceptedCarpools = data['hydra:member'].reverse();
     },
 
 
@@ -258,6 +273,21 @@ export const userStore = {
           })
           .catch(err => {
             commit('user_my_carpools_error');
+            reject(err)
+          })
+      })
+    },
+
+    getAcceptedCarpools({commit}, userId) {
+      commit('user_accepted_carpools_request');
+      return new Promise((resolve, reject) => {
+        http.get(`/carpools/accepted`)
+          .then(resp => {
+            commit('user_accepted_carpools_request_success', resp.data);
+            resolve(resp)
+          })
+          .catch(err => {
+            commit('user_accepted_carpools_error');
             reject(err)
           })
       })

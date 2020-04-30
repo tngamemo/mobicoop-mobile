@@ -127,7 +127,7 @@
         class="mc-carpool-potential-carpoolers"
       >
         <ion-button
-          class="mc-big-button"
+          class="mc-big-button normal-wrap"
           fill="outline"
           color="success"
           expand="block"
@@ -398,6 +398,7 @@ export default {
       });
 
       this.$store.state.searchStore.searchObject.frequency = this.carpool.frequency;
+      this.$store.state.searchStore.searchObject.adId = this.carpool.id;
       this.$router.push({ name: "search" });
     }
   }

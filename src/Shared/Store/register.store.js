@@ -4,6 +4,7 @@ export const registerStore = {
   state: {
     statusRegister: '',
     statusValidateToken: '',
+    statusCheckEmail: '',
     displayAddress : '',
     userToRegister: null
   },
@@ -30,6 +31,18 @@ export const registerStore = {
 
     validate_token_error(state) {
       state.statusValidateToken = 'error';
+    },
+
+    check_email_request(state) {
+      state.statusCheckEmail = 'loading';
+    },
+
+    check_email_success(state) {
+      state.statusCheckEmail = 'success';
+    },
+
+    check_email_error(state) {
+      state.statusCheckEmail = 'error';
     },
 
     register_update (state, value) {
@@ -62,6 +75,7 @@ export const registerStore = {
           maxDeviationDistance:10000,
           anyRouteAsPassenger:false,
           newsSubscription:true,
+          registerFromMobile: true,
           language: "fr_FR",
           addresses: '',
       };
@@ -104,6 +118,20 @@ export const registerStore = {
         }).catch(err => {
           commit('validate_token_error');
           reject(err)
+        })
+      })
+    },
+    checkEmail: ({commit, state}, params) => {
+      commit('check_email_request');
+      return new Promise((resolve, reject) => {
+        http.get("/users/checkEmail?email=" + params).then(resp => {
+          if (resp) {
+            commit('check_email_success');
+            resolve(true)
+          }
+        }).catch(err => {
+          commit('check_email_success');
+          reject(false)
         })
       })
     },

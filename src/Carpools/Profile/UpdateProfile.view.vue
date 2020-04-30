@@ -265,14 +265,18 @@
     methods: {
       changePicture(e) {
         const file = e.target.files[0];
-        if (this.user.images.length > 0) {
-          Promise.all([this.user.images.map(item => {
-            return this.$store.dispatch('deleteImage', item.id );
-          })]).then(() => {
+        if (file.size <= 1000000) {
+          if (this.user.images.length > 0) {
+            Promise.all([this.user.images.map(item => {
+              return this.$store.dispatch('deleteImage', item.id);
+            })]).then(() => {
+              this.updateUserPicture(file);
+            })
+          } else {
             this.updateUserPicture(file);
-          })
-        }else {
-          this.updateUserPicture(file);
+          }
+        } else {
+          this.presentToast(this.$t("UpdateProfile.file-size"), 'danger')
         }
 
       },

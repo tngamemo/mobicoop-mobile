@@ -35,15 +35,26 @@
       <ion-item>
         <ion-label position="floating">{{$t('Register.email')}} *</ion-label>
         <ion-input
-          type="text"
+          type="email"
           :placeholder="$t('Register.email') + '*'"
           :value="user.email"
-          @input="user.email = $event.target.value;"
+          @ionBlur="checkedEmail = null"
+          @input="user.email = $event.target.value"
         ></ion-input>
+        <ion-icon
+          style="margin-top: 16px"
+          slot="end"
+          size="large"
+          color="primary"
+          class="rotating"
+          v-if="this.$store.state.registerStore.statusCheckEmail == 'loading'"
+          name="md-sync"
+        ></ion-icon>
       </ion-item>
       <div v-if="$v.user.email.$error">
         <div class="mc-error-label" v-if="!$v.user.email.required">{{$t('Validation.required')}}</div>
         <div class="mc-error-label" v-if="!$v.user.email.email">{{$t('Validation.email')}}</div>
+        <div class="mc-error-label" v-if="!$v.user.email.checkEmail">{{$t('Validation.checkEmail')}}</div>
       </div>
 
       <br />
@@ -131,7 +142,9 @@ const oneDigit = helpers.regex("oneDigit", /\d/);
 export default {
   name: "registerStep1",
   data() {
-    return {};
+    return {
+      checkedEmail: null
+    };
   },
   validations: {
     user: {
@@ -143,7 +156,21 @@ export default {
       },
       email: {
         required,
-        email
+        email,
+        checkEmail(email) {
+          if (!this.checkedEmail) {
+            this.checkedEmail = this.$store.dispatch('checkEmail', email).then(res => {
+              setTimeout(() => {
+                console.log( this.$parent );
+                this.$parent.next()
+              }, 0)
+              return res
+            });
+            return this.checkedEmail
+          } else {
+            return this.checkedEmail
+          }
+        }
       },
       password: {
         required,

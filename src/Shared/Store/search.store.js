@@ -20,6 +20,7 @@ export const searchStore = {
       outwardWaypoints: [],
       outwardDate: new Date(),
       userId: null,
+      adId: null
     },
 
   },
@@ -69,6 +70,10 @@ export const searchStore = {
 
     changePreviousSearch(state, previousSearch) {
       state.previousSearch = previousSearch;
+    },
+
+    reset_search_object(state) {
+      state.searchObject.adId = null
     }
 
   },
@@ -120,15 +125,28 @@ export const searchStore = {
           data.communities = filters.communities
         }
 
-        http.post("/carpools", data).then(resp => {
-          if (resp) {
-            commit('search_succes', resp.data["results"])
-            resolve(resp)
-          }
-        }).catch(err => {
-          commit('search_error')
-          reject(err)
-        })
+        if (data.adId) {
+          http.get("/carpools/" + data.adId, data).then(resp => {
+            if (resp) {
+              commit('search_succes', resp.data["results"])
+              resolve(resp)
+            }
+          }).catch(err => {
+            commit('search_error')
+            reject(err)
+          })
+        } else {
+          http.post( "/carpools", data).then(resp => {
+            if (resp) {
+              commit('search_succes', resp.data["results"])
+              resolve(resp)
+            }
+          }).catch(err => {
+            commit('search_error')
+            reject(err)
+          })
+        }
+
       })
     },
 

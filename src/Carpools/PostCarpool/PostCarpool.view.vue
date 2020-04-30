@@ -88,8 +88,12 @@ export default {
       this.$store.dispatch("getUserCommunities").then();
     }
 
-    if (!!this.$route.params.filters) {
+    if (!!this.$route.params.filters.communities) {
       this.$store.getters.carpoolToPost.communities = this.$route.params.filters.communities;
+    }
+
+    if (!!this.$route.params.filters.eventId) {
+      this.$store.getters.carpoolToPost.eventId = this.$route.params.filters.eventId;
     }
 
     if (!!this.solidarity) {

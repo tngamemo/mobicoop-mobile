@@ -7,9 +7,12 @@ export const eventStore = {
     statusGetEvent: '',
     statusSignalEvent: '',
     statusPostEvent: '',
+    statusAdsEvent: '',
     currentEvents: null,
-    pastEvents: null,
-    postEvent: null
+    page: 1,
+    total: 0,
+    type: 'after', // after || stricly_before
+    events: []
   },
   mutations: {
     events_request(state) {
@@ -18,8 +21,11 @@ export const eventStore = {
 
     events_success(state, events) {
       state.statusGetEvents = 'success';
-      state.pastEvents = events.pastEvents;
-      state.currentEvents = events.currentEvents;
+      if(state.page == 1) {
+        state.events = events;
+      } else {
+        state.events.push(...events);
+      }
     },
 
     events_error(state) {
@@ -86,26 +92,30 @@ export const eventStore = {
       state.postEvent.address = payload.addressDTO;
     },
 
+    ads_event_request(state) {
+      state.statusAdsEvent = 'loading';
+    },
+
+    ads_event_success(state) {
+      state.statusAdsEvent = 'success';
+    },
+
+    ads_event_error(state) {
+      state.statusAdsEvent = 'error';
+    },
+
   },
   actions: {
 
-    getAllEvents({ commit }) {
+    getAllEvents({ commit, state }) {
       commit('events_request');
       return new Promise((resolve, reject) => {
-        http.get(`/events`)
-          .then(resp => {
-            resolve(resp)
+        http.get(`/events?toDate[` + state.type + `]=` + moment().format('YYYY-MM-DD') + `&order[fromDate]=asc&perPage=30&page=` + state.page).then(resp => {
             const allEvents = resp.data['hydra:member'];
-            const pastEvents = allEvents.filter(event => {
-              return moment(event.toDate).isBefore(moment())
-            })
-
-            const currentEvents = allEvents.filter(event => {
-              return ! moment(event.toDate).isBefore(moment())
-            })
-            commit('events_success', {currentEvents, pastEvents});
-          })
-          .catch(err => {
+            state.total = resp.data['hydra:totalItems'];
+            commit('events_success', allEvents);
+            resolve(resp)
+          }).catch(err => {
             console.log('error');
             commit('events_error');
             reject(err)
@@ -156,6 +166,22 @@ export const eventStore = {
           .catch(err => {
             console.log('error');
             commit('post_event_error');
+            reject(err)
+          })
+      })
+    },
+
+    getAdsEvent({commit}, eventId) {
+      commit('ads_event_request');
+      return new Promise((resolve, reject) => {
+        http.get(`/events/${eventId}/ads`)
+          .then(resp => {
+            resolve(resp)
+            commit('ads_event_success');
+          })
+          .catch(err => {
+            console.log('error');
+            commit('ads_event_error');
             reject(err)
           })
       })

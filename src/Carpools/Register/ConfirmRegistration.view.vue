@@ -73,7 +73,9 @@
     },
     mixins: [toast],
     created() {
-
+      if (this.$route.query.token) {
+        this.validatedDateToken = this.$route.query.token;
+      }
     },
     validations: {
       validatedDateToken: {
@@ -103,7 +105,7 @@
         this.$store.dispatch('getUser', { idUser })
           .then(res => {
             this.presentToast("Vous êtes connecté", 'success');
-            this.$router.back();
+            this.$router.push({ name: "carpoolsHome" });
 
           })
           .catch(err => {
