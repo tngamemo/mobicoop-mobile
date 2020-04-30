@@ -159,12 +159,17 @@ export default {
         email,
         checkEmail(email) {
           if (!this.checkedEmail) {
-            this.checkedEmail = this.$store.dispatch('checkEmail', email).then(res => { return res});
+            this.checkedEmail = this.$store.dispatch('checkEmail', email).then(res => {
+              setTimeout(() => {
+                console.log( this.$parent );
+                this.$parent.next()
+              }, 0)
+              return res
+            });
             return this.checkedEmail
           } else {
             return this.checkedEmail
           }
-
         }
       },
       password: {
