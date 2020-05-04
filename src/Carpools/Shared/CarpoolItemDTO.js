@@ -8,8 +8,8 @@ export default class CarpoolItemDTO {
     this.id = carpool.id;
     this.frequency = carpool.frequency;
     this.price = carpool.roundedPrice;
-    this.passenger = !!carpool.resultPassenger;
-    this.driver = !!carpool.resultDriver;
+    this.passenger = !!carpool.resultDriver;
+    this.driver = !!carpool.resultPassenger;
     this.seats = carpool.seats;
     this.origin = carpool.origin;
     this.destination = carpool.destination;

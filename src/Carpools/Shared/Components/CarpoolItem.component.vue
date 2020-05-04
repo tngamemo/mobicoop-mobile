@@ -102,16 +102,16 @@
             :ref="'test'"
             class="mc-small-button"
             color="primary"
-            @click="pauseCarpool(carpool.id)"
+            @click="pauseCarpool(carpool)"
           >
             <ion-icon
               color="light"
-              v-if="!paused && this.$store.getters.statusPauseCarpool != 'loading'"
+              v-if="!carpool.paused && this.$store.getters.statusPauseCarpool != 'loading'"
               name="pause"
             ></ion-icon>
             <ion-icon
               color="light"
-              v-if="paused && this.$store.getters.statusPauseCarpool != 'loading'"
+              v-if="carpool.paused && this.$store.getters.statusPauseCarpool != 'loading'"
               name="play"
             ></ion-icon>
             <ion-icon
@@ -294,7 +294,6 @@ export default {
   data() {
     return {
       avatarLoaded: false,
-      paused: this.carpool.paused
     };
   },
   mixins: [toast],
@@ -347,9 +346,9 @@ export default {
       this.avatarLoaded = true;
     },
 
-    pauseCarpool(carpoolId) {
+    pauseCarpool() {
       const payload = {
-        carpoolId,
+        carpoolId : this.carpool.id,
         data: {
           paused: !this.carpool.paused,
           adId: this.carpool.id
@@ -364,7 +363,8 @@ export default {
             "success"
           );
 
-          this.paused = !this.carpool.paused;
+          this.carpool.paused = resp.data.paused;
+          this.$forceUpdate();
         })
         .catch(err => {
           this.presentToast(this.$parent.$t("Commons.error"), "danger");

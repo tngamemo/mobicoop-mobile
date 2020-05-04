@@ -69,7 +69,7 @@
 
         <p class="mc-contact-rgpd">
           {{$t('Contact.rgpd')}}
-          <a class="link" :href="link">{{ $t('Contact.protectionLink') }}</a>.
+          <a class="link" v-on:click="$router.push('/article/4')">{{ $t('Contact.protectionLink') }}</a>.
         </p>
 
         <ion-button class="mc-small-button" color="success" expand="block" @click="sendContact()">
@@ -128,7 +128,6 @@ export default {
         message: "",
         type: 0
       },
-      link: process.env.VUE_APP_PRIVACY_LINK
     };
   },
   validations: {

@@ -198,7 +198,7 @@ export default {
           .then(resp => {
             this.presentToast(this.$t("PostCommunity.success"), "success");
             this.$store.commit("init_post_community");
-            this.$router.push({ name: "communities" });
+            this.$router.back();
           })
           .catch(err => {
             this.presentToast(this.$t("Commons.error"), "danger");

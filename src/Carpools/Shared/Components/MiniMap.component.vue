@@ -65,15 +65,7 @@ export default {
       this.maxZoom = 18;
     }, 1000);
   },
-  watch: {
-    LPolyline: function(newVal, oldVal) {
-      this.bounds();
-    },
-    LMarker: function(newVal, oldVal) {
-      this.bounds();
-    }
-  },
-    computed: {
+  computed: {
     bounds() {
       let bounds;
       if (this.LMarker) bounds = new L.LatLngBounds(this.LMarker.map(item => item.latlng));

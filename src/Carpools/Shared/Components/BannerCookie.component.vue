@@ -4,7 +4,7 @@
       {{$t('BannerCookie.desc')}}
       <a
         style="color:#284b99"
-        :href="link"
+        v-on:click="$router.push('/article/4')"
       >{{$t('BannerCookie.politic')}}</a>
     </p>
     <button class="mc-button-cookie" v-on:click="setUserCookie">{{$t('BannerCookie.agree')}}</button>
@@ -43,7 +43,6 @@ export default {
   name: "BannerCookie",
   data: function() {
     return {
-      link: process.env.VUE_APP_PRIVACY_LINK
     };
   },
   mounted() {},

@@ -236,7 +236,7 @@ export default {
           .then(resp => {
             this.presentToast(this.$t("Event.success"), "success");
             this.$store.commit("init_post_event");
-            this.$router.push({ name: "carpool-events" });
+            this.$router.back();
           })
           .catch(err => {
             this.presentToast(this.$t("Commons.error"), "danger");
