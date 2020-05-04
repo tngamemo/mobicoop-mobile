@@ -1,3 +1,4 @@
+import {LMap} from "vue2-leaflet";import {LTileLayer} from "vue2-leaflet";import {LPolyline} from "vue2-leaflet";import {LMarker} from "vue2-leaflet";
 <template>
   <div class="ion-page">
     <ion-header no-border>
@@ -9,15 +10,30 @@
       </ion-toolbar>
     </ion-header>
 
+    <ion-fab vertical="top" horizontal="end" slot="fixed" v-if="$store.state.dynamicStore.status == 'loading' || $store.state.dynamicStore.statusAsk == 'loading'">
+      <ion-fab-button color="light">
+        <ion-icon size="large" color="primary" class="rotating"  name="md-sync"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+
     <ion-content color="primary" no-bounce>
       <div class="mc-white-container" >
 
-        <div class="ion-text-center" v-if="$store.state.dynamicStore.status == 'loading' || $store.state.dynamicStore.statusAsk == 'loading'" >
-          <ion-icon size="large" color="primary" class="rotating"  name="md-sync"></ion-icon>
-        </div>
-
         <!-- State 1 : Je choisi mon role -->
         <div class="dynamic-form" v-if="state == 1">
+
+          <!-- Destination -->
+          <ion-item v-on:click="goGeoSearch('destination', 'search')" style="margin-bottom: 20px">
+            <ion-label position="floating">{{$t('Search.destination')}}</ion-label>
+            <ion-input
+              type="text"
+              class="no-clickable"
+              :placeholder="$t('Search.destination')"
+              :value="this.$store.state.searchStore.display.destination"
+            ></ion-input>
+          </ion-item>
+
+          <!-- Role -->
           <ion-radio-group @ionChange="currentDynamic.role = Number($event.target.value)">
             <ion-row>
               <ion-col>
@@ -34,6 +50,8 @@
               </ion-col>
             </ion-row>
           </ion-radio-group>
+
+          <!-- Comment -->
           <ion-item>
             <ion-label position="floating">{{$t('Dynamic.comment')}}</ion-label>
             <ion-textarea rows="2" cols="12"
@@ -42,34 +60,78 @@
             </ion-textarea>
           </ion-item>
           <br>
+          <!-- Start button -->
           <ion-button class='mc-big-button' color="success" expand="block" @click="launchDynamic()">
             {{ $t('Dynamic.launch') }}
           </ion-button>
         </div>
 
         <!-- State 2  -->
-        <div v-if="state == 2">
+        <div v-if="state == 2 && destination">
 
-          <ion-card v-if="currentDynamic['@id']">
+          <div class="dynamic-map" style="height: 300px; width: 300px; border-radius: 150px; margin-bottom: 10px">
+            <l-map
+              v-if="map.showCard"
+              :ref="'dynamicMap'"
+              style="height: 300px; width: 300px; border-radius: 150px;"
+              :zoom="map.zoom"
+              :bounds="bounds"
+              :options="map.optionsCard"
+            >
+              <l-tile-layer :url="map.url"></l-tile-layer>
+              <!--<l-polyline v-if="bounds" :lat-lngs="recapCarpool.directPoints" :color="'blue'"></l-polyline>-->
+              <l-marker
+                :lat-lng="[latitude, longitude]"
+              ></l-marker>
+              <l-marker
+                :lat-lng="[destination.latitude, destination.longitude]"
+              ></l-marker>
+            </l-map>
+          </div>
+
+          <!-- CurrentDynamic -->
+          <ion-card class="dynamic-card" v-if="currentDynamic['@id']">
             <ion-card-content>
               <div class="text-center" >Current Dynamic : {{currentDynamic['@id']}}</div>
-              <div v-if="currentDynamic.comment" class="text-center" ><small>{{currentDynamic.comment}}</small></div>
+              <div v-if="destination" class="d-flex align-center"><ion-icon name="flag"></ion-icon> {{this.destination.displayLabel[0]}}</div>
+              <div class="" ><small>{{currentDynamic.role == 1 ? 'Conducteur' : 'Passager'}}</small></div>
+              <div v-if="currentDynamic.comment" ><small>Commentaire : {{currentDynamic.comment}}</small></div>
+              <div v-if="currentDynamic.destination"><b>Arrivé</b></div>
             </ion-card-content>
           </ion-card>
 
-          <ion-card v-if="currentAsk.id">
+          <!-- CurrentAsk -->
+          <ion-card class="dynamic-card" v-if="currentAsk.id">
             <ion-card-content>
               <div class="text-center">Current Ask : {{currentAsk.id}}</div>
+              <div class="text-center">Statut : {{currentAsk.status}}</div>
+              <div v-if="currentAsk.message" class="text-center">Message : {{currentAsk.message}}</div>
+              <div v-if="currentAsk.messages"><div v-for="message in currentAsk.messages">{{message.test}}</div></div>
+
+              <div v-if="currentProof.id" class="d-flex align-center">
+                <ion-icon name="checkmark"></ion-icon> Preuve déposé
+              </div>
+              <ion-button v-if="!currentProof.id && currentDynamic.role === 1" @click="postDynamicProof()">Prise en charge du passager</ion-button>
+              <ion-button v-if="currentProof.id && currentDynamic.role === 1" @click="putDynamicProof()">Dépose du passager</ion-button>
+              <div v-if="currentAsk.proof">
+                <div>ProofId : {{currentAsk.proof.id}}</div>
+                <div>ProofStatus : {{currentAsk.proof.needed}}</div>
+                <ion-button v-if="!currentProof.id && currentAsk.proof.needed == 'pickUp' && currentDynamic.role === 2" @click="postDynamicProof()">Je suis pris en charge</ion-button>
+                <ion-button v-if="currentAsk.proof.needed == 'dropOff' && currentDynamic.role === 2" @click="putDynamicProof()">Je suis déposé</ion-button>
+              </div>
+
+
             </ion-card-content>
           </ion-card>
 
 
           <div v-if="!currentAsk.id && currentDynamic.role === 2 && currentDynamic.results && currentDynamic.results.length > 0">
-            <ion-card v-for="(result, index) in currentDynamic.results">
+            <ion-card class="dynamic-card" v-for="(result, index) in currentDynamic.results">
               <ion-card-content class="d-flex justify-between">
                 <div>
-                  {{result.carpooler.givenName}} {{result.carpooler.shortFamilyName}} <br>
-                  <ion-icon name="flag"></ion-icon> {{result.resultPassenger.outward.destination.displayLabel[0]}}
+                  <div>{{result.carpooler.givenName}} {{result.carpooler.shortFamilyName}}</div>
+                  <div v-if="result.carpooler.phone">{{result.carpooler.phone}}</div>
+                  <div class="d-flex align-center"><ion-icon name="flag"></ion-icon> {{result.resultPassenger.outward.destination.addressLocality}}</div>
                 </div>
               <ion-button @click="postDynamicAskAlert(result.resultPassenger.outward.matchingId)">Covoiturer</ion-button>
               </ion-card-content>
@@ -77,21 +139,30 @@
           </div>
 
           <div v-if="!currentAsk.id && currentDynamic.role === 1 && currentDynamic.asks && currentDynamic.asks.length > 0">
-            <ion-card v-for="(result, index) in currentDynamic.asks">
+            <ion-card  class="dynamic-card" v-for="(result, index) in currentDynamic.asks">
               <ion-card-content class="d-flex justify-between">
                 <div>
-                  {{result.user.givenName}} {{result.user.shortFamilyName}}<br>
-                  <ion-icon name="locate"></ion-icon> {{result.user.position.displayLabel[0]}}
+                  <div>{{result.user.givenName}} {{result.user.shortFamilyName}}</div>
+                  <div v-if="result.user.phone">{{result.user.phone}}</div>
+                  <div v-if="currentAsk.messages"><div v-for="message in result.messages">{{message.test}}</div></div>
+                  <div><ion-icon name="locate"></ion-icon> {{result.user.position.displayLabel[0]}}</div>
                 </div>
               <ion-button @click="putDynamicAsks(result.id, '')">Accepter</ion-button>
               </ion-card-content>
             </ion-card>
           </div>
+
+          <!-- Close -->
+          <ion-button class='mc-big-button' color="danger" expand="block" @click="closeDynamics()">
+            {{ $t('Dynamic.close') }}
+          </ion-button>
         </div>
 
-        <ion-button class='mc-big-button' color="danger" expand="block" @click="closeDynamics()">
-          {{ $t('Dynamic.close') }}
-        </ion-button>
+        <!-- Debug Tools -->
+        <!--
+        <hr>
+        <div class="text-center">Debug</div>
+        <br>
 
         <ion-button class='mc-big-button' color="primary" expand="block" @click="startBackgroundGeolocation()">
           Start geolocation
@@ -100,6 +171,7 @@
         <ion-button class='mc-big-button' color="warning" expand="block" @click="stopBackgroundGeolocation()">
           Stop geolocation
         </ion-button>
+        -->
 
       </div>
     </ion-content>
@@ -107,16 +179,27 @@
 </template>
 
 <style lang="scss">
-.dynamic-form ion-radio {
-  margin-right: 10px;
-}
+  .dynamic-form ion-radio {
+    margin-right: 10px;
+  }
+
+  .dynamic-card {
+    margin-top: 0px;
+    margin-right: 0px;
+    margin-left: 0px;
+    margin-bottom: 20px;
+  }
 
 </style>
 
 <script>
   import {toast} from "../../Shared/Mixin/toast.mixin";
   // import { BackgroundGeolocation } from '@mauron85/cordova-plugin-background-geolocation';
+  import { LMap, LTileLayer, LPolyline, LMarker } from "vue2-leaflet";
   import { BackgroundGeolocation, BackgroundGeolocationEvents } from '@ionic-native/background-geolocation';
+  import { Plugins } from '@capacitor/core';
+  import {isPlatform} from "@ionic/core";
+  const { Geolocation } = Plugins;
 
 
 
@@ -124,19 +207,52 @@
     name: 'dynamic',
     data () {
       return {
-
+        latitude: '',
+        longitude: '',
+        map: {
+          url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+          zoom: 8,
+          showCard: true,
+          optionsCard: {
+            dragging: !isPlatform(window.document.defaultView, "mobile"),
+            touchZoom: isPlatform(window.document.defaultView, "mobile"),
+            tap: !isPlatform(window.document.defaultView, "mobile"),
+            zoomControl: false
+          }
+        }
       }
     },
+    components: {
+      LMap,
+      LTileLayer,
+      LPolyline,
+      LMarker
+    },
     computed : {
+      bounds() {
+        if (this.state == 2 && this.destination) {
+          const bounds = new L.LatLngBounds([[this.latitude, this.longitude], [this.destination.latitude, this.destination.longitude]]);
+          if (!!this.$refs.dynamicMap) this.$refs.dynamicMap.mapObject.invalidateSize();
+          return bounds;
+        } else {
+          return null;
+        }
+      },
       state() {
         return this.$store.state.dynamicStore.state
+      },
+      destination() {
+          return this.$store.state.dynamicStore.destination;
       },
       currentDynamic() {
         return this.$store.state.dynamicStore.currentDynamic
       },
       currentAsk() {
         return this.$store.state.dynamicStore.currentAsk
-      }
+      },
+      currentProof() {
+        return this.$store.state.dynamicStore.currentProof
+      },
     },
     mixins: [toast],
     props : [],
@@ -146,9 +262,21 @@
       }
     },
     methods: {
-      launchDynamic() {
+      goGeoSearch(type, action) {
+        this.$router.push({ name: "geoSearch", query: { type, action } });
+      },
+      async launchDynamic() {
+        const coordinates = await Geolocation.getCurrentPosition();
+        this.latitude = coordinates.coords.latitude.toString();
+        this.longitude = coordinates.coords.longitude.toString();
+
+        this.$store.commit('set_dynamic_destination', this.$store.state.searchStore.searchObject.outwardWaypoints[1]);
+        console.log(this.destination);
+        this.currentDynamic.waypoints = [{latitude: this.latitude, longitude: this.longitude}, { latitude: this.destination.latitude, longitude: this.destination.longitude}];
+
         this.$store.dispatch('launchDynamics').then( () => {
           console.log(this.currentDynamic);
+          this.startBackgroundGeolocation();
         });
       },
       updateDynamics(result, body) {
@@ -162,17 +290,17 @@
       },
       closeDynamics() {
         this.updateDynamics('reset_current_dynamic',{
-          "latitude": "48.741958",
-          "longitude": "7.086686",
+          "latitude": this.latitude,
+          "longitude": this.longitude,
           "finished": true
         }).then(() => {
           this.stopBackgroundGeolocation();
         });
       },
-      updatePosition(lat, lng) {
+      updatePosition() {
         this.updateDynamics('update_position',{
-          "latitude": lat.toString(),
-          "longitude": lng.toString()
+          "latitude": this.latitude,
+          "longitude": this.longitude
         });
       },
       postDynamicAskAlert(matchingId) {
@@ -210,8 +338,23 @@
       },
       putDynamicAsks(askId, message) {
         this.$store.dispatch('putDynamicAsks', {
+          "askId" : askId,
           "status": 2,
           "message": message
+        });
+      },
+      postDynamicProof() {
+        this.$store.dispatch('postDynamicProofs', {
+          "latitude": this.latitude,
+          "longitude": this.longitude,
+          "dynamicAskId": this.currentAsk.id
+        });
+      },
+      putDynamicProof() {
+        this.$store.dispatch('putDynamicProofs', {
+          "proofId": this.currentProof.id,
+          "latitude": this.latitude,
+          "longitude": this.longitude,
         });
       },
       startBackgroundGeolocation() {
@@ -220,7 +363,7 @@
           stationaryRadius: 1, // 20
           distanceFilter: 1, // 30
           interval: 15000,
-          debug: true, //  enable this hear sounds for background-geolocation life-cycle.
+          debug: false, //  enable this hear sounds for background-geolocation life-cycle.
           stopOnTerminate: false, // enable this to clear background location settings when the app terminates
         };
 
@@ -230,7 +373,9 @@
             BackgroundGeolocation.on(BackgroundGeolocationEvents.location).subscribe((location) => {
               console.log(location);
 
-              this.updatePosition(location.latitude, location.longitude);
+              this.latitude = location.latitude.toString();
+              this.longitude = location.longitude.toString();
+              this.updatePosition();
 
               // IMPORTANT:  You must execute the finish method here to inform the native plugin that you're finished,
               // and the background-task may be completed.  You must do this regardless if your operations are successful or not.

@@ -4,9 +4,12 @@ export const dynamicStore = {
   state: {
     status: '',
     statusAsk: '',
+    statusProof: '',
     state: 1,
+    destination: null,
     currentDynamic : {},
-    currentAsk : {}
+    currentAsk : {},
+    currentProof: {}
 
   },
   mutations: {
@@ -18,6 +21,10 @@ export const dynamicStore = {
       state.statusAsk = 'loading';
     },
 
+    dynamic_proof_request(state) {
+      state.statusProof = 'loading';
+    },
+
     dynamic_success(state) {
       state.status= 'success';
     },
@@ -25,6 +32,7 @@ export const dynamicStore = {
     dynamic_ask_success(state) {
       state.statusAsk = 'success';
     },
+
 
     post_dynamic_success(state, res) {
       state.status = 'success';
@@ -37,6 +45,11 @@ export const dynamicStore = {
       state.currentAsk = res.data
     },
 
+    post_dynamic_proof_success(state, res) {
+      state.statusProof = 'success';
+      state.currentProof = res.data
+    },
+
     dynamic_error(state) {
       state.status = 'error';
     },
@@ -45,9 +58,14 @@ export const dynamicStore = {
       state.statusAsk = 'error';
     },
 
+    dynamic_proof_error(state) {
+      state.statusProof = 'error';
+    },
+
     reset_current_dynamic(state) {
       state.status = '';
       state.state = 1;
+      state.destination = null;
       state.currentDynamic = {
         role: 1,
         priceKm: process.env.VUE_APP_PRICE_BY_KM,
@@ -64,14 +82,23 @@ export const dynamicStore = {
         ],
         comment: ''
       },
-        state.currentAsk = {}
+        state.currentAsk = {};
+        state.currentProof = {};
+    },
+
+    set_dynamic_destination(state, res) {
+      state.destination = res;
     },
 
     update_position(state, res) {
       console.log(res);
       state.status = 'success';
       res.data.role = state.currentDynamic.role;
-      state.currentDynamic = res.data
+      state.currentDynamic = res.data;
+        const a =  res.data.asks.find(item => item.id === state.currentAsk.id);
+        if (a) {
+          state.currentAsk = a;
+        }
     }
 
   },
@@ -122,13 +149,41 @@ export const dynamicStore = {
     putDynamicAsks: ({commit, state}, params) => {
       commit('dynamic_ask_request');
       return new Promise((resolve, reject) => {
-        http.put("/dynamic_asks", params ).then(resp => {
+        http.put("/dynamic_asks/" + params.askId, params ).then(resp => {
           if (resp) {
             commit('post_dynamic_ask_success', resp);
             resolve(resp)
           }
         }).catch(err => {
           commit('dynamic_ask_error');
+          reject(err)
+        })
+      })
+    },
+    postDynamicProofs: ({commit, state}, params) => {
+      commit('dynamic_proof_request');
+      return new Promise((resolve, reject) => {
+        http.post("/dynamic_proofs", params ).then(resp => {
+          if (resp) {
+            commit('post_dynamic_proof_success', resp);
+            resolve(resp)
+          }
+        }).catch(err => {
+          commit('dynamic_proof_error');
+          reject(err)
+        })
+      })
+    },
+    putDynamicProofs: ({commit, state}, params) => {
+      commit('dynamic_proof_request');
+      return new Promise((resolve, reject) => {
+        http.post("/dynamic_proofs/" + params.proofId, params ).then(resp => {
+          if (resp) {
+            commit('post_dynamic_proof_success', resp);
+            resolve(resp)
+          }
+        }).catch(err => {
+          commit('dynamic_proof_error');
           reject(err)
         })
       })
