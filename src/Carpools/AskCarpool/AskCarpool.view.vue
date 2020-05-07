@@ -153,7 +153,7 @@
             </div>
             <div class="mc-ask-timeBegin">
               <div class="mc-ask-header">{{ $t('AskCarpool.outWardDate')}}</div>
-              <ion-item lines="none">
+              <ion-item lines="none" style="margin-left: 20px">
                 <ion-datetime
                   display-format="DD/MM/YY"
                   picker-format="DD/MM/YY"

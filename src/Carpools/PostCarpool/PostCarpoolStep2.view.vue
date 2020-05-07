@@ -21,6 +21,10 @@
               class="mc-error-label"
               v-if="!$v.carpoolToPost.outwardDate.required"
             >{{$t('Validation.required')}}</div>
+            <div
+              class="mc-error-label"
+              v-if="!$v.carpoolToPost.outwardDate.isAfterNow"
+            >{{$t('Validation.isAfterNow')}}</div>
           </div>
         </ion-col>
 
@@ -316,7 +320,10 @@ export default {
       outwardDate: {
         required: requiredIf(function(outwardDate) {
           return this.$store.getters.carpoolToPost.frequency == 1;
-        })
+        }),
+        isAfterNow : function isAfterNow(value) {
+          return moment(value).isSameOrAfter(moment().startOf('day'));
+        }
       },
       returnDate: {
         required: requiredIf(function(returnDate) {

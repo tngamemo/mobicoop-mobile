@@ -220,7 +220,8 @@
     "checkEmail" : "Ce mail existe déjà en base de donnée",
     "age" : "Votre âge doit être supérieur à {value} ans",
     "maxLength" : "Ce champ ne peut pas contenir plus de {value} caractères",
-    "isAfterDate" : "La date doit être supérieure à la date d'aller"
+    "isAfterDate" : "La date doit être supérieure à la date d'aller",
+    "isAfterNow" : "La date doit être supérieure à maintenant"
   },
   "Carpool" : {
     "L": "L",
