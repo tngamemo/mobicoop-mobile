@@ -6,7 +6,7 @@ android {
         applicationId "eu.covivo.covisoft"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 79
+        versionCode 80
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -40,6 +40,11 @@ android {
         }
         passpass {
           applicationId 'fr.covivo.passpass'
+          versionName '2.0.1'
+          dimension "api"
+        }
+        grandlyon {
+          applicationId 'fr.mobicoop.grandlyon'
           versionName '2.0.1'
           dimension "api"
         }

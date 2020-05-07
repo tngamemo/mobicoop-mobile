@@ -38,3 +38,8 @@ target 'PassPass' do
   capacitor_pods
   # Add your Pods here
 end
+
+target 'Grand Lyon' do
+  capacitor_pods
+  # Add your Pods here
+end
