@@ -89,7 +89,7 @@
     >{{ $t('HOME.postCarpool') }}</ion-button>
 
     <ion-button
-      v-if="showPostCarpool"
+      v-if="showPostCarpool && isCapacitor"
       class="mc-big-button"
       color="primary"
       expand="block"
@@ -130,12 +130,15 @@ ion-datetime {
 </style>
 
 <script>
+  import { isPlatform } from "@ionic/core";
+
 export default {
   name: "search-home",
   props: ["showPost", "searchWithFilter", "postWithFilter", "communities", "from", "eventId"],
   data() {
     return {
       showPostCarpool: true,
+      isCapacitor : isPlatform(window.document.defaultView, "capacitor")
     };
   },
   created() {

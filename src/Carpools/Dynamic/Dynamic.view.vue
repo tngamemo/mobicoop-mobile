@@ -110,7 +110,7 @@ import {LMap} from "vue2-leaflet";import {LTileLayer} from "vue2-leaflet";import
 
               <div v-if="currentProof.id" class="d-flex align-center">
                 <ion-icon name="checkmark"></ion-icon> Preuve déposé
-              </div>
+              </div>ll
               <ion-button v-if="!currentProof.id && currentDynamic.role === 1" @click="postDynamicProof()">Prise en charge du passager</ion-button>
               <ion-button v-if="currentProof.id && currentDynamic.role === 1" @click="putDynamicProof()">Dépose du passager</ion-button>
               <div v-if="currentAsk.proof">

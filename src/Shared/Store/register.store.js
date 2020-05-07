@@ -1,4 +1,5 @@
 import http from '../Mixin/http.mixin'
+import {isPlatform} from "@ionic/core";
 
 export const registerStore = {
   state: {
@@ -105,8 +106,16 @@ export const registerStore = {
     },
     validateToken: ({commit, state}, params) => {
       commit('validate_token_request');
+      let mobile = '';
+      if (isPlatform(window.document.defaultView, "ios")) {
+        mobile = '?mobile=1'
+      }
+      if (isPlatform(window.document.defaultView, "android")) {
+        mobile = '?mobile=2'
+      }
+
       return new Promise((resolve, reject) => {
-        http.post("/login-token", params).then(resp => {
+        http.post("/login-token" + mobile, params).then(resp => {
           if (resp) {
             const tokenUser = resp.data.token;
             localStorage.setItem('tokenUser', tokenUser);
