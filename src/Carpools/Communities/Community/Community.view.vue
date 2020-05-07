@@ -137,7 +137,7 @@
   }
 
   .mc-community-padding {
-    padding: 30px;
+    padding: 20px;
   }
 
   .mc-community-users {

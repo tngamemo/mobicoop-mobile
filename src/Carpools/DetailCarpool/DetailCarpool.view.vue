@@ -40,8 +40,9 @@
         >
           <div class="mc-ask-header">{{ $t('DetailCarpool.askFor')}}</div>
           <ion-item v-for="(day, index) in selectedDay" :key="index">
+
             <div class="mc-choose-day d-flex justify-between">
-              <b>{{$t(day.trad)}}</b>
+              <span class="mc-choose-day-title"><b>{{$t(day.trad)}}</b></span>
               <span
                 v-if="day.outwardTime"
               >{{ $t('DetailCarpool.outward')}} : {{day.outwardTime | moment("utc", "HH:mm")}}</span>
@@ -249,8 +250,13 @@
     padding: 10px;
   }
   .mc-choose-day {
+    font-size: 12px;
     width: 100%;
     color: var(--ion-color-primary);
+
+    .mc-choose-day-title {
+      min-width: 60px;
+    }
   }
 }
 </style>

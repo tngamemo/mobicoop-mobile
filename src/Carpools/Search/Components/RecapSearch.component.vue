@@ -10,9 +10,11 @@
       <p>{{ this.$store.getters.displayDestination }}</p>
     </div>
 
-    <div class="mc-recap-search-filters" v-if="!!this.filters">
-      <p>{{$t('RecapSearch.filters')}} :</p>
-      <span v-if="!!this.filters.communities" class="mc-recap-search-filter">{{$t('RecapSearch.communities')}}</span>
+    <div class="mc-recap-search-filters mb-5" v-if="!!this.filters">
+      <p class="mb-5">{{$t('RecapSearch.filters')}} :</p>
+      <div>
+        <div v-if="!!this.filters.communities" class="mc-recap-search-filter">{{$t('RecapSearch.communities')}}</div>
+      </div>
     </div>
 
     <div>
@@ -42,11 +44,16 @@
       border-top: 1px solid white;
 
       .mc-recap-search-filter {
+        display: inline-block;
         border: 1px solid white;
         border-radius: 30px;
         padding: 10px;
       }
     }
+  }
+
+  .mb-5 {
+    margin-bottom: 5px;
   }
 
   .background-transparent{
