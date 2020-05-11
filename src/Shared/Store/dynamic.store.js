@@ -7,9 +7,11 @@ export const dynamicStore = {
     statusProof: '',
     state: 1,
     destination: null,
+    myPosition: {latitude: '', longitude: ''},
     currentDynamic : {},
     currentAsk : {},
-    currentProof: {}
+    currentProof: {},
+    asksLength: 0
 
   },
   mutations: {
@@ -66,6 +68,7 @@ export const dynamicStore = {
       state.status = '';
       state.state = 1;
       state.destination = null;
+      state.myPosition = {latitude: '', longitude: ''};
       state.currentDynamic = {
         role: 1,
         priceKm: process.env.VUE_APP_PRICE_BY_KM,
@@ -84,10 +87,19 @@ export const dynamicStore = {
       },
         state.currentAsk = {};
         state.currentProof = {};
+        state.asksLength = 0;
     },
 
     set_dynamic_destination(state, res) {
       state.destination = res;
+    },
+
+    set_dynamic_my_position(state, res) {
+      state.myPosition = res;
+    },
+
+    set_asks_length(state, res) {
+      state.asksLength = res;
     },
 
     update_position(state, res) {
@@ -123,6 +135,14 @@ export const dynamicStore = {
       return new Promise((resolve, reject) => {
         http.put("/dynamics/" + params.id, params.body ).then(resp => {
           if (resp) {
+            // Envoi d'une notification
+            if ( state.currentDynamic.role == 2 && state.currentAsk && state.currentAsk.status == 1 && resp.data.status == 2) {
+              resp.notification = true
+            }
+            if( state.currentDynamic.role == 1 && resp.data.asks.length > state.asksLength) {
+              commit('set_asks_length', state.currentDynamic.asks.length);
+              resp.notification = true
+            }
             commit(params.result, resp);
             resolve(resp)
           }

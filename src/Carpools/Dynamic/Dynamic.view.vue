@@ -66,6 +66,8 @@ import {LMap} from "vue2-leaflet";import {LTileLayer} from "vue2-leaflet";import
           </ion-button>
         </div>
 
+
+
         <!-- State 2  -->
         <div v-if="state == 2 && destination">
 
@@ -80,12 +82,15 @@ import {LMap} from "vue2-leaflet";import {LTileLayer} from "vue2-leaflet";import
             >
               <l-tile-layer :url="map.url"></l-tile-layer>
               <!--<l-polyline v-if="bounds" :lat-lngs="recapCarpool.directPoints" :color="'blue'"></l-polyline>-->
-              <l-marker
-                :lat-lng="[latitude, longitude]"
-              ></l-marker>
-              <l-marker
-                :lat-lng="[destination.latitude, destination.longitude]"
-              ></l-marker>
+              <l-marker :lat-lng="[myPosition.latitude, myPosition.longitude]">
+                <l-icon :iconSize="[30, 42]" :iconAnchor="[15, 42]" className="custom-div-icon"><div class="marker-pin"></div><ion-icon :name="currentDynamic.role == 1 ? 'car' : 'person'"></ion-icon></l-icon>
+              </l-marker>
+              <l-marker v-if="currentAsk.position" :lat-lng="[currentAsk.position.latitude, currentAsk.position.longitude]">
+                <l-icon :iconSize="[30, 42]" :iconAnchor="[15, 42]" className="custom-div-icon"><div class="marker-pin"></div><ion-icon :name="currentDynamic.role == 1 ? 'person' : 'car'"></ion-icon></l-icon>
+              </l-marker>
+              <l-marker :lat-lng="[destination.latitude, destination.longitude]">
+                <l-icon :iconSize="[30, 42]" :iconAnchor="[15, 42]" className="custom-div-icon"><div class="marker-pin"></div><ion-icon name="locate"></ion-icon></l-icon>
+              </l-marker>
             </l-map>
           </div>
 
@@ -110,7 +115,7 @@ import {LMap} from "vue2-leaflet";import {LTileLayer} from "vue2-leaflet";import
 
               <div v-if="currentProof.id" class="d-flex align-center">
                 <ion-icon name="checkmark"></ion-icon> Preuve déposé
-              </div>ll
+              </div>
               <ion-button v-if="!currentProof.id && currentDynamic.role === 1" @click="postDynamicProof()">Prise en charge du passager</ion-button>
               <ion-button v-if="currentProof.id && currentDynamic.role === 1" @click="putDynamicProof()">Dépose du passager</ion-button>
               <div v-if="currentAsk.proof">
@@ -190,12 +195,51 @@ import {LMap} from "vue2-leaflet";import {LTileLayer} from "vue2-leaflet";import
     margin-bottom: 20px;
   }
 
+  .marker-pin {
+    width: 30px;
+    height: 30px;
+    border-radius: 50% 50% 50% 0;
+    background: var(--ion-color-primary);
+    position: absolute;
+    transform: rotate(-45deg);
+    left: 50%;
+    top: 50%;
+    margin: -15px 0 0 -15px;
+  }
+  // to draw white circle
+  .marker-pin::after {
+    content: '';
+    width: 24px;
+    height: 24px;
+    margin: 3px 0 0 3px;
+    background: #fff;
+    position: absolute;
+    border-radius: 50%;
+  }
+  // to align icon
+  .custom-div-icon i {
+    position: absolute;
+    width: 22px;
+    font-size: 22px;
+    left: 0;
+    right: 0;
+    margin: 10px auto;
+    text-align: center;
+
+  }
+
+  .custom-div-icon ion-icon {
+    font-size: 24px;
+    margin-left: 3px;
+    margin-top: 9px;
+  }
+
 </style>
 
 <script>
   import {toast} from "../../Shared/Mixin/toast.mixin";
   // import { BackgroundGeolocation } from '@mauron85/cordova-plugin-background-geolocation';
-  import { LMap, LTileLayer, LPolyline, LMarker } from "vue2-leaflet";
+  import { LMap, LTileLayer, LPolyline, LMarker, LIcon } from "vue2-leaflet";
   import { BackgroundGeolocation, BackgroundGeolocationEvents } from '@ionic-native/background-geolocation';
   import { Plugins } from '@capacitor/core';
   import {isPlatform} from "@ionic/core";
@@ -207,8 +251,6 @@ import {LMap} from "vue2-leaflet";import {LTileLayer} from "vue2-leaflet";import
     name: 'dynamic',
     data () {
       return {
-        latitude: '',
-        longitude: '',
         map: {
           url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
           zoom: 8,
@@ -219,19 +261,20 @@ import {LMap} from "vue2-leaflet";import {LTileLayer} from "vue2-leaflet";import
             tap: !isPlatform(window.document.defaultView, "mobile"),
             zoomControl: false
           }
-        }
+        },
       }
     },
     components: {
       LMap,
       LTileLayer,
       LPolyline,
-      LMarker
+      LMarker,
+      LIcon
     },
     computed : {
       bounds() {
         if (this.state == 2 && this.destination) {
-          const bounds = new L.LatLngBounds([[this.latitude, this.longitude], [this.destination.latitude, this.destination.longitude]]);
+          const bounds = new L.LatLngBounds([[this.myPosition.latitude, this.myPosition.longitude], [this.destination.latitude, this.destination.longitude]]);
           if (!!this.$refs.dynamicMap) this.$refs.dynamicMap.mapObject.invalidateSize();
           return bounds;
         } else {
@@ -240,6 +283,9 @@ import {LMap} from "vue2-leaflet";import {LTileLayer} from "vue2-leaflet";import
       },
       state() {
         return this.$store.state.dynamicStore.state
+      },
+      myPosition() {
+        return this.$store.state.dynamicStore.myPosition;
       },
       destination() {
           return this.$store.state.dynamicStore.destination;
@@ -253,6 +299,9 @@ import {LMap} from "vue2-leaflet";import {LTileLayer} from "vue2-leaflet";import
       currentProof() {
         return this.$store.state.dynamicStore.currentProof
       },
+      asksLength() {
+        return this.$store.state.dynamicStore.asksLength
+      }
     },
     mixins: [toast],
     props : [],
@@ -267,12 +316,10 @@ import {LMap} from "vue2-leaflet";import {LTileLayer} from "vue2-leaflet";import
       },
       async launchDynamic() {
         const coordinates = await Geolocation.getCurrentPosition();
-        this.latitude = coordinates.coords.latitude.toString();
-        this.longitude = coordinates.coords.longitude.toString();
-
+        this.$store.commit('set_dynamic_my_position', {latitude: coordinates.coords.latitude.toString(), longitude: coordinates.coords.longitude.toString()});
         this.$store.commit('set_dynamic_destination', this.$store.state.searchStore.searchObject.outwardWaypoints[1]);
         console.log(this.destination);
-        this.currentDynamic.waypoints = [{latitude: this.latitude, longitude: this.longitude}, { latitude: this.destination.latitude, longitude: this.destination.longitude}];
+        this.currentDynamic.waypoints = [{latitude: this.myPosition.latitude, longitude: this.myPosition.longitude}, { latitude: this.destination.latitude, longitude: this.destination.longitude}];
 
         this.$store.dispatch('launchDynamics').then( () => {
           console.log(this.currentDynamic);
@@ -280,18 +327,16 @@ import {LMap} from "vue2-leaflet";import {LTileLayer} from "vue2-leaflet";import
         });
       },
       updateDynamics(result, body) {
-        this.$store.dispatch('putDynamics', {
+        return this.$store.dispatch('putDynamics', {
           id : this.currentDynamic['@id'].replace('/dynamics/',''),
           body : body,
           result : result
-        }).then( () => {
-          console.log(this.currentDynamic);
-        });
+        })
       },
       closeDynamics() {
         this.updateDynamics('reset_current_dynamic',{
-          "latitude": this.latitude,
-          "longitude": this.longitude,
+          "latitude": this.myPosition.latitude,
+          "longitude": this.myPosition.longitude,
           "finished": true
         }).then(() => {
           this.stopBackgroundGeolocation();
@@ -299,8 +344,12 @@ import {LMap} from "vue2-leaflet";import {LTileLayer} from "vue2-leaflet";import
       },
       updatePosition() {
         this.updateDynamics('update_position',{
-          "latitude": this.latitude,
-          "longitude": this.longitude
+          "latitude": this.myPosition.latitude,
+          "longitude": this.myPosition.longitude
+        }).then(() => {
+          if( this.currentDynamic.notification) {
+            this.sendLocalNotification()
+          }
         });
       },
       postDynamicAskAlert(matchingId) {
@@ -345,16 +394,16 @@ import {LMap} from "vue2-leaflet";import {LTileLayer} from "vue2-leaflet";import
       },
       postDynamicProof() {
         this.$store.dispatch('postDynamicProofs', {
-          "latitude": this.latitude,
-          "longitude": this.longitude,
+          "latitude": this.myPosition.latitude,
+          "longitude": this.myPosition.longitude,
           "dynamicAskId": this.currentAsk.id
         });
       },
       putDynamicProof() {
         this.$store.dispatch('putDynamicProofs', {
           "proofId": this.currentProof.id,
-          "latitude": this.latitude,
-          "longitude": this.longitude,
+          "latitude": this.myPosition.latitude,
+          "longitude": this.myPosition.longitude,
         });
       },
       startBackgroundGeolocation() {
@@ -373,8 +422,8 @@ import {LMap} from "vue2-leaflet";import {LTileLayer} from "vue2-leaflet";import
             BackgroundGeolocation.on(BackgroundGeolocationEvents.location).subscribe((location) => {
               console.log(location);
 
-              this.latitude = location.latitude.toString();
-              this.longitude = location.longitude.toString();
+              this.$store.commit('set_dynamic_my_position', {latitude: location.latitude.toString(), longitude: location.longitude.toString() });
+
               this.updatePosition();
 
               // IMPORTANT:  You must execute the finish method here to inform the native plugin that you're finished,
@@ -390,6 +439,22 @@ import {LMap} from "vue2-leaflet";import {LTileLayer} from "vue2-leaflet";import
       },
       stopBackgroundGeolocation() {
         BackgroundGeolocation.stop();
+      },
+      async sendLocalNotification() {
+        const notifs = await LocalNotifications.schedule({
+          notifications: [
+            {
+              title: "Covoiturage Dynamique",
+              body: this.currentDynamic.role == 1 ? "Vous avez reçu une demande de covoiturage" : "Votre covoiturage est accepté",
+              id: 1,
+              schedule: { at: new Date(Date.now() + 1000) },
+              sound: null,
+              attachments: null,
+              actionTypeId: "",
+              extra: null
+            }
+          ]
+        });
       }
     }
   }
