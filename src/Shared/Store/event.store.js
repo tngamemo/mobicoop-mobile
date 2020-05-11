@@ -9,6 +9,7 @@ export const eventStore = {
     statusPostEvent: '',
     statusAdsEvent: '',
     currentEvents: null,
+    file: null,
     page: 1,
     total: 0,
     type: 'after', // after || stricly_before
@@ -69,6 +70,7 @@ export const eventStore = {
         url: '',
         user: ''
       };
+      state.file = null
     },
 
     post_event_request(state) {
@@ -182,6 +184,22 @@ export const eventStore = {
           .catch(err => {
             console.log('error');
             commit('ads_event_error');
+            reject(err)
+          })
+      })
+    },
+
+    updateEventPicture({commit}, params) {
+      return new Promise((resolve, reject) => {
+        const formData = new FormData();
+        formData.append('eventFile', params.eventFile);
+        formData.append('eventId', Number(params.eventId));
+
+        http.post(`/images`, formData)
+          .then(resp => {
+            resolve(resp)
+          })
+          .catch(err => {
             reject(err)
           })
       })

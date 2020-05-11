@@ -11,6 +11,20 @@
 
     <ion-content color="primary" no-bounce>
       <div class="mc-white-container mc-post-event" v-if="eventToPost">
+        <!-- Bloc photo -->
+        <div class="mc-user-update-profile ion-margin-bottom" >
+          <div class="mc-user-image">
+            <ion-thumbnail>
+              <img v-if="image" :src="image" alt="">
+            </ion-thumbnail>
+          </div>
+
+          <ion-button class='mc-small-button' color="primary" fill="outline" @click="$refs.imageInput.click()">
+            <ion-icon class="ion-margin-end" name="create"></ion-icon> {{ $t('UpdateProfile.photo') }}
+          </ion-button>
+          <input ref="imageInput" style="display: none" type="file" @change="changePicture($event)" />
+        </div>
+
         <ion-item>
           <ion-label position="floating">{{$t('PostEvent.name')}} *</ion-label>
           <ion-input
@@ -55,6 +69,7 @@
         </div>
 
         <ion-item>
+          <ion-label position="floating">{{$t('PostEvent.fullDescription')}} *</ion-label>
           <ion-textarea
             required
             :value="eventToPost.fullDescription"
@@ -188,6 +203,11 @@ import { toast } from "../../../Shared/Mixin/toast.mixin";
 export default {
   name: "post-event",
   mixins: [toast],
+  data() {
+    return {
+      image: null
+    }
+  },
   validations: {
     eventToPost: {
       name: {
@@ -214,11 +234,20 @@ export default {
   computed: {
     eventToPost() {
       return this.$store.getters.postEvent;
+    },
+    file() {
+      return this.$store.state.eventStore.file;
     }
   },
   created() {
     if (!!!this.eventToPost) {
       this.$store.commit("init_post_event");
+    }
+
+  },
+  mounted() {
+    if (this.file) {
+      this.getBase64(this.file);
     }
   },
   methods: {
@@ -235,14 +264,26 @@ export default {
           .dispatch("postEvent", this.eventToPost)
           .then(resp => {
             this.presentToast(this.$t("Event.success"), "success");
-            this.$store.commit("init_post_event");
-            this.$router.back();
+            if (this.file) {
+              this.$store.dispatch("updateEventPicture", {eventId: resp.data.id, eventFile: this.file}).then(() => {
+                this.$store.commit("init_post_event");
+                this.$router.back();
+              }).catch( () => {
+                this.$store.commit("init_post_event");
+                this.$router.back();
+              });
+            } else {
+              this.$store.commit("init_post_event");
+              this.$router.back();
+            }
+
           })
           .catch(err => {
             this.presentToast(this.$t("Commons.error"), "danger");
           });
       }
     },
+
 
     goGeoSearch(type, action) {
       this.$router.push({
@@ -271,6 +312,28 @@ export default {
       date.setMinutes(min);
       this.eventToPost.toDate = this.$moment(date).utc().format();
       this.eventToPost.useTime = true;
+    },
+
+    changePicture(e) {
+      const file = e.target.files[0];
+      if (file.size <= 1000000) {
+        this.$store.state.eventStore.file = file;
+        this.getBase64(file);
+      } else {
+        this.presentToast(this.$t("UpdateProfile.file-size"), 'danger')
+      }
+    },
+    getBase64(file) {
+      console.log(this.file);
+      var reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        console.log(this.file);
+        this.image = reader.result
+      };
+      reader.onerror = (error) => {
+        console.log('Error: ', error);
+      };
     }
   }
 };

@@ -1,4 +1,5 @@
 import http from '../Mixin/http.mixin'
+import { isPlatform } from "@ionic/core";
 
 export const userStore = {
   state: {
@@ -143,8 +144,16 @@ export const userStore = {
   actions: {
     login({commit}, params) {
       commit('auth_request')
+      let mobile = '';
+      if (isPlatform(window.document.defaultView, "ios")) {
+        mobile = '?mobile=1'
+      }
+      if (isPlatform(window.document.defaultView, "android")) {
+        mobile = '?mobile=2'
+      }
+
       return new Promise((resolve, reject) => {
-        http.post("/login", {"username": params.username, "password": params.password})
+        http.post("/login" + mobile, {"username": params.username, "password": params.password})
           .then(resp => {
             if (resp) {
               const tokenUser = resp.data.token

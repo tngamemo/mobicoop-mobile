@@ -1,4 +1,5 @@
 import http from '../Mixin/http.mixin'
+import { isPlatform } from "@ionic/core";
 
 export const registerStore = {
   state: {
@@ -75,7 +76,7 @@ export const registerStore = {
           maxDeviationDistance:10000,
           anyRouteAsPassenger:false,
           newsSubscription:true,
-          registerFromMobile: true,
+          mobileRegistration: 1,
           language: "fr_FR",
           addresses: '',
       };
@@ -88,9 +89,17 @@ export const registerStore = {
     register: ({commit, state}) => {
       commit('register_request');
       const u = Object.assign({}, state.userToRegister);
+      delete u.registerFromMobile;
       delete u.confirmPassword;
       delete u.addresses[0].id;
       delete u.addresses[0].geoJson;
+      u.mobileRegistration = 1;
+      if (isPlatform(window.document.defaultView, "ios")) {
+        u.mobileRegistration = 2;
+      }
+      if (isPlatform(window.document.defaultView, "android")) {
+        u.mobileRegistration = 3;
+      }
       return new Promise((resolve, reject) => {
         http.post("/users/register", u).then(resp => {
           if (resp) {
@@ -105,8 +114,16 @@ export const registerStore = {
     },
     validateToken: ({commit, state}, params) => {
       commit('validate_token_request');
+      let mobile = '';
+      if (isPlatform(window.document.defaultView, "ios")) {
+        mobile = '?mobile=1'
+      }
+      if (isPlatform(window.document.defaultView, "android")) {
+        mobile = '?mobile=2'
+      }
+
       return new Promise((resolve, reject) => {
-        http.post("/login-token", params).then(resp => {
+        http.post("/login-token" + mobile, params).then(resp => {
           if (resp) {
             const tokenUser = resp.data.token;
             localStorage.setItem('tokenUser', tokenUser);
