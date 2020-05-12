@@ -244,6 +244,7 @@ import {LMap} from "vue2-leaflet";import {LTileLayer} from "vue2-leaflet";import
   import { Plugins } from '@capacitor/core';
   import {isPlatform} from "@ionic/core";
   const { Geolocation } = Plugins;
+  const { LocalNotifications } = Plugins;
 
 
 
