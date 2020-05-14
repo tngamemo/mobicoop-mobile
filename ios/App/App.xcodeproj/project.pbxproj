@@ -19,6 +19,8 @@
 		6A2E24577BC25BAA01CE7560 /* Pods_OuestGo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 091659A8431A7FE1B6092F40 /* Pods_OuestGo.framework */; };
 		77397E46349C1B24E780CD04 /* Pods_Grand_Lyon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A553FBCF5C28BB918961DC1 /* Pods_Grand_Lyon.framework */; };
 		7E58C2DFAF4A614EC197C59C /* Pods_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 582D0F00A9C256EA7C0CC948 /* Pods_App.framework */; };
+		812ABAB9246D773900DC9A9D /* GoogleService-Info-OuestGo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 812ABAB8246D773900DC9A9D /* GoogleService-Info-OuestGo.plist */; };
+		812ABABB246D7D0C00DC9A9D /* GoogleService-Info-Movici.plist in Resources */ = {isa = PBXBuildFile; fileRef = 812ABABA246D7D0C00DC9A9D /* GoogleService-Info-Movici.plist */; };
 		816F3EB5242CE44D0015981B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504EC3071FED79650016851F /* AppDelegate.swift */; };
 		816F3EB9242CE44D0015981B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 504EC3101FED79650016851F /* LaunchScreen.storyboard */; };
 		816F3EBA242CE44D0015981B /* public in Resources */ = {isa = PBXBuildFile; fileRef = 50B271D01FEDC1A000F3C39B /* public */; };
@@ -98,6 +100,14 @@
 		7BBE58283A12DB0FB19374C2 /* Pods-Grand Lyon.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Grand Lyon.release.xcconfig"; path = "Pods/Target Support Files/Pods-Grand Lyon/Pods-Grand Lyon.release.xcconfig"; sourceTree = "<group>"; };
 		8112C86D242CF0FE0081909B /* Capacitor.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Capacitor.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8112C870242CF1040081909B /* Cordova.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Cordova.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		812ABAB8246D773900DC9A9D /* GoogleService-Info-OuestGo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-OuestGo.plist"; sourceTree = "<group>"; };
+		812ABABA246D7D0C00DC9A9D /* GoogleService-Info-Movici.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-Movici.plist"; sourceTree = "<group>"; };
+		812ABABC246D828400DC9A9D /* Movici.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Movici.entitlements; sourceTree = "<group>"; };
+		812ABABD246D833500DC9A9D /* Mobicoop.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Mobicoop.entitlements; sourceTree = "<group>"; };
+		812ABABE246D834100DC9A9D /* OuestGo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OuestGo.entitlements; sourceTree = "<group>"; };
+		812ABABF246D834B00DC9A9D /* Picholines.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Picholines.entitlements; sourceTree = "<group>"; };
+		812ABAC0246D835500DC9A9D /* PassPass.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PassPass.entitlements; sourceTree = "<group>"; };
+		812ABAC1246D835E00DC9A9D /* Grand Lyon.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Grand Lyon.entitlements"; sourceTree = "<group>"; };
 		816F3EC5242CE44D0015981B /* Picholines.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Picholines.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		816F3EC6242CE44E0015981B /* Picholines-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Picholines-Info.plist"; path = "/Users/volteris/Documents/idea/mobicoop-v2/ios/App/Picholines-Info.plist"; sourceTree = "<absolute>"; };
 		816F3EC7242CE4AA0015981B /* PicholinesAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = PicholinesAssets.xcassets; sourceTree = "<group>"; };
@@ -206,6 +216,12 @@
 		504EC2FB1FED79650016851F = {
 			isa = PBXGroup;
 			children = (
+				812ABAC1246D835E00DC9A9D /* Grand Lyon.entitlements */,
+				812ABAC0246D835500DC9A9D /* PassPass.entitlements */,
+				812ABABF246D834B00DC9A9D /* Picholines.entitlements */,
+				812ABABE246D834100DC9A9D /* OuestGo.entitlements */,
+				812ABABD246D833500DC9A9D /* Mobicoop.entitlements */,
+				812ABABC246D828400DC9A9D /* Movici.entitlements */,
 				504EC3061FED79650016851F /* App */,
 				504EC3051FED79650016851F /* Products */,
 				7F8756D8B27F46E3366F6CEA /* Pods */,
@@ -248,6 +264,8 @@
 				816F3EC6242CE44E0015981B /* Picholines-Info.plist */,
 				81B68644243F6CC300A2FBC5 /* PassPass-Info.plist */,
 				817E8CCE24644BAB0060A3B8 /* GrandLyon-Info.plist */,
+				812ABAB8246D773900DC9A9D /* GoogleService-Info-OuestGo.plist */,
+				812ABABA246D7D0C00DC9A9D /* GoogleService-Info-Movici.plist */,
 				2FAD9762203C412B000D30F8 /* config.xml */,
 				50B271D01FEDC1A000F3C39B /* public */,
 			);
@@ -524,6 +542,7 @@
 				81AC96F624226D6300C2029E /* Main.storyboard in Resources */,
 				81AC970224226F6200C2029E /* OuestGoAssets.xcassets in Resources */,
 				81AC96F724226D6300C2029E /* config.xml in Resources */,
+				812ABAB9246D773900DC9A9D /* GoogleService-Info-OuestGo.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -531,6 +550,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				812ABABB246D7D0C00DC9A9D /* GoogleService-Info-Movici.plist in Resources */,
 				81AC970A2422758500C2029E /* LaunchScreen.storyboard in Resources */,
 				81AC970B2422758500C2029E /* public in Resources */,
 				81AC9719242276F500C2029E /* Movici-Info.plist in Resources */,
@@ -1128,6 +1148,7 @@
 			baseConfigurationReference = F13E884ADDDCBC572AFDB82C /* Pods-Picholines.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Picholines.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 8X98ZWRY77;
@@ -1149,6 +1170,7 @@
 			baseConfigurationReference = 015B17DD3DE27CDFE48FBFD6 /* Pods-Picholines.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Picholines.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 8X98ZWRY77;
@@ -1169,6 +1191,7 @@
 			baseConfigurationReference = 9E57571C9F54CFB5A21ACEC6 /* Pods-Grand Lyon.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Grand Lyon.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
@@ -1192,6 +1215,7 @@
 			baseConfigurationReference = 7BBE58283A12DB0FB19374C2 /* Pods-Grand Lyon.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Grand Lyon.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
@@ -1214,6 +1238,7 @@
 			baseConfigurationReference = D12368848BA50F09F7676E42 /* Pods-OuestGo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = OuestGo.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 8X98ZWRY77;
@@ -1235,6 +1260,7 @@
 			baseConfigurationReference = 48879B0654E0117D90BA6767 /* Pods-OuestGo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = OuestGo.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 8X98ZWRY77;
@@ -1255,6 +1281,7 @@
 			baseConfigurationReference = B5B1B0CD92260C1F49F7FC15 /* Pods-Movici.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Movici.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 6RT7MUDED3;
@@ -1276,6 +1303,7 @@
 			baseConfigurationReference = 2273C20040C7C6A037A18D79 /* Pods-Movici.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Movici.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 6RT7MUDED3;
@@ -1296,6 +1324,7 @@
 			baseConfigurationReference = 64855E3DA1BC17FEE445B813 /* Pods-PassPass.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = PassPass.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 8X98ZWRY77;
@@ -1317,6 +1346,7 @@
 			baseConfigurationReference = A499D109DE77C321FA5AACC2 /* Pods-PassPass.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = PassPass.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 8X98ZWRY77;
@@ -1336,6 +1366,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Mobicoop.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 8X98ZWRY77;
@@ -1356,6 +1387,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Mobicoop.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 8X98ZWRY77;

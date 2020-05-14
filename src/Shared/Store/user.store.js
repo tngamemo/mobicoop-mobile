@@ -420,6 +420,27 @@ export const userStore = {
           })
       })
     },
+    /**
+     * Fonction pour récupérer les informations d'un utilisateur
+     */
+    postPushToken({commit}, params) {
+      let mobile = 0;
+      if (isPlatform(window.document.defaultView, "ios")) {
+        mobile = 1
+      }
+      if (isPlatform(window.document.defaultView, "android")) {
+        mobile = 2
+      }
+      return new Promise((resolve, reject) => {
+        http.post(`/push_token`, { token: params, type: mobile })
+          .then(resp => {
+            resolve(resp)
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
+    },
 
   },
   getters : {
