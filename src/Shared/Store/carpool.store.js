@@ -293,7 +293,7 @@ export const carpoolStore = {
             commit('distance_success', { distance: resp.data['hydra:member'][0].distance })
             commit('carpool_gps', { directPoints: resp.data['hydra:member'][0].directPoints })
 
-            dispatch('getPriceofCarpool', { priceKm: process.env.VUE_APP_PRICE_BY_KM }).then(resp => {
+            dispatch('getPriceofCarpool', { priceKm: Math.round(state.distanceCarpool * process.env.VUE_APP_PRICE_BY_KM * 100) / 100 / 1000 }).then(resp => {
               // On commit et envoie le resultat
               commit('price_carpool_success', { price: resp.data.value })
             })
@@ -308,7 +308,10 @@ export const carpoolStore = {
     },
 
     getPriceofCarpool({ commit, state }, payload) {
-      const priceTmp = Math.round(state.distanceCarpool * payload.priceKm * 100) / 100 / 1000;
+
+      // const priceTmp = Math.round(state.distanceCarpool * payload.priceKm * 100) / 100 / 1000;
+
+      const priceTmp = Number(payload.priceKm);
 
       return new Promise((resolve, reject) => {
         commit('price_carpool_request');

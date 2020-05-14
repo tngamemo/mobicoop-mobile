@@ -191,7 +191,7 @@ export default {
       }
 
       this.$store
-        .dispatch("getPriceofCarpool", { priceKm: this.priceKmTmp })
+        .dispatch("getPriceofCarpool", { priceKm: price })
         .then(resp => {
           this.priceRound = resp.data.value;
           if (resp.data.value != price) {
