@@ -1,4 +1,3 @@
-import {LMap} from "vue2-leaflet";import {LTileLayer} from "vue2-leaflet";import {LPolyline} from "vue2-leaflet";import {LMarker} from "vue2-leaflet";
 <template>
   <div class="ion-page">
     <ion-header no-border>
