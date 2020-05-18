@@ -3,21 +3,23 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>619065905692-to4b4vit6letusinpr674519esc7t60e.apps.googleusercontent.com</string>
+	<string>610048529011-jjaap6kalo7rsask8bai0pjpr5oq3glr.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.619065905692-to4b4vit6letusinpr674519esc7t60e</string>
+	<string>com.googleusercontent.apps.610048529011-jjaap6kalo7rsask8bai0pjpr5oq3glr</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>610048529011-c59mv7evnhslmnafvatogvkpkdj99k5c.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
-	<string>AIzaSyBTHmY86oYAb-yS7wq2lcPQPHAuR2qws_s</string>
+	<string>AIzaSyA9UZYTpG050WcCqdEuUPA2qn_MCnIZ6Mw</string>
 	<key>GCM_SENDER_ID</key>
-	<string>619065905692</string>
+	<string>610048529011</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>eu.covivo.ouestgo</string>
+	<string>fr.mobicoop.ouestgo</string>
 	<key>PROJECT_ID</key>
-	<string>mobicoop-platform</string>
+	<string>covisoft-84af5</string>
 	<key>STORAGE_BUCKET</key>
-	<string>mobicoop-platform.appspot.com</string>
+	<string>covisoft-84af5.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,8 +31,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:619065905692:ios:9779fe2abd8aecae0185d9</string>
+	<string>1:610048529011:ios:0a582febc8449d45599006</string>
 	<key>DATABASE_URL</key>
-	<string>https://mobicoop-platform.firebaseio.com</string>
+	<string>https://covisoft-84af5.firebaseio.com</string>
 </dict>
 </plist>

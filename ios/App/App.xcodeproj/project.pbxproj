@@ -19,7 +19,6 @@
 		6A2E24577BC25BAA01CE7560 /* Pods_OuestGo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 091659A8431A7FE1B6092F40 /* Pods_OuestGo.framework */; };
 		77397E46349C1B24E780CD04 /* Pods_Grand_Lyon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A553FBCF5C28BB918961DC1 /* Pods_Grand_Lyon.framework */; };
 		7E58C2DFAF4A614EC197C59C /* Pods_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 582D0F00A9C256EA7C0CC948 /* Pods_App.framework */; };
-		812ABAB9246D773900DC9A9D /* GoogleService-Info-OuestGo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 812ABAB8246D773900DC9A9D /* GoogleService-Info-OuestGo.plist */; };
 		812ABABB246D7D0C00DC9A9D /* GoogleService-Info-Movici.plist in Resources */ = {isa = PBXBuildFile; fileRef = 812ABABA246D7D0C00DC9A9D /* GoogleService-Info-Movici.plist */; };
 		816F3EB5242CE44D0015981B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504EC3071FED79650016851F /* AppDelegate.swift */; };
 		816F3EB9242CE44D0015981B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 504EC3101FED79650016851F /* LaunchScreen.storyboard */; };
@@ -70,6 +69,10 @@
 		81B6865E243F754400A2FBC5 /* Mobicoop-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 81B6865D243F752900A2FBC5 /* Mobicoop-Info.plist */; };
 		81B68661243F756300A2FBC5 /* MobicoopAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 81B6865F243F755D00A2FBC5 /* MobicoopAssets.xcassets */; };
 		81B68662243F759100A2FBC5 /* PassPassAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 81B68645243F6D0500A2FBC5 /* PassPassAssets.xcassets */; };
+		81BE23D92472B9E30073D645 /* GoogleService-Info-OuestGo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 81BE23D82472B9E30073D645 /* GoogleService-Info-OuestGo.plist */; };
+		81BE23DC2472BBB70073D645 /* GoogleService-Info-Picholines.plist in Resources */ = {isa = PBXBuildFile; fileRef = 81BE23DA2472BBB60073D645 /* GoogleService-Info-Picholines.plist */; };
+		81BE23DE2472BE290073D645 /* GoogleService-Info-PassPass.plist in Resources */ = {isa = PBXBuildFile; fileRef = 81BE23DD2472BE280073D645 /* GoogleService-Info-PassPass.plist */; };
+		81BE23E02472BE770073D645 /* GoogleService-Info-Grand Lyon.plist in Resources */ = {isa = PBXBuildFile; fileRef = 81BE23DF2472BE770073D645 /* GoogleService-Info-Grand Lyon.plist */; };
 		A084ECDBA7D38E1E42DFC39D /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		C4931EAFBB76EA38FDF8219C /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		D2DE11C465D056F6074C85A7 /* Pods_PassPass.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E67C0BAF98B68423BB4EBEF2 /* Pods_PassPass.framework */; };
@@ -100,7 +103,6 @@
 		7BBE58283A12DB0FB19374C2 /* Pods-Grand Lyon.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Grand Lyon.release.xcconfig"; path = "Pods/Target Support Files/Pods-Grand Lyon/Pods-Grand Lyon.release.xcconfig"; sourceTree = "<group>"; };
 		8112C86D242CF0FE0081909B /* Capacitor.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Capacitor.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8112C870242CF1040081909B /* Cordova.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Cordova.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		812ABAB8246D773900DC9A9D /* GoogleService-Info-OuestGo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-OuestGo.plist"; sourceTree = "<group>"; };
 		812ABABA246D7D0C00DC9A9D /* GoogleService-Info-Movici.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-Movici.plist"; sourceTree = "<group>"; };
 		812ABABC246D828400DC9A9D /* Movici.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Movici.entitlements; sourceTree = "<group>"; };
 		812ABABD246D833500DC9A9D /* Mobicoop.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Mobicoop.entitlements; sourceTree = "<group>"; };
@@ -126,6 +128,10 @@
 		81B6865C243F752800A2FBC5 /* Mobicoop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mobicoop.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		81B6865D243F752900A2FBC5 /* Mobicoop-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Mobicoop-Info.plist"; path = "/Users/volteris/Documents/idea/mobicoop-v2/ios/App/Mobicoop-Info.plist"; sourceTree = "<absolute>"; };
 		81B6865F243F755D00A2FBC5 /* MobicoopAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MobicoopAssets.xcassets; sourceTree = "<group>"; };
+		81BE23D82472B9E30073D645 /* GoogleService-Info-OuestGo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info-OuestGo.plist"; path = "../../../../../../Downloads/GoogleService-Info-OuestGo.plist"; sourceTree = "<group>"; };
+		81BE23DA2472BBB60073D645 /* GoogleService-Info-Picholines.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info-Picholines.plist"; path = "../../../../../../Downloads/GoogleService-Info-Picholines.plist"; sourceTree = "<group>"; };
+		81BE23DD2472BE280073D645 /* GoogleService-Info-PassPass.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info-PassPass.plist"; path = "../../../../../../Downloads/GoogleService-Info-PassPass.plist"; sourceTree = "<group>"; };
+		81BE23DF2472BE770073D645 /* GoogleService-Info-Grand Lyon.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info-Grand Lyon.plist"; path = "../../../../../../Downloads/GoogleService-Info-Grand Lyon.plist"; sourceTree = "<group>"; };
 		902C98C63362C39935A4385D /* Pods-App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App.debug.xcconfig"; path = "Pods/Target Support Files/Pods-App/Pods-App.debug.xcconfig"; sourceTree = "<group>"; };
 		9E57571C9F54CFB5A21ACEC6 /* Pods-Grand Lyon.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Grand Lyon.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Grand Lyon/Pods-Grand Lyon.debug.xcconfig"; sourceTree = "<group>"; };
 		A499D109DE77C321FA5AACC2 /* Pods-PassPass.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PassPass.release.xcconfig"; path = "Pods/Target Support Files/Pods-PassPass/Pods-PassPass.release.xcconfig"; sourceTree = "<group>"; };
@@ -264,8 +270,11 @@
 				816F3EC6242CE44E0015981B /* Picholines-Info.plist */,
 				81B68644243F6CC300A2FBC5 /* PassPass-Info.plist */,
 				817E8CCE24644BAB0060A3B8 /* GrandLyon-Info.plist */,
-				812ABAB8246D773900DC9A9D /* GoogleService-Info-OuestGo.plist */,
+				81BE23D82472B9E30073D645 /* GoogleService-Info-OuestGo.plist */,
 				812ABABA246D7D0C00DC9A9D /* GoogleService-Info-Movici.plist */,
+				81BE23DA2472BBB60073D645 /* GoogleService-Info-Picholines.plist */,
+				81BE23DD2472BE280073D645 /* GoogleService-Info-PassPass.plist */,
+				81BE23DF2472BE770073D645 /* GoogleService-Info-Grand Lyon.plist */,
 				2FAD9762203C412B000D30F8 /* config.xml */,
 				50B271D01FEDC1A000F3C39B /* public */,
 			);
@@ -508,6 +517,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				816F3EB9242CE44D0015981B /* LaunchScreen.storyboard in Resources */,
+				81BE23DC2472BBB70073D645 /* GoogleService-Info-Picholines.plist in Resources */,
 				816F3EBA242CE44D0015981B /* public in Resources */,
 				816F3EBC242CE44D0015981B /* capacitor.config.json in Resources */,
 				816F3EBD242CE44D0015981B /* Main.storyboard in Resources */,
@@ -522,6 +532,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				817E8CC124644BAB0060A3B8 /* LaunchScreen.storyboard in Resources */,
+				81BE23E02472BE770073D645 /* GoogleService-Info-Grand Lyon.plist in Resources */,
 				817E8CC224644BAB0060A3B8 /* public in Resources */,
 				817E8CC324644BAB0060A3B8 /* capacitor.config.json in Resources */,
 				817E8CC524644BAB0060A3B8 /* Main.storyboard in Resources */,
@@ -542,7 +553,7 @@
 				81AC96F624226D6300C2029E /* Main.storyboard in Resources */,
 				81AC970224226F6200C2029E /* OuestGoAssets.xcassets in Resources */,
 				81AC96F724226D6300C2029E /* config.xml in Resources */,
-				812ABAB9246D773900DC9A9D /* GoogleService-Info-OuestGo.plist in Resources */,
+				81BE23D92472B9E30073D645 /* GoogleService-Info-OuestGo.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -566,6 +577,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				81B68662243F759100A2FBC5 /* PassPassAssets.xcassets in Resources */,
+				81BE23DE2472BE290073D645 /* GoogleService-Info-PassPass.plist in Resources */,
 				81B68637243F6CC200A2FBC5 /* LaunchScreen.storyboard in Resources */,
 				81B68648243F6D0F00A2FBC5 /* PassPass-Info.plist in Resources */,
 				81B68638243F6CC200A2FBC5 /* public in Resources */,

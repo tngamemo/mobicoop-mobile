@@ -104,6 +104,42 @@
     },
     {
       "client_info": {
+        "mobilesdk_app_id": "1:610048529011:android:2c49757478211438599006",
+        "android_client_info": {
+          "package_name": "eu.covivo.picholines"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "610048529011-t7q4nfni7fedvv52d9clneop8nlaoaml.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFvHAFfvqm_bxcfxaOykTC8MFsezPUGr4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "610048529011-t7q4nfni7fedvv52d9clneop8nlaoaml.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "610048529011-g0suflkvp8hbg0lskv3v706kkpu17vd3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "fr.mobicoop.grandlyon"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:610048529011:android:23e01a4d64a54e2d",
         "android_client_info": {
           "package_name": "fr.auvergnerhonealpes.movici"
