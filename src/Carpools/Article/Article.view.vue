@@ -98,12 +98,11 @@
       return {
         sections: [],
         active: [],
-        paramId: null,
-        title: '',
-        id: null
+        paramId: null
       }
     },
     mixins: [toast],
+    props : ['title' , 'id'],
     created() {
       this.paramId = this.$route.params.id;
       if (this.paramId) {

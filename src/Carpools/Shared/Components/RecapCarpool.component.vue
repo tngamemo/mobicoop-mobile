@@ -72,12 +72,13 @@
           </div>
         </div>
 
-        <div class="d-flex flex-col">
+        <div class="timeline-container d-flex flex-col">
           <p
             class="timeline text-left d-flex align-center"
             v-for="(step, index) in recapCarpool.outwardWaypoints"
             :key="index"
           >
+            <span v-if="!!!step.role && !!!step.type" class="dot"></span>
             <ion-icon
               v-if="step.role && step.type"
               :name="getIconStepName(step).name"
@@ -165,6 +166,12 @@
     color: white;
     margin-right: 10px;
     min-width: 16px;
+
+    &.active {
+      font-size: 22px;
+      margin-left: -3px;
+      min-width: 22px
+    }
   }
 
   .mc-icon-step-background-primary {
@@ -233,10 +240,35 @@
       background: white;
       color: var(--ion-color-primary);
 
+      .timeline-container{
+        position: relative;
+      }
+
+      .timeline-container::before {
+        content: "";
+        position: absolute;
+        margin: auto;
+        width: 1px;
+        background-color: lightgrey;
+        top: 7px;
+        bottom: 7px;
+        left: 11px;
+      }
+
+      .dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 6px;
+        background-color: var(--ion-color-primary);
+        margin-left: 5px;
+        margin-right: 10px;
+      }
+
       .timeline {
         position: relative;
-        padding-left: 20px;
+        //padding-left: 20px;
 
+        /*
         &::before {
           content: "";
           position: absolute;
@@ -249,6 +281,7 @@
           bottom: 0;
           left: 0px;
         }
+         */
       }
     }
 
@@ -377,12 +410,12 @@ export default {
           if (step.role == "driver") {
             return {
               name: "home",
-              background: "mc-icon-step-background-green"
+              background: "mc-icon-step-background-green" + (this.recapCarpool.driver ? ' active' : '')
             };
           } else {
             return {
               name: "person",
-              background: "mc-icon-step-background-primary"
+              background: "mc-icon-step-background-primary" + (this.recapCarpool.passenger ? ' active' : '')
             };
           }
           break;
@@ -391,24 +424,24 @@ export default {
           if (step.role == "driver") {
             return {
               name: "flag",
-              background: "mc-icon-step-background-green"
+              background: "mc-icon-step-background-green" + (this.recapCarpool.driver ? ' active' : '')
             };
           } else {
             return {
               name: "flag",
-              background: "mc-icon-step-background-primary"
+              background: "mc-icon-step-background-primary" + (this.recapCarpool.passenger ? ' active' : '')
             };
           }
 
         case "step":
           if (step.role == "driver") {
             return {
-              name: "flag",
+              name: "pin",
               background: "mc-icon-step-background-green"
             };
           } else {
             return {
-              name: "flag",
+              name: "pin",
               background: "mc-icon-step-background-primary"
             };
           }

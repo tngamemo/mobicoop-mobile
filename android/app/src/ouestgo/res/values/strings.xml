@@ -2,6 +2,6 @@
 <resources>
   <string name="app_name">OuestGo</string>
   <string name="title_activity_main">OuestGo</string>
-  <string name="package_name">eu.covivo.ouestgo</string>
-  <string name="custom_url_scheme">eu.covivo.ouestgo</string>
+  <string name="package_name">fr.mobicoop.ouestgo</string>
+  <string name="custom_url_scheme">fr.mobicoop.ouestgo</string>
 </resources>

@@ -254,6 +254,8 @@
   justify-content: center;
   align-items: center;
   width: 100%;
+  z-index: 2;
+
   div {
     border: 2px solid rgba(0, 0, 0, 0.12);
     background: white;
