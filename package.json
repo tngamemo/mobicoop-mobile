@@ -19,6 +19,7 @@
     "build:ouestgo:test": "export NODE_ENV=production && export VUE_APP_API_URL=https://api.test.lab.ouestgo.fr && vue-cli-service build --mode ouestgo",
     "build:ouestgo:staging": "export NODE_ENV=production && export VUE_APP_API_URL=https://api.staging.ouestgo.fr && vue-cli-service build --mode ouestgo",
     "build:ouestgo:prod": "export NODE_ENV=production && export VUE_APP_API_URL=https://api.ouestgo.fr && export VUE_APP_API_PASSWORD=1QPR0d3ikhg4 && vue-cli-service build --mode ouestgo",
+    "build:movici:dev": "export NODE_ENV=production && export VUE_APP_API_URL=https://api.dev.movici.mobicoop.io && vue-cli-service build --mode movici",
     "build:movici:test": "export NODE_ENV=production && export VUE_APP_API_URL=https://api.test.movici.mobicoop.io && vue-cli-service build --mode movici",
     "build:movici:staging": "export NODE_ENV=production && export VUE_APP_API_URL=https://api.staging.moviciv2.auvergnerhonealpes.fr && vue-cli-service build --mode movici",
     "build:picholines:test": "export NODE_ENV=production && export VUE_APP_API_URL=https://api.test.picholines.mobicoop.io && vue-cli-service build --mode picholines",
@@ -27,10 +28,10 @@
     "i18n:report": "vue-cli-service i18n:report --src './src/**/*.?(js|vue)' --locales './src/locales/**/*.json'"
   },
   "dependencies": {
-    "@capacitor/android": "2.0.0-beta.1",
-    "@capacitor/cli": "2.0.0-beta.1",
-    "@capacitor/core": "2.0.0-beta.1",
-    "@capacitor/ios": "2.0.0-beta.1",
+    "@capacitor/android": "2.1.0",
+    "@capacitor/cli": "2.1.0",
+    "@capacitor/core": "2.1.0",
+    "@capacitor/ios": "2.1.0",
     "@ionic/core": "^4.11.10",
     "@ionic/vue": "0.0.9",
     "axios": "^0.19.2",
