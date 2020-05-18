@@ -322,7 +322,7 @@ export const userStore = {
     getUserCommunities({commit, getters}, params){
       return new Promise((resolve, reject) => {
         commit('user_communities_request');
-        http.get(`/communities?communityUsers.user.id=${getters.userId}`)
+        http.get(`/communities/ismember`)
         .then(resp => {
           // On commit et envoie le resultat
           commit('user_communities_success', resp.data['hydra:member'])

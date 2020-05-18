@@ -24,7 +24,7 @@ android {
           dimension "api"
         }
         ouestgo {
-            applicationId 'eu.covivo.ouestgo'
+            applicationId 'fr.mobicoop.ouestgo'
             versionName '2.0.1'
             dimension "api"
         }

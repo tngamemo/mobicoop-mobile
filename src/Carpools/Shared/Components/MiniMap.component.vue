@@ -68,8 +68,8 @@ export default {
   computed: {
     bounds() {
       let bounds;
-      if (this.LMarker) bounds = new L.LatLngBounds(this.LMarker.map(item => item.latlng));
-      if (this.LPolyline) bounds = new L.LatLngBounds(this.LPolyline);
+      if (this.LMarker && this.LMarker.length > 0) bounds = new L.LatLngBounds(this.LMarker.map(item => item.latlng));
+      if (this.LPolyline && this.LPolyline.length > 0) bounds = new L.LatLngBounds(this.LPolyline);
       if (!!this.$refs.map) this.$refs.map.mapObject.invalidateSize();
       return bounds;
     }
