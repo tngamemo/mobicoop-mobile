@@ -78,6 +78,14 @@
 
   import { toast } from '../../Shared/Mixin/toast.mixin';
   import jwt_decode from "jwt-decode";
+  import {
+    Plugins,
+    PushNotification,
+    PushNotificationToken,
+    PushNotificationActionPerformed } from '@capacitor/core';
+  import {isPlatform} from "@ionic/core";
+
+  const { PushNotifications } = Plugins;
 
   export default {
     name: 'login',
@@ -133,6 +141,17 @@
             this.$store.commit('redirectionUrl_reset');
          } else {
             this.$router.push('home');
+         }
+
+         if(isPlatform(window.document.defaultView, "capacitor")) {
+           PushNotifications.requestPermission().then(result => {
+             if (result.granted) {
+               // Register with Apple / Google to receive push via APNS/FCM
+               PushNotifications.register();
+             } else {
+               // Show some error
+             }
+           });
          }
 
         })

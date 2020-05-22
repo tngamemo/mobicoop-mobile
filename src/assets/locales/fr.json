@@ -80,6 +80,7 @@
     "register_address": "Adresse",
     "update_user_address": "Adresse",
     "update_event_address": "Adresse",
+    "update_community_address": "Adresse",
     "destination": "Lieu d'arrivée",
     "placeHolder": "Veuillez renseigner une adresse (Ville, etc...)",
     "date": "Date",
@@ -221,7 +222,8 @@
     "checkEmail" : "Ce mail existe déjà en base de donnée",
     "age" : "Votre âge doit être supérieur à {value} ans",
     "maxLength" : "Ce champ ne peut pas contenir plus de {value} caractères",
-    "isAfterDate" : "La date doit être supérieure à la date d'aller"
+    "isAfterDate" : "La date doit être supérieure à la date d'aller",
+    "isAfterNow" : "La date doit être supérieure à maintenant"
   },
   "Carpool" : {
     "L": "L",
@@ -313,6 +315,8 @@
   "Community" : {
     "title": "Communauté",
     "leaveCommu": "Quitter la communauté",
+    "leaveHasMember" : "Si vous avez encore des annonces valides associées à cette communauté, ces annonces ne seront plus marquées comme étant liées à la communauté une fois que vous l'aurez quittée",
+    "isOwnerLeave" : "En tant que référent de cette communauté, vous ne pouvez pas la quitter. Contacter le support technique pour changer de référent ou supprimer cette communauté.",
     "joinCommu": "Rejoindre la communauté",
     "join_success": "Vous avez rejoins la communauté",
     "leave_success": "Vous avez quitté la communauté",

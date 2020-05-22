@@ -190,7 +190,7 @@ export default [
     beforeEnter: guardAccesByLogin
   },
   {
-    path: '/events',
+    path: 'events',
     name: 'carpool-events',
     component: Events,
     beforeEnter: guardAccesByLogin

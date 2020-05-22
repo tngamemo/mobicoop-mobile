@@ -9,6 +9,7 @@ export const communityStore = {
     statusAdsCommunity: '',
     statusPostCommunity: '',
     communities: [],
+    file: null,
     page: 1,
     total: 0,
     postCommunity: null
@@ -91,6 +92,7 @@ export const communityStore = {
         user: '',
         communityUsers: ''
       };
+      state.file = null;
     },
 
     post_community_request(state) {
@@ -216,9 +218,8 @@ export const communityStore = {
     updateCommunityPicture({commit}, params) {
       return new Promise((resolve, reject) => {
         const formData = new FormData();
-        //todo
-        formData.append('userFile', params.file);
-        formData.append('userId', Number(params.userId));
+        formData.append('communityFile', params.communityFile);
+        formData.append('communityId', Number(params.communityId));
 
         http.post(`/images`, formData)
           .then(resp => {

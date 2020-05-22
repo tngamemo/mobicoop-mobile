@@ -3,7 +3,7 @@
     <ion-header no-border>
       <ion-toolbar color="primary">
         <ion-buttons slot="start">
-          <ion-back-button></ion-back-button>
+          <ion-back-button default-href="carpools/home"></ion-back-button>
         </ion-buttons>
         <h1 class="ion-text-center">{{ title }} </h1>
       </ion-toolbar>
@@ -17,13 +17,13 @@
         </div>
 
         <div v-if="$store.state.articleStore.statusArticle == 'success' && sections.length !== 0">
-          <ion-card v-for="(section, index) in sections" @click="activeCard(index)" :key="index" class="mc-cp-card">
+          <ion-card v-for="(section, index) in sections" @click="activeCard(index)" :key="index" class="mc-cp-card pointer">
             <ion-card-header class="mc-cp-card-header">
               <ion-card-title class="mc-cp-card-title">{{section.title}}</ion-card-title>
             </ion-card-header>
 
             <ion-card-content class="mc-cp-card-content">
-              <div class="mc-cp-card-content-wrapper" :class="{'is-active': active === index}">
+              <div class="mc-cp-card-content-wrapper" :class="{'is-active': active.includes(index)}">
                 <p v-for="(paragraph, index) in section.paragraphs" v-html="paragraph.text"></p>
               </div>
             </ion-card-content>
@@ -97,7 +97,7 @@
     data () {
       return {
         sections: [],
-        active: null,
+        active: [],
         paramId: null
       }
     },
@@ -112,7 +112,13 @@
     },
     methods: {
       activeCard(index) {
-        this.active = index
+        const findActive = this.active.findIndex(item => item === index);
+        if (findActive === -1) {
+          this.active.push(index);
+        } else {
+          this.active.splice(findActive, 1);
+        }
+
       },
       getArticle() {
         this.$store.dispatch('getArticle', this.id)

@@ -67,7 +67,7 @@
 <style lang="scss">
 .mc-carpool-event {
   .mc-event-padding {
-    padding: 30px;
+    padding: 20px;
   }
   .mc-event-description {
     padding-bottom: 0px !important;

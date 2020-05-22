@@ -91,7 +91,7 @@
           >{{$t('Message.no-thread')}}</div>
 
           <div v-for="(day, index) in days" :key="index">
-            <div class="text-center from-now">{{ $moment(day.date).utc().fromNow()}}</div>
+            <div class="text-center from-now">{{ $moment(day.date).utc().startOf('minute').fromNow()}}</div>
             <div class="message-flex" v-for="(m, index) in day.messages" :key="index">
               <div
                 :class="m.user.id === $store.state.userStore.user.id ? 'day-message-right' : 'day-message-left'"
@@ -144,7 +144,7 @@
   background-color: #f5f6fa;
   color: var(--ion-color-primary);
   padding: 15px 30px;
-  margin-top: -30px;
+  margin-top: -20px;
   border-top-left-radius: 15px !important;
   border-top-right-radius: 15px !important;
 }

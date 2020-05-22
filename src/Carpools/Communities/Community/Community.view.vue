@@ -106,6 +106,7 @@
           class="mc-big-button"
           color="danger"
           expand="block"
+          :disabled="isOwner()"
           v-on:click="leaveCommunity()"
         >
           <ion-icon
@@ -120,6 +121,7 @@
             {{ $t('Community.leaveCommu')}}
           </div>
         </ion-button>
+        <div class="mc-leave-text text-center" v-if="isOwner()"><small>{{ $t('Community.isOwnerLeave')}}</small></div>
       </div>
     </ion-content>
   </div>
@@ -137,7 +139,7 @@
   }
 
   .mc-community-padding {
-    padding: 30px;
+    padding: 20px;
   }
 
   .mc-community-users {
@@ -176,6 +178,10 @@
   .join-community {
     margin-top: 20px;
   }
+
+  .mc-leave-text {
+    color: var(--ion-color-danger);
+  }
 </style>
 
 <script>
@@ -196,7 +202,7 @@ export default {
   },
   created() {
     this.getSpecificCommunity();
-    this.getAdsCommunity();
+    // this.getAdsCommunity();
   },
   computed: {
     isInCommunity() {
@@ -226,12 +232,15 @@ export default {
             ],
             name: this.community.name
           });
+
+          this.constructDataMap(this.community.ads);
         })
         .catch(error => {
           this.presentToast(this.$t("Commons.error"), "danger");
         });
     },
 
+    /*
     getAdsCommunity() {
       // On récupére les communities\
       const communityId = this.$route.params.id;
@@ -245,6 +254,8 @@ export default {
           this.presentToast(this.$t("Commons.error"), "danger");
         });
     },
+
+     */
 
     joinCommunity() {
       const payload = {
@@ -268,22 +279,41 @@ export default {
     },
 
     leaveCommunity() {
-      const communityUser = this.community.communityUsers.find(
-        item => item.user.id == this.$store.getters.userId
-      );
-      const payload = {
-        cummunityUserId: communityUser["id"]
-      };
+      return this.$ionic.alertController
+        .create({
+          header: this.$t("Community.leaveCommu"),
+          message: this.$t( "Community.leaveHasMember"),
+          buttons: [
+            {
+              text: this.$t("Commons.cancel"),
+              role: 'cancel',
+              cssClass: 'secondary'
+            },
+            {
+              text: this.$t("Commons.confirm"),
+              handler: () => {
+                const communityUser = this.community.communityUsers.find(
+                  item => item.user.id == this.$store.getters.userId
+                );
+                const payload = {
+                  cummunityUserId: communityUser["id"]
+                };
 
-      this.$store
-        .dispatch("leaveCommunity", payload)
-        .then(resp => {
-          this.presentToast(this.$t("Community.leave_success"), "success");
-          this.getSpecificCommunity();
+                this.$store
+                  .dispatch("leaveCommunity", payload)
+                  .then(resp => {
+                    this.presentToast(this.$t("Community.leave_success"), "success");
+                    this.getSpecificCommunity();
+                  })
+                  .catch(error => {
+                    this.presentToast(this.$t("Commons.error"), "danger");
+                  });
+              },
+            },
+          ],
         })
-        .catch(error => {
-          this.presentToast(this.$t("Commons.error"), "danger");
-        });
+        .then(a => a.present());
+
     },
 
     constructDataMap(data) {
@@ -304,6 +334,10 @@ export default {
       this.$store.commit('set_temp_direct_thread', user);
       this.$router.push({ name: "message" , params : {idAsk : -99, idRecipient : user.id}});
     },
+
+    isOwner() {
+      return this.$store.getters.userId === this.idCommunityReferent
+    }
 
   }
 };

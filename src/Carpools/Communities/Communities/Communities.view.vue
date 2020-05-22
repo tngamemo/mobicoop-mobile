@@ -71,7 +71,7 @@
             <div class="mc-communities-text">
               <div>{{commu.name}}</div>
               <ion-button color="success">
-                <ion-icon name="eye" class="ion-padding-end"></ion-icon>
+                <ion-icon slot="start" name="eye" style="margin-left: 0px"></ion-icon>
                 {{ $t('Communities.see') }}
               </ion-button>
             </div>

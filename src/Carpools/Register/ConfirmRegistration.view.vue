@@ -63,6 +63,14 @@
   import {toast} from "../../Shared/Mixin/toast.mixin";
   import { required} from 'vuelidate/lib/validators'
   import jwt_decode from "jwt-decode";
+  import {isPlatform} from "@ionic/core";
+  import {
+    Plugins,
+    PushNotification,
+    PushNotificationToken,
+    PushNotificationActionPerformed } from '@capacitor/core';
+
+  const { PushNotifications } = Plugins;
 
   export default {
     name: 'confirm-registration',
@@ -106,6 +114,17 @@
           .then(res => {
             this.presentToast("Vous êtes connecté", 'success');
             this.$router.push({ name: "carpoolsHome" });
+
+            if(isPlatform(window.document.defaultView, "capacitor")) {
+              PushNotifications.requestPermission().then(result => {
+                if (result.granted) {
+                  // Register with Apple / Google to receive push via APNS/FCM
+                  PushNotifications.register();
+                } else {
+                  // Show some error
+                }
+              });
+            }
 
           })
           .catch(err => {

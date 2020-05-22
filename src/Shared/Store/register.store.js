@@ -76,7 +76,7 @@ export const registerStore = {
           maxDeviationDistance:10000,
           anyRouteAsPassenger:false,
           newsSubscription:true,
-          registerFromMobile: true,
+          mobileRegistration: 1,
           language: "fr_FR",
           addresses: '',
       };
@@ -89,9 +89,17 @@ export const registerStore = {
     register: ({commit, state}) => {
       commit('register_request');
       const u = Object.assign({}, state.userToRegister);
+      delete u.registerFromMobile;
       delete u.confirmPassword;
       delete u.addresses[0].id;
       delete u.addresses[0].geoJson;
+      u.mobileRegistration = 1;
+      if (isPlatform(window.document.defaultView, "ios")) {
+        u.mobileRegistration = 2;
+      }
+      if (isPlatform(window.document.defaultView, "android")) {
+        u.mobileRegistration = 3;
+      }
       return new Promise((resolve, reject) => {
         http.post("/users/register", u).then(resp => {
           if (resp) {
