@@ -3,6 +3,7 @@ import http from '../Mixin/http.mixin'
 export const dynamicStore = {
   state: {
     status: '',
+    statusActive: '',
     statusAsk: '',
     statusProof: '',
     state: 1,
@@ -17,6 +18,10 @@ export const dynamicStore = {
   mutations: {
     dynamic_request(state) {
       state.status = 'loading';
+    },
+
+    dynamic_active_request(state) {
+      state.statusActive = 'loading';
     },
 
     dynamic_ask_request(state) {
@@ -35,6 +40,14 @@ export const dynamicStore = {
       state.statusAsk = 'success';
     },
 
+    get_active_dynamic_success(state, res) {
+      state.statusActive = 'success';
+      console.log(res.data);
+      if(res.data['hydra:member'].length > 0) {
+        state.state = 2;
+        state.currentDynamic = res.data['hydra:member'][0];
+      }
+    },
 
     post_dynamic_success(state, res) {
       state.status = 'success';
@@ -54,6 +67,10 @@ export const dynamicStore = {
 
     dynamic_error(state) {
       state.status = 'error';
+    },
+
+    active_dynamic_error(state) {
+      state.statusActive = 'error';
     },
 
     dynamic_ask_error(state) {
@@ -130,17 +147,37 @@ export const dynamicStore = {
         })
       })
     },
+    getActiveDynamic: ({commit, state}, params) => {
+      commit('dynamic_active_request');
+      return new Promise((resolve, reject) => {
+        http.get("/dynamics/active").then(resp => {
+          if (resp) {
+            commit('get_active_dynamic_success', resp);
+            resolve(resp)
+          }
+        }).catch(err => {
+          commit('active_dynamic_error');
+          reject(err)
+        })
+      })
+    },
     putDynamics: ({commit, state}, params) => {
       commit('dynamic_request');
       return new Promise((resolve, reject) => {
         http.put("/dynamics/" + params.id, params.body ).then(resp => {
           if (resp) {
+            console.log('notif control');
+            console.log(resp);
             // Envoi d'une notification
+            // passager
             if ( state.currentDynamic.role == 2 && state.currentAsk && state.currentAsk.status == 1 && resp.data.status == 2) {
+              console.log('notif passager');
               resp.notification = true
             }
+            // conducteur
             if( state.currentDynamic.role == 1 && resp.data.asks.length > state.asksLength) {
-              commit('set_asks_length', state.currentDynamic.asks.length);
+              console.log('notif passager');
+              commit('set_asks_length', resp.data.asks.length);
               resp.notification = true
             }
             commit(params.result, resp);

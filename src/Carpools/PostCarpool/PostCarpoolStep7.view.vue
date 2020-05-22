@@ -6,10 +6,18 @@
       ref="recap"
       :recap="recap"
     ></RecapCarpool>
+
+    <div class="license-certification" v-if="recap.driver">
+      En publiant mon annonce, je certifie avoir un permis de conduire et une assurance valides et à jour.
+    </div>
   </div>
 </template>
 
 <style lang="scss">
+  .license-certification {
+    margin-top: 20px;
+    margin-bottom: 30px;
+  }
 </style>
 
 <script>

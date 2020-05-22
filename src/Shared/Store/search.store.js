@@ -5,6 +5,7 @@ export const searchStore = {
   state: {
     statusSearch: '',
     statusGeo: '',
+    statusCoordinate: '',
     resultSearch: [],
     resultsGeo: [],
     previousSearch: [],
@@ -29,14 +30,26 @@ export const searchStore = {
       state.statusGeo = 'loading';
     },
 
+    geo_coordinate_request(state) {
+      state.statusCoordinate = 'loading';
+    },
+
     geo_succes(state, resultGeo) {
       state.statusGeo = 'success';
       state.resultsGeo = resultGeo;
     },
 
+    geo_coordinate_success(state, resultGeo) {
+      state.statusCoordinnate = 'success';
+    },
+
     geo_error(state) {
       state.statusGeo = 'error';
       state.resultGeo = [];
+    },
+
+    geo_coordinate_error(state) {
+      state.statusCoordinate = 'error';
     },
 
     search_request(state) {
@@ -92,6 +105,24 @@ export const searchStore = {
           }
         }).catch(err => {
           commit('geo_error')
+          reject(err)
+        })
+      })
+    },
+
+    /**
+     * Fonction qui retourne des addresses en fonction d'une latitude, longitude
+     */
+    getAddressesByCoordinate: ({ commit }, params) => {
+      commit('geo_coordinate_request');
+      return new Promise((resolve, reject) => {
+        http.get("/addresses/reverse?latitude=" +  params.latitude + "&longitude=" + params.longitude).then(resp => {
+          if (resp) {
+            commit('geo_coordinate_success', resp.data["hydra:member"]);
+            resolve(resp)
+          }
+        }).catch(err => {
+          commit('geo_coordinate_error');
           reject(err)
         })
       })

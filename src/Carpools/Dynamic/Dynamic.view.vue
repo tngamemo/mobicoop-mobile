@@ -18,8 +18,12 @@
     <ion-content color="primary" no-bounce>
       <div class="mc-white-container" >
 
+        <div class="text-center" style="margint-top: 20px" v-if="$store.state.dynamicStore.statusActive == 'loading'">
+          <ion-icon size="large" color="primary" class="rotating"  name="md-sync"></ion-icon>
+        </div>
+
         <!-- State 1 : Je choisi mon role -->
-        <div class="dynamic-form" v-if="state == 1">
+        <div class="dynamic-form" v-if="$store.state.dynamicStore.statusActive == 'success' && state == 1">
 
           <!-- Destination -->
           <ion-item v-on:click="goGeoSearch('destination', 'search')" style="margin-bottom: 20px">
@@ -68,9 +72,9 @@
 
 
         <!-- State 2  -->
-        <div v-if="state == 2 && destination">
+        <div v-if="$store.state.dynamicStore.statusActive == 'success' && state == 2 && destination">
 
-          <div class="dynamic-map" style="height: 300px; width: 300px; border-radius: 150px; margin-bottom: 10px">
+          <div class="dynamic-map" >
             <l-map
               v-if="map.showCard"
               :ref="'dynamicMap'"
@@ -96,7 +100,7 @@
           <!-- CurrentDynamic -->
           <ion-card class="dynamic-card" v-if="currentDynamic['@id']">
             <ion-card-content>
-              <div class="text-center" >Current Dynamic : {{currentDynamic['@id']}}</div>
+              <div class="text-right muted" ><small>{{currentDynamic['@id']}}</small></div>
               <div v-if="destination" class="d-flex align-center"><ion-icon name="flag"></ion-icon> {{this.destination.displayLabel[0]}}</div>
               <div class="" ><small>{{currentDynamic.role == 1 ? 'Conducteur' : 'Passager'}}</small></div>
               <div v-if="currentDynamic.comment" ><small>Commentaire : {{currentDynamic.comment}}</small></div>
@@ -107,21 +111,22 @@
           <!-- CurrentAsk -->
           <ion-card class="dynamic-card" v-if="currentAsk.id">
             <ion-card-content>
-              <div class="text-center">Current Ask : {{currentAsk.id}}</div>
-              <div class="text-center">Statut : {{currentAsk.status}}</div>
+              <div class="text-right"><small>{{currentAsk.id}}</small></div>
+              <div v-if="currentAsk.status == 1" class="text-center">Covoiturage Demandé</div>
+              <div v-if="currentAsk.status == 1" class="text-center">Covoiturage Accepté</div>
               <div v-if="currentAsk.message" class="text-center">Message : {{currentAsk.message}}</div>
               <div v-if="currentAsk.messages"><div v-for="message in currentAsk.messages">{{message.test}}</div></div>
 
               <div v-if="currentProof.id" class="d-flex align-center">
-                <ion-icon name="checkmark"></ion-icon> Preuve déposé
+                <ion-icon name="checkmark"></ion-icon> Preuve déposé <span class="muted"><small>{{currentProof.id}}</small></span>
               </div>
-              <ion-button v-if="!currentProof.id && currentDynamic.role === 1" @click="postDynamicProof()">Prise en charge du passager</ion-button>
-              <ion-button v-if="currentProof.id && currentDynamic.role === 1" @click="putDynamicProof()">Dépose du passager</ion-button>
+              <ion-button expand="block" v-if="!currentProof.id && currentDynamic.role === 1" @click="postDynamicProof()">Prise en charge du passager</ion-button>
+              <ion-button expand="block" v-if="currentProof.id && currentDynamic.role === 1" @click="putDynamicProof()">Dépose du passager</ion-button>
               <div v-if="currentAsk.proof">
-                <div>ProofId : {{currentAsk.proof.id}}</div>
-                <div>ProofStatus : {{currentAsk.proof.needed}}</div>
-                <ion-button v-if="!currentProof.id && currentAsk.proof.needed == 'pickUp' && currentDynamic.role === 2" @click="postDynamicProof()">Je suis pris en charge</ion-button>
-                <ion-button v-if="currentAsk.proof.needed == 'dropOff' && currentDynamic.role === 2" @click="putDynamicProof()">Je suis déposé</ion-button>
+                <div class="text-right muted"><small>{{currentAsk.proof.id}}</small></div>
+                <!--<div>ProofStatus : {{currentAsk.proof.needed}}</div>-->
+                <ion-button expand="block" v-if="!currentProof.id && currentAsk.proof.needed == 'pickUp' && currentDynamic.role === 2" @click="postDynamicProof()">Je suis pris en charge</ion-button>
+                <ion-button expand="block" v-if="currentAsk.proof.needed == 'dropOff' && currentDynamic.role === 2" @click="putDynamicProof()">Je suis déposé</ion-button>
               </div>
 
 
@@ -183,6 +188,17 @@
 </template>
 
 <style lang="scss">
+
+  .dynamic-map {
+    height: 300px;
+    width: 300px;
+    border-radius: 150px;
+    margin-bottom: 10px;
+    position: relative;
+    overflow: auto;
+    margin : auto;
+    margin-bottom: 20px;
+  }
   .dynamic-form ion-radio {
     margin-right: 10px;
   }
@@ -231,6 +247,11 @@
     font-size: 24px;
     margin-left: 3px;
     margin-top: 9px;
+    position: relative;
+  }
+
+  .muted {
+    color: lightgrey;
   }
 
 </style>
@@ -309,6 +330,11 @@
       if (this.state == 1) {
         this.$store.commit('reset_current_dynamic')
       }
+      this.$store.dispatch('getActiveDynamic').then( res => {
+        if(res.data['hydra:member'].length > 0) {
+          this.startBackgroundGeolocation();
+        }
+      });
     },
     methods: {
       goGeoSearch(type, action) {

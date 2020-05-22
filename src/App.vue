@@ -70,7 +70,7 @@
         (function() {
           var u = process.env.VUE_APP_ANALYTICS_ENDPOINT;
           _paq.push(['setTrackerUrl', "https://"+u+'/matomo.php']);
-          _paq.push(['setSiteId', '1']);
+          _paq.push(['setSiteId', process.env.VUE_APP_ANALYTICS_SITEID]);
           var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
           g.type='text/javascript'; g.async=true; g.defer=true; g.src= "https://"+u+'/matomo.js'; s.parentNode.insertBefore(g,s);
         })();
