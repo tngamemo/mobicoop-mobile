@@ -8,7 +8,19 @@ export const solidaryTransportStore = {
     },
     temporary: {
       user: {
-        
+        status: 1,
+        givenName: undefined,
+        familyName: undefined,
+        email: undefined,
+        gender: 0,
+        birthDate: undefined,
+        telephone: undefined,
+        phoneDisplay: 1,
+        smoke: 0,
+        mobile: true,
+        language: "fr_FR",
+        addresses: [''],
+        mobileRegistration: 1
       },
       request: {
 
@@ -31,9 +43,13 @@ export const solidaryTransportStore = {
 
     helpError(state){
       state.help.status = 'error';
-    }
+    },
 
     // Temporary Objects mutation below
+    solidaryUserUpdate(state, user) {
+      console.log('solidaryUserUpdate')
+      state.temporary.user = user
+    }
   },
   actions: {
     /**

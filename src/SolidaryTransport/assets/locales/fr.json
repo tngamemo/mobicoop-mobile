@@ -8,8 +8,16 @@
       "next": "Suivant",
       "register": "S'inscrire",
       "validate": "Valider",
+      "cancel": "Annuler",
       "sendRequest": "Envoyer ma demande",
       "sendAd": "Publier mon annonce"
+    },
+    "commons": {
+      "gender": {
+        "nc": "Autre",
+        "male": "Monsieur",
+        "female": "Madame"
+      }
     },
     "navigation": {
       "home": "Accueil",
@@ -406,63 +414,18 @@
     "register": {
       "title": "Inscription",
       "form": {
-        "fill": {
-          "request": "Renseigner ma demande",
-          "ad": "Remplir le formulaire"
-        },
         "check": "Vérifier mon éligibilité",
         "call": "Demander de l'aide",
         "sendProof": "Envoyer un justificatif",
         "actions": {
-          "ask": "Je souhaite demander un coup de pouce",
-          "give": "Je souhaite donner un coup de pouce",
+          "request": "Demander un coup de pouce sans m'inscrire",
+          "fill": "Remplir le formulaire d'inscription",
           "login": "Se connecter",
           "or": "ou",
           "complete": "ou compléter ci-dessous"
         },
-        "eligibility": [
-          { 
-            "value": "criteria-1",
-            "label": "Je suis sans solution de transport pour me rendre à mon travail, mon stage ou ma formation [exemple critère éligibilité 1]"
-          },
-          { 
-            "value": "criteria-2",
-            "label": "[critère éligibilité 2]"
-          }
-        ],
-        "supporting": [
-          { 
-            "value": "supporting-0",
-            "label": "De ma propre initiative"
-          },
-          { 
-            "value": "supporting-1",
-            "label": "Structure 1"
-          },
-          { 
-            "value": "supporting-2",
-            "label": "Structure 2"
-          }
-        ],
-        "languages": [
-          { 
-            "value": "fr",
-            "label": "Français"
-          },
-          { 
-            "value": "en",
-            "label": "Anglais"
-          },
-          { 
-            "value": "ar",
-            "label": "Arabe"
-          },
-          { 
-            "value": "xx",
-            "label": "Langue"
-          }
-        ],
         "fields": {
+          "gender": "Civilité",
           "firstname": "Prénom",
           "lastname": "Nom",
           "email": "Adresse mail",
@@ -472,7 +435,10 @@
           "address": "Commune de résidence",
           "visibility": "Visible par tous",
           "required": "Ce champ est requis",
-          "agreement": "J’ai lu et j’accepte les conditions générales d’utilisation du service et la politique de gestion des données pratiquées par [nom de l’opérateur]",
+          "agreement": {
+            "accept": "J’ai lu et j’accepte les conditions générales d’utilisation* du service et la politique de gestion des données pratiquées par [nom de l’opérateur]",
+            "read": "*Voir les conditions générales d’utilisation"
+          },
           "driver": "Je possède un véhicule",
           "supporting": "Structure accompagnante",
           "languages": "Langues parlées :",
@@ -524,7 +490,7 @@
       "title": "Connexion",
       "form": {
         "forgotPassword": "Mot de passe oublié ?",
-        "notRegistered": "Pas encore inscrit ? S'inscrire.",
+        "notRegistered": "Pas encore inscrit ? <u>S'inscrire.</u>",
         "fields": {
           "login": "Téléphone ou adresse mail",
           "password": "Mot de passe"

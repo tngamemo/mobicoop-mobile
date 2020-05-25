@@ -25,7 +25,7 @@
 
           <div class="mc-form-alternate">
             <span @click="forgotPassword()">{{$t('solidaryTransport.login.form.forgotPassword')}}</span>
-            <span @click="$router.push({name: 'solidaryTransport.register' })">{{$t('solidaryTransport.login.form.notRegistered')}}</span>
+            <span @click="$router.push({name: 'solidaryTransport.register' })" v-html="$t('solidaryTransport.login.form.notRegistered')"></span>
           </div>
 
           <div class="mc-st-form-controls with-multiple" :class="{'is-loading': loading}">

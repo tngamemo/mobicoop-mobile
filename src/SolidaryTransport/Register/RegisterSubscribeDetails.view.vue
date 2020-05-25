@@ -40,7 +40,7 @@
               </div>
             </div>
 
-            <ion-item class="mc-st-form-item">
+            <!-- <ion-item class="mc-st-form-item">
               <ion-label position="floating">{{$t('solidaryTransport.register.form.fields.supporting')}}</ion-label>
               <ion-select :value="supporting.selected" ok-text="Valider" cancel-text="Fermer" selected-text="" @ionChange="supporting.selected = $event.target.value">
                 <ion-select-option :value="item.value" v-for="(item, index) in supporting.properties" :key="index">{{item.label}}</ion-select-option>
@@ -53,7 +53,7 @@
                 <span v-html="$t('solidaryTransport.register.form.sendProof')"></span>
               </ion-button>
               <input ref="proof" style="display: none" type="file" @change="changePicture($event)"/>
-            </div>
+            </div> -->
 
             <ion-item class="mc-st-form-item as-agreement" lines="none">
               <ion-checkbox

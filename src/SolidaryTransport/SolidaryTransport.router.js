@@ -5,9 +5,7 @@ import Home from './Home/Home.view.vue';
 
 // Anonymous
 import Register from './Register/Register.view.vue';
-import RegisterAsk from './Register/RegisterAsk.view.vue';
 import RegisterSubscribe from './Register/RegisterSubscribe.view.vue';
-import RegisterSubscribeDetails from './Register/RegisterSubscribeDetails.view.vue';
 import Login from './Login/Login.view.vue';
 
 // Logged
@@ -162,14 +160,6 @@ export default [
         beforeEnter: preventAccess
       },
       {
-        path: '/solidary-transport/register/ask',
-        name: 'solidaryTransport.register.ask',
-        components: {
-          register: RegisterAsk
-        },
-        beforeEnter: preventAccess
-      },
-      {
         path: '/solidary-transport/register/request',
         name: 'solidaryTransport.register.request',
         components: {
@@ -210,14 +200,6 @@ export default [
         name: 'solidaryTransport.register.subscribe',
         components: {
           register: RegisterSubscribe
-        },
-        beforeEnter: preventAccess
-      },
-      {
-        path: '/solidary-transport/register/subscribe/details',
-        name: 'solidaryTransport.register.subscribe.details',
-        components: {
-          register: RegisterSubscribeDetails
         },
         beforeEnter: preventAccess
       },

@@ -130,9 +130,19 @@ ion-content {
       flex: 0 0 auto;
       margin-bottom: 25px;
 
+      .mc-st-form-icon {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+      }
+
       .mc-st-form-item {
         font-size: 14px;
         line-height: 1.22;
+
+        + .mc-st-form-item {
+          margin-top: 10px;
+        }
 
         ion-label, ion-input, ion-textarea {
           font-family: 'Poppins';

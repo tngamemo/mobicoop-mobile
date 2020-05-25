@@ -26,7 +26,7 @@
           <div class="mc-st-profile-actions" v-if="!extracted">
             <template v-if="!detailed">
               <ion-icon class="mc-st-profile-action as-edit" @click="$router.push({name:'solidaryTransport.profile'})" name="create"></ion-icon>
-              <ion-icon class="mc-st-profile-action as-logout" @click="logout()" name="exit"></ion-icon>
+              <ion-icon class="mc-st-profile-action as-logout" @click="logout()" name="log-out"></ion-icon>
             </template>
             <template v-else>
               <ion-icon class="mc-st-profile-action as-edit" @click="$router.push({name:'solidaryTransport.profile.personal'})" name="create"></ion-icon>
