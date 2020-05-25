@@ -87,6 +87,15 @@
       fill="outline"
       @click="goToPostCarpool()"
     >{{ $t('HOME.postCarpool') }}</ion-button>
+
+    <ion-button
+      v-if="showPostCarpool && isCapacitor"
+      class="mc-big-button"
+      color="primary"
+      expand="block"
+      fill="outline"
+      @click="goToDynamic()"
+    >{{ $t('HOME.dynamic') }}</ion-button>
   </div>
 </template>
 
@@ -121,12 +130,15 @@ ion-datetime {
 </style>
 
 <script>
+  import { isPlatform } from "@ionic/core";
+
 export default {
   name: "search-home",
   props: ["showPost", "searchWithFilter", "postWithFilter", "communities", "from", "eventId"],
   data() {
     return {
       showPostCarpool: true,
+      isCapacitor : isPlatform(window.document.defaultView, "capacitor")
     };
   },
   created() {
@@ -218,6 +230,10 @@ export default {
       }
 
       this.$router.push({name: "post-carpool", params: {filters}});
+    },
+
+    goToDynamic() {
+      this.$router.push({name: "dynamic"});
     }
   }
 };

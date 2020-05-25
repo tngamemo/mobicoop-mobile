@@ -5,6 +5,7 @@
     "register": "Inscription",
     "searchCarpool": "Rechercher un covoiturage",
     "postCarpool": "Publier une annonce",
+    "dynamic": "Partir maintenant",
     "FAQ": "FAQ",
     "CGU": "CGU",
     "contact": "Contacter"
@@ -398,6 +399,14 @@
     "missingInfo": "Il manque des informations",
     "fromDate": "Date de début",
     "toDate": "Date de fin"
+  },
+  "Dynamic": {
+    "title" : "Partir maintenant",
+    "launch" : "Démarrer",
+    "iam" : "Je suis",
+    "comment": "Commentaire",
+    "reset" : "Reset",
+    "close" : "Fermer"
   }
 
 }

@@ -1,5 +1,5 @@
 import http from '../Mixin/http.mixin'
-import { isPlatform } from "@ionic/core";
+import {isPlatform} from "@ionic/core";
 
 export const registerStore = {
   state: {

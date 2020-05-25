@@ -28,6 +28,24 @@
           ></ion-icon>
         </ion-item>
 
+        <div v-if="myPosition">
+          <ion-item
+            class="flex-card"
+            v-if="myPosition.displayLabel[0]"
+            v-on:click="selectGeo(myPosition)"
+          >
+            <div class="iconSearch">
+              <ion-icon size="large" color="primary" name="locate"></ion-icon>
+            </div>
+            <ion-card-header>
+              <ion-card-title class="mc-small-card-title">{{ myPosition.displayLabel[0] }}</ion-card-title>
+              <ion-card-subtitle>
+                <div>{{ myPosition.displayLabel[1] }}</div>
+              </ion-card-subtitle>
+            </ion-card-header>
+          </ion-item>
+        </div>
+
         <div v-for="address in this.$store.state.searchStore.resultsGeo" :key="address.key">
           <ion-item
             class="flex-card"
@@ -38,7 +56,7 @@
               <img v-bind:src="address.icon" alt />
             </div>
             <ion-card-header>
-              <ion-card-title>{{ address.displayLabel[0] }}</ion-card-title>
+              <ion-card-title class="mc-small-card-title">{{ address.displayLabel[0] }}</ion-card-title>
               <ion-card-subtitle>
                 <div>{{ address.displayLabel[1] }}</div>
               </ion-card-subtitle>
@@ -57,7 +75,7 @@
               <img v-bind:src="address.icon" alt />
             </div>
             <ion-card-header>
-              <ion-card-title>{{ address.displayLabel[0] }}</ion-card-title>
+              <ion-card-title class="mc-small-card-title">{{ address.displayLabel[0] }}</ion-card-title>
               <ion-card-subtitle>
                 <div>{{ address.displayLabel[1] }}</div>
               </ion-card-subtitle>
@@ -84,10 +102,17 @@
     margin-left: 20px;
   }
 }
+
+  .mc-small-card-title {
+    font-size: 19px;
+  }
 </style>
 
 <script>
 import { toast } from "../../Shared/Mixin/toast.mixin";
+import { Plugins } from '@capacitor/core';
+import {isPlatform} from "@ionic/core";
+const { Geolocation } = Plugins;
 
 export default {
   name: "geo-search",
@@ -101,6 +126,9 @@ export default {
         this.$store.dispatch("treatementUpdateAddresses");
       }
     );
+    if(isPlatform(window.document.defaultView, "capacitor")) {
+      this.getMyPosition();
+    }
   },
   beforeDestroy() {
     this.unwatch();
@@ -109,7 +137,8 @@ export default {
     return {
       type: this.$route.query.type,
       action: this.$route.query.action,
-      index: this.$route.query.index
+      index: this.$route.query.index,
+      myPosition: null
     };
   },
 
@@ -124,6 +153,17 @@ export default {
           });
         }
       }, 500);
+    },
+
+    async getMyPosition() {
+      const coordinates = await Geolocation.getCurrentPosition();
+      this.$store.dispatch("getAddressesByCoordinate", {latitude: coordinates.coords.latitude.toString(), longitude: coordinates.coords.longitude.toString()}).then(res => {
+        if (res.data['hydra:member'].length > 0) {
+          this.myPosition = res.data['hydra:member'][0];
+        }
+      }).catch(err => {
+
+      });
     },
 
     selectGeo: function(address) {
