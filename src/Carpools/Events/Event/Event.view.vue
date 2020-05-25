@@ -1,9 +1,29 @@
+/**
+
+Copyright (c) 2018, MOBICOOP. All rights reserved.
+This project is dual licensed under AGPL and proprietary licence.
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Affero General Public License for more details.
+You should have received a copy of the GNU Affero General Public License
+along with this program. If not, see <gnu.org/licenses>.
+
+Licence MOBICOOP described in the file
+LICENSE
+**************************/
+
 <template>
   <div class="ion-page">
     <ion-header no-border>
       <ion-toolbar color="primary">
         <ion-buttons slot="start">
-          <ion-back-button></ion-back-button>
+          <ion-back-button default-href="/events"></ion-back-button>
         </ion-buttons>
         <h1 v-if="event" class="ion-text-center">{{ event.name}}</h1>
         <h1 v-if="!event" class="ion-text-center">{{ $t('Event.title')}}</h1>
@@ -40,11 +60,11 @@
         </div>
 
         <div class="mc-event-padding">
-          <MiniMap :LMarker="LMarker" />
+          <MiniMap :LMarker="LMarker" :LPolyline="LPolyline" />
         </div>
       </div>
       <div class="mc-white-container" v-if="event">
-        <SearchQuick :from="'event'" />
+        <SearchQuick :from="'event'" :eventId="this.event.id"/>
 
         <ion-button class="mc-big-button" color="danger" expand="block" v-on:click="signalEvent()">
           <ion-icon
@@ -67,7 +87,7 @@
 <style lang="scss">
 .mc-carpool-event {
   .mc-event-padding {
-    padding: 30px;
+    padding: 20px;
   }
   .mc-event-description {
     padding-bottom: 0px !important;
@@ -101,7 +121,8 @@ export default {
     return {
       event: "",
       eventId: null,
-      LMarker: []
+      LMarker: [],
+      LPolyline: []
     };
   },
   created() {
@@ -116,6 +137,7 @@ export default {
         .dispatch("getSpecificEvent", this.eventId)
         .then(resp => {
           this.event = resp.data;
+          this.getAdsEvent();
 
           if (!!this.event.address) {
             this.$store.commit("changeDestination", {
@@ -135,6 +157,34 @@ export default {
         .catch(error => {
           this.presentToast(this.$t("Commons.error"), "danger");
         });
+    },
+
+    getAdsEvent() {
+      // On récupére les communities\
+      this.$store
+        .dispatch("getAdsEvent", this.eventId)
+        .then(resp => {
+          this.constructDataMap(resp.data["hydra:member"]);
+        })
+        .catch(error => {
+          console.log(error);
+          this.presentToast(this.$t("Commons.error"), "danger");
+        });
+    },
+
+
+    constructDataMap(data) {
+      let polyline = [];
+      data.forEach(element => {
+        let result = [];
+        element.outwardWaypoints.forEach(wayPoint => {
+          result.push([wayPoint.address.latitude, wayPoint.address.longitude]);
+        });
+
+        polyline.push(result);
+      });
+
+      this.LPolyline = polyline;
     },
 
     signalEvent() {

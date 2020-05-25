@@ -1,4 +1,25 @@
+/**
+
+ Copyright (c) 2018, MOBICOOP. All rights reserved.
+ This project is dual licensed under AGPL and proprietary licence.
+
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Affero General Public License as
+ published by the Free Software Foundation, either version 3 of the
+ License, or (at your option) any later version.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ GNU Affero General Public License for more details.
+ You should have received a copy of the GNU Affero General Public License
+ along with this program. If not, see <gnu.org/licenses>.
+
+ Licence MOBICOOP described in the file
+ LICENSE
+ **************************/
+
 import http from '../Mixin/http.mixin'
+import { isPlatform } from "@ionic/core";
 
 export const userStore = {
   state: {
@@ -6,11 +27,14 @@ export const userStore = {
     tokenUser: localStorage.getItem('tokenUser') || '',
     tokenAnonymousUser: localStorage.getItem('tokenAnonymousUser') || '',
     user: null,
+    userToUpdate: null,
     statusAlerts: '',
     statusUpdateAlert: '',
     alerts: [],
     statusMyCarpools: '',
     myCarpools: [],
+    statusAcceptedCarpools: '',
+    acceptedCarpools: [],
     statusUserCommunities: '',
     userCommunities: null,
     resetPasswordStatus: '',
@@ -73,6 +97,19 @@ export const userStore = {
       state.myCarpools = data['hydra:member'].reverse();
     },
 
+    user_accepted_carpools_request(state) {
+      state.statusAcceptedCarpools = 'loading';
+    },
+
+    user_accepted_carpools_error(state) {
+      state.statusAcceptedCarpools = 'error';
+    },
+
+    user_accepted_carpools_request_success(state, data) {
+      state.statusAcceptedCarpools = 'success';
+      state.acceptedCarpools = data['hydra:member'].reverse();
+    },
+
 
     logout(state) {
       state.status = '';
@@ -96,7 +133,7 @@ export const userStore = {
     },
 
     updateUserAddress(state, payload) {
-      state.user.addresses = [payload.addressDTO];
+      state.userToUpdate.addresses = [payload.addressDTO];
     },
 
     reset_password_request(state) {
@@ -127,8 +164,16 @@ export const userStore = {
   actions: {
     login({commit}, params) {
       commit('auth_request')
+      let mobile = '';
+      if (isPlatform(window.document.defaultView, "ios")) {
+        mobile = '?mobile=1'
+      }
+      if (isPlatform(window.document.defaultView, "android")) {
+        mobile = '?mobile=2'
+      }
+
       return new Promise((resolve, reject) => {
-        http.post("/login", {"username": params.username, "password": params.password})
+        http.post("/login" + mobile, {"username": params.username, "password": params.password})
           .then(resp => {
             if (resp) {
               const tokenUser = resp.data.token
@@ -194,6 +239,7 @@ export const userStore = {
       commit('auth_request');
       return new Promise((resolve, reject) => {
         delete params.addresses[0].id;
+        delete params.addresses[0].geoJson;
         delete params.images;
         delete params.proEmail;
         http.put(`/users/${params.id}`, params)
@@ -261,10 +307,25 @@ export const userStore = {
       })
     },
 
+    getAcceptedCarpools({commit}, userId) {
+      commit('user_accepted_carpools_request');
+      return new Promise((resolve, reject) => {
+        http.get(`/carpools/accepted`)
+          .then(resp => {
+            commit('user_accepted_carpools_request_success', resp.data);
+            resolve(resp)
+          })
+          .catch(err => {
+            commit('user_accepted_carpools_error');
+            reject(err)
+          })
+      })
+    },
+
     deleteCarpool({commit, state, dispatch}, carpoolId) {
       commit('user_my_carpools_request');
       return new Promise((resolve, reject) => {
-        http.delete(`/proposals/${carpoolId}`)
+        http.delete(`/carpools/${carpoolId}`)
           .then(resp => {
             dispatch('getMyCarpools', state.user.id);
             resolve(resp)
@@ -281,7 +342,7 @@ export const userStore = {
     getUserCommunities({commit, getters}, params){
       return new Promise((resolve, reject) => {
         commit('user_communities_request');
-        http.get(`/communities?communityUsers.user.id=${getters.userId}`)
+        http.get(`/communities/ismember`)
         .then(resp => {
           // On commit et envoie le resultat
           commit('user_communities_success', resp.data['hydra:member'])
@@ -375,6 +436,27 @@ export const userStore = {
           })
           .catch(err => {
             commit('delete_user_error');
+            reject(err)
+          })
+      })
+    },
+    /**
+     * Fonction pour récupérer les informations d'un utilisateur
+     */
+    postPushToken({commit}, params) {
+      let mobile = 0;
+      if (isPlatform(window.document.defaultView, "ios")) {
+        mobile = 1
+      }
+      if (isPlatform(window.document.defaultView, "android")) {
+        mobile = 2
+      }
+      return new Promise((resolve, reject) => {
+        http.post(`/push_token`, { token: params, type: mobile })
+          .then(resp => {
+            resolve(resp)
+          })
+          .catch(err => {
             reject(err)
           })
       })

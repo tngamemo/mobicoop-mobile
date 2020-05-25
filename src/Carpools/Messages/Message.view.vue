@@ -1,3 +1,23 @@
+/**
+
+Copyright (c) 2018, MOBICOOP. All rights reserved.
+This project is dual licensed under AGPL and proprietary licence.
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Affero General Public License for more details.
+You should have received a copy of the GNU Affero General Public License
+along with this program. If not, see <gnu.org/licenses>.
+
+Licence MOBICOOP described in the file
+LICENSE
+**************************/
+
 <template>
   <div class="ion-page">
     <ion-header no-border>
@@ -69,7 +89,7 @@
             <ion-text
               color="secondary"
               class="d-flex justify-center align-center"
-              v-if="this.ask.status == 1 || this.ask.status == 2 || this.ask.status == 3"
+              v-if="this.ask.status == 2 || this.ask.status == 3"
             >
               <ion-icon class="status-icon" name="hourglass"></ion-icon>
               <b>{{$t('Message.waiting')}}</b>
@@ -91,7 +111,7 @@
           >{{$t('Message.no-thread')}}</div>
 
           <div v-for="(day, index) in days" :key="index">
-            <div class="text-center from-now">{{ $moment(day.date).utc().fromNow()}}</div>
+            <div class="text-center from-now">{{ $moment(day.date).utc().startOf('minute').fromNow()}}</div>
             <div class="message-flex" v-for="(m, index) in day.messages" :key="index">
               <div
                 :class="m.user.id === $store.state.userStore.user.id ? 'day-message-right' : 'day-message-left'"
@@ -144,7 +164,7 @@
   background-color: #f5f6fa;
   color: var(--ion-color-primary);
   padding: 15px 30px;
-  margin-top: -30px;
+  margin-top: -20px;
   border-top-left-radius: 15px !important;
   border-top-right-radius: 15px !important;
 }
@@ -348,7 +368,7 @@ export default {
       message.recipients[0].sentDate = this.$moment().format();
 
       this.$store.dispatch("postMessage", message).then(res => {
-        if (!this.thread.idMessage) {
+        if (!this.thread.idMessage || this.thread.idMessage == -99) {
           this.thread.idMessage = res.data.id
         }
         this.getCompleteThread();

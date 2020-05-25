@@ -1,3 +1,23 @@
+/**
+
+Copyright (c) 2018, MOBICOOP. All rights reserved.
+This project is dual licensed under AGPL and proprietary licence.
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Affero General Public License for more details.
+You should have received a copy of the GNU Affero General Public License
+along with this program. If not, see <gnu.org/licenses>.
+
+Licence MOBICOOP described in the file
+LICENSE
+**************************/
+
 <template>
   <div class="mc-carpool-item">
     <div class="mc-carpool-header d-flex justify-between align-center flex-wrap">
@@ -74,7 +94,7 @@
             :src="this.carpool.carpooler.avatar"
             @load="onImgLoad()"
           />
-          <ion-icon v-if="! this.avatarLoaded" name="contact" size="large"></ion-icon>
+          <!--<ion-icon v-if="! this.avatarLoaded" name="contact" size="large"></ion-icon>-->
         </ion-thumbnail>
         <strong
           class="mc-carpool-carpooler"
@@ -102,16 +122,16 @@
             :ref="'test'"
             class="mc-small-button"
             color="primary"
-            @click="pauseCarpool(carpool.id)"
+            @click="pauseCarpool(carpool)"
           >
             <ion-icon
               color="light"
-              v-if="!paused && this.$store.getters.statusPauseCarpool != 'loading'"
+              v-if="!carpool.paused && this.$store.getters.statusPauseCarpool != 'loading'"
               name="pause"
             ></ion-icon>
             <ion-icon
               color="light"
-              v-if="paused && this.$store.getters.statusPauseCarpool != 'loading'"
+              v-if="carpool.paused && this.$store.getters.statusPauseCarpool != 'loading'"
               name="play"
             ></ion-icon>
             <ion-icon
@@ -127,7 +147,7 @@
         class="mc-carpool-potential-carpoolers"
       >
         <ion-button
-          class="mc-big-button"
+          class="mc-big-button normal-wrap"
           fill="outline"
           color="success"
           expand="block"
@@ -294,7 +314,6 @@ export default {
   data() {
     return {
       avatarLoaded: false,
-      paused: this.carpool.paused
     };
   },
   mixins: [toast],
@@ -347,9 +366,9 @@ export default {
       this.avatarLoaded = true;
     },
 
-    pauseCarpool(carpoolId) {
+    pauseCarpool() {
       const payload = {
-        carpoolId,
+        carpoolId : this.carpool.id,
         data: {
           paused: !this.carpool.paused,
           adId: this.carpool.id
@@ -364,7 +383,8 @@ export default {
             "success"
           );
 
-          this.paused = !this.carpool.paused;
+          this.carpool.paused = resp.data.paused;
+          this.$forceUpdate();
         })
         .catch(err => {
           this.presentToast(this.$parent.$t("Commons.error"), "danger");
@@ -398,6 +418,7 @@ export default {
       });
 
       this.$store.state.searchStore.searchObject.frequency = this.carpool.frequency;
+      this.$store.state.searchStore.searchObject.adId = this.carpool.id;
       this.$router.push({ name: "search" });
     }
   }

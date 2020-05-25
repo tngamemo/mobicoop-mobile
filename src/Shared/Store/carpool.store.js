@@ -1,3 +1,23 @@
+/**
+
+ Copyright (c) 2018, MOBICOOP. All rights reserved.
+ This project is dual licensed under AGPL and proprietary licence.
+
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Affero General Public License as
+ published by the Free Software Foundation, either version 3 of the
+ License, or (at your option) any later version.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ GNU Affero General Public License for more details.
+ You should have received a copy of the GNU Affero General Public License
+ along with this program. If not, see <gnu.org/licenses>.
+
+ Licence MOBICOOP described in the file
+ LICENSE
+ **************************/
+
 import http from '../Mixin/http.mixin'
 
 export const carpoolStore = {
@@ -54,11 +74,12 @@ export const carpoolStore = {
         seatsDriver: "",
         solidaryExclusive: false,
         userId: "",
-        communities: "",
+        communities: [],
         luggage: false,
         bike: false,
         backSeats: false,
-        comment: ''
+        comment: '',
+        eventId: ''
       };
       state.addressessUseToPost = {
         origin: '',
@@ -292,7 +313,7 @@ export const carpoolStore = {
             commit('distance_success', { distance: resp.data['hydra:member'][0].distance })
             commit('carpool_gps', { directPoints: resp.data['hydra:member'][0].directPoints })
 
-            dispatch('getPriceofCarpool', { priceKm: process.env.VUE_APP_PRICE_BY_KM }).then(resp => {
+            dispatch('getPriceofCarpool', { priceKm: Math.round(state.distanceCarpool * process.env.VUE_APP_PRICE_BY_KM * 100) / 100 / 1000 }).then(resp => {
               // On commit et envoie le resultat
               commit('price_carpool_success', { price: resp.data.value })
             })
@@ -307,7 +328,10 @@ export const carpoolStore = {
     },
 
     getPriceofCarpool({ commit, state }, payload) {
-      const priceTmp = Math.round(state.distanceCarpool * payload.priceKm * 100) / 100 / 1000;
+
+      // const priceTmp = Math.round(state.distanceCarpool * payload.priceKm * 100) / 100 / 1000;
+
+      const priceTmp = Number(payload.priceKm);
 
       return new Promise((resolve, reject) => {
         commit('price_carpool_request');

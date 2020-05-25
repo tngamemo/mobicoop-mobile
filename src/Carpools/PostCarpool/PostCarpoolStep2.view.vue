@@ -1,3 +1,23 @@
+/**
+
+Copyright (c) 2018, MOBICOOP. All rights reserved.
+This project is dual licensed under AGPL and proprietary licence.
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Affero General Public License for more details.
+You should have received a copy of the GNU Affero General Public License
+along with this program. If not, see <gnu.org/licenses>.
+
+Licence MOBICOOP described in the file
+LICENSE
+**************************/
+
 <template>
   <div>
     <div class="mc-form-carpool-time-ponctual" v-if="isPonctual">
@@ -10,6 +30,7 @@
               picker-format="DD/MM/YY"
               cancel-text="Annuler"
               done-text="Valider"
+              :max="'2099-12-31T23:59:59.000Z'"
               :placeholder="$t('PostCarpool.dayOutward')"
               :value="this.$store.getters.carpoolToPost.outwardDate"
               @ionChange="changePostOutwardDate($event)"
@@ -20,6 +41,10 @@
               class="mc-error-label"
               v-if="!$v.carpoolToPost.outwardDate.required"
             >{{$t('Validation.required')}}</div>
+            <div
+              class="mc-error-label"
+              v-if="!$v.carpoolToPost.outwardDate.isAfterNow"
+            >{{$t('Validation.isAfterNow')}}</div>
           </div>
         </ion-col>
 
@@ -66,6 +91,7 @@
               picker-format="DD/MM/YY"
               cancel-text="Annuler"
               done-text="Valider"
+              :max="'2099-12-31T23:59:59.000Z'"
               :placeholder="$t('PostCarpool.dayReturn')"
               :value="this.$store.getters.carpoolToPost.returnDate"
               @ionChange="changePostReturnDate($event)"
@@ -76,6 +102,10 @@
               class="mc-error-label"
               v-if="!$v.carpoolToPost.returnDate.required"
             >{{$t('Validation.required')}}</div>
+            <div
+              class="mc-error-label"
+              v-if="!$v.carpoolToPost.returnDate.isAfterDate"
+            >{{$t('Validation.isAfterDate')}}</div>
           </div>
         </ion-col>
 
@@ -244,6 +274,8 @@
   justify-content: center;
   align-items: center;
   width: 100%;
+  z-index: 2;
+
   div {
     border: 2px solid rgba(0, 0, 0, 0.12);
     background: white;
@@ -284,6 +316,9 @@ import {
 } from "vuelidate/lib/validators";
 
 import { toast } from "../../Shared/Mixin/toast.mixin";
+var moment = require('moment');
+
+
 
 export default {
   name: "post-carpool-step2",
@@ -307,15 +342,24 @@ export default {
       outwardDate: {
         required: requiredIf(function(outwardDate) {
           return this.$store.getters.carpoolToPost.frequency == 1;
-        })
+        }),
+        isAfterNow : function isAfterNow(value) {
+          return moment(value).isSameOrAfter(moment().startOf('day'));
+        }
       },
       returnDate: {
         required: requiredIf(function(returnDate) {
           return (
-            this.$store.getters.carpoolToPost.frequency == 1 &&
-            !this.$store.getters.carpoolToPost.oneWay
+            this.$store.getters.carpoolToPost.frequency == 1 && !this.$store.getters.carpoolToPost.oneWay
           );
-        })
+        }),
+        isAfterDate : function isAfterDate(value) {
+          if (this.$store.getters.carpoolToPost.frequency == 1 && !this.$store.getters.carpoolToPost.oneWay) {
+            return moment(value).isSameOrAfter(moment(this.$store.getters.carpoolToPost.outwardDate));
+          } else {
+            return true;
+          }
+        }
       }
     },
     outwardTimeCopy: {
@@ -325,7 +369,7 @@ export default {
     },
     returnTimeCopy: {
       required: requiredIf(function(returnTimeCopy) {
-        return this.$store.getters.carpoolToPost.frequency == 1;
+        return this.$store.getters.carpoolToPost.frequency == 1 && !this.$store.getters.carpoolToPost.oneWay;
       })
     }
   },
@@ -396,7 +440,7 @@ export default {
           !this.hasALeastFirstStepSchedule &&
           this.carpoolToPost.frequency == 2
         ) {
-          this.presentToast("Les créneaux ne sont pas bien définit", "danger");
+          this.presentToast("Les créneaux ne sont pas bien définis", "danger");
           return false;
         } else if (this.carpoolToPost.frequency == 2) {
            this.$store.dispatch("changeOneWayRegular");

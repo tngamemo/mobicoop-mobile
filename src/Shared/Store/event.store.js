@@ -1,3 +1,23 @@
+/**
+
+ Copyright (c) 2018, MOBICOOP. All rights reserved.
+ This project is dual licensed under AGPL and proprietary licence.
+
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Affero General Public License as
+ published by the Free Software Foundation, either version 3 of the
+ License, or (at your option) any later version.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ GNU Affero General Public License for more details.
+ You should have received a copy of the GNU Affero General Public License
+ along with this program. If not, see <gnu.org/licenses>.
+
+ Licence MOBICOOP described in the file
+ LICENSE
+ **************************/
+
 import http from '../Mixin/http.mixin'
 import moment from 'moment'
 
@@ -7,9 +27,13 @@ export const eventStore = {
     statusGetEvent: '',
     statusSignalEvent: '',
     statusPostEvent: '',
+    statusAdsEvent: '',
     currentEvents: null,
-    pastEvents: null,
-    postEvent: null
+    file: null,
+    page: 1,
+    total: 0,
+    type: 'after', // after || stricly_before
+    events: []
   },
   mutations: {
     events_request(state) {
@@ -18,8 +42,11 @@ export const eventStore = {
 
     events_success(state, events) {
       state.statusGetEvents = 'success';
-      state.pastEvents = events.pastEvents;
-      state.currentEvents = events.currentEvents;
+      if(state.page == 1) {
+        state.events = events;
+      } else {
+        state.events.push(...events);
+      }
     },
 
     events_error(state) {
@@ -63,6 +90,7 @@ export const eventStore = {
         url: '',
         user: ''
       };
+      state.file = null
     },
 
     post_event_request(state) {
@@ -86,26 +114,30 @@ export const eventStore = {
       state.postEvent.address = payload.addressDTO;
     },
 
+    ads_event_request(state) {
+      state.statusAdsEvent = 'loading';
+    },
+
+    ads_event_success(state) {
+      state.statusAdsEvent = 'success';
+    },
+
+    ads_event_error(state) {
+      state.statusAdsEvent = 'error';
+    },
+
   },
   actions: {
 
-    getAllEvents({ commit }) {
+    getAllEvents({ commit, state }) {
       commit('events_request');
       return new Promise((resolve, reject) => {
-        http.get(`/events`)
-          .then(resp => {
-            resolve(resp)
+        http.get(`/events?toDate[` + state.type + `]=` + moment().format('YYYY-MM-DD') + `&order[fromDate]=asc&perPage=30&page=` + state.page).then(resp => {
             const allEvents = resp.data['hydra:member'];
-            const pastEvents = allEvents.filter(event => {
-              return moment(event.toDate).isBefore(moment())
-            })
-
-            const currentEvents = allEvents.filter(event => {
-              return ! moment(event.toDate).isBefore(moment())
-            })
-            commit('events_success', {currentEvents, pastEvents});
-          })
-          .catch(err => {
+            state.total = resp.data['hydra:totalItems'];
+            commit('events_success', allEvents);
+            resolve(resp)
+          }).catch(err => {
             console.log('error');
             commit('events_error');
             reject(err)
@@ -156,6 +188,38 @@ export const eventStore = {
           .catch(err => {
             console.log('error');
             commit('post_event_error');
+            reject(err)
+          })
+      })
+    },
+
+    getAdsEvent({commit}, eventId) {
+      commit('ads_event_request');
+      return new Promise((resolve, reject) => {
+        http.get(`/events/${eventId}/ads`)
+          .then(resp => {
+            resolve(resp)
+            commit('ads_event_success');
+          })
+          .catch(err => {
+            console.log('error');
+            commit('ads_event_error');
+            reject(err)
+          })
+      })
+    },
+
+    updateEventPicture({commit}, params) {
+      return new Promise((resolve, reject) => {
+        const formData = new FormData();
+        formData.append('eventFile', params.eventFile);
+        formData.append('eventId', Number(params.eventId));
+
+        http.post(`/images`, formData)
+          .then(resp => {
+            resolve(resp)
+          })
+          .catch(err => {
             reject(err)
           })
       })

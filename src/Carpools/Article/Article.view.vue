@@ -1,9 +1,29 @@
+/**
+
+Copyright (c) 2018, MOBICOOP. All rights reserved.
+This project is dual licensed under AGPL and proprietary licence.
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Affero General Public License for more details.
+You should have received a copy of the GNU Affero General Public License
+along with this program. If not, see <gnu.org/licenses>.
+
+Licence MOBICOOP described in the file
+LICENSE
+**************************/
+
 <template>
   <div class="ion-page">
     <ion-header no-border>
       <ion-toolbar color="primary">
         <ion-buttons slot="start">
-          <ion-back-button></ion-back-button>
+          <ion-back-button default-href="carpools/home"></ion-back-button>
         </ion-buttons>
         <h1 class="ion-text-center">{{ title }} </h1>
       </ion-toolbar>
@@ -17,13 +37,13 @@
         </div>
 
         <div v-if="$store.state.articleStore.statusArticle == 'success' && sections.length !== 0">
-          <ion-card v-for="(section, index) in sections" @click="activeCard(index)" :key="index" class="mc-cp-card">
+          <ion-card v-for="(section, index) in sections" @click="activeCard(index)" :key="index" class="mc-cp-card pointer">
             <ion-card-header class="mc-cp-card-header">
               <ion-card-title class="mc-cp-card-title">{{section.title}}</ion-card-title>
             </ion-card-header>
 
             <ion-card-content class="mc-cp-card-content">
-              <div class="mc-cp-card-content-wrapper" :class="{'is-active': active === index}">
+              <div class="mc-cp-card-content-wrapper" :class="{'is-active': active.includes(index)}">
                 <p v-for="(paragraph, index) in section.paragraphs" v-html="paragraph.text"></p>
               </div>
             </ion-card-content>
@@ -76,7 +96,7 @@
         &.is-active {
           padding: 0 20px 15px;
           opacity: 1;
-          max-height: 2000px;
+          max-height: 3500px;
         }
       }
 
@@ -97,7 +117,7 @@
     data () {
       return {
         sections: [],
-        active: null,
+        active: [],
         paramId: null
       }
     },
@@ -112,7 +132,13 @@
     },
     methods: {
       activeCard(index) {
-        this.active = index
+        const findActive = this.active.findIndex(item => item === index);
+        if (findActive === -1) {
+          this.active.push(index);
+        } else {
+          this.active.splice(findActive, 1);
+        }
+
       },
       getArticle() {
         this.$store.dispatch('getArticle', this.id)

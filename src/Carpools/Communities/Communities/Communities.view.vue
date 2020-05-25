@@ -1,3 +1,24 @@
+/**
+
+Copyright (c) 2018, MOBICOOP. All rights reserved.
+This project is dual licensed under AGPL and proprietary licence.
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Affero General Public License for more details.
+You should have received a copy of the GNU Affero General Public License
+along with this program. If not, see <gnu.org/licenses>.
+
+Licence MOBICOOP described in the file
+LICENSE
+**************************/
+
+
 <template>
   <div class="ion-page">
     <ion-header no-border>
@@ -71,12 +92,20 @@
             <div class="mc-communities-text">
               <div>{{commu.name}}</div>
               <ion-button color="success">
-                <ion-icon name="eye" class="ion-padding-end"></ion-icon>
+                <ion-icon slot="start" name="eye" style="margin-left: 0px"></ion-icon>
                 {{ $t('Communities.see') }}
               </ion-button>
             </div>
           </div>
         </ion-item>
+
+        <ion-infinite-scroll threshold="100px" id="infinite-scroll">
+          <ion-infinite-scroll-content
+            loadingSpinner="circles"
+            loadingText="Chargement...">
+          </ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+
       </div>
     </ion-content>
   </div>
@@ -150,15 +179,33 @@ export default {
   },
   created() {
     // On récupére les communities
-    this.$store.dispatch("getAllCommunities").catch(error => {
-      this.presentToast(this.$t("Commons.error"), "danger");
-    });
+    this.$store.state.communityStore.page = 1;
+    this.getAllCommunities();
 
     if (!!this.$store.getters.userId) {
       this.$store.dispatch("getUserCommunities").catch(error => {
         this.presentToast(this.$t("Commons.error"), "danger");
       });
     }
+
+
+  },
+  mounted() {
+    const infiniteScroll = document.getElementById('infinite-scroll');
+
+    infiniteScroll.addEventListener('ionInfinite', event => {
+      setTimeout(() => {
+        this.$store.state.communityStore.page = this.$store.state.communityStore.page + 1;
+        this.getAllCommunities();
+        event.target.complete();
+
+        // App logic to determine if all data is loaded
+        // and disable the infinite scroll
+        if (this.$store.state.communityStore.communities.length >= this.$store.state.communityStore.total) {
+          event.target.disabled = true;
+        }
+      }, 500);
+    });
   },
   computed: {
     communities() {
@@ -176,6 +223,11 @@ export default {
     }
   },
   methods: {
+    getAllCommunities() {
+      this.$store.dispatch("getAllCommunities").catch(error => {
+        this.presentToast(this.$t("Commons.error"), "danger");
+      });
+    },
     goToPostCommunity() {
       this.$router.push({
         name: "post-community",

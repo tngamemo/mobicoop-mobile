@@ -1,3 +1,23 @@
+/**
+
+Copyright (c) 2018, MOBICOOP. All rights reserved.
+This project is dual licensed under AGPL and proprietary licence.
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Affero General Public License for more details.
+You should have received a copy of the GNU Affero General Public License
+along with this program. If not, see <gnu.org/licenses>.
+
+Licence MOBICOOP described in the file
+LICENSE
+**************************/
+
 <template>
   <div class="mc-home-search">
     <div class="mc-search-block">
@@ -51,6 +71,11 @@
                 ></ion-datetime>
               </ion-item>
             </ion-col>
+            <!--
+            <ion-col size="2" v-if="this.from != 'event'">
+              <div class="pointer"><ion-icon class="reset-color" size="large" name="close" @click="resetDate()" style="margin-top: 20px"></ion-icon></div>
+            </ion-col>
+            -->
             <ion-col size="7" class="d-flex ion-align-items-end">
               <ion-item lines="none">
                 <ion-label>Trajet régulier</ion-label>
@@ -82,6 +107,15 @@
       fill="outline"
       @click="goToPostCarpool()"
     >{{ $t('HOME.postCarpool') }}</ion-button>
+
+    <ion-button
+      v-if="showPostCarpool && isCapacitor"
+      class="mc-big-button"
+      color="primary"
+      expand="block"
+      fill="outline"
+      @click="goToDynamic()"
+    >{{ $t('HOME.dynamic') }}</ion-button>
   </div>
 </template>
 
@@ -109,15 +143,22 @@
 ion-datetime {
   padding-left: 0px !important;
 }
+
+  .reset-color {
+    color:rgba(0, 0, 0, 0.3)
+  }
 </style>
 
 <script>
+  import { isPlatform } from "@ionic/core";
+
 export default {
   name: "search-home",
-  props: ["showPost", "searchWithFilter", "postWithFilter", "communities", "from"],
+  props: ["showPost", "searchWithFilter", "postWithFilter", "communities", "from", "eventId"],
   data() {
     return {
-      showPostCarpool: true
+      showPostCarpool: true,
+      isCapacitor : isPlatform(window.document.defaultView, "capacitor")
     };
   },
   created() {
@@ -147,6 +188,10 @@ export default {
       );
     },
 
+    resetDate() {
+      this.$store.state.searchStore.searchObject.outwardDate = null
+    },
+
     swapDestinationAndOrigin() {
       this.$store.dispatch("swapDestinationAndOrigin");
     },
@@ -161,6 +206,8 @@ export default {
     },
 
     goToSearchPage() {
+      this.$store.commit('reset_search_object');
+
       if (this.$store.getters.userId) {
         this.$store.commit("changeUserIdOfSearch", this.$store.getters.userId);
       } else {
@@ -169,7 +216,6 @@ export default {
 
       let filters = null;
       if (this.searchWithFilter) {
-
         filters = {communities: this.communities};
       }
       this.$router.push({ name: "search", params: {filters} });
@@ -196,11 +242,18 @@ export default {
 
       let filters = null;
       if (this.postWithFilter) {
-
         filters = {communities: this.communities};
       }
 
+      if (this.eventId) {
+        filters = {eventId: this.eventId};
+      }
+
       this.$router.push({name: "post-carpool", params: {filters}});
+    },
+
+    goToDynamic() {
+      this.$router.push({name: "dynamic"});
     }
   }
 };

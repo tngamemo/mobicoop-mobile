@@ -1,3 +1,23 @@
+/**
+
+Copyright (c) 2018, MOBICOOP. All rights reserved.
+This project is dual licensed under AGPL and proprietary licence.
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Affero General Public License for more details.
+You should have received a copy of the GNU Affero General Public License
+along with this program. If not, see <gnu.org/licenses>.
+
+Licence MOBICOOP described in the file
+LICENSE
+**************************/
+
 <template>
   <div class="mc-form-carpool-recap">
     <div class="mc-recap-item">
@@ -13,7 +33,10 @@
           </div>
         </div>
         <span>{{recapCarpool.outwardDate | moment('DD MMMM YYYY') }}</span>
-        <span>{{recapCarpool.priceCarpool}} €</span>
+        <div class="d-flex align-center">
+          <div>{{recapCarpool.priceCarpool}} €</div>
+          <ion-icon v-if="recapCarpool.passenger" color="secondary" class="price-info" @click="priceInfo()" name="information-circle-outline"></ion-icon>
+        </div>
       </div>
       <div
         v-if="recapCarpool.frequency == 1 && (!!recapCarpool.outwardTime || !!recapCarpool.returnTime)"
@@ -69,12 +92,13 @@
           </div>
         </div>
 
-        <div class="d-flex flex-col">
+        <div class="timeline-container d-flex flex-col">
           <p
             class="timeline text-left d-flex align-center"
             v-for="(step, index) in recapCarpool.outwardWaypoints"
             :key="index"
           >
+            <span v-if="!!!step.role && !!!step.type" class="dot"></span>
             <ion-icon
               v-if="step.role && step.type"
               :name="getIconStepName(step).name"
@@ -100,7 +124,7 @@
       <div class="mc-recap-user-bloc-info">
         <div class="mc-user-image">
           <ion-thumbnail v-if="!! recapCarpool.user.avatars">
-            <img :src="recapCarpool.user.avatars[0]" />
+            <img alt="" :src="recapCarpool.user.avatars[0]" />
           </ion-thumbnail>
         </div>
 
@@ -162,6 +186,12 @@
     color: white;
     margin-right: 10px;
     min-width: 16px;
+
+    &.active {
+      font-size: 22px;
+      margin-left: -3px;
+      min-width: 22px
+    }
   }
 
   .mc-icon-step-background-primary {
@@ -230,10 +260,35 @@
       background: white;
       color: var(--ion-color-primary);
 
+      .timeline-container{
+        position: relative;
+      }
+
+      .timeline-container::before {
+        content: "";
+        position: absolute;
+        margin: auto;
+        width: 1px;
+        background-color: lightgrey;
+        top: 7px;
+        bottom: 7px;
+        left: 11px;
+      }
+
+      .dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 6px;
+        background-color: var(--ion-color-primary);
+        margin-left: 5px;
+        margin-right: 10px;
+      }
+
       .timeline {
         position: relative;
-        padding-left: 20px;
+        //padding-left: 20px;
 
+        /*
         &::before {
           content: "";
           position: absolute;
@@ -246,6 +301,7 @@
           bottom: 0;
           left: 0px;
         }
+         */
       }
     }
 
@@ -292,15 +348,23 @@
       }
     }
   }
+
+  .price-info {
+    cursor: pointer;
+    font-size: 20px;
+    margin-left: 5px;
+  }
 }
 </style>
 
 <script>
 import { LMap, LTileLayer, LPolyline, LMarker } from "vue2-leaflet";
 import { isPlatform } from "@ionic/core";
+import {toast} from "../../../Shared/Mixin/toast.mixin";
 
 export default {
   name: "recap-carpool",
+  mixins: [toast],
   data() {
     return {
       url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
@@ -337,6 +401,10 @@ export default {
     }
   },
   methods: {
+    priceInfo() {
+      console.log(this.recapCarpool);
+      this.presentToast(this.$t("PostCarpool.price-info"), "secondary");
+    },
     displayStep(step) {
       let result = "";
       if (!!step.time) {
@@ -362,12 +430,12 @@ export default {
           if (step.role == "driver") {
             return {
               name: "home",
-              background: "mc-icon-step-background-green"
+              background: "mc-icon-step-background-green" + (this.recapCarpool.driver ? ' active' : '')
             };
           } else {
             return {
               name: "person",
-              background: "mc-icon-step-background-primary"
+              background: "mc-icon-step-background-primary" + (this.recapCarpool.passenger ? ' active' : '')
             };
           }
           break;
@@ -376,24 +444,24 @@ export default {
           if (step.role == "driver") {
             return {
               name: "flag",
-              background: "mc-icon-step-background-green"
+              background: "mc-icon-step-background-green" + (this.recapCarpool.driver ? ' active' : '')
             };
           } else {
             return {
               name: "flag",
-              background: "mc-icon-step-background-primary"
+              background: "mc-icon-step-background-primary" + (this.recapCarpool.passenger ? ' active' : '')
             };
           }
 
         case "step":
           if (step.role == "driver") {
             return {
-              name: "flag",
+              name: "pin",
               background: "mc-icon-step-background-green"
             };
           } else {
             return {
-              name: "flag",
+              name: "pin",
               background: "mc-icon-step-background-primary"
             };
           }

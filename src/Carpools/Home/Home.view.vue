@@ -1,3 +1,23 @@
+/**
+
+Copyright (c) 2018, MOBICOOP. All rights reserved.
+This project is dual licensed under AGPL and proprietary licence.
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Affero General Public License for more details.
+You should have received a copy of the GNU Affero General Public License
+along with this program. If not, see <gnu.org/licenses>.
+
+Licence MOBICOOP described in the file
+LICENSE
+**************************/
+
 <template>
   <div class="ion-page">
     <ion-header no-border>
@@ -53,6 +73,17 @@
         >
           <ion-icon name="help-circle" class="ion-padding-end"></ion-icon>
           {{ $t('HOME.FAQ') }}
+        </ion-button>
+
+        <ion-button
+          class="mc-big-button"
+          color="primary"
+          expand="block"
+          fill="outline"
+          v-on:click="redirectToCGU()"
+        >
+          <ion-icon name="document" class="ion-padding-end"></ion-icon>
+          {{ $t('HOME.CGU') }}
         </ion-button>
 
         <ion-button
@@ -153,6 +184,12 @@ export default {
       return Object.values(this.appModule).filter(item => item == "true").length;
     }
   },
+  mounted() {
+    // caching for crawlers
+    setTimeout(() => {
+      window.prerenderReady = true;
+    }, 1000)
+  },
   methods: {
     closeWelcome: function() {
       this.seeWelcome = false;
@@ -170,6 +207,13 @@ export default {
       this.$router.push({
         name: "article",
         params: { id: 10 }
+      });
+    },
+
+    redirectToCGU: function() {
+      this.$router.push({
+        name: "article",
+        params: { id: 1 }
       });
     },
 

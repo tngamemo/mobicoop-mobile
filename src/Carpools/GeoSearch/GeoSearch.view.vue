@@ -1,9 +1,29 @@
+/**
+
+Copyright (c) 2018, MOBICOOP. All rights reserved.
+This project is dual licensed under AGPL and proprietary licence.
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Affero General Public License for more details.
+You should have received a copy of the GNU Affero General Public License
+along with this program. If not, see <gnu.org/licenses>.
+
+Licence MOBICOOP described in the file
+LICENSE
+**************************/
+
 <template>
   <div class="ion-page">
     <ion-header no-border>
       <ion-toolbar color="primary">
         <ion-buttons slot="start">
-          <ion-back-button></ion-back-button>
+          <ion-back-button default-href="carpools/home"></ion-back-button>
         </ion-buttons>
         <h1 class="ion-text-center">{{$t(`Search.${type}`) }}</h1>
       </ion-toolbar>
@@ -28,6 +48,24 @@
           ></ion-icon>
         </ion-item>
 
+        <div v-if="myPosition">
+          <ion-item
+            class="flex-card"
+            v-if="myPosition.displayLabel[0]"
+            v-on:click="selectGeo(myPosition)"
+          >
+            <div class="iconSearch">
+              <ion-icon size="large" color="primary" name="locate"></ion-icon>
+            </div>
+            <ion-card-header>
+              <ion-card-title class="mc-small-card-title">{{ myPosition.displayLabel[0] }}</ion-card-title>
+              <ion-card-subtitle>
+                <div>{{ myPosition.displayLabel[1] }}</div>
+              </ion-card-subtitle>
+            </ion-card-header>
+          </ion-item>
+        </div>
+
         <div v-for="address in this.$store.state.searchStore.resultsGeo" :key="address.key">
           <ion-item
             class="flex-card"
@@ -38,7 +76,7 @@
               <img v-bind:src="address.icon" alt />
             </div>
             <ion-card-header>
-              <ion-card-title>{{ address.displayLabel[0] }}</ion-card-title>
+              <ion-card-title class="mc-small-card-title">{{ address.displayLabel[0] }}</ion-card-title>
               <ion-card-subtitle>
                 <div>{{ address.displayLabel[1] }}</div>
               </ion-card-subtitle>
@@ -57,7 +95,7 @@
               <img v-bind:src="address.icon" alt />
             </div>
             <ion-card-header>
-              <ion-card-title>{{ address.displayLabel[0] }}</ion-card-title>
+              <ion-card-title class="mc-small-card-title">{{ address.displayLabel[0] }}</ion-card-title>
               <ion-card-subtitle>
                 <div>{{ address.displayLabel[1] }}</div>
               </ion-card-subtitle>
@@ -84,10 +122,17 @@
     margin-left: 20px;
   }
 }
+
+  .mc-small-card-title {
+    font-size: 19px;
+  }
 </style>
 
 <script>
 import { toast } from "../../Shared/Mixin/toast.mixin";
+import { Plugins } from '@capacitor/core';
+import {isPlatform} from "@ionic/core";
+const { Geolocation } = Plugins;
 
 export default {
   name: "geo-search",
@@ -101,6 +146,9 @@ export default {
         this.$store.dispatch("treatementUpdateAddresses");
       }
     );
+    if(isPlatform(window.document.defaultView, "capacitor")) {
+      this.getMyPosition();
+    }
   },
   beforeDestroy() {
     this.unwatch();
@@ -109,7 +157,8 @@ export default {
     return {
       type: this.$route.query.type,
       action: this.$route.query.action,
-      index: this.$route.query.index
+      index: this.$route.query.index,
+      myPosition: null
     };
   },
 
@@ -124,6 +173,17 @@ export default {
           });
         }
       }, 500);
+    },
+
+    async getMyPosition() {
+      const coordinates = await Geolocation.getCurrentPosition();
+      this.$store.dispatch("getAddressesByCoordinate", {latitude: coordinates.coords.latitude.toString(), longitude: coordinates.coords.longitude.toString()}).then(res => {
+        if (res.data['hydra:member'].length > 0) {
+          this.myPosition = res.data['hydra:member'][0];
+        }
+      }).catch(err => {
+
+      });
     },
 
     selectGeo: function(address) {

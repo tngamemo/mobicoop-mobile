@@ -1,3 +1,23 @@
+/**
+
+Copyright (c) 2018, MOBICOOP. All rights reserved.
+This project is dual licensed under AGPL and proprietary licence.
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Affero General Public License for more details.
+You should have received a copy of the GNU Affero General Public License
+along with this program. If not, see <gnu.org/licenses>.
+
+Licence MOBICOOP described in the file
+LICENSE
+**************************/
+
 <template>
   <div class="ion-page">
     <ion-header no-border>
@@ -40,8 +60,9 @@
         >
           <div class="mc-ask-header">{{ $t('DetailCarpool.askFor')}}</div>
           <ion-item v-for="(day, index) in selectedDay" :key="index">
+
             <div class="mc-choose-day d-flex justify-between">
-              <b>{{$t(day.trad)}}</b>
+              <span class="mc-choose-day-title"><b>{{$t(day.trad)}}</b></span>
               <span
                 v-if="day.outwardTime"
               >{{ $t('DetailCarpool.outward')}} : {{day.outwardTime | moment("utc", "HH:mm")}}</span>
@@ -249,8 +270,13 @@
     padding: 10px;
   }
   .mc-choose-day {
+    font-size: 12px;
     width: 100%;
     color: var(--ion-color-primary);
+
+    .mc-choose-day-title {
+      min-width: 60px;
+    }
   }
 }
 </style>
@@ -351,6 +377,18 @@ export default {
     },
 
     askCarpool(role) {
+      if(this.fromMessage) {
+        if (role == 1) {
+          this.updateAsk(2)
+        } else {
+          this.updateAsk(3)
+        }
+      } else {
+        this.postAskCarpool(role)
+      }
+    },
+
+    postAskCarpool(role) {
       if (this.carpoolSelected.frequency == 1) {
         const resultDriverOrPassenger = this.getResultDriveOrPassenger();
         const adId = resultDriverOrPassenger.outward.proposalId;
@@ -372,7 +410,7 @@ export default {
           .catch(err => {
             console.log(err);
             this.presentToast(this.$t("Commons.error"), "danger");
-          });
+        });
       }
     },
 
@@ -523,7 +561,8 @@ export default {
       this.$store
         .dispatch("contactCarpool", payload)
         .then(resp => {
-          this.presentToast(this.$t("AskCarpool.contactSuccess"), "success");
+          console.log(resp);
+          // this.presentToast(this.$t("AskCarpool.contactSuccess"), "success");
           this.$router.push({ name: "messages" });
         })
         .catch(err => {

@@ -1,3 +1,23 @@
+/**
+
+Copyright (c) 2018, MOBICOOP. All rights reserved.
+This project is dual licensed under AGPL and proprietary licence.
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Affero General Public License for more details.
+You should have received a copy of the GNU Affero General Public License
+along with this program. If not, see <gnu.org/licenses>.
+
+Licence MOBICOOP described in the file
+LICENSE
+**************************/
+
 <template>
   <div class="mc-form-register">
     <div class="mc-form-register-input">
@@ -35,15 +55,26 @@
       <ion-item>
         <ion-label position="floating">{{$t('Register.email')}} *</ion-label>
         <ion-input
-          type="text"
+          type="email"
           :placeholder="$t('Register.email') + '*'"
           :value="user.email"
-          @input="user.email = $event.target.value;"
+          @ionBlur="checkedEmail = null"
+          @input="user.email = $event.target.value"
         ></ion-input>
+        <ion-icon
+          style="margin-top: 16px"
+          slot="end"
+          size="large"
+          color="primary"
+          class="rotating"
+          v-if="this.$store.state.registerStore.statusCheckEmail == 'loading'"
+          name="md-sync"
+        ></ion-icon>
       </ion-item>
       <div v-if="$v.user.email.$error">
         <div class="mc-error-label" v-if="!$v.user.email.required">{{$t('Validation.required')}}</div>
         <div class="mc-error-label" v-if="!$v.user.email.email">{{$t('Validation.email')}}</div>
+        <div class="mc-error-label" v-if="!$v.user.email.checkEmail">{{$t('Validation.checkEmail')}}</div>
       </div>
 
       <br />
@@ -131,7 +162,9 @@ const oneDigit = helpers.regex("oneDigit", /\d/);
 export default {
   name: "registerStep1",
   data() {
-    return {};
+    return {
+      checkedEmail: null
+    };
   },
   validations: {
     user: {
@@ -143,7 +176,21 @@ export default {
       },
       email: {
         required,
-        email
+        email,
+        checkEmail(email) {
+          if (!this.checkedEmail) {
+            this.checkedEmail = this.$store.dispatch('checkEmail', email).then(res => {
+              setTimeout(() => {
+                console.log( this.$parent );
+                this.$parent.next()
+              }, 0)
+              return res
+            });
+            return this.checkedEmail
+          } else {
+            return this.checkedEmail
+          }
+        }
       },
       password: {
         required,

@@ -1,3 +1,23 @@
+/**
+
+Copyright (c) 2018, MOBICOOP. All rights reserved.
+This project is dual licensed under AGPL and proprietary licence.
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Affero General Public License for more details.
+You should have received a copy of the GNU Affero General Public License
+along with this program. If not, see <gnu.org/licenses>.
+
+Licence MOBICOOP described in the file
+LICENSE
+**************************/
+
 <template>
   <div class="ion-page">
     <ion-header no-border>
@@ -66,7 +86,8 @@
                 <p
                   v-if="message.carpoolInfos"
                 >{{message.carpoolInfos.origin}} → {{message.carpoolInfos.destination}}</p>
-                <p>{{message.date | moment('utc', 'ddd D MMMM à HH[h]mm')}}</p>
+                <p v-if="message.carpoolInfos"> {{message.carpoolInfos.criteria.fromDate | moment('ddd D MMMM')}} <span v-if="message.carpoolInfos.criteria.fromTime">{{message.carpoolInfos.criteria.fromTime | moment('utc') | moment(' à HH[h]mm')}}</span></p>
+                <p v-if="!message.carpoolInfos">{{message.date | moment('ddd D MMMM à HH[h]mm')}}</p>
               </ion-label>
             </ion-item>
             <!--
