@@ -5,6 +5,6 @@
   <string name="package_name">fr.mobicoop.ouestgo</string>
   <string name="custom_url_scheme">fr.mobicoop.ouestgo</string>
   <string name="mauron85_bgloc_account_name">@string/app_name</string>
-  <string name="mauron85_bgloc_account_type">$PACKAGE_NAME.account</string>
-  <string name="mauron85_bgloc_content_authority">$PACKAGE_NAME</string>
+  <string name="mauron85_bgloc_account_type">fr.mobicoop.ouestgo.account</string>
+  <string name="mauron85_bgloc_content_authority">fr.mobicoop.ouestgo</string>
 </resources>

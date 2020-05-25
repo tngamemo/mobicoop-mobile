@@ -56,8 +56,8 @@ LICENSE
 
         <ion-grid class="ion-margin-bottom mc-block-date">
           <ion-row>
-            <ion-col size="5" v-if="this.from != 'event'">
-              <ion-item>
+            <ion-col size="4" v-if="this.from != 'event'">
+              <ion-item v-if="showDate">
                 <ion-label position="floating">{{$t('Search.date')}}</ion-label>
                 <ion-datetime
                   display-format="DD/MM"
@@ -71,12 +71,12 @@ LICENSE
                 ></ion-datetime>
               </ion-item>
             </ion-col>
-            <!--
-            <ion-col size="2" v-if="this.from != 'event'">
-              <div class="pointer"><ion-icon class="reset-color" size="large" name="close" @click="resetDate()" style="margin-top: 20px"></ion-icon></div>
+
+            <ion-col size="2" v-if="this.from != 'event' && clearDate">
+              <div class="pointer"><ion-icon class="reset-color" size="large" name="close-circle" @click="resetDate()" style="margin-top: 20px"></ion-icon></div>
             </ion-col>
-            -->
-            <ion-col size="7" class="d-flex ion-align-items-end">
+
+            <ion-col size="6" class="d-flex ion-align-items-end">
               <ion-item lines="none">
                 <ion-label>Trajet régulier</ion-label>
                 <ion-checkbox
@@ -109,7 +109,7 @@ LICENSE
     >{{ $t('HOME.postCarpool') }}</ion-button>
 
     <ion-button
-      v-if="showPostCarpool && isCapacitor"
+      v-if="showPostCarpool && isCapacitor && canSeeDynamics"
       class="mc-big-button"
       color="primary"
       expand="block"
@@ -145,7 +145,8 @@ ion-datetime {
 }
 
   .reset-color {
-    color:rgba(0, 0, 0, 0.3)
+    // color:rgba(0, 0, 0, 0.3)
+    color:var(--ion-color-primary)
   }
 </style>
 
@@ -158,7 +159,10 @@ export default {
   data() {
     return {
       showPostCarpool: true,
-      isCapacitor : isPlatform(window.document.defaultView, "capacitor")
+      isCapacitor : isPlatform(window.document.defaultView, "capacitor"),
+      showDate: true,
+      clearDate: JSON.parse(process.env.VUE_APP_CAN_CLEAR_DATE),
+      canSeeDynamics: JSON.parse(process.env.VUE_APP_CAN_SEE_DYNAMICS)
     };
   },
   created() {
@@ -189,7 +193,10 @@ export default {
     },
 
     resetDate() {
-      this.$store.state.searchStore.searchObject.outwardDate = null
+      // this.changeDate({detail: {value: undefined}});
+      this.$store.state.searchStore.searchObject.outwardDate = null;
+      this.showDate = false;
+      setTimeout(() => {this.showDate = true});
     },
 
     swapDestinationAndOrigin() {

@@ -33,7 +33,8 @@ export const eventStore = {
     page: 1,
     total: 0,
     type: 'after', // after || stricly_before
-    events: []
+    events: [],
+    postEvent: null
   },
   mutations: {
     events_request(state) {

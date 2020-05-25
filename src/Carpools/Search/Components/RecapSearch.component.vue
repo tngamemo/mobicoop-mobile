@@ -21,7 +21,7 @@ LICENSE
 <template>
   <div class="mc-recap-search">
     <div class="d-flex justify-between">
-      <div><span v-if="this.$store.getters.searchObject.frequency == 1">{{ formatedSearchDate }}</span></div>
+      <div><span v-if="this.$store.getters.searchObject.frequency == 1 && this.$store.getters.searchObject.outwardDate != null">{{ formatedSearchDate }}</span></div>
       <div v-on:click="goToHome()"><ion-icon name="create"></ion-icon></div>
     </div>
 

@@ -49,9 +49,9 @@ LICENSE
           <ion-label position="floating">{{$t('PostEvent.name')}} *</ion-label>
           <ion-input
             type="text"
-            :placeholder="$t('PostEvent.name') + '*'"
+            :placeholder="$t('PostEvent.name')"
             :value="eventToPost.name"
-            @input="eventToPost.name = $event.target.value;"
+            @input="eventToPost.name = $event.target.value"
           ></ion-input>
         </ion-item>
         <div v-if="$v.eventToPost.name.$error">
@@ -75,9 +75,9 @@ LICENSE
           <ion-label position="floating">{{$t('PostEvent.description')}} *</ion-label>
           <ion-input
             type="text"
-            :placeholder="$t('PostEvent.description') + '*'"
+            :placeholder="$t('PostEvent.description')"
             :value="eventToPost.description"
-            @input="eventToPost.description = $event.target.value;"
+            @input="eventToPost.description = $event.target.value"
           ></ion-input>
         </ion-item>
         <div v-if="$v.eventToPost.description.$error">
