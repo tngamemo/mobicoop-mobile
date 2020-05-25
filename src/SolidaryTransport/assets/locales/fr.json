@@ -428,6 +428,7 @@
           "gender": "Civilité",
           "firstname": "Prénom",
           "lastname": "Nom",
+          "age": "Votre âge doit être supérieur à {value} ans",
           "email": "Adresse mail",
           "password": "Mot de passe",
           "phone": "Téléphone",

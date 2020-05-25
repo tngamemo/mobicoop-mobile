@@ -160,6 +160,14 @@ export default [
         beforeEnter: preventAccess
       },
       {
+        path: '/solidary-transport/register/subscribe',
+        name: 'solidaryTransport.register.subscribe',
+        components: {
+          register: RegisterSubscribe
+        },
+        beforeEnter: preventAccess
+      },
+      {
         path: '/solidary-transport/register/request',
         name: 'solidaryTransport.register.request',
         components: {
@@ -194,14 +202,6 @@ export default [
         components: {
           register: RequestPublishRegularSummary
         }
-      },
-      {
-        path: '/solidary-transport/register/subscribe',
-        name: 'solidaryTransport.register.subscribe',
-        components: {
-          register: RegisterSubscribe
-        },
-        beforeEnter: preventAccess
       },
       // REGISTER ----- ( end here )
 

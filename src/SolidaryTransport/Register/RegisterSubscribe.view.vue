@@ -22,7 +22,13 @@
 
             <ion-item class="mc-st-form-item">
               <ion-label position="floating">{{$t('solidaryTransport.register.form.fields.gender')}} *</ion-label>
-              <ion-select required :value="user.gender" @ionChange="user.gender = parseInt($event.target.value)" :cancel-text="$t('solidaryTransport.buttons.cancel')" :done-text="$t('solidaryTransport.buttons.validate')">
+              <ion-select 
+                required
+                :value="user.gender"
+                @ionChange="user.gender = parseInt($event.target.value)"
+                :cancel-text="$t('solidaryTransport.buttons.cancel')"
+                :ok-text="$t('solidaryTransport.buttons.validate')"
+              >
                 <ion-select-option value="1">{{$t('solidaryTransport.commons.gender.female')}}</ion-select-option>
                 <ion-select-option value="2">{{$t('solidaryTransport.commons.gender.male')}}</ion-select-option>
                 <ion-select-option value="3">{{$t('solidaryTransport.commons.gender.nc')}}</ion-select-option>
@@ -56,13 +62,14 @@
                 picker-format="DD/MM/YYYY"
                 :cancel-text="$t('solidaryTransport.buttons.cancel')"
                 :done-text="$t('solidaryTransport.buttons.validate')"
+                :value="user.birthDate"
+                @ionChange="user.birthDate = $event.detail.value; $v.$reset('user.birthDate');"
               ></ion-datetime>
             </ion-item>
-            <template v-if="true">
-              <div class="mc-st-form-details">
-                <span class="mc-st-form-error" v-if="true">{{$t('solidaryTransport.register.form.fields.required')}}</span>
-              </div>
-            </template>
+            <div class="mc-st-form-details" v-if="$v.user.birthDate.$error">
+              <span class="mc-st-form-error" v-if="!$v.user.birthDate.required">{{$t('solidaryTransport.register.form.fields.required')}}</span>
+              <span class="mc-st-form-error" v-else-if="!$v.user.birthDate.isMaxBirthDate">{{$t('solidaryTransport.register.form.fields.age', { value: minAge })}}</span>
+            </div>
 
             <ion-item class="mc-st-form-item" v-on:click="displayGeoSearch('register_address', 'search')">
               <ion-label position="floating">{{$t('Register.address')}} *</ion-label>
@@ -167,7 +174,8 @@ export default {
         }
       },
       debounced: undefined,
-      password: undefined
+      password: undefined,
+      minAge: process.env.VUE_APP_REGISTER_MIN_AGE
     }
   },
   computed: {
@@ -191,6 +199,10 @@ export default {
       },
       familyName: {
         required
+      },
+      birthDate: {
+        required,
+        isMaxBirthDate
       },
       email: {
         required,
