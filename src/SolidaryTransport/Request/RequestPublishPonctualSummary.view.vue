@@ -96,7 +96,7 @@
                 <div class="mc-st-form-controls with-multiple">
                   <ion-button class="mc-st-form-control as-back" color="light" v-html="$t('solidaryTransport.buttons.back')" @click="$router.back()"></ion-button>
 
-                  <ion-button class="mc-st-form-control" color="success" @click="$router.push({name: 'solidaryTransport.register.subscribe.details'})">
+                  <ion-button class="mc-st-form-control" color="success" @click="$router.push({name: $route.name + '.register'})">
                     <span v-html="$t('solidaryTransport.buttons.next')"></span>
                   </ion-button>
                 </div>
