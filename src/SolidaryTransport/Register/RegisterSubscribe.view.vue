@@ -35,24 +35,34 @@
               </ion-select>
             </ion-item>
             <div class="mc-st-form-details" v-if="$v.user.gender.$error">
-              <span class="mc-st-form-error">{{$t('solidaryTransport.register.form.fields.required')}}</span>
+              <span class="mc-st-form-error">{{$t('solidaryTransport.register.form.validators.required')}}</span>
             </div>
 
             <ion-item class="mc-st-form-item">
               <ion-label position="floating">{{$t('solidaryTransport.register.form.fields.firstname')}} *</ion-label>
-              <ion-input class="mc-st-form-input" type="text" :value="user.givenName" @input="user.givenName = $event.target.value;"></ion-input>
+              <ion-input 
+                class="mc-st-form-input" 
+                type="text" 
+                :value="user.givenName" 
+                @input="user.givenName = $event.target.value;"
+              ></ion-input>
             </ion-item>
             <div class="mc-st-form-details">
               <span class="mc-st-form-note">{{$t('solidaryTransport.register.form.fields.visibility')}}</span>
-              <span class="mc-st-form-error" v-if="$v.user.givenName.$error">{{$t('solidaryTransport.register.form.fields.required')}}</span>
+              <span class="mc-st-form-error" v-if="$v.user.givenName.$error">{{$t('solidaryTransport.register.form.validators.required')}}</span>
             </div>
 
             <ion-item class="mc-st-form-item">
               <ion-label position="floating">{{$t('solidaryTransport.register.form.fields.lastname')}} *</ion-label>
-              <ion-input class="mc-st-form-input" type="text" :value="user.familyName" @input="user.familyName = $event.target.value;"></ion-input>
+              <ion-input 
+                class="mc-st-form-input" 
+                type="text" 
+                :value="user.familyName" 
+                @input="user.familyName = $event.target.value;"
+              ></ion-input>
             </ion-item>
             <div class="mc-st-form-details" v-if="$v.user.familyName.$error">
-              <span class="mc-st-form-error">{{$t('solidaryTransport.register.form.fields.required')}}</span>
+              <span class="mc-st-form-error">{{$t('solidaryTransport.register.form.validators.required')}}</span>
             </div>
 
             <ion-item class="mc-st-form-item">
@@ -67,67 +77,122 @@
               ></ion-datetime>
             </ion-item>
             <div class="mc-st-form-details" v-if="$v.user.birthDate.$error">
-              <span class="mc-st-form-error" v-if="!$v.user.birthDate.required">{{$t('solidaryTransport.register.form.fields.required')}}</span>
-              <span class="mc-st-form-error" v-else-if="!$v.user.birthDate.isMaxBirthDate">{{$t('solidaryTransport.register.form.fields.age', { value: minAge })}}</span>
+              <span class="mc-st-form-error" v-if="!$v.user.birthDate.required">{{$t('solidaryTransport.register.form.validators.required')}}</span>
+              <span class="mc-st-form-error" v-else-if="!$v.user.birthDate.isMaxBirthDate">{{$t('solidaryTransport.register.form.validators.age', { value: minAge })}}</span>
             </div>
 
-            <ion-item class="mc-st-form-item" v-on:click="displayGeoSearch('register_address', 'search')">
-              <ion-label position="floating">{{$t('Register.address')}} *</ion-label>
+            <ion-item class="mc-st-form-item" v-on:click="displayGeoSearch()">
+              <ion-label position="floating">{{$t('solidaryTransport.register.form.fields.address')}} *</ion-label>
               <ion-input
                 type="text"
-                name="address"
-                :value="user.addresses[0]"
+                :value="address.display"
                 readonly="true"
                 class="no-clickable"
               ></ion-input>
             </ion-item>
-            <template v-if="true">
-              <div class="mc-st-form-details">
-                <span class="mc-st-form-error" v-if="true">{{$t('solidaryTransport.register.form.fields.required')}}</span>
-              </div>
-            </template>
+            <div class="mc-st-form-details" v-if="$v.user.addresses.$error">
+              <span class="mc-st-form-error" v-if="!$v.user.addresses.required">{{$t('solidaryTransport.register.form.validators.required')}}</span>
+            </div>
 
             <ion-item class="mc-st-form-item">
               <ion-label position="floating">{{$t('solidaryTransport.register.form.fields.phone')}} *</ion-label>
-              <ion-input class="mc-st-form-input" type="email"></ion-input>
+              <ion-input
+                class="mc-st-form-input" 
+                type="text"
+                :value="user.telephone"
+                @input="user.telephone = $event.target.value;"
+              ></ion-input>
             </ion-item>
-            <template v-if="true">
-              <div class="mc-st-form-details">
-                <span class="mc-st-form-error" v-if="true">{{$t('Validation.required')}}</span>
-              </div>
-            </template>
+            <div class="mc-st-form-details" v-if="$v.user.telephone.$error">
+              <span class="mc-st-form-error" v-if="!$v.user.telephone.minLength">{{$t('solidaryTransport.register.form.validators.telephone')}}</span>
+              <span class="mc-st-form-error" v-else-if="!$v.user.telephone.required">{{$t('solidaryTransport.register.form.validators.required')}}</span>
+            </div>
 
             <ion-item class="mc-st-form-item">
               <ion-label position="floating">{{$t('solidaryTransport.register.form.fields.email')}} *</ion-label>
-              <ion-input class="mc-st-form-input" type="email" @ionChange="checkMail()" @input="user.email = $event.target.value"></ion-input>
-              <ion-icon class="mc-st-form-icon rotating" slot="end" size="large" color="primary" name="sync"></ion-icon>
+              <ion-input 
+                class="mc-st-form-input" 
+                type="email" 
+                @ionChange="checkMail()" 
+                @input="user.email = $event.target.value"
+              ></ion-input>
+              <ion-icon class="mc-st-form-icon rotating" v-show="checking" slot="end" size="medium" color="primary" name="sync"></ion-icon>
             </ion-item>
-            <template v-if="true">
-              <div class="mc-st-form-details">
-                <span class="mc-st-form-error" v-if="true">{{$t('Validation.required')}}</span>
-              </div>
-            </template>
+            <div class="mc-st-form-details" v-if="!$v.user.email.error">
+              <span class="mc-st-form-error" v-if="!$v.user.email.mailAvailable">{{$t('solidaryTransport.register.form.validators.emailAvailable')}}</span>
+              <span class="mc-st-form-error" v-else-if="!$v.user.email.email">{{$t('solidaryTransport.register.form.validators.email')}}</span>
+              <span class="mc-st-form-error" v-else-if="!$v.user.email.required">{{$t('solidaryTransport.register.form.validators.required')}}</span>
+            </div>
 
             <ion-item class="mc-st-form-item">
               <ion-label position="floating">{{$t('solidaryTransport.register.form.fields.password')}} *</ion-label>
-              <ion-input class="mc-st-form-input" type="text"></ion-input>
+              <template v-if="showPassword">
+                <ion-input
+                  class="mc-st-form-input" 
+                  type="text"
+                  :value="user.password"
+                  @input="user.password = $event.target.value;"
+                ></ion-input>
+                <ion-icon class="mc-st-form-icon" slot="end" size="medium" name="eye-off" @click="togglePassword()"></ion-icon>
+              </template>
+              <template v-else>
+                <ion-input
+                  class="mc-st-form-input" 
+                  type="password"
+                  :value="user.password"
+                  @input="user.password = $event.target.value;"
+                ></ion-input>
+                <ion-icon class="mc-st-form-icon" slot="end" size="medium" name="eye" @click="togglePassword()"></ion-icon>
+              </template>
             </ion-item>
-            <template v-if="true">
-              <div class="mc-st-form-details">
-                <span class="mc-st-form-error" v-if="true">{{$t('Validation.required')}}</span>
-              </div>
-            </template>
+            <div class="mc-st-form-details" v-if="$v.user.password.$error">
+              <span class="mc-st-form-error" v-if="!$v.user.password.minLength">{{$t('solidaryTransport.register.form.validators.passwordMinLength')}}</span>
+              <span class="mc-st-form-error" v-else-if="!$v.user.password.oneUppercase">{{$t('solidaryTransport.register.form.validators.passwordOneUppercase')}}</span>
+              <span class="mc-st-form-error" v-else-if="!$v.user.password.passwordOneDigit">{{$t('solidaryTransport.register.form.validators.passwordOneDigit')}}</span>
+              <span class="mc-st-form-error" v-else-if="!$v.user.password.required">{{$t('solidaryTransport.register.form.validators.required')}}</span>
+            </div>
+
+            <ion-item class="mc-st-form-item">
+              <ion-label position="floating">{{$t('solidaryTransport.register.form.fields.confirmPassword')}} *</ion-label>
+              <template v-if="showPassword">
+                <ion-input
+                  class="mc-st-form-input" 
+                  type="text"
+                  :value="password"
+                  @input="password = $event.target.value;"
+                ></ion-input>
+              </template>
+              <template v-else>
+                <ion-input
+                  class="mc-st-form-input" 
+                  type="password"
+                  :value="password"
+                  @input="password = $event.target.value;"
+                ></ion-input>
+              </template>
+            </ion-item>
+            <div class="mc-st-form-details" v-if="$v.password.$error">
+              <span class="mc-st-form-error" v-if="!$v.password.samePassword">{{$t('solidaryTransport.register.form.validators.passwordSamePassword')}}</span>
+              <span class="mc-st-form-error" v-else-if="!$v.password.required">{{$t('solidaryTransport.register.form.validators.required')}}</span>
+            </div>
 
             <ion-item class="mc-st-form-item as-agreement" lines="none">
               <ion-checkbox
                 class="mc-st-form-checkbox"
                 color="success"
                 slot="start"
+                :value="user.userAgreementAccepted"
+                @ionChange="user.userAgreementAccepted = $event.target.checked"
               ></ion-checkbox>
               <ion-label class="mc-st-form-label no-white-space" color="primary">{{ $t('solidaryTransport.register.form.fields.agreement.accept') }}</ion-label>
             </ion-item>
             <div class="mc-st-form-details">
-              <span class="mc-st-form-note" @click="displayCGU()">{{$t('solidaryTransport.register.form.fields.agreement.read')}}</span>
+              <span class="mc-st-form-note" @click="displayCGU()" v-html="$t('solidaryTransport.register.form.fields.agreement.read')"></span>
+
+              <template v-if="$v.user.userAgreementAccepted.$error">
+                <div class="mc-error-label"  v-if="!$v.user.userAgreementAccepted.checked">{{$t('solidaryTransport.register.form.validators.checked')}}</div>
+                <div class="mc-error-label"  v-else-if="!$v.user.userAgreementAccepted.required">{{$t('solidaryTransport.register.form.validators.required')}}</div>
+              </template>
             </div>
             
           </div>
@@ -149,7 +214,6 @@
 </style>
 
 <script>
-import { mapState, mapGetters } from 'vuex'
 import _ from 'lodash'
 import moment from 'moment'
 import { required, between, email, sameAs, minLength, helpers } from 'vuelidate/lib/validators'
@@ -167,14 +231,11 @@ export default {
   components: {},
   data () {
     return {
-      updating: false,
-      buttons: {
-        fill: {
-          active: true
-        }
-      },
+      checking: false,
+      mailAvailable: true,
       debounced: undefined,
       password: undefined,
+      showPassword: false,
       minAge: process.env.VUE_APP_REGISTER_MIN_AGE
     }
   },
@@ -187,6 +248,11 @@ export default {
         this.$store.commit("solidaryUserUpdate", this.user);
       }
     },
+    address : {
+      get() {
+        return this.$store.state.solidaryTransportStore.temporary.address
+      }
+    }
   },
   validations: {
     user: {
@@ -204,25 +270,37 @@ export default {
         required,
         isMaxBirthDate
       },
+      telephone: {
+        required,
+        minLength: minLength(10)
+      },
       email: {
         required,
         email,
-        check(email) {
-          console.log('check from vuelidator')
-          return true
+        mailAvailable(value) {
+          return this.mailAvailable
         }
       },
-      // password: {
-      //   required,
-      //   minLength: minLength(8),
-      //   oneUppercase,
-      //   oneDigit
-      // },
+      password: {
+        required,
+        minLength: minLength(8),
+        oneUppercase,
+        oneDigit
+      },
+      userAgreementAccepted: {
+        required,
+        checked: sameAs( () => true )
+      },
+      addresses: {
+        required
+      }
     },
-    // password: {
-    //   required,
-    //   sameAsPassword: sameAs('user.password')
-    // }
+    password: {
+      required,
+      sameAsPassword: sameAs(function() {
+        return this.user.password
+      })
+    }
   },
   mounted: function () {
     _.each(this.eligibility, (item) => {
@@ -230,13 +308,16 @@ export default {
     })
   },
   methods: {
+    togglePassword () {
+      this.showPassword = !this.showPassword
+    },
     getMaxBirthDate() {
       let n = new Date();
       n.setFullYear(n.getFullYear() - process.env.VUE_APP_REGISTER_MIN_AGE);
       return n.toISOString();
     },
-    displayGeoSearch: function (type, action) {
-      this.$router.push({ name: "geoSearch", query: { type, action }});
+    displayGeoSearch: function () {
+      this.$router.push({ name: "solidaryTransport.geoSearch", query: { action: 'solidaryTransport.search', type: 'register' }});
     },
     displayCGU: function () {
       console.log(process.env.VUE_APP_SOLIDARY_CGU_ARTICLE_ID)
@@ -245,6 +326,7 @@ export default {
     validate: function () {
       this.$v.$reset();
       this.$v.$touch();
+      this.showPassword = false
       if (this.$v.$invalid) {
         this.$refs.register.getScrollElement().then((parent) => {
           let child = document.getElementsByClassName('mc-st-form-error')[0]
@@ -253,18 +335,32 @@ export default {
           var top = childPos - parentPos - 30
           this.$refs.register.scrollToPoint(0, top, 0)
         })
-
-        return false;
       } else {
-        console.log('valid')
-        return true;
+        // Get articles for help
+        this.$store.dispatch('registerStandardUser')
+        .then((user) => {
+          console.log(user)
+        })
+        .catch((error) => {
+          console.error(error)
+        })
       }
     },
     checkMail: _.debounce(function() {
-      console.log('checkMail', this.user.email)
-      this.$store.dispatch('checkEmail', this.user.email).then(res => {
-        console.log(res)
-      })
+      if (!this.checking && this.$v.user.email.email) {
+        this.checking = true
+
+        this.$store.dispatch('checkEmail', this.user.email)
+        .then(res => {
+          this.checking = false
+          this.mailAvailable = true
+        })
+        .catch(err => {
+          this.checking = false
+          this.mailAvailable = false
+        })
+
+      }
     }, 250),
   },
   created: function () {}

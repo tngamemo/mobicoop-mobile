@@ -32,6 +32,10 @@ import RequestPublishPonctualSummary from './Request/RequestPublishPonctualSumma
 import RequestPublishRegular from './Request/RequestPublishRegular.view.vue';
 import RequestPublishRegularSummary from './Request/RequestPublishRegularSummary.view.vue';
 
+// Tools related
+import GeoSearch from './GeoSearch/GeoSearch.view.vue';
+
+
 import Vue from 'vue'
 import store from '../Shared/Store/store'
 import _ from 'lodash'
@@ -276,6 +280,11 @@ export default [
         beforeEnter: preventAccess
       }
     ]
-  }
+  },
+  {
+    path: 'geo-search',
+    name: 'solidaryTransport.geoSearch',
+    component: GeoSearch
+  },
 ]
 

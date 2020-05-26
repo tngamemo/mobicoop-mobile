@@ -47,7 +47,7 @@
         </ion-tab-button>
 
         <template v-if="!this.$store.state.userStore.user">
-          <ion-tab-button tab="register" :routes="['solidaryTransport.register', 'solidaryTransport.register.subscribe']" :to="{ name: 'solidaryTransport.register' }">
+          <ion-tab-button tab="register" :to="{ name: 'solidaryTransport.register' }">
             <ion-icon name="create"></ion-icon>
             <ion-label>{{ $t('solidaryTransport.navigation.register') }}</ion-label>
           </ion-tab-button>

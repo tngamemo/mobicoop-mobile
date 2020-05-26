@@ -54,8 +54,6 @@
 <style lang="scss"></style>
 
 <script>
-import { mapState, mapGetters } from 'vuex'
-
 export default {
   name: 'solidaryTransport.help',
   components: {},
@@ -85,7 +83,7 @@ export default {
   },
   created: function () {
     // Get articles for help
-    this.$store.dispatch('getArticleForHelp', process.env.VUE_APP_SOLIDARY_HELP_ARTICLE_ID)
+    this.$store.dispatch('getSolidaryArticle', process.env.VUE_APP_SOLIDARY_HELP_ARTICLE_ID)
       .then((article) => {
         this.article = article
       })

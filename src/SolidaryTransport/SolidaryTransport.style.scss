@@ -132,6 +132,7 @@ ion-content {
 
       .mc-st-form-icon {
         position: absolute;
+        z-index: 999;
         right: 0;
         bottom: 0;
       }
@@ -451,6 +452,7 @@ ion-content {
       .mc-st-form-details {
         font-size: 12px;
         display: flex;
+        flex-wrap: wrap;
         flex-direction: row;
         justify-content: space-between;
 
@@ -466,6 +468,7 @@ ion-content {
           color: var(--ion-color-danger);
           text-align: right;
           flex: 1 0 auto;
+          max-width: 100%;
         }
       }
 

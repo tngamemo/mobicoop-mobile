@@ -27,6 +27,7 @@ export const registerStore = {
     statusValidateToken: '',
     statusCheckEmail: '',
     displayAddress : '',
+    addresses: [],
     userToRegister: null
   },
   mutations: {

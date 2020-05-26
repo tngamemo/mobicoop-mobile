@@ -428,22 +428,29 @@
           "gender": "Civilité",
           "firstname": "Prénom",
           "lastname": "Nom",
-          "age": "Votre âge doit être supérieur à {value} ans",
           "email": "Adresse mail",
           "password": "Mot de passe",
+          "confirmPassword": "Confirmation du mot de passe",
           "phone": "Téléphone",
           "birthdate": "Date d'anniversaire",
           "address": "Commune de résidence",
           "visibility": "Visible par tous",
-          "required": "Ce champ est requis",
           "agreement": {
             "accept": "J’ai lu et j’accepte les conditions générales d’utilisation* du service et la politique de gestion des données pratiquées par [nom de l’opérateur]",
-            "read": "*Voir les conditions générales d’utilisation"
-          },
-          "driver": "Je possède un véhicule",
-          "supporting": "Structure accompagnante",
-          "languages": "Langues parlées :",
-          "otherLanguages": "Autre(s) langue(s) parlée(s)"
+            "read": "*Voir les <u>conditions générales d’utilisation<u>"
+          }
+        },
+        "validators": {
+          "age": "Votre âge doit être supérieur à {value} ans",
+          "telephone": "Le téléphone doit comprendre 10 chiffres minimum",
+          "email": "Le mail renseigné n'est pas au bon format",
+          "emailAvailable": "Ce mail existe déjà en base de données",
+          "passwordOneUppercase": "Le mot de passe doit comprendre au moins une majuscule",
+          "passwordOneDigit": "Le mot de passe doit comprendre au moins un chiffre",
+          "passwordMinLength": "Le mot de passe doit comprendre 8 caractères minimum",
+          "passwordSamePassword": "Le mot de passe de confirmation n'est pas identique",
+          "required": "Ce champ est requis",
+          "checked": "Ce champ doit être coché"
         }
       },
       "ask": {
