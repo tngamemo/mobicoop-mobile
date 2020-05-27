@@ -6,6 +6,7 @@ import Home from './Home/Home.view.vue';
 // Anonymous
 import Register from './Register/Register.view.vue';
 import RegisterSubscribe from './Register/RegisterSubscribe.view.vue';
+import RegisterSuccess from './Register/RegisterSuccess.view.vue';
 import Login from './Login/Login.view.vue';
 
 // Logged
@@ -44,7 +45,7 @@ let preventAccess = function (to, from, next) {
   let user = store.state.userStore.user
   if (user) {
     if (_.isEqual(to.name, 'solidaryTransport.register.subscribe')) {
-      next({name: 'solidaryTransport.register.subscribe.details'})
+      next({name: 'solidaryTransport.register.success'})
     } else if (_.includes(to.name, 'solidaryTransport.login')) {
       next({name: 'solidaryTransport.home'})
     } else {
@@ -168,6 +169,14 @@ export default [
         name: 'solidaryTransport.register.subscribe',
         components: {
           register: RegisterSubscribe
+        },
+        beforeEnter: preventAccess
+      },
+      {
+        path: '/solidary-transport/register/success',
+        name: 'solidaryTransport.register.success',
+        components: {
+          register: RegisterSuccess
         },
         beforeEnter: preventAccess
       },

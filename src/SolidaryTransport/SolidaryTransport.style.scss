@@ -137,6 +137,15 @@ ion-content {
         bottom: 0;
       }
 
+      .mc-st-form-information {
+        border: 1px solid var(--ion-color-primary);
+        border-radius: 15px;
+        padding: 10px 15px;
+        margin-bottom: 20px;
+        color: initial;
+        font-size: 14px;
+      }
+
       .mc-st-form-item {
         font-size: 14px;
         line-height: 1.22;

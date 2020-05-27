@@ -9,7 +9,7 @@
       </ion-toolbar>
     </ion-header>
 
-    <ion-content ref="register" color="primary" class="is-scrollable">
+    <ion-content ref="register" color="primary" class="is-scrollable" v-if="!registered">
       <div class="mc-st-container">
         <div class="mc-st-form">
 
@@ -85,7 +85,7 @@
               <ion-label position="floating">{{$t('solidaryTransport.register.form.fields.address')}} *</ion-label>
               <ion-input
                 type="text"
-                :value="address.display"
+                :value="getAddressToDisplay(user.addresses[0])"
                 readonly="true"
                 class="no-clickable"
               ></ion-input>
@@ -190,17 +190,20 @@
               <span class="mc-st-form-note" @click="displayCGU()" v-html="$t('solidaryTransport.register.form.fields.agreement.read')"></span>
 
               <template v-if="$v.user.userAgreementAccepted.$error">
-                <div class="mc-error-label"  v-if="!$v.user.userAgreementAccepted.checked">{{$t('solidaryTransport.register.form.validators.checked')}}</div>
-                <div class="mc-error-label"  v-else-if="!$v.user.userAgreementAccepted.required">{{$t('solidaryTransport.register.form.validators.required')}}</div>
+                <div class="mc-st-form-error"  v-if="!$v.user.userAgreementAccepted.checked">{{$t('solidaryTransport.register.form.validators.checked')}}</div>
+                <div class="mc-st-form-error"  v-else-if="!$v.user.userAgreementAccepted.required">{{$t('solidaryTransport.register.form.validators.required')}}</div>
               </template>
             </div>
             
           </div>
 
-          <div class="mc-st-form-controls with-multiple">
+          <div class="mc-st-form-controls with-multiple" :class="{'is-loading': processing}">
             <ion-button class="mc-st-form-control as-back" color="light" v-html="$t('solidaryTransport.buttons.back')" @click="$router.back()"></ion-button>
 
-            <ion-button class="mc-st-form-control" color="success" v-html="$t('solidaryTransport.buttons.register')" @click="validate()"></ion-button>
+            <ion-button class="mc-st-form-control as-loader" color="success" @click="validate()">
+              <ion-icon slot="start" name="sync" size="large"></ion-icon>
+              <span v-html="$t('solidaryTransport.buttons.register')"></span>
+            </ion-button>
           </div>
 
         </div>
@@ -216,6 +219,7 @@
 <script>
 import _ from 'lodash'
 import moment from 'moment'
+import { mapGetters, mapState } from 'vuex'
 import { required, between, email, sameAs, minLength, helpers } from 'vuelidate/lib/validators'
 
 const oneUppercase = helpers.regex("oneUppercase", /[A-Z]/);
@@ -232,6 +236,8 @@ export default {
   data () {
     return {
       checking: false,
+      processing: false,
+      registered: false,
       mailAvailable: true,
       debounced: undefined,
       password: undefined,
@@ -240,17 +246,15 @@ export default {
     }
   },
   computed: {
+    ...mapGetters([
+      'getAddressToDisplay'
+    ]),
     user: {
       get() {
         return this.$store.state.solidaryTransportStore.temporary.user;
       },
       set() {
         this.$store.commit("solidaryUserUpdate", this.user);
-      }
-    },
-    address : {
-      get() {
-        return this.$store.state.solidaryTransportStore.temporary.address
       }
     }
   },
@@ -323,45 +327,52 @@ export default {
       console.log(process.env.VUE_APP_SOLIDARY_CGU_ARTICLE_ID)
       console.log('DisplayModalArticle for id : ' + process.env.VUE_APP_SOLIDARY_CGU_ARTICLE_ID)
     },
-    validate: function () {
-      this.$v.$reset();
-      this.$v.$touch();
-      this.showPassword = false
-      if (this.$v.$invalid) {
-        this.$refs.register.getScrollElement().then((parent) => {
-          let child = document.getElementsByClassName('mc-st-form-error')[0]
-          var childPos = child.offsetTop
-          var parentPos = parent.offsetTop
-          var top = childPos - parentPos - 30
-          this.$refs.register.scrollToPoint(0, top, 0)
-        })
-      } else {
-        // Get articles for help
-        this.$store.dispatch('registerStandardUser')
-        .then((user) => {
-          console.log(user)
-        })
-        .catch((error) => {
-          console.error(error)
-        })
-      }
-    },
     checkMail: _.debounce(function() {
-      if (!this.checking && this.$v.user.email.email) {
-        this.checking = true
+      if (!this.registered) {
+        if (!this.checking && this.$v.user.email.email) {
+          this.checking = true
 
-        this.$store.dispatch('checkEmail', this.user.email)
-        .then(res => {
-          this.checking = false
-          this.mailAvailable = true
-        })
-        .catch(err => {
-          this.checking = false
-          this.mailAvailable = false
-        })
-
+          this.$store.dispatch('checkEmail', this.user.email)
+          .then(res => {
+            this.checking = false
+            this.mailAvailable = true
+          })
+          .catch(err => {
+            this.checking = false
+            this.mailAvailable = false
+          })
+        }
       }
     }, 250),
+    validate: function () {
+      if (!this.processing) {
+        this.$v.$reset();
+        this.$v.$touch();
+        this.showPassword = false
+        if (this.$v.$invalid) {
+          this.$refs.register.getScrollElement().then((parent) => {
+            let child = document.getElementsByClassName('mc-st-form-error')[0]
+            var childPos = child.offsetTop
+            var parentPos = parent.offsetTop
+            var top = childPos - parentPos - 30
+            this.$refs.register.scrollToPoint(0, top, 0)
+          })
+        } else {
+          this.processing = true
+          this.$store.dispatch('registerStandardUser')
+          .then((user) => {
+            this.registered = true
+            this.$router.push({name:'solidaryTransport.register.success', query: { email: user.email }})
+          })
+          .catch((error) => {
+            console.error(error)
+          })
+          .finally(() => {
+            this.processing = false
+          })
+        }
+      }
+    }
   },
   created: function () {}
 }

@@ -7,6 +7,7 @@
       "back": "Retour",
       "next": "Suivant",
       "register": "S'inscrire",
+      "confirm": "Confirmer",
       "validate": "Valider",
       "cancel": "Annuler",
       "sendRequest": "Envoyer ma demande",
@@ -411,6 +412,10 @@
       "loading": "Chargement",
       "noContent": "Aucun contenu disponible"
     },
+    "geoSearch": {
+      "placeholder": "Saississez votre adresse",
+      "register": "Commune de résidence"
+    },
     "register": {
       "title": "Inscription",
       "form": {
@@ -453,14 +458,8 @@
           "checked": "Ce champ doit être coché"
         }
       },
-      "ask": {
-        "title": "Un service pour vous ?"
-      },
-      "subscribe": {
-        "title": "Informations personnelles",
-        "details": {
-          "title": "Informations complémentaires"
-        }
+      "success": {
+        "title": "Confirmation"
       }
     },
     "profile": {

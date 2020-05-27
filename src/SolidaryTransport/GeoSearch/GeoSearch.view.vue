@@ -23,9 +23,9 @@ LICENSE
     <ion-header no-border>
       <ion-toolbar color="primary">
         <ion-buttons slot="start">
-          <ion-back-button default-href="carpools/home"></ion-back-button>
+          <ion-back-button text=""></ion-back-button>
         </ion-buttons>
-        <h1 class="ion-text-center">{{$t(`solidaryTransport.${type}`) }}</h1>
+        <ion-title>{{ $t(`solidaryTransport.geoSearch.${type}`) }}</ion-title>
       </ion-toolbar>
     </ion-header>
 
@@ -36,7 +36,7 @@ LICENSE
             ref="inputSearch"
             type="text"
             name="date"
-            v-bind:placeholder="$t('Search.placeHolder')"
+            v-bind:placeholder="$t('solidaryTransport.geoSearch.placeholder')"
             @input="submitSearch($event)"
           ></ion-input>
           <ion-icon

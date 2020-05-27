@@ -8,8 +8,10 @@ export const solidaryTransportStore = {
       status: '' // loading | success | error
     },
     register: {
-      status: undefined,
-      defaultUser: {
+      status: ''
+    },
+    default: {
+      user: {
         status: 1,
         givenName: undefined,
         familyName: undefined,
@@ -17,11 +19,11 @@ export const solidaryTransportStore = {
         gender: 0,
         birthDate: undefined,
         telephone: undefined,
+        password: undefined,
         phoneDisplay: 1,
-        smoke: 0,
         mobile: true,
         language: "fr_FR",
-        addresses: [''],
+        addresses: [undefined],
         mobileRegistration: 1,
         userAgreementAccepted: false
       }
@@ -35,24 +37,17 @@ export const solidaryTransportStore = {
         gender: 0,
         birthDate: undefined,
         telephone: undefined,
+        password: undefined,
         phoneDisplay: 1,
-        smoke: 0,
         mobile: true,
         language: "fr_FR",
-        addresses: [''],
+        addresses: [undefined],
         mobileRegistration: 1,
         userAgreementAccepted: false
       },
-      address: {
-        object: {},
-        display: ''
-      },
-      request: {
-
-      },
-      ad: {
-
-      }
+      address: {},
+      request: {},
+      ad: {}
     }
   },
   mutations: {
@@ -77,7 +72,7 @@ export const solidaryTransportStore = {
 
     solidaryRegisterUserSuccess(state, user){
       state.register.status = 'success';
-      state.register.article = article
+      state.temporary.user = _.cloneDeep(state.default.user)
     },
 
     solidaryRegisterUserError(state){
@@ -86,17 +81,18 @@ export const solidaryTransportStore = {
 
     // Temporary Objects mutation below
     solidaryUserUpdate(state, user) {
-      console.log('solidaryUserUpdate')
       state.temporary.user = user
     },
     solidaryAddressUpdate(state, address) {
-      console.log('solidaryAddressUpdate')
-      state.temporary.address.object = address
-      state.temporary.address.display = `${address.addressLocality}, ${address.addressCountry}`
+      state.temporary.address = address
     },
     solidaryUserAddressUpdate(state, address) {
-      console.log('solidaryUserAddressUpdate')
-      state.temporary.user.addresses[0] = address
+      // Remove useless elements
+      delete address['@id']
+      delete address['@type']
+      delete address['id']
+      delete address['geoJson']
+      state.temporary.user.addresses.splice(0, 1, address)
     }
   },
   actions: {
@@ -111,7 +107,6 @@ export const solidaryTransportStore = {
           http.get("/articles/" + id)
           .then(response => {
             if (response) {
-              console.log(response.data)
               commit('solidaryHelpSuccess', response.data)
               resolve(state.help.article)
             }
@@ -138,8 +133,8 @@ export const solidaryTransportStore = {
       return new Promise((resolve, reject) => {
         http.post("/users/register", user).then(resp => {
           if (resp) {
-            commit('solidaryRegisterUserSuccess');
-            resolve(resp)
+            commit('solidaryRegisterUserSuccess', resp.data);
+            resolve(resp.data)
           }
         }).catch(err => {
           commit('solidaryRegisterUserError');
@@ -147,8 +142,37 @@ export const solidaryTransportStore = {
         })
       })
     },
+    validateStandardUser: ({commit, state}, params) => {
+      let mobile = '';
+      if (isPlatform(window.document.defaultView, "ios")) {
+        mobile = '?mobile=1'
+      }
+      if (isPlatform(window.document.defaultView, "android")) {
+        mobile = '?mobile=2'
+      }
+
+      return new Promise((resolve, reject) => {
+        http.post("/login-token" + mobile, params).then(resp => {
+          if (resp) {
+            const tokenUser = resp.data.token;
+            localStorage.setItem('tokenUser', tokenUser);
+            commit('auth_success', tokenUser);
+            resolve(resp)
+          }
+        }).catch(err => {
+          console.log('error')
+          reject(err)
+        })
+      })
+    }
   },
   getters: {
+    getAddressToDisplay: () => (address) => {
+      if (address) {
+        return `${address.addressLocality}, ${address.addressCountry}`
+      }
+      return
+    },
     getUserAvatar: () => (user) => {
       if (user) {
         if (user.avatars.length !== 0) {
