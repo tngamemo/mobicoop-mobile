@@ -25,6 +25,7 @@ export const appStore = {
     redirectionUrl: '',
     seeSliderLoader: false,
     statusContact: '',
+    statusVersion: '',
     userCookies: false
   },
   mutations: {
@@ -42,6 +43,18 @@ export const appStore = {
 
     change_sliderloader_visibility(state) {
       state.seeSliderLoader = !state.seeSliderLoader;
+    },
+
+    version_request(state) {
+      state.statusVersion = 'loading'
+    },
+
+    version_success(state) {
+      state.statusVersion = 'success'
+    },
+
+    version_error(state) {
+      state.statusVersion = 'error'
     },
 
     contact_request(state) {
@@ -75,6 +88,20 @@ export const appStore = {
           })
       })
     },
+    getVersions({commit, state}) {
+      return new Promise((resolve, reject) => {
+        commit('version_request');
+        http.get(`/versions`)
+          .then(resp => {
+            commit('version_success');
+            resolve(resp)
+          })
+          .catch(err => {
+            commit('version_error');
+            reject(err)
+          })
+      })
+    }
   },
   getters: {
     redirectionUrl: state => {

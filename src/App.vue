@@ -28,6 +28,10 @@ LICENSE
 
 <script>
   import jwt_decode from "jwt-decode";
+  import {isPlatform} from "@ionic/core";
+  import { Plugins } from '@capacitor/core';
+  const { Device } = Plugins;
+  const { Browser } = Plugins;
 
   export default {
     name: 'app',
@@ -44,6 +48,7 @@ LICENSE
           window._paq.push(['trackPageView']);
         }
         */
+
       }
     },
     created: function () {
@@ -63,6 +68,8 @@ LICENSE
       // Fonction qui va log l'user ou utilisé un user par défault
       this.authUserOnStart();
 
+
+
       if(JSON.parse(process.env.VUE_APP_ANALYTICS_ACTIVATED)) {
         this.initAnalytics();
       }
@@ -75,17 +82,21 @@ LICENSE
             const idUser = jwt_decode(this.$store.state.userStore.tokenUser).id;
             this.$store.dispatch('getUser', { idUser })
             .then(res => {
-
+              this.getVersion();
 
               })
             .catch(err => {
               // On va authentifier l'appli via un utilisateur anonyme
-              this.$store.dispatch('authAnonymousUser')
+              this.$store.dispatch('authAnonymousUser').then(() => {
+                this.getVersion();
+              })
             })
         } else {
 
           // On va authentifier l'appli via un utilisateur anonyme
-          this.$store.dispatch('authAnonymousUser')
+          this.$store.dispatch('authAnonymousUser').then(() => {
+            this.getVersion();
+          })
         }
       },
       initAnalytics() {
@@ -101,9 +112,83 @@ LICENSE
           _paq.push(['setTrackerUrl', "https://"+u+'/matomo.php']);
           _paq.push(['setSiteId', process.env.VUE_APP_ANALYTICS_SITEID]);
           var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-          g.type='text/javascript'; g.async=true; g.defer=true; g.src= "//cdn.matomo.cloud/"+u+'/matomo.js'; s.parentNode.insertBefore(g,s);
+          g.type='text/javascript'; g.async=true; g.defer=true; g.src= "https://"+u+'/matomo.js'; s.parentNode.insertBefore(g,s);
         })();
 
+      },
+      getVersion() {
+        this.$store.dispatch('getVersions').then(res => {
+          if (isPlatform(window.document.defaultView, "capacitor")) {
+            const versions = res.data['hydra:member'];
+            if (versions.length > 0) {
+              this.checkVersion(versions[0]);
+            }
+          }
+        })
+      },
+      async checkVersion(version) {
+        let status = 0;
+        let info = await Device.getInfo();
+        let mobile = '';
+        if (isPlatform(window.document.defaultView, "ios")) {
+          mobile = 'ios'
+        }
+        if (isPlatform(window.document.defaultView, "android")) {
+          mobile = 'android'
+        }
+        if (this.isNewerVersion(info.appVersion, version[ mobile + 'Recommended'])) {
+          status = 1
+        }
+        if (this.isNewerVersion(info.appVersion, version[ mobile + 'Min'])) {
+          status = 2
+        }
+
+        if(status > 0) {
+          const buttons = [];
+          if (status == 1) {
+            buttons.push({
+                text: 'Annuler',
+                role: 'cancel',
+                cssClass: 'secondary',
+                handler: cancel => {
+
+                },
+              });
+          }
+          buttons.push({
+              text: 'Mettre à jour',
+              handler: () => {
+                if (status == 1) {
+                  this.openUrl( version[ mobile + 'RecommendedLink'] );
+                } else if (status == 2) {
+                  this.openUrl(version[ mobile + 'MinLink']);
+                }
+              },
+            });
+
+          this.$ionic.alertController
+            .create({
+              header: 'Mise à jour',
+              backdropDismiss: false,
+              message: status == 1 ? this.$t('Commons.version-recommended') : this.$t('Commons.version-min'),
+              buttons: buttons,
+            })
+            .then(a => a.present())
+        }
+      },
+      async openUrl(url) {
+        await Browser.open({ url: url });
+      },
+      isNewerVersion (oldVer, newVer) {
+        const oldParts = oldVer.split('.');
+        const newParts = newVer.split('.');
+        for (var i = 0; i < newParts.length; i++) {
+          const a = parseInt(newParts[i]) || 0;
+          const b = parseInt(oldParts[i]) || 0;
+          if (a > b) return true;
+          if (a < b) return false;
+        }
+        return false
       }
     }
   }
