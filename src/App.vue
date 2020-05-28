@@ -36,7 +36,16 @@ LICENSE
         msg: 'Welcome to Your Vue.js App'
       }
     },
-
+    watch:{
+      $route (to, from){
+        /* Matomo route change
+        if(JSON.parse(process.env.VUE_APP_ANALYTICS_ACTIVATED)) {
+          window._paq.push(['setCustomUrl', '/' + window.location.hash.substr(1)]);
+          window._paq.push(['trackPageView']);
+        }
+        */
+      }
+    },
     created: function () {
 
       document.title = process.env.VUE_APP_NAME;
@@ -82,9 +91,9 @@ LICENSE
       initAnalytics() {
         var _paq = window._paq || [];
         /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-        _paq.push(["setDocumentTitle", document.domain+"/"+document.title]);
-        _paq.push(["setCookieDomain", "*." + process.env.VUE_APP_ANALYTICS_DOMAIN]);
-        _paq.push(["setDomains", ["*." + process.env.VUE_APP_ANALYTICS_DOMAIN ]]);
+        // _paq.push(["setDocumentTitle", document.domain+"/"+document.title]);
+        // _paq.push(["setCookieDomain", "*." + process.env.VUE_APP_ANALYTICS_DOMAIN]);
+        // _paq.push(["setDomains", ["*." + process.env.VUE_APP_ANALYTICS_DOMAIN ]]);
         _paq.push(['trackPageView']);
         _paq.push(['enableLinkTracking']);
         (function() {
@@ -92,8 +101,9 @@ LICENSE
           _paq.push(['setTrackerUrl', "https://"+u+'/matomo.php']);
           _paq.push(['setSiteId', process.env.VUE_APP_ANALYTICS_SITEID]);
           var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-          g.type='text/javascript'; g.async=true; g.defer=true; g.src= "https://"+u+'/matomo.js'; s.parentNode.insertBefore(g,s);
+          g.type='text/javascript'; g.async=true; g.defer=true; g.src= "//cdn.matomo.cloud/"+u+'/matomo.js'; s.parentNode.insertBefore(g,s);
         })();
+
       }
     }
   }

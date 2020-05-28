@@ -186,19 +186,18 @@ export const dynamicStore = {
       return new Promise((resolve, reject) => {
         http.put("/dynamics/" + params.id, params.body ).then(resp => {
           if (resp) {
-            console.log('notif control');
             console.log(resp);
             // Envoi d'une notification
             // passager
-            if ( state.currentDynamic.role == 2 && state.currentAsk && state.currentAsk.status == 1 && resp.data.status == 2) {
+            if ( state.currentDynamic.role == 2 && state.currentAsk && state.currentAsk.status == 1 && resp.data.asks.find(item => item.id === state.currentAsk.id).status == 2) {
               console.log('notif passager');
-              resp.notification = true
+              resp.data.notification = true
             }
             // conducteur
             if( state.currentDynamic.role == 1 && resp.data.asks.length > state.asksLength) {
-              console.log('notif passager');
+              console.log('notif conducteur');
               commit('set_asks_length', resp.data.asks.length);
-              resp.notification = true
+              resp.data.notification = true
             }
             commit(params.result, resp);
             resolve(resp)
@@ -254,7 +253,7 @@ export const dynamicStore = {
     putDynamicProofs: ({commit, state}, params) => {
       commit('dynamic_proof_request');
       return new Promise((resolve, reject) => {
-        http.post("/dynamic_proofs/" + params.proofId, params ).then(resp => {
+        http.put("/dynamic_proofs/" + params.proofId, params ).then(resp => {
           if (resp) {
             commit('post_dynamic_proof_success', resp);
             resolve(resp)

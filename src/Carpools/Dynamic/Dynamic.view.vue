@@ -133,17 +133,17 @@ LICENSE
             <ion-card-content>
               <div class="text-right"><small>{{currentAsk.id}}</small></div>
               <div v-if="currentAsk.status == 1" class="text-center">Covoiturage Demandé</div>
-              <div v-if="currentAsk.status == 1" class="text-center">Covoiturage Accepté</div>
+              <div v-if="currentAsk.status == 2" class="text-center">Covoiturage Accepté</div>
               <div v-if="currentAsk.message" class="text-center">Message : {{currentAsk.message}}</div>
-              <div v-if="currentAsk.messages"><div v-for="message in currentAsk.messages">{{message.test}}</div></div>
+              <div v-if="currentAsk.messages"><div class="text-center" v-for="message in currentAsk.messages">{{message.text}}</div></div>
 
-              <div v-if="currentProof.id" class="d-flex align-center">
-                <ion-icon name="checkmark"></ion-icon> Preuve déposé <span class="muted"><small>{{currentProof.id}}</small></span>
+              <div v-if="currentProof.id" class="text-center">
+                <ion-icon name="checkmark"></ion-icon> Preuve déposé <span class="muted"><small style="margin-left: 5px">{{currentProof.id}}</small></span>
               </div>
               <ion-button expand="block" v-if="!currentProof.id && currentDynamic.role === 1" @click="postDynamicProof()">Prise en charge du passager</ion-button>
               <ion-button expand="block" v-if="currentProof.id && currentDynamic.role === 1" @click="putDynamicProof()">Dépose du passager</ion-button>
               <div v-if="currentAsk.proof">
-                <div class="text-right muted"><small>{{currentAsk.proof.id}}</small></div>
+                <!--<div class="text-right muted"><small>{{currentAsk.proof.id}}</small></div>-->
                 <!--<div>ProofStatus : {{currentAsk.proof.needed}}</div>-->
                 <ion-button expand="block" v-if="!currentProof.id && currentAsk.proof.needed == 'pickUp' && currentDynamic.role === 2" @click="postDynamicProof()">Je suis pris en charge</ion-button>
                 <ion-button expand="block" v-if="currentAsk.proof.needed == 'dropOff' && currentDynamic.role === 2" @click="putDynamicProof()">Je suis déposé</ion-button>
@@ -156,27 +156,27 @@ LICENSE
 
           <div v-if="!currentAsk.id && currentDynamic.role === 2 && currentDynamic.results && currentDynamic.results.length > 0">
             <ion-card class="dynamic-card" v-for="(result, index) in currentDynamic.results">
-              <ion-card-content class="d-flex justify-between">
+              <ion-card-content>
                 <div>
                   <div>{{result.carpooler.givenName}} {{result.carpooler.shortFamilyName}}</div>
                   <div v-if="result.carpooler.phone">{{result.carpooler.phone}}</div>
                   <div class="d-flex align-center"><ion-icon name="flag"></ion-icon> {{result.resultPassenger.outward.destination.addressLocality}}</div>
                 </div>
-              <ion-button @click="postDynamicAskAlert(result.resultPassenger.outward.matchingId)">Covoiturer</ion-button>
+              <ion-button  expand="block" @click="postDynamicAskAlert(result.resultPassenger.outward.matchingId)">Covoiturer</ion-button>
               </ion-card-content>
             </ion-card>
           </div>
 
           <div v-if="!currentAsk.id && currentDynamic.role === 1 && currentDynamic.asks && currentDynamic.asks.length > 0">
             <ion-card  class="dynamic-card" v-for="(result, index) in currentDynamic.asks">
-              <ion-card-content class="d-flex justify-between">
+              <ion-card-content>
                 <div>
                   <div>{{result.user.givenName}} {{result.user.shortFamilyName}}</div>
                   <div v-if="result.user.phone">{{result.user.phone}}</div>
-                  <div v-if="currentAsk.messages"><div v-for="message in result.messages">{{message.test}}</div></div>
+                  <div v-if="result.messages"><div  class="text-center" v-for="message in result.messages">{{message.text}}</div></div>
                   <div><ion-icon name="locate"></ion-icon> {{result.user.position.displayLabel[0]}}</div>
                 </div>
-              <ion-button @click="putDynamicAsks(result.id, '')">Accepter</ion-button>
+              <ion-button expand="block" @click="putDynamicAsks(result.id, '')">Accepter</ion-button>
               </ion-card-content>
             </ion-card>
           </div>
@@ -301,7 +301,8 @@ LICENSE
             touchZoom: isPlatform(window.document.defaultView, "mobile"),
             tap: !isPlatform(window.document.defaultView, "mobile"),
             zoomControl: false
-          }
+          },
+          updatePositionInterval: null
         },
       }
     },
@@ -472,6 +473,8 @@ LICENSE
 
               this.updatePosition();
 
+
+
               // IMPORTANT:  You must execute the finish method here to inform the native plugin that you're finished,
               // and the background-task may be completed.  You must do this regardless if your operations are successful or not.
               // IF YOU DON'T, ios will CRASH YOUR APP for spending too much time in the background.
@@ -480,10 +483,17 @@ LICENSE
 
           });
 
+        this.updatePositionInterval = setInterval(() => {
+          this.updatePosition();
+        }, 15000);
+
         // start recording location
         BackgroundGeolocation.start();
       },
       stopBackgroundGeolocation() {
+        if(this.updatePositionInterval) {
+          clearInterval(this.updatePositionInterval);
+        }
         BackgroundGeolocation.stop();
       },
       async sendLocalNotification() {
