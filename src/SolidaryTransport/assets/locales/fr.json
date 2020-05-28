@@ -1,8 +1,5 @@
 {
   "solidaryTransport": {
-    "support": {
-      "phone": "+330666869278"
-    },
     "buttons": {
       "back": "Retour",
       "next": "Suivant",
@@ -469,7 +466,8 @@
     "profile": {
       "title": "Profil",
       "actions": {
-        "agenda": "Mon agenda",
+        "agenda": "Mon agenda bénévole",
+        "requests": "Mes demandes solidaires",
         "manage": "Gérer mes alertes",
         "logout": "Se déconnecter",
         "delete": "Supprimer mon compte"

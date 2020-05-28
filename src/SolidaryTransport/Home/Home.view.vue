@@ -7,7 +7,7 @@
             <ion-icon slot="icon-only" name="custom-logo"></ion-icon>
           </ion-button>
         </ion-buttons>
-        <ion-title>{{ $t('solidaryTransport.home.title') }}</ion-title>
+        <ion-title>{{ title }}</ion-title>
         <ion-icon
         slot="end"
           v-if="numberOfModule > 1"
@@ -160,9 +160,7 @@ export default {
   },
   data() {
     return {
-      display: {
-        information: true
-      },
+      title: process.env.VUE_APP_NAME,
       appModule: JSON.parse(process.env.VUE_APP_MODULE)
     };
   },

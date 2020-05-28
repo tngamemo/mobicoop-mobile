@@ -133,7 +133,7 @@ export default {
             {
               text: this.$t('solidaryTransport.login.forgotPassword.actions.validate'),
               handler: (data) => {
-                this.$store.dispatch('resetPassword', data.email).then(() => {
+                this.$store.dispatch('resetPassword', {email: data.email}).then(() => {
                   this.presentToast(this.$t('solidaryTransport.login.forgotPassword.messages.success'), 'secondary')
                 }).catch(() => {
                   this.presentToast(this.$t('solidaryTransport.login.forgotPassword.messages.error'), 'danger')

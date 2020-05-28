@@ -27,15 +27,15 @@
               <ion-label class="mc-st-form-label as-title no-white-space" color="primary">{{$t('solidaryTransport.request.publish.form.fields.summary')}}</ion-label>
             </div>
 
-            <div class="mc-st-form-summary">
+            <div class="mc-st-summary">
 
-              <div class="mc-st-form-summary-text">
+              <div class="mc-st-summary-text">
                 Je souhaite me déplacer pour <span class="answer">faire mes courses</span>.
               </div>
 
-              <div class="mc-st-form-summary-card">
-                <div class="mc-st-form-summary-card-header">12 juillet 2020</div>
-                <div class="mc-st-form-summary-card-content">
+              <div class="mc-st-summary-card">
+                <div class="mc-st-summary-card-header">12 juillet 2020</div>
+                <div class="mc-st-summary-card-content">
                   <div class="times">
                     <div class="time as-from">9h00</div>
                     <div class="time as-to">9h10</div>
@@ -53,9 +53,9 @@
                 </div>
               </div>
 
-              <div class="mc-st-form-summary-card">
-                <div class="mc-st-form-summary-card-header">12 juillet 2020</div>
-                <div class="mc-st-form-summary-card-content">
+              <div class="mc-st-summary-card">
+                <div class="mc-st-summary-card-header">12 juillet 2020</div>
+                <div class="mc-st-summary-card-content">
                   <div class="times">
                     <div class="time as-from">10h30</div>
                     <div class="time as-to">10h40</div>

@@ -20,6 +20,11 @@
               <span v-html="$t('solidaryTransport.profile.actions.agenda')"></span>
             </ion-button>
 
+            <ion-button class="mc-st-action" color="success" @click="$router.push({name:'solidaryTransport.profile.requests'})">
+              <ion-icon slot="start" name="hand"></ion-icon>
+              <span v-html="$t('solidaryTransport.profile.actions.requests')"></span>
+            </ion-button>
+
             <ion-button class="mc-st-action" color="success" @click="$router.push({name:'solidaryTransport.profile.notifications'})">
               <ion-icon slot="start" name="notifications"></ion-icon>
               <span v-html="$t('solidaryTransport.profile.actions.manage')"></span>

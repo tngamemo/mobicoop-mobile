@@ -90,7 +90,7 @@
       </template>
 
       <!-- Covoiturage dynamique -->
-      <template v-if="!asCar">
+      <!-- <template v-if="!asCar">
         <div class="mc-st-profile-block mc-st-profile-realtime" v-if="detailed">
           <div class="mc-st-profile-text">
             <div class="title">Covoiturage temps réel </div>
@@ -103,7 +103,7 @@
             <ion-icon class="mc-st-profile-action as-edit" @click="$router.push({name:'solidaryTransport.profile.realtime'})" name="create"></ion-icon>
           </div>
         </div>
-      </template>
+      </template> -->
     </template>
   </div>
 </template>
