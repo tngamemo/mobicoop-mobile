@@ -36,9 +36,9 @@
 
         <div class="mc-st-profile-block mc-st-profile-preferences" v-if="detailed">
           <div class="mc-st-profile-text">
-            <div class="key as-smoke">Je ne fume pas en voiture</div>
-            <div class="key as-music">J’écoute la radio ou de la musique</div>
-            <div class="key as-chat">Je discute</div>
+            <div class="key as-smoke">{{ $t('solidaryTransport.profile.preferences.smoke.' + userStore.user.smoke) }}</div>
+            <div class="key as-music">{{ $t('solidaryTransport.profile.preferences.music.' + userStore.user.music) }}</div>
+            <div class="key as-chat">{{ $t('solidaryTransport.profile.preferences.chat.' + userStore.user.chat) }}</div>
           </div>
 
           <div class="mc-st-profile-actions">
@@ -89,6 +89,7 @@
         </div>
       </template>
 
+      <!-- Covoiturage dynamique -->
       <template v-if="!asCar">
         <div class="mc-st-profile-block mc-st-profile-realtime" v-if="detailed">
           <div class="mc-st-profile-text">
@@ -248,6 +249,14 @@
       display: flex;
       flex-direction: row;
       justify-content: flex-end;
+
+      .mc-st-proofile-text {
+        .key {
+          + .key {
+            margin-top: 3px;
+          }
+        }
+      }
 
       .mc-st-profile-action {
         font-size: 30px;

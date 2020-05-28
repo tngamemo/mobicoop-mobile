@@ -163,6 +163,10 @@ ion-content {
           max-width: none;
         }
 
+        &.as-list {
+          margin-bottom: 0;
+        }
+
         &.as-agreement {
           margin-top: 30px;
         }
@@ -181,6 +185,43 @@ ion-content {
           border: 1px solid var(--ion-color-step-300);
           border-radius: 0 15px 15px;
           min-height: 100px;
+        }
+
+        .mc-st-form-list {
+          display: block;
+          padding: 15px 20px;
+          background: var(--ion-color-light-tint);
+          border-radius: 0 15px 15px 15px;
+          font-size: 12px;
+          line-height: 1.3;
+          color: var(--ion-color-step-600);
+          
+          + .mc-st-form-list {
+            margin-top: 20px;
+          }
+
+          .mc-st-form-list-header {
+            margin: 0;
+            padding: 0;
+            color: var(--ion-color-primary);
+            font-weight: bold;
+            font-size: 16px;
+            text-transform: none;
+            margin-bottom: 10px;
+          }
+
+          .mc-st-form-list-item {
+            --background: transparent;
+            font-size: 14px;
+
+            ion-label {
+              line-height: 1.2;
+            }
+
+            ion-radio {
+              margin-right: 15px;
+            }
+          }
         }
 
         .mc-st-form-days-wrapper {
@@ -810,19 +851,19 @@ ion-content {
         }
       }
     }
+  }
 
-    .mc-st-loading {
-      text-align: center;
+  .mc-st-loading {
+    text-align: center;
 
-      .mc-st-loading-spinner {
-        display: inline-block;
-        color: var(--ion-color-primary);
-      }
+    .mc-st-loading-spinner {
+      display: inline-block;
+      color: var(--ion-color-primary);
+    }
 
-      .mc-st-loading-message {
-        color: var(--ion-color-primary);
-        margin: 0;
-      }
+    .mc-st-loading-message {
+      color: var(--ion-color-primary);
+      margin: 0;
     }
   }
 }

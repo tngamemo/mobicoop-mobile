@@ -3,6 +3,11 @@ import {isPlatform} from "@ionic/core";
 
 export const solidaryTransportStore = {
   state: {
+    messages: {
+      home: {
+        display: true
+      }
+    },
     help: {
       article: undefined,
       status: '' // loading | success | error
@@ -93,6 +98,9 @@ export const solidaryTransportStore = {
       delete address['id']
       delete address['geoJson']
       state.temporary.user.addresses.splice(0, 1, address)
+    },
+    solidaryUpdateMessageDisplayOnHome (state, display) {
+      state.messages.home.display = display
     }
   },
   actions: {

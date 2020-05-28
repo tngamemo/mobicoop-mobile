@@ -9,6 +9,7 @@
       "register": "S'inscrire",
       "confirm": "Confirmer",
       "validate": "Valider",
+      "save": "Enregister",
       "cancel": "Annuler",
       "sendRequest": "Envoyer ma demande",
       "sendAd": "Publier mon annonce"
@@ -18,7 +19,8 @@
         "nc": "Autre",
         "male": "Monsieur",
         "female": "Madame"
-      }
+      },
+      "loading": "Chargement"
     },
     "navigation": {
       "home": "Accueil",
@@ -399,10 +401,12 @@
       "loading": "Chargement",
       "information": "Bienvenue<br/> sur le service de transport solidaire !<br/> Ce service est destinée aux personnes [critère d’éligibilité] ou souhaitant donner un coup de pouce à un bénéficiaire. Vous pouvez également utiliser notre outil de covoiturage sans inscription.",
       "actions": {
+        "becomeVolunteer": "Je me propose<br/> comme bénévole",
+        "shareUsualRoute": "Je déclare<br/> mon trajet habituel",
         "ask": "Je souhaite demander<br/> un coup de pouce",
         "give": "Je souhaite donner<br/> un coup de pouce",
         "contact": "Contacter Ouestgo",
-        "request": "Faire une demande",
+        "request": "Je demande<br/> un coup de pouce",
         "publish": "Publier une annonce",
         "help": "Aide"
       }
@@ -474,7 +478,23 @@
         "title": "Modifier mon profil"
       },
       "preferences": {
-        "title": "Modifier mes préférences"
+        "title": "Modifier mes préférences",
+        "smoke": {
+          "title": "En ce qui concerne le tabac en voiture",
+          "0": "Je ne fume pas",
+          "1": "Je ne fume pas en voiture",
+          "2": "Je fume"
+        },
+        "music": {
+          "title": "En ce qui concerne la musique en voiture",
+          "true": "Je préfère rouler sans fond sonore",
+          "false": "J’écoute la radio ou de la musique"
+        },
+        "chat": {
+          "title": "En ce qui concerne la musique en voiture",
+          "true": "Je ne suis pas bavard",
+          "false": "Je discute"
+        }
       },
       "vehicle": {
         "title": "Modifier mon véhicule"
@@ -486,7 +506,23 @@
         "title": "Mon agenda"
       },
       "notifications": {
-        "title": "Mes alertes"
+        "title": "Mes alertes",
+        "actions": {
+          "carpoolAskPosted" : "Sollicitation pour un covoiturage",
+          "communicationInternalMessageReceived": "Nouveau message dans la messagerie",
+          "carpoolMatchingNew": "Nouveaux covoiturages potentiels",
+          "carpoolAskAccepted": "Covoiturage accepté",
+          "carpoolAskRefused": "Covoiturage refusé",
+          "carpoolAdRenewal": "Renouveller mes trajets en fin de validité",
+          "carpoolProposalCanceled": "Annulation d'un covoiturage",
+          "validateCreateEvent": "Confirmation de création d'événement"
+        },
+        "types": {
+          "1": "Message",
+          "2": "Email",
+          "3": "SMS",
+          "4": "Notification Push"
+        }
       },
       "yearsOld": "ans"
     },
