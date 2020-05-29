@@ -27,7 +27,7 @@
 
         <template v-if="!this.$store.state.userStore.user">
           <div class="mc-st-content">
-            <div class="mc-st-information" :class="{'is-active': messages.home.display}">
+            <div class="mc-st-information" :class="{'is-active': this.$store.state.solidaryTransportStore.messages.home.display}">
               <ion-icon class="mc-information-icon" name="close" @click="closeInformation()"></ion-icon>
               <div class="mc-information-text" v-html="$t('solidaryTransport.home.information')"></div>
             </div>
@@ -36,14 +36,14 @@
               <ion-button
                 class="mc-st-action is-high"
                 color="success"
-                v-html="$t('solidaryTransport.home.actions.ask')"
-                @click="$router.push({name:'solidaryTransport.register', query: {type: 'ask'}})"
+                v-html="$t('solidaryTransport.home.actions.request')"
+                @click="$router.push({name:'solidaryTransport.home.request'})"
               ></ion-button>
               <ion-button
                 class="mc-st-action is-high"
                 color="success"
-                v-html="$t('solidaryTransport.home.actions.give')"
-                @click="$router.push({name:'solidaryTransport.register', query: {type: 'give'}})"
+                v-html="$t('solidaryTransport.home.actions.becomeVolunteer')"
+                @click="$router.push({name:'solidaryTransport.home.volunteer'})"
               ></ion-button>
               <ion-button class="mc-st-action as-light" color="light">
                 <ion-icon slot="start" name="chatboxes"></ion-icon>

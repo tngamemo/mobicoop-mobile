@@ -224,6 +224,7 @@ import { required, between, email, sameAs, minLength, helpers } from 'vuelidate/
 
 const oneUppercase = helpers.regex("oneUppercase", /[A-Z]/);
 const oneDigit = helpers.regex("oneDigit", /\d/);
+const hasAddress = (value) => !_.isNull(value[0])
 const isMaxBirthDate = (value, vm) => {
   let n = new Date();
   n.setFullYear(n.getFullYear() - process.env.VUE_APP_REGISTER_MIN_AGE);
@@ -296,7 +297,7 @@ export default {
         checked: sameAs( () => true )
       },
       addresses: {
-        required
+        hasAddress
       }
     },
     password: {

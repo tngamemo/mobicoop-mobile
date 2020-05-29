@@ -122,6 +122,11 @@ ion-content {
           &.is-active {
             background-color: var(--ion-color-primary);
           }
+
+          &.is-validate {
+            background-color: var(--ion-color-primary);
+            opacity: .5;
+          }
         }
       }
     }

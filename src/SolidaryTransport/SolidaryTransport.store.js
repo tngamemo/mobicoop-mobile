@@ -1,5 +1,6 @@
 import http from '../Shared/Mixin/http.mixin'
-import {isPlatform} from "@ionic/core";
+import {isPlatform} from "@ionic/core"
+import _ from 'lodash'
 
 export const solidaryTransportStore = {
   state: {
@@ -11,6 +12,10 @@ export const solidaryTransportStore = {
     help: {
       article: undefined,
       status: '' // loading | success | error
+    },
+    structures: {
+      objects: undefined,
+      status: ''
     },
     register: {
       status: ''
@@ -51,11 +56,45 @@ export const solidaryTransportStore = {
         userAgreementAccepted: false
       },
       address: {},
-      request: {},
+      request: {
+        telephone: undefined,
+        givenName: undefined,
+        password: undefined,
+        familyName: undefined,
+        email: undefined,
+        birthDate: undefined,
+        gender: 0,
+        homeAddress: undefined,
+        subject: undefined,
+        structure: undefined,
+        status: 0,
+        proofs: [],
+        needs: [],
+        outwardDeadlineDatetime: undefined,
+        outwardDatetime: undefined,
+        returnDeadlineDatetime: undefined,
+        returnDatetime: undefined,
+        origin: undefined,
+        destination: undefined,
+        frequency: 0,
+        days: {
+          mon: 0,
+          tue: 0,
+          wed: 0,
+          thu: 0,
+          fri: 0,
+          sat: 0,
+          sun: 0
+        }
+      },
       ad: {}
     }
   },
   mutations: {
+    solidaryUpdateMessageDisplayOnHome (state, display) {
+      state.messages.home.display = display
+    },
+
     // Help Mutations below
     solidaryHelpRequest(state) {
       state.help.status = 'loading';
@@ -84,7 +123,6 @@ export const solidaryTransportStore = {
       state.register.status = 'error';
     },
 
-    // Temporary Objects mutation below
     solidaryUserUpdate(state, user) {
       state.temporary.user = user
     },
@@ -92,6 +130,7 @@ export const solidaryTransportStore = {
       state.temporary.address = address
     },
     solidaryUserAddressUpdate(state, address) {
+      address = _.cloneDeep(address)
       // Remove useless elements
       delete address['@id']
       delete address['@type']
@@ -99,9 +138,112 @@ export const solidaryTransportStore = {
       delete address['geoJson']
       state.temporary.user.addresses.splice(0, 1, address)
     },
-    solidaryUpdateMessageDisplayOnHome (state, display) {
-      state.messages.home.display = display
-    }
+
+    // Request Mutations below
+    solidaryStructuresRequest(state) {
+      state.structures.status = 'loading';
+    },
+
+    solidaryStructuresSuccess(state, structures){
+      state.structures.status = 'success';
+
+      _.each(structures, (structure, index) => {
+        console.log(structure, index)
+        if (!_.hasIn(structure, 'proofs')) {
+          structure.proofs = [
+            {
+              "id": 1,
+              "label": "J'habite une commune du Parc",
+              "type": 1,
+              "position": 1,
+              "checkbox": true,
+              "input": null,
+              "selectbox": null,
+              "radio": null,
+              "options": null,
+              "acceptedValues": null,
+              "file": null,
+              "mandatory": true,
+            },
+            {
+              "id": 2,
+              "label": "Je suis",
+              "type": 1,
+              "position": 2,
+              "checkbox": null,
+              "input": null,
+              "selectbox": true,
+              "radio": null,
+              "options": "jeune sans emploi (<25ans);mère célibataire;personne âgée(>60ans)",
+              "acceptedValues": "jeune_chomeur;mere_celibataire;personne_agee",
+              "file": null,
+              "mandatory": null,
+            },
+            {
+              "id": 3,
+              "label": "Justificatif de domicile",
+              "type": 1,
+              "position": 3,
+              "checkbox": null,
+              "input": null,
+              "selectbox": null,
+              "radio": null,
+              "options": null,
+              "acceptedValues": null,
+              "file": true,
+              "mandatory": true,
+            },
+            {
+              "id": 4,
+              "label": "Je test un radio",
+              "type": 1,
+              "position": 4,
+              "checkbox": null,
+              "input": null,
+              "selectbox": null,
+              "radio": true,
+              "options": "jeune sans emploi (<25ans);mère célibataire;personne âgée(>60ans)",
+              "acceptedValues": "jeune_chomeur;mere_celibataire;personne_agee",
+              "file": null,
+              "mandatory": null,
+            },
+            {
+              "id": 5,
+              "label": "Je test un champ",
+              "type": 1,
+              "position": 0,
+              "checkbox": null,
+              "input": true,
+              "selectbox": null,
+              "radio": null,
+              "options": null,
+              "acceptedValues": null,
+              "file": null,
+              "mandatory": null,
+            }
+          ]
+        }
+      })
+
+      state.structures.objects = structures
+    },
+
+    solidaryStructuresError(state){
+      state.structures.status = 'error';
+    },
+
+    solidaryRequestUpdate(state, request) {
+      state.temporary.user = user
+    },
+    solidaryRequestHomeAddressUpdate(state, address) {
+      address = _.cloneDeep(address)
+      // Remove useless elements
+      delete address['@id']
+      delete address['@type']
+      delete address['id']
+      delete address['geoJson']
+      state.temporary.request.homeAddress = address
+    },
   },
   actions: {
     getSolidaryArticle({commit, state}, id){
@@ -121,6 +263,28 @@ export const solidaryTransportStore = {
           })
           .catch(err => {
             commit('solidaryHelpError')
+            reject(err)
+          })
+        })
+      }
+    },
+    getSolidaryStructuresByGeolocation({commit, state}, {lat, lng}){
+      if (state.structures.status === 'success') {
+        return new Promise((resolve, reject) => {
+          resolve(state.structures.objects)
+        })
+      } else {
+        commit('solidaryStructuresRequest')
+        return new Promise((resolve, reject) => {
+          http.get(`/structures/geolocation?lat=${lat}&lon=${lng}`)
+          .then(response => {
+            if (response) {
+              commit('solidaryStructuresSuccess', response.data['hydra:member'])
+              resolve(state.structures.objects)
+            }
+          })
+          .catch(err => {
+            commit('solidaryStructuresError')
             reject(err)
           })
         })
@@ -175,6 +339,9 @@ export const solidaryTransportStore = {
     }
   },
   getters: {
+    getOrderedProofs: () => (proofs) => {
+      return _.orderBy(proofs, ['position'], ['asc'])
+    },
     getAddressToDisplay: () => (address) => {
       if (address) {
         return `${address.addressLocality}, ${address.addressCountry}`
