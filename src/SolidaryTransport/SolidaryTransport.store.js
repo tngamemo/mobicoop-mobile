@@ -68,8 +68,11 @@ export const solidaryTransportStore = {
         subject: undefined,
         structure: undefined,
         status: 0,
-        proofs: [],
-        needs: [],
+        proofs: {
+          mandatory: {},
+          optional: {}
+        },
+        needs: {},
         outwardDeadlineDatetime: undefined,
         outwardDatetime: undefined,
         returnDeadlineDatetime: undefined,
@@ -148,9 +151,8 @@ export const solidaryTransportStore = {
       state.structures.status = 'success';
 
       _.each(structures, (structure, index) => {
-        console.log(structure, index)
-        if (!_.hasIn(structure, 'proofs')) {
-          structure.proofs = [
+        if (!_.hasIn(structure, 'structureProofs')) {
+          structure.structureProofs = [
             {
               "id": 1,
               "label": "J'habite une commune du Parc",
@@ -177,7 +179,7 @@ export const solidaryTransportStore = {
               "options": "jeune sans emploi (<25ans);mère célibataire;personne âgée(>60ans)",
               "acceptedValues": "jeune_chomeur;mere_celibataire;personne_agee",
               "file": null,
-              "mandatory": null,
+              "mandatory": true,
             },
             {
               "id": 3,
@@ -205,7 +207,7 @@ export const solidaryTransportStore = {
               "options": "jeune sans emploi (<25ans);mère célibataire;personne âgée(>60ans)",
               "acceptedValues": "jeune_chomeur;mere_celibataire;personne_agee",
               "file": null,
-              "mandatory": null,
+              "mandatory": true,
             },
             {
               "id": 5,
@@ -219,7 +221,7 @@ export const solidaryTransportStore = {
               "options": null,
               "acceptedValues": null,
               "file": null,
-              "mandatory": null,
+              "mandatory": true,
             }
           ]
         }
@@ -232,8 +234,64 @@ export const solidaryTransportStore = {
       state.structures.status = 'error';
     },
 
-    solidaryRequestUpdate(state, request) {
-      state.temporary.user = user
+    solidaryStructureUpdate(state, structure) {
+      console.log('solidaryStructureUpdate')
+      state.temporary.request.structure = structure
+      state.temporary.request.proofs = {}
+
+      let mandatory = {}
+      let optional = {}
+      _.each(structure.structureProofs, (proof) => {
+        let structureProof = {
+          id: proof.id,
+          value: undefined,
+        }
+
+        if (proof.checkbox) {
+          structureProof.type = "checkbox"
+        }
+        if (proof.input) {
+          structureProof.type = "input"
+        }
+        if (proof.selectbox) {
+          structureProof.type = "selectbox"
+          structureProof.options = {}
+
+          let keys = _.split(proof.acceptedValues, ';')
+          let values = _.split(proof.options, ';')
+
+          _.each(keys, (key, index) => {
+            structureProof.options[key] = values[index]
+          })
+        }
+        if (proof.radio) {
+          structureProof.type = "radio"
+          structureProof.options = {}
+
+          let keys = _.split(proof.acceptedValues, ';')
+          let values = _.split(proof.options, ';')
+
+          _.each(keys, (key, index) => {
+            structureProof.options[key] = values[index]
+          })
+        }
+        if (proof.file) {
+          structureProof.type = "file"
+          structureProof.file = undefined
+          structureProof.upload = false
+        }
+
+        if (proof.mandatory) {
+          mandatory[proof.id] = structureProof
+        } else {
+          optional[proof.id] = structureProof
+        }
+      })
+
+      state.temporary.request.proofs.mandatory = mandatory
+      state.temporary.request.proofs.optional = optional
+
+      console.log('solidaryStructureUpdateEnd', state.temporary.request.proofs)
     },
     solidaryRequestHomeAddressUpdate(state, address) {
       address = _.cloneDeep(address)
@@ -339,8 +397,21 @@ export const solidaryTransportStore = {
     }
   },
   getters: {
+    getParameters: () => (string, separator) => {
+      return _.split(string, separator)
+    },
     getOrderedProofs: () => (proofs) => {
       return _.orderBy(proofs, ['position'], ['asc'])
+    },
+    getMandatoryProofs: (state, getters) => (proofs) => {
+      return getters.getOrderedProofs(_.filter(proofs, (proof) => {
+        return proof.mandatory
+      }))
+    },
+    getOptionalProofs: (state, getters) => (proofs) => {
+      return getters.getOrderedProofs(_.filter(proofs, (proof) => {
+        return !proof.mandatory
+      }))
     },
     getAddressToDisplay: () => (address) => {
       if (address) {

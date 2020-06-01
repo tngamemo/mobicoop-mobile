@@ -29,15 +29,15 @@
             <template v-if="structures">
 
               <ion-item class="mc-st-form-item">
-                <ion-label class="mc-st-form-label as-title" color="primary" position="stacked">{{$t('solidaryTransport.request.form.fields.structure')}}</ion-label>
+                <ion-label class="mc-st-form-label as-title" color="primary" position="stacked">{{$t('solidaryTransport.request.form.fields.structure')}} :</ion-label>
                 <ion-select 
                   required
-                  :value="request.structure"
-                  @ionChange="request.structure = $event.target.value;"
+                  :value="request.structure.id"
+                  @ionChange="changeStructure($event)"
                   :cancel-text="$t('solidaryTransport.buttons.cancel')"
                   :ok-text="$t('solidaryTransport.buttons.validate')"
                 >
-                  <ion-select-option :value="structure" v-for="(structure, index) in structures" :key="index">{{structure.name}}</ion-select-option>
+                  <ion-select-option :value="structure.id" v-for="(structure, index) in structures" :key="index">{{structure.name}}</ion-select-option>
                 </ion-select>
               </ion-item>
               <div class="mc-st-form-details">
@@ -45,41 +45,108 @@
                 <span class="mc-st-form-error" v-if="$v.request.structure.$error">{{$t('solidaryTransport.register.form.validators.required')}}</span>
               </div>
 
-              <!-- <ion-item class="mc-st-form-item" v-if="getMandatoryProofs(request.structure.proofs).length !== 0">
-                <ion-label class="mc-st-form-label as-title" color="primary">{{$t('solidaryTransport.request.form.fields.mandatory')}}</ion-label>
-              </ion-item> -->
+              <ion-item class="mc-st-form-item as-section-title" lines="none" v-if="getMandatoryProofs(request.structure.structureProofs).length !== 0">
+                <ion-label class="mc-st-form-label as-title" color="primary">{{$t('solidaryTransport.request.form.fields.mandatory')}} :</ion-label>
+              </ion-item>
 
-              <ion-item class="mc-st-form-item" v-for="(proof, index) in getOrderedProofs(request.structure.proofs)" :key="'proof-' + proof.id" lines="none">
-                <ion-label class="mc-st-form-label as-title" color="primary" position="stacked">{{proof.label}}</ion-label>
+              <!-- <div style="color: black;">
+                {{getMandatoryProofs(request.structure.proofs)}}
+              </div> -->
 
+              <template v-for="(proof, index) in getMandatoryProofs(request.structure.structureProofs)">
                 <template v-if="proof.checkbox">
-                  checkbox
+                  <ion-item class="mc-st-form-item" :key="`proof-${proof.id}-${index}`" lines="none" >
+                    <ion-checkbox
+                      class="mc-st-form-checkbox"
+                      color="success"
+                      slot="start"
+                      :checked="request.proofs.mandatory[proof.id].value"
+                      :value="request.proofs.mandatory[proof.id].value"
+                      @ionChange="request.proofs.mandatory[proof.id].value = $event.target.checked;"
+                    ></ion-checkbox>
+                    <ion-label class="mc-st-form-label no-white-space" color="primary">{{ proof.label }}*</ion-label>
+                  </ion-item>
                 </template>
 
                 <template v-if="proof.input">
-                  input
+                  <ion-item class="mc-st-form-item" :key="`proof-${proof.id}-${index}`">
+                    <ion-label position="floating">{{proof.label}}*</ion-label>
+                    <ion-input 
+                      class="mc-st-form-input" 
+                      type="text" 
+                      :value="request.proofs.mandatory[proof.id].value" 
+                      @input="request.proofs.mandatory[proof.id].value = $event.target.value;"
+                    ></ion-input>
+                  </ion-item>
                 </template>
 
                 <template v-if="proof.selectbox">
-                  selectbox
+                  <ion-item class="mc-st-form-item" :key="`proof-${proof.id}-${index}`">
+                    <ion-label class="mc-st-form-label" color="primary" position="floating">{{ proof.label }}*</ion-label>
+
+                    <ion-select 
+                      required
+                      :value="request.proofs.mandatory[proof.id].value"
+                      @ionChange="request.proofs.mandatory[proof.id].value = $event.target.value;"
+                      :cancel-text="$t('solidaryTransport.buttons.cancel')"
+                      :ok-text="$t('solidaryTransport.buttons.validate')"
+                    >
+                      <ion-select-option :value="index" v-for="(value, index) in request.proofs.mandatory[proof.id].options" :key="index">{{value}}</ion-select-option>
+                    </ion-select>
+                  </ion-item>
                 </template>
 
                 <template v-if="proof.radio">
-                  radio
+                  <ion-list class="mc-st-form-item">
+                    <ion-radio-group class="mc-st-form-radios">
+                      <ion-list-header class="mc-st-form-radios-header">
+                        <ion-label class="mc-st-form-label" color="primary">{{proof.label}}*</ion-label>
+                      </ion-list-header>
+
+                      <ion-item lines="none" class="mc-st-form-radios-item" v-for="(value, index) in request.proofs.mandatory[proof.id].options" :key="index">
+                        <ion-label class="ion-text-wrap">{{value}}</ion-label>
+                        <ion-radio slot="start" :value="index" :checked="request.proofs.mandatory[proof.id].value == index" @ionSelect="request.proofs.mandatory[proof.id].value = index" :key="index"></ion-radio>
+                      </ion-item>
+                    </ion-radio-group>
+                  </ion-list>
                 </template>
 
                 <template v-if="proof.file">
-                  file
+                  <div class="mc-st-form-item as-file" :key="`proof-${proof.id}-${index}`">
+                    <ion-label class="mc-st-form-label" color="primary">{{ proof.label }}*</ion-label>
+                      
+                    <div v-if="request.proofs.mandatory[proof.id].file" class="file" style="color:black;">Votre fichier : {{request.proofs.mandatory[proof.id].file.name}}</div>
+                    <div class="mc-st-form-controls">
+                      <ion-button class="mc-st-form-control as-cta" color="light" @click="$refs['proof-file-' + proof.id][0].click()">
+                        <ion-icon slot="start" name="map"></ion-icon>
+                        <span v-html="$t('solidaryTransport.buttons.chooseProof')"></span>
+                      </ion-button>
+                    </div>
+                    <input :ref="'proof-file-' + proof.id" style="display: none" type="file" @change="changeProofFile($event, request.proofs.mandatory[proof.id])" />
+                    
+                  </div>
                 </template>
 
-              </ion-item>
+                <div class="mc-st-form-details" v-if="$v.request.proofs.mandatory.$each[proof.id].$error">
+                  <div style="color: black;">
+                    {{$v.request.proofs.mandatory.$each[proof.id]}}
+                  </div>
+                  <span class="mc-st-form-error">{{$t('solidaryTransport.register.form.validators.required')}}</span>
+                </div>
+              </template>
 
             </template>
             
           </div>
 
-          <div class="mc-st-form-controls with-multiple" v-if="structures">
+          <div class="mc-st-form-controls in-summary" v-if="structures">
             <ion-button class="mc-st-form-control as-back" color="light" v-html="$t('solidaryTransport.buttons.back')" @click="$router.back()"></ion-button>
+
+            <ion-button class="mc-st-form-control as-back" color="primary" @click="$refs['call'].click()">
+              <ion-icon slot="start" name="call"></ion-icon>
+              <span v-html="$t('solidaryTransport.buttons.askHelp')"></span>
+              <a ref="call" href="tel:+33666869278" style="display:none;"></a>
+            </ion-button>
 
             <ion-button class="mc-st-form-control" color="success" v-html="$t('solidaryTransport.buttons.next')" @click="validate()"></ion-button>
           </div>
@@ -95,12 +162,35 @@
   </ion-page>
 </template>
 
-<style lang="scss"></style>
+<style lang="scss">
+  .mc-st-container .mc-st-form .mc-st-form-content .mc-st-form-details .mc-st-form-error {
+    text-align: left;
+  }
+</style>
 
 <script>
 import _ from 'lodash'
 import { mapState, mapGetters } from 'vuex'
 import { required } from 'vuelidate/lib/validators'
+import { toast } from '../../Shared/Mixin/toast.mixin'
+import http from '../../Shared/Mixin/http.mixin'
+import { CallNumber } from '@ionic-native/call-number'
+
+const mandatory = (proof) => {
+  if (proof.type === 'checkbox') {
+    return proof.value === true 
+  }
+  if (proof.type === 'input') {
+    return !_.isEmpty(proof.value)
+  }
+  if (proof.type === 'selectbox' || proof.type === "radio") {
+    return !_.isEmpty(proof.value)
+  }
+  if (proof.type === 'file') {
+    return proof.upload === true
+  }
+  return false
+}
 
 export default {
   name: 'solidaryTransport.request.check',
@@ -114,7 +204,9 @@ export default {
   computed: {
     ...mapGetters([
       'getAddressToDisplay',
-      'getOrderedProofs'
+      'getMandatoryProofs',
+      'getOptionalProofs',
+      'getParameters'
     ]),
     request: {
       get() {
@@ -125,6 +217,7 @@ export default {
       }
     }
   },
+  mixins: [toast],
   validations () {
     console.log('validations')
     let validations = {
@@ -134,30 +227,62 @@ export default {
       console.log('structures')
       validations.request.structure =  { required }
     }
-    if (this.request.structure.proofs) {
-      console.log('proofs')
-      validations.request.proofs =  { }
-      _.each(this.request.structure.proofs, (proof) => {
-        console.log(proof)
-      })
+    if (this.request.proofs.mandatory) {
+      //console.log('proofs', this.request.proofs)
+      validations.request.proofs = {}
+      validations.request.proofs.mandatory =  {
+        $each: {
+          mandatory
+        }
+      }
     }
     return validations
   },
   methods: {
-    test: function(current, compare) {
-      console.log('test', current, compare)
-      return true
+    callSupport: function () {
+      CallNumber.callNumber("18001010101", true)
+        .then(res => console.log('Launched dialer!', res))
+        .catch(err => console.log('Error launching dialer', err));
+    },
+    changeProofFile: function ($event, proof) {
+      let file = $event.target.files[0]
+      if (file.size <= 1000000) {
+        console.log(proof, file)
+        proof.file = file
+
+        const formData = new FormData();
+        formData.append('file', file);
+
+        console.log(formData.values())
+
+        http.post(`/proofs`, formData)
+          .then(resp => {
+            console.log(resp)
+          })
+          .catch(err => {
+            console.log(err)
+          })
+          .finally(() => {
+            proof.upload = true
+          })
+      } else {
+        this.presentToast(this.$t("UpdateProfile.file-size"), 'danger')
+      }
+    },
+    changeStructure: function($event) {
+      let structure = _.find(this.structures, {id: parseInt($event.target.value)})
+      this.$store.commit('solidaryStructureUpdate', structure)
     },
     validate: function () {
       this.$v.$reset();
       this.$v.$touch();
       if (this.$v.$invalid) {
-        this.$refs.register.getScrollElement().then((parent) => {
+        this.$refs.request.getScrollElement().then((parent) => {
           let child = document.getElementsByClassName('mc-st-form-error')[0]
           var childPos = child.offsetTop
           var parentPos = parent.offsetTop
           var top = childPos - parentPos - 30
-          this.$refs.register.scrollToPoint(0, top, 0)
+          this.$refs.request.scrollToPoint(0, top, 0)
         })
       } else {
         this.$router.push({name: 'solidaryTransport.home.request.path'})
@@ -171,7 +296,7 @@ export default {
 
         if (this.structures.length !== 0) {
           if (!this.request.structure) {
-            this.request.structure = _.cloneDeep(this.structures[0])
+            this.$store.commit('solidaryStructureUpdate', _.cloneDeep(this.structures[0]))
           }
         }
       })

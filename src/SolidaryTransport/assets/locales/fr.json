@@ -9,7 +9,9 @@
       "save": "Enregister",
       "cancel": "Annuler",
       "sendRequest": "Envoyer ma demande",
-      "sendAd": "Publier mon annonce"
+      "sendAd": "Publier mon annonce",
+      "chooseProof": "Choisir mon justificatif",
+      "askHelp": "Demander de l'aide"
     },
     "commons": {
       "gender": {
@@ -17,7 +19,8 @@
         "male": "Monsieur",
         "female": "Madame"
       },
-      "loading": "Chargement"
+      "loading": "Chargement",
+      "maxFileSize": "Le fichier que vous tentez d'envoyer ne doit pas dépasser 1Mo"
     },
     "navigation": {
       "home": "Accueil",
@@ -183,6 +186,8 @@
           "address": "Adresse de domicile",
           "structure": "Structure accompagnante",
           "structures": "Chaque structure a ses propres critères. Si vous ne remplissez pas les critères pour l’une, peut-être les remplisserez-vous pour une autre qui dessert aussi votre domicile ?",
+          "mandatory": "Critère(s) obligatoire(s)",
+          "optional": "Information(s) complémentaire(s)",
           
 
 

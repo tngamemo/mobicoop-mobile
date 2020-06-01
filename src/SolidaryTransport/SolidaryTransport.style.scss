@@ -172,6 +172,10 @@ ion-content {
           margin-bottom: 0;
         }
 
+        &.as-file {
+          margin-top: 30px;
+        }
+
         &.as-agreement {
           margin-top: 30px;
         }
@@ -190,6 +194,12 @@ ion-content {
           border: 1px solid var(--ion-color-step-300);
           border-radius: 0 15px 15px;
           min-height: 100px;
+        }
+
+        &.as-section-title {
+          .mc-st-form-label.as-title {
+            margin: 0;
+          }
         }
 
         .mc-st-form-list {
@@ -287,6 +297,25 @@ ion-content {
 
         + .mc-st-form-actions {
           margin-top: 30px;
+        }
+      }
+
+      .mc-st-form-radios {
+        .mc-st-form-radios-header {
+          padding: 0;
+        }
+
+        .mc-st-form-radios-item {
+          --background: transparent;
+          font-size: 14px;
+
+          ion-label {
+            line-height: 1.2;
+          }
+
+          ion-radio {
+            margin-right: 15px;
+          }
         }
       }
 
@@ -474,12 +503,17 @@ ion-content {
           }
         }
 
-        &.as-back {
+        &.as-back, &.as-cta {
           --background: var(--ion-color-light);
           --color: var(--ion-color-primary);
           --border-color: var(--ion-color-primary);
           --border-style: solid;
           --border-width: 1px;
+        }
+
+        &.as-cta {
+          width: 100%;
+          margin-top: 10px;
         }
       }
     }

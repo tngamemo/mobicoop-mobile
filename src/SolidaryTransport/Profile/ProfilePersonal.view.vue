@@ -219,10 +219,10 @@ export default {
           Promise.all([this.user.images.map(item => {
             return this.$store.dispatch('deleteImage', item.id);
           })]).then(() => {
-            this.updateUserPicture(file);
+            this.updateUserPicture(file)
           })
         } else {
-          this.updateUserPicture(file);
+          this.updateUserPicture(file)
         }
       } else {
         this.presentToast(this.$t("UpdateProfile.file-size"), 'danger')
