@@ -193,7 +193,7 @@ export const solidaryTransportStore = {
               "options": null,
               "acceptedValues": null,
               "file": true,
-              "mandatory": true,
+              "mandatory": null,
             },
             {
               "id": 4,
@@ -207,7 +207,7 @@ export const solidaryTransportStore = {
               "options": "jeune sans emploi (<25ans);mère célibataire;personne âgée(>60ans)",
               "acceptedValues": "jeune_chomeur;mere_celibataire;personne_agee",
               "file": null,
-              "mandatory": true,
+              "mandatory": null,
             },
             {
               "id": 5,
@@ -221,7 +221,7 @@ export const solidaryTransportStore = {
               "options": null,
               "acceptedValues": null,
               "file": null,
-              "mandatory": true,
+              "mandatory": null,
             }
           ]
         }

@@ -49,10 +49,6 @@
                 <ion-label class="mc-st-form-label as-title" color="primary">{{$t('solidaryTransport.request.form.fields.mandatory')}} :</ion-label>
               </ion-item>
 
-              <!-- <div style="color: black;">
-                {{getMandatoryProofs(request.structure.proofs)}}
-              </div> -->
-
               <template v-for="(proof, index) in getMandatoryProofs(request.structure.structureProofs)">
                 <template v-if="proof.checkbox">
                   <ion-item class="mc-st-form-item" :key="`proof-${proof.id}-${index}`" lines="none" >
@@ -133,6 +129,85 @@
                   </div>
                   <span class="mc-st-form-error">{{$t('solidaryTransport.register.form.validators.required')}}</span>
                 </div>
+              </template>
+
+              <ion-item class="mc-st-form-item as-section-title" lines="none" v-if="getOptionalProofs(request.structure.structureProofs).length !== 0">
+                <ion-label class="mc-st-form-label as-title" color="primary">{{$t('solidaryTransport.request.form.fields.optional')}} :</ion-label>
+              </ion-item>
+
+              <template v-for="(proof, index) in getOptionalProofs(request.structure.structureProofs)">
+                <template v-if="proof.checkbox">
+                  <ion-item class="mc-st-form-item" :key="`proof-${proof.id}-${index}`" lines="none" >
+                    <ion-checkbox
+                      class="mc-st-form-checkbox"
+                      color="success"
+                      slot="start"
+                      :checked="request.proofs.optional[proof.id].value"
+                      :value="request.proofs.optional[proof.id].value"
+                      @ionChange="request.proofs.optional[proof.id].value = $event.target.checked;"
+                    ></ion-checkbox>
+                    <ion-label class="mc-st-form-label no-white-space" color="primary">{{ proof.label }}*</ion-label>
+                  </ion-item>
+                </template>
+
+                <template v-if="proof.input">
+                  <ion-item class="mc-st-form-item" :key="`proof-${proof.id}-${index}`">
+                    <ion-label position="floating">{{proof.label}}*</ion-label>
+                    <ion-input 
+                      class="mc-st-form-input" 
+                      type="text" 
+                      :value="request.proofs.optional[proof.id].value" 
+                      @input="request.proofs.optional[proof.id].value = $event.target.value;"
+                    ></ion-input>
+                  </ion-item>
+                </template>
+
+                <template v-if="proof.selectbox">
+                  <ion-item class="mc-st-form-item" :key="`proof-${proof.id}-${index}`">
+                    <ion-label class="mc-st-form-label" color="primary" position="floating">{{ proof.label }}*</ion-label>
+
+                    <ion-select 
+                      required
+                      :value="request.proofs.optional[proof.id].value"
+                      @ionChange="request.proofs.optional[proof.id].value = $event.target.value;"
+                      :cancel-text="$t('solidaryTransport.buttons.cancel')"
+                      :ok-text="$t('solidaryTransport.buttons.validate')"
+                    >
+                      <ion-select-option :value="index" v-for="(value, index) in request.proofs.optional[proof.id].options" :key="index">{{value}}</ion-select-option>
+                    </ion-select>
+                  </ion-item>
+                </template>
+
+                <template v-if="proof.radio">
+                  <ion-list class="mc-st-form-item">
+                    <ion-radio-group class="mc-st-form-radios">
+                      <ion-list-header class="mc-st-form-radios-header">
+                        <ion-label class="mc-st-form-label" color="primary">{{proof.label}}*</ion-label>
+                      </ion-list-header>
+
+                      <ion-item lines="none" class="mc-st-form-radios-item" v-for="(value, index) in request.proofs.optional[proof.id].options" :key="index">
+                        <ion-label class="ion-text-wrap">{{value}}</ion-label>
+                        <ion-radio slot="start" :value="index" :checked="request.proofs.optional[proof.id].value == index" @ionSelect="request.proofs.optional[proof.id].value = index" :key="index"></ion-radio>
+                      </ion-item>
+                    </ion-radio-group>
+                  </ion-list>
+                </template>
+
+                <template v-if="proof.file">
+                  <div class="mc-st-form-item as-file" :key="`proof-${proof.id}-${index}`">
+                    <ion-label class="mc-st-form-label" color="primary">{{ proof.label }}*</ion-label>
+                      
+                    <div v-if="request.proofs.optional[proof.id].file" class="file" style="color:black;">Votre fichier : {{request.proofs.optional[proof.id].file.name}}</div>
+                    <div class="mc-st-form-controls">
+                      <ion-button class="mc-st-form-control as-cta" color="light" @click="$refs['proof-file-' + proof.id][0].click()">
+                        <ion-icon slot="start" name="map"></ion-icon>
+                        <span v-html="$t('solidaryTransport.buttons.chooseProof')"></span>
+                      </ion-button>
+                    </div>
+                    <input :ref="'proof-file-' + proof.id" style="display: none" type="file" @change="changeProofFile($event, request.proofs.optional[proof.id])" />
+                    
+                  </div>
+                </template>
               </template>
 
             </template>
