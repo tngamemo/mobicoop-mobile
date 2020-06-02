@@ -72,7 +72,7 @@ export const solidaryTransportStore = {
           mandatory: {},
           optional: {}
         },
-        needs: {},
+        needs: [],
         outwardDeadlineDatetime: undefined,
         outwardDatetime: undefined,
         returnDeadlineDatetime: undefined,
@@ -193,7 +193,7 @@ export const solidaryTransportStore = {
               "options": null,
               "acceptedValues": null,
               "file": true,
-              "mandatory": null,
+              "mandatory": true,
             },
             {
               "id": 4,
@@ -225,6 +225,30 @@ export const solidaryTransportStore = {
             }
           ]
         }
+        if (!_.hasIn(structure, 'subjects')) {
+          structure.subjects = [
+            {
+              "id": 1,
+              "label": "Faire mes courses"
+            },
+            {
+              "id": 2,
+              "label": "Aller à un RDV médical"
+            },
+            {
+              "id": 3,
+              "label": "Aller à un RDV administratif"
+            },
+            {
+              "id": 4,
+              "label": "Faire une sortie culturelle"
+            },
+            {
+              "id": 5,
+              "label": "Autre motif"
+            }
+          ]
+        }
       })
 
       state.structures.objects = structures
@@ -237,8 +261,9 @@ export const solidaryTransportStore = {
     solidaryStructureUpdate(state, structure) {
       console.log('solidaryStructureUpdate')
       state.temporary.request.structure = structure
+      
+      // Proofs
       state.temporary.request.proofs = {}
-
       let mandatory = {}
       let optional = {}
       _.each(structure.structureProofs, (proof) => {
@@ -287,9 +312,23 @@ export const solidaryTransportStore = {
           optional[proof.id] = structureProof
         }
       })
-
       state.temporary.request.proofs.mandatory = mandatory
       state.temporary.request.proofs.optional = optional
+
+      // Needs
+      state.temporary.request.needs = []
+      _.each(structure.needs, (need) => {
+        let structureNeed = {
+          id: need.id,
+          value: undefined,
+        }
+        state.temporary.request.needs.push(structureNeed)
+      })
+
+      // Subjects
+      if (structure.needs.length !== 0) {
+        state.temporary.request.subject = structure.needs[0].id
+      }
 
       console.log('solidaryStructureUpdateEnd', state.temporary.request.proofs)
     },
@@ -302,6 +341,24 @@ export const solidaryTransportStore = {
       delete address['geoJson']
       state.temporary.request.homeAddress = address
     },
+    solidaryRequestOriginAddressUpdate(state, address) {
+      address = _.cloneDeep(address)
+      // Remove useless elements
+      delete address['@id']
+      delete address['@type']
+      delete address['id']
+      delete address['geoJson']
+      state.temporary.request.origin = address
+    },
+    solidaryRequestDestinationAddressUpdate(state, address) {
+      address = _.cloneDeep(address)
+      // Remove useless elements
+      delete address['@id']
+      delete address['@type']
+      delete address['id']
+      delete address['geoJson']
+      state.temporary.request.destination = address
+    }
   },
   actions: {
     getSolidaryArticle({commit, state}, id){

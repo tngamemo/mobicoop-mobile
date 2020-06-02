@@ -5,101 +5,96 @@
         <ion-buttons slot="start">
           <ion-back-button text=""></ion-back-button>
         </ion-buttons>
-        <ion-title>{{$t('solidaryTransport.request.publish.title')}} <sup>1/3</sup></ion-title>
+        <ion-title>{{$t('solidaryTransport.request.title')}} <sup>1/3</sup></ion-title>
       </ion-toolbar>
     </ion-header>
 
-    <ion-content color="primary">
+    <ion-content ref="request" color="primary">
       <div class="mc-st-container">
         <div class="mc-st-form">
 
           <div class="mc-st-form-content">
             <div class="mc-st-form-header">
-              <div class="mc-st-form-title">{{$t('solidaryTransport.request.publish.steps.init')}}</div>
+              <div class="mc-st-form-title">{{$t('solidaryTransport.request.steps.path')}}</div>
               <div class="mc-st-form-steps">
+                <span class="mc-st-form-step is-validate"></span>
+                <span class="mc-st-form-step is-validate"></span>
                 <span class="mc-st-form-step is-active"></span>
                 <span class="mc-st-form-step"></span>
                 <span class="mc-st-form-step"></span>
+                <span class="mc-st-form-step"></span>
               </div>
             </div>
 
-            <ion-item class="mc-st-form-item" v-on:click="displayGeoSearch('register_address', 'search')">
-              <ion-label position="floating">{{$t('solidaryTransport.ad.publish.form.fields.destination.from')}} *</ion-label>
+            <ion-list class="mc-st-form-item">
+              <ion-radio-group class="mc-st-form-radios">
+                <ion-list-header class="mc-st-form-radios-header">
+                  <ion-label class="mc-st-form-label as-title" color="primary">{{$t('solidaryTransport.request.form.fields.subjects')}}</ion-label>
+                </ion-list-header>
+
+                <ion-item lines="none" class="mc-st-form-radios-item" v-for="(subject, index) in request.structure.subjects" :key="index">
+                  <ion-label class="ion-text-wrap">{{subject.label}}</ion-label>
+                  <ion-radio slot="start" :value="subject.id" :checked="request.subject === subject.id" @ionSelect="request.subject = subject.id"></ion-radio>
+                </ion-item>
+              </ion-radio-group>
+            </ion-list>
+
+            <ion-item class="mc-st-form-item" v-on:click="displayGeoSearchForOrigin()">
+              <ion-label position="floating">{{$t('solidaryTransport.request.form.fields.origin')}} *</ion-label>
               <ion-input
                 type="text"
                 name="address"
-                :value="addresses.departure"
+                :value="getAddressToDisplay(request.origin)"
                 readonly="true"
-                class="-no-clickable"
+                class="no-clickable"
               ></ion-input>
             </ion-item>
-            <template v-if="true">
-              <div class="mc-st-form-details">
-                <span class="mc-st-form-error" v-if="true">{{$t('solidaryTransport.register.form.fields.required')}}</span>
-              </div>
-            </template>
+            <div class="mc-st-form-details" v-if="$v.request.origin.$error">
+              <span class="mc-st-form-error" v-if="!$v.request.origin.required">{{$t('solidaryTransport.register.form.validators.required')}}</span>
+            </div>
 
-            <ion-item class="mc-st-form-item" v-on:click="displayGeoSearch('register_address', 'search')">
-              <ion-label position="floating">{{$t('solidaryTransport.ad.publish.form.fields.destination.to')}}</ion-label>
+            <ion-item class="mc-st-form-item" v-on:click="displayGeoSearchForDestination()">
+              <ion-label position="floating">{{$t('solidaryTransport.request.form.fields.destination')}} *</ion-label>
               <ion-input
                 type="text"
                 name="address"
-                :value="addresses.arrival"
+                :value="getAddressToDisplay(request.destination)"
                 readonly="true"
-                class="-no-clickable"
+                class="no-clickable"
               ></ion-input>
             </ion-item>
 
-            <div class="mc-st-form-item as-transport">
-              <ion-label class="mc-st-form-label as-title no-white-space" color="primary">{{$t('solidaryTransport.request.publish.form.fields.transports')}}</ion-label>
+            <ion-list class="mc-st-form-item">
+              <ion-radio-group class="mc-st-form-radios">
+                <ion-list-header class="mc-st-form-radios-header">
+                  <ion-label class="mc-st-form-label as-title" color="primary">{{$t('solidaryTransport.request.form.fields.regular')}}</ion-label>
+                </ion-list-header>
 
+                <ion-item lines="none" class="mc-st-form-radios-item">
+                  <ion-label class="ion-text-wrap">{{$t('solidaryTransport.request.form.fields.isPunctual')}}</ion-label>
+                  <ion-radio slot="start" :value="false" :checked="regular === false" @ionSelect="regular = false"></ion-radio>
+                </ion-item>
+                <ion-item lines="none" class="mc-st-form-radios-item">
+                  <ion-label class="ion-text-wrap">{{$t('solidaryTransport.request.form.fields.isRegular')}}</ion-label>
+                  <ion-radio slot="start" :value="true" :checked="regular === true" @ionSelect="regular = true"></ion-radio>
+                </ion-item>
+              </ion-radio-group>
+            </ion-list>
+
+            <div class="mc-st-form-item" v-if="request.structure.needs.length !== 0">
+              <ion-label class="mc-st-form-label as-title no-white-space" color="primary">{{$t('solidaryTransport.request.form.fields.needs')}}</ion-label>
+              
               <div class="mc-st-form-checkbox-wrapper">
-                <ion-item class="mc-st-form-item" lines="none" v-for="(item, index) in transports.properties" :key="index">
-                  <ion-checkbox class="mc-st-form-checkbox" :name="item.value" :value="item.checked" color="success" slot="start" @ionChange="item.checked = $event.target.checked"
+                <ion-item class="mc-st-form-item" lines="none" v-for="(need, index) in request.structure.needs" :key="index">
+                  <ion-checkbox
+                    class="mc-st-form-checkbox"
+                    color="success"
+                    slot="start"
+                    :value="request.needs[index].value"
+                    :checked="request.needs[index].value === true"
+                    @ionChange="request.needs[index].value = $event.target.checked;"
                   ></ion-checkbox>
-                  <ion-label class="mc-st-form-label no-white-space" color="primary">{{ item.label }}</ion-label>
-                </ion-item>
-                <ion-item class="mc-st-form-item as-other">
-                  <ion-label position="floating">{{$t('solidaryTransport.request.publish.form.fields.otherTransports')}}</ion-label>
-                  <ion-input class="mc-st-form-input" type="text"></ion-input>
-                </ion-item>
-              </div>
-            </div>
-
-            <div class="mc-st-form-item as-transport">
-              <ion-label class="mc-st-form-label as-title no-white-space" color="primary">{{$t('solidaryTransport.request.publish.form.fields.transportsDetails')}}</ion-label>
-
-              <div class="mc-st-form-checkbox-wrapper">
-                <ion-item class="mc-st-form-item" lines="none" v-for="(item, index) in transportsDetails.properties" :key="index">
-                  <ion-checkbox class="mc-st-form-checkbox" :name="item.value" :value="item.checked" color="success" slot="start" @ionChange="item.checked = $event.target.checked"
-                  ></ion-checkbox>
-                  <ion-label class="mc-st-form-label no-white-space" color="primary">{{ item.label }}</ion-label>
-                </ion-item>
-                <ion-item class="mc-st-form-item as-other">
-                  <ion-label position="floating">{{$t('solidaryTransport.request.publish.form.fields.otherTransportsDetails')}}</ion-label>
-                  <ion-input class="mc-st-form-input" type="text"></ion-input>
-                </ion-item>
-              </div>
-            </div>
-
-            <div class="mc-st-form-item as-supporting">
-              <ion-label class="mc-st-form-label as-title no-white-space" color="primary">{{$t('solidaryTransport.request.publish.form.fields.supporting')}}</ion-label>
-
-              <ion-item class="mc-st-form-item">
-                <ion-select :value="supporting.selected" ok-text="Valider" cancel-text="Fermer" selected-text="" @ionChange="supporting.selected = $event.target.value">
-                  <ion-select-option :value="item.value" v-for="(item, index) in supporting.properties" :key="index">{{item.label}}</ion-select-option>
-                </ion-select>
-              </ion-item>
-            </div>
-
-            <div class="mc-st-form-item as-transport">
-              <ion-label class="mc-st-form-label as-title no-white-space" color="primary">{{$t('solidaryTransport.request.publish.form.fields.frequency')}}</ion-label>
-
-              <div class="mc-st-form-checkbox-wrapper">
-                <ion-item class="mc-st-form-item" lines="none" v-for="(item, index) in frequency.properties" :key="index">
-                  <ion-checkbox class="mc-st-form-checkbox" :name="item.value" :value="item.value" color="success" slot="start" :checked="frequency.selected === item.value" @ionChange="frequencyChange($event)"
-                  ></ion-checkbox>
-                  <ion-label class="mc-st-form-label no-white-space" color="primary">{{ item.label }}</ion-label>
+                  <ion-label class="mc-st-form-label no-white-space" color="primary">{{ need.label }}</ion-label>
                 </ion-item>
               </div>
             </div>
@@ -109,12 +104,7 @@
           <div class="mc-st-form-controls with-multiple">
             <ion-button class="mc-st-form-control as-back" color="light" v-html="$t('solidaryTransport.buttons.back')" @click="$router.back()"></ion-button>
 
-            <template v-if="frequency.selected === 'ponctual'">
-              <ion-button class="mc-st-form-control" color="success" v-html="$t('solidaryTransport.buttons.next')" @click="$router.push({name: $route.name + '.ponctual'})"></ion-button>
-            </template>
-            <template v-if="frequency.selected === 'regular'">
-              <ion-button class="mc-st-form-control" color="success" v-html="$t('solidaryTransport.buttons.next')" @click="$router.push({name: $route.name + '.regular'})"></ion-button>
-            </template>
+            <ion-button class="mc-st-form-control" color="success" v-html="$t('solidaryTransport.buttons.next')" @click="validate()"></ion-button>
           </div>
 
         </div>
@@ -126,55 +116,71 @@
 <style lang="scss"></style>
 
 <script>
+import _ from 'lodash'
 import { mapState, mapGetters } from 'vuex'
+import { required } from 'vuelidate/lib/validators'
+import { toast } from '../../Shared/Mixin/toast.mixin'
 
 export default {
   name: 'solidaryTransport.request.path',
   components: {},
   data () {
     return {
-      updating: false,
-      transports: {
-        other: '',
-        properties: this.$t('solidaryTransport.request.publish.form.transports')
-      },
-      transportsDetails: {
-        other: '',
-        properties: this.$t('solidaryTransport.request.publish.form.transportsDetails')
-      },
-      supporting: {
-        selected: this.$t('solidaryTransport.request.publish.form.supporting')[0].value,
-        properties: this.$t('solidaryTransport.request.publish.form.supporting')
-      },
-      addresses: {
-        departure: undefined,
-        arrival: undefined
-      },
-      frequency: {
-        selected: this.$t('solidaryTransport.request.publish.form.frequency')[0].value,
-        properties: this.$t('solidaryTransport.request.publish.form.frequency')
-      },
+      regular: false
     }
   },
-  computed: {},
-  methods: {
-    displayGeoSearch: function (type, action) {
-      console.log('Call GeoSearch')
-    },
-    updateType: function ($event) {
-      console.log($event.detail)
-    },
-    frequencyChange: function ($event) {
-      if (!this.updating) {
-        this.updating = true
-        this.frequency.selected = $event.target.value
-
-        setTimeout(() => {
-          this.updating = false
-        }, 100)
+  computed: {
+    ...mapGetters([
+      'getAddressToDisplay'
+    ]),
+    request: {
+      get() {
+        return this.$store.state.solidaryTransportStore.temporary.request;
+      },
+      set() {
+        this.$store.commit("solidaryRequestUpdate", this.request);
       }
     }
   },
-  created: function () {}
+  mixins: [toast],
+  validations: {
+    request: {
+      origin: {
+        required
+      }
+    }
+  },
+  methods: {
+    displayGeoSearchForOrigin: function () {
+      this.$router.push({ name: "solidaryTransport.geoSearch", query: { action: 'solidaryTransport.search', type: 'request.origin' }});
+    },
+    displayGeoSearchForDestination: function () {
+      this.$router.push({ name: "solidaryTransport.geoSearch", query: { action: 'solidaryTransport.search', type: 'request.destination' }});
+    },
+    validate: function () {
+      this.$v.$reset();
+      this.$v.$touch();
+      if (this.$v.$invalid) {
+        this.$refs.request.getScrollElement().then((parent) => {
+          let child = document.getElementsByClassName('mc-st-form-error')[0]
+          var childPos = child.offsetTop
+          var parentPos = parent.offsetTop
+          var top = childPos - parentPos - 30
+          this.$refs.request.scrollToPoint(0, top, 0)
+        })
+      } else {
+        if (!this.regular) {
+          this.$router.push({name: 'solidaryTransport.home.request.punctual'})
+        } else {
+          this.$router.push({name: 'solidaryTransport.home.request.regular'})
+        }
+      }
+    }
+  },
+  created: function () {
+    if (_.isEmpty(this.request.origin)) {
+      this.request.origin = _.cloneDeep(this.request.homeAddress)
+    }
+  }
 }
 </script>

@@ -159,6 +159,10 @@ ion-content {
           margin-top: 10px;
         }
 
+        + ion-list.mc-st-form-item {
+          margin-top: 30px;
+        }
+
         ion-label, ion-input, ion-textarea {
           font-family: 'Poppins';
         }
@@ -166,6 +170,10 @@ ion-content {
         ion-select {
           width: 100%;
           max-width: none;
+        }
+
+        &.item-has-value {
+          color: var(--ion-color-primary);
         }
 
         &.as-list {
@@ -292,6 +300,8 @@ ion-content {
 
           &.as-title {
             font-weight: bold;
+            text-transform: none;
+            font-size: 14px;
           }
         }
 
@@ -303,11 +313,15 @@ ion-content {
       .mc-st-form-radios {
         .mc-st-form-radios-header {
           padding: 0;
+          text-transform: none;
+          font-size: 14px;
+          font-weight: bold;
         }
 
         .mc-st-form-radios-item {
           --background: transparent;
           font-size: 14px;
+          padding-left: 15px;
 
           ion-label {
             line-height: 1.2;

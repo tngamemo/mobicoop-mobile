@@ -202,6 +202,16 @@ export default {
               this.$store.commit("solidaryRequestHomeAddressUpdate", address)
               break;
             }
+
+            case "request.origin": {
+              this.$store.commit("solidaryRequestOriginAddressUpdate", address)
+              break;
+            }
+
+            case "request.destination": {
+              this.$store.commit("solidaryRequestDestinationAddressUpdate", address)
+              break;
+            }
           }
           break;
         }

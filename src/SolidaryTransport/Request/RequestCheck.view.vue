@@ -101,7 +101,7 @@
 
                       <ion-item lines="none" class="mc-st-form-radios-item" v-for="(value, index) in request.proofs.mandatory[proof.id].options" :key="index">
                         <ion-label class="ion-text-wrap">{{value}}</ion-label>
-                        <ion-radio slot="start" :value="index" :checked="request.proofs.mandatory[proof.id].value == index" @ionSelect="request.proofs.mandatory[proof.id].value = index" :key="index"></ion-radio>
+                        <ion-radio slot="start" :value="index" :checked="request.proofs.mandatory[proof.id].value == index" @ionSelect="request.proofs.mandatory[proof.id].value = index"></ion-radio>
                       </ion-item>
                     </ion-radio-group>
                   </ion-list>
@@ -124,9 +124,6 @@
                 </template>
 
                 <div class="mc-st-form-details" v-if="$v.request.proofs.mandatory.$each[proof.id].$error">
-                  <div style="color: black;">
-                    {{$v.request.proofs.mandatory.$each[proof.id]}}
-                  </div>
                   <span class="mc-st-form-error">{{$t('solidaryTransport.register.form.validators.required')}}</span>
                 </div>
               </template>
@@ -187,7 +184,7 @@
 
                       <ion-item lines="none" class="mc-st-form-radios-item" v-for="(value, index) in request.proofs.optional[proof.id].options" :key="index">
                         <ion-label class="ion-text-wrap">{{value}}</ion-label>
-                        <ion-radio slot="start" :value="index" :checked="request.proofs.optional[proof.id].value == index" @ionSelect="request.proofs.optional[proof.id].value = index" :key="index"></ion-radio>
+                        <ion-radio slot="start" :value="index" :checked="request.proofs.optional[proof.id].value == index" @ionSelect="request.proofs.optional[proof.id].value = index"></ion-radio>
                       </ion-item>
                     </ion-radio-group>
                   </ion-list>
@@ -249,7 +246,6 @@ import { mapState, mapGetters } from 'vuex'
 import { required } from 'vuelidate/lib/validators'
 import { toast } from '../../Shared/Mixin/toast.mixin'
 import http from '../../Shared/Mixin/http.mixin'
-import { CallNumber } from '@ionic-native/call-number'
 
 const mandatory = (proof) => {
   if (proof.type === 'checkbox') {
@@ -262,7 +258,7 @@ const mandatory = (proof) => {
     return !_.isEmpty(proof.value)
   }
   if (proof.type === 'file') {
-    return proof.upload === true
+    return _.isObject(proof.file)
   }
   return false
 }
@@ -272,8 +268,7 @@ export default {
   components: {},
   data () {
     return {
-      structures: undefined,
-      proofs: undefined
+      structures: undefined
     }
   },
   computed: {
@@ -294,12 +289,10 @@ export default {
   },
   mixins: [toast],
   validations () {
-    console.log('validations')
     let validations = {
       request: {}
     }
     if (this.structures) {
-      console.log('structures')
       validations.request.structure =  { required }
     }
     if (this.request.proofs.mandatory) {
@@ -314,32 +307,26 @@ export default {
     return validations
   },
   methods: {
-    callSupport: function () {
-      CallNumber.callNumber("18001010101", true)
-        .then(res => console.log('Launched dialer!', res))
-        .catch(err => console.log('Error launching dialer', err));
-    },
     changeProofFile: function ($event, proof) {
       let file = $event.target.files[0]
       if (file.size <= 1000000) {
-        console.log(proof, file)
         proof.file = file
 
-        const formData = new FormData();
-        formData.append('file', file);
+        // const formData = new FormData();
+        // formData.append('file', file);
 
-        console.log(formData.values())
+        // console.log(formData.values())
 
-        http.post(`/proofs`, formData)
-          .then(resp => {
-            console.log(resp)
-          })
-          .catch(err => {
-            console.log(err)
-          })
-          .finally(() => {
-            proof.upload = true
-          })
+        // http.post(`/proofs`, formData)
+        //   .then(resp => {
+        //     console.log(resp)
+        //   })
+        //   .catch(err => {
+        //     console.log(err)
+        //   })
+        //   .finally(() => {
+        //     proof.upload = true
+        //   })
       } else {
         this.presentToast(this.$t("UpdateProfile.file-size"), 'danger')
       }
@@ -367,13 +354,16 @@ export default {
   created: function () {
     this.$store.dispatch('getSolidaryStructuresByGeolocation', {lat: this.request.homeAddress.latitude, lng: this.request.homeAddress.longitude})
       .then((structures) => {
-        this.structures = structures
-
-        if (this.structures.length !== 0) {
+        
+        if (structures.length !== 0) {
           if (!this.request.structure) {
-            this.$store.commit('solidaryStructureUpdate', _.cloneDeep(this.structures[0]))
+            this.$store.commit('solidaryStructureUpdate', _.cloneDeep(structures[0]))
           }
         }
+
+        setTimeout(() => {
+           this.structures = structures
+        }, 500)
       })
       .catch((error) => {
         console.error(error)
