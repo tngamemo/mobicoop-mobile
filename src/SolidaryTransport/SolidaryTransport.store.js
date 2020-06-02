@@ -88,6 +88,20 @@ export const solidaryTransportStore = {
           fri: 0,
           sat: 0,
           sun: 0
+        },
+        when: {
+          departure: {
+            specificDate: undefined,
+            marginDate: undefined,
+            specificHour: undefined,
+            marginHour: undefined
+          },
+          return: {
+            specificDate: undefined,
+            marginDate: undefined,
+            specificHour: undefined,
+            marginHour: undefined
+          }
         }
       },
       ad: {}

@@ -30,12 +30,24 @@
               <ion-label class="mc-st-form-label as-title no-white-space" color="primary">{{$t('solidaryTransport.request.form.fields.when.departure.date')}}</ion-label>
 
               <div class="mc-st-form-checkbox-wrapper">
-                <ion-item class="mc-st-form-item">
-                  <ion-checkbox class="mc-st-form-checkbox" slot="start" :checked="true" color="success"></ion-checkbox>
-                  <ion-input class="mc-st-form-input" type="text" :placeholder="$t('solidaryTransport.request.form.fields.when.departure.specificDate')"></ion-input>
+                <ion-item class="mc-st-form-item" @click="$refs['departure-date'].click()">
+                  <ion-checkbox class="mc-st-form-checkbox no-clickable" slot="start" :checked="request.when.departure.specificDate !== undefined || (request.when.departure.specificDate === undefined && request.when.departure.marginDate === undefined)" color="success"></ion-checkbox>
+                  <ion-datetime
+                    ref="departure-date"
+                    class="mc-st-form-input no-clickable"
+                    display-format="DD/MM/YY"
+                    picker-format="DD/MM/YY"
+                    :min="$moment().format('YYYY-MM-DD')"
+                    :cancel-text="$t('solidaryTransport.buttons.cancel')"
+                    :done-text="$t('solidaryTransport.buttons.validate')"
+                    :placeholder="$t('solidaryTransport.request.form.fields.when.departure.specificDate')"
+                    :value="request.when.departure.specificDate"
+                    @ionChange="changeDepartureSpecificDate($event.target.value)"
+                    @ionFocus="changeDepartureSpecificDate($event.target.value)"
+                  ></ion-datetime>
                 </ion-item>
                 <ion-item class="mc-st-form-item" lines="none" v-for="(item, index) in departureDates.properties" :key="index">
-                  <ion-checkbox class="mc-st-form-checkbox" :name="item.value" :value="item.checked" color="success" slot="start" @ionChange="item.checked = $event.target.checked"
+                  <ion-checkbox class="mc-st-form-checkbox" :value="request.when.departure.marginDate" :checked="request.when.departure.marginDate === item.value" color="success" slot="start" @ionChange="changeDepartureMarginDate(item.value)"
                   ></ion-checkbox>
                   <ion-label class="mc-st-form-label no-white-space" color="primary">{{ item.label }}</ion-label>
                 </ion-item>
@@ -46,12 +58,23 @@
               <ion-label class="mc-st-form-label as-title no-white-space" color="primary">{{$t('solidaryTransport.request.form.fields.when.departure.hour')}}</ion-label>
 
               <div class="mc-st-form-checkbox-wrapper">
-                <ion-item class="mc-st-form-item">
-                  <ion-checkbox class="mc-st-form-checkbox" slot="start" :checked="true" color="success"></ion-checkbox>
-                  <ion-input class="mc-st-form-input" type="text" :placeholder="$t('solidaryTransport.request.form.fields.when.departure.specificHour')"></ion-input>
+                <ion-item class="mc-st-form-item" @click="$refs['departure-hour'].click()">
+                  <ion-checkbox class="mc-st-form-checkbox no-clickable" slot="start" :checked="request.when.departure.specificHour" color="success"></ion-checkbox>
+                  <ion-datetime
+                    ref="departure-hour"
+                    class="mc-st-form-input no-clickable"
+                    display-format="HH:mm"
+                    picker-format="HH:mm"
+                    :cancel-text="$t('solidaryTransport.buttons.cancel')"
+                    :done-text="$t('solidaryTransport.buttons.validate')"
+                    :placeholder="$t('solidaryTransport.request.form.fields.when.departure.specificHour')"
+                    :value="request.when.departure.specificHour"
+                    @ionChange="changeDepartureSpecificHour($event.target.value)"
+                    @ionFocus="changeDepartureSpecificHour($event.target.value)"
+                  ></ion-datetime>
                 </ion-item>
                 <ion-item class="mc-st-form-item" lines="none" v-for="(item, index) in departureHours.properties" :key="index">
-                  <ion-checkbox class="mc-st-form-checkbox" :name="item.value" :value="item.checked" color="success" slot="start" @ionChange="item.checked = $event.target.checked"
+                  <ion-checkbox class="mc-st-form-checkbox" :value="request.when.departure.marginHour" :checked="request.when.departure.marginHour === item.value" color="success" slot="start" @ionChange="changeDepartureMarginHour(item.value)"
                   ></ion-checkbox>
                   <ion-label class="mc-st-form-label no-white-space" color="primary">{{ item.label }}</ion-label>
                 </ion-item>
@@ -62,12 +85,23 @@
               <ion-label class="mc-st-form-label as-title no-white-space" color="primary">{{$t('solidaryTransport.request.form.fields.when.return.hour')}}</ion-label>
 
               <div class="mc-st-form-checkbox-wrapper">
-                <ion-item class="mc-st-form-item">
-                  <ion-checkbox class="mc-st-form-checkbox" slot="start" :checked="true" color="success"></ion-checkbox>
-                  <ion-input class="mc-st-form-input" type="text" :placeholder="$t('solidaryTransport.request.form.fields.when.specificReturn')"></ion-input>
+                <ion-item class="mc-st-form-item" @click="$refs['return-hour'].click()">
+                  <ion-checkbox class="mc-st-form-checkbox no-clickable" slot="start" :checked="request.when.return.specificHour" color="success"></ion-checkbox>
+                  <ion-datetime
+                    ref="return-hour"
+                    class="mc-st-form-input no-clickable"
+                    display-format="HH:mm"
+                    picker-format="HH:mm"
+                    :cancel-text="$t('solidaryTransport.buttons.cancel')"
+                    :done-text="$t('solidaryTransport.buttons.validate')"
+                    :placeholder="$t('solidaryTransport.request.form.fields.when.return.specificHour')"
+                    :value="request.when.return.specificHour"
+                    @ionChange="changeReturnSpecificHour($event.target.value)"
+                    @ionFocus="changeReturnSpecificHour($event.target.value)"
+                  ></ion-datetime>
                 </ion-item>
                 <ion-item class="mc-st-form-item" lines="none" v-for="(item, index) in returnHours.properties" :key="index">
-                  <ion-checkbox class="mc-st-form-checkbox" :name="item.value" :value="item.checked" color="success" slot="start" @ionChange="item.checked = $event.target.checked"
+                  <ion-checkbox class="mc-st-form-checkbox" :value="request.when.return.marginHour" :checked="request.when.return.marginHour === item.value" color="success" slot="start" @ionChange="changeReturnMarginHour(item.value)"
                   ></ion-checkbox>
                   <ion-label class="mc-st-form-label no-white-space" color="primary">{{ item.label }}</ion-label>
                 </ion-item>
@@ -101,6 +135,7 @@ export default {
   components: {},
   data () {
     return {
+      updating: false,
       departureDates: {
         other: '',
         selected: this.$t('solidaryTransport.request.form.fields.when.departure.dates')[0].value,
@@ -140,6 +175,72 @@ export default {
     }
   },
   methods: {
+    changeDepartureMarginDate: function (value) {
+      if (!this.updating) {
+        this.updating = true
+        this.request.when.departure.specificDate = undefined
+        this.request.when.departure.marginDate = value
+
+        setTimeout(() => {
+          this.updating = false
+        }, 100)
+      }  
+    },
+    changeDepartureSpecificDate: function (value) {
+      if (!this.updating) {
+        this.updating = true
+        this.request.when.departure.marginDate = undefined
+        this.request.when.departure.specificDate = value
+
+        setTimeout(() => {
+          this.updating = false
+        }, 100)
+      }  
+    },
+    changeDepartureMarginHour: function (value) {
+      if (!this.updating) {
+        this.updating = true
+        this.request.when.departure.specificHour = undefined
+        this.request.when.departure.marginHour = value
+
+        setTimeout(() => {
+          this.updating = false
+        }, 100)
+      }  
+    },
+    changeDepartureSpecificHour: function (value) {
+      if (!this.updating) {
+        this.updating = true
+        this.request.when.departure.marginHour = undefined
+        this.request.when.departure.specificHour = value
+
+        setTimeout(() => {
+          this.updating = false
+        }, 100)
+      }  
+    },
+    changeReturnMarginHour: function (value) {
+      if (!this.updating) {
+        this.updating = true
+        this.request.when.return.specificHour = undefined
+        this.request.when.return.marginHour = value
+
+        setTimeout(() => {
+          this.updating = false
+        }, 100)
+      }  
+    },
+    changeReturnSpecificHour: function (value) {
+      if (!this.updating) {
+        this.updating = true
+        this.request.when.return.marginHour = undefined
+        this.request.when.return.specificHour = value
+
+        setTimeout(() => {
+          this.updating = false
+        }, 100)
+      }  
+    },
     displayGeoSearchForOrigin: function () {
       this.$router.push({ name: "solidaryTransport.geoSearch", query: { action: 'solidaryTransport.search', type: 'request.origin' }});
     },
