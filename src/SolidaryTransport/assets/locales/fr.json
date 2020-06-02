@@ -144,18 +144,8 @@
               ]
             }
           },
-
-
-
-
-          "transports": "Je souhaite me déplacer pour :",
-          "otherTransports": "Autre",
-          "transportsDetails": "Autres informations :",
-          "otherTransportsDetails": "Autres précisions",
-          "supporting": "Structure accompagnante :",
-          "frequency": "Fréquence du trajet :",
-          
-          "summary": "Votre demande :"
+          "you": "Vos informations :",
+          "yourRequest": "Votre demande :"
         }
       }
     },

@@ -9,7 +9,7 @@
       </ion-toolbar>
     </ion-header>
 
-    <ion-content ref="request" color="primary">
+    <ion-content ref="request" color="primary" class="is-scrollable">
       <div class="mc-st-container">
         <div class="mc-st-form">
 

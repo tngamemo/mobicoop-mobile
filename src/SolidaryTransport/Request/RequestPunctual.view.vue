@@ -9,7 +9,7 @@
       </ion-toolbar>
     </ion-header>
 
-    <ion-content ref="request" color="primary">
+    <ion-content ref="request" color="primary" class="is-scrollable">
       <div class="mc-st-container">
         <div class="mc-st-form">
 
@@ -59,7 +59,7 @@
 
               <div class="mc-st-form-checkbox-wrapper">
                 <ion-item class="mc-st-form-item" @click="$refs['departure-hour'].click()">
-                  <ion-checkbox class="mc-st-form-checkbox no-clickable" slot="start" :checked="request.when.departure.specificHour" color="success"></ion-checkbox>
+                  <ion-checkbox class="mc-st-form-checkbox no-clickable" slot="start" :checked="request.when.departure.specificHour !== undefined || (request.when.departure.specificHour === undefined && request.when.departure.marginHour === undefined)" color="success"></ion-checkbox>
                   <ion-datetime
                     ref="departure-hour"
                     class="mc-st-form-input no-clickable"
@@ -86,7 +86,7 @@
 
               <div class="mc-st-form-checkbox-wrapper">
                 <ion-item class="mc-st-form-item" @click="$refs['return-hour'].click()">
-                  <ion-checkbox class="mc-st-form-checkbox no-clickable" slot="start" :checked="request.when.return.specificHour" color="success"></ion-checkbox>
+                  <ion-checkbox class="mc-st-form-checkbox no-clickable" slot="start" :checked="request.when.return.specificHour !== undefined || (request.when.return.specificHour === undefined && request.when.return.marginHour === undefined)" color="success"></ion-checkbox>
                   <ion-datetime
                     ref="return-hour"
                     class="mc-st-form-input no-clickable"

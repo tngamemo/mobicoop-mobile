@@ -353,6 +353,10 @@ ion-content {
           text-align: right;
           flex: 1 0 auto;
           max-width: 100%;
+
+          &.is-left {
+            text-align: left;
+          }
         }
       }
 
@@ -695,10 +699,14 @@ ion-content {
   .mc-st-summary {
     margin-top: 20px;
 
+    + .mc-st-form-item { 
+        margin-top: 50px;
+    }
+
     .mc-st-summary-text {
       color: var(--ion-color-primary);
       font-size: 14px;
-      line-height: 1.2;
+      line-height: 1.3;
 
       + .mc-st-summary-text, + .mc-st-summary-card {
         margin-top: 20px;

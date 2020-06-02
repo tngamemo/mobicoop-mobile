@@ -490,6 +490,18 @@ export const solidaryTransportStore = {
       }
       return
     },
+    getCityToDisplay: () => (address) => {
+      if (address) {
+        return `${address.addressLocality}`
+      }
+      return
+    },
+    getRequestSubjectToDisplay: () => (request) => {
+      if (request.subject && request.structure) {
+        return _.find(request.structure.subjects, {'id': request.subject}).label.toLowerCase()
+      }
+      return
+    },
     getUserAvatar: () => (user) => {
       if (user) {
         if (user.avatars.length !== 0) {

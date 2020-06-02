@@ -5,7 +5,7 @@
         <ion-buttons slot="start">
           <ion-back-button text=""></ion-back-button>
         </ion-buttons>
-        <ion-title>{{ $t('solidaryTransport.request.step.user') }} <sup>5/6</sup></ion-title>
+        <ion-title>{{ $t('solidaryTransport.request.title') }} <sup>5/6</sup></ion-title>
       </ion-toolbar>
     </ion-header>
 
@@ -119,8 +119,8 @@
               <ion-input 
                 class="mc-st-form-input" 
                 type="email" 
-                @ionChange="checkMail()" 
-                @input="request.email = $event.target.value"
+                :value="request.email"
+                @ionChange="request.email = $event.target.value"
               ></ion-input>
             </ion-item>
             <div class="mc-st-form-details" v-if="$v.request.email.$error">
@@ -133,9 +133,8 @@
           <div class="mc-st-form-controls with-multiple">
             <ion-button class="mc-st-form-control as-back" color="light" v-html="$t('solidaryTransport.buttons.back')" @click="$router.back()"></ion-button>
 
-            <ion-button class="mc-st-form-control as-loader" color="success" @click="validate()">
-              <ion-icon slot="start" name="sync" size="large"></ion-icon>
-              <span v-html="$t('solidaryTransport.buttons.register')"></span>
+            <ion-button class="mc-st-form-control" color="success" @click="validate()">
+              <span v-html="$t('solidaryTransport.buttons.next')"></span>
             </ion-button>
           </div>
 
@@ -241,7 +240,7 @@ export default {
             this.$refs.request.scrollToPoint(0, top, 0)
           })
         } else {
-          
+          this.$router.push({name: 'solidaryTransport.home.request.summary'})
         }
       }
     }

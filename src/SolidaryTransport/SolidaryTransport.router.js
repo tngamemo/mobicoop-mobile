@@ -33,11 +33,7 @@ import RequestPath from './Request/RequestPath.view.vue';
 import RequestPunctual from './Request/RequestPunctual.view.vue';
 import RequestRegular from './Request/RequestRegular.view.vue';
 import RequestUser from './Request/RequestUser.view.vue';
-// import RequestPublish from './Request/RequestPublish.view.vue';
-// import RequestPublishPonctual from './Request/RequestPublishPonctual.view.vue';
-// import RequestPublishPonctualSummary from './Request/RequestPublishPonctualSummary.view.vue';
-// import RequestPublishRegular from './Request/RequestPublishRegular.view.vue';
-// import RequestPublishRegularSummary from './Request/RequestPublishRegularSummary.view.vue';
+import RequestSummary from './Request/RequestSummary.view.vue';
 
 // Tools related
 import GeoSearch from './GeoSearch/GeoSearch.view.vue';
@@ -161,6 +157,13 @@ export default [
         name: 'solidaryTransport.home.request.user',
         components: {
           home: RequestUser
+        }
+      },
+      {
+        path: '/solidary-transport/home/request/summary',
+        name: 'solidaryTransport.home.request.summary',
+        components: {
+          home: RequestSummary
         }
       },
       // {
