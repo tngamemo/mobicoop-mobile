@@ -32,6 +32,7 @@ import RequestCheck from './Request/RequestCheck.view.vue';
 import RequestPath from './Request/RequestPath.view.vue';
 import RequestPunctual from './Request/RequestPunctual.view.vue';
 import RequestRegular from './Request/RequestRegular.view.vue';
+import RequestUser from './Request/RequestUser.view.vue';
 // import RequestPublish from './Request/RequestPublish.view.vue';
 // import RequestPublishPonctual from './Request/RequestPublishPonctual.view.vue';
 // import RequestPublishPonctualSummary from './Request/RequestPublishPonctualSummary.view.vue';
@@ -153,6 +154,13 @@ export default [
         name: 'solidaryTransport.home.request.regular',
         components: {
           home: RequestRegular
+        }
+      },
+      {
+        path: '/solidary-transport/home/request/user',
+        name: 'solidaryTransport.home.request.user',
+        components: {
+          home: RequestUser
         }
       },
       // {

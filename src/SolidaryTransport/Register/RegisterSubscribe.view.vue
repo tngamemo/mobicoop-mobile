@@ -118,7 +118,7 @@
               ></ion-input>
               <ion-icon class="mc-st-form-icon rotating" v-show="checking" slot="end" size="medium" color="primary" name="sync"></ion-icon>
             </ion-item>
-            <div class="mc-st-form-details" v-if="!$v.user.email.error">
+            <div class="mc-st-form-details" v-if="$v.user.email.$error">
               <span class="mc-st-form-error" v-if="!$v.user.email.mailAvailable">{{$t('solidaryTransport.register.form.validators.emailAvailable')}}</span>
               <span class="mc-st-form-error" v-else-if="!$v.user.email.email">{{$t('solidaryTransport.register.form.validators.email')}}</span>
               <span class="mc-st-form-error" v-else-if="!$v.user.email.required">{{$t('solidaryTransport.register.form.validators.required')}}</span>

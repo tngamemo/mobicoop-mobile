@@ -234,12 +234,6 @@
   </ion-page>
 </template>
 
-<style lang="scss">
-  .mc-st-container .mc-st-form .mc-st-form-content .mc-st-form-details .mc-st-form-error {
-    text-align: left;
-  }
-</style>
-
 <script>
 import _ from 'lodash'
 import { mapState, mapGetters } from 'vuex'

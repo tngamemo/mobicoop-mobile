@@ -259,11 +259,7 @@ export default {
           this.$refs.request.scrollToPoint(0, top, 0)
         })
       } else {
-        if (!this.regular) {
-          this.$router.push({name: 'solidaryTransport.home.request.punctual'})
-        } else {
-          this.$router.push({name: 'solidaryTransport.home.request.regular'})
-        }
+        this.$router.push({name: 'solidaryTransport.home.request.user'})
       }
     }
   },
