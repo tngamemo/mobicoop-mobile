@@ -30,6 +30,8 @@ import Messages from './Messages/Messages.view.vue';
 import Request from './Request/Request.view.vue';
 import RequestCheck from './Request/RequestCheck.view.vue';
 import RequestPath from './Request/RequestPath.view.vue';
+import RequestPunctual from './Request/RequestPunctual.view.vue';
+import RequestRegular from './Request/RequestRegular.view.vue';
 // import RequestPublish from './Request/RequestPublish.view.vue';
 // import RequestPublishPonctual from './Request/RequestPublishPonctual.view.vue';
 // import RequestPublishPonctualSummary from './Request/RequestPublishPonctualSummary.view.vue';
@@ -137,6 +139,20 @@ export default [
         name: 'solidaryTransport.home.request.path',
         components: {
           home: RequestPath
+        }
+      },
+      {
+        path: '/solidary-transport/home/request/punctual',
+        name: 'solidaryTransport.home.request.punctual',
+        components: {
+          home: RequestPunctual
+        }
+      },
+      {
+        path: '/solidary-transport/home/request/regular',
+        name: 'solidaryTransport.home.request.regular',
+        components: {
+          home: RequestRegular
         }
       },
       // {

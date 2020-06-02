@@ -5,7 +5,7 @@
         <ion-buttons slot="start">
           <ion-back-button text=""></ion-back-button>
         </ion-buttons>
-        <ion-title>{{$t('solidaryTransport.request.title')}} <sup>1/3</sup></ion-title>
+        <ion-title>{{$t('solidaryTransport.request.title')}} <sup>4/6</sup></ion-title>
       </ion-toolbar>
     </ion-header>
 
@@ -15,12 +15,12 @@
 
           <div class="mc-st-form-content">
             <div class="mc-st-form-header">
-              <div class="mc-st-form-title">{{$t('solidaryTransport.request.steps.path')}}</div>
+              <div class="mc-st-form-title">{{$t('solidaryTransport.request.steps.regular')}}</div>
               <div class="mc-st-form-steps">
                 <span class="mc-st-form-step is-validate"></span>
                 <span class="mc-st-form-step is-validate"></span>
+                <span class="mc-st-form-step is-validate"></span>
                 <span class="mc-st-form-step is-active"></span>
-                <span class="mc-st-form-step"></span>
                 <span class="mc-st-form-step"></span>
                 <span class="mc-st-form-step"></span>
               </div>

@@ -36,7 +36,7 @@
         "intro": "1. Où habitez-vous ?",
         "check": "2. Est-ce un service pour vous ?",
         "path": "3. Votre trajet",
-        "ponctual": "4. Votre trajet ponctuel",
+        "punctual": "4. Votre trajet ponctuel",
         "regular": "4. Votre trajet régulier",
         "user": "5. Vous",
         "summary": "6. Récapitulatif"
@@ -55,6 +55,95 @@
           "isRegular": "Oui, je ferai le trajet régulièrement",
           "isPunctual": "Non",
           "needs": "Autres informations :",
+          "when": {
+            "departure": {
+              "date": "A quelle date souhaitez-vous partir ?",
+              "specificDate": "Date du départ",
+              "hour": "A quelle heure souhaitez-vous partir ?",
+              "specificHour": "Heure de départ",
+              "day": "Indiquez les jours concernés pour lesquels vous avez besoin d’un trajet régulier :",
+              "dates": [
+                { 
+                  "value": "dates-0",
+                  "label": "D’ici une semaine"
+                },
+                { 
+                  "value": "dates-1",
+                  "label": "D’ici deux semaines"
+                },
+                { 
+                  "value": "dates-2",
+                  "label": "D’ici un mois"
+                }
+              ],
+              "days": [
+                { 
+                  "value": "days-0",
+                  "label": "L"
+                },
+                { 
+                  "value": "days-1",
+                  "label": "Ma"
+                },
+                { 
+                  "value": "days-2",
+                  "label": "Me"
+                },
+                { 
+                  "value": "days-3",
+                  "label": "J"
+                },
+                { 
+                  "value": "days-4",
+                  "label": "V"
+                },
+                { 
+                  "value": "days-5",
+                  "label": "S"
+                },
+                { 
+                  "value": "days-6",
+                  "label": "D"
+                }
+              ],
+              "hours": [
+                { 
+                  "value": "hours-0",
+                  "label": "Entre 8h et 13h"
+                },
+                { 
+                  "value": "hours-1",
+                  "label": "Entre 13h et 18h"
+                },
+                { 
+                  "value": "hours-2",
+                  "label": "Entre 18h et 21h"
+                }
+              ]
+            },
+            "return": {
+              "hour": "A quelle heure souhaitez-vous revenir ?",
+              "specificHour": "Heure de retour",
+              "hours": [
+                { 
+                  "value": "return-0",
+                  "label": "Une heure plus tard"
+                },
+                { 
+                  "value": "return-1",
+                  "label": "Deux heures plus tard"
+                },
+                { 
+                  "value": "return-2",
+                  "label": "Trois heures plus tard"
+                },
+                { 
+                  "value": "return-3",
+                  "label": "Je n’ai pas besoin qu’on me ramène"
+                }
+              ]
+            }
+          },
 
 
 
@@ -65,17 +154,7 @@
           "otherTransportsDetails": "Autres précisions",
           "supporting": "Structure accompagnante :",
           "frequency": "Fréquence du trajet :",
-          "when": {
-            "departure": {
-              "date": "A quelle date souhaitez-vous partir ?",
-              "specificDate": "Date du départ",
-              "hour": "A quelle heure souhaitez-vous partir ?",
-              "specificHour": "Heure de départ",
-              "day": "Indiquez les jours concernés pour lesquels vous avez besoin d’un trajet régulier :"
-            },
-            "return": "A quelle heure souhaitez-vous revenir ?",
-            "specificReturn": "Heure de retour"
-          },
+          
           "summary": "Votre demande :"
         }
       }

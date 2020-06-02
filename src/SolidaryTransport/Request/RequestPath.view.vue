@@ -5,7 +5,7 @@
         <ion-buttons slot="start">
           <ion-back-button text=""></ion-back-button>
         </ion-buttons>
-        <ion-title>{{$t('solidaryTransport.request.title')}} <sup>1/3</sup></ion-title>
+        <ion-title>{{$t('solidaryTransport.request.title')}} <sup>3/6</sup></ion-title>
       </ion-toolbar>
     </ion-header>
 
@@ -54,7 +54,7 @@
             </div>
 
             <ion-item class="mc-st-form-item" v-on:click="displayGeoSearchForDestination()">
-              <ion-label position="floating">{{$t('solidaryTransport.request.form.fields.destination')}} *</ion-label>
+              <ion-label position="floating">{{$t('solidaryTransport.request.form.fields.destination')}}</ion-label>
               <ion-input
                 type="text"
                 name="address"
@@ -125,9 +125,7 @@ export default {
   name: 'solidaryTransport.request.path',
   components: {},
   data () {
-    return {
-      regular: false
-    }
+    return {}
   },
   computed: {
     ...mapGetters([
@@ -169,7 +167,7 @@ export default {
           this.$refs.request.scrollToPoint(0, top, 0)
         })
       } else {
-        if (!this.regular) {
+        if (this.request.frequency === 1) {
           this.$router.push({name: 'solidaryTransport.home.request.punctual'})
         } else {
           this.$router.push({name: 'solidaryTransport.home.request.regular'})

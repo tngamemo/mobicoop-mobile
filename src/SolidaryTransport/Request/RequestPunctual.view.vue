@@ -5,7 +5,7 @@
         <ion-buttons slot="start">
           <ion-back-button text=""></ion-back-button>
         </ion-buttons>
-        <ion-title>{{$t('solidaryTransport.request.title')}} <sup>1/3</sup></ion-title>
+        <ion-title>{{$t('solidaryTransport.request.title')}} <sup>4/6</sup></ion-title>
       </ion-toolbar>
     </ion-header>
 
@@ -15,89 +15,64 @@
 
           <div class="mc-st-form-content">
             <div class="mc-st-form-header">
-              <div class="mc-st-form-title">{{$t('solidaryTransport.request.steps.path')}}</div>
+              <div class="mc-st-form-title">{{$t('solidaryTransport.request.steps.punctual')}}</div>
               <div class="mc-st-form-steps">
+                <span class="mc-st-form-step is-validate"></span>
                 <span class="mc-st-form-step is-validate"></span>
                 <span class="mc-st-form-step is-validate"></span>
                 <span class="mc-st-form-step is-active"></span>
                 <span class="mc-st-form-step"></span>
                 <span class="mc-st-form-step"></span>
-                <span class="mc-st-form-step"></span>
               </div>
             </div>
 
-            <!-- <ion-list class="mc-st-form-item">
-              <ion-radio-group class="mc-st-form-radios">
-                <ion-list-header class="mc-st-form-radios-header">
-                  <ion-label class="mc-st-form-label as-title" color="primary">{{$t('solidaryTransport.request.form.fields.subjects')}}</ion-label>
-                </ion-list-header>
+            <div class="mc-st-form-item">
+              <ion-label class="mc-st-form-label as-title no-white-space" color="primary">{{$t('solidaryTransport.request.form.fields.when.departure.date')}}</ion-label>
 
-                <ion-item lines="none" class="mc-st-form-radios-item" v-for="(subject, index) in request.structure.subjects" :key="index">
-                  <ion-label class="ion-text-wrap">{{subject.label}}</ion-label>
-                  <ion-radio slot="start" :value="subject.id" :checked="request.subject === subject.id" @ionSelect="request.subject = subject.id"></ion-radio>
-                </ion-item>
-              </ion-radio-group>
-            </ion-list>
-
-            <ion-item class="mc-st-form-item" v-on:click="displayGeoSearchForOrigin()">
-              <ion-label position="floating">{{$t('solidaryTransport.request.form.fields.origin')}} *</ion-label>
-              <ion-input
-                type="text"
-                name="address"
-                :value="getAddressToDisplay(request.origin)"
-                readonly="true"
-                class="no-clickable"
-              ></ion-input>
-            </ion-item>
-            <div class="mc-st-form-details" v-if="$v.request.origin.$error">
-              <span class="mc-st-form-error" v-if="!$v.request.origin.required">{{$t('solidaryTransport.register.form.validators.required')}}</span>
-            </div>
-
-            <ion-item class="mc-st-form-item" v-on:click="displayGeoSearchForDestination()">
-              <ion-label position="floating">{{$t('solidaryTransport.request.form.fields.destination')}} *</ion-label>
-              <ion-input
-                type="text"
-                name="address"
-                :value="getAddressToDisplay(request.destination)"
-                readonly="true"
-                class="no-clickable"
-              ></ion-input>
-            </ion-item>
-
-            <ion-list class="mc-st-form-item">
-              <ion-radio-group class="mc-st-form-radios">
-                <ion-list-header class="mc-st-form-radios-header">
-                  <ion-label class="mc-st-form-label as-title" color="primary">{{$t('solidaryTransport.request.form.fields.regular')}}</ion-label>
-                </ion-list-header>
-
-                <ion-item lines="none" class="mc-st-form-radios-item">
-                  <ion-label class="ion-text-wrap">{{$t('solidaryTransport.request.form.fields.isPunctual')}}</ion-label>
-                  <ion-radio slot="start" :value="false" :checked="regular === false" @ionSelect="regular = false"></ion-radio>
-                </ion-item>
-                <ion-item lines="none" class="mc-st-form-radios-item">
-                  <ion-label class="ion-text-wrap">{{$t('solidaryTransport.request.form.fields.isRegular')}}</ion-label>
-                  <ion-radio slot="start" :value="true" :checked="regular === true" @ionSelect="regular = true"></ion-radio>
-                </ion-item>
-              </ion-radio-group>
-            </ion-list>
-
-            <div class="mc-st-form-item" v-if="request.structure.needs.length !== 0">
-              <ion-label class="mc-st-form-label as-title no-white-space" color="primary">{{$t('solidaryTransport.request.form.fields.needs')}}</ion-label>
-              
               <div class="mc-st-form-checkbox-wrapper">
-                <ion-item class="mc-st-form-item" lines="none" v-for="(need, index) in request.structure.needs" :key="index">
-                  <ion-checkbox
-                    class="mc-st-form-checkbox"
-                    color="success"
-                    slot="start"
-                    :value="request.needs[index].value"
-                    :checked="request.needs[index].value === true"
-                    @ionChange="request.needs[index].value = $event.target.checked;"
+                <ion-item class="mc-st-form-item">
+                  <ion-checkbox class="mc-st-form-checkbox" slot="start" :checked="true" color="success"></ion-checkbox>
+                  <ion-input class="mc-st-form-input" type="text" :placeholder="$t('solidaryTransport.request.form.fields.when.departure.specificDate')"></ion-input>
+                </ion-item>
+                <ion-item class="mc-st-form-item" lines="none" v-for="(item, index) in departureDates.properties" :key="index">
+                  <ion-checkbox class="mc-st-form-checkbox" :name="item.value" :value="item.checked" color="success" slot="start" @ionChange="item.checked = $event.target.checked"
                   ></ion-checkbox>
-                  <ion-label class="mc-st-form-label no-white-space" color="primary">{{ need.label }}</ion-label>
+                  <ion-label class="mc-st-form-label no-white-space" color="primary">{{ item.label }}</ion-label>
                 </ion-item>
               </div>
-            </div> -->
+            </div>
+
+            <div class="mc-st-form-item">
+              <ion-label class="mc-st-form-label as-title no-white-space" color="primary">{{$t('solidaryTransport.request.form.fields.when.departure.hour')}}</ion-label>
+
+              <div class="mc-st-form-checkbox-wrapper">
+                <ion-item class="mc-st-form-item">
+                  <ion-checkbox class="mc-st-form-checkbox" slot="start" :checked="true" color="success"></ion-checkbox>
+                  <ion-input class="mc-st-form-input" type="text" :placeholder="$t('solidaryTransport.request.form.fields.when.departure.specificHour')"></ion-input>
+                </ion-item>
+                <ion-item class="mc-st-form-item" lines="none" v-for="(item, index) in departureHours.properties" :key="index">
+                  <ion-checkbox class="mc-st-form-checkbox" :name="item.value" :value="item.checked" color="success" slot="start" @ionChange="item.checked = $event.target.checked"
+                  ></ion-checkbox>
+                  <ion-label class="mc-st-form-label no-white-space" color="primary">{{ item.label }}</ion-label>
+                </ion-item>
+              </div>
+            </div>
+
+            <div class="mc-st-form-item">
+              <ion-label class="mc-st-form-label as-title no-white-space" color="primary">{{$t('solidaryTransport.request.form.fields.when.return.hour')}}</ion-label>
+
+              <div class="mc-st-form-checkbox-wrapper">
+                <ion-item class="mc-st-form-item">
+                  <ion-checkbox class="mc-st-form-checkbox" slot="start" :checked="true" color="success"></ion-checkbox>
+                  <ion-input class="mc-st-form-input" type="text" :placeholder="$t('solidaryTransport.request.form.fields.when.specificReturn')"></ion-input>
+                </ion-item>
+                <ion-item class="mc-st-form-item" lines="none" v-for="(item, index) in returnHours.properties" :key="index">
+                  <ion-checkbox class="mc-st-form-checkbox" :name="item.value" :value="item.checked" color="success" slot="start" @ionChange="item.checked = $event.target.checked"
+                  ></ion-checkbox>
+                  <ion-label class="mc-st-form-label no-white-space" color="primary">{{ item.label }}</ion-label>
+                </ion-item>
+              </div>
+            </div>
             
           </div>
 
@@ -126,7 +101,21 @@ export default {
   components: {},
   data () {
     return {
-      regular: false
+      departureDates: {
+        other: '',
+        selected: this.$t('solidaryTransport.request.form.fields.when.departure.dates')[0].value,
+        properties: this.$t('solidaryTransport.request.form.fields.when.departure.dates')
+      },
+      departureHours: {
+        other: '',
+        selected: this.$t('solidaryTransport.request.form.fields.when.departure.hours')[0].value,
+        properties: this.$t('solidaryTransport.request.form.fields.when.departure.hours')
+      },
+      returnHours: {
+        other: '',
+        selected: this.$t('solidaryTransport.request.form.fields.when.return.hours')[0].value,
+        properties: this.$t('solidaryTransport.request.form.fields.when.return.hours')
+      }
     }
   },
   computed: {
