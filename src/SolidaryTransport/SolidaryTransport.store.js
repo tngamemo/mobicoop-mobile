@@ -79,7 +79,7 @@ export const solidaryTransportStore = {
         returnDatetime: undefined,
         origin: undefined,
         destination: undefined,
-        frequency: 0,
+        frequency: 1,
         days: {
           mon: 0,
           tue: 0,

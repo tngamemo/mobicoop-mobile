@@ -26,7 +26,7 @@
               </div>
             </div>
 
-            <ion-list class="mc-st-form-item">
+            <!-- <ion-list class="mc-st-form-item">
               <ion-radio-group class="mc-st-form-radios">
                 <ion-list-header class="mc-st-form-radios-header">
                   <ion-label class="mc-st-form-label as-title" color="primary">{{$t('solidaryTransport.request.form.fields.subjects')}}</ion-label>
@@ -72,11 +72,11 @@
 
                 <ion-item lines="none" class="mc-st-form-radios-item">
                   <ion-label class="ion-text-wrap">{{$t('solidaryTransport.request.form.fields.isPunctual')}}</ion-label>
-                  <ion-radio slot="start" :value="1" :checked="request.frequency === 1" @ionSelect="request.frequency = parseInt($event.target.value);"></ion-radio>
+                  <ion-radio slot="start" :value="false" :checked="regular === false" @ionSelect="regular = false"></ion-radio>
                 </ion-item>
                 <ion-item lines="none" class="mc-st-form-radios-item">
                   <ion-label class="ion-text-wrap">{{$t('solidaryTransport.request.form.fields.isRegular')}}</ion-label>
-                  <ion-radio slot="start" :value="2" :checked="request.frequency === 2" @ionSelect="request.frequency = parseInt($event.target.value);"></ion-radio>
+                  <ion-radio slot="start" :value="true" :checked="regular === true" @ionSelect="regular = true"></ion-radio>
                 </ion-item>
               </ion-radio-group>
             </ion-list>
@@ -97,7 +97,7 @@
                   <ion-label class="mc-st-form-label no-white-space" color="primary">{{ need.label }}</ion-label>
                 </ion-item>
               </div>
-            </div>
+            </div> -->
             
           </div>
 
@@ -122,7 +122,7 @@ import { required } from 'vuelidate/lib/validators'
 import { toast } from '../../Shared/Mixin/toast.mixin'
 
 export default {
-  name: 'solidaryTransport.request.path',
+  name: 'solidaryTransport.request.regular',
   components: {},
   data () {
     return {
