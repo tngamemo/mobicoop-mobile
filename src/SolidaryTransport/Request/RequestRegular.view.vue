@@ -316,10 +316,6 @@ export default {
       }
     }
   },
-  created: function () {
-    if (_.isEmpty(this.request.origin)) {
-      this.request.origin = _.cloneDeep(this.request.homeAddress)
-    }
-  }
+  created: function () {}
 }
 </script>

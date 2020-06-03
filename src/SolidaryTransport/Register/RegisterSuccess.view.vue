@@ -33,19 +33,6 @@
             <div class="mc-st-form-details" v-if="$v.token.$error">
               <span class="mc-st-form-error" v-if="!$v.token.required">{{$t('solidaryTransport.register.form.validators.required')}}</span>
             </div>
-            <!-- <ion-button
-              type="button" class='mc-small-button' color="success" expand="block"
-              v-on:click="validateEmail"
-            >
-              <span v-if="this.$store.state.registerStore.statusValidateToken == 'loading'">
-                <ion-icon size="large" class="rotating" name="md-sync"></ion-icon>
-              </span>
-              <span v-if="this.$store.state.registerStore.statusValidateToken != 'loading'">
-                {{$t('ConfirmRegistration.confirm')}}
-              </span>
-
-            </ion-button> -->
-
           </div>
 
           <div class="mc-st-form-controls" :class="{'is-loading': processing}">

@@ -1,6 +1,7 @@
 import http from '../Shared/Mixin/http.mixin'
 import {isPlatform} from "@ionic/core"
 import _ from 'lodash'
+import moment from 'moment'
 
 export const solidaryTransportStore = {
   state: {
@@ -102,6 +103,7 @@ export const solidaryTransportStore = {
         outwardDatetime: undefined,
         returnDeadlineDatetime: undefined,
         returnDatetime: undefined,
+        marginDuration: 9000, // 2h30 before and after covered
         origin: undefined,
         destination: undefined,
         frequency: 1,
@@ -193,108 +195,6 @@ export const solidaryTransportStore = {
 
     solidaryStructuresSuccess(state, structures){
       state.structures.status = 'success';
-
-      // _.each(structures, (structure, index) => {
-      //   if (!_.hasIn(structure, 'structureProofs')) {
-      //     structure.structureProofs = [
-      //       {
-      //         "id": 1,
-      //         "label": "J'habite une commune du Parc",
-      //         "type": 1,
-      //         "position": 1,
-      //         "checkbox": true,
-      //         "input": null,
-      //         "selectbox": null,
-      //         "radio": null,
-      //         "options": null,
-      //         "acceptedValues": null,
-      //         "file": null,
-      //         "mandatory": true,
-      //       },
-      //       {
-      //         "id": 2,
-      //         "label": "Je suis",
-      //         "type": 1,
-      //         "position": 2,
-      //         "checkbox": null,
-      //         "input": null,
-      //         "selectbox": true,
-      //         "radio": null,
-      //         "options": "jeune sans emploi (<25ans);mère célibataire;personne âgée(>60ans)",
-      //         "acceptedValues": "jeune_chomeur;mere_celibataire;personne_agee",
-      //         "file": null,
-      //         "mandatory": true,
-      //       },
-      //       {
-      //         "id": 3,
-      //         "label": "Justificatif de domicile",
-      //         "type": 1,
-      //         "position": 3,
-      //         "checkbox": null,
-      //         "input": null,
-      //         "selectbox": null,
-      //         "radio": null,
-      //         "options": null,
-      //         "acceptedValues": null,
-      //         "file": true,
-      //         "mandatory": true,
-      //       },
-      //       {
-      //         "id": 4,
-      //         "label": "Je test un radio",
-      //         "type": 1,
-      //         "position": 4,
-      //         "checkbox": null,
-      //         "input": null,
-      //         "selectbox": null,
-      //         "radio": true,
-      //         "options": "jeune sans emploi (<25ans);mère célibataire;personne âgée(>60ans)",
-      //         "acceptedValues": "jeune_chomeur;mere_celibataire;personne_agee",
-      //         "file": null,
-      //         "mandatory": null,
-      //       },
-      //       {
-      //         "id": 5,
-      //         "label": "Je test un champ",
-      //         "type": 1,
-      //         "position": 0,
-      //         "checkbox": null,
-      //         "input": true,
-      //         "selectbox": null,
-      //         "radio": null,
-      //         "options": null,
-      //         "acceptedValues": null,
-      //         "file": null,
-      //         "mandatory": null,
-      //       }
-      //     ]
-      //   }
-      //   if (!_.hasIn(structure, 'subjects')) {
-      //     structure.subjects = [
-      //       {
-      //         "id": 1,
-      //         "label": "Faire mes courses"
-      //       },
-      //       {
-      //         "id": 2,
-      //         "label": "Aller à un RDV médical"
-      //       },
-      //       {
-      //         "id": 3,
-      //         "label": "Aller à un RDV administratif"
-      //       },
-      //       {
-      //         "id": 4,
-      //         "label": "Faire une sortie culturelle"
-      //       },
-      //       {
-      //         "id": 5,
-      //         "label": "Autre motif"
-      //       }
-      //     ]
-      //   }
-      // })
-
       state.structures.objects = structures
     },
 
@@ -303,7 +203,6 @@ export const solidaryTransportStore = {
     },
 
     solidaryStructureUpdate(state, structure) {
-      console.log('solidaryStructureUpdate')
       state.temporary.request.structure = structure
       
       // Proofs
@@ -347,7 +246,6 @@ export const solidaryTransportStore = {
         if (proof.file) {
           structureProof.type = "file"
           structureProof.file = undefined
-          structureProof.upload = false
         }
 
         if (proof.mandatory) {
@@ -373,8 +271,6 @@ export const solidaryTransportStore = {
       if (structure.needs.length !== 0) {
         state.temporary.request.subject = structure.needs[0].id
       }
-
-      console.log('solidaryStructureUpdateEnd', state.temporary.request.proofs)
     },
     solidaryRequestHomeAddressUpdate(state, address) {
       address = _.cloneDeep(address)
@@ -495,6 +391,113 @@ export const solidaryTransportStore = {
           reject(err)
         })
       })
+    },
+    postSolidaryResource: ({commit, state}) => {
+      let solidary = _.cloneDeep(state.temporary.request)
+      let structure = solidary.structure
+
+      // Normalize Solidary Ressource before Post request
+      solidary.subject = _.find(structure.subjects, {id: solidary.subject})['@id']
+      solidary.structure = structure['@id']
+
+      // Normalize Proofs
+      let proofs = _.toArray(_.merge(solidary.proofs.mandatory, solidary.proofs.optional))
+      let proofsToUpload = []
+      solidary.proofs = []
+      _.each(proofs, (proof) => {
+        if (proof.type === 'file') {
+          proofsToUpload.push({
+            structureProof: _.find(structure.structureProofs, {id: proof.id})['@id'],
+            solidary: undefined,
+            file: proof.file
+          })
+        } else {
+          if (proof.value) {
+            solidary.proofs.push({
+              id: _.find(structure.structureProofs, {id: proof.id})['@id'],
+              value: proof.value
+            })
+          }
+        }
+      })
+      
+      // Normalize Needs
+      let needs = solidary.needs
+      solidary.needs = []
+      _.each(needs, (need) => {
+        if (need.value) {
+          solidary.needs.push(_.find(structure.needs, {id: need.id})['@id'])
+        }
+      })
+
+
+      // Normalize Dates
+      let when = solidary.when
+      let format = 'YYYY-MM-DDTHH:mm:ssZ'
+      delete solidary['when']
+      if (solidary.frequency === 1) {
+        if (when.departure.specificDate) {
+          solidary.outwardDatetime = moment(when.departure.specificDate).set({hour: 0, minute: 0, second: 0}).format(format)
+
+          if (when.departure.specificHour) {
+            let specificHour = moment(when.departure.specificHour)
+            solidary.outwardDatetime = moment(solidary.outwardDatetime).set({hour: specificHour.hour(), minute: specificHour.minute(), second: 0}).format(format)
+          }
+
+          if (when.departure.marginHour) {
+            console.log(marginHour)
+            // let specificHour = moment(when.departure.specificHour)
+            // solidary.outwardDatetime = moment(solidary.outwardDatetime).set({hour: specificHour.hour(), minute: specificHour.minute(), second: 0}).format(format)
+          }
+        }
+        if (when.departure.marginDate) {
+          solidary.outwardDatetime = moment().set({hour: 0, minute: 0, second: 0}).format(format)
+        }
+      }
+      if (solidary.frequency === 2) {
+
+      }
+
+      console.log(solidary.outwardDatetime)
+      console.log(solidary.outwardDeadlineDatetime)
+      console.log(solidary.returnDatetime)
+      console.log(solidary.returnDeadlineDatetime)
+      console.log(solidary.marginDuration)
+
+      // Set status
+      solidary.status = 1
+      console.log('Normalize', solidary)
+
+
+      // Post Solidary
+      return new Promise((resolve, reject) => {
+        // http.post("/solidaries", solidary).then(resp => {
+        //   if (resp) {
+        //     console.log(resp.data)
+        //     resolve(resp.data)
+        //   }
+        // }).catch(err => {
+        //   console.log(err)
+        //   reject(err)
+        // })
+        resolve(true)
+      })
+
+      // const formData = new FormData();
+        // formData.append('file', file);
+
+        // // console.log(formData.values())
+
+        // http.post(`/proofs`, formData)
+        //   .then(resp => {
+        //     console.log(resp)
+        //   })
+        //   .catch(err => {
+        //     console.log(err)
+        //   })
+        //   .finally(() => {
+        //     proof.upload = true
+        //   })
     }
   },
   getters: {

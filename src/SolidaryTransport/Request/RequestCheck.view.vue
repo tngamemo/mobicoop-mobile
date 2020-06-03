@@ -111,7 +111,9 @@
                   <div class="mc-st-form-item as-file" :key="`proof-${proof.id}-${index}`">
                     <ion-label class="mc-st-form-label" color="primary">{{ proof.label }}*</ion-label>
                       
-                    <div v-if="request.proofs.mandatory[proof.id].file" class="file" style="color:black;">Votre fichier : {{request.proofs.mandatory[proof.id].file.name}}</div>
+                    <template v-if="!processing">
+                      <div v-if="request.proofs.mandatory[proof.id].file" class="file" style="color:black;">Votre fichier : {{request.proofs.mandatory[proof.id].file.name}}</div>
+                    </template>
                     <div class="mc-st-form-controls">
                       <ion-button class="mc-st-form-control as-cta" color="light" @click="$refs['proof-file-' + proof.id][0].click()">
                         <ion-icon slot="start" name="map"></ion-icon>
@@ -194,7 +196,9 @@
                   <div class="mc-st-form-item as-file" :key="`proof-${proof.id}-${index}`">
                     <ion-label class="mc-st-form-label" color="primary">{{ proof.label }}</ion-label>
                       
-                    <div v-if="request.proofs.optional[proof.id].file" class="file" style="color:black;">Votre fichier : {{request.proofs.optional[proof.id].file.name}}</div>
+                    <template v-if="!processing">
+                      <div v-if="request.proofs.optional[proof.id].file" class="file" style="color:black;">Votre fichier : {{request.proofs.optional[proof.id].file.name}}</div>
+                    </template>
                     <div class="mc-st-form-controls">
                       <ion-button class="mc-st-form-control as-cta" color="light" @click="$refs['proof-file-' + proof.id][0].click()">
                         <ion-icon slot="start" name="map"></ion-icon>
@@ -262,6 +266,7 @@ export default {
   components: {},
   data () {
     return {
+      processing: false,
       structures: undefined
     }
   },
@@ -302,25 +307,13 @@ export default {
   },
   methods: {
     changeProofFile: function ($event, proof) {
+      this.processing = true
       let file = $event.target.files[0]
+      proof.file = file
       if (file.size <= 1000000) {
-        proof.file = file
-
-        // const formData = new FormData();
-        // formData.append('file', file);
-
-        // console.log(formData.values())
-
-        // http.post(`/proofs`, formData)
-        //   .then(resp => {
-        //     console.log(resp)
-        //   })
-        //   .catch(err => {
-        //     console.log(err)
-        //   })
-        //   .finally(() => {
-        //     proof.upload = true
-        //   })
+        setTimeout(() => {
+          this.processing = false
+        }, 0)
       } else {
         this.presentToast(this.$t("UpdateProfile.file-size"), 'danger')
       }

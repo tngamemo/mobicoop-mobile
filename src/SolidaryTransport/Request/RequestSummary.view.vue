@@ -96,13 +96,18 @@
             
           </div>
 
-          <div class="mc-st-form-controls in-summary">
+          <div class="mc-st-form-controls in-summary" :class="{'is-loading': processing}">
             <ion-button class="mc-st-form-control as-back" color="light" v-html="$t('solidaryTransport.buttons.back')" @click="$router.back()"></ion-button>
 
-            <ion-button class="mc-st-form-control" color="success" @click="validate()">
+            <ion-button class="mc-st-form-control as-loader" color="success" v-show="processing">
+              <ion-icon slot="start" name="sync" size="large"></ion-icon>
+              <span v-html="$t('solidaryTransport.buttons.sendRequest')"></span>
+            </ion-button>
+            <ion-button class="mc-st-form-control" color="success" @click="validate()" v-show="!processing">
               <ion-icon slot="start" name="checkmark" size="large"></ion-icon>
               <span v-html="$t('solidaryTransport.buttons.sendRequest')"></span>
             </ion-button>
+            
           </div>
 
         </div>
@@ -144,13 +149,29 @@ export default {
   mixins: [toast],
   methods: {
     validate: function () {
-      console.log('Push request in the DB')
+      if (!this.processing) {
+        console.log('\n\n\nRequest To send', this.request)
+        console.log('Frequency', this.request.frequency)
+        console.log('Days', this.request.days)
+        console.log('Departure', this.request.when.departure)
+        console.log('Return', this.request.when.return)
+
+        this.processing = true
+        this.$store.dispatch('postSolidaryResource')
+          .then((data) => {
+            this.presentToast("Votre demande de coup de pouce à été envoyée avec succès", 'success');
+            // this.$router.push({name:'solidaryTransport.home'})
+          })
+          .catch((error) => {
+            console.error(error)
+            this.presentToast("Une erreur est survenue", 'danger')
+          })
+          .finally(() => {
+            this.processing = false
+          })
+      }
     }
   },
-  created: function () {
-    if (_.isEmpty(this.request.origin)) {
-      this.request.origin = _.cloneDeep(this.request.homeAddress)
-    }
-  }
+  created: function () {}
 }
 </script>
