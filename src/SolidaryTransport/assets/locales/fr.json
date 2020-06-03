@@ -67,15 +67,15 @@
               "dates": [
                 { 
                   "value": "this-week",
-                  "label": "D’ici une semaine"
+                  "label": "Dans la semaine"
                 },
                 { 
                   "value": "in-two-weeks",
-                  "label": "D’ici deux semaines"
+                  "label": "Dans les deux semaines"
                 },
                 { 
                   "value": "in-month",
-                  "label": "D’ici un mois"
+                  "label": "Dans le mois"
                 }
               ],
               "days": [

@@ -140,11 +140,9 @@ import { required } from 'vuelidate/lib/validators'
 import { toast } from '../../Shared/Mixin/toast.mixin'
 
 const hasDate = (value) => {
-  console.log('hasDate', value)
   return !_.isEmpty(value.specificDate) || !_.isEmpty(value.marginDate)
 }
 const hasHour = (value) => {
-  console.log('hasHour', value)
   return !_.isEmpty(value.specificHour) || !_.isEmpty(value.marginHour)
 }
 

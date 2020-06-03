@@ -436,33 +436,184 @@ export const solidaryTransportStore = {
       let format = 'YYYY-MM-DDTHH:mm:ssZ'
       delete solidary['when']
       if (solidary.frequency === 1) {
-        if (when.departure.specificDate) {
-          solidary.outwardDatetime = moment(when.departure.specificDate).set({hour: 0, minute: 0, second: 0}).format(format)
 
+        // Outward at a specific date
+        if (when.departure.specificDate) {
+          delete solidary['outwardDeadlineDatetime']
+          delete solidary['returnDeadlineDatetime']
+
+          solidary.outwardDatetime = moment(when.departure.specificDate)
+            .set({hour: 0, minute: 0, second: 0})
+            .format(format)
+
+          // At a specific hour
           if (when.departure.specificHour) {
             let specificHour = moment(when.departure.specificHour)
-            solidary.outwardDatetime = moment(solidary.outwardDatetime).set({hour: specificHour.hour(), minute: specificHour.minute(), second: 0}).format(format)
+            solidary.outwardDatetime = moment(solidary.outwardDatetime)
+              .set({hour: specificHour.hour(), minute: specificHour.minute(), second: 0})
+              .format(format)
+
+            delete solidary['marginDuration']
           }
 
+          // At a margin hour
           if (when.departure.marginHour) {
-            console.log(marginHour)
-            // let specificHour = moment(when.departure.specificHour)
-            // solidary.outwardDatetime = moment(solidary.outwardDatetime).set({hour: specificHour.hour(), minute: specificHour.minute(), second: 0}).format(format)
+            let marginHour = when.departure.marginHour
+            if (marginHour === 'morning') {
+              marginHour = 8
+            }
+            if (marginHour === 'afternoon') {
+              marginHour = 13
+            }
+            if (marginHour === 'evening') {
+              marginHour = 18
+            }
+
+            solidary.outwardDatetime = moment(solidary.outwardDatetime)
+              .set({hour: marginHour})
+              .add(solidary.marginDuration, 'seconds')
+              .format(format)
+          }
+
+          // And return at a specific hour
+          if (when.return.specificHour) {
+            let specificHour = moment(when.return.specificHour)
+            solidary.returnDatetime = moment(solidary.outwardDatetime)
+              .set({hour: specificHour.hour(), minute: specificHour.minute(), second: 0})
+              .format(format)
+          }
+
+          // And return n hours after
+          if (when.return.marginHour) {
+            let marginHour = when.return.marginHour
+            if (marginHour === 'hour-later') {
+              marginHour = 1
+            }
+            if (marginHour === 'two-hours-later') {
+              marginHour = 2
+            }
+            if (marginHour === 'three-hours-later') {
+              marginHour = 3
+            }
+            if (marginHour === 'no-need') {
+              delete solidary['returnDatetime']
+              marginHour = undefined
+            }
+            if (!_.isUndefined(marginHour)) {
+              solidary.returnDatetime = moment(solidary.outwardDatetime)
+                .add(marginHour, 'hours')
+                .format(format)
+            }            
           }
         }
+
+        // Outward at a range date
         if (when.departure.marginDate) {
-          solidary.outwardDatetime = moment().set({hour: 0, minute: 0, second: 0}).format(format)
+          solidary.outwardDatetime = moment()
+            .set({hour: 0, minute: 0, second: 0})
+            .format(format)
+
+          let marginDate = when.departure.marginDate
+          if (marginDate === 'this-week') {
+            solidary.outwardDeadlineDatetime = moment(solidary.outwardDatetime)
+              .add(1, 'weeks')
+              .format(format)
+          }
+          if (marginDate === 'in-two-weeks') {
+            solidary.outwardDeadlineDatetime = moment(solidary.outwardDatetime)
+              .add(2, 'weeks')
+              .format(format)
+          }
+          if (marginDate === 'in-month') {
+            solidary.outwardDeadlineDatetime = moment(solidary.outwardDatetime)
+              .add(1, 'months')
+              .format(format)
+          }
+
+          // At a specific hour
+          if (when.departure.specificHour) {
+            let specificHour = moment(when.departure.specificHour)
+            solidary.outwardDatetime = moment(solidary.outwardDatetime)
+              .set({hour: specificHour.hour(), minute: specificHour.minute(), second: 0})
+              .format(format)
+            solidary.outwardDeadlineDatetime = moment(solidary.outwardDeadlineDatetime)
+              .set({hour: specificHour.hour(), minute: specificHour.minute(), second: 0})
+              .format(format)
+
+            delete solidary['marginDuration']
+          }
+
+          // At a margin hour
+          if (when.departure.marginHour) {
+            let marginHour = when.departure.marginHour
+            if (marginHour === 'morning') {
+              marginHour = 8
+            }
+            if (marginHour === 'afternoon') {
+              marginHour = 13
+            }
+            if (marginHour === 'evening') {
+              marginHour = 18
+            }
+
+            solidary.outwardDatetime = moment(solidary.outwardDatetime)
+              .set({hour: marginHour})
+              .add(solidary.marginDuration, 'seconds')
+              .format(format)
+              solidary.outwardDeadlineDatetime = moment(solidary.outwardDeadlineDatetime)
+              .set({hour: marginHour})
+              .add(solidary.marginDuration, 'seconds')
+              .format(format)
+          }
+
+          // And return at a specific hour
+          if (when.return.specificHour) {
+            let specificHour = moment(when.return.specificHour)
+            solidary.returnDatetime = moment(solidary.outwardDatetime)
+              .set({hour: specificHour.hour(), minute: specificHour.minute(), second: 0})
+              .format(format)
+            solidary.returnDeadlineDatetime = moment(solidary.outwardDeadlineDatetime)
+              .set({hour: specificHour.hour(), minute: specificHour.minute(), second: 0})
+              .format(format)
+          }
+
+          // And return n hours after
+          if (when.return.marginHour) {
+            let marginHour = when.return.marginHour
+            if (marginHour === 'hour-later') {
+              marginHour = 1
+            }
+            if (marginHour === 'two-hours-later') {
+              marginHour = 2
+            }
+            if (marginHour === 'three-hours-later') {
+              marginHour = 3
+            }
+            if (marginHour === 'no-need') {
+              delete solidary['returnDatetime']
+              marginHour = undefined
+            }
+            if (!_.isUndefined(marginHour)) {
+              solidary.returnDatetime = moment(solidary.outwardDatetime)
+                .add(marginHour, 'hours')
+                .format(format)
+              solidary.returnDeadlineDatetime = moment(solidary.outwardDeadlineDatetime)
+                .add(marginHour, 'hours')
+                .format(format)
+            }            
+          }
         }
+
       }
       if (solidary.frequency === 2) {
 
       }
 
-      console.log(solidary.outwardDatetime)
-      console.log(solidary.outwardDeadlineDatetime)
-      console.log(solidary.returnDatetime)
-      console.log(solidary.returnDeadlineDatetime)
-      console.log(solidary.marginDuration)
+      console.log('outwardDatetime', solidary.outwardDatetime)
+      console.log('outwardDeadlineDatetime', solidary.outwardDeadlineDatetime)
+      console.log('returnDatetime', solidary.returnDatetime)
+      console.log('returnDeadlineDatetime', solidary.returnDeadlineDatetime)
+      console.log('marginDuration', solidary.marginDuration)
 
       // Set status
       solidary.status = 1
