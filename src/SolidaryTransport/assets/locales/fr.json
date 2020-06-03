@@ -160,6 +160,10 @@
           },
           "you": "Vos informations :",
           "yourRequest": "Votre demande :"
+        },
+        "validators": {
+          "days": "Vous devez choisir au moins un jour",
+          "required": "Ce champ est requis"
         }
       }
     },

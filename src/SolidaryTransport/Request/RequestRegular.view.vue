@@ -28,6 +28,9 @@
 
             <div class="mc-st-form-item">
               <ion-label class="mc-st-form-label as-title no-white-space" color="primary">{{$t('solidaryTransport.request.form.fields.when.departure.day')}}</ion-label>
+              <div class="mc-st-form-details" v-if="$v.request.days.$error">
+                <span class="mc-st-form-error is-left" v-if="!$v.request.days.hasOneDay">{{$t('solidaryTransport.request.form.validators.days')}}</span>
+              </div>
 
               <div class="mc-st-form-days-wrapper">
                 <ion-button class="mc-st-form-day" :color="request.days[day.value] ? 'primary' : 'light'" v-for="(day, index) in departureDays" :key="day.value" @click="updateDay(day.value)">
@@ -38,6 +41,9 @@
 
             <div class="mc-st-form-item">
               <ion-label class="mc-st-form-label as-title no-white-space" color="primary">{{$t('solidaryTransport.request.form.fields.when.departure.hour')}}</ion-label>
+              <div class="mc-st-form-details" v-if="$v.request.when.departure.$error">
+                <span class="mc-st-form-error is-left" v-if="!$v.request.when.departure.hasHour">{{$t('solidaryTransport.request.form.validators.required')}}</span>
+              </div>
 
               <div class="mc-st-form-checkbox-wrapper">
                 <ion-item class="mc-st-form-item" @click="$refs['departure-hour'].click()">
@@ -65,11 +71,15 @@
 
             <div class="mc-st-form-item">
               <ion-label class="mc-st-form-label as-title no-white-space" color="primary">{{$t('solidaryTransport.request.form.fields.when.return.hour')}}</ion-label>
+              <div class="mc-st-form-details" v-if="$v.request.when.return.$error">
+                <span class="mc-st-form-error is-left" v-if="!$v.request.when.return.hasHour">{{$t('solidaryTransport.request.form.validators.required')}}</span>
+              </div>
 
               <div class="mc-st-form-checkbox-wrapper">
                 <ion-item class="mc-st-form-item" @click="$refs['return-hour'].click()">
                   <ion-checkbox class="mc-st-form-checkbox no-clickable" slot="start" :checked="request.when.return.specificHour !== undefined || (request.when.return.specificHour === undefined && request.when.return.marginHour === undefined)" color="success"></ion-checkbox>
                   <ion-datetime
+                    ref="return-hour"
                     class="mc-st-form-input"
                     display-format="HH:mm"
                     picker-format="HH:mm"
@@ -108,6 +118,9 @@
                 @ionFocus="changeDepartureSpecificDate($event.target.value)"
               ></ion-datetime>   
             </ion-item>
+            <div class="mc-st-form-details" v-if="$v.request.when.departure.specificDate.$error">
+              <span class="mc-st-form-error is-left" v-if="!$v.request.when.departure.specificDate.hasDate">{{$t('solidaryTransport.request.form.validators.required')}}</span>
+            </div>
 
             <ion-item class="mc-st-form-item">
               <ion-label class="mc-st-form-label no-white-space" color="primary" position="floating">{{$t('solidaryTransport.request.form.fields.when.durationEnd')}}*</ion-label>
@@ -124,6 +137,9 @@
                 @ionFocus="changeReturnSpecificDate($event.target.value)"
               ></ion-datetime>   
             </ion-item>
+            <div class="mc-st-form-details" v-if="$v.request.when.departure.specificDate.$error">
+              <span class="mc-st-form-error is-left" v-if="!$v.request.when.departure.specificDate.hasDate">{{$t('solidaryTransport.request.form.validators.required')}}</span>
+            </div>
             
           </div>
 
@@ -146,6 +162,23 @@ import _ from 'lodash'
 import { mapState, mapGetters } from 'vuex'
 import { required } from 'vuelidate/lib/validators'
 import { toast } from '../../Shared/Mixin/toast.mixin'
+
+const hasOneDay = (days) => {
+  let valid = false
+  _.each(days, (day) => {
+    if (day) {
+      valid = true
+    }
+  })
+  return valid
+}
+const hasDate = (date) => {
+  return !_.isEmpty(date)
+}
+const hasHour = (value) => {
+  return !_.isEmpty(value.specificHour) || !_.isEmpty(value.marginHour)
+}
+
 
 export default {
   name: 'solidaryTransport.request.regular',
@@ -174,8 +207,22 @@ export default {
   mixins: [toast],
   validations: {
     request: {
-      origin: {
-        required
+      days: {
+        hasOneDay
+      },
+      when: {
+        departure: {
+          hasHour,
+          specificDate: {
+            hasDate
+          }
+        },
+        return: {
+          hasHour,
+          specificDate: {
+            hasDate
+          }
+        }
       }
     }
   },

@@ -28,6 +28,9 @@
 
             <div class="mc-st-form-item">
               <ion-label class="mc-st-form-label as-title no-white-space" color="primary">{{$t('solidaryTransport.request.form.fields.when.departure.date')}}</ion-label>
+              <div class="mc-st-form-details" v-if="$v.request.when.departure.$error">
+                <span class="mc-st-form-error is-left" v-if="!$v.request.when.departure.hasDate">{{$t('solidaryTransport.request.form.validators.required')}}</span>
+              </div>
 
               <div class="mc-st-form-checkbox-wrapper">
                 <ion-item class="mc-st-form-item" @click="$refs['departure-date'].click()">
@@ -56,6 +59,9 @@
 
             <div class="mc-st-form-item">
               <ion-label class="mc-st-form-label as-title no-white-space" color="primary">{{$t('solidaryTransport.request.form.fields.when.departure.hour')}}</ion-label>
+              <div class="mc-st-form-details" v-if="$v.request.when.departure.$error">
+                <span class="mc-st-form-error is-left" v-if="!$v.request.when.departure.hasHour">{{$t('solidaryTransport.request.form.validators.required')}}</span>
+              </div>
 
               <div class="mc-st-form-checkbox-wrapper">
                 <ion-item class="mc-st-form-item" @click="$refs['departure-hour'].click()">
@@ -83,6 +89,9 @@
 
             <div class="mc-st-form-item">
               <ion-label class="mc-st-form-label as-title no-white-space" color="primary">{{$t('solidaryTransport.request.form.fields.when.return.hour')}}</ion-label>
+              <div class="mc-st-form-details" v-if="$v.request.when.return.$error">
+                <span class="mc-st-form-error is-left" v-if="!$v.request.when.return.hasHour">{{$t('solidaryTransport.request.form.validators.required')}}</span>
+              </div>
 
               <div class="mc-st-form-checkbox-wrapper">
                 <ion-item class="mc-st-form-item" @click="$refs['return-hour'].click()">
@@ -130,6 +139,15 @@ import { mapState, mapGetters } from 'vuex'
 import { required } from 'vuelidate/lib/validators'
 import { toast } from '../../Shared/Mixin/toast.mixin'
 
+const hasDate = (value) => {
+  console.log('hasDate', value)
+  return !_.isEmpty(value.specificDate) || !_.isEmpty(value.marginDate)
+}
+const hasHour = (value) => {
+  console.log('hasHour', value)
+  return !_.isEmpty(value.specificHour) || !_.isEmpty(value.marginHour)
+}
+
 export default {
   name: 'solidaryTransport.request.punctual',
   components: {},
@@ -157,8 +175,14 @@ export default {
   mixins: [toast],
   validations: {
     request: {
-      origin: {
-        required
+      when: {
+        departure: {
+          hasDate,
+          hasHour
+        },
+        return: {
+          hasHour
+        }
       }
     }
   },

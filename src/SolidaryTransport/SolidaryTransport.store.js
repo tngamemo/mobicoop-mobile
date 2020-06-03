@@ -185,8 +185,6 @@ export const solidaryTransportStore = {
     solidaryRequestFrequencyChange(state){
       state.temporary.request.when = _.cloneDeep(state.default.request.when)
       state.temporary.request.days = _.cloneDeep(state.default.request.days)
-      console.log(state.temporary.request.when)
-      console.log(state.temporary.request.days)
     },
 
     solidaryStructuresRequest(state) {
@@ -196,106 +194,106 @@ export const solidaryTransportStore = {
     solidaryStructuresSuccess(state, structures){
       state.structures.status = 'success';
 
-      _.each(structures, (structure, index) => {
-        if (!_.hasIn(structure, 'structureProofs')) {
-          structure.structureProofs = [
-            {
-              "id": 1,
-              "label": "J'habite une commune du Parc",
-              "type": 1,
-              "position": 1,
-              "checkbox": true,
-              "input": null,
-              "selectbox": null,
-              "radio": null,
-              "options": null,
-              "acceptedValues": null,
-              "file": null,
-              "mandatory": true,
-            },
-            {
-              "id": 2,
-              "label": "Je suis",
-              "type": 1,
-              "position": 2,
-              "checkbox": null,
-              "input": null,
-              "selectbox": true,
-              "radio": null,
-              "options": "jeune sans emploi (<25ans);mère célibataire;personne âgée(>60ans)",
-              "acceptedValues": "jeune_chomeur;mere_celibataire;personne_agee",
-              "file": null,
-              "mandatory": true,
-            },
-            {
-              "id": 3,
-              "label": "Justificatif de domicile",
-              "type": 1,
-              "position": 3,
-              "checkbox": null,
-              "input": null,
-              "selectbox": null,
-              "radio": null,
-              "options": null,
-              "acceptedValues": null,
-              "file": true,
-              "mandatory": true,
-            },
-            {
-              "id": 4,
-              "label": "Je test un radio",
-              "type": 1,
-              "position": 4,
-              "checkbox": null,
-              "input": null,
-              "selectbox": null,
-              "radio": true,
-              "options": "jeune sans emploi (<25ans);mère célibataire;personne âgée(>60ans)",
-              "acceptedValues": "jeune_chomeur;mere_celibataire;personne_agee",
-              "file": null,
-              "mandatory": null,
-            },
-            {
-              "id": 5,
-              "label": "Je test un champ",
-              "type": 1,
-              "position": 0,
-              "checkbox": null,
-              "input": true,
-              "selectbox": null,
-              "radio": null,
-              "options": null,
-              "acceptedValues": null,
-              "file": null,
-              "mandatory": null,
-            }
-          ]
-        }
-        if (!_.hasIn(structure, 'subjects')) {
-          structure.subjects = [
-            {
-              "id": 1,
-              "label": "Faire mes courses"
-            },
-            {
-              "id": 2,
-              "label": "Aller à un RDV médical"
-            },
-            {
-              "id": 3,
-              "label": "Aller à un RDV administratif"
-            },
-            {
-              "id": 4,
-              "label": "Faire une sortie culturelle"
-            },
-            {
-              "id": 5,
-              "label": "Autre motif"
-            }
-          ]
-        }
-      })
+      // _.each(structures, (structure, index) => {
+      //   if (!_.hasIn(structure, 'structureProofs')) {
+      //     structure.structureProofs = [
+      //       {
+      //         "id": 1,
+      //         "label": "J'habite une commune du Parc",
+      //         "type": 1,
+      //         "position": 1,
+      //         "checkbox": true,
+      //         "input": null,
+      //         "selectbox": null,
+      //         "radio": null,
+      //         "options": null,
+      //         "acceptedValues": null,
+      //         "file": null,
+      //         "mandatory": true,
+      //       },
+      //       {
+      //         "id": 2,
+      //         "label": "Je suis",
+      //         "type": 1,
+      //         "position": 2,
+      //         "checkbox": null,
+      //         "input": null,
+      //         "selectbox": true,
+      //         "radio": null,
+      //         "options": "jeune sans emploi (<25ans);mère célibataire;personne âgée(>60ans)",
+      //         "acceptedValues": "jeune_chomeur;mere_celibataire;personne_agee",
+      //         "file": null,
+      //         "mandatory": true,
+      //       },
+      //       {
+      //         "id": 3,
+      //         "label": "Justificatif de domicile",
+      //         "type": 1,
+      //         "position": 3,
+      //         "checkbox": null,
+      //         "input": null,
+      //         "selectbox": null,
+      //         "radio": null,
+      //         "options": null,
+      //         "acceptedValues": null,
+      //         "file": true,
+      //         "mandatory": true,
+      //       },
+      //       {
+      //         "id": 4,
+      //         "label": "Je test un radio",
+      //         "type": 1,
+      //         "position": 4,
+      //         "checkbox": null,
+      //         "input": null,
+      //         "selectbox": null,
+      //         "radio": true,
+      //         "options": "jeune sans emploi (<25ans);mère célibataire;personne âgée(>60ans)",
+      //         "acceptedValues": "jeune_chomeur;mere_celibataire;personne_agee",
+      //         "file": null,
+      //         "mandatory": null,
+      //       },
+      //       {
+      //         "id": 5,
+      //         "label": "Je test un champ",
+      //         "type": 1,
+      //         "position": 0,
+      //         "checkbox": null,
+      //         "input": true,
+      //         "selectbox": null,
+      //         "radio": null,
+      //         "options": null,
+      //         "acceptedValues": null,
+      //         "file": null,
+      //         "mandatory": null,
+      //       }
+      //     ]
+      //   }
+      //   if (!_.hasIn(structure, 'subjects')) {
+      //     structure.subjects = [
+      //       {
+      //         "id": 1,
+      //         "label": "Faire mes courses"
+      //       },
+      //       {
+      //         "id": 2,
+      //         "label": "Aller à un RDV médical"
+      //       },
+      //       {
+      //         "id": 3,
+      //         "label": "Aller à un RDV administratif"
+      //       },
+      //       {
+      //         "id": 4,
+      //         "label": "Faire une sortie culturelle"
+      //       },
+      //       {
+      //         "id": 5,
+      //         "label": "Autre motif"
+      //       }
+      //     ]
+      //   }
+      // })
 
       state.structures.objects = structures
     },
