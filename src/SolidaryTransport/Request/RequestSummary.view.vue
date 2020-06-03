@@ -49,7 +49,7 @@
                 Vous souhaitez vous déplacer pour <span class="answer">{{getRequestSubjectToDisplay(request)}}</span>.
               </div>
 
-              <div class="mc-st-summary-text" v-if="request.subject">
+              <div class="mc-st-summary-text" v-if="request.when.departure.marginDate">
                 Vous souhaitez vous déplacer pour <span class="answer">{{getRequestSubjectToDisplay(request)}}</span>.
               </div>
 
@@ -99,7 +99,10 @@
           <div class="mc-st-form-controls in-summary">
             <ion-button class="mc-st-form-control as-back" color="light" v-html="$t('solidaryTransport.buttons.back')" @click="$router.back()"></ion-button>
 
-            <ion-button class="mc-st-form-control" color="success" v-html="$t('solidaryTransport.buttons.sendRequest')" @click="validate()"></ion-button>
+            <ion-button class="mc-st-form-control" color="success" @click="validate()">
+              <ion-icon slot="start" name="checkmark" size="large"></ion-icon>
+              <span v-html="$t('solidaryTransport.buttons.sendRequest')"></span>
+            </ion-button>
           </div>
 
         </div>

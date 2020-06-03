@@ -36,6 +36,31 @@ export const solidaryTransportStore = {
         addresses: [undefined],
         mobileRegistration: 1,
         userAgreementAccepted: false
+      },
+      request: {
+        days: {
+          mon: 0,
+          tue: 0,
+          wed: 0,
+          thu: 0,
+          fri: 0,
+          sat: 0,
+          sun: 0
+        },
+        when: {
+          departure: {
+            specificDate: undefined,
+            marginDate: undefined,
+            specificHour: undefined,
+            marginHour: undefined
+          },
+          return: {
+            specificDate: undefined,
+            marginDate: undefined,
+            specificHour: undefined,
+            marginHour: undefined
+          }
+        }
       }
     },
     temporary: {
@@ -157,6 +182,13 @@ export const solidaryTransportStore = {
     },
 
     // Request Mutations below
+    solidaryRequestFrequencyChange(state){
+      state.temporary.request.when = _.cloneDeep(state.default.request.when)
+      state.temporary.request.days = _.cloneDeep(state.default.request.days)
+      console.log(state.temporary.request.when)
+      console.log(state.temporary.request.days)
+    },
+
     solidaryStructuresRequest(state) {
       state.structures.status = 'loading';
     },

@@ -20,7 +20,9 @@
         "female": "Madame"
       },
       "loading": "Chargement",
-      "maxFileSize": "Le fichier que vous tentez d'envoyer ne doit pas dépasser 1Mo"
+      "maxFileSize": "Le fichier que vous tentez d'envoyer ne doit pas dépasser 1Mo",
+      "days": ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"],
+      "months": ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"]
     },
     "navigation": {
       "home": "Accueil",
@@ -64,59 +66,66 @@
               "day": "Indiquez les jours concernés pour lesquels vous avez besoin d’un trajet régulier :",
               "dates": [
                 { 
-                  "value": "dates-0",
+                  "value": "this-week",
                   "label": "D’ici une semaine"
                 },
                 { 
-                  "value": "dates-1",
+                  "value": "in-two-weeks",
                   "label": "D’ici deux semaines"
                 },
                 { 
-                  "value": "dates-2",
+                  "value": "in-month",
                   "label": "D’ici un mois"
                 }
               ],
               "days": [
                 { 
-                  "value": "days-0",
-                  "label": "L"
+                  "value": "mon",
+                  "label": "L",
+                  "text": "Lundi"
                 },
                 { 
-                  "value": "days-1",
-                  "label": "Ma"
+                  "value": "tue",
+                  "label": "Ma",
+                  "text": "Mardi"
                 },
                 { 
-                  "value": "days-2",
-                  "label": "Me"
+                  "value": "wed",
+                  "label": "Me",
+                  "text": "Mercredi"
                 },
                 { 
-                  "value": "days-3",
-                  "label": "J"
+                  "value": "thu",
+                  "label": "J",
+                  "text": "Jeudi"
                 },
                 { 
-                  "value": "days-4",
-                  "label": "V"
+                  "value": "fri",
+                  "label": "V",
+                  "text": "Vendredi"
                 },
                 { 
-                  "value": "days-5",
-                  "label": "S"
+                  "value": "sat",
+                  "label": "S",
+                  "text": "Samedi"
                 },
                 { 
-                  "value": "days-6",
-                  "label": "D"
+                  "value": "sun",
+                  "label": "D",
+                  "text": "Dimanche"
                 }
               ],
               "hours": [
                 { 
-                  "value": "hours-0",
+                  "value": "morning",
                   "label": "Entre 8h et 13h"
                 },
                 { 
-                  "value": "hours-1",
+                  "value": "afternoon",
                   "label": "Entre 13h et 18h"
                 },
                 { 
-                  "value": "hours-2",
+                  "value": "evening",
                   "label": "Entre 18h et 21h"
                 }
               ]
@@ -126,23 +135,28 @@
               "specificHour": "Heure de retour",
               "hours": [
                 { 
-                  "value": "return-0",
+                  "value": "hour-later",
                   "label": "Une heure plus tard"
                 },
                 { 
-                  "value": "return-1",
+                  "value": "two-hours-later",
                   "label": "Deux heures plus tard"
                 },
                 { 
-                  "value": "return-2",
+                  "value": "three-hours-later",
                   "label": "Trois heures plus tard"
                 },
                 { 
-                  "value": "return-3",
+                  "value": "no-need",
                   "label": "Je n’ai pas besoin qu’on me ramène"
                 }
               ]
-            }
+            },
+            "duration": "Pour combien de temps devez-vous faire ce trajet ?",
+            "durationStart": "Débute le",
+            "durationStartDate": "Date de début",
+            "durationEnd": "Se termine le",
+            "durationEndDate": "Date de fin"
           },
           "you": "Vos informations :",
           "yourRequest": "Votre demande :"

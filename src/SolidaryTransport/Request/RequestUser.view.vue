@@ -254,7 +254,7 @@ export default {
       this.request.birthDate = user.birthDate
       this.request.telephone = user.telephone
       this.request.email = user.email
-      this.request.homeAddress = this.user.addresses[0]
+      this.request.homeAddress = user.addresses[0]
     }
   }
 }

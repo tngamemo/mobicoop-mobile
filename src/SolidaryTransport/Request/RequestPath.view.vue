@@ -72,11 +72,11 @@
 
                 <ion-item lines="none" class="mc-st-form-radios-item">
                   <ion-label class="ion-text-wrap">{{$t('solidaryTransport.request.form.fields.isPunctual')}}</ion-label>
-                  <ion-radio slot="start" :value="1" :checked="request.frequency === 1" @ionSelect="request.frequency = parseInt($event.target.value);"></ion-radio>
+                  <ion-radio slot="start" :value="1" :checked="request.frequency === 1" @ionSelect="request.frequency = parseInt($event.target.value); changeFrequency()"></ion-radio>
                 </ion-item>
                 <ion-item lines="none" class="mc-st-form-radios-item">
                   <ion-label class="ion-text-wrap">{{$t('solidaryTransport.request.form.fields.isRegular')}}</ion-label>
-                  <ion-radio slot="start" :value="2" :checked="request.frequency === 2" @ionSelect="request.frequency = parseInt($event.target.value);"></ion-radio>
+                  <ion-radio slot="start" :value="2" :checked="request.frequency === 2" @ionSelect="request.frequency = parseInt($event.target.value);changeFrequency()"></ion-radio>
                 </ion-item>
               </ion-radio-group>
             </ion-list>
@@ -149,6 +149,9 @@ export default {
     }
   },
   methods: {
+    changeFrequency: function() {
+      this.$store.commit('solidaryRequestFrequencyChange')
+    },
     displayGeoSearchForOrigin: function () {
       this.$router.push({ name: "solidaryTransport.geoSearch", query: { action: 'solidaryTransport.search', type: 'request.origin' }});
     },
