@@ -160,7 +160,7 @@ export default {
         this.$store.dispatch('postSolidaryResource')
           .then((data) => {
             this.presentToast("Votre demande de coup de pouce à été envoyée avec succès", 'success');
-            // this.$router.push({name:'solidaryTransport.home'})
+            this.$router.push({name:'solidaryTransport.home'})
           })
           .catch((error) => {
             console.error(error)

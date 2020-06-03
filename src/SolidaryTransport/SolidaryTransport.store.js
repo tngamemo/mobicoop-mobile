@@ -39,6 +39,30 @@ export const solidaryTransportStore = {
         userAgreementAccepted: false
       },
       request: {
+        telephone: undefined,
+        givenName: undefined,
+        password: undefined,
+        familyName: undefined,
+        email: undefined,
+        birthDate: undefined,
+        gender: 0,
+        homeAddress: undefined,
+        subject: undefined,
+        structure: undefined,
+        status: 0,
+        proofs: {
+          mandatory: {},
+          optional: {}
+        },
+        needs: [],
+        outwardDeadlineDatetime: undefined,
+        outwardDatetime: undefined,
+        returnDeadlineDatetime: undefined,
+        returnDatetime: undefined,
+        marginDuration: 9000, // 2h30 before and after covered
+        origin: undefined,
+        destination: undefined,
+        frequency: 1,
         days: {
           mon: 0,
           tue: 0,
@@ -184,6 +208,10 @@ export const solidaryTransportStore = {
     },
 
     // Request Mutations below
+    postSolidaryResourceSuccess: (state) => {
+      state.temporary.request = _.cloneDeep(state.default.request)
+    },
+
     solidaryRequestFrequencyChange(state){
       state.temporary.request.when = _.cloneDeep(state.default.request.when)
       state.temporary.request.days = _.cloneDeep(state.default.request.days)
@@ -406,11 +434,12 @@ export const solidaryTransportStore = {
       solidary.proofs = []
       _.each(proofs, (proof) => {
         if (proof.type === 'file') {
-          proofsToUpload.push({
-            structureProof: _.find(structure.structureProofs, {id: proof.id})['@id'],
-            solidary: undefined,
-            file: proof.file
-          })
+          if (!_.isUndefined(proof.file)) {
+            proofsToUpload.push({
+              structureProof: _.find(structure.structureProofs, {id: proof.id})['@id'],
+              file: proof.file
+            })
+          }
         } else {
           if (proof.value) {
             solidary.proofs.push({
@@ -430,12 +459,14 @@ export const solidaryTransportStore = {
         }
       })
 
-
       // Normalize Dates
       let when = solidary.when
       let format = 'YYYY-MM-DDTHH:mm:ssZ'
       delete solidary['when']
+
+      // Punctual request
       if (solidary.frequency === 1) {
+        delete solidary['days']
 
         // Outward at a specific date
         if (when.departure.specificDate) {
@@ -605,50 +636,127 @@ export const solidaryTransportStore = {
         }
 
       }
-      if (solidary.frequency === 2) {
 
+      // Regular Request
+      if (solidary.frequency === 2) {
+        solidary.outwardDatetime = moment(when.departure.specificDate)
+            .set({hour: 0, minute: 0, second: 0})
+            .format(format)
+
+        solidary.outwardDeadlineDatetime = moment(when.return.specificDate)
+            .set({hour: 0, minute: 0, second: 0})
+            .format(format)
+
+        // Departure at a specific hour
+        if (when.departure.specificHour) {
+          let specificHour = moment(when.departure.specificHour)
+          solidary.outwardDatetime = moment(solidary.outwardDatetime)
+            .set({hour: specificHour.hour(), minute: specificHour.minute(), second: 0})
+            .format(format)
+          solidary.outwardDeadlineDatetime = moment(solidary.outwardDeadlineDatetime)
+            .set({hour: specificHour.hour(), minute: specificHour.minute(), second: 0})
+            .format(format)
+
+          delete solidary['marginDuration']
+        }
+
+        // Departure at a margin hour
+        if (when.departure.marginHour) {
+          let marginHour = when.departure.marginHour
+          if (marginHour === 'morning') {
+            marginHour = 8
+          }
+          if (marginHour === 'afternoon') {
+            marginHour = 13
+          }
+          if (marginHour === 'evening') {
+            marginHour = 18
+          }
+
+          solidary.outwardDatetime = moment(solidary.outwardDatetime)
+            .set({hour: marginHour})
+            .add(solidary.marginDuration, 'seconds')
+            .format(format)
+            solidary.outwardDeadlineDatetime = moment(solidary.outwardDeadlineDatetime)
+            .set({hour: marginHour})
+            .add(solidary.marginDuration, 'seconds')
+            .format(format)
+        }
+
+        // And return at a specific hour
+        if (when.return.specificHour) {
+          let specificHour = moment(when.return.specificHour)
+          solidary.returnDatetime = moment(solidary.outwardDatetime)
+            .set({hour: specificHour.hour(), minute: specificHour.minute(), second: 0})
+            .format(format)
+          solidary.returnDeadlineDatetime = moment(solidary.outwardDeadlineDatetime)
+            .set({hour: specificHour.hour(), minute: specificHour.minute(), second: 0})
+            .format(format)
+        }
+
+        // And return n hours after
+        if (when.return.marginHour) {
+          let marginHour = when.return.marginHour
+          if (marginHour === 'hour-later') {
+            marginHour = 1
+          }
+          if (marginHour === 'two-hours-later') {
+            marginHour = 2
+          }
+          if (marginHour === 'three-hours-later') {
+            marginHour = 3
+          }
+          if (marginHour === 'no-need') {
+            delete solidary['returnDatetime']
+            marginHour = undefined
+          }
+          if (!_.isUndefined(marginHour)) {
+            solidary.returnDatetime = moment(solidary.outwardDatetime)
+              .add(marginHour, 'hours')
+              .format(format)
+            solidary.returnDeadlineDatetime = moment(solidary.outwardDeadlineDatetime)
+              .add(marginHour, 'hours')
+              .format(format)
+          }            
+        }
       }
 
-      console.log('outwardDatetime', solidary.outwardDatetime)
-      console.log('outwardDeadlineDatetime', solidary.outwardDeadlineDatetime)
-      console.log('returnDatetime', solidary.returnDatetime)
-      console.log('returnDeadlineDatetime', solidary.returnDeadlineDatetime)
-      console.log('marginDuration', solidary.marginDuration)
-
-      // Set status
-      solidary.status = 1
-      console.log('Normalize', solidary)
-
+      // console.log('days', solidary.days)
+      // console.log('outwardDatetime', solidary.outwardDatetime)
+      // console.log('outwardDeadlineDatetime', solidary.outwardDeadlineDatetime)
+      // console.log('returnDatetime', solidary.returnDatetime)
+      // console.log('returnDeadlineDatetime', solidary.returnDeadlineDatetime)
+      // console.log('marginDuration', solidary.marginDuration)
 
       // Post Solidary
       return new Promise((resolve, reject) => {
-        // http.post("/solidaries", solidary).then(resp => {
-        //   if (resp) {
-        //     console.log(resp.data)
-        //     resolve(resp.data)
-        //   }
-        // }).catch(err => {
-        //   console.log(err)
-        //   reject(err)
-        // })
-        resolve(true)
+        http.post("/solidaries", solidary)
+          .then(resp => {
+            return resp.data
+          })
+          .then((resp) => {
+            let solidary = resp
+            let promises = []
+            _.each(proofsToUpload, (proof) => {
+              let formData = new FormData()
+              formData.append('file', proof.file)
+              formData.append('structureProof', proof.structureProof)
+              formData.append('solidary', solidary['@id'])
+              promises.push(http.post(`/proofs`, formData))
+            })
+            console.log('File promises', promises)
+
+            return Promise.all(promises)
+          })
+          .then((response) => {
+            commit('postSolidaryResourceSuccess')
+            resolve()
+          })
+          .catch(err => {
+            console.log(err)
+            reject(err)
+          })
       })
-
-      // const formData = new FormData();
-        // formData.append('file', file);
-
-        // // console.log(formData.values())
-
-        // http.post(`/proofs`, formData)
-        //   .then(resp => {
-        //     console.log(resp)
-        //   })
-        //   .catch(err => {
-        //     console.log(err)
-        //   })
-        //   .finally(() => {
-        //     proof.upload = true
-        //   })
     }
   },
   getters: {
