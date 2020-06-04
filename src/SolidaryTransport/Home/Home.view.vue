@@ -47,7 +47,7 @@
               ></ion-button>
               <ion-button class="mc-st-action as-light" color="light">
                 <ion-icon slot="start" name="chatboxes"></ion-icon>
-                <span v-html="$t('solidaryTransport.home.actions.contact')"></span>
+                <span v-html="$t('solidaryTransport.home.actions.contact', {'brand': title})"></span>
               </ion-button>
             </div>
           </div>
@@ -77,6 +77,7 @@
                 color="success"
                 v-html="$t('solidaryTransport.home.actions.shareUsualRoute')"
                 @click="$router.push({name:'solidaryTransport.home.usual'})"
+                v-if="false"
               ></ion-button>
 
               <ion-button
@@ -104,7 +105,7 @@
 
               <ion-button class="mc-st-action as-light" color="light">
                 <ion-icon slot="start" name="chatboxes"></ion-icon>
-                <span v-html="$t('solidaryTransport.home.actions.contact')"></span>
+                <span v-html="$t('solidaryTransport.home.actions.contact', {'brand': title})"></span>
               </ion-button>
             </div>
           </div>

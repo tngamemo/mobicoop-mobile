@@ -86,6 +86,44 @@ export const solidaryTransportStore = {
             marginHour: undefined
           }
         }
+      },
+      volunteer: {
+        telephone: undefined,
+        givenName: undefined,
+        password: undefined,
+        familyName: undefined,
+        email: undefined,
+        birthDate: undefined,
+        gender: 0,
+        homeAddress: undefined,
+        structure: undefined,
+        mMinTime: undefined,
+        mMaxTime: undefined,
+        aMinTime: undefined,
+        aMaxTime: undefined,
+        eMinTime: undefined,
+        eMaxTime: undefined,
+        mMon: false,
+        aMon: false,
+        eMon: false,
+        mTue: false,
+        aTue: false,
+        eTue: false,
+        mWed: false,
+        aWed: false,
+        eWed: false,
+        mThu: false,
+        aThu: false,
+        eThu: false,
+        mFri: false,
+        aFri: false,
+        eFri: false,
+        mSat: false,
+        aSat: false,
+        eSat: false,
+        mSun: false,
+        aSun: false,
+        eSun: false
       }
     },
     temporary: {
@@ -155,7 +193,45 @@ export const solidaryTransportStore = {
           }
         }
       },
-      ad: {}
+      volunteer: {
+        telephone: undefined,
+        givenName: undefined,
+        password: undefined,
+        familyName: undefined,
+        email: undefined,
+        birthDate: undefined,
+        gender: 0,
+        homeAddress: undefined,
+        structure: undefined,
+        hasStructure: false,
+        mMinTime: undefined,
+        mMaxTime: undefined,
+        aMinTime: undefined,
+        aMaxTime: undefined,
+        eMinTime: undefined,
+        eMaxTime: undefined,
+        mMon: false,
+        aMon: false,
+        eMon: false,
+        mTue: false,
+        aTue: false,
+        eTue: false,
+        mWed: false,
+        aWed: false,
+        eWed: false,
+        mThu: false,
+        aThu: false,
+        eThu: false,
+        mFri: false,
+        aFri: false,
+        eFri: false,
+        mSat: false,
+        aSat: false,
+        eSat: false,
+        mSun: false,
+        aSun: false,
+        eSun: false
+      }
     }
   },
   mutations: {
@@ -360,6 +436,28 @@ export const solidaryTransportStore = {
         commit('solidaryStructuresRequest')
         return new Promise((resolve, reject) => {
           http.get(`/structures/geolocation?lat=${lat}&lon=${lng}`)
+          .then(response => {
+            if (response) {
+              commit('solidaryStructuresSuccess', response.data['hydra:member'])
+              resolve(state.structures.objects)
+            }
+          })
+          .catch(err => {
+            commit('solidaryStructuresError')
+            reject(err)
+          })
+        })
+      }
+    },
+    getSolidaryStructures({commit, state}){
+      if (state.structures.status === 'success') {
+        return new Promise((resolve, reject) => {
+          resolve(state.structures.objects)
+        })
+      } else {
+        commit('solidaryStructuresRequest')
+        return new Promise((resolve, reject) => {
+          http.get(`/structures`)
           .then(response => {
             if (response) {
               commit('solidaryStructuresSuccess', response.data['hydra:member'])

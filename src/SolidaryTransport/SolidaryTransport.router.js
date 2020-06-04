@@ -20,13 +20,7 @@ import ProfileAgenda from './Profile/ProfileAgenda.view.vue';
 import Messages from './Messages/Messages.view.vue';
 
 // Solidary
-// Ad Related
-// import AdPublish from './Ad/AdPublish.view.vue';
-// import AdPublishPonctual from './Ad/AdPublishPonctual.view.vue';
-// import AdPublishPonctualSummary from './Ad/AdPublishPonctualSummary.view.vue';
-// import AdPublishRegular from './Ad/AdPublishRegular.view.vue';
-// import AdPublishRegularSummary from './Ad/AdPublishRegularSummary.view.vue';
-// Request Related
+// Request related
 import Request from './Request/Request.view.vue';
 import RequestCheck from './Request/RequestCheck.view.vue';
 import RequestPath from './Request/RequestPath.view.vue';
@@ -34,6 +28,12 @@ import RequestPunctual from './Request/RequestPunctual.view.vue';
 import RequestRegular from './Request/RequestRegular.view.vue';
 import RequestUser from './Request/RequestUser.view.vue';
 import RequestSummary from './Request/RequestSummary.view.vue';
+
+// Volunteer related
+import Volunteer from './Volunteer/Volunteer.view.vue';
+import VolunteerAvailabilities from './Volunteer/VolunteerAvailabilities.view.vue';
+import VolunteerUser from './Volunteer/VolunteerUser.view.vue';
+import VolunteerDetails from './Volunteer/VolunteerDetails.view.vue';
 
 // Tools related
 import GeoSearch from './GeoSearch/GeoSearch.view.vue';
@@ -69,6 +69,7 @@ export default [
     path: '',
     component: Main,
     children: [
+      // HOME ----- ( start here )
       {
         path: '/solidary-transport',
         name: 'solidaryTransport',
@@ -81,41 +82,8 @@ export default [
           home: Home
         }
       },
-      // {
-      //   path: '/solidary-transport/home/ad',
-      //   name: 'solidaryTransport.home.ad',
-      //   components: {
-      //     home: AdPublish
-      //   }
-      // },
-      // {
-      //   path: '/solidary-transport/home/ad/ponctual',
-      //   name: 'solidaryTransport.home.ad.ponctual',
-      //   components: {
-      //     home: AdPublishPonctual
-      //   }
-      // },
-      // {
-      //   path: '/solidary-transport/home/ad/ponctual/summary',
-      //   name: 'solidaryTransport.home.ad.ponctual.summary',
-      //   components: {
-      //     home: AdPublishPonctualSummary
-      //   }
-      // },
-      // {
-      //   path: '/solidary-transport/home/ad/regular',
-      //   name: 'solidaryTransport.home.ad.regular',
-      //   components: {
-      //     home: AdPublishRegular
-      //   }
-      // },
-      // {
-      //   path: '/solidary-transport/home/ad/regular/summary',
-      //   name: 'solidaryTransport.home.ad.regular.summary',
-      //   components: {
-      //     home: AdPublishRegularSummary
-      //   }
-      // },
+      // HOME ----- ( end here )
+
       // REQUEST ----- ( start here )
       {
         path: '/solidary-transport/home/request',
@@ -166,39 +134,38 @@ export default [
           home: RequestSummary
         }
       },
-      // {
-      //   path: '/solidary-transport/home/request/ponctual',
-      //   name: 'solidaryTransport.home.request.ponctual',
-      //   components: {
-      //     home: RequestPublishPonctual
-      //   }
-      // },
-      // {
-      //   path: '/solidary-transport/home/request/ponctual/summary',
-      //   name: 'solidaryTransport.home.request.ponctual.summary',
-      //   components: {
-      //     home: RequestPublishPonctualSummary
-      //   }
-      // },
-      // {
-      //   path: '/solidary-transport/home/request/regular',
-      //   name: 'solidaryTransport.home.request.regular',
-      //   components: {
-      //     home: RequestPublishRegular
-      //   }
-      // },
-      // {
-      //   path: '/solidary-transport/home/request/regular/summary',
-      //   name: 'solidaryTransport.home.request.regular.summary',
-      //   components: {
-      //     home: RequestPublishRegularSummary
-      //   }
-      // },
+      // REQUEST ----- ( end here )
+
+      // VOLUNTEER ----- ( start here )
       {
-        path: '/solidary-transport/help',
-        name: 'solidaryTransport.help',
-        component: Help
+        path: '/solidary-transport/home/volunteer',
+        name: 'solidaryTransport.home.volunteer',
+        components: {
+          home: Volunteer
+        }
       },
+      {
+        path: '/solidary-transport/home/volunteer/availabilities',
+        name: 'solidaryTransport.home.volunteer.availabilities',
+        components: {
+          home: VolunteerAvailabilities
+        }
+      },
+      {
+        path: '/solidary-transport/home/volunteer/user',
+        name: 'solidaryTransport.home.volunteer.user',
+        components: {
+          home: VolunteerUser
+        }
+      },
+      {
+        path: '/solidary-transport/home/volunteer/details',
+        name: 'solidaryTransport.home.volunteer.details',
+        components: {
+          home: VolunteerDetails
+        }
+      },
+      // VOLUNTEER ----- ( end here )
 
       // REGISTER ----- ( start here )
       {
@@ -291,6 +258,7 @@ export default [
         beforeEnter: preventAccess
       },
       // PROFILE ----- ( end here )
+
       // MESSAGES ----- ( start here )
       {
         path: '/solidary-transport/messages',
@@ -299,8 +267,16 @@ export default [
           messages: Messages
         },
         beforeEnter: preventAccess
-      }
+      },
       // MESSAGES ----- ( end here )
+
+      // HELP ----- ( start here )
+      {
+        path: '/solidary-transport/help',
+        name: 'solidaryTransport.help',
+        component: Help
+      }
+      // HELP ----- ( end here )
     ]
   },
   {
