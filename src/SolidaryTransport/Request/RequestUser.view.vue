@@ -127,6 +127,60 @@
               <span class="mc-st-form-error" v-if="!$v.request.email.email">{{$t('solidaryTransport.register.form.validators.email')}}</span>
               <span class="mc-st-form-error" v-else-if="!$v.request.email.required">{{$t('solidaryTransport.register.form.validators.required')}}</span>
             </div>
+
+            <template v-if="!this.$store.state.userStore.user">
+              <ion-item class="mc-st-form-item">
+                <ion-label position="floating">{{$t('solidaryTransport.register.form.fields.password')}} *</ion-label>
+                <template v-if="showPassword">
+                  <ion-input
+                    class="mc-st-form-input" 
+                    type="text"
+                    :value="request.password"
+                    @input="request.password = $event.target.value;"
+                  ></ion-input>
+                  <ion-icon class="mc-st-form-icon" slot="end" size="medium" name="eye-off" @click="togglePassword()"></ion-icon>
+                </template>
+                <template v-else>
+                  <ion-input
+                    class="mc-st-form-input" 
+                    type="password"
+                    :value="request.password"
+                    @input="request.password = $event.target.value;"
+                  ></ion-input>
+                  <ion-icon class="mc-st-form-icon" slot="end" size="medium" name="eye" @click="togglePassword()"></ion-icon>
+                </template>
+              </ion-item>
+              <div class="mc-st-form-details" v-if="$v.request.password.$error">
+                <span class="mc-st-form-error" v-if="!$v.request.password.minLength">{{$t('solidaryTransport.register.form.validators.passwordMinLength')}}</span>
+                <span class="mc-st-form-error" v-else-if="!$v.request.password.oneUppercase">{{$t('solidaryTransport.register.form.validators.passwordOneUppercase')}}</span>
+                <span class="mc-st-form-error" v-else-if="!$v.request.password.passwordOneDigit">{{$t('solidaryTransport.register.form.validators.passwordOneDigit')}}</span>
+                <span class="mc-st-form-error" v-else-if="!$v.request.password.required">{{$t('solidaryTransport.register.form.validators.required')}}</span>
+              </div>
+
+              <ion-item class="mc-st-form-item">
+                <ion-label position="floating">{{$t('solidaryTransport.register.form.fields.confirmPassword')}} *</ion-label>
+                <template v-if="showPassword">
+                  <ion-input
+                    class="mc-st-form-input" 
+                    type="text"
+                    :value="password"
+                    @input="password = $event.target.value;"
+                  ></ion-input>
+                </template>
+                <template v-else>
+                  <ion-input
+                    class="mc-st-form-input" 
+                    type="password"
+                    :value="password"
+                    @input="password = $event.target.value;"
+                  ></ion-input>
+                </template>
+              </ion-item>
+              <div class="mc-st-form-details" v-if="$v.password.$error">
+                <span class="mc-st-form-error" v-if="!$v.password.samePassword">{{$t('solidaryTransport.register.form.validators.passwordSamePassword')}}</span>
+                <span class="mc-st-form-error" v-else-if="!$v.password.required">{{$t('solidaryTransport.register.form.validators.required')}}</span>
+              </div>
+            </template>
             
           </div>
 
@@ -168,6 +222,8 @@ export default {
   components: {},
   data () {
     return {
+      password: undefined,
+      showPassword: false,
       minAge: process.env.VUE_APP_REGISTER_MIN_AGE
     }
   },
@@ -184,41 +240,59 @@ export default {
       }
     }
   },
-  validations: {
-    request: {
-      gender: {
-        required,
-        between: between(1, 3)
-      },
-      givenName: {
-        required
-      },
-      familyName: {
-        required
-      },
-      birthDate: {
-        required,
-        isMaxBirthDate
-      },
-      telephone: {
-        required,
-        minLength: minLength(10)
-      },
-      email: {
-        required,
-        email
-      },
-      homeAddress: {
-        hasAddress
+  validations () {
+    let validations = {
+      request: {
+        gender: {
+          required,
+          between: between(1, 3)
+        },
+        givenName: {
+          required
+        },
+        familyName: {
+          required
+        },
+        birthDate: {
+          required,
+          isMaxBirthDate
+        },
+        telephone: {
+          required,
+          minLength: minLength(10)
+        },
+        email: {
+          required,
+          email
+        },
+        homeAddress: {
+          hasAddress
+        }
       }
     }
+
+    if (!this.$store.state.userStore.user) {
+      validations.request.password = {
+        required,
+        minLength: minLength(8),
+        oneUppercase,
+        oneDigit
+      }
+      validations.password = {
+        required,
+        sameAsPassword: sameAs(function() {
+          return this.request.password
+        })
+      }
+    }
+
+    return validations
   },
-  mounted: function () {
-    _.each(this.eligibility, (item) => {
-      this.$root.$set(item, 'checked', false)
-    })
-  },
+  mounted: function () {},
   methods: {
+    togglePassword () {
+      this.showPassword = !this.showPassword
+    },
     getMaxBirthDate() {
       let n = new Date();
       n.setFullYear(n.getFullYear() - process.env.VUE_APP_REGISTER_MIN_AGE);

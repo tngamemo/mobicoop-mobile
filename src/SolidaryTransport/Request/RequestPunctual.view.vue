@@ -38,9 +38,10 @@
                   <ion-datetime
                     ref="departure-date"
                     class="mc-st-form-input no-clickable"
-                    display-format="DD/MM/YY"
-                    picker-format="DD/MM/YY"
+                    display-format="DD/MM/YYYY"
+                    picker-format="DD/MM/YYYY"
                     :min="$moment().format('YYYY-MM-DD')"
+                    :max="$moment().add(5, 'years').format('YYYY-MM-DD')"
                     :cancel-text="$t('solidaryTransport.buttons.cancel')"
                     :done-text="$t('solidaryTransport.buttons.validate')"
                     :placeholder="$t('solidaryTransport.request.form.fields.when.departure.specificDate')"

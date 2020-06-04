@@ -100,16 +100,20 @@
             </div>
 
             <div class="mc-st-form-item">
-              <ion-label class="mc-st-form-label as-title no-white-space" color="primary">{{$t('solidaryTransport.request.form.fields.when.duration')}}</ion-label>      
+              <ion-label class="mc-st-form-label as-title no-white-space" color="primary">{{$t('solidaryTransport.request.form.fields.when.duration')}}</ion-label>
+              <div class="mc-st-form-details" v-if="$v.request.when.$error">
+                <span class="mc-st-form-error is-left" v-if="!$v.request.when.isAfter">{{$t('solidaryTransport.request.form.validators.isAfter')}}</span>
+              </div>    
             </div>
 
             <ion-item class="mc-st-form-item">
               <ion-label class="mc-st-form-label no-white-space" color="primary" position="floating">{{$t('solidaryTransport.request.form.fields.when.durationStart')}}*</ion-label>
               <ion-datetime
                 class="mc-st-form-input"
-                display-format="DD/MM/YY"
-                picker-format="DD/MM/YY"
+                display-format="DD/MM/YYYY"
+                picker-format="DD/MM/YYYY"
                 :min="$moment().format('YYYY-MM-DD')"
+                :max="$moment().add(5, 'years').format('YYYY-MM-DD')"
                 :cancel-text="$t('solidaryTransport.buttons.cancel')"
                 :done-text="$t('solidaryTransport.buttons.validate')"
                 :placeholder="$t('solidaryTransport.request.form.fields.when.durationStartDate')"
@@ -126,9 +130,10 @@
               <ion-label class="mc-st-form-label no-white-space" color="primary" position="floating">{{$t('solidaryTransport.request.form.fields.when.durationEnd')}}*</ion-label>
               <ion-datetime
                 class="mc-st-form-input"
-                display-format="DD/MM/YY"
-                picker-format="DD/MM/YY"
+                display-format="DD/MM/YYYY"
+                picker-format="DD/MM/YYYY"
                 :min="$moment().format('YYYY-MM-DD')"
+                :max="$moment().add(5, 'years').format('YYYY-MM-DD')"
                 :cancel-text="$t('solidaryTransport.buttons.cancel')"
                 :done-text="$t('solidaryTransport.buttons.validate')"
                 :placeholder="$t('solidaryTransport.request.form.fields.when.durationEndDate')"
@@ -137,8 +142,8 @@
                 @ionFocus="changeReturnSpecificDate($event.target.value)"
               ></ion-datetime>   
             </ion-item>
-            <div class="mc-st-form-details" v-if="$v.request.when.departure.specificDate.$error">
-              <span class="mc-st-form-error is-left" v-if="!$v.request.when.departure.specificDate.hasDate">{{$t('solidaryTransport.request.form.validators.required')}}</span>
+            <div class="mc-st-form-details" v-if="$v.request.when.return.specificDate.$error">
+              <span class="mc-st-form-error is-left" v-if="!$v.request.when.return.specificDate.hasDate">{{$t('solidaryTransport.request.form.validators.required')}}</span>
             </div>
             
           </div>
@@ -159,6 +164,7 @@
 
 <script>
 import _ from 'lodash'
+import moment from 'moment'
 import { mapState, mapGetters } from 'vuex'
 import { required } from 'vuelidate/lib/validators'
 import { toast } from '../../Shared/Mixin/toast.mixin'
@@ -177,6 +183,15 @@ const hasDate = (date) => {
 }
 const hasHour = (value) => {
   return !_.isEmpty(value.specificHour) || !_.isEmpty(value.marginHour)
+}
+const isAfter = (when) => {
+  if (!_.isUndefined(when.departure.specificDate) && !_.isUndefined(when.departure.specificDate)) {
+    let d = moment(when.departure.specificDate).format('YYYY-MM-DD')
+    let r = moment(when.return.specificDate).format('YYYY-MM-DD')
+
+    return moment(r).isAfter(d)
+  }
+  return true
 }
 
 
@@ -211,6 +226,7 @@ export default {
         hasOneDay
       },
       when: {
+        isAfter,
         departure: {
           hasHour,
           specificDate: {

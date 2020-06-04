@@ -424,6 +424,11 @@ export const solidaryTransportStore = {
       let solidary = _.cloneDeep(state.temporary.request)
       let structure = solidary.structure
 
+      // The user is connected during the request
+      if (_.isUndefined(solidary.password)) {
+        delete solidary['password']
+      }
+
       // Normalize Solidary Ressource before Post request
       solidary.subject = _.find(structure.subjects, {id: solidary.subject})['@id']
       solidary.structure = structure['@id']

@@ -163,6 +163,7 @@
         },
         "validators": {
           "days": "Vous devez choisir au moins un jour",
+          "isAfter": "Les dates choisies doivent se succéder",
           "required": "Ce champ est requis"
         }
       }

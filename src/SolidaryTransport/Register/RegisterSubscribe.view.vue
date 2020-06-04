@@ -307,11 +307,7 @@ export default {
       })
     }
   },
-  mounted: function () {
-    _.each(this.eligibility, (item) => {
-      this.$root.$set(item, 'checked', false)
-    })
-  },
+  mounted: function () {},
   methods: {
     togglePassword () {
       this.showPassword = !this.showPassword
