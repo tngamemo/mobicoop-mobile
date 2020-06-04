@@ -270,7 +270,7 @@ export default {
           this.$refs.request.scrollToPoint(0, top, 0)
         })
       } else {
-        this.$router.push({name: 'solidaryTransport.home.request.summary'})
+        this.$router.push({name: 'solidaryTransport.home.request.user'})
       }
     }
   },

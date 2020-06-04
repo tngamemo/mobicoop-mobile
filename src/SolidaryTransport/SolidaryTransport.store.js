@@ -415,7 +415,6 @@ export const solidaryTransportStore = {
             resolve(resp)
           }
         }).catch(err => {
-          console.log('error')
           reject(err)
         })
       })
@@ -749,7 +748,6 @@ export const solidaryTransportStore = {
               formData.append('solidary', solidary['@id'])
               promises.push(http.post(`/proofs`, formData))
             })
-            console.log('File promises', promises)
 
             return Promise.all(promises)
           })
@@ -758,7 +756,6 @@ export const solidaryTransportStore = {
             resolve()
           })
           .catch(err => {
-            console.log(err)
             reject(err)
           })
       })
@@ -797,7 +794,6 @@ export const solidaryTransportStore = {
     },
     getLabelForKeyToDisplay: () => (values, key) => {
       if (!_.isUndefined(values) && !_.isUndefined(key)) {
-        console.log(values, key)
         return _.find(values, {'value': key}).label.toLowerCase()
       }
       return

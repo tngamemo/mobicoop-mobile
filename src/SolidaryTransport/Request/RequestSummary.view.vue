@@ -9,7 +9,7 @@
       </ion-toolbar>
     </ion-header>
 
-    <ion-content ref="request" color="primary" class="is-scrollable">
+    <ion-content ref="request" color="primary" class="is-scrollable" v-if="!success">
       <div class="mc-st-container">
         <div class="mc-st-form">
 
@@ -34,7 +34,7 @@
 
               <!-- User Information -->
               <div class="mc-st-summary-text">
-                Je suis <span class="answer">{{request.givenName || 'John'}} {{request.familyName || 'Doe'}}</span>, <span class="answer">{{getUserAge(request) || 100}} ans</span>, habitant à <span class="answer">{{request.homeAddress.county}}</span>. Je suis joignable par téléphone au <span class="answer">{{request.telephone || '0000000000'}}</span> ou bien par mail via l'adresse <span class="answer">{{request.email || 'john@doe.com'}}</span>.
+                Je suis <span class="answer">{{request.givenName || 'John'}} {{request.familyName || 'Doe'}}</span>, <span class="answer">{{getUserAge(request) || 100}} ans</span>, habitant à <span class="answer" v-if="request.homeAddress">{{request.homeAddress.county}}</span>. Je suis joignable par téléphone au <span class="answer">{{request.telephone || '0000000000'}}</span> ou bien par mail via l'adresse <span class="answer">{{request.email || 'john@doe.com'}}</span>.
               </div>
 
             </div>
@@ -51,12 +51,86 @@
 
               <template v-if="request.frequency === 1">
                 <div class="mc-st-summary-text" v-if="request.subject">
-                  Ma demande est <span class="answer">ponctuelle</span>
+                  Ma demande est <span class="answer">ponctuelle</span>. 
+
+                  Je souhaite partir
+                  <template v-if="request.when.departure.specificDate"> le <span class="answer">{{$moment(request.when.departure.specificDate).format('D MMMM YYYY')}}</span>
+                  </template>
+
+                  <template v-if="request.when.departure.marginDate">
+                    <span class="answer">{{getLabelForKeyToDisplay(departureDates,request.when.departure.marginDate)}}</span> 
+                  </template>
+
+                  <template v-if="request.when.departure.specificHour"> à <span class="answer">{{$moment(request.when.departure.specificHour).format('HH[h]mm')}}</span> 
+                  </template>
+
+                  <template v-if="request.when.departure.marginHour">, de préférence <span class="answer">{{getLabelForKeyToDisplay(departureHours,request.when.departure.marginHour)}}</span>
+                  </template>
+
+                  et revenir
+                  <template v-if="request.when.return.specificHour"> à <span class="answer">{{$moment(request.when.return.specificHour).format('HH[h]mm')}}</span> 
+                  </template>
+
+                  <template v-if="request.when.return.marginHour">
+                    <span class="answer">{{getLabelForKeyToDisplay(returnHours,request.when.return.marginHour)}}</span>
+                  </template>.
                 </div>
 
-                <template v-if="request.when.departure.specificDate">
-                  {{$moment(request.when.departure.specificDate).format('DD MMMM YYYY')}}
-                </template>
+                <div class="mc-st-summary-card">
+                  <div class="mc-st-summary-card-header">
+                    <span>Votre aller</span>
+                    <span v-if="request.when.departure.marginHour">, {{getLabelForKeyToDisplay(departureHours,request.when.departure.marginHour)}}</span>
+                  </div>
+                  <div class="mc-st-summary-card-content">
+                    <div class="times" v-if="request.when.departure.specificHour">
+                      <div class="time as-from">{{$moment(request.when.departure.specificHour).format('HH[h]mm')}}</div>
+                    </div>
+                    <div class="times" v-else></div>
+                    <div class="places">
+                      <div class="place as-from" v-if="request.origin">
+                        <span class="city">{{request.origin.county}}</span>
+                        <span class="address">{{request.origin.streetAddress}}</span>
+                      </div>
+                      <div class="place as-to">
+                        <template v-if="request.destination">
+                          <span class="city">{{request.destination.county}}</span>
+                          <span class="address">{{request.destination.streetAddress}}</span>
+                        </template>
+                        <template v-else>
+                          <span class="city">A définir ultérieurement</span>
+                        </template>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mc-st-summary-card">
+                  <div class="mc-st-summary-card-header">
+                    <span>Votre retour</span>
+                    <span v-if="request.when.return.marginHour">, {{getLabelForKeyToDisplay(returnHours,request.when.return.marginHour)}}</span>
+                  </div>
+                  <div class="mc-st-summary-card-content">
+                    <div class="times" v-if="request.when.return.specificHour">
+                      <div class="time as-from">{{$moment(request.when.return.specificHour).format('HH[h]mm')}}</div>
+                    </div>
+                    <div class="times" v-else></div>
+                    <div class="places">
+                      <div class="place as-from">
+                        <template v-if="request.destination">
+                          <span class="city">{{request.destination.county}}</span>
+                          <span class="address">{{request.destination.streetAddress}}</span>
+                        </template>
+                        <template v-else>
+                          <span class="city">A définir ultérieurement</span>
+                        </template>
+                      </div>
+                      <div class="place as-to" v-if="request.origin">
+                        <span class="city">{{request.origin.county}}</span>
+                        <span class="address">{{request.origin.streetAddress}}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
               </template>
 
@@ -78,10 +152,11 @@
                   </div>
                   <div class="mc-st-summary-card-content">
                     <div class="times" v-if="request.when.departure.specificHour">
-                      <div class="time as-from">{{$moment(request.when.departure.specificHour).format('HH:mm')}}</div>
+                      <div class="time as-from">{{$moment(request.when.departure.specificHour).format('HH[h]mm')}}</div>
                     </div>
+                    <div class="times" v-else></div>
                     <div class="places">
-                      <div class="place as-from">
+                      <div class="place as-from" v-if="request.origin">
                         <span class="city">{{request.origin.county}}</span>
                         <span class="address">{{request.origin.streetAddress}}</span>
                       </div>
@@ -105,24 +180,20 @@
                   </div>
                   <div class="mc-st-summary-card-content">
                     <div class="times" v-if="request.when.return.specificHour">
-                      <div class="time as-from">{{$moment(request.when.return.specificHour).format('HH:mm')}}</div>
+                      <div class="time as-from">{{$moment(request.when.return.specificHour).format('HH[h]mm')}}</div>
                     </div>
+                    <div class="times" v-else></div>
                     <div class="places">
                       <div class="place as-from">
                         <template v-if="request.destination">
-                          <template v-if="request.destination">
-                            <span class="city">{{request.destination.county}}</span>
-                            <span class="address">{{request.destination.streetAddress}}</span>
-                          </template>
-                          <template v-else>
-                            <span class="city">A définir ultérieurement</span>
-                          </template>
+                          <span class="city">{{request.destination.county}}</span>
+                          <span class="address">{{request.destination.streetAddress}}</span>
                         </template>
                         <template v-else>
                           <span class="city">A définir ultérieurement</span>
                         </template>
                       </div>
-                      <div class="place as-to">
+                      <div class="place as-to" v-if="request.origin">
                         <span class="city">{{request.origin.county}}</span>
                         <span class="address">{{request.origin.streetAddress}}</span>
                       </div>
@@ -131,7 +202,7 @@
                 </div>
 
                 <div class="mc-st-summary-text" v-if="request.subject">
-                  Je ferai ce trajet du <span class="answer">{{$moment(request.when.departure.specificDate).format('DD MMMM YYYY')}}</span> au <span class="answer">{{$moment(request.when.return.specificDate).format('DD MMMM YYYY')}}</span><template v-if="request.when.return.marginHour === 'no-need'"> et <span class="answer">{{getLabelForKeyToDisplay(returnHours,request.when.return.marginHour)}}</span></template>.
+                  Je ferai ce trajet du <span class="answer">{{$moment(request.when.departure.specificDate).format('D MMMM YYYY')}}</span> au <span class="answer">{{$moment(request.when.return.specificDate).format('D MMMM YYYY')}}</span><template v-if="request.when.return.marginHour === 'no-need'"> et <span class="answer">{{getLabelForKeyToDisplay(returnHours,request.when.return.marginHour)}}</span></template>.
                 </div>
 
               </template>
@@ -172,6 +243,8 @@ export default {
   data () {
     return {
       processing: false,
+      success: false,
+      departureDates: this.$t('solidaryTransport.request.form.fields.when.departure.dates'),
       departureDays: this.$t('solidaryTransport.request.form.fields.when.departure.days'),
       departureHours: this.$t('solidaryTransport.request.form.fields.when.departure.hours'),
       returnHours: this.$t('solidaryTransport.request.form.fields.when.return.hours')
@@ -196,12 +269,6 @@ export default {
   methods: {
     validate: function () {
       if (!this.processing) {
-        console.log('\n\n\nRequest To send', this.request)
-        console.log('Frequency', this.request.frequency)
-        console.log('Days', this.request.days)
-        console.log('Departure', this.request.when.departure)
-        console.log('Return', this.request.when.return)
-
         this.processing = true
         this.$store.dispatch('postSolidaryResource')
           .then((data) => {
@@ -209,7 +276,6 @@ export default {
             this.$router.push({name:'solidaryTransport.home'})
           })
           .catch((error) => {
-            console.error(error)
             this.presentToast("Une erreur est survenue", 'danger')
           })
           .finally(() => {

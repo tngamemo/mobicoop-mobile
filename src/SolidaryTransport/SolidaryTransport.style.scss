@@ -828,11 +828,16 @@ ion-content {
             position: relative;
             display: flex;
             flex-direction: row;
+            flex-wrap: wrap;
+
+            .city, .address {
+              flex: 1 0 100%;
+              padding-left: 5px;
+              padding-right: 10px;
+            }
 
             .city {
               font-weight: bold;
-              padding-left: 5px;
-              padding-right: 10px;
             }
 
             .address {
