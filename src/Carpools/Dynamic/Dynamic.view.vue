@@ -134,7 +134,7 @@ LICENSE
               <div class="text-right"><small>{{currentAsk.id}}</small></div>
               <div v-if="currentAsk.status == 1" class="text-center">Covoiturage Demandé</div>
               <div v-if="currentAsk.status == 2" class="text-center">Covoiturage Accepté</div>
-              <div v-if="currentAsk.message" class="text-center">Message : {{currentAsk.message}}</div>
+              <div v-if="currentAsk.message" class="text-center">{{currentAsk.message}}</div>
               <div v-if="currentAsk.messages"><div class="text-center" v-for="message in currentAsk.messages">{{message.text}}</div></div>
 
               <div v-if="currentProof.id" class="text-center">
@@ -451,7 +451,12 @@ LICENSE
           "proofId": this.currentProof.id,
           "latitude": this.myPosition.latitude,
           "longitude": this.myPosition.longitude,
-        });
+        }).then(() => {
+          if (this.currentDynamic.role == 2) {
+            this.presentToast("Vous avez terminé votre covoiturage", "success");
+            this.stopBackgroundGeolocation();
+          }
+        });;
       },
       startBackgroundGeolocation() {
         const config = {

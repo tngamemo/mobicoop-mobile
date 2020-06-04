@@ -56,6 +56,7 @@ LICENSE
 
           <ion-button
             v-if="!isInCommunity"
+            :disabled="community.domain && isNotInDomain()"
             class="mc-big-button join-community"
             color="success"
             expand="block"
@@ -357,6 +358,12 @@ export default {
 
     isOwner() {
       return this.$store.getters.userId === this.idCommunityReferent
+    },
+
+    isNotInDomain() {
+      const email = this.$store.state.userStore.user.email;
+      const res = !email.includes(this.community.domain);
+      return res;
     }
 
   }

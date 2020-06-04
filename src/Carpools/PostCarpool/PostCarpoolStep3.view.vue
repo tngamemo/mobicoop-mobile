@@ -97,7 +97,6 @@ LICENSE
       <ion-item lines="none" class="item-communities">
       <ion-label position="floating">{{$t('PostCarpool.my-communities')}}</ion-label>
       <ion-select
-        @ionChange="selectCommunities($event.target.value)"
         v-if="this.$store.getters.userCommunities && this.$store.getters.statusUserCommunities == 'success'"
         placeholder="Sélectionnez une communauté"
         interface="alert"
@@ -217,7 +216,6 @@ export default {
         touchZoom: isPlatform(window.document.defaultView, "mobile"),
         tap: !isPlatform(window.document.defaultView, "mobile")
       },
-      selectedCommunities: []
     };
   },
   validations: {
@@ -265,6 +263,10 @@ export default {
       );
       if (!!this.$refs.map) this.$refs.map.mapObject.invalidateSize();
       return bounds;
+    },
+
+    selectedCommunities() {
+      return this.$store.getters.carpoolToPost.communities;
     },
 
     carpoolToPost() {
@@ -345,12 +347,6 @@ export default {
       this.$store.getters.addressessUseToPost["step"].push({});
     },
 
-    selectCommunities(value) {
-      this.$store.state.carpoolStore.carpoolToPost.communities = [];
-      value.forEach(id =>
-        this.$store.state.carpoolStore.carpoolToPost.communities.push(parseInt(id))
-      );
-    }
   }
 };
 </script>

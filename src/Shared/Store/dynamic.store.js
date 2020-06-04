@@ -256,6 +256,9 @@ export const dynamicStore = {
         http.put("/dynamic_proofs/" + params.proofId, params ).then(resp => {
           if (resp) {
             commit('post_dynamic_proof_success', resp);
+            if (state.currentDynamic.role == 2) {
+              commit('reset_current_dynamic')
+            }
             resolve(resp)
           }
         }).catch(err => {
