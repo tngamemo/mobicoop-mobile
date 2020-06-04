@@ -247,32 +247,6 @@ ion-content {
           }
         }
 
-        .mc-st-form-days-wrapper {
-          padding-top: 10px;
-          margin-bottom: 20px;
-          text-align: center;
-
-          .mc-st-form-day {
-            --background: var(--ion-color-light);
-            --color: var(--ion-color-primary);
-            width: 32px;
-            height: 32px;
-            --padding-start: 0;
-            --padding-end: 0;
-            --border-radius: 32px;
-            --border-color: var(--ion-color-primary);
-            --border-style: solid;
-            --border-width: 1px;
-            transition: background .3s, color .3s;
-
-            .label {
-              font-size: 12px;
-              text-transform: none;
-              font-weight: bold;
-            }
-          }
-        }
-
         .mc-st-form-checkbox-wrapper {
           padding-left: 15px;
           padding-top: 10px;
@@ -420,6 +394,32 @@ ion-content {
           span {
             display: inline-block;
           }
+        }
+      }
+    }
+
+    .mc-st-form-days-wrapper {
+      padding-top: 10px;
+      margin-bottom: 20px;
+      text-align: center;
+
+      .mc-st-form-day {
+        --background: var(--ion-color-light);
+        --color: var(--ion-color-primary);
+        width: 32px;
+        height: 32px;
+        --padding-start: 0;
+        --padding-end: 0;
+        --border-radius: 32px;
+        --border-color: var(--ion-color-primary);
+        --border-style: solid;
+        --border-width: 1px;
+        transition: background .3s, color .3s;
+
+        .label {
+          font-size: 12px;
+          text-transform: none;
+          font-weight: bold;
         }
       }
     }

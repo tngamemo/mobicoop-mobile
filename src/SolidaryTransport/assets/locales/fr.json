@@ -20,9 +20,7 @@
         "female": "Madame"
       },
       "loading": "Chargement",
-      "maxFileSize": "Le fichier que vous tentez d'envoyer ne doit pas dépasser 1Mo",
-      "days": ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"],
-      "months": ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"]
+      "maxFileSize": "Le fichier que vous tentez d'envoyer ne doit pas dépasser 1Mo"
     },
     "navigation": {
       "home": "Accueil",
@@ -81,38 +79,31 @@
               "days": [
                 { 
                   "value": "mon",
-                  "label": "L",
-                  "text": "Lundi"
+                  "label": "L"
                 },
                 { 
                   "value": "tue",
-                  "label": "Ma",
-                  "text": "Mardi"
+                  "label": "Ma"
                 },
                 { 
                   "value": "wed",
-                  "label": "Me",
-                  "text": "Mercredi"
+                  "label": "Me"
                 },
                 { 
                   "value": "thu",
-                  "label": "J",
-                  "text": "Jeudi"
+                  "label": "J"
                 },
                 { 
                   "value": "fri",
-                  "label": "V",
-                  "text": "Vendredi"
+                  "label": "V"
                 },
                 { 
                   "value": "sat",
-                  "label": "S",
-                  "text": "Samedi"
+                  "label": "S"
                 },
                 { 
                   "value": "sun",
-                  "label": "D",
-                  "text": "Dimanche"
+                  "label": "D"
                 }
               ],
               "hours": [

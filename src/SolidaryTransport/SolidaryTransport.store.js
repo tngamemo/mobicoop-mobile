@@ -787,15 +787,18 @@ export const solidaryTransportStore = {
       }
       return
     },
-    getCityToDisplay: () => (address) => {
-      if (address) {
-        return `${address.addressLocality}`
+    getRequestSubjectToDisplay: () => (request) => {
+      if (!_.isUndefined(request)) {
+        if (!_.isUndefined(request.subject) && !_.isUndefined(request.structure)) {
+          return _.find(request.structure.subjects, {'id': request.subject}).label.toLowerCase()
+        }
       }
       return
     },
-    getRequestSubjectToDisplay: () => (request) => {
-      if (request.subject && request.structure) {
-        return _.find(request.structure.subjects, {'id': request.subject}).label.toLowerCase()
+    getLabelForKeyToDisplay: () => (values, key) => {
+      if (!_.isUndefined(values) && !_.isUndefined(key)) {
+        console.log(values, key)
+        return _.find(values, {'value': key}).label.toLowerCase()
       }
       return
     },
