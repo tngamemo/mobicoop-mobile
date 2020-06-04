@@ -109,19 +109,7 @@ export default {
       }
     },
     validate: function () {
-      this.$v.$reset();
-      this.$v.$touch();
-      if (this.$v.$invalid) {
-        this.$refs.volunteer.getScrollElement().then((parent) => {
-          let child = document.getElementsByClassName('mc-st-form-error')[0]
-          var childPos = child.offsetTop
-          var parentPos = parent.offsetTop
-          var top = childPos - parentPos - 30
-          this.$refs.volunteer.scrollToPoint(0, top, 0)
-        })
-      } else {
-        this.$router.push({name: 'solidaryTransport.home.volunteer.availabilities'})
-      }
+      this.$router.push({name: 'solidaryTransport.home.volunteer.availabilities'})
     }
   },
   created: function () {

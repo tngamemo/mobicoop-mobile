@@ -88,6 +88,11 @@ export const solidaryTransportStore = {
         }
       },
       volunteer: {
+        userAgreementAccepted: false,
+        languages: [],
+        needs: [],
+        comment: undefined,
+        vehicle: true,
         telephone: undefined,
         givenName: undefined,
         password: undefined,
@@ -97,11 +102,18 @@ export const solidaryTransportStore = {
         gender: 0,
         homeAddress: undefined,
         structure: undefined,
+        hasStructure: false,
+        mMin: 8,
         mMinTime: undefined,
+        mMax: 13,
         mMaxTime: undefined,
+        aMin: 13,
         aMinTime: undefined,
+        aMax: 18,
         aMaxTime: undefined,
+        eMin: 18,
         eMinTime: undefined,
+        eMax: 21,
         eMaxTime: undefined,
         mMon: false,
         aMon: false,
@@ -194,6 +206,11 @@ export const solidaryTransportStore = {
         }
       },
       volunteer: {
+        userAgreementAccepted: false,
+        languages: [],
+        needs: [],
+        comment: undefined,
+        vehicle: true,
         telephone: undefined,
         givenName: undefined,
         password: undefined,
@@ -204,11 +221,17 @@ export const solidaryTransportStore = {
         homeAddress: undefined,
         structure: undefined,
         hasStructure: false,
+        mMin: 8,
         mMinTime: undefined,
+        mMax: 13,
         mMaxTime: undefined,
+        aMin: 13,
         aMinTime: undefined,
+        aMax: 18,
         aMaxTime: undefined,
+        eMin: 18,
         eMinTime: undefined,
+        eMax: 21,
         eMaxTime: undefined,
         mMon: false,
         aMon: false,
@@ -402,6 +425,17 @@ export const solidaryTransportStore = {
       delete address['id']
       delete address['geoJson']
       state.temporary.request.destination = address
+    },
+
+    // Volunteer
+    solidaryVolunteerHomeAddressUpdate(state, address) {
+      address = _.cloneDeep(address)
+      // Remove useless elements
+      delete address['@id']
+      delete address['@type']
+      delete address['id']
+      delete address['geoJson']
+      state.temporary.volunteer.homeAddress = address
     }
   },
   actions: {

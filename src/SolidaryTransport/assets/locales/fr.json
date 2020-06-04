@@ -20,7 +20,8 @@
         "female": "Madame"
       },
       "loading": "Chargement",
-      "maxFileSize": "Le fichier que vous tentez d'envoyer ne doit pas dépasser 1Mo"
+      "maxFileSize": "Le fichier que vous tentez d'envoyer ne doit pas dépasser 1Mo",
+      "other": "Autre"
     },
     "navigation": {
       "home": "Accueil",
@@ -42,11 +43,71 @@
         "fields": {
           "volunteerByMyself": "Je propose ce bénévolat hors cadre d’une institution et simplement de ma propre initiative.",
           "volunteerByStructure": "Je souhaite faire ce bénévolat dans le cadre d'une structure accompagnante.",
-          "structure": "Structure accompagnante"
+          "structure": "Structure accompagnante",
+          "availabilities": {
+            "ranges": {
+              "title": "Mes plages de disponibilités :",
+              "morning": "Le matin :",
+              "afternoon": "L'après-midi :",
+              "evening": "Le soir :"
+            },
+            "days": {
+              "title": "Mes disponibilités journalières",
+              "morning": "Je suis disponible le matin (8h-13h) :",
+              "afternoon": "Je suis disponible l’après-midi (13h-18h) :",
+              "evening": "Je suis disponible en soirée (18h-21h) :"
+            }
+          },
+          "days": [
+            { 
+              "value": "Mon",
+              "label": "L"
+            },
+            { 
+              "value": "Tue",
+              "label": "Ma"
+            },
+            { 
+              "value": "Wed",
+              "label": "Me"
+            },
+            { 
+              "value": "Thu",
+              "label": "J"
+            },
+            { 
+              "value": "Fri",
+              "label": "V"
+            },
+            { 
+              "value": "Sat",
+              "label": "S"
+            },
+            { 
+              "value": "Sun",
+              "label": "D"
+            }
+          ],
+          "perimeter": "Mon périmètre de trajets :",
+          "needs": "Je suis prêt à :",
+          "vehicle": "Je possède un véhicule :",
+          "language": "Langues parlées :",
+          "languages": [
+            {
+              "value": "fr",
+              "label": "Français"
+            },
+            {
+              "value": "en",
+              "label": "Anglais"
+            },
+            {
+              "value": "ar",
+              "label": "Arabe"
+            }
+          ]
         },
-        "validators": {
-
-        }
+        "validators": {}
       }
     },
     "request": {
@@ -204,6 +265,9 @@
         "home": "Adresse de domicile",
         "origin": "Adresse de départ",
         "destination": "Adresse d'arrivée"
+      },
+      "volunteer": {
+        "home": "Adresse de domicile"
       }
     },
     "register": {

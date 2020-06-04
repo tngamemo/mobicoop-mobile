@@ -191,7 +191,6 @@ export default {
         case "solidaryTransport.search": {
           this.$store.commit("solidaryAddressUpdate", address)
 
-          console.log(this.type)
           switch (this.type) {
             case "register": {
               this.$store.commit("solidaryUserAddressUpdate", address)
@@ -210,6 +209,11 @@ export default {
 
             case "request.destination": {
               this.$store.commit("solidaryRequestDestinationAddressUpdate", address)
+              break;
+            }
+
+            case "volunteer.home": {
+              this.$store.commit("solidaryVolunteerHomeAddressUpdate", address)
               break;
             }
           }
