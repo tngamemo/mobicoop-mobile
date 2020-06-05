@@ -472,26 +472,15 @@ export const solidaryTransportStore = {
   },
   actions: {
     getSolidaryArticle({commit, state}, id){
-      if (state.help.status === 'success') {
-        return new Promise((resolve, reject) => {
-          resolve(state.help.article)
+      return new Promise((resolve, reject) => {
+        http.get("/articles/" + id)
+        .then(response => {
+          resolve(response.data)
         })
-      } else {
-        commit('solidaryHelpRequest')
-        return new Promise((resolve, reject) => {
-          http.get("/articles/" + id)
-          .then(response => {
-            if (response) {
-              commit('solidaryHelpSuccess', response.data)
-              resolve(state.help.article)
-            }
-          })
-          .catch(err => {
-            commit('solidaryHelpError')
-            reject(err)
-          })
+        .catch(err => {
+          reject(err)
         })
-      }
+      })
     },
     getSolidaryStructuresByGeolocation({commit, state}, {lat, lng}){
       // if (state.structures.status === 'success') {
@@ -560,6 +549,17 @@ export const solidaryTransportStore = {
         } else {
           reject('Solidary not found')
         }
+      })
+    },
+    getVolunteerDetails({commit, state}, id){
+      return new Promise((resolve, reject) => {
+        // let solidary = _.find(state.solidaries.objects, {id: parseInt(id)})
+        // if (!_.isUndefined(solidary)) {
+        //   resolve(solidary)
+        // } else {
+        //   reject('Solidary not found')
+        // }
+        resolve(undefined)
       })
     },
     registerStandardUser: ({commit, state}) => {

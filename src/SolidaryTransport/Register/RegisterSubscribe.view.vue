@@ -322,8 +322,7 @@ export default {
       this.$router.push({ name: "solidaryTransport.geoSearch", query: { action: 'solidaryTransport.search', type: 'register' }});
     },
     displayCGU: function () {
-      console.log(process.env.VUE_APP_SOLIDARY_CGU_ARTICLE_ID)
-      console.log('DisplayModalArticle for id : ' + process.env.VUE_APP_SOLIDARY_CGU_ARTICLE_ID)
+      this.$router.push({ name: "solidaryTransport.article", query: { id: process.env.VUE_APP_SOLIDARY_CGU_ARTICLE_ID, title: this.$t('solidaryTransport.commons.cgu')}});
     },
     checkMail: _.debounce(function() {
       if (!this.registered) {

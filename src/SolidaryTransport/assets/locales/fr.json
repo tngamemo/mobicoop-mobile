@@ -21,7 +21,8 @@
       },
       "loading": "Chargement",
       "maxFileSize": "Le fichier que vous tentez d'envoyer ne doit pas dépasser 1Mo",
-      "other": "Autre"
+      "other": "Autre",
+      "cgu": "CGU"
     },
     "navigation": {
       "home": "Accueil",
@@ -328,7 +329,7 @@
         "manage": "Gérer mes alertes",
         "logout": "Se déconnecter",
         "delete": "Supprimer mon compte",
-        "availabities": "Disponibilités",
+        "availabilities": "Disponibilités",
         "journeys": "Trajets",
         "requests": "Demandes"
       },

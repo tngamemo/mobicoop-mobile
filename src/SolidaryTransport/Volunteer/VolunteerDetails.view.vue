@@ -25,7 +25,7 @@
             </div>
 
             <div class="mc-st-form-item">
-              <ion-label class="mc-st-form-label as-intro no-white-space" color="primary">{{$t('solidaryTransport.volunteer.form.fields.perimeter')}}</ion-label>
+              <ion-label class="mc-st-form-label as-title no-white-space" color="primary">{{$t('solidaryTransport.volunteer.form.fields.perimeter')}}</ion-label>
 
               <div class="mc-st-form-range-wrapper">
                 <ion-range 
@@ -178,8 +178,7 @@ export default {
   mixins: [toast],
   methods: {
     displayCGU: function () {
-      console.log(process.env.VUE_APP_SOLIDARY_CGU_ARTICLE_ID)
-      console.log('DisplayModalArticle for id : ' + process.env.VUE_APP_SOLIDARY_CGU_ARTICLE_ID)
+      this.$router.push({ name: "solidaryTransport.article", query: { id: process.env.VUE_APP_SOLIDARY_CGU_ARTICLE_ID, title: this.$t('solidaryTransport.commons.cgu')}});
     },
     changeLanguages: function ($event) {
       this.volunteer.languages.push($event.target.value)

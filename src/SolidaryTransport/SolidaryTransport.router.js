@@ -302,5 +302,10 @@ export default [
     name: 'solidaryTransport.geoSearch',
     component: GeoSearch
   },
+  {
+    path: 'article',
+    name: 'solidaryTransport.article',
+    component: Help
+  },
 ]
 

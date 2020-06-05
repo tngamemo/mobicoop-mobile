@@ -5,7 +5,7 @@
         <ion-buttons slot="start">
           <ion-back-button text=""></ion-back-button>
         </ion-buttons>
-        <ion-title text-center>{{$t('solidaryTransport.help.title')}}</ion-title>
+        <ion-title text-center>{{$route.query.title || $t('solidaryTransport.help.title')}}</ion-title>
       </ion-toolbar>
     </ion-header>
 
@@ -83,7 +83,7 @@ export default {
   },
   created: function () {
     // Get articles for help
-    this.$store.dispatch('getSolidaryArticle', process.env.VUE_APP_SOLIDARY_HELP_ARTICLE_ID)
+    this.$store.dispatch('getSolidaryArticle', this.$route.query.id || process.env.VUE_APP_SOLIDARY_HELP_ARTICLE_ID)
       .then((article) => {
         this.article = article
       })
