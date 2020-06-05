@@ -18,6 +18,9 @@ export const solidaryTransportStore = {
       objects: undefined,
       status: ''
     },
+    solidaries: {
+      objects: undefined
+    },
     register: {
       status: ''
     },
@@ -331,6 +334,10 @@ export const solidaryTransportStore = {
       state.structures.objects = structures
     },
 
+    mySolidariesSuccess(state, solidaries){
+      state.solidaries.objects = solidaries
+    },
+
     solidaryStructuresError(state){
       state.structures.status = 'error';
     },
@@ -516,8 +523,8 @@ export const solidaryTransportStore = {
       // } else {
         commit('solidaryStructuresRequest')
         return new Promise((resolve, reject) => {
-          //http.get(`/structures`) // rustine ci-dessous
-          http.get(`/structures/geolocation?lat=48.858612&lon=2.339162`)
+          http.get(`/structures`) // quick fix below
+          //http.get(`/structures/geolocation?lat=48.858612&lon=2.339162`)
           .then(response => {
             if (response) {
               commit('solidaryStructuresSuccess', response.data['hydra:member'])
@@ -530,6 +537,34 @@ export const solidaryTransportStore = {
           })
         })
       //}
+    },
+    getMySolidaries({commit, state}){
+      return new Promise((resolve, reject) => {
+        http.get(`/solidaries/mySolidaries`)
+        .then(response => {
+          if (response) {
+            commit('mySolidariesSuccess', response.data['hydra:member'])
+            resolve(state.solidaries.objects)
+          }
+        })
+        .catch(err => {
+          reject(err)
+        })
+      })
+    },
+    getSolidary({commit, state}, id){
+      return new Promise((resolve, reject) => {
+        http.get(`/solidaries/${id}`)
+        .then(response => {
+          if (response) {
+            console.log(response)
+            resolve(response.data['hydra:member'])
+          }
+        })
+        .catch(err => {
+          reject(err)
+        })
+      })
     },
     registerStandardUser: ({commit, state}) => {
       let user = _.cloneDeep(state.temporary.user)

@@ -17,6 +17,8 @@ import ProfileNotifications from './Profile/ProfileNotifications.view.vue';
 import ProfileVehicle from './Profile/ProfileVehicle.view.vue';
 import ProfileRealtime from './Profile/ProfileRealtime.view.vue';
 import ProfileAgenda from './Profile/ProfileAgenda.view.vue';
+import ProfileRequests from './Profile/ProfileRequests.view.vue';
+import ProfileRequest from './Profile/ProfileRequest.view.vue';
 import Messages from './Messages/Messages.view.vue';
 
 // Solidary
@@ -246,6 +248,22 @@ export default [
         name: 'solidaryTransport.profile.agenda',
         components: {
           profile: ProfileAgenda
+        },
+        beforeEnter: preventAccess
+      },
+      {
+        path: '/solidary-transport/profile/requests',
+        name: 'solidaryTransport.profile.requests',
+        components: {
+          profile: ProfileRequests
+        },
+        beforeEnter: preventAccess
+      },
+      {
+        path: '/solidary-transport/profile/requests/request',
+        name: 'solidaryTransport.profile.requests.request',
+        components: {
+          profile: ProfileRequest
         },
         beforeEnter: preventAccess
       },

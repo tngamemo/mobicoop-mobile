@@ -8,7 +8,9 @@
     </ion-header>
 
     <ion-content color="primary">
-      <div class="mc-st-container"><span style="color: black">Messages</span></div>
+      <div class="mc-st-container"><span style="color: black">threadsCarpoolMessages -> CarPool <br>
+        /users/{id}/threadsDirectMessages -> DirectMessages <br>
+        threadsSolidaryTransportMessages ???</span></div>
     </ion-content>
   </ion-page>
 </template>

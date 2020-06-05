@@ -324,6 +324,7 @@
       "actions": {
         "agenda": "Mon agenda bénévole",
         "requests": "Mes demandes solidaires",
+        "newRequest": "Faire une nouvelle demande",
         "manage": "Gérer mes alertes",
         "logout": "Se déconnecter",
         "delete": "Supprimer mon compte"
@@ -358,6 +359,9 @@
       },
       "agenda": {
         "title": "Mon agenda"
+      },
+      "requests": {
+        "title": "Mes demandes solidaires"
       },
       "notifications": {
         "title": "Mes alertes",
