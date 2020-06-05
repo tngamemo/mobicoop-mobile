@@ -7,7 +7,7 @@
             <ion-icon slot="icon-only" name="custom-logo"></ion-icon>
           </ion-button>
         </ion-buttons>
-        <ion-title>{{ title }}</ion-title>
+        <ion-title>{{ brand }}</ion-title>
         <ion-icon
         slot="end"
           v-if="numberOfModule > 1"
@@ -45,9 +45,10 @@
                 v-html="$t('solidaryTransport.home.actions.becomeVolunteer')"
                 @click="$router.push({name:'solidaryTransport.home.volunteer'})"
               ></ion-button>
-              <ion-button class="mc-st-action as-light" color="light">
+              <ion-button class="mc-st-action as-light" color="light" @click="$refs['call'].click()">
                 <ion-icon slot="start" name="chatboxes"></ion-icon>
-                <span v-html="$t('solidaryTransport.home.actions.contact', {'brand': title})"></span>
+                <span v-html="$t('solidaryTransport.home.actions.contact', {'brand': brand})"></span>
+                <a ref="call" :href="support" style="display:none;"></a>
               </ion-button>
             </div>
           </div>
@@ -103,9 +104,10 @@
                 <span v-html="$t('solidaryTransport.home.actions.help')"></span>
               </ion-button>
 
-              <ion-button class="mc-st-action as-light" color="light">
+              <ion-button class="mc-st-action as-light" color="light" @click="$refs['call'].click()">
                 <ion-icon slot="start" name="chatboxes"></ion-icon>
-                <span v-html="$t('solidaryTransport.home.actions.contact', {'brand': title})"></span>
+                <span v-html="$t('solidaryTransport.home.actions.contact', {'brand': brand})"></span>
+                <a ref="call" :href="support" style="display:none;"></a>
               </ion-button>
             </div>
           </div>
@@ -161,8 +163,9 @@ export default {
   },
   data() {
     return {
-      title: process.env.VUE_APP_NAME,
-      appModule: JSON.parse(process.env.VUE_APP_MODULE)
+      brand: process.env.VUE_APP_NAME,
+      appModule: JSON.parse(process.env.VUE_APP_MODULE),
+      support: process.env.VUE_APP_SOLIDARY_SUPPORT_HELP
     };
   },
   computed: {

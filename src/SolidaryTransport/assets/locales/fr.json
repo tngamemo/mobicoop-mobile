@@ -105,7 +105,10 @@
               "value": "ar",
               "label": "Arabe"
             }
-          ]
+          ],
+          "comment": "Un commentaire ?",
+          "commentSample": "Commentaire sur ce bénévolat (par exemple, “je dépose mes enfants à l’école avant d’aller au travail”)"
+
         },
         "validators": {}
       }
@@ -295,7 +298,7 @@
           "address": "Commune de résidence",
           "visibility": "Visible par tous",
           "agreement": {
-            "accept": "J’ai lu et j’accepte les conditions générales d’utilisation* du service et la politique de gestion des données pratiquées par [nom de l’opérateur]",
+            "accept": "J’ai lu et j’accepte les conditions générales d’utilisation* du service et la politique de gestion des données pratiquées par {brand}",
             "read": "*Voir les <u>conditions générales d’utilisation<u>"
           }
         },

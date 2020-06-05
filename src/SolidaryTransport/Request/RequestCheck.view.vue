@@ -219,9 +219,9 @@
             <ion-button class="mc-st-form-control as-back" color="light" v-html="$t('solidaryTransport.buttons.back')" @click="$router.back()"></ion-button>
 
             <ion-button class="mc-st-form-control as-back" color="primary" @click="$refs['call'].click()">
-              <ion-icon slot="start" name="call"></ion-icon>
+              <ion-icon slot="start" name="chatboxes"></ion-icon>
               <span v-html="$t('solidaryTransport.buttons.askHelp')"></span>
-              <a ref="call" href="tel:+33666869278" style="display:none;"></a>
+              <a ref="call" :href="support" style="display:none;"></a>
             </ion-button>
 
             <ion-button class="mc-st-form-control" color="success" v-html="$t('solidaryTransport.buttons.next')" @click="validate()"></ion-button>
@@ -267,7 +267,8 @@ export default {
   data () {
     return {
       processing: false,
-      structures: undefined
+      structures: undefined,
+      support: process.env.VUE_APP_SOLIDARY_SUPPORT_HELP
     }
   },
   computed: {

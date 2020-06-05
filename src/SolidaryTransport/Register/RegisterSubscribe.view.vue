@@ -184,7 +184,7 @@
                 :value="user.userAgreementAccepted"
                 @ionChange="user.userAgreementAccepted = $event.target.checked"
               ></ion-checkbox>
-              <ion-label class="mc-st-form-label no-white-space" color="primary">{{ $t('solidaryTransport.register.form.fields.agreement.accept') }}</ion-label>
+              <ion-label class="mc-st-form-label no-white-space" color="primary">{{ $t('solidaryTransport.register.form.fields.agreement.accept', {'brand': brand}) }}</ion-label>
             </ion-item>
             <div class="mc-st-form-details">
               <span class="mc-st-form-note" @click="displayCGU()" v-html="$t('solidaryTransport.register.form.fields.agreement.read')"></span>
@@ -243,7 +243,8 @@ export default {
       debounced: undefined,
       password: undefined,
       showPassword: false,
-      minAge: process.env.VUE_APP_REGISTER_MIN_AGE
+      minAge: process.env.VUE_APP_REGISTER_MIN_AGE,
+      brand: process.env.VUE_APP_NAME
     }
   },
   computed: {

@@ -104,17 +104,17 @@ export const solidaryTransportStore = {
         structure: undefined,
         hasStructure: false,
         mMin: 8,
-        mMinTime: undefined,
+        mMinTime: 8,
         mMax: 13,
-        mMaxTime: undefined,
+        mMaxTime: 13,
         aMin: 13,
-        aMinTime: undefined,
+        aMinTime: 13,
         aMax: 18,
-        aMaxTime: undefined,
+        aMaxTime: 18,
         eMin: 18,
-        eMinTime: undefined,
+        eMinTime: 18,
         eMax: 21,
-        eMaxTime: undefined,
+        eMaxTime: 21,
         mMon: false,
         aMon: false,
         eMon: false,
@@ -135,7 +135,10 @@ export const solidaryTransportStore = {
         eSat: false,
         mSun: false,
         aSun: false,
-        eSun: false
+        eSun: false,
+        minDeviationDistance: 5,
+        maxDeviationDistance: 50,
+        maxDistance: 5
       }
     },
     temporary: {
@@ -222,17 +225,17 @@ export const solidaryTransportStore = {
         structure: undefined,
         hasStructure: false,
         mMin: 8,
-        mMinTime: undefined,
+        mMinTime: 8,
         mMax: 13,
-        mMaxTime: undefined,
+        mMaxTime: 13,
         aMin: 13,
-        aMinTime: undefined,
+        aMinTime: 13,
         aMax: 18,
-        aMaxTime: undefined,
+        aMaxTime: 18,
         eMin: 18,
-        eMinTime: undefined,
+        eMinTime: 18,
         eMax: 21,
-        eMaxTime: undefined,
+        eMaxTime: 21,
         mMon: false,
         aMon: false,
         eMon: false,
@@ -253,7 +256,10 @@ export const solidaryTransportStore = {
         eSat: false,
         mSun: false,
         aSun: false,
-        eSun: false
+        eSun: false,
+        minDeviationDistance: 5,
+        maxDeviationDistance: 50,
+        maxDistance: 5
       }
     }
   },
@@ -395,8 +401,8 @@ export const solidaryTransportStore = {
       })
 
       // Subjects
-      if (structure.needs.length !== 0) {
-        state.temporary.request.subject = structure.needs[0].id
+      if (structure.subjects.length !== 0) {
+        state.temporary.request.subject = structure.subjects[0].id
       }
     },
     solidaryRequestHomeAddressUpdate(state, address) {
@@ -428,6 +434,10 @@ export const solidaryTransportStore = {
     },
 
     // Volunteer
+    postSolidaryVolunteerSuccess: (state) => {
+      state.temporary.volunteer = _.cloneDeep(state.default.volunteer)
+    },
+
     solidaryVolunteerHomeAddressUpdate(state, address) {
       address = _.cloneDeep(address)
       // Remove useless elements
@@ -436,7 +446,22 @@ export const solidaryTransportStore = {
       delete address['id']
       delete address['geoJson']
       state.temporary.volunteer.homeAddress = address
-    }
+    },
+    solidaryVolunteerStructureUpdate(state, structure) {
+      state.temporary.volunteer.structure = structure
+
+      // Needs
+      state.temporary.volunteer.needs = []
+      if (structure) {
+        _.each(structure.needs, (need) => {
+          let structureNeed = {
+            id: need.id,
+            value: undefined,
+          }
+          state.temporary.volunteer.needs.push(structureNeed)
+        })
+      }
+    },
   },
   actions: {
     getSolidaryArticle({commit, state}, id){
@@ -462,11 +487,11 @@ export const solidaryTransportStore = {
       }
     },
     getSolidaryStructuresByGeolocation({commit, state}, {lat, lng}){
-      if (state.structures.status === 'success') {
-        return new Promise((resolve, reject) => {
-          resolve(state.structures.objects)
-        })
-      } else {
+      // if (state.structures.status === 'success') {
+      //   return new Promise((resolve, reject) => {
+      //     resolve(state.structures.objects)
+      //   })
+      // } else {
         commit('solidaryStructuresRequest')
         return new Promise((resolve, reject) => {
           http.get(`/structures/geolocation?lat=${lat}&lon=${lng}`)
@@ -481,17 +506,18 @@ export const solidaryTransportStore = {
             reject(err)
           })
         })
-      }
+      //}
     },
     getSolidaryStructures({commit, state}){
-      if (state.structures.status === 'success') {
-        return new Promise((resolve, reject) => {
-          resolve(state.structures.objects)
-        })
-      } else {
+      // if (state.structures.status === 'success') {
+      //   return new Promise((resolve, reject) => {
+      //     resolve(state.structures.objects)
+      //   })
+      // } else {
         commit('solidaryStructuresRequest')
         return new Promise((resolve, reject) => {
-          http.get(`/structures`)
+          //http.get(`/structures`) // rustine ci-dessous
+          http.get(`/structures/geolocation?lat=48.858612&lon=2.339162`)
           .then(response => {
             if (response) {
               commit('solidaryStructuresSuccess', response.data['hydra:member'])
@@ -503,7 +529,7 @@ export const solidaryTransportStore = {
             reject(err)
           })
         })
-      }
+      //}
     },
     registerStandardUser: ({commit, state}) => {
       let user = _.cloneDeep(state.temporary.user)
@@ -885,6 +911,74 @@ export const solidaryTransportStore = {
           })
           .then((response) => {
             commit('postSolidaryResourceSuccess')
+            resolve()
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
+    },
+    postSolidaryVolunteer: ({commit, state}) => {
+      let volunteer = _.cloneDeep(state.temporary.volunteer)
+      let structure = volunteer.structure
+
+      // The user is connected during the request
+      if (_.isUndefined(volunteer.password)) {
+        delete volunteer['password']
+      }
+
+      // No structure selected
+      if (!volunteer.hasStructure) {
+        delete volunteer['structure']
+        volunteer.needs = []
+      } else {
+        volunteer.structure = structure['@id']
+
+        // Normalize Needs
+        let needs = volunteer.needs
+        volunteer.needs = []
+        _.each(needs, (need) => {
+          if (need.value) {
+            volunteer.needs.push(_.find(structure.needs, {id: need.id})['@id'])
+          }
+        })
+      }
+
+      let format = 'YYYY-MM-DDTHH:mm:ssZ'
+      // Normalize Range
+      volunteer.mMinTime = moment().set({hour: volunteer.mMinTime, minute: 0, second: 0}).format(format)
+      volunteer.mMaxTime = moment().set({hour: volunteer.mMaxTime, minute: 0, second: 0}).format(format)
+      volunteer.aMinTime = moment().set({hour: volunteer.aMinTime, minute: 0, second: 0}).format(format)
+      volunteer.aMaxTime = moment().set({hour: volunteer.aMaxTime, minute: 0, second: 0}).format(format)
+      volunteer.eMinTime = moment().set({hour: volunteer.eMinTime, minute: 0, second: 0}).format(format)
+      volunteer.eMaxTime = moment().set({hour: volunteer.eMaxTime, minute: 0, second: 0}).format(format)
+
+      delete(volunteer['mMin'])
+      delete(volunteer['mMax'])
+      delete(volunteer['aMin'])
+      delete(volunteer['aMax'])
+      delete(volunteer['eMin'])
+      delete(volunteer['eMax'])
+
+      // console.log(volunteer.mMinTime)
+      // console.log(volunteer.mMaxTime)
+      // console.log(volunteer.aMinTime)
+      // console.log(volunteer.aMaxTime)
+      // console.log(volunteer.eMinTime)
+      // console.log(volunteer.eMaxTime)
+
+      // Normalize maxDistance to meters
+      volunteer.maxDistance = volunteer.maxDistance * 1000 
+      // console.log(volunteer.maxDistance)
+
+      // Post Solidary
+      return new Promise((resolve, reject) => {
+        http.post("/solidary_volunteers", volunteer)
+          .then(resp => {
+            return resp.data
+          })
+          .then((response) => {
+            commit('postSolidaryVolunteerSuccess')
             resolve()
           })
           .catch(err => {

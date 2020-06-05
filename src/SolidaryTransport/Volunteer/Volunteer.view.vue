@@ -98,6 +98,10 @@ export default {
     }
   },
   methods: {
+    changeStructure: function($event) {
+      let structure = _.find(this.structures, {id: parseInt($event.target.value)})
+      this.$store.commit('solidaryVolunteerStructureUpdate', structure)
+    },
     changeHasStructure: function (value) {
       if (!this.updating) {
         this.updating = true
@@ -118,7 +122,7 @@ export default {
         
         if (structures.length !== 0) {
           if (!this.volunteer.structure) {
-            this.volunteer.structure = structures[0]
+            this.$store.commit('solidaryVolunteerStructureUpdate', _.cloneDeep(structures[0]))
           }
         }
 
