@@ -554,16 +554,12 @@ export const solidaryTransportStore = {
     },
     getSolidary({commit, state}, id){
       return new Promise((resolve, reject) => {
-        http.get(`/solidaries/${id}`)
-        .then(response => {
-          if (response) {
-            console.log(response)
-            resolve(response.data['hydra:member'])
-          }
-        })
-        .catch(err => {
-          reject(err)
-        })
+        let solidary = _.find(state.solidaries.objects, {id: parseInt(id)})
+        if (!_.isUndefined(solidary)) {
+          resolve(solidary)
+        } else {
+          reject('Solidary not found')
+        }
       })
     },
     registerStandardUser: ({commit, state}) => {

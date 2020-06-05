@@ -446,6 +446,11 @@ ion-content {
       justify-content: center;
       align-items: flex-end;
 
+      &.on-top {
+        align-items: flex-start;
+        flex: 0;
+      }
+
       &.with-multiple {
         justify-content: space-between;
       }

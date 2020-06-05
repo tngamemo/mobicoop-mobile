@@ -327,7 +327,10 @@
         "newRequest": "Faire une nouvelle demande",
         "manage": "Gérer mes alertes",
         "logout": "Se déconnecter",
-        "delete": "Supprimer mon compte"
+        "delete": "Supprimer mon compte",
+        "availabities": "Disponibilités",
+        "journeys": "Trajets",
+        "requests": "Demandes"
       },
       "personal": {
         "title": "Modifier mon profil"
