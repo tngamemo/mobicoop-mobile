@@ -42,13 +42,11 @@ LICENSE
     },
     watch:{
       $route (to, from){
-        /* Matomo route change
+        // Matomo route change
         if(JSON.parse(process.env.VUE_APP_ANALYTICS_ACTIVATED)) {
           window._paq.push(['setCustomUrl', '/' + window.location.hash.substr(1)]);
           window._paq.push(['trackPageView']);
         }
-        */
-
       }
     },
     created: function () {
@@ -68,8 +66,8 @@ LICENSE
       // Fonction qui va log l'user ou utilisé un user par défault
       this.authUserOnStart();
 
-
-
+    },
+    mounted() {
       if(JSON.parse(process.env.VUE_APP_ANALYTICS_ACTIVATED)) {
         this.initAnalytics();
       }
@@ -105,16 +103,25 @@ LICENSE
         // _paq.push(["setDocumentTitle", document.domain+"/"+document.title]);
         // _paq.push(["setCookieDomain", "*." + process.env.VUE_APP_ANALYTICS_DOMAIN]);
         // _paq.push(["setDomains", ["*." + process.env.VUE_APP_ANALYTICS_DOMAIN ]]);
-        _paq.push(['trackPageView']);
-        _paq.push(['enableLinkTracking']);
+        //_paq.push(['trackPageView']);
+        //_paq.push(['enableLinkTracking']);
         (function() {
           var u = process.env.VUE_APP_ANALYTICS_ENDPOINT;
-          _paq.push(['setTrackerUrl', "https://"+u+'/matomo.php']);
-          _paq.push(['setSiteId', process.env.VUE_APP_ANALYTICS_SITEID]);
+          //_paq.push(['setTrackerUrl', "https://"+u+'/matomo.php']);
+          //_paq.push(['setSiteId', process.env.VUE_APP_ANALYTICS_SITEID]);
           var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
           g.type='text/javascript'; g.async=true; g.defer=true; g.src= "https://"+u+'/matomo.js'; s.parentNode.insertBefore(g,s);
         })();
-
+        var mt = setInterval(function () {
+          if (Matomo.initialized) {
+            clearInterval(mt);
+            var u = process.env.VUE_APP_ANALYTICS_ENDPOINT;
+            Matomo.getAsyncTracker().setTrackerUrl( 'https://'+u+'/matomo.php');
+            Matomo.getAsyncTracker().setSiteId(process.env.VUE_APP_ANALYTICS_SITEID);
+            Matomo.getAsyncTracker().enableLinkTracking();
+            Matomo.getAsyncTracker().trackPageView();
+          }
+        }, 250);
       },
       getVersion() {
         this.$store.dispatch('getVersions').then(res => {
