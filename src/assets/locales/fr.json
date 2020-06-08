@@ -48,7 +48,7 @@
     "see-cgu": "Voir les CGU"
   },
   "ConfirmRegistration" : {
-    "title" : "Vérification de votre email",
+    "title" : "Validation du mail",
     "register-almost-done" : "L'inscription est presque finie.",
     "mail-sent" : "Un email de validation a été envoyé.",
     "copy" : "Vous pouvez maintenant valider votre compte en cliquant sur le lien de validation contenu dans l'email ou bien copier-coller le code directement ci-dessous.",

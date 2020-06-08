@@ -201,6 +201,10 @@ export const carpoolStore = {
 
     changeOptionsCarpoolPost(state, payload) {
       state.carpoolToPost[payload.property] = payload.value;
+      // if solidaryExclusive only driver is possible
+      if (state.carpoolToPost.solidaryExclusive) {
+        state.carpoolToPost.role = 1;
+      }
     },
 
     changeSelectDaySchedule(state, payload) {

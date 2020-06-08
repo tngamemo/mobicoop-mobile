@@ -129,6 +129,7 @@ LICENSE
             cancel-text="Annuler"
             done-text="Valider"
             :placeholder="$t('PostEvent.fromDate')"
+            :value="eventToPost.fromDate"
             @ionChange="eventToPost.fromDate = $event.detail.value"
           ></ion-datetime>
         </ion-item>
@@ -148,6 +149,7 @@ LICENSE
             cancel-text="Annuler"
             done-text="Valider"
             placeholder="Heure de début"
+            :value="eventToPost.fromDate"
             @ionChange="changeBeginHour($event.detail.value)"
           ></ion-datetime>
         </ion-item>
@@ -160,6 +162,7 @@ LICENSE
             cancel-text="Annuler"
             done-text="Valider"
             :placeholder="$t('PostEvent.toDate')"
+            :value="eventToPost.toDate"
             @ionChange="eventToPost.toDate = $event.detail.value"
           ></ion-datetime>
         </ion-item>
@@ -178,6 +181,7 @@ LICENSE
             cancel-text="Annuler"
             done-text="Valider"
             placeholder="Heure de fin"
+            :value="eventToPost.toDate"
             @ionChange="changeEndHour($event.detail.value)"
           ></ion-datetime>
         </ion-item>

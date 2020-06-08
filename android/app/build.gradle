@@ -6,7 +6,7 @@ android {
         applicationId "eu.covivo.covisoft"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 84
+        versionCode 85
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -20,32 +20,32 @@ android {
     productFlavors {
         mobicoop {
           applicationId 'eu.covivo.covisoft'
-          versionName '2.0.3'
+          versionName '2.0.4'
           dimension "api"
         }
         ouestgo {
             applicationId 'fr.mobicoop.ouestgo'
-            versionName '2.0.3'
+            versionName '2.0.4'
             dimension "api"
         }
         movici {
             applicationId 'fr.auvergnerhonealpes.movici'
-            versionName '2.0.3'
+            versionName '2.0.4'
             dimension "api"
         }
         picholines {
           applicationId 'eu.covivo.picholines'
-          versionName '2.0.3'
+          versionName '2.0.4'
           dimension "api"
         }
         passpass {
           applicationId 'fr.covivo.passpass'
-          versionName '2.0.3'
+          versionName '2.0.4'
           dimension "api"
         }
         grandlyon {
           applicationId 'fr.mobicoop.grandlyon'
-          versionName '2.0.3'
+          versionName '2.0.4'
           dimension "api"
         }
     }

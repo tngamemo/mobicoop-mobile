@@ -30,13 +30,13 @@ LICENSE
               <ion-label>{{ $t('PostCarpool.driver')}}</ion-label>
             </ion-item>
           </ion-col>
-          <ion-col>
+          <ion-col v-if="!carpoolToPost.solidaryExclusive">
             <ion-item lines="none">
               <ion-radio value="2" :checked="carpoolToPost.role == 2"></ion-radio>
               <ion-label>{{ $t('PostCarpool.passenger')}}</ion-label>
             </ion-item>
           </ion-col>
-          <ion-col>
+          <ion-col v-if="!carpoolToPost.solidaryExclusive">
             <ion-item lines="none">
               <ion-radio value="3" :checked="carpoolToPost.role == 3"></ion-radio>
               <ion-label>{{ $t('PostCarpool.driverOrPassenger')}}</ion-label>
