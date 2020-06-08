@@ -240,6 +240,7 @@ LICENSE
 <script>
   import { required, email, sameAs, minLength, helpers } from 'vuelidate/lib/validators'
   import { toast } from '../../Shared/Mixin/toast.mixin';
+  import Compressor from 'compressorjs';
 
   export default {
     name: 'update-profile',
@@ -285,20 +286,32 @@ LICENSE
     methods: {
       changePicture(e) {
         const file = e.target.files[0];
-        if (file.size <= 1000000) {
+        if (file) {
           if (this.user.images.length > 0) {
             Promise.all([this.user.images.map(item => {
               return this.$store.dispatch('deleteImage', item.id);
             })]).then(() => {
-              this.updateUserPicture(file);
+              this.compressFile(file);
             })
           } else {
-            this.updateUserPicture(file);
+            this.compressFile(file);
           }
-        } else {
-          this.presentToast(this.$t("UpdateProfile.file-size"), 'danger')
         }
 
+      },
+      compressFile: function (file) {
+        const context = this;
+        new Compressor(file, {
+          convertSize: 1000000,
+          success(result) {
+            if (result) {
+              context.updateUserPicture(new File([result], file.name, {type: result.type}));
+            }
+          },
+          error(err) {
+            context.presentToast(this.$t("Commons.error"), 'danger')
+          },
+        });
       },
       updateUserPicture(file) {
         this.$store.dispatch('updateUserPicture', { userId : this.user.id, file: file })

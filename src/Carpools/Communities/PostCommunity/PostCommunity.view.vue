@@ -1,3 +1,4 @@
+import Compressor from "compressorjs";
 /**
 
 Copyright (c) 2018, MOBICOOP. All rights reserved.
@@ -164,6 +165,7 @@ import {
   helpers
 } from "vuelidate/lib/validators";
 import { toast } from "../../../Shared/Mixin/toast.mixin";
+import Compressor from 'compressorjs';
 
 export default {
   name: "post-community",
@@ -246,28 +248,35 @@ export default {
         query: { type: "update_community_address", action: "search" }
       });
     },
-    changePicture(e) {
-      const file = e.target.files[0];
-      //todo updateCommunityPicture
-    },
     domainInfo() {
       this.presentToast(this.$t("PostCommunity.restriction-detail"), "secondary");
     },
     changePicture(e) {
       const file = e.target.files[0];
-      if (file.size <= 1000000) {
-        this.$store.state.communityStore.file = file;
-        this.getBase64(file);
-      } else {
-        this.presentToast(this.$t("UpdateProfile.file-size"), 'danger')
+      if (file) {
+        this.compressFile(file);
       }
     },
+    compressFile: function (file) {
+      const context = this;
+      new Compressor(file, {
+        convertSize: 1000000,
+        success(result) {
+          if (result) {
+            const f = new File([result], file.name, {type: result.type});
+            context.$store.state.communityStore.file = f;
+            context.getBase64(f);
+          }
+        },
+        error(err) {
+          context.presentToast(this.$t("Commons.error"), 'danger')
+        },
+      });
+    },
     getBase64(file) {
-      console.log(this.file);
       var reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = () => {
-        console.log(this.file);
         this.image = reader.result
       };
       reader.onerror = (error) => {

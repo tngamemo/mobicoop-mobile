@@ -146,7 +146,8 @@ export default {
   validations: {
     priceCarpool: {
       required,
-      minValue: value => value > 0
+      minValue: value => value > 0,
+      warningPrice: (value, vm) => vm.warningPriceKm !== 3
     }
   },
   computed: {

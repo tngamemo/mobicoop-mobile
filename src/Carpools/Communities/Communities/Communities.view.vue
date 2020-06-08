@@ -44,7 +44,7 @@ LICENSE
       >
         <div class="mc-my-communities" v-if="!!userCommunities">
           <p>{{ $t('Communities.myCommunities')}}</p>
-          <div class="d-flex">
+          <div class="d-flex" style="overflow-y: scroll">
             <div
               item
               v-for="(commu, index) in userCommunities"
