@@ -38,7 +38,7 @@ export const userStore = {
     statusUserCommunities: '',
     userCommunities: null,
     resetPasswordStatus: '',
-    statusDeleteUser: ''
+    statusDeleteUser: '',
   },
   mutations: {
     auth_request(state) {
@@ -54,7 +54,7 @@ export const userStore = {
     },
 
     auth_anonymous_success(state, tokenAnonymousUser) {
-      state.tokenAnonymousUser = tokenAnonymousUser
+      state.tokenAnonymousUser = tokenAnonymousUser;
     },
 
     user_request_success(state, user) {

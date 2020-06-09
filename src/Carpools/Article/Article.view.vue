@@ -113,7 +113,7 @@ LICENSE
   import {toast} from "../../Shared/Mixin/toast.mixin";
 
   export default {
-    name: 'article',
+    name: 'm-article',
     data () {
       return {
         sections: [],

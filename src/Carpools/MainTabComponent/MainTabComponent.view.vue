@@ -31,7 +31,7 @@ LICENSE
         </ion-tab>
 
         <ion-tab tab="help"  v-if="! !!this.$store.state.userStore.user">
-          <Article :title="$t('Help.title')" id="10"/>
+          <MArticle :title="$t('Help.title')" id="10"/>
         </ion-tab>
 
         <ion-tab tab="register"  v-if="! !!this.$store.state.userStore.user">
@@ -132,10 +132,12 @@ LICENSE
   import Communities from '../Communities/Communities/Communities.view.vue';
   import Profile from '../Profile/Profile.view.vue';
   import { isPlatform } from "@ionic/core";
+  import MArticle from "../Article/Article.view";
 
   export default {
     name: 'carpools',
     components: {
+      MArticle,
       Home,
         Register,
         Login,

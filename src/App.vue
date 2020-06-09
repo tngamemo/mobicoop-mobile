@@ -20,7 +20,7 @@ LICENSE
 
 <template>
   <div id="app">
-    <ion-app v-if="!! this.$store.state.userStore.user || !! this.$store.state.userStore.tokenAnonymousUser">
+    <ion-app v-if="loaded">
       <ion-vue-router />
     </ion-app>
   </div>
@@ -37,7 +37,8 @@ LICENSE
     name: 'app',
     data () {
       return {
-        msg: 'Welcome to Your Vue.js App'
+        msg: 'Welcome to Your Vue.js App',
+        loaded: false
       }
     },
     watch:{
@@ -80,20 +81,27 @@ LICENSE
             const idUser = jwt_decode(this.$store.state.userStore.tokenUser).id;
             this.$store.dispatch('getUser', { idUser })
             .then(res => {
+              this.loaded = true;
               this.getVersion();
 
               })
             .catch(err => {
               // On va authentifier l'appli via un utilisateur anonyme
               this.$store.dispatch('authAnonymousUser').then(() => {
+                this.loaded = true;
                 this.getVersion();
+              }).catch(() => {
+                this.loaded = true;
               })
             })
         } else {
 
           // On va authentifier l'appli via un utilisateur anonyme
           this.$store.dispatch('authAnonymousUser').then(() => {
+            this.loaded = true;
             this.getVersion();
+          }).catch(() => {
+            this.loaded = true;
           })
         }
       },
