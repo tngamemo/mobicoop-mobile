@@ -19,6 +19,7 @@
  **************************/
 
 import http from '../Mixin/http.mixin'
+import moment from 'moment'
 
 export const carpoolStore = {
   state: {
@@ -52,7 +53,6 @@ export const carpoolStore = {
     },
 
     carpoolPost_init(state) {
-
       state.statusCarpoolPost = '';
       state.statusDistanceCarpool = '';
       state.statusPriceCarpool = '';
@@ -81,6 +81,72 @@ export const carpoolStore = {
         comment: '',
         eventId: ''
       };
+      state.addressessUseToPost = {
+        origin: '',
+        destination: '',
+        step: [],
+      }
+    },
+
+    carpoolPost_update(state, carpool) {
+
+      state.statusCarpoolPost = '';
+      state.statusDistanceCarpool = '';
+      state.statusPriceCarpool = '';
+      state.statusContactCarpool = '';
+      state.distanceCarpool = '';
+      state.directPointsCarpool = '';
+      state.priceCarpool = '';
+      state.carpoolToPost = carpool;
+      if (state.carpoolToPost.schedule) {
+        const scheduleCopy = JSON.parse(JSON.stringify(state.carpoolToPost.schedule));
+        const days = {'mon': {}, 'tue': {}, 'wed': {}, 'thu': {}, 'fri': {}, 'sat': {}, 'sun': {}};
+        const scheduleCopyArray = Object.entries(scheduleCopy);
+        // je construit une object me permettant de construire les slot de schedule
+        scheduleCopyArray.filter(item => {
+          return item[0].includes('OutwardTime') || item[0].includes('ReturnTime')
+        }).forEach(item => {
+          if (item[1] !== null) {
+            const d = item[0].slice(0, 3);
+            if (item[0].includes('OutwardTime')) {
+              days[d].outwardTime = item[1]
+            } else if (item[0].includes('ReturnTime')) {
+              days[d].returnTime = item[1]
+            }
+          }
+        });
+        // je construit le schedule cohérent
+        const daysArray = Object.entries(days);
+        const schedule = [];
+        daysArray.forEach(item => {
+          if (item[1].outwardTime) {
+            const scheduleExist = schedule.find(s => s.outwardTime === moment(item[1].outwardTime).utc().format('HH:mm') && s.returnTime === moment(item[1].returnTime).utc().format('HH:mm'));
+            if (scheduleExist) {
+              // j'active le jour sur le schedule existant
+              scheduleExist[item[0]] = true
+            } else {
+              const newSlot = {
+                "mon": false,
+                "tue": false,
+                "wed": false,
+                "thu": false,
+                "fri": false,
+                "sat": false,
+                "sun": false,
+                "outwardTime": moment(item[1].outwardTime).utc().format('HH:mm'),
+                "returnTime": moment(item[1].returnTime).utc().format('HH:mm'),
+                "outwardDisabled": false,
+                "returnDisabled": !!item[1].returnTime ? false : true,
+                "maxTimeFromOutwardRegular": "08:00"
+              };
+              // j'active le jour que je viens d'ajouter
+              newSlot[item[0]] = true;
+              schedule.push(newSlot)
+            }
+          }
+        });
+        state.carpoolToPost.schedule = schedule;
+      }
       state.addressessUseToPost = {
         origin: '',
         destination: '',
@@ -372,6 +438,27 @@ export const carpoolStore = {
           .catch(err => {
             commit('carpoolPost_error')
             console.log(err)
+            reject(err)
+          })
+      })
+    },
+
+    updateCarpool({ state, commit }) {
+      return new Promise((resolve, reject) => {
+        commit('carpoolPost_request');
+
+        // On va supprimer toutes les données qui sont nulles ou vides
+        const dataToSend = Object.assign({}, state.carpoolToPost);
+        Object.keys(dataToSend).forEach((key) => (dataToSend[key] == null || dataToSend[key] == '') && delete dataToSend[key]);
+
+        return http.put(`/carpools/` + state.carpoolToPost.id, dataToSend)
+          .then(resp => {
+            commit('carpoolPost_success');
+            resolve(resp)
+          })
+          .catch(err => {
+            commit('carpoolPost_error');
+            console.log(err);
             reject(err)
           })
       })

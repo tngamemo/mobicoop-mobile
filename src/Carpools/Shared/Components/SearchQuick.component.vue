@@ -238,16 +238,16 @@ export default {
       };
 
       // Si on a un object carpoolToPost inextistant
-      if (!!!this.$store.getters.carpoolToPost) {
+      // if (!!!this.$store.getters.carpoolToPost) {
         this.$store.commit("carpoolPost_init");
-      }
+      // }
 
       this.$store.commit("carpoolPost_fromSearch", payload);
       if (payload.origin || payload.outwardDate) {
         this.$store.dispatch("treatementUpdateAddresses");
       }
 
-      let filters = null;
+      let filters = {};
       if (this.postWithFilter) {
         filters = {communities: this.communities};
       }
