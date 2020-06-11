@@ -96,7 +96,7 @@ LICENSE
         &.is-active {
           padding: 0 20px 15px;
           opacity: 1;
-          max-height: 3500px;
+          max-height: none;
         }
       }
 
