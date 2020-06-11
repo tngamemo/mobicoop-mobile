@@ -179,16 +179,16 @@ export default {
       .getComputedStyle(document.body)
       .getPropertyValue("--ion-color-success-rgb");
   },
+  computed: {
+    numberOfModule() {
+      return Object.values(this.appModule).filter(item => item == "true").length;
+    }
+  },
   mounted() {
     // caching for crawlers
     setTimeout(() => {
       window.prerenderReady = true;
     }, 1000)
-  },
-  computed: {
-    numberOfModule() {
-      return Object.values(this.appModule).filter(item => item == "true").length;
-    }
   },
   methods: {
     closeWelcome: function() {

@@ -264,6 +264,7 @@ export const userStore = {
 
         http.post(`/images`, formData)
           .then(resp => {
+            console.log(resp)
             resolve(resp)
           })
           .catch(err => {

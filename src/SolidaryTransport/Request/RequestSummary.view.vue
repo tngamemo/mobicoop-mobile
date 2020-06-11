@@ -1,0 +1,289 @@
+<template>
+  <ion-page>
+    <ion-header no-border>
+      <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+          <ion-back-button text=""></ion-back-button>
+        </ion-buttons>
+        <ion-title>{{$t('solidaryTransport.request.title')}} <sup>6/6</sup></ion-title>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content ref="request" color="primary" class="is-scrollable" v-if="!success">
+      <div class="mc-st-container">
+        <div class="mc-st-form">
+
+          <div class="mc-st-form-content">
+            <div class="mc-st-form-header">
+              <div class="mc-st-form-title">{{$t('solidaryTransport.request.steps.summary')}}</div>
+              <div class="mc-st-form-steps">
+                <span class="mc-st-form-step is-validate"></span>
+                <span class="mc-st-form-step is-validate"></span>
+                <span class="mc-st-form-step is-validate"></span>
+                <span class="mc-st-form-step is-validate"></span>
+                <span class="mc-st-form-step is-validate"></span>
+                <span class="mc-st-form-step is-active"></span>
+              </div>
+            </div>
+
+            <div class="mc-st-form-item">
+              <ion-label class="mc-st-form-label as-title no-white-space" color="primary">{{$t('solidaryTransport.request.form.fields.you')}}</ion-label>
+            </div>
+
+            <div class="mc-st-summary">
+
+              <!-- User Information -->
+              <div class="mc-st-summary-text">
+                Je suis <span class="answer">{{request.givenName || 'John'}} {{request.familyName || 'Doe'}}</span>, <span class="answer">{{getUserAge(request) || 100}} ans</span>, habitant à <span class="answer" v-if="request.homeAddress">{{request.homeAddress.county}}</span>. Je suis joignable par téléphone au <span class="answer">{{request.telephone || '0000000000'}}</span> ou bien par mail via l'adresse <span class="answer">{{request.email || 'john@doe.com'}}</span>.
+              </div>
+
+            </div>
+
+            <div class="mc-st-form-item">
+              <ion-label class="mc-st-form-label as-title no-white-space" color="primary">{{$t('solidaryTransport.request.form.fields.yourRequest')}}</ion-label>
+            </div>
+
+            <div class="mc-st-summary">
+
+              <div class="mc-st-summary-text" v-if="request.subject">
+                Je souhaite me déplacer pour <span class="answer">{{getRequestSubjectToDisplay(request)}}</span>.
+              </div>
+
+              <template v-if="request.frequency === 1">
+                <div class="mc-st-summary-text" v-if="request.subject">
+                  Ma demande est <span class="answer">ponctuelle</span>. 
+
+                  Je souhaite partir
+                  <template v-if="request.when.departure.specificDate"> le <span class="answer">{{$moment(request.when.departure.specificDate).format('D MMMM YYYY')}}</span>
+                  </template>
+
+                  <template v-if="request.when.departure.marginDate">
+                    <span class="answer">{{getLabelForKeyToDisplay(departureDates,request.when.departure.marginDate)}}</span> 
+                  </template>
+
+                  <template v-if="request.when.departure.specificHour"> à <span class="answer">{{$moment(request.when.departure.specificHour).format('HH[h]mm')}}</span> 
+                  </template>
+
+                  <template v-if="request.when.departure.marginHour">, de préférence <span class="answer">{{getLabelForKeyToDisplay(departureHours,request.when.departure.marginHour)}}</span>
+                  </template>
+
+                  et revenir
+                  <template v-if="request.when.return.specificHour"> à <span class="answer">{{$moment(request.when.return.specificHour).format('HH[h]mm')}}</span> 
+                  </template>
+
+                  <template v-if="request.when.return.marginHour">
+                    <span class="answer">{{getLabelForKeyToDisplay(returnHours,request.when.return.marginHour)}}</span>
+                  </template>.
+                </div>
+
+                <div class="mc-st-summary-card">
+                  <div class="mc-st-summary-card-header">
+                    <span>Votre aller</span>
+                    <span v-if="request.when.departure.marginHour">, {{getLabelForKeyToDisplay(departureHours,request.when.departure.marginHour)}}</span>
+                  </div>
+                  <div class="mc-st-summary-card-content">
+                    <div class="times" v-if="request.when.departure.specificHour">
+                      <div class="time as-from">{{$moment(request.when.departure.specificHour).format('HH[h]mm')}}</div>
+                    </div>
+                    <div class="times" v-else></div>
+                    <div class="places">
+                      <div class="place as-from" v-if="request.origin">
+                        <span class="city">{{request.origin.county}}</span>
+                        <span class="address">{{request.origin.streetAddress}}</span>
+                      </div>
+                      <div class="place as-to">
+                        <template v-if="request.destination">
+                          <span class="city">{{request.destination.county}}</span>
+                          <span class="address">{{request.destination.streetAddress}}</span>
+                        </template>
+                        <template v-else>
+                          <span class="city">A définir ultérieurement</span>
+                        </template>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mc-st-summary-card">
+                  <div class="mc-st-summary-card-header">
+                    <span>Votre retour</span>
+                    <span v-if="request.when.return.marginHour">, {{getLabelForKeyToDisplay(returnHours,request.when.return.marginHour)}}</span>
+                  </div>
+                  <div class="mc-st-summary-card-content">
+                    <div class="times" v-if="request.when.return.specificHour">
+                      <div class="time as-from">{{$moment(request.when.return.specificHour).format('HH[h]mm')}}</div>
+                    </div>
+                    <div class="times" v-else></div>
+                    <div class="places">
+                      <div class="place as-from">
+                        <template v-if="request.destination">
+                          <span class="city">{{request.destination.county}}</span>
+                          <span class="address">{{request.destination.streetAddress}}</span>
+                        </template>
+                        <template v-else>
+                          <span class="city">A définir ultérieurement</span>
+                        </template>
+                      </div>
+                      <div class="place as-to" v-if="request.origin">
+                        <span class="city">{{request.origin.county}}</span>
+                        <span class="address">{{request.origin.streetAddress}}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </template>
+
+              <template v-if="request.frequency === 2">
+                <div class="mc-st-summary-text" v-if="request.subject">
+                  Ma demande est <span class="answer">régulière</span> et concerne les jours suivants :
+                </div>
+
+                <div class="mc-st-form-days-wrapper">
+                  <ion-button class="mc-st-form-day" :color="request.days[day.value] ? 'primary' : 'light'" v-for="(day, index) in departureDays" :key="day.value">
+                    <span class="label">{{day.label}}</span>
+                  </ion-button>
+                </div>
+
+                <div class="mc-st-summary-card">
+                  <div class="mc-st-summary-card-header">
+                    <span>Votre aller</span>
+                    <span v-if="request.when.departure.marginHour">, {{getLabelForKeyToDisplay(departureHours,request.when.departure.marginHour)}}</span>
+                  </div>
+                  <div class="mc-st-summary-card-content">
+                    <div class="times" v-if="request.when.departure.specificHour">
+                      <div class="time as-from">{{$moment(request.when.departure.specificHour).format('HH[h]mm')}}</div>
+                    </div>
+                    <div class="times" v-else></div>
+                    <div class="places">
+                      <div class="place as-from" v-if="request.origin">
+                        <span class="city">{{request.origin.county}}</span>
+                        <span class="address">{{request.origin.streetAddress}}</span>
+                      </div>
+                      <div class="place as-to">
+                        <template v-if="request.destination">
+                          <span class="city">{{request.destination.county}}</span>
+                          <span class="address">{{request.destination.streetAddress}}</span>
+                        </template>
+                        <template v-else>
+                          <span class="city">A définir ultérieurement</span>
+                        </template>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mc-st-summary-card" v-if="request.when.return.marginHour !== 'no-need'">
+                  <div class="mc-st-summary-card-header">
+                    <span>Votre retour</span>
+                    <span v-if="request.when.return.marginHour">, {{getLabelForKeyToDisplay(returnHours,request.when.return.marginHour)}}</span>
+                  </div>
+                  <div class="mc-st-summary-card-content">
+                    <div class="times" v-if="request.when.return.specificHour">
+                      <div class="time as-from">{{$moment(request.when.return.specificHour).format('HH[h]mm')}}</div>
+                    </div>
+                    <div class="times" v-else></div>
+                    <div class="places">
+                      <div class="place as-from">
+                        <template v-if="request.destination">
+                          <span class="city">{{request.destination.county}}</span>
+                          <span class="address">{{request.destination.streetAddress}}</span>
+                        </template>
+                        <template v-else>
+                          <span class="city">A définir ultérieurement</span>
+                        </template>
+                      </div>
+                      <div class="place as-to" v-if="request.origin">
+                        <span class="city">{{request.origin.county}}</span>
+                        <span class="address">{{request.origin.streetAddress}}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mc-st-summary-text" v-if="request.subject">
+                  Je ferai ce trajet du <span class="answer">{{$moment(request.when.departure.specificDate).format('D MMMM YYYY')}}</span> au <span class="answer">{{$moment(request.when.return.specificDate).format('D MMMM YYYY')}}</span><template v-if="request.when.return.marginHour === 'no-need'"> et <span class="answer">{{getLabelForKeyToDisplay(returnHours,request.when.return.marginHour)}}</span></template>.
+                </div>
+
+              </template>
+            </div>
+            
+          </div>
+
+          <div class="mc-st-form-controls in-summary" :class="{'is-loading': processing}">
+            <ion-button class="mc-st-form-control as-back" color="light" v-html="$t('solidaryTransport.buttons.back')" @click="$router.back()"></ion-button>
+
+            <ion-button class="mc-st-form-control as-loader" color="success" v-show="processing">
+              <ion-icon slot="start" name="sync" size="large"></ion-icon>
+              <span v-html="$t('solidaryTransport.buttons.sendRequest')"></span>
+            </ion-button>
+            <ion-button class="mc-st-form-control" color="success" @click="validate()" v-show="!processing">
+              <ion-icon slot="start" name="checkmark" size="large"></ion-icon>
+              <span v-html="$t('solidaryTransport.buttons.sendRequest')"></span>
+            </ion-button>
+            
+          </div>
+
+        </div>
+      </div>
+    </ion-content>
+  </ion-page>
+</template>
+
+<style lang="scss"></style>
+
+<script>
+import _ from 'lodash'
+import { mapState, mapGetters } from 'vuex'
+import { toast } from '../../Shared/Mixin/toast.mixin'
+
+export default {
+  name: 'solidaryTransport.request.summary',
+  components: {},
+  data () {
+    return {
+      processing: false,
+      success: false,
+      departureDates: this.$t('solidaryTransport.request.form.fields.when.departure.dates'),
+      departureDays: this.$t('solidaryTransport.request.form.fields.when.departure.days'),
+      departureHours: this.$t('solidaryTransport.request.form.fields.when.departure.hours'),
+      returnHours: this.$t('solidaryTransport.request.form.fields.when.return.hours')
+    }
+  },
+  computed: {
+    ...mapGetters([
+      'getUserAge',
+      'getRequestSubjectToDisplay',
+      'getLabelForKeyToDisplay'
+    ]),
+    request: {
+      get() {
+        return this.$store.state.solidaryTransportStore.temporary.request;
+      },
+      set() {
+        this.$store.commit("solidaryRequestUpdate", this.request);
+      }
+    }
+  },
+  mixins: [toast],
+  methods: {
+    validate: function () {
+      if (!this.processing) {
+        this.processing = true
+        this.$store.dispatch('postSolidaryResource')
+          .then((data) => {
+            this.presentToast("Votre demande de coup de pouce à été envoyée avec succès", 'success');
+            this.$router.push({name:'solidaryTransport.home'})
+          })
+          .catch((error) => {
+            this.presentToast("Une erreur est survenue", 'danger')
+          })
+          .finally(() => {
+            this.processing = false
+          })
+      }
+    }
+  },
+  created: function () {}
+}
+</script>

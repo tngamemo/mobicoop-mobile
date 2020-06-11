@@ -20,12 +20,12 @@
 
 export const toast = {
   methods: {
-      async presentToast(text, color) {
+      async presentToast(text, color, position) {
         const toast = await this.$ionic.toastController.create({
             message: text,
             duration: 4000,
             showCloseButton: false,
-            position: 'top',
+            position: position || 'top',
             color: color
         });
       toast.present();

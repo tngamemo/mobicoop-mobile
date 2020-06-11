@@ -7,7 +7,7 @@
             <ion-icon slot="icon-only" name="custom-logo"></ion-icon>
           </ion-button>
         </ion-buttons>
-        <ion-title>{{ $t('solidaryTransport.home.title') }}</ion-title>
+        <ion-title>{{ brand }}</ion-title>
         <ion-icon
         slot="end"
           v-if="numberOfModule > 1"
@@ -27,7 +27,7 @@
 
         <template v-if="!this.$store.state.userStore.user">
           <div class="mc-st-content">
-            <div class="mc-st-information" :class="{'is-active': display.information}">
+            <div class="mc-st-information" :class="{'is-active': this.$store.state.solidaryTransportStore.messages.home.display}">
               <ion-icon class="mc-information-icon" name="close" @click="closeInformation()"></ion-icon>
               <div class="mc-information-text" v-html="$t('solidaryTransport.home.information')"></div>
             </div>
@@ -36,18 +36,19 @@
               <ion-button
                 class="mc-st-action is-high"
                 color="success"
-                v-html="$t('solidaryTransport.home.actions.ask')"
-                @click="$router.push({name:'solidaryTransport.register', query: {type: 'ask'}})"
+                v-html="$t('solidaryTransport.home.actions.request')"
+                @click="$router.push({name:'solidaryTransport.home.request'})"
               ></ion-button>
               <ion-button
                 class="mc-st-action is-high"
                 color="success"
-                v-html="$t('solidaryTransport.home.actions.give')"
-                @click="$router.push({name:'solidaryTransport.register', query: {type: 'give'}})"
+                v-html="$t('solidaryTransport.home.actions.becomeVolunteer')"
+                @click="$router.push({name:'solidaryTransport.home.volunteer'})"
               ></ion-button>
-              <ion-button class="mc-st-action as-light" color="light">
+              <ion-button class="mc-st-action as-light" color="light" @click="$refs['call'].click()">
                 <ion-icon slot="start" name="chatboxes"></ion-icon>
-                <span v-html="$t('solidaryTransport.home.actions.contact')"></span>
+                <span v-html="$t('solidaryTransport.home.actions.contact', {'brand': brand})"></span>
+                <a ref="call" :href="support" style="display:none;"></a>
               </ion-button>
             </div>
           </div>
@@ -59,7 +60,7 @@
               <ProfileCard />
             </div>
 
-            <div class="mc-st-information" :class="{'is-active': display.information}">
+            <div class="mc-st-information" :class="{'is-active': this.$store.state.solidaryTransportStore.messages.home.display}">
               <ion-icon class="mc-information-icon" name="close" @click="closeInformation()"></ion-icon>
               <div class="mc-information-text" v-html="$t('solidaryTransport.home.information')"></div>
             </div>
@@ -68,16 +69,31 @@
               <ion-button
                 class="mc-st-action"
                 color="success"
+                v-html="$t('solidaryTransport.home.actions.becomeVolunteer')"
+                @click="$router.push({name:'solidaryTransport.home.volunteer'})"
+              ></ion-button>
+
+              <ion-button
+                class="mc-st-action"
+                color="success"
+                v-html="$t('solidaryTransport.home.actions.shareUsualRoute')"
+                @click="$router.push({name:'solidaryTransport.home.usual'})"
+                v-if="false"
+              ></ion-button>
+
+              <ion-button
+                class="mc-st-action"
+                color="success"
                 v-html="$t('solidaryTransport.home.actions.request')"
                 @click="$router.push({name:'solidaryTransport.home.request'})"
               ></ion-button>
 
-              <ion-button
+              <!-- <ion-button
                 class="mc-st-action as-light"
                 color="light"
                 v-html="$t('solidaryTransport.home.actions.publish')"
                 @click="$router.push({name:'solidaryTransport.home.ad'})"
-              ></ion-button>
+              ></ion-button> -->
 
               <ion-button
                 class="mc-st-action as-light"
@@ -88,9 +104,10 @@
                 <span v-html="$t('solidaryTransport.home.actions.help')"></span>
               </ion-button>
 
-              <ion-button class="mc-st-action as-light" color="light">
+              <ion-button class="mc-st-action as-light" color="light" @click="$refs['call'].click()">
                 <ion-icon slot="start" name="chatboxes"></ion-icon>
-                <span v-html="$t('solidaryTransport.home.actions.contact')"></span>
+                <span v-html="$t('solidaryTransport.home.actions.contact', {'brand': brand})"></span>
+                <a ref="call" :href="support" style="display:none;"></a>
               </ion-button>
             </div>
           </div>
@@ -109,7 +126,7 @@ ion-toolbar.on-home {
   ion-title {
     font-size: 24px;
     font-weight: bold;
-    padding-left: 66px;
+    text-align: left;
 
     &.md {
       padding-left: 0;
@@ -146,10 +163,9 @@ export default {
   },
   data() {
     return {
-      display: {
-        information: true
-      },
-      appModule: JSON.parse(process.env.VUE_APP_MODULE)
+      brand: process.env.VUE_APP_NAME,
+      appModule: JSON.parse(process.env.VUE_APP_MODULE),
+      support: process.env.VUE_APP_SOLIDARY_SUPPORT_HELP
     };
   },
   computed: {
@@ -160,7 +176,7 @@ export default {
   },
   methods: {
     closeInformation: function() {
-      this.display.information = false;
+      this.$store.commit('solidaryUpdateMessageDisplayOnHome', false)
     },
     showModule: async function() {
       const modal = await this.$ionic.modalController.create({

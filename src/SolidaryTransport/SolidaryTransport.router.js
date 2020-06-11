@@ -5,9 +5,8 @@ import Home from './Home/Home.view.vue';
 
 // Anonymous
 import Register from './Register/Register.view.vue';
-import RegisterAsk from './Register/RegisterAsk.view.vue';
 import RegisterSubscribe from './Register/RegisterSubscribe.view.vue';
-import RegisterSubscribeDetails from './Register/RegisterSubscribeDetails.view.vue';
+import RegisterSuccess from './Register/RegisterSuccess.view.vue';
 import Login from './Login/Login.view.vue';
 
 // Logged
@@ -18,21 +17,29 @@ import ProfileNotifications from './Profile/ProfileNotifications.view.vue';
 import ProfileVehicle from './Profile/ProfileVehicle.view.vue';
 import ProfileRealtime from './Profile/ProfileRealtime.view.vue';
 import ProfileAgenda from './Profile/ProfileAgenda.view.vue';
+import ProfileRequests from './Profile/ProfileRequests.view.vue';
+import ProfileRequest from './Profile/ProfileRequest.view.vue';
 import Messages from './Messages/Messages.view.vue';
 
 // Solidary
-// Ad Related
-import AdPublish from './Ad/AdPublish.view.vue';
-import AdPublishPonctual from './Ad/AdPublishPonctual.view.vue';
-import AdPublishPonctualSummary from './Ad/AdPublishPonctualSummary.view.vue';
-import AdPublishRegular from './Ad/AdPublishRegular.view.vue';
-import AdPublishRegularSummary from './Ad/AdPublishRegularSummary.view.vue';
-// Request Related
-import RequestPublish from './Request/RequestPublish.view.vue';
-import RequestPublishPonctual from './Request/RequestPublishPonctual.view.vue';
-import RequestPublishPonctualSummary from './Request/RequestPublishPonctualSummary.view.vue';
-import RequestPublishRegular from './Request/RequestPublishRegular.view.vue';
-import RequestPublishRegularSummary from './Request/RequestPublishRegularSummary.view.vue';
+// Request related
+import Request from './Request/Request.view.vue';
+import RequestCheck from './Request/RequestCheck.view.vue';
+import RequestPath from './Request/RequestPath.view.vue';
+import RequestPunctual from './Request/RequestPunctual.view.vue';
+import RequestRegular from './Request/RequestRegular.view.vue';
+import RequestUser from './Request/RequestUser.view.vue';
+import RequestSummary from './Request/RequestSummary.view.vue';
+
+// Volunteer related
+import Volunteer from './Volunteer/Volunteer.view.vue';
+import VolunteerAvailabilities from './Volunteer/VolunteerAvailabilities.view.vue';
+import VolunteerUser from './Volunteer/VolunteerUser.view.vue';
+import VolunteerDetails from './Volunteer/VolunteerDetails.view.vue';
+
+// Tools related
+import GeoSearch from './GeoSearch/GeoSearch.view.vue';
+
 
 import Vue from 'vue'
 import store from '../Shared/Store/store'
@@ -42,7 +49,7 @@ let preventAccess = function (to, from, next) {
   let user = store.state.userStore.user
   if (user) {
     if (_.isEqual(to.name, 'solidaryTransport.register.subscribe')) {
-      next({name: 'solidaryTransport.register.subscribe.details'})
+      next({name: 'solidaryTransport.register.success'})
     } else if (_.includes(to.name, 'solidaryTransport.login')) {
       next({name: 'solidaryTransport.home'})
     } else {
@@ -64,6 +71,7 @@ export default [
     path: '',
     component: Main,
     children: [
+      // HOME ----- ( start here )
       {
         path: '/solidary-transport',
         name: 'solidaryTransport',
@@ -76,94 +84,97 @@ export default [
           home: Home
         }
       },
-      {
-        path: '/solidary-transport/home/ad',
-        name: 'solidaryTransport.home.ad',
-        components: {
-          home: AdPublish
-        }
-      },
-      {
-        path: '/solidary-transport/home/ad/ponctual',
-        name: 'solidaryTransport.home.ad.ponctual',
-        components: {
-          home: AdPublishPonctual
-        }
-      },
-      {
-        path: '/solidary-transport/home/ad/ponctual/summary',
-        name: 'solidaryTransport.home.ad.ponctual.summary',
-        components: {
-          home: AdPublishPonctualSummary
-        }
-      },
-      {
-        path: '/solidary-transport/home/ad/regular',
-        name: 'solidaryTransport.home.ad.regular',
-        components: {
-          home: AdPublishRegular
-        }
-      },
-      {
-        path: '/solidary-transport/home/ad/regular/summary',
-        name: 'solidaryTransport.home.ad.regular.summary',
-        components: {
-          home: AdPublishRegularSummary
-        }
-      },
+      // HOME ----- ( end here )
+
+      // REQUEST ----- ( start here )
       {
         path: '/solidary-transport/home/request',
         name: 'solidaryTransport.home.request',
         components: {
-          home: RequestPublish
+          home: Request
         }
       },
       {
-        path: '/solidary-transport/home/request/ponctual',
-        name: 'solidaryTransport.home.request.ponctual',
+        path: '/solidary-transport/home/request/check',
+        name: 'solidaryTransport.home.request.check',
         components: {
-          home: RequestPublishPonctual
+          home: RequestCheck
         }
       },
       {
-        path: '/solidary-transport/home/request/ponctual/summary',
-        name: 'solidaryTransport.home.request.ponctual.summary',
+        path: '/solidary-transport/home/request/path',
+        name: 'solidaryTransport.home.request.path',
         components: {
-          home: RequestPublishPonctualSummary
+          home: RequestPath
+        }
+      },
+      {
+        path: '/solidary-transport/home/request/punctual',
+        name: 'solidaryTransport.home.request.punctual',
+        components: {
+          home: RequestPunctual
         }
       },
       {
         path: '/solidary-transport/home/request/regular',
         name: 'solidaryTransport.home.request.regular',
         components: {
-          home: RequestPublishRegular
+          home: RequestRegular
         }
       },
       {
-        path: '/solidary-transport/home/request/regular/summary',
-        name: 'solidaryTransport.home.request.regular.summary',
+        path: '/solidary-transport/home/request/user',
+        name: 'solidaryTransport.home.request.user',
         components: {
-          home: RequestPublishRegularSummary
+          home: RequestUser
         }
       },
       {
-        path: '/solidary-transport/help',
-        name: 'solidaryTransport.help',
-        component: Help
+        path: '/solidary-transport/home/request/summary',
+        name: 'solidaryTransport.home.request.summary',
+        components: {
+          home: RequestSummary
+        }
       },
+      // REQUEST ----- ( end here )
+
+      // VOLUNTEER ----- ( start here )
+      {
+        path: '/solidary-transport/home/volunteer',
+        name: 'solidaryTransport.home.volunteer',
+        components: {
+          home: Volunteer
+        }
+      },
+      {
+        path: '/solidary-transport/home/volunteer/availabilities',
+        name: 'solidaryTransport.home.volunteer.availabilities',
+        components: {
+          home: VolunteerAvailabilities
+        }
+      },
+      {
+        path: '/solidary-transport/home/volunteer/user',
+        name: 'solidaryTransport.home.volunteer.user',
+        components: {
+          home: VolunteerUser
+        }
+      },
+      {
+        path: '/solidary-transport/home/volunteer/details',
+        name: 'solidaryTransport.home.volunteer.details',
+        components: {
+          home: VolunteerDetails
+        }
+      },
+      // VOLUNTEER ----- ( end here )
+
+      // REGISTER ----- ( start here )
       {
         path: '/solidary-transport/register',
         name: 'solidaryTransport.register',
         components: {
           register: Register
-        },
-        beforeEnter: preventAccess
-      },
-      {
-        path: '/solidary-transport/register/ask',
-        name: 'solidaryTransport.register.ask',
-        components: {
-          register: RegisterAsk
         },
         beforeEnter: preventAccess
       },
@@ -176,13 +187,16 @@ export default [
         beforeEnter: preventAccess
       },
       {
-        path: '/solidary-transport/register/subscribe/details',
-        name: 'solidaryTransport.register.subscribe.details',
+        path: '/solidary-transport/register/success',
+        name: 'solidaryTransport.register.success',
         components: {
-          register: RegisterSubscribeDetails
+          register: RegisterSuccess
         },
         beforeEnter: preventAccess
       },
+      // REGISTER ----- ( end here )
+
+      // PROFILE ----- ( start here )
       {
         path: '/solidary-transport/login',
         name: 'solidaryTransport.login',
@@ -238,6 +252,22 @@ export default [
         beforeEnter: preventAccess
       },
       {
+        path: '/solidary-transport/profile/requests',
+        name: 'solidaryTransport.profile.requests',
+        components: {
+          profile: ProfileRequests
+        },
+        beforeEnter: preventAccess
+      },
+      {
+        path: '/solidary-transport/profile/requests/request',
+        name: 'solidaryTransport.profile.requests.request',
+        components: {
+          profile: ProfileRequest
+        },
+        beforeEnter: preventAccess
+      },
+      {
         path: '/solidary-transport/profile/notifications',
         name: 'solidaryTransport.profile.notifications',
         components: {
@@ -245,6 +275,9 @@ export default [
         },
         beforeEnter: preventAccess
       },
+      // PROFILE ----- ( end here )
+
+      // MESSAGES ----- ( start here )
       {
         path: '/solidary-transport/messages',
         name: 'solidaryTransport.messages',
@@ -252,8 +285,27 @@ export default [
           messages: Messages
         },
         beforeEnter: preventAccess
+      },
+      // MESSAGES ----- ( end here )
+
+      // HELP ----- ( start here )
+      {
+        path: '/solidary-transport/help',
+        name: 'solidaryTransport.help',
+        component: Help
       }
+      // HELP ----- ( end here )
     ]
-  }
+  },
+  {
+    path: 'geo-search',
+    name: 'solidaryTransport.geoSearch',
+    component: GeoSearch
+  },
+  {
+    path: 'article',
+    name: 'solidaryTransport.article',
+    component: Help
+  },
 ]
 

@@ -1,108 +1,109 @@
 <template>
   <div class="mc-st-profile-card" :class="{'is-detailed': detailed, 'is-extracted': extracted}">
-    <template v-if="!asCar">
-      <div class="mc-st-profile-block mc-st-profile-generics">
-        <div class="mc-st-profile-avatar">
-          <template v-if="userStore.user">
+    <template v-if="userStore.user">
+      <template v-if="!asCar">
+        <div class="mc-st-profile-block mc-st-profile-generics">
+          <div class="mc-st-profile-avatar">
             <ion-thumbnail>
               <template v-if="getUserAvatar(userStore.user)">
                 <img :src="userStore.user.avatars[0]" :alt="userStore.user.givenName">
               </template>
             </ion-thumbnail>
-          </template>
-        </div>
-
-        <div class="mc-st-profile-information">
-          <div class="mc-st-profile-details">
-            <div class="key as-name">
-              <span class="given-name">{{userStore.user.givenName}}</span> <span class="short-family-name">{{userStore.user.shortFamilyName}}</span>
-            </div>
-            <div class="key as-age">{{getUserAge(userStore.user)}} {{$t('solidaryTransport.profile.yearsOld')}}</div>
-            <div class="key as-email" v-if="detailed">{{userStore.user.email}}</div>
-            <div class="key as-phone" v-if="detailed">{{userStore.user.telephone}}</div>
-            <div class="key as-locality">{{getUserAddress(userStore.user).addressLocality}}</div>
           </div>
-        </div>
 
-        <div class="mc-st-profile-actions" v-if="!extracted">
-          <template v-if="!detailed">
-            <ion-icon class="mc-st-profile-action as-edit" @click="$router.push({name:'solidaryTransport.profile'})" name="create"></ion-icon>
-            <ion-icon class="mc-st-profile-action as-logout" @click="logout()" name="exit"></ion-icon>
-          </template>
-          <template v-else>
-            <ion-icon class="mc-st-profile-action as-edit" @click="$router.push({name:'solidaryTransport.profile.personal'})" name="create"></ion-icon>
-          </template>
-        </div>
-      </div>
+          <div class="mc-st-profile-information">
+            <div class="mc-st-profile-details">
+              <div class="key as-name">
+                <span class="given-name">{{userStore.user.givenName}}</span> <span class="short-family-name">{{userStore.user.shortFamilyName}}</span>
+              </div>
+              <div class="key as-age">{{getUserAge(userStore.user)}} {{$t('solidaryTransport.profile.yearsOld')}}</div>
+              <div class="key as-email" v-if="detailed">{{userStore.user.email}}</div>
+              <div class="key as-phone" v-if="detailed">{{userStore.user.telephone}}</div>
+              <div class="key as-locality">{{getUserAddress(userStore.user).addressLocality}}</div>
+            </div>
+          </div>
 
-      <div class="mc-st-profile-block mc-st-profile-preferences" v-if="detailed">
-        <div class="mc-st-profile-text">
-          <div class="key as-smoke">Je ne fume pas en voiture</div>
-          <div class="key as-music">J’écoute la radio ou de la musique</div>
-          <div class="key as-chat">Je discute</div>
-        </div>
-
-        <div class="mc-st-profile-actions">
-          <ion-icon class="mc-st-profile-action as-edit" @click="$router.push({name:'solidaryTransport.profile.preferences'})" name="create"></ion-icon>
-        </div>
-      </div>
-    </template>
-
-    <template v-if="detailed || asCar">
-      <div class="mc-st-profile-block mc-st-vehicle" v-if="getUserCar(userStore.user)">
-        <div class="mc-st-vehicle-image">
-          <ion-thumbnail>
-            <template v-if="getUserCar(userStore.user).image">
-              <img :src="getUserCar(userStore.user).image" :alt="getUserCar(userStore.user).brand">
+          <div class="mc-st-profile-actions" v-if="!extracted">
+            <template v-if="!detailed">
+              <ion-icon class="mc-st-profile-action as-edit" @click="$router.push({name:'solidaryTransport.profile'})" name="create"></ion-icon>
+              <ion-icon class="mc-st-profile-action as-logout" @click="logout()" name="log-out"></ion-icon>
             </template>
             <template v-else>
-              <ion-icon name="car" size="large" color="light"></ion-icon>
+              <ion-icon class="mc-st-profile-action as-edit" @click="$router.push({name:'solidaryTransport.profile.personal'})" name="create"></ion-icon>
             </template>
-          </ion-thumbnail>
-        </div>
-
-        <div class="mc-st-vehicle-information">
-          <div class="mc-st-vehicle-details">
-            <div class="key as-brand">
-              <ion-icon name="car" size="small" color="primary"></ion-icon>
-              <span>{{getUserCar(userStore.user).brand || 'Brand'}}</span>
-            </div>
-            <div class="key as-model">
-              <ion-icon name="water" size="small" color="primary"></ion-icon>
-              <span>{{getUserCar(userStore.user).model || 'Model'}}</span>
-            </div>
-            <div class="key as-color">
-              <ion-icon name="color-palette" size="small" color="primary"></ion-icon>
-              <span>{{getUserCar(userStore.user).color|| 'Color'}}</span>
-            </div>
           </div>
         </div>
 
-        <div class="mc-st-profile-actions" v-if="!extracted">
-          <template v-if="!detailed">
-            <ion-icon class="mc-st-profile-action as-edit" @click="$router.push({name:'solidaryTransport.profile'})" name="create"></ion-icon>
-            <ion-icon class="mc-st-profile-action as-logout" @click="logout()" name="exit"></ion-icon>
-          </template>
-          <template v-else>
-            <ion-icon class="mc-st-profile-action as-edit" @click="$router.push({name:'solidaryTransport.profile.vehicle'})" name="create"></ion-icon>
-          </template>
-        </div>
-      </div>
-    </template>
+        <div class="mc-st-profile-block mc-st-profile-preferences" v-if="detailed">
+          <div class="mc-st-profile-text">
+            <div class="key as-smoke">{{ $t('solidaryTransport.profile.preferences.smoke.' + userStore.user.smoke) }}</div>
+            <div class="key as-music">{{ $t('solidaryTransport.profile.preferences.music.' + userStore.user.music) }}</div>
+            <div class="key as-chat">{{ $t('solidaryTransport.profile.preferences.chat.' + userStore.user.chat) }}</div>
+          </div>
 
-    <template v-if="!asCar">
-      <div class="mc-st-profile-block mc-st-profile-realtime" v-if="detailed">
-        <div class="mc-st-profile-text">
-          <div class="title">Covoiturage temps réel </div>
-          <div class="key as-proposal">Propositions en temps réel: OK </div>
-          <div class="key as-vocal">Réponse vocale aux propositions: OK </div>
-          <div class="key as-background">Fonctionnement en arrière-plan: OK</div>
+          <div class="mc-st-profile-actions">
+            <ion-icon class="mc-st-profile-action as-edit" @click="$router.push({name:'solidaryTransport.profile.preferences'})" name="create"></ion-icon>
+          </div>
         </div>
+      </template>
 
-        <div class="mc-st-profile-actions">
-          <ion-icon class="mc-st-profile-action as-edit" @click="$router.push({name:'solidaryTransport.profile.realtime'})" name="create"></ion-icon>
+      <template v-if="detailed || asCar">
+        <div class="mc-st-profile-block mc-st-vehicle" v-if="getUserCar(userStore.user)">
+          <div class="mc-st-vehicle-image">
+            <ion-thumbnail>
+              <template v-if="getUserCar(userStore.user).image">
+                <img :src="getUserCar(userStore.user).image" :alt="getUserCar(userStore.user).brand">
+              </template>
+              <template v-else>
+                <ion-icon name="car" size="large" color="light"></ion-icon>
+              </template>
+            </ion-thumbnail>
+          </div>
+
+          <div class="mc-st-vehicle-information">
+            <div class="mc-st-vehicle-details">
+              <div class="key as-brand">
+                <ion-icon name="car" size="small" color="primary"></ion-icon>
+                <span>{{getUserCar(userStore.user).brand || 'Brand'}}</span>
+              </div>
+              <div class="key as-model">
+                <ion-icon name="water" size="small" color="primary"></ion-icon>
+                <span>{{getUserCar(userStore.user).model || 'Model'}}</span>
+              </div>
+              <div class="key as-color">
+                <ion-icon name="color-palette" size="small" color="primary"></ion-icon>
+                <span>{{getUserCar(userStore.user).color|| 'Color'}}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="mc-st-profile-actions" v-if="!extracted">
+            <template v-if="!detailed">
+              <ion-icon class="mc-st-profile-action as-edit" @click="$router.push({name:'solidaryTransport.profile'})" name="create"></ion-icon>
+              <ion-icon class="mc-st-profile-action as-logout" @click="logout()" name="exit"></ion-icon>
+            </template>
+            <template v-else>
+              <ion-icon class="mc-st-profile-action as-edit" @click="$router.push({name:'solidaryTransport.profile.vehicle'})" name="create"></ion-icon>
+            </template>
+          </div>
         </div>
-      </div>
+      </template>
+
+      <!-- Covoiturage dynamique -->
+      <!-- <template v-if="!asCar">
+        <div class="mc-st-profile-block mc-st-profile-realtime" v-if="detailed">
+          <div class="mc-st-profile-text">
+            <div class="title">Covoiturage temps réel </div>
+            <div class="key as-proposal">Propositions en temps réel: OK </div>
+            <div class="key as-vocal">Réponse vocale aux propositions: OK </div>
+            <div class="key as-background">Fonctionnement en arrière-plan: OK</div>
+          </div>
+
+          <div class="mc-st-profile-actions">
+            <ion-icon class="mc-st-profile-action as-edit" @click="$router.push({name:'solidaryTransport.profile.realtime'})" name="create"></ion-icon>
+          </div>
+        </div>
+      </template> -->
     </template>
   </div>
 </template>
@@ -248,6 +249,14 @@
       display: flex;
       flex-direction: row;
       justify-content: flex-end;
+
+      .mc-st-proofile-text {
+        .key {
+          + .key {
+            margin-top: 3px;
+          }
+        }
+      }
 
       .mc-st-profile-action {
         font-size: 30px;

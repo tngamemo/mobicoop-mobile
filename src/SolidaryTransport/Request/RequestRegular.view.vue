@@ -1,0 +1,337 @@
+<template>
+  <ion-page>
+    <ion-header no-border>
+      <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+          <ion-back-button text=""></ion-back-button>
+        </ion-buttons>
+        <ion-title>{{$t('solidaryTransport.request.title')}} <sup>4/6</sup></ion-title>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content ref="request" color="primary" class="is-scrollable">
+      <div class="mc-st-container">
+        <div class="mc-st-form">
+
+          <div class="mc-st-form-content">
+            <div class="mc-st-form-header">
+              <div class="mc-st-form-title">{{$t('solidaryTransport.request.steps.regular')}}</div>
+              <div class="mc-st-form-steps">
+                <span class="mc-st-form-step is-validate"></span>
+                <span class="mc-st-form-step is-validate"></span>
+                <span class="mc-st-form-step is-validate"></span>
+                <span class="mc-st-form-step is-active"></span>
+                <span class="mc-st-form-step"></span>
+                <span class="mc-st-form-step"></span>
+              </div>
+            </div>
+
+            <div class="mc-st-form-item">
+              <ion-label class="mc-st-form-label as-title no-white-space" color="primary">{{$t('solidaryTransport.request.form.fields.when.departure.day')}}</ion-label>
+              <div class="mc-st-form-details" v-if="$v.request.days.$error">
+                <span class="mc-st-form-error is-left" v-if="!$v.request.days.hasOneDay">{{$t('solidaryTransport.request.form.validators.days')}}</span>
+              </div>
+
+              <div class="mc-st-form-days-wrapper">
+                <ion-button class="mc-st-form-day" :color="request.days[day.value] ? 'primary' : 'light'" v-for="(day, index) in departureDays" :key="day.value" @click="updateDay(day.value)">
+                  <span class="label">{{day.label}}</span>
+                </ion-button>
+              </div>
+            </div>
+
+            <div class="mc-st-form-item">
+              <ion-label class="mc-st-form-label as-title no-white-space" color="primary">{{$t('solidaryTransport.request.form.fields.when.departure.hour')}}</ion-label>
+              <div class="mc-st-form-details" v-if="$v.request.when.departure.$error">
+                <span class="mc-st-form-error is-left" v-if="!$v.request.when.departure.hasHour">{{$t('solidaryTransport.request.form.validators.required')}}</span>
+              </div>
+
+              <div class="mc-st-form-checkbox-wrapper">
+                <ion-item class="mc-st-form-item" @click="$refs['departure-hour'].click()">
+                  <ion-checkbox class="mc-st-form-checkbox no-clickable" slot="start" :checked="request.when.departure.specificHour !== undefined || (request.when.departure.specificHour === undefined && request.when.departure.marginHour === undefined)" color="success"></ion-checkbox>
+                  <ion-datetime
+                    ref="departure-hour"
+                    class="mc-st-form-input no-clickable"
+                    display-format="HH:mm"
+                    picker-format="HH:mm"
+                    :cancel-text="$t('solidaryTransport.buttons.cancel')"
+                    :done-text="$t('solidaryTransport.buttons.validate')"
+                    :placeholder="$t('solidaryTransport.request.form.fields.when.departure.specificHour')"
+                    :value="request.when.departure.specificHour"
+                    @ionChange="changeDepartureSpecificHour($event.target.value)"
+                    @ionFocus="changeDepartureSpecificHour($event.target.value)"
+                  ></ion-datetime>
+                </ion-item>
+                <ion-item class="mc-st-form-item" lines="none" v-for="(item, index) in departureHours" :key="index">
+                  <ion-checkbox class="mc-st-form-checkbox" :value="request.when.departure.marginHour" :checked="request.when.departure.marginHour === item.value" color="success" slot="start" @ionChange="changeDepartureMarginHour(item.value)"
+                  ></ion-checkbox>
+                  <ion-label class="mc-st-form-label no-white-space" color="primary">{{ item.label }}</ion-label>
+                </ion-item>
+              </div>
+            </div>
+
+            <div class="mc-st-form-item">
+              <ion-label class="mc-st-form-label as-title no-white-space" color="primary">{{$t('solidaryTransport.request.form.fields.when.return.hour')}}</ion-label>
+              <div class="mc-st-form-details" v-if="$v.request.when.return.$error">
+                <span class="mc-st-form-error is-left" v-if="!$v.request.when.return.hasHour">{{$t('solidaryTransport.request.form.validators.required')}}</span>
+              </div>
+
+              <div class="mc-st-form-checkbox-wrapper">
+                <ion-item class="mc-st-form-item" @click="$refs['return-hour'].click()">
+                  <ion-checkbox class="mc-st-form-checkbox no-clickable" slot="start" :checked="request.when.return.specificHour !== undefined || (request.when.return.specificHour === undefined && request.when.return.marginHour === undefined)" color="success"></ion-checkbox>
+                  <ion-datetime
+                    ref="return-hour"
+                    class="mc-st-form-input"
+                    display-format="HH:mm"
+                    picker-format="HH:mm"
+                    :cancel-text="$t('solidaryTransport.buttons.cancel')"
+                    :done-text="$t('solidaryTransport.buttons.validate')"
+                    :placeholder="$t('solidaryTransport.request.form.fields.when.return.specificHour')"
+                    :value="request.when.return.specificHour"
+                    @ionChange="changeReturnSpecificHour($event.target.value)"
+                    @ionFocus="changeReturnSpecificHour($event.target.value)"
+                  ></ion-datetime>
+                </ion-item>
+                <ion-item class="mc-st-form-item" lines="none" v-for="(item, index) in returnHours" :key="index">
+                  <ion-checkbox class="mc-st-form-checkbox" :value="request.when.return.marginHour" :checked="request.when.return.marginHour === item.value" color="success" slot="start" @ionChange="changeReturnMarginHour(item.value)"
+                  ></ion-checkbox>
+                  <ion-label class="mc-st-form-label no-white-space" color="primary">{{ item.label }}</ion-label>
+                </ion-item>
+              </div>
+            </div>
+
+            <div class="mc-st-form-item">
+              <ion-label class="mc-st-form-label as-title no-white-space" color="primary">{{$t('solidaryTransport.request.form.fields.when.duration')}}</ion-label>
+              <div class="mc-st-form-details" v-if="$v.request.when.$error">
+                <span class="mc-st-form-error is-left" v-if="!$v.request.when.isAfter">{{$t('solidaryTransport.request.form.validators.isAfter')}}</span>
+              </div>    
+            </div>
+
+            <ion-item class="mc-st-form-item">
+              <ion-label class="mc-st-form-label no-white-space" color="primary" position="floating">{{$t('solidaryTransport.request.form.fields.when.durationStart')}}*</ion-label>
+              <ion-datetime
+                class="mc-st-form-input"
+                display-format="DD/MM/YYYY"
+                picker-format="DD/MM/YYYY"
+                :min="$moment().format('YYYY-MM-DD')"
+                :max="$moment().add(5, 'years').format('YYYY-MM-DD')"
+                :cancel-text="$t('solidaryTransport.buttons.cancel')"
+                :done-text="$t('solidaryTransport.buttons.validate')"
+                :placeholder="$t('solidaryTransport.request.form.fields.when.durationStartDate')"
+                :value="request.when.departure.specificDate"
+                @ionChange="changeDepartureSpecificDate($event.target.value)"
+                @ionFocus="changeDepartureSpecificDate($event.target.value)"
+              ></ion-datetime>   
+            </ion-item>
+            <div class="mc-st-form-details" v-if="$v.request.when.departure.specificDate.$error">
+              <span class="mc-st-form-error is-left" v-if="!$v.request.when.departure.specificDate.hasDate">{{$t('solidaryTransport.request.form.validators.required')}}</span>
+            </div>
+
+            <ion-item class="mc-st-form-item">
+              <ion-label class="mc-st-form-label no-white-space" color="primary" position="floating">{{$t('solidaryTransport.request.form.fields.when.durationEnd')}}*</ion-label>
+              <ion-datetime
+                class="mc-st-form-input"
+                display-format="DD/MM/YYYY"
+                picker-format="DD/MM/YYYY"
+                :min="$moment().format('YYYY-MM-DD')"
+                :max="$moment().add(5, 'years').format('YYYY-MM-DD')"
+                :cancel-text="$t('solidaryTransport.buttons.cancel')"
+                :done-text="$t('solidaryTransport.buttons.validate')"
+                :placeholder="$t('solidaryTransport.request.form.fields.when.durationEndDate')"
+                :value="request.when.return.specificDate"
+                @ionChange="changeReturnSpecificDate($event.target.value)"
+                @ionFocus="changeReturnSpecificDate($event.target.value)"
+              ></ion-datetime>   
+            </ion-item>
+            <div class="mc-st-form-details" v-if="$v.request.when.return.specificDate.$error">
+              <span class="mc-st-form-error is-left" v-if="!$v.request.when.return.specificDate.hasDate">{{$t('solidaryTransport.request.form.validators.required')}}</span>
+            </div>
+            
+          </div>
+
+          <div class="mc-st-form-controls with-multiple">
+            <ion-button class="mc-st-form-control as-back" color="light" v-html="$t('solidaryTransport.buttons.back')" @click="$router.back()"></ion-button>
+
+            <ion-button class="mc-st-form-control" color="success" v-html="$t('solidaryTransport.buttons.next')" @click="validate()"></ion-button>
+          </div>
+
+        </div>
+      </div>
+    </ion-content>
+  </ion-page>
+</template>
+
+<style lang="scss"></style>
+
+<script>
+import _ from 'lodash'
+import moment from 'moment'
+import { mapState, mapGetters } from 'vuex'
+import { required } from 'vuelidate/lib/validators'
+import { toast } from '../../Shared/Mixin/toast.mixin'
+
+const hasOneDay = (days) => {
+  let valid = false
+  _.each(days, (day) => {
+    if (day) {
+      valid = true
+    }
+  })
+  return valid
+}
+const hasDate = (date) => {
+  return !_.isEmpty(date)
+}
+const hasHour = (value) => {
+  return !_.isEmpty(value.specificHour) || !_.isEmpty(value.marginHour)
+}
+const isAfter = (when) => {
+  if (!_.isUndefined(when.departure.specificDate) && !_.isUndefined(when.departure.specificDate)) {
+    let d = moment(when.departure.specificDate).format('YYYY-MM-DD')
+    let r = moment(when.return.specificDate).format('YYYY-MM-DD')
+
+    return moment(r).isAfter(d)
+  }
+  return true
+}
+
+
+export default {
+  name: 'solidaryTransport.request.regular',
+  components: {},
+  data () {
+    return {
+      updating: false,
+      departureDays: this.$t('solidaryTransport.request.form.fields.when.departure.days'),
+      departureHours: this.$t('solidaryTransport.request.form.fields.when.departure.hours'),
+      returnHours: this.$t('solidaryTransport.request.form.fields.when.return.hours')
+    }
+  },
+  computed: {
+    ...mapGetters([
+      'getAddressToDisplay'
+    ]),
+    request: {
+      get() {
+        return this.$store.state.solidaryTransportStore.temporary.request;
+      },
+      set() {
+        this.$store.commit("solidaryRequestUpdate", this.request);
+      }
+    }
+  },
+  mixins: [toast],
+  validations: {
+    request: {
+      days: {
+        hasOneDay
+      },
+      when: {
+        isAfter,
+        departure: {
+          hasHour,
+          specificDate: {
+            hasDate
+          }
+        },
+        return: {
+          hasHour,
+          specificDate: {
+            hasDate
+          }
+        }
+      }
+    }
+  },
+  methods: {
+    updateDay: function(index) {
+      if (this.request.days[index]) {
+        this.request.days[index] = 0
+      } else {
+        this.request.days[index] = 1
+      }
+    },
+    changeDepartureSpecificHour: function (value) {
+      if (!this.updating) {
+        this.updating = true
+        this.request.when.departure.marginHour = undefined
+        this.request.when.departure.specificHour = value
+
+        setTimeout(() => {
+          this.updating = false
+        }, 100)
+      }  
+    },
+    changeDepartureMarginHour: function (value) {
+      if (!this.updating) {
+        this.updating = true
+        this.request.when.departure.specificHour = undefined
+        this.request.when.departure.marginHour = value
+
+        setTimeout(() => {
+          this.updating = false
+        }, 100)
+      }  
+    },
+    changeReturnSpecificHour: function (value) {
+      if (!this.updating) {
+        this.updating = true
+        this.request.when.return.marginHour = undefined
+        this.request.when.return.specificHour = value
+
+        setTimeout(() => {
+          this.updating = false
+        }, 100)
+      }  
+    },
+    changeReturnMarginHour: function (value) {
+      if (!this.updating) {
+        this.updating = true
+        this.request.when.return.specificHour = undefined
+        this.request.when.return.marginHour = value
+
+        setTimeout(() => {
+          this.updating = false
+        }, 100)
+      }  
+    },
+    changeDepartureSpecificDate: function (value) {
+      if (!this.updating) {
+        this.updating = true
+        this.request.when.departure.marginDate = undefined
+        this.request.when.departure.specificDate = value
+
+        setTimeout(() => {
+          this.updating = false
+        }, 100)
+      }  
+    },
+    changeReturnSpecificDate: function (value) {
+      if (!this.updating) {
+        this.updating = true
+        this.request.when.return.marginDate = undefined
+        this.request.when.return.specificDate = value
+
+        setTimeout(() => {
+          this.updating = false
+        }, 100)
+      }  
+    },
+    validate: function () {
+      this.$v.$reset();
+      this.$v.$touch();
+      if (this.$v.$invalid) {
+        this.$refs.request.getScrollElement().then((parent) => {
+          let child = document.getElementsByClassName('mc-st-form-error')[0]
+          var childPos = child.offsetTop
+          var parentPos = parent.offsetTop
+          var top = childPos - parentPos - 30
+          this.$refs.request.scrollToPoint(0, top, 0)
+        })
+      } else {
+        this.$router.push({name: 'solidaryTransport.home.request.user'})
+      }
+    }
+  },
+  created: function () {}
+}
+</script>
