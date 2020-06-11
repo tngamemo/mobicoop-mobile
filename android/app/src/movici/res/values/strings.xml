@@ -1,7 +1,10 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">Movici</string>
-    <string name="title_activity_main">Movici</string>
-    <string name="package_name">fr.auvergnerhonealpes.movici</string>
-    <string name="custom_url_scheme">fr.auvergnerhonealpes.movici</string>
+  <string name="app_name">Movici</string>
+  <string name="title_activity_main">Movici</string>
+  <string name="package_name">fr.auvergnerhonealpes.movici</string>
+  <string name="custom_url_scheme">fr.auvergnerhonealpes.movici</string>
+  <string name="mauron85_bgloc_account_name">@string/app_name</string>
+  <string name="mauron85_bgloc_account_type">fr.auvergnerhonealpes.movici.account</string>
+  <string name="mauron85_bgloc_content_authority">fr.auvergnerhonealpes.movici</string>
 </resources>

@@ -1,3 +1,23 @@
+/**
+
+ Copyright (c) 2018, MOBICOOP. All rights reserved.
+ This project is dual licensed under AGPL and proprietary licence.
+
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Affero General Public License as
+ published by the Free Software Foundation, either version 3 of the
+ License, or (at your option) any later version.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ GNU Affero General Public License for more details.
+ You should have received a copy of the GNU Affero General Public License
+ along with this program. If not, see <gnu.org/licenses>.
+
+ Licence MOBICOOP described in the file
+ LICENSE
+ **************************/
+
 import http from '../Mixin/http.mixin'
 import moment from 'moment'
 
@@ -5,7 +25,8 @@ export const searchStore = {
   state: {
     statusSearch: '',
     statusGeo: '',
-    resultsSearch: [],
+    statusCoordinate: '',
+    resultSearch: [],
     resultsGeo: [],
     previousSearch: [],
     display: {
@@ -20,6 +41,7 @@ export const searchStore = {
       outwardWaypoints: [],
       outwardDate: new Date(),
       userId: null,
+      adId: null
     },
 
   },
@@ -28,14 +50,26 @@ export const searchStore = {
       state.statusGeo = 'loading';
     },
 
+    geo_coordinate_request(state) {
+      state.statusCoordinate = 'loading';
+    },
+
     geo_succes(state, resultGeo) {
       state.statusGeo = 'success';
       state.resultsGeo = resultGeo;
     },
 
+    geo_coordinate_success(state, resultGeo) {
+      state.statusCoordinnate = 'success';
+    },
+
     geo_error(state) {
       state.statusGeo = 'error';
       state.resultGeo = [];
+    },
+
+    geo_coordinate_error(state) {
+      state.statusCoordinate = 'error';
     },
 
     search_request(state) {
@@ -69,6 +103,10 @@ export const searchStore = {
 
     changePreviousSearch(state, previousSearch) {
       state.previousSearch = previousSearch;
+    },
+
+    reset_search_object(state) {
+      state.searchObject.adId = null
     }
 
   },
@@ -87,6 +125,24 @@ export const searchStore = {
           }
         }).catch(err => {
           commit('geo_error')
+          reject(err)
+        })
+      })
+    },
+
+    /**
+     * Fonction qui retourne des addresses en fonction d'une latitude, longitude
+     */
+    getAddressesByCoordinate: ({ commit }, params) => {
+      commit('geo_coordinate_request');
+      return new Promise((resolve, reject) => {
+        http.get("/addresses/reverse?latitude=" +  params.latitude + "&longitude=" + params.longitude).then(resp => {
+          if (resp) {
+            commit('geo_coordinate_success', resp.data["hydra:member"]);
+            resolve(resp)
+          }
+        }).catch(err => {
+          commit('geo_coordinate_error');
           reject(err)
         })
       })
@@ -120,15 +176,28 @@ export const searchStore = {
           data.communities = filters.communities
         }
 
-        http.post("/carpools", data).then(resp => {
-          if (resp) {
-            commit('search_succes', resp.data["results"])
-            resolve(resp)
-          }
-        }).catch(err => {
-          commit('search_error')
-          reject(err)
-        })
+        if (data.adId) {
+          http.get("/carpools/" + data.adId, data).then(resp => {
+            if (resp) {
+              commit('search_succes', resp.data["results"])
+              resolve(resp)
+            }
+          }).catch(err => {
+            commit('search_error')
+            reject(err)
+          })
+        } else {
+          http.post( "/carpools", data).then(resp => {
+            if (resp) {
+              commit('search_succes', resp.data["results"])
+              resolve(resp)
+            }
+          }).catch(err => {
+            commit('search_error')
+            reject(err)
+          })
+        }
+
       })
     },
 

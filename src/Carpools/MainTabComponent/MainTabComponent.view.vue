@@ -1,3 +1,23 @@
+/**
+
+Copyright (c) 2018, MOBICOOP. All rights reserved.
+This project is dual licensed under AGPL and proprietary licence.
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Affero General Public License for more details.
+You should have received a copy of the GNU Affero General Public License
+along with this program. If not, see <gnu.org/licenses>.
+
+Licence MOBICOOP described in the file
+LICENSE
+**************************/
+
 <template>
   <div>
 
@@ -11,7 +31,7 @@
         </ion-tab>
 
         <ion-tab tab="help"  v-if="! !!this.$store.state.userStore.user">
-          <Article :title="$t('Help.title')" id="10"/>
+          <MArticle :title="$t('Help.title')" id="10"/>
         </ion-tab>
 
         <ion-tab tab="register"  v-if="! !!this.$store.state.userStore.user">
@@ -112,10 +132,12 @@
   import Communities from '../Communities/Communities/Communities.view.vue';
   import Profile from '../Profile/Profile.view.vue';
   import { isPlatform } from "@ionic/core";
+  import MArticle from "../Article/Article.view";
 
   export default {
     name: 'carpools',
     components: {
+      MArticle,
       Home,
         Register,
         Login,

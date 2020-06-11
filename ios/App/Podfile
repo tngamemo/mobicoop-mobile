@@ -10,31 +10,42 @@ def capacitor_pods
   # Automatic Capacitor Pod dependencies, do not delete
   pod 'Capacitor', :path => '../../node_modules/@capacitor/ios'
   pod 'CapacitorCordova', :path => '../../node_modules/@capacitor/ios'
-  
+  pod 'CordovaPlugins', :path => '../capacitor-cordova-ios-plugins'
   # Do not delete
 end
 
 target 'App' do
   capacitor_pods
   # Add your Pods here
+  pod 'Firebase/Messaging'
 end
 
 target 'OuestGo' do
   capacitor_pods
   # Add your Pods here
+  pod 'Firebase/Messaging'
 end
 
 target 'Movici' do
   capacitor_pods
   # Add your Pods here
+  pod 'Firebase/Messaging'
 end
 
 target 'Picholines' do
   capacitor_pods
   # Add your Pods here
+  pod 'Firebase/Messaging'
 end
 
 target 'PassPass' do
   capacitor_pods
   # Add your Pods here
+  pod 'Firebase/Messaging'
+end
+
+target 'Grand Lyon' do
+  capacitor_pods
+  # Add your Pods here
+  pod 'Firebase/Messaging'
 end

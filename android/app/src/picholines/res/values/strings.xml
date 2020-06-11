@@ -4,4 +4,7 @@
     <string name="title_activity_main">Picholines</string>
     <string name="package_name">eu.covivo.picholines</string>
     <string name="custom_url_scheme">eu.covivo.picholines</string>
+  <string name="mauron85_bgloc_account_name">@string/app_name</string>
+  <string name="mauron85_bgloc_account_type">eu.covivo.picholines.account</string>
+  <string name="mauron85_bgloc_content_authority">eu.covivo.picholines</string>
 </resources>

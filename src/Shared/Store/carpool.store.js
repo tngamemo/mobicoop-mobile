@@ -1,4 +1,25 @@
+/**
+
+ Copyright (c) 2018, MOBICOOP. All rights reserved.
+ This project is dual licensed under AGPL and proprietary licence.
+
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Affero General Public License as
+ published by the Free Software Foundation, either version 3 of the
+ License, or (at your option) any later version.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ GNU Affero General Public License for more details.
+ You should have received a copy of the GNU Affero General Public License
+ along with this program. If not, see <gnu.org/licenses>.
+
+ Licence MOBICOOP described in the file
+ LICENSE
+ **************************/
+
 import http from '../Mixin/http.mixin'
+import moment from 'moment'
 
 export const carpoolStore = {
   state: {
@@ -32,7 +53,6 @@ export const carpoolStore = {
     },
 
     carpoolPost_init(state) {
-
       state.statusCarpoolPost = '';
       state.statusDistanceCarpool = '';
       state.statusPriceCarpool = '';
@@ -54,12 +74,79 @@ export const carpoolStore = {
         seatsDriver: "",
         solidaryExclusive: false,
         userId: "",
-        communities: "",
+        communities: [],
         luggage: false,
         bike: false,
         backSeats: false,
-        comment: ''
+        comment: '',
+        eventId: ''
       };
+      state.addressessUseToPost = {
+        origin: '',
+        destination: '',
+        step: [],
+      }
+    },
+
+    carpoolPost_update(state, carpool) {
+
+      state.statusCarpoolPost = '';
+      state.statusDistanceCarpool = '';
+      state.statusPriceCarpool = '';
+      state.statusContactCarpool = '';
+      state.distanceCarpool = '';
+      state.directPointsCarpool = '';
+      state.priceCarpool = '';
+      state.carpoolToPost = carpool;
+      if (state.carpoolToPost.schedule) {
+        const scheduleCopy = JSON.parse(JSON.stringify(state.carpoolToPost.schedule));
+        const days = {'mon': {}, 'tue': {}, 'wed': {}, 'thu': {}, 'fri': {}, 'sat': {}, 'sun': {}};
+        const scheduleCopyArray = Object.entries(scheduleCopy);
+        // je construit une object me permettant de construire les slot de schedule
+        scheduleCopyArray.filter(item => {
+          return item[0].includes('OutwardTime') || item[0].includes('ReturnTime')
+        }).forEach(item => {
+          if (item[1] !== null) {
+            const d = item[0].slice(0, 3);
+            if (item[0].includes('OutwardTime')) {
+              days[d].outwardTime = item[1]
+            } else if (item[0].includes('ReturnTime')) {
+              days[d].returnTime = item[1]
+            }
+          }
+        });
+        // je construit le schedule cohérent
+        const daysArray = Object.entries(days);
+        const schedule = [];
+        daysArray.forEach(item => {
+          if (item[1].outwardTime) {
+            const scheduleExist = schedule.find(s => s.outwardTime === moment(item[1].outwardTime).utc().format('HH:mm') && s.returnTime === moment(item[1].returnTime).utc().format('HH:mm'));
+            if (scheduleExist) {
+              // j'active le jour sur le schedule existant
+              scheduleExist[item[0]] = true
+            } else {
+              const newSlot = {
+                "mon": false,
+                "tue": false,
+                "wed": false,
+                "thu": false,
+                "fri": false,
+                "sat": false,
+                "sun": false,
+                "outwardTime": moment(item[1].outwardTime).utc().format('HH:mm'),
+                "returnTime": moment(item[1].returnTime).utc().format('HH:mm'),
+                "outwardDisabled": false,
+                "returnDisabled": !!item[1].returnTime ? false : true,
+                "maxTimeFromOutwardRegular": "08:00"
+              };
+              // j'active le jour que je viens d'ajouter
+              newSlot[item[0]] = true;
+              schedule.push(newSlot)
+            }
+          }
+        });
+        state.carpoolToPost.schedule = schedule;
+      }
       state.addressessUseToPost = {
         origin: '',
         destination: '',
@@ -180,6 +267,10 @@ export const carpoolStore = {
 
     changeOptionsCarpoolPost(state, payload) {
       state.carpoolToPost[payload.property] = payload.value;
+      // if solidaryExclusive only driver is possible
+      if (state.carpoolToPost.solidaryExclusive) {
+        state.carpoolToPost.role = 1;
+      }
     },
 
     changeSelectDaySchedule(state, payload) {
@@ -292,7 +383,7 @@ export const carpoolStore = {
             commit('distance_success', { distance: resp.data['hydra:member'][0].distance })
             commit('carpool_gps', { directPoints: resp.data['hydra:member'][0].directPoints })
 
-            dispatch('getPriceofCarpool', { priceKm: process.env.VUE_APP_PRICE_BY_KM }).then(resp => {
+            dispatch('getPriceofCarpool', { priceKm: Math.round(state.distanceCarpool * process.env.VUE_APP_PRICE_BY_KM * 100) / 100 / 1000 }).then(resp => {
               // On commit et envoie le resultat
               commit('price_carpool_success', { price: resp.data.value })
             })
@@ -307,7 +398,10 @@ export const carpoolStore = {
     },
 
     getPriceofCarpool({ commit, state }, payload) {
-      const priceTmp = Math.round(state.distanceCarpool * payload.priceKm * 100) / 100 / 1000;
+
+      // const priceTmp = Math.round(state.distanceCarpool * payload.priceKm * 100) / 100 / 1000;
+
+      const priceTmp = Number(payload.priceKm);
 
       return new Promise((resolve, reject) => {
         commit('price_carpool_request');
@@ -344,6 +438,27 @@ export const carpoolStore = {
           .catch(err => {
             commit('carpoolPost_error')
             console.log(err)
+            reject(err)
+          })
+      })
+    },
+
+    updateCarpool({ state, commit }) {
+      return new Promise((resolve, reject) => {
+        commit('carpoolPost_request');
+
+        // On va supprimer toutes les données qui sont nulles ou vides
+        const dataToSend = Object.assign({}, state.carpoolToPost);
+        Object.keys(dataToSend).forEach((key) => (dataToSend[key] == null || dataToSend[key] == '') && delete dataToSend[key]);
+
+        return http.put(`/carpools/` + state.carpoolToPost.id, dataToSend)
+          .then(resp => {
+            commit('carpoolPost_success');
+            resolve(resp)
+          })
+          .catch(err => {
+            commit('carpoolPost_error');
+            console.log(err);
             reject(err)
           })
       })

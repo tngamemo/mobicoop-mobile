@@ -1,3 +1,23 @@
+/**
+
+Copyright (c) 2018, MOBICOOP. All rights reserved.
+This project is dual licensed under AGPL and proprietary licence.
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Affero General Public License for more details.
+You should have received a copy of the GNU Affero General Public License
+along with this program. If not, see <gnu.org/licenses>.
+
+Licence MOBICOOP described in the file
+LICENSE
+**************************/
+
 <template>
 
 
@@ -61,13 +81,13 @@
                 picker-format="DD/MM/YYYY"
                 :cancel-text="$t('Commons.cancel')"
                 :done-text="$t('Commons.validate')"
-                :max="maxBirthDate"
                 :value="user.birthDate"
                 @ionChange="user.birthDate = $event.detail.value"
               ></ion-datetime>
             </ion-item>
             <div v-if="$v.user.birthDate.$error">
               <div class="mc-error-label"  v-if="!$v.user.birthDate.required">{{$t('Validation.required')}}</div>
+              <div class="mc-error-label"  v-if="!$v.user.birthDate.isMaxBirthDate">{{$t('Validation.age', { value: minAge })}}</div>
             </div>
             <br>
             <ion-item lines="none">
@@ -119,14 +139,21 @@
 <script>
     import { required, email, sameAs, minLength } from 'vuelidate/lib/validators'
     import { mapState } from 'vuex'
+    var moment = require('moment');
 
     const checked = value => value === true;
+    const isMaxBirthDate = (value, vm) => {
+      let n = new Date();
+      n.setFullYear(n.getFullYear() - process.env.VUE_APP_REGISTER_MIN_AGE);
+      return moment(value).isBefore(moment(n.toISOString()));
+    }
 
     export default {
         name: 'registerStep2',
         data () {
             return {
-                maxBirthDate: this.getMaxBirthDate()
+                maxBirthDate: this.getMaxBirthDate(),
+                minAge: process.env.VUE_APP_REGISTER_MIN_AGE
             }
         },
         validations: {
@@ -142,7 +169,8 @@
                     required,
                 },
                 birthDate: {
-                    required
+                    required,
+                    isMaxBirthDate
                 },
                 userAgreementAccepted: {
                     required,
@@ -170,7 +198,7 @@
         methods: {
             getMaxBirthDate() {
               let n = new Date();
-              n.setFullYear(n.getFullYear() - 16);
+              n.setFullYear(n.getFullYear() - process.env.VUE_APP_REGISTER_MIN_AGE);
               return n.toISOString();
             },
             goGeoSearch(type, action) {

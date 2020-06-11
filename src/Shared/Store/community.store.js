@@ -1,3 +1,23 @@
+/**
+
+ Copyright (c) 2018, MOBICOOP. All rights reserved.
+ This project is dual licensed under AGPL and proprietary licence.
+
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Affero General Public License as
+ published by the Free Software Foundation, either version 3 of the
+ License, or (at your option) any later version.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ GNU Affero General Public License for more details.
+ You should have received a copy of the GNU Affero General Public License
+ along with this program. If not, see <gnu.org/licenses>.
+
+ Licence MOBICOOP described in the file
+ LICENSE
+ **************************/
+
 import http from '../Mixin/http.mixin'
 
 export const communityStore = {
@@ -9,6 +29,9 @@ export const communityStore = {
     statusAdsCommunity: '',
     statusPostCommunity: '',
     communities: [],
+    file: null,
+    page: 1,
+    total: 0,
     postCommunity: null
   },
   mutations: {
@@ -18,7 +41,11 @@ export const communityStore = {
 
     communities_success(state, communities) {
       state.statusGetCommunities = 'success';
-      state.communities = communities;
+      if(state.page == 1) {
+        state.communities = communities;
+      } else {
+        state.communities.push(...communities);
+      }
     },
 
     communities_error(state) {
@@ -32,6 +59,7 @@ export const communityStore = {
     community_success(state, community) {
       state.statusGetCommunity = 'success';
       state.community = community;
+
     },
 
     community_error(state) {
@@ -84,6 +112,7 @@ export const communityStore = {
         user: '',
         communityUsers: ''
       };
+      state.file = null;
     },
 
     post_community_request(state) {
@@ -110,12 +139,13 @@ export const communityStore = {
   },
   actions: {
 
-    getAllCommunities({commit}) {
+    getAllCommunities({commit, state}) {
       commit('communities_request');
       return new Promise((resolve, reject) => {
-        http.get(`/communities`)
+        http.get(`/communities?page=`+ state.page + '&perPage=30')
           .then(resp => {
             resolve(resp)
+            state.total = resp.data['hydra:totalItems'];
             commit('communities_success', resp.data['hydra:member']);
           })
           .catch(err => {
@@ -208,9 +238,8 @@ export const communityStore = {
     updateCommunityPicture({commit}, params) {
       return new Promise((resolve, reject) => {
         const formData = new FormData();
-        //todo
-        formData.append('userFile', params.file);
-        formData.append('userId', Number(params.userId));
+        formData.append('communityFile', params.communityFile);
+        formData.append('communityId', Number(params.communityId));
 
         http.post(`/images`, formData)
           .then(resp => {

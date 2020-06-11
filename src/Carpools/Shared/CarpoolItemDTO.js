@@ -1,3 +1,23 @@
+/**
+
+ Copyright (c) 2018, MOBICOOP. All rights reserved.
+ This project is dual licensed under AGPL and proprietary licence.
+
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Affero General Public License as
+ published by the Free Software Foundation, either version 3 of the
+ License, or (at your option) any later version.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ GNU Affero General Public License for more details.
+ You should have received a copy of the GNU Affero General Public License
+ along with this program. If not, see <gnu.org/licenses>.
+
+ Licence MOBICOOP described in the file
+ LICENSE
+ **************************/
+
 export default class CarpoolItemDTO {
 
   construct(data) {
@@ -8,8 +28,8 @@ export default class CarpoolItemDTO {
     this.id = carpool.id;
     this.frequency = carpool.frequency;
     this.price = carpool.roundedPrice;
-    this.passenger = !!carpool.resultPassenger;
-    this.driver = !!carpool.resultDriver;
+    this.passenger = !!carpool.resultDriver;
+    this.driver = !!carpool.resultPassenger;
     this.seats = carpool.seats;
     this.origin = carpool.origin;
     this.destination = carpool.destination;
@@ -46,9 +66,9 @@ export default class CarpoolItemDTO {
     this.potentialCarpoolers = carpool.potentialCarpoolers;
     if (carpool.frequency == 1) {
       this.date = carpool.outwardDate;
-      this.time = carpool.outwardTime;
-      this.outwardTime = carpool.outwardTime;
-      this.returnTime = carpool.returnTime;
+      this.time = carpool.outwardTime + "+00:00" ;
+      this.outwardTime = carpool.outwardTime + "+00:00";
+      this.returnTime = carpool.returnTime + "+00:00";
     }
     if (carpool.frequency == 2) {
       this.dateValidity = carpool.outwardLimitDate;

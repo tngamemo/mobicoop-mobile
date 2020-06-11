@@ -1,5 +1,6 @@
 import UIKit
 import Capacitor
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -9,6 +10,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     // Override point for customization after application launch.
+    var filePath:String!
+    let appName = Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as! String
+    filePath = Bundle.main.path(forResource: "GoogleService-Info-" + appName, ofType: "plist")
+
+    let options = FirebaseOptions.init(contentsOfFile: filePath)!
+    FirebaseApp.configure(options: options)
     return true
   }
 
@@ -61,7 +68,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   #if USE_PUSH
 
   func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-    NotificationCenter.default.post(name: Notification.Name(CAPNotifications.DidRegisterForRemoteNotificationsWithDeviceToken.name()), object: deviceToken)
+      Messaging.messaging().apnsToken = deviceToken
+      InstanceID.instanceID().instanceID { (result, error) in
+          if let error = error {
+              NotificationCenter.default.post(name: Notification.Name(CAPNotifications.DidFailToRegisterForRemoteNotificationsWithError.name()), object: error)
+          } else if let result = result {
+              NotificationCenter.default.post(name: Notification.Name(CAPNotifications.DidRegisterForRemoteNotificationsWithDeviceToken.name()), object: result.token)
+          }
+      }
   }
 
   func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {

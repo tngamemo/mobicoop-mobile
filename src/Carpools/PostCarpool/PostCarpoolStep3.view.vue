@@ -1,3 +1,23 @@
+/**
+
+Copyright (c) 2018, MOBICOOP. All rights reserved.
+This project is dual licensed under AGPL and proprietary licence.
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Affero General Public License for more details.
+You should have received a copy of the GNU Affero General Public License
+along with this program. If not, see <gnu.org/licenses>.
+
+Licence MOBICOOP described in the file
+LICENSE
+**************************/
+
 <template>
   <div class="mc-form-carpool">
     <div class="mc-select-step">
@@ -63,7 +83,10 @@
       </div>
     </div>
 
-    <div class="mc-select-communities text-left" v-if="this.$store.getters.userCommunities">
+    <div class="mc-select-communities text-left mc-no-communities" v-if="this.$store.getters.userCommunities.length == 0">
+      {{$t('PostCarpool.no-communities')}}
+    </div>
+    <div class="mc-select-communities text-left" v-if="this.$store.getters.userCommunities.length > 0">
       <ion-icon
         size="large"
         color="primary"
@@ -71,14 +94,16 @@
         v-if="this.$store.getters.statusUserCommunities == 'loading'"
         name="md-sync"
       ></ion-icon>
+      <ion-item lines="none" class="item-communities">
+      <ion-label position="floating">{{$t('PostCarpool.my-communities')}}</ion-label>
       <ion-select
-        @ionChange="selectCommunities($event.target.value)"
         v-if="this.$store.getters.userCommunities && this.$store.getters.statusUserCommunities == 'success'"
         placeholder="Sélectionnez une communauté"
+        interface="alert"
         multiple="true"
-        cancelText="Fermer"
-        okText="Valider"
-        :value="this.$store.getters.carpoolToPost.communities"
+        cancel-text="Fermer"
+        ok-text="Valider"
+        :value="selectedCommunities"
       >
         <ion-select-option
           v-for="community in this.$store.getters.userCommunities"
@@ -86,6 +111,7 @@
           :value="parseInt(community.id)"
         >{{ community.name }}</ion-select-option>
       </ion-select>
+      </ion-item>
     </div>
 
     <div class="mc-carpool-distance text-center">
@@ -150,6 +176,18 @@
       margin-bottom: 10px;
     }
   }
+
+  .mc-no-communities {
+    padding: 10px;
+    text-align: center;
+    font-size: 14px;
+  }
+
+  .item-communities {
+    margin: 0px;
+    padding: 5px;
+    --background: transparent;
+  }
 }
 </style>
 
@@ -177,7 +215,7 @@ export default {
         dragging: !isPlatform(window.document.defaultView, "mobile"),
         touchZoom: isPlatform(window.document.defaultView, "mobile"),
         tap: !isPlatform(window.document.defaultView, "mobile")
-      }
+      },
     };
   },
   validations: {
@@ -225,6 +263,10 @@ export default {
       );
       if (!!this.$refs.map) this.$refs.map.mapObject.invalidateSize();
       return bounds;
+    },
+
+    selectedCommunities() {
+      return this.$store.getters.carpoolToPost.communities;
     },
 
     carpoolToPost() {
@@ -305,11 +347,6 @@ export default {
       this.$store.getters.addressessUseToPost["step"].push({});
     },
 
-    selectCommunities: function(value) {
-      value.forEach(id =>
-        this.$store.getters.carpoolToPost.communities.push(parseInt(id))
-      );
-    }
   }
 };
 </script>

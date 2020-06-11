@@ -1,3 +1,23 @@
+/**
+
+ Copyright (c) 2018, MOBICOOP. All rights reserved.
+ This project is dual licensed under AGPL and proprietary licence.
+
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Affero General Public License as
+ published by the Free Software Foundation, either version 3 of the
+ License, or (at your option) any later version.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ GNU Affero General Public License for more details.
+ You should have received a copy of the GNU Affero General Public License
+ along with this program. If not, see <gnu.org/licenses>.
+
+ Licence MOBICOOP described in the file
+ LICENSE
+ **************************/
+
 // Global
 import { IonicVueRouter } from '@ionic/vue'
 
@@ -15,6 +35,7 @@ import UpdateProfile from './Profile/UpdateProfile.view.vue';
 import ProfileAlerts from './Profile/ProfileAlerts.view.vue';
 import ProfilePrefs from './Profile/ProfilePrefs.view.vue';
 import MyCarpools from './Profile/MyCarpools.view.vue';
+import AcceptedCarpools from './Profile/AcceptedCarpools.view.vue';
 import PostCarpool from './PostCarpool/PostCarpool.view.vue';
 import Message from './Messages/Message.view.vue';
 import PostCarpoolStep from './PostCarpool/PostCarpoolStep.view.vue';
@@ -28,6 +49,7 @@ import Contact from './Contact/Contact.view.vue';
 import Solidarity from './Solidarity/Solidarity.view.vue';
 import PostCommunity from './Communities/PostCommunity/PostCommunity.view.vue';
 import PostEvent from './Events/PostEvent/PostEvent.view.vue';
+import Dynamic from './Dynamic/Dynamic.view.vue';
 
 import Vue from 'vue'
 import store from '../Shared/Store/store';
@@ -83,6 +105,7 @@ export default [
         path: 'communities',
         name: 'communities',
         component: Communities,
+        beforeEnter: guardAccesByLogin
       },
       {
         path: 'profile',
@@ -122,6 +145,11 @@ export default [
     path: 'my-carpools',
     name: 'my-carpools',
     component: MyCarpools
+  },
+  {
+    path: 'accepted-carpools',
+    name: 'accepted-carpools',
+    component: AcceptedCarpools
   },
   {
     path: 'post-carpool-step',
@@ -182,7 +210,7 @@ export default [
     beforeEnter: guardAccesByLogin
   },
   {
-    path: '/events',
+    path: 'events',
     name: 'carpool-events',
     component: Events,
     beforeEnter: guardAccesByLogin
@@ -208,5 +236,11 @@ export default [
     path: 'solidarity',
     name: 'carpool-solidarity',
     component: Solidarity,
+  },
+  {
+    path: 'dynamic',
+    name: 'dynamic',
+    component: Dynamic,
+    beforeEnter: guardAccesByLogin
   },
 ]

@@ -1,9 +1,29 @@
+/**
+
+Copyright (c) 2018, MOBICOOP. All rights reserved.
+This project is dual licensed under AGPL and proprietary licence.
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Affero General Public License for more details.
+You should have received a copy of the GNU Affero General Public License
+along with this program. If not, see <gnu.org/licenses>.
+
+Licence MOBICOOP described in the file
+LICENSE
+**************************/
+
 <template>
   <div class="ion-page">
     <ion-header no-border>
       <ion-toolbar color="primary">
         <ion-buttons slot="start">
-          <ion-back-button></ion-back-button>
+          <ion-back-button default-href="/carpools/communities"></ion-back-button>
         </ion-buttons>
         <h1 v-if="community" class="ion-text-center">{{ community.name}}</h1>
         <h1 v-if="!community" class="ion-text-center">{{ $t('Community.title')}}</h1>
@@ -32,11 +52,12 @@
 
         <div class="mc-community-description mc-community-padding">
           {{community.description}}
-          <MiniMap :LPolyline="LPolyline" />
+          <MiniMap :LMarker="LMarker" :LPolyline="LPolyline" />
 
           <ion-button
             v-if="!isInCommunity"
-            class="mc-big-button"
+            :disabled="community.domain && isNotInDomain()"
+            class="mc-big-button join-community"
             color="success"
             expand="block"
             v-on:click="joinCommunity()"
@@ -53,10 +74,11 @@
               {{ $t('Community.joinCommu')}}
             </div>
           </ion-button>
+          <div v-if="!isInCommunity && community.domain" class="text-center">{{ $t('Community.domain')}} {{community.domain}}</div>
         </div>
       </div>
       <div class="mc-white-container" v-if="community">
-        <div class="mc-community-users">
+        <div class="mc-community-users" v-if="isInCommunity">
           <p>Il nous ont rejoint</p>
           <ion-row>
             <ion-scroll scrollX="true">
@@ -105,6 +127,7 @@
           class="mc-big-button"
           color="danger"
           expand="block"
+          :disabled="isOwner()"
           v-on:click="leaveCommunity()"
         >
           <ion-icon
@@ -119,6 +142,7 @@
             {{ $t('Community.leaveCommu')}}
           </div>
         </ion-button>
+        <div class="mc-leave-text text-center" v-if="isOwner()"><small>{{ $t('Community.isOwnerLeave')}}</small></div>
       </div>
     </ion-content>
   </div>
@@ -136,7 +160,7 @@
   }
 
   .mc-community-padding {
-    padding: 30px;
+    padding: 20px;
   }
 
   .mc-community-users {
@@ -171,6 +195,14 @@
     }
   }
 }
+
+  .join-community {
+    margin-top: 20px;
+  }
+
+  .mc-leave-text {
+    color: var(--ion-color-danger);
+  }
 </style>
 
 <script>
@@ -185,12 +217,13 @@ export default {
   data() {
     return {
       community: "",
-      LPolyline: []
+      LPolyline: [],
+      LMarker: [],
     };
   },
   created() {
     this.getSpecificCommunity();
-    this.getAdsCommunity();
+    // this.getAdsCommunity();
   },
   computed: {
     isInCommunity() {
@@ -212,12 +245,23 @@ export default {
         .dispatch("getSpecificCommunity", communityId)
         .then(resp => {
           this.community = resp.data;
+
+          this.LMarker.push({
+            latlng: [
+              this.community.address.latitude,
+              this.community.address.longitude
+            ],
+            name: this.community.name
+          });
+
+          this.constructDataMap(this.community.ads);
         })
         .catch(error => {
           this.presentToast(this.$t("Commons.error"), "danger");
         });
     },
 
+    /*
     getAdsCommunity() {
       // On récupére les communities\
       const communityId = this.$route.params.id;
@@ -232,6 +276,8 @@ export default {
         });
     },
 
+     */
+
     joinCommunity() {
       const payload = {
         community: this.community["@id"],
@@ -245,27 +291,50 @@ export default {
           this.getSpecificCommunity();
         })
         .catch(error => {
-          this.presentToast(this.$t("Commons.error"), "danger");
+          if(error.response.status === 403) {
+            this.presentToast(this.$t("Community.join-error"), "danger");
+          } else {
+            this.presentToast(this.$t("Commons.error"), "danger");
+          }
         });
     },
 
     leaveCommunity() {
-      const communityUser = this.community.communityUsers.find(
-        item => item.user.id == this.$store.getters.userId
-      );
-      const payload = {
-        cummunityUserId: communityUser["id"]
-      };
+      return this.$ionic.alertController
+        .create({
+          header: this.$t("Community.leaveCommu"),
+          message: this.$t( "Community.leaveHasMember"),
+          buttons: [
+            {
+              text: this.$t("Commons.cancel"),
+              role: 'cancel',
+              cssClass: 'secondary'
+            },
+            {
+              text: this.$t("Commons.confirm"),
+              handler: () => {
+                const communityUser = this.community.communityUsers.find(
+                  item => item.user.id == this.$store.getters.userId
+                );
+                const payload = {
+                  cummunityUserId: communityUser["id"]
+                };
 
-      this.$store
-        .dispatch("leaveCommunity", payload)
-        .then(resp => {
-          this.presentToast(this.$t("Community.leave_success"), "success");
-          this.getSpecificCommunity();
+                this.$store
+                  .dispatch("leaveCommunity", payload)
+                  .then(resp => {
+                    this.presentToast(this.$t("Community.leave_success"), "success");
+                    this.getSpecificCommunity();
+                  })
+                  .catch(error => {
+                    this.presentToast(this.$t("Commons.error"), "danger");
+                  });
+              },
+            },
+          ],
         })
-        .catch(error => {
-          this.presentToast(this.$t("Commons.error"), "danger");
-        });
+        .then(a => a.present());
+
     },
 
     constructDataMap(data) {
@@ -285,7 +354,18 @@ export default {
     goToMessage(user) {
       this.$store.commit('set_temp_direct_thread', user);
       this.$router.push({ name: "message" , params : {idAsk : -99, idRecipient : user.id}});
+    },
+
+    isOwner() {
+      return this.$store.getters.userId === this.idCommunityReferent
+    },
+
+    isNotInDomain() {
+      const email = this.$store.state.userStore.user.email;
+      const res = !email.includes(this.community.domain);
+      return res;
     }
+
   }
 };
 </script>

@@ -1,3 +1,23 @@
+/**
+
+Copyright (c) 2018, MOBICOOP. All rights reserved.
+This project is dual licensed under AGPL and proprietary licence.
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Affero General Public License for more details.
+You should have received a copy of the GNU Affero General Public License
+along with this program. If not, see <gnu.org/licenses>.
+
+Licence MOBICOOP described in the file
+LICENSE
+**************************/
+
 <template>
   <div class="ion-page">
     <ion-header no-border>
@@ -35,7 +55,7 @@
               type="text"
               :placeholder="$t('Register.givenName') + '*'"
               :value="user.givenName"
-              @input="user.givenName = $event.target.value;"
+              @input="user.givenName = $event.target.value"
             >
             </ion-input>
           </ion-item>
@@ -49,7 +69,7 @@
               type="text"
               :placeholder="$t('Register.familyName') + '*'"
               :value="user.familyName"
-              @input="user.familyName = $event.target.value;"
+              @input="user.familyName = $event.target.value"
             >
             </ion-input>
           </ion-item>
@@ -82,7 +102,7 @@
               :placeholder="$t('Register.email') + '*'"
               :value="user.email"
               disabled
-              @input="user.email = $event.target.value;"
+              @input="user.email = $event.target.value"
             >
             </ion-input>
           </ion-item>
@@ -97,7 +117,7 @@
               type="text"
               name="telephone"
               :value="user.telephone"
-              @input="user.telephone = $event.target.value;"
+              @input="user.telephone = $event.target.value"
               :placeholder="$t('Register.phone')"
             ></ion-input>
             <ion-icon slot="end" color="success" class="ion-margin-top" v-if="user.phoneValidatedDate" name="checkmark"></ion-icon>
@@ -220,12 +240,13 @@
 <script>
   import { required, email, sameAs, minLength, helpers } from 'vuelidate/lib/validators'
   import { toast } from '../../Shared/Mixin/toast.mixin';
+  import Compressor from 'compressorjs';
 
   export default {
     name: 'update-profile',
     data () {
       return {
-        user: Object.assign({}, this.$store.state.userStore.user ),
+        user: null,
         maxBirthDate: new Date().toISOString()
       }
     },
@@ -256,25 +277,47 @@
         }
       }
     },
+    created() {
+      if(this.$store.state.userStore.userToUpdate == null) {
+        this.$store.state.userStore.userToUpdate = this.$store.state.userStore.user;
+      }
+      this.user = this.$store.state.userStore.userToUpdate;
+    },
     methods: {
       changePicture(e) {
         const file = e.target.files[0];
-        if (this.user.images.length > 0) {
-          Promise.all([this.user.images.map(item => {
-            return this.$store.dispatch('deleteImage', item.id );
-          })]).then(() => {
-            this.updateUserPicture(file);
-          })
-        }else {
-          this.updateUserPicture(file);
+        if (file) {
+          if (this.user.images.length > 0) {
+            Promise.all([this.user.images.map(item => {
+              return this.$store.dispatch('deleteImage', item.id);
+            })]).then(() => {
+              this.compressFile(file);
+            })
+          } else {
+            this.compressFile(file);
+          }
         }
 
+      },
+      compressFile: function (file) {
+        const context = this;
+        new Compressor(file, {
+          convertSize: 1000000,
+          success(result) {
+            if (result) {
+              context.updateUserPicture(new File([result], file.name, {type: result.type}));
+            }
+          },
+          error(err) {
+            context.presentToast(this.$t("Commons.error"), 'danger')
+          },
+        });
       },
       updateUserPicture(file) {
         this.$store.dispatch('updateUserPicture', { userId : this.user.id, file: file })
           .then(res => {
             this.$store.dispatch('getUser', { idUser: this.user.id }).then(res => {
-              this.user = Object.assign({}, this.$store.state.userStore.user );
+              this.user.avatars = this.$store.state.userStore.user.avatars;
             });
             this.presentToast(this.$t("UpdateProfile.picture-success"), 'success')
           })
@@ -286,6 +329,7 @@
         this.$store.dispatch('updateUser', this.user)
           .then(res => {
             this.$router.push('profile');
+            this.$store.state.userStore.userToUpdate = null;
             this.presentToast(this.$t("UpdateProfile.success"), 'success')
           })
           .catch(err => {

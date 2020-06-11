@@ -1,3 +1,23 @@
+/**
+
+Copyright (c) 2018, MOBICOOP. All rights reserved.
+This project is dual licensed under AGPL and proprietary licence.
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Affero General Public License for more details.
+You should have received a copy of the GNU Affero General Public License
+along with this program. If not, see <gnu.org/licenses>.
+
+Licence MOBICOOP described in the file
+LICENSE
+**************************/
+
 <template>
   <div class="mc-home-search">
     <div class="mc-search-block">
@@ -36,8 +56,8 @@
 
         <ion-grid class="ion-margin-bottom mc-block-date">
           <ion-row>
-            <ion-col size="5" v-if="this.from != 'event'">
-              <ion-item>
+            <ion-col size="4" v-if="this.from != 'event'">
+              <ion-item v-if="showDate">
                 <ion-label position="floating">{{$t('Search.date')}}</ion-label>
                 <ion-datetime
                   display-format="DD/MM"
@@ -51,7 +71,12 @@
                 ></ion-datetime>
               </ion-item>
             </ion-col>
-            <ion-col size="7" class="d-flex ion-align-items-end">
+
+            <ion-col size="2" v-if="this.from != 'event' && clearDate">
+              <div class="pointer"><ion-icon class="reset-color" size="large" name="close-circle" @click="resetDate()" style="margin-top: 20px"></ion-icon></div>
+            </ion-col>
+
+            <ion-col size="6" class="d-flex ion-align-items-end">
               <ion-item lines="none">
                 <ion-label>Trajet régulier</ion-label>
                 <ion-checkbox
@@ -82,6 +107,15 @@
       fill="outline"
       @click="goToPostCarpool()"
     >{{ $t('HOME.postCarpool') }}</ion-button>
+
+    <ion-button
+      v-if="showPostCarpool && isCapacitor && canSeeDynamics"
+      class="mc-big-button"
+      color="primary"
+      expand="block"
+      fill="outline"
+      @click="goToDynamic()"
+    >{{ $t('HOME.dynamic') }}</ion-button>
   </div>
 </template>
 
@@ -109,15 +143,26 @@
 ion-datetime {
   padding-left: 0px !important;
 }
+
+  .reset-color {
+    // color:rgba(0, 0, 0, 0.3)
+    color:var(--ion-color-primary)
+  }
 </style>
 
 <script>
+  import { isPlatform } from "@ionic/core";
+
 export default {
   name: "search-home",
-  props: ["showPost", "searchWithFilter", "postWithFilter", "communities", "from"],
+  props: ["showPost", "searchWithFilter", "postWithFilter", "communities", "from", "eventId"],
   data() {
     return {
-      showPostCarpool: true
+      showPostCarpool: true,
+      isCapacitor : isPlatform(window.document.defaultView, "capacitor"),
+      showDate: true,
+      clearDate: JSON.parse(process.env.VUE_APP_CAN_CLEAR_DATE),
+      canSeeDynamics: JSON.parse(process.env.VUE_APP_CAN_SEE_DYNAMICS)
     };
   },
   created() {
@@ -147,6 +192,13 @@ export default {
       );
     },
 
+    resetDate() {
+      // this.changeDate({detail: {value: undefined}});
+      this.$store.state.searchStore.searchObject.outwardDate = null;
+      this.showDate = false;
+      setTimeout(() => {this.showDate = true});
+    },
+
     swapDestinationAndOrigin() {
       this.$store.dispatch("swapDestinationAndOrigin");
     },
@@ -161,6 +213,8 @@ export default {
     },
 
     goToSearchPage() {
+      this.$store.commit('reset_search_object');
+
       if (this.$store.getters.userId) {
         this.$store.commit("changeUserIdOfSearch", this.$store.getters.userId);
       } else {
@@ -169,7 +223,6 @@ export default {
 
       let filters = null;
       if (this.searchWithFilter) {
-
         filters = {communities: this.communities};
       }
       this.$router.push({ name: "search", params: {filters} });
@@ -185,22 +238,29 @@ export default {
       };
 
       // Si on a un object carpoolToPost inextistant
-      if (!!!this.$store.getters.carpoolToPost) {
+      // if (!!!this.$store.getters.carpoolToPost) {
         this.$store.commit("carpoolPost_init");
-      }
+      // }
 
       this.$store.commit("carpoolPost_fromSearch", payload);
       if (payload.origin || payload.outwardDate) {
         this.$store.dispatch("treatementUpdateAddresses");
       }
 
-      let filters = null;
+      let filters = {};
       if (this.postWithFilter) {
-
         filters = {communities: this.communities};
       }
 
+      if (this.eventId) {
+        filters = {eventId: this.eventId};
+      }
+
       this.$router.push({name: "post-carpool", params: {filters}});
+    },
+
+    goToDynamic() {
+      this.$router.push({name: "dynamic"});
     }
   }
 };

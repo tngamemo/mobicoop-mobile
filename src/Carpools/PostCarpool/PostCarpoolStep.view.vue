@@ -1,3 +1,23 @@
+/**
+
+Copyright (c) 2018, MOBICOOP. All rights reserved.
+This project is dual licensed under AGPL and proprietary licence.
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Affero General Public License for more details.
+You should have received a copy of the GNU Affero General Public License
+along with this program. If not, see <gnu.org/licenses>.
+
+Licence MOBICOOP described in the file
+LICENSE
+**************************/
+
 <template>
   <div class="ion-page">
     <ion-header no-border>
@@ -92,21 +112,38 @@ export default {
   methods: {
     postCarpool: function() {
       this.$store.commit('change_sliderloader_visibility');
-      this.$store
-        .dispatch("postCarpool")
-        .then(resp => {
-          this.$store.commit('change_sliderloader_visibility');
-          this.presentToast("La publication est un succès", "success");
-          this.$router.push("home");
-          setTimeout(() => {
-            this.$store.commit("carpoolPost_init");
+      if (this.$store.getters.carpoolToPost.id) {
+        this.$store
+          .dispatch("updateCarpool")
+          .then(resp => {
+            this.$store.commit('change_sliderloader_visibility');
+            this.presentToast("L'annonce a bien été modifiée", "success");
+            this.$router.push("home");
+            setTimeout(() => {
+              this.$store.commit("carpoolPost_init");
+            }, 2000);
+          })
+          .catch(err => {
+            this.presentToast(this.$t("Commons.error"), 'danger');
+            this.$store.commit('change_sliderloader_visibility');
+          });
+      } else {
+        this.$store
+          .dispatch("postCarpool")
+          .then(resp => {
+            this.$store.commit('change_sliderloader_visibility');
+            this.presentToast("La publication est un succès", "success");
+            this.$router.push("home");
+            setTimeout(() => {
+              this.$store.commit("carpoolPost_init");
 
-          }, 2000);
-        })
-        .catch(err => {
-          this.presentToast(this.$t("Commons.error"), 'danger');
-          this.$store.commit('change_sliderloader_visibility');
-        });
+            }, 2000);
+          })
+          .catch(err => {
+            this.presentToast(this.$t("Commons.error"), 'danger');
+            this.$store.commit('change_sliderloader_visibility');
+          });
+      }
     }
   }
 };

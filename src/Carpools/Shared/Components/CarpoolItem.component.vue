@@ -1,3 +1,23 @@
+/**
+
+Copyright (c) 2018, MOBICOOP. All rights reserved.
+This project is dual licensed under AGPL and proprietary licence.
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Affero General Public License for more details.
+You should have received a copy of the GNU Affero General Public License
+along with this program. If not, see <gnu.org/licenses>.
+
+Licence MOBICOOP described in the file
+LICENSE
+**************************/
+
 <template>
   <div class="mc-carpool-item">
     <div class="mc-carpool-header d-flex justify-between align-center flex-wrap">
@@ -74,20 +94,30 @@
             :src="this.carpool.carpooler.avatar"
             @load="onImgLoad()"
           />
-          <ion-icon v-if="! this.avatarLoaded" name="contact" size="large"></ion-icon>
+          <!--<ion-icon v-if="! this.avatarLoaded" name="contact" size="large"></ion-icon>-->
         </ion-thumbnail>
         <strong
           class="mc-carpool-carpooler"
         >{{this.carpool.carpooler.givenName}} {{this.carpool.carpooler.shortFamilyName}}</strong>
       </div>
-      <div v-if="type == 'my-carpool'" class="d-flex align-center justify-between">
+      <div v-if="type == 'my-carpool'">
         <div class="ion-text-start">
           <div
             v-if="carpool.dateValidity"
           >{{$t("MyCarpools.validatedUntil")}} {{carpool.dateValidity | moment("utc", 'dddd D[.]MM[.]YYYY')}}</div>
         </div>
 
-        <div class="ion-text-end">
+        <div class="d-flex align-center justify-end" style="flex-flow: wrap">
+          <ion-button
+            class="mc-small-button"
+            color="primary"
+            v-if="hasNoAcceptedAsk(carpoolSource)"
+            @click="updateCarpool(carpoolSource)"
+          >
+            <ion-icon name="create"></ion-icon>
+            <span class="ion-margin-start">{{$t('Commons.update')}}</span>
+          </ion-button>
+
           <ion-button
             class="mc-small-button"
             color="danger"
@@ -102,16 +132,16 @@
             :ref="'test'"
             class="mc-small-button"
             color="primary"
-            @click="pauseCarpool(carpool.id)"
+            @click="pauseCarpool(carpool)"
           >
             <ion-icon
               color="light"
-              v-if="!paused && this.$store.getters.statusPauseCarpool != 'loading'"
+              v-if="!carpool.paused && this.$store.getters.statusPauseCarpool != 'loading'"
               name="pause"
             ></ion-icon>
             <ion-icon
               color="light"
-              v-if="paused && this.$store.getters.statusPauseCarpool != 'loading'"
+              v-if="carpool.paused && this.$store.getters.statusPauseCarpool != 'loading'"
               name="play"
             ></ion-icon>
             <ion-icon
@@ -127,7 +157,7 @@
         class="mc-carpool-potential-carpoolers"
       >
         <ion-button
-          class="mc-big-button"
+          class="mc-big-button normal-wrap"
           fill="outline"
           color="success"
           expand="block"
@@ -290,11 +320,10 @@ import { toast } from "../../../Shared/Mixin/toast.mixin";
 
 export default {
   name: "carpool-item",
-  props: ["carpool", "type"],
+  props: ["carpool", "type", "carpoolSource"],
   data() {
     return {
       avatarLoaded: false,
-      paused: this.carpool.paused
     };
   },
   mixins: [toast],
@@ -347,9 +376,9 @@ export default {
       this.avatarLoaded = true;
     },
 
-    pauseCarpool(carpoolId) {
+    pauseCarpool() {
       const payload = {
-        carpoolId,
+        carpoolId : this.carpool.id,
         data: {
           paused: !this.carpool.paused,
           adId: this.carpool.id
@@ -364,7 +393,8 @@ export default {
             "success"
           );
 
-          this.paused = !this.carpool.paused;
+          this.carpool.paused = resp.data.paused;
+          this.$forceUpdate();
         })
         .catch(err => {
           this.presentToast(this.$parent.$t("Commons.error"), "danger");
@@ -398,7 +428,36 @@ export default {
       });
 
       this.$store.state.searchStore.searchObject.frequency = this.carpool.frequency;
+      this.$store.state.searchStore.searchObject.adId = this.carpool.id;
       this.$router.push({ name: "search" });
+    },
+    hasNoAcceptedAsk(carpool){
+      let res = true;
+      if (carpool.results) {
+        carpool.results.forEach(item => {
+          if ( item.acceptedAsk ) {
+            res = false;
+          }
+        });
+      }
+      return res;
+    },
+    updateCarpool(carpool) {
+      const payload = {
+        origin: carpool.outwardWaypoints[0].address,
+        destination: carpool.outwardWaypoints[carpool.outwardWaypoints.length - 1].address,
+        outwardDate: carpool.outwardDate,
+        frequency: carpool.frequency
+      };
+
+      this.$store.commit("carpoolPost_update", carpool);
+      this.$store.commit("carpoolPost_fromSearch", payload);
+      if (payload.origin || payload.outwardDate) {
+        this.$store.dispatch("treatementUpdateAddresses");
+      }
+
+      let filters = {};
+      this.$router.push({name: "post-carpool", params: {filters}});
     }
   }
 };

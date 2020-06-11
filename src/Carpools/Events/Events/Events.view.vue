@@ -1,9 +1,29 @@
+/**
+
+Copyright (c) 2018, MOBICOOP. All rights reserved.
+This project is dual licensed under AGPL and proprietary licence.
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Affero General Public License for more details.
+You should have received a copy of the GNU Affero General Public License
+along with this program. If not, see <gnu.org/licenses>.
+
+Licence MOBICOOP described in the file
+LICENSE
+**************************/
+
 <template>
   <div class="ion-page">
     <ion-header no-border>
       <ion-toolbar color="primary">
         <ion-buttons slot="start">
-          <ion-back-button></ion-back-button>
+          <ion-back-button default-href="/carpools/home"></ion-back-button>
         </ion-buttons>
         <h1 class="ion-text-center">{{ $t('Events.title') }}</h1>
       </ion-toolbar>
@@ -34,13 +54,15 @@
         <div class="mc-events-see-history">
           <span
             v-on:click="changeSortEvent()"
-          >{{ this.sortEvent == "currentEvents" ? $t('Events.seePastEvent') : $t('Events.seeCurrentEvent')}}</span>
+          >{{ this.type == "after" ? $t('Events.seePastEvent') : $t('Events.seeCurrentEvent')}}</span>
         </div>
       </div>
       <div class="mc-white-container">
-        <div class="ion-text-center ion-margin-top" v-if="!events">
+        <div class="ion-text-center ion-margin-top" v-if="$store.state.eventStore.page == 1 && $store.state.eventStore.statusGetEvents == 'loading'">
           <ion-icon size="large" color="primary" class="rotating" name="md-sync"></ion-icon>
         </div>
+
+        <div v-if="!($store.state.eventStore.page == 1 && $store.state.eventStore.statusGetEvents == 'loading')">
         <ion-item
           item
           v-for="(event, index) in events"
@@ -67,13 +89,22 @@
                   v-if="event.useTime"
                 >à {{event.toDate | moment('utc', 'HH[h]mm')}}</span>
               </p>
-              <ion-button v-if="sortEvent == 'currentEvents'" color="success" expand="block">
+              <ion-button v-if="type == 'after'" color="success">
                 <ion-icon name="eye" class="ion-padding-end"></ion-icon>
                 {{ $t('Events.see') }}
               </ion-button>
             </div>
           </div>
         </ion-item>
+        </div>
+
+        <ion-infinite-scroll threshold="100px" id="infinite-scroll">
+          <ion-infinite-scroll-content
+            loadingSpinner="circles"
+            loadingText="Chargement...">
+          </ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+
       </div>
     </ion-content>
   </div>
@@ -140,7 +171,6 @@ export default {
     return {
       searchText: "",
       LMarker: null,
-      sortEvent: "currentEvents"
     };
   },
   components: {
@@ -148,27 +178,46 @@ export default {
   },
   created() {
     // On récupére les communities
-    this.$store
-      .dispatch("getAllEvents")
-      .then(resp => {
-        this.getMarkerMap(this.$store.getters[this.sortEvent]);
-      })
-      .catch(error => {
-        this.presentToast(this.$t("Commons.error"), "danger");
-      });
+    this.$store.state.eventStore.page = 1;
+    this.getAllEvents();
+  },
+  mounted() {
+    const infiniteScroll = document.getElementById('infinite-scroll');
+
+    infiniteScroll.addEventListener('ionInfinite', event => {
+      setTimeout(() => {
+        this.$store.state.eventStore.page = this.$store.state.eventStore.page + 1;
+        this.getAllEvents();
+        event.target.complete();
+
+        // App logic to determine if all data is loaded
+        // and disable the infinite scroll
+        if (this.$store.state.eventStore.events.length >= this.$store.state.eventStore.total) {
+          event.target.disabled = true;
+        }
+      }, 500);
+    });
   },
   computed: {
+    type() {
+      return this.$store.state.eventStore.type;
+    },
     events() {
-      if (!!this.$store.getters[this.sortEvent]) {
-        return this.$store.getters[this.sortEvent].filter(event => {
+        return this.$store.state.eventStore.events.filter(event => {
           return event.name
             .toUpperCase()
             .includes(this.searchText.toUpperCase());
         });
-      }
     }
   },
   methods: {
+    getAllEvents() {
+      this.$store.dispatch("getAllEvents").then(resp => {
+          this.getMarkerMap(this.$store.state.eventStore.events);
+        }).catch(error => {
+          this.presentToast(this.$t("Commons.error"), "danger");
+        });
+    },
     goToPostEvent() {
       this.$router.push({
         name: "post-event"
@@ -176,7 +225,7 @@ export default {
     },
 
     goToEvent(idEvent) {
-      if (this.sortEvent == "currentEvents") {
+      if (this.type == "after") {
         this.$router.push({
           name: "carpool-event",
           params: { id: idEvent }
@@ -196,13 +245,15 @@ export default {
     },
 
     changeSortEvent() {
-      if (this.sortEvent == "currentEvents") {
-        this.sortEvent = "pastEvents";
+      if (this.type == "after") {
+        this.$store.state.eventStore.type = "strictly_before";
+        this.$store.state.eventStore.page = 1;
+        this.getAllEvents();
       } else {
-        this.sortEvent = "currentEvents";
+        this.$store.state.eventStore.type = "after";
+        this.$store.state.eventStore.page = 1;
+        this.getAllEvents();
       }
-
-      this.getMarkerMap(this.$store.getters[this.sortEvent]);
     }
   }
 };

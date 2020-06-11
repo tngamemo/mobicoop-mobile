@@ -1,3 +1,23 @@
+/**
+
+Copyright (c) 2018, MOBICOOP. All rights reserved.
+This project is dual licensed under AGPL and proprietary licence.
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Affero General Public License for more details.
+You should have received a copy of the GNU Affero General Public License
+along with this program. If not, see <gnu.org/licenses>.
+
+Licence MOBICOOP described in the file
+LICENSE
+**************************/
+
 <template>
   <div class="mc-form-carpool">
 
@@ -10,13 +30,13 @@
               <ion-label>{{ $t('PostCarpool.driver')}}</ion-label>
             </ion-item>
           </ion-col>
-          <ion-col>
+          <ion-col v-if="!carpoolToPost.solidaryExclusive">
             <ion-item lines="none">
               <ion-radio value="2" :checked="carpoolToPost.role == 2"></ion-radio>
               <ion-label>{{ $t('PostCarpool.passenger')}}</ion-label>
             </ion-item>
           </ion-col>
-          <ion-col>
+          <ion-col v-if="!carpoolToPost.solidaryExclusive">
             <ion-item lines="none">
               <ion-radio value="3" :checked="carpoolToPost.role == 3"></ion-radio>
               <ion-label>{{ $t('PostCarpool.driverOrPassenger')}}</ion-label>

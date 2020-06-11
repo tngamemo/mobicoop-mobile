@@ -1,0 +1,20 @@
+stages:
+  - build
+
+.template_build: &template_build # Template commun aux deux jobs de la stage build
+  stage: build # On lie les jobs au stage de build
+  image: node:8-alpine # On utilise l’image de node 8
+
+
+build:app:
+  <<: *template_build # on appelle notre template
+  script: # Les scripts exécutés pendant ce job
+    - npm install
+    - npm run build:ouestgo:test
+  cache: # on définit notre cache
+    policy: push
+    paths:
+      - ./dist
+      - ./node_modules
+  only: # On définit une règle d'exécution : ce job sera fait uniquement sur demo ou en cas de tag
+    - master
