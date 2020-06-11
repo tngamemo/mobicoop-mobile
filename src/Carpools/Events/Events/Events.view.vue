@@ -89,7 +89,7 @@ LICENSE
                   v-if="event.useTime"
                 >à {{event.toDate | moment('utc', 'HH[h]mm')}}</span>
               </p>
-              <ion-button v-if="type == 'after'" color="success" expand="block">
+              <ion-button v-if="type == 'after'" color="success">
                 <ion-icon name="eye" class="ion-padding-end"></ion-icon>
                 {{ $t('Events.see') }}
               </ion-button>
