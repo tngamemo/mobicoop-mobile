@@ -100,14 +100,24 @@ LICENSE
           class="mc-carpool-carpooler"
         >{{this.carpool.carpooler.givenName}} {{this.carpool.carpooler.shortFamilyName}}</strong>
       </div>
-      <div v-if="type == 'my-carpool'" class="d-flex align-center justify-between">
+      <div v-if="type == 'my-carpool'">
         <div class="ion-text-start">
           <div
             v-if="carpool.dateValidity"
           >{{$t("MyCarpools.validatedUntil")}} {{carpool.dateValidity | moment("utc", 'dddd D[.]MM[.]YYYY')}}</div>
         </div>
 
-        <div class="ion-text-end">
+        <div class="d-flex align-center justify-end" style="flex-flow: wrap">
+          <ion-button
+            class="mc-small-button"
+            color="primary"
+            v-if="hasNoAcceptedAsk(carpoolSource)"
+            @click="updateCarpool(carpoolSource)"
+          >
+            <ion-icon name="create"></ion-icon>
+            <span class="ion-margin-start">{{$t('Commons.update')}}</span>
+          </ion-button>
+
           <ion-button
             class="mc-small-button"
             color="danger"
@@ -310,7 +320,7 @@ import { toast } from "../../../Shared/Mixin/toast.mixin";
 
 export default {
   name: "carpool-item",
-  props: ["carpool", "type"],
+  props: ["carpool", "type", "carpoolSource"],
   data() {
     return {
       avatarLoaded: false,
@@ -420,6 +430,34 @@ export default {
       this.$store.state.searchStore.searchObject.frequency = this.carpool.frequency;
       this.$store.state.searchStore.searchObject.adId = this.carpool.id;
       this.$router.push({ name: "search" });
+    },
+    hasNoAcceptedAsk(carpool){
+      let res = true;
+      if (carpool.results) {
+        carpool.results.forEach(item => {
+          if ( item.acceptedAsk ) {
+            res = false;
+          }
+        });
+      }
+      return res;
+    },
+    updateCarpool(carpool) {
+      const payload = {
+        origin: carpool.outwardWaypoints[0].address,
+        destination: carpool.outwardWaypoints[carpool.outwardWaypoints.length - 1].address,
+        outwardDate: carpool.outwardDate,
+        frequency: carpool.frequency
+      };
+
+      this.$store.commit("carpoolPost_update", carpool);
+      this.$store.commit("carpoolPost_fromSearch", payload);
+      if (payload.origin || payload.outwardDate) {
+        this.$store.dispatch("treatementUpdateAddresses");
+      }
+
+      let filters = {};
+      this.$router.push({name: "post-carpool", params: {filters}});
     }
   }
 };

@@ -23,7 +23,7 @@ LICENSE
     <ion-header no-border>
       <ion-toolbar color="primary">
         <ion-buttons slot="start">
-          <ion-back-button v-on:click="goBack($event)"></ion-back-button>
+          <ion-back-button></ion-back-button>
         </ion-buttons>
         <h1 class="ion-text-center">{{ $t('PostCarpool.title')}}</h1>
       </ion-toolbar>
@@ -108,12 +108,14 @@ export default {
       this.$store.dispatch("getUserCommunities").then();
     }
 
-    if (!!this.$route.params.filters.communities) {
-      this.$store.getters.carpoolToPost.communities = this.$route.params.filters.communities;
-    }
+    if (!!this.$route.params.filters) {
+      if (!!this.$route.params.filters.communities) {
+        this.$store.getters.carpoolToPost.communities = this.$route.params.filters.communities;
+      }
 
-    if (!!this.$route.params.filters.eventId) {
-      this.$store.getters.carpoolToPost.eventId = this.$route.params.filters.eventId;
+      if (!!this.$route.params.filters.eventId) {
+        this.$store.getters.carpoolToPost.eventId = this.$route.params.filters.eventId;
+      }
     }
 
     if (!!this.solidarity) {

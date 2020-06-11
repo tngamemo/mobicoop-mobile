@@ -344,7 +344,7 @@ export default {
           return this.$store.getters.carpoolToPost.frequency == 1;
         }),
         isAfterNow : function isAfterNow(value) {
-          return moment(value).isSameOrAfter(moment().startOf('day'));
+          return moment(value).isSameOrAfter(moment().startOf('day')) || !!this.$store.getters.carpoolToPost.id ;
         }
       },
       returnDate: {

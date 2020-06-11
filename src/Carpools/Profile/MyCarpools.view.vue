@@ -53,7 +53,7 @@ LICENSE
           v-for="(carpool, index) in filterCarpools(carpools)"
           :key="index"
         >
-          <CarpoolItem :carpool="getFormattedCarpoolItem(carpool)" :type="'my-carpool'" />
+          <CarpoolItem :carpool="getFormattedCarpoolItem(carpool)" :type="'my-carpool'" :carpool-source="carpool" />
         </div>
       </div>
     </ion-content>

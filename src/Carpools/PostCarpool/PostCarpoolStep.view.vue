@@ -112,21 +112,38 @@ export default {
   methods: {
     postCarpool: function() {
       this.$store.commit('change_sliderloader_visibility');
-      this.$store
-        .dispatch("postCarpool")
-        .then(resp => {
-          this.$store.commit('change_sliderloader_visibility');
-          this.presentToast("La publication est un succès", "success");
-          this.$router.push("home");
-          setTimeout(() => {
-            this.$store.commit("carpoolPost_init");
+      if (this.$store.getters.carpoolToPost.id) {
+        this.$store
+          .dispatch("updateCarpool")
+          .then(resp => {
+            this.$store.commit('change_sliderloader_visibility');
+            this.presentToast("L'annonce a bien été modifiée", "success");
+            this.$router.push("home");
+            setTimeout(() => {
+              this.$store.commit("carpoolPost_init");
+            }, 2000);
+          })
+          .catch(err => {
+            this.presentToast(this.$t("Commons.error"), 'danger');
+            this.$store.commit('change_sliderloader_visibility');
+          });
+      } else {
+        this.$store
+          .dispatch("postCarpool")
+          .then(resp => {
+            this.$store.commit('change_sliderloader_visibility');
+            this.presentToast("La publication est un succès", "success");
+            this.$router.push("home");
+            setTimeout(() => {
+              this.$store.commit("carpoolPost_init");
 
-          }, 2000);
-        })
-        .catch(err => {
-          this.presentToast(this.$t("Commons.error"), 'danger');
-          this.$store.commit('change_sliderloader_visibility');
-        });
+            }, 2000);
+          })
+          .catch(err => {
+            this.presentToast(this.$t("Commons.error"), 'danger');
+            this.$store.commit('change_sliderloader_visibility');
+          });
+      }
     }
   }
 };
