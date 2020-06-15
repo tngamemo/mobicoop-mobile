@@ -49,6 +49,16 @@ LICENSE
           </div>
         </div>
 
+        <div class="ion-text-center">
+          <ion-icon size="large" color="primary" class="rotating" v-if="getStatusOfSearch == 'success' && getStatusOfPTSearch == 'loading'" name="md-sync"></ion-icon>
+        </div>
+
+        <div class="" v-if="getStatusOfPTSearch == 'success' && publicTransportList.length > 0">
+          <div v-for="(result, index) in publicTransportList" :key="index" v-on:click="goToDetailPT(index)">
+            <PublicTransportItem :pt-item="result" />
+          </div>
+        </div>
+
 
       </div>
     </ion-content>
@@ -64,10 +74,12 @@ LICENSE
   import RecapSearch from './Components/RecapSearch.component';
   import CarpoolItem from '../Shared/Components/CarpoolItem.component';
   import CarpoolItemDTO from '../Shared/CarpoolItemDTO';
+  import PublicTransportItem from "../Shared/Components/PublicTransportItem.component";
 
   export default {
     name: 'search',
     components: {
+      PublicTransportItem,
       RecapSearch,
       CarpoolItem
     },
@@ -78,6 +90,14 @@ LICENSE
 
       getStatusOfSearch() {
         return this.$store.getters.statusSearch;
+      },
+
+      getStatusOfPTSearch() {
+        return this.$store.state.publicTransportStore.statusSearchPT;
+      },
+
+      publicTransportList() {
+        return this.$store.state.publicTransportStore.resultSearchPT;
       }
     },
     created() {
@@ -92,7 +112,8 @@ LICENSE
     methods: {
       search(role) {
         this.$store.state.searchStore.searchObject.role = role;
-        this.$store.dispatch('searchCarpools', this.$route.params.filters)
+        this.$store.dispatch('searchCarpools', this.$route.params.filters);
+        this.$store.dispatch('searchPublicTransports');
       },
       getFormattedCarpoolItem(carpool) {
         return new CarpoolItemDTO().carpoolItemFromSearch(carpool)
@@ -100,6 +121,10 @@ LICENSE
 
       goToDetailCarpool(index) {
         this.$router.push({ name: 'carpool-detail', params: { param: index } });
+      },
+
+      goToDetailPT(index) {
+        this.$router.push({ name: 'public-transport', params: { param: index } });
       }
     }
   }

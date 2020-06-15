@@ -87,7 +87,7 @@
     "outwardDate": "JJ/MM",
     "titlePage": "Résultats",
     "error": "Une erreur est survenue durant la recherche. Veuillez réessayer ultérieurement.",
-    "nbResult": "Aucun résultat |{count} annonce de covoiturage trouvée | {count} annonces de covoiturages trouvées",
+    "nbResult": "Aucun résultat de covoiturage |{count} annonce de covoiturage trouvée | {count} annonces de covoiturages trouvées",
     "step": "Etape"
   },
   "Help": {
