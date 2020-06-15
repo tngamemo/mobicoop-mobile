@@ -126,6 +126,10 @@ LICENSE
             return 'Prendre le vélo de  <b>' + ptLeg.ptdeparture.name +  '</b> jusqu\'à <b>'  + ptLeg.ptarrival.name + '</b>.' + '<br><small>Durée estimée : ' + duration.format('m[m] s[s]') + '</small>';
           case "WALK":
             return 'Marcher de  <b>' + ptLeg.ptdeparture.name +  '</b> jusqu\'à <b>'  + ptLeg.ptarrival.name + '</b>.' + '<br><small>Durée estimée : ' + duration.format('m[m] s[s]') + '</small>';
+          case "SUBWAY":
+            return 'Prendre le Métro en partance de <b>' + ptLeg.ptdeparture.name + '</b> et en direction de <b>' + ptLeg.direction + '</b><br>' + "Descendre à <b>" + ptLeg.ptarrival.name + '</b>' + '<br><small>Durée estimée : ' + duration.format('m[m] s[s]') + '</small>';
+          case "WAITING":
+            return 'Veuillez attendre ' + duration.format('m') + ' minutes';
           default:
             return ''
         }

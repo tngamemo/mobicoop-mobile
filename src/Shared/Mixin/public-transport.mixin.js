@@ -40,6 +40,10 @@ export const publicTransportMixin = {
           return 'mdi-bike';
         case "WALK":
           return 'mdi-walk';
+        case "SUBWAY":
+          return 'mdi-subway-variant';
+        case "WAITING":
+          return 'mdi-account-clock';
         default:
           return 'mdi-help-circle'
       }

@@ -59,7 +59,7 @@ export const publicTransportStore = {
           origin_longitude : rootState.searchStore.searchObject.outwardWaypoints[0].longitude,
           destination_latitude : rootState.searchStore.searchObject.outwardWaypoints[1].latitude,
           destination_longitude : rootState.searchStore.searchObject.outwardWaypoints[1].longitude,
-          date: moment(rootState.searchStore.searchObject.outwardDate).format('YYYY-MM-DDThh:mm:ssZ'),
+          date: moment(rootState.searchStore.searchObject.outwardDate).format('YYYY-MM-DDTHH:mm:ssZ'),
           dateType: "departure",
           algorithm: "fastest",
           modes: "PT"
