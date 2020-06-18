@@ -24,7 +24,7 @@ LICENSE
       <ion-toolbar color="primary">
         <div class="mc-home-header">
           <div class="mc-home-log">
-            <img class="background-img ion-margin-end" src="/assets/home.png" />
+            <img v-if="!noIconToolbar" class="background-img ion-margin-end" src="/assets/home.png" alt="" />
             <h1>{{ title }}</h1>
           </div>
         </div>
@@ -154,7 +154,8 @@ export default {
       secondary: "",
       success: "",
       partner: JSON.parse(process.env.VUE_APP_PARTNER),
-      showSolidarity: JSON.parse(process.env.VUE_APP_SHOW_SOLIDARITY_TRANSPORT)
+      showSolidarity: JSON.parse(process.env.VUE_APP_SHOW_SOLIDARITY_TRANSPORT),
+      noIconToolbar: JSON.parse(process.env.VUE_APP_NO_ICON_TOOLBAR),
     };
   },
   created() {

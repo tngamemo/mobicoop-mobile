@@ -29,9 +29,11 @@ LICENSE
       <div class="mc-block-action-visuel">
         <div class="mc-block-action-image">
           <img class src="/assets/background.png" />
+          <!--
           <div class="mc-block-action-icon" v-bind:style="style.backgroundHeader">
             <ion-icon :name="icon" size="medium"></ion-icon>
           </div>
+          -->
         </div>
       </div>
       <p class="text-center">

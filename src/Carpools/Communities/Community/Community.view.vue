@@ -79,7 +79,7 @@ LICENSE
       </div>
       <div class="mc-white-container" v-if="community">
         <div class="mc-community-users" v-if="isInCommunity">
-          <p>Il nous ont rejoint</p>
+          <p>Il nous ont rejoints</p>
           <ion-row>
             <ion-scroll scrollX="true">
               <div

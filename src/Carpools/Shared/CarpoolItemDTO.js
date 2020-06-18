@@ -40,8 +40,11 @@ export default class CarpoolItemDTO {
     if (carpool.frequency == 1) {
       this.date = carpool.date;
       this.time = carpool.time;
-      this.outwardTime = this.resultDriveOrPassenger(carpool).outward.waypoints[0].time;
-      this.outwardEndTime = [...this.resultDriveOrPassenger(carpool).outward.waypoints].pop().time;
+      // indexTime permet d'afficher l'horaire de prise en charge, si passager on prend le 2eme outward waypoint et l'avant dernier pour la dépose.
+      const indexTime = !!carpool.resultDriver ? 1 : 0;
+      this.outwardTime = this.resultDriveOrPassenger(carpool).outward.waypoints[indexTime].time;
+      const arr = [...this.resultDriveOrPassenger(carpool).outward.waypoints];
+      this.outwardEndTime = arr[arr.length - (1 + indexTime)].time;
     }
     if (carpool.frequency == 2) {
       this.regularDays = this.getRegularDaysFromSearch(carpool);
