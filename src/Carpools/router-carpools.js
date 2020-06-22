@@ -50,6 +50,7 @@ import Solidarity from './Solidarity/Solidarity.view.vue';
 import PostCommunity from './Communities/PostCommunity/PostCommunity.view.vue';
 import PostEvent from './Events/PostEvent/PostEvent.view.vue';
 import Dynamic from './Dynamic/Dynamic.view.vue';
+import PublicTransport from './PublicTransport/PublicTransport.view.vue';
 
 import Vue from 'vue'
 import store from '../Shared/Store/store';
@@ -190,6 +191,11 @@ export default [
     name: 'carpool-detail',
     component: DetailCarpool,
     beforeEnter: guardAccesByLogin
+  },
+  {
+    path: '/public-transport/:param',
+    name: 'public-transport',
+    component: PublicTransport,
   },
   {
     path: '/ask-carpool/:param',

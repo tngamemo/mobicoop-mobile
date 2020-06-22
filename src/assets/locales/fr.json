@@ -26,7 +26,7 @@
     "forgotPassword": "Mot de passe oublié ?",
     "resetPassword": "Réinitialisation du mot de passe",
     "sendResetEmail": "Envoyer le mail de réinitialisation",
-    "passwordSuccess" : "Votre demande à bien été pris en compte. Vous allez recevoir un mail pour la remise à zéro de votre mot de passe"
+    "passwordSuccess" : "Votre demande à bien été prise en compte. Vous allez recevoir un mail pour la remise à zéro de votre mot de passe"
   },
   "Register" : {
     "title" : "Inscription",
@@ -87,7 +87,7 @@
     "outwardDate": "JJ/MM",
     "titlePage": "Résultats",
     "error": "Une erreur est survenue durant la recherche. Veuillez réessayer ultérieurement.",
-    "nbResult": "Aucun résultat |{count} annonce de covoiturage trouvée | {count} annonces de covoiturages trouvées",
+    "nbResult": "Aucun résultat de covoiturage |{count} annonce de covoiturage trouvée | {count} annonces de covoiturages trouvées",
     "step": "Etape"
   },
   "Help": {
@@ -154,7 +154,7 @@
     "medium-1": "Message",
     "medium-2": "Email",
     "medium-3": "SMS",
-    "medium-4": "Notification Push"
+    "medium-4": "Notifications"
   },
   "ProfilePrefs": {
     "title" : "Préférences",
@@ -176,7 +176,7 @@
     "in-progress": "En cours",
     "archived": "Archivées",
     "delete-success": "Votre annonce a été supprimée avec succès",
-    "pause-success": "Le status de votre annonce a été changé",
+    "pause-success": "Le statut de votre annonce a été changé",
     "validatedUntil": "Valide jusqu'au",
     "confirmDeleteHeader": "Etes-vous sur de vouloir supprimer cette annonce ? ",
     "confirmDeleteText": "Toute suppression d'annonce est définitive, êtes-vous sur de vouloir supprimer cette annonce ?",
@@ -225,8 +225,8 @@
     "checkEmail" : "Ce mail existe déjà en base de donnée",
     "age" : "Votre âge doit être supérieur à {value} ans",
     "maxLength" : "Ce champ ne peut pas contenir plus de {value} caractères",
-    "isAfterDate" : "La date doit être supérieure à la date d'aller",
-    "isAfterNow" : "La date doit être supérieure à maintenant"
+    "isAfterDate" : "La date doit être ultérieure à la date d'aller",
+    "isAfterNow" : "La date doit être ultérieure à maintenant"
   },
   "Carpool" : {
     "L": "L",
@@ -319,7 +319,7 @@
     "title": "Communauté",
     "leaveCommu": "Quitter la communauté",
     "leaveHasMember" : "Si vous avez encore des annonces valides associées à cette communauté, ces annonces ne seront plus marquées comme étant liées à la communauté une fois que vous l'aurez quittée",
-    "isOwnerLeave" : "En tant que référent de cette communauté, vous ne pouvez pas la quitter. Contacter le support technique pour changer de référent ou supprimer cette communauté.",
+    "isOwnerLeave" : "En tant que référent de cette communauté, vous ne pouvez pas la quitter. Contactez le support technique pour changer de référent ou supprimer cette communauté.",
     "joinCommu": "Rejoindre la communauté",
     "join_success": "Vous avez rejoins la communauté",
     "leave_success": "Vous avez quitté la communauté",

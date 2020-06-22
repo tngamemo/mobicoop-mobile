@@ -24,7 +24,7 @@ LICENSE
       <ion-toolbar color="primary">
         <div class="mc-home-header">
           <div class="mc-home-log">
-            <img class="background-img ion-margin-end" src="/assets/home.png" />
+            <img v-if="!noIconToolbar" class="background-img ion-margin-end" src="/assets/home.png" alt="" />
             <h1>{{ title }}</h1>
             <ion-icon v-if="numberOfModule > 1" name="apps" size="large" class="mc-home-switch pointer" v-on:click="showModule()"></ion-icon>
           </div>
@@ -164,7 +164,8 @@ export default {
       success: "",
       partner: JSON.parse(process.env.VUE_APP_PARTNER),
       showSolidarity: JSON.parse(process.env.VUE_APP_SHOW_SOLIDARITY_TRANSPORT),
-      appModule: JSON.parse(process.env.VUE_APP_MODULE)
+      appModule: JSON.parse(process.env.VUE_APP_MODULE),
+      noIconToolbar: JSON.parse(process.env.VUE_APP_NO_ICON_TOOLBAR)
     };
   },
   created() {
