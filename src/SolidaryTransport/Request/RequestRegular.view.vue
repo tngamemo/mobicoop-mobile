@@ -5,7 +5,7 @@
         <ion-buttons slot="start">
           <ion-back-button text=""></ion-back-button>
         </ion-buttons>
-        <ion-title>{{$t('solidaryTransport.request.title')}} <sup>4/6</sup></ion-title>
+        <ion-title>{{$t('solidaryTransport.' + type + '.title')}} <sup>4/6</sup></ion-title>
       </ion-toolbar>
     </ion-header>
 
@@ -15,7 +15,7 @@
 
           <div class="mc-st-form-content">
             <div class="mc-st-form-header">
-              <div class="mc-st-form-title">{{$t('solidaryTransport.request.steps.regular')}}</div>
+              <div class="mc-st-form-title">{{$t('solidaryTransport.' + type + '.steps.regular')}}</div>
               <div class="mc-st-form-steps">
                 <span class="mc-st-form-step is-validate"></span>
                 <span class="mc-st-form-step is-validate"></span>
@@ -27,9 +27,9 @@
             </div>
 
             <div class="mc-st-form-item">
-              <ion-label class="mc-st-form-label as-title no-white-space" color="primary">{{$t('solidaryTransport.request.form.fields.when.departure.day')}}</ion-label>
+              <ion-label class="mc-st-form-label as-title no-white-space" color="primary">{{$t('solidaryTransport.' + type + '.form.fields.when.departure.day')}}</ion-label>
               <div class="mc-st-form-details" v-if="$v.request.days.$error">
-                <span class="mc-st-form-error is-left" v-if="!$v.request.days.hasOneDay">{{$t('solidaryTransport.request.form.validators.days')}}</span>
+                <span class="mc-st-form-error is-left" v-if="!$v.request.days.hasOneDay">{{$t('solidaryTransport.' + type + '.form.validators.days')}}</span>
               </div>
 
               <div class="mc-st-form-days-wrapper">
@@ -40,9 +40,9 @@
             </div>
 
             <div class="mc-st-form-item">
-              <ion-label class="mc-st-form-label as-title no-white-space" color="primary">{{$t('solidaryTransport.request.form.fields.when.departure.hour')}}</ion-label>
+              <ion-label class="mc-st-form-label as-title no-white-space" color="primary">{{$t('solidaryTransport.' + type + '.form.fields.when.departure.hour')}}</ion-label>
               <div class="mc-st-form-details" v-if="$v.request.when.departure.$error">
-                <span class="mc-st-form-error is-left" v-if="!$v.request.when.departure.hasHour">{{$t('solidaryTransport.request.form.validators.required')}}</span>
+                <span class="mc-st-form-error is-left" v-if="!$v.request.when.departure.hasHour">{{$t('solidaryTransport.' + type + '.form.validators.required')}}</span>
               </div>
 
               <div class="mc-st-form-checkbox-wrapper">
@@ -55,7 +55,7 @@
                     picker-format="HH:mm"
                     :cancel-text="$t('solidaryTransport.buttons.cancel')"
                     :done-text="$t('solidaryTransport.buttons.validate')"
-                    :placeholder="$t('solidaryTransport.request.form.fields.when.departure.specificHour')"
+                    :placeholder="$t('solidaryTransport.' + type + '.form.fields.when.departure.specificHour')"
                     :value="request.when.departure.specificHour"
                     @ionChange="changeDepartureSpecificHour($event.target.value)"
                     @ionFocus="changeDepartureSpecificHour($event.target.value)"
@@ -70,9 +70,9 @@
             </div>
 
             <div class="mc-st-form-item">
-              <ion-label class="mc-st-form-label as-title no-white-space" color="primary">{{$t('solidaryTransport.request.form.fields.when.return.hour')}}</ion-label>
+              <ion-label class="mc-st-form-label as-title no-white-space" color="primary">{{$t('solidaryTransport.' + type + '.form.fields.when.return.hour')}}</ion-label>
               <div class="mc-st-form-details" v-if="$v.request.when.return.$error">
-                <span class="mc-st-form-error is-left" v-if="!$v.request.when.return.hasHour">{{$t('solidaryTransport.request.form.validators.required')}}</span>
+                <span class="mc-st-form-error is-left" v-if="!$v.request.when.return.hasHour">{{$t('solidaryTransport.' + type + '.form.validators.required')}}</span>
               </div>
 
               <div class="mc-st-form-checkbox-wrapper">
@@ -85,7 +85,7 @@
                     picker-format="HH:mm"
                     :cancel-text="$t('solidaryTransport.buttons.cancel')"
                     :done-text="$t('solidaryTransport.buttons.validate')"
-                    :placeholder="$t('solidaryTransport.request.form.fields.when.return.specificHour')"
+                    :placeholder="$t('solidaryTransport.' + type + '.form.fields.when.return.specificHour')"
                     :value="request.when.return.specificHour"
                     @ionChange="changeReturnSpecificHour($event.target.value)"
                     @ionFocus="changeReturnSpecificHour($event.target.value)"
@@ -100,14 +100,14 @@
             </div>
 
             <div class="mc-st-form-item">
-              <ion-label class="mc-st-form-label as-title no-white-space" color="primary">{{$t('solidaryTransport.request.form.fields.when.duration')}}</ion-label>
+              <ion-label class="mc-st-form-label as-title no-white-space" color="primary">{{$t('solidaryTransport.' + type + '.form.fields.when.duration')}}</ion-label>
               <div class="mc-st-form-details" v-if="$v.request.when.$error">
-                <span class="mc-st-form-error is-left" v-if="!$v.request.when.isAfter">{{$t('solidaryTransport.request.form.validators.isAfter')}}</span>
-              </div>    
+                <span class="mc-st-form-error is-left" v-if="!$v.request.when.isAfter">{{$t('solidaryTransport.' + type + '.form.validators.isAfter')}}</span>
+              </div>
             </div>
 
             <ion-item class="mc-st-form-item">
-              <ion-label class="mc-st-form-label no-white-space" color="primary" position="floating">{{$t('solidaryTransport.request.form.fields.when.durationStart')}}*</ion-label>
+              <ion-label class="mc-st-form-label no-white-space" color="primary" position="floating">{{$t('solidaryTransport.' + type + '.form.fields.when.durationStart')}}*</ion-label>
               <ion-datetime
                 class="mc-st-form-input"
                 display-format="DD/MM/YYYY"
@@ -116,14 +116,14 @@
                 :max="$moment().add(5, 'years').format('YYYY-MM-DD')"
                 :cancel-text="$t('solidaryTransport.buttons.cancel')"
                 :done-text="$t('solidaryTransport.buttons.validate')"
-                :placeholder="$t('solidaryTransport.request.form.fields.when.durationStartDate')"
+                :placeholder="$t('solidaryTransport.' + type + '.form.fields.when.durationStartDate')"
                 :value="request.when.departure.specificDate"
                 @ionChange="changeDepartureSpecificDate($event.target.value)"
                 @ionFocus="changeDepartureSpecificDate($event.target.value)"
-              ></ion-datetime>   
+              ></ion-datetime>
             </ion-item>
             <div class="mc-st-form-details" v-if="$v.request.when.departure.specificDate.$error">
-              <span class="mc-st-form-error is-left" v-if="!$v.request.when.departure.specificDate.hasDate">{{$t('solidaryTransport.request.form.validators.required')}}</span>
+              <span class="mc-st-form-error is-left" v-if="!$v.request.when.departure.specificDate.hasDate">{{$t('solidaryTransport.' + type + '.form.validators.required')}}</span>
             </div>
 
             <ion-item class="mc-st-form-item">
@@ -136,16 +136,16 @@
                 :max="$moment().add(5, 'years').format('YYYY-MM-DD')"
                 :cancel-text="$t('solidaryTransport.buttons.cancel')"
                 :done-text="$t('solidaryTransport.buttons.validate')"
-                :placeholder="$t('solidaryTransport.request.form.fields.when.durationEndDate')"
+                :placeholder="$t('solidaryTransport.' + type + '.form.fields.when.durationEndDate')"
                 :value="request.when.return.specificDate"
                 @ionChange="changeReturnSpecificDate($event.target.value)"
                 @ionFocus="changeReturnSpecificDate($event.target.value)"
-              ></ion-datetime>   
+              ></ion-datetime>
             </ion-item>
             <div class="mc-st-form-details" v-if="$v.request.when.return.specificDate.$error">
-              <span class="mc-st-form-error is-left" v-if="!$v.request.when.return.specificDate.hasDate">{{$t('solidaryTransport.request.form.validators.required')}}</span>
+              <span class="mc-st-form-error is-left" v-if="!$v.request.when.return.specificDate.hasDate">{{$t('solidaryTransport.' + type + '.form.validators.required')}}</span>
             </div>
-            
+
           </div>
 
           <div class="mc-st-form-controls with-multiple">
@@ -201,9 +201,10 @@ export default {
   data () {
     return {
       updating: false,
-      departureDays: this.$t('solidaryTransport.request.form.fields.when.departure.days'),
-      departureHours: this.$t('solidaryTransport.request.form.fields.when.departure.hours'),
-      returnHours: this.$t('solidaryTransport.request.form.fields.when.return.hours')
+      type: this.$route.meta.type,
+      departureDays: this.$t('solidaryTransport.' + this.$route.meta.type + '.form.fields.when.departure.days'),
+      departureHours: this.$t('solidaryTransport.' + this.$route.meta.type + '.form.fields.when.departure.hours'),
+      returnHours: this.$t('solidaryTransport.' + this.$route.meta.type + '.form.fields.when.return.hours'),
     }
   },
   computed: {
@@ -259,7 +260,7 @@ export default {
         setTimeout(() => {
           this.updating = false
         }, 100)
-      }  
+      }
     },
     changeDepartureMarginHour: function (value) {
       if (!this.updating) {
@@ -270,7 +271,7 @@ export default {
         setTimeout(() => {
           this.updating = false
         }, 100)
-      }  
+      }
     },
     changeReturnSpecificHour: function (value) {
       if (!this.updating) {
@@ -281,7 +282,7 @@ export default {
         setTimeout(() => {
           this.updating = false
         }, 100)
-      }  
+      }
     },
     changeReturnMarginHour: function (value) {
       if (!this.updating) {
@@ -292,7 +293,7 @@ export default {
         setTimeout(() => {
           this.updating = false
         }, 100)
-      }  
+      }
     },
     changeDepartureSpecificDate: function (value) {
       if (!this.updating) {
@@ -303,7 +304,7 @@ export default {
         setTimeout(() => {
           this.updating = false
         }, 100)
-      }  
+      }
     },
     changeReturnSpecificDate: function (value) {
       if (!this.updating) {
@@ -314,7 +315,7 @@ export default {
         setTimeout(() => {
           this.updating = false
         }, 100)
-      }  
+      }
     },
     validate: function () {
       this.$v.$reset();
@@ -328,7 +329,7 @@ export default {
           this.$refs.request.scrollToPoint(0, top, 0)
         })
       } else {
-        this.$router.push({name: 'solidaryTransport.home.request.user'})
+        this.$router.push({name: 'solidaryTransport.home.' + this.type + '.user'})
       }
     }
   },

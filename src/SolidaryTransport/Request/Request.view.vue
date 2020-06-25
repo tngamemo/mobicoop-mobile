@@ -5,7 +5,7 @@
         <ion-buttons slot="start">
           <ion-back-button text=""></ion-back-button>
         </ion-buttons>
-        <ion-title>{{$t('solidaryTransport.request.title')}} <sup>1/6</sup></ion-title>
+        <ion-title>{{$t('solidaryTransport.' + type + '.title')}} <sup>1/6</sup></ion-title>
       </ion-toolbar>
     </ion-header>
 
@@ -15,7 +15,7 @@
 
           <div class="mc-st-form-content">
             <div class="mc-st-form-header">
-              <div class="mc-st-form-title">{{$t('solidaryTransport.request.steps.intro')}}</div>
+              <div class="mc-st-form-title">{{$t('solidaryTransport.' + type + '.steps.intro')}}</div>
               <div class="mc-st-form-steps">
                 <span class="mc-st-form-step is-active"></span>
                 <span class="mc-st-form-step"></span>
@@ -27,7 +27,7 @@
             </div>
 
             <ion-item class="mc-st-form-item" v-on:click="displayGeoSearch()">
-              <ion-label position="floating">{{$t('solidaryTransport.request.form.fields.address')}} *</ion-label>
+              <ion-label position="floating">{{$t('solidaryTransport.' + type + '.form.fields.address')}} *</ion-label>
               <ion-input
                 type="text"
                 name="address"
@@ -64,7 +64,9 @@ export default {
   name: 'solidaryTransport.request',
   components: {},
   data () {
-    return {}
+    return {
+      type: this.$route.meta.type
+    }
   },
   computed: {
     ...mapGetters([
@@ -107,7 +109,7 @@ export default {
           this.$refs.request.scrollToPoint(0, top, 0)
         })
       } else {
-        this.$router.push({name: 'solidaryTransport.home.request.check'})
+        this.$router.push({name: 'solidaryTransport.home.' + this.type + '.check'})
       }
     }
   },

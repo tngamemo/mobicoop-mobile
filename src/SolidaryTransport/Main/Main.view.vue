@@ -61,7 +61,7 @@
           <ion-tab-button tab="messages" :to="{ name: 'solidaryTransport.messages' }">
             <ion-icon name="text"></ion-icon>
             <ion-label>{{ $t('solidaryTransport.navigation.messages') }}</ion-label>
-            <ion-badge color="warning">6</ion-badge>
+            <!--<ion-badge color="warning">6</ion-badge>-->
           </ion-tab-button>
 
           <ion-tab-button tab="profile" :to="{ name: 'solidaryTransport.profile' }">

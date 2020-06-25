@@ -5,7 +5,7 @@
         <ion-buttons slot="start">
           <ion-back-button text=""></ion-back-button>
         </ion-buttons>
-        <ion-title>{{$t('solidaryTransport.request.title')}} <sup>6/6</sup></ion-title>
+        <ion-title>{{$t('solidaryTransport.' + type + '.title')}} <sup>6/6</sup></ion-title>
       </ion-toolbar>
     </ion-header>
 
@@ -15,7 +15,7 @@
 
           <div class="mc-st-form-content">
             <div class="mc-st-form-header">
-              <div class="mc-st-form-title">{{$t('solidaryTransport.request.steps.summary')}}</div>
+              <div class="mc-st-form-title">{{$t('solidaryTransport.' + type + '.steps.summary')}}</div>
               <div class="mc-st-form-steps">
                 <span class="mc-st-form-step is-validate"></span>
                 <span class="mc-st-form-step is-validate"></span>
@@ -27,7 +27,7 @@
             </div>
 
             <div class="mc-st-form-item">
-              <ion-label class="mc-st-form-label as-title no-white-space" color="primary">{{$t('solidaryTransport.request.form.fields.you')}}</ion-label>
+              <ion-label class="mc-st-form-label as-title no-white-space" color="primary">{{$t('solidaryTransport.' + type + '.form.fields.you')}}</ion-label>
             </div>
 
             <div class="mc-st-summary">
@@ -40,7 +40,7 @@
             </div>
 
             <div class="mc-st-form-item">
-              <ion-label class="mc-st-form-label as-title no-white-space" color="primary">{{$t('solidaryTransport.request.form.fields.yourRequest')}}</ion-label>
+              <ion-label class="mc-st-form-label as-title no-white-space" color="primary">{{$t('solidaryTransport.' + type + '.form.fields.yourRequest')}}</ion-label>
             </div>
 
             <div class="mc-st-summary">
@@ -51,24 +51,24 @@
 
               <template v-if="request.frequency === 1">
                 <div class="mc-st-summary-text" v-if="request.subject">
-                  Ma demande est <span class="answer">ponctuelle</span>. 
+                  Ma demande est <span class="answer">ponctuelle</span>.
 
                   Je souhaite partir
                   <template v-if="request.when.departure.specificDate"> le <span class="answer">{{$moment(request.when.departure.specificDate).format('D MMMM YYYY')}}</span>
                   </template>
 
                   <template v-if="request.when.departure.marginDate">
-                    <span class="answer">{{getLabelForKeyToDisplay(departureDates,request.when.departure.marginDate)}}</span> 
+                    <span class="answer">{{getLabelForKeyToDisplay(departureDates,request.when.departure.marginDate)}}</span>
                   </template>
 
-                  <template v-if="request.when.departure.specificHour"> à <span class="answer">{{$moment(request.when.departure.specificHour).format('HH[h]mm')}}</span> 
+                  <template v-if="request.when.departure.specificHour"> à <span class="answer">{{$moment(request.when.departure.specificHour).format('HH[h]mm')}}</span>
                   </template>
 
                   <template v-if="request.when.departure.marginHour">, de préférence <span class="answer">{{getLabelForKeyToDisplay(departureHours,request.when.departure.marginHour)}}</span>
                   </template>
 
                   et revenir
-                  <template v-if="request.when.return.specificHour"> à <span class="answer">{{$moment(request.when.return.specificHour).format('HH[h]mm')}}</span> 
+                  <template v-if="request.when.return.specificHour"> à <span class="answer">{{$moment(request.when.return.specificHour).format('HH[h]mm')}}</span>
                   </template>
 
                   <template v-if="request.when.return.marginHour">
@@ -207,7 +207,7 @@
 
               </template>
             </div>
-            
+
           </div>
 
           <div class="mc-st-form-controls in-summary" :class="{'is-loading': processing}">
@@ -221,7 +221,7 @@
               <ion-icon slot="start" name="checkmark" size="large"></ion-icon>
               <span v-html="$t('solidaryTransport.buttons.sendRequest')"></span>
             </ion-button>
-            
+
           </div>
 
         </div>
@@ -244,10 +244,12 @@ export default {
     return {
       processing: false,
       success: false,
-      departureDates: this.$t('solidaryTransport.request.form.fields.when.departure.dates'),
-      departureDays: this.$t('solidaryTransport.request.form.fields.when.departure.days'),
-      departureHours: this.$t('solidaryTransport.request.form.fields.when.departure.hours'),
-      returnHours: this.$t('solidaryTransport.request.form.fields.when.return.hours')
+      type: this.$route.meta.type,
+      departureDates: this.$t('solidaryTransport.' + this.$route.meta.type + '.form.fields.when.departure.dates'),
+      departureDays: this.$t('solidaryTransport.' + this.$route.meta.type + '.form.fields.when.departure.days'),
+      departureHours: this.$t('solidaryTransport.' + this.$route.meta.type + '.form.fields.when.departure.hours'),
+      returnHours: this.$t('solidaryTransport.' + this.$route.meta.type + '.form.fields.when.return.hours'),
+
     }
   },
   computed: {
@@ -270,7 +272,7 @@ export default {
     validate: function () {
       if (!this.processing) {
         this.processing = true
-        this.$store.dispatch('postSolidaryResource')
+        this.$store.dispatch('postSolidaryResource', this.type)
           .then((data) => {
             this.presentToast("Votre demande de coup de pouce à été envoyée avec succès", 'success');
             this.$router.push({name:'solidaryTransport.home'})

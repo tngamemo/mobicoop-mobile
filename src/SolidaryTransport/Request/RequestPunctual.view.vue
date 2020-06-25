@@ -117,7 +117,7 @@
                 </ion-item>
               </div>
             </div>
-            
+
           </div>
 
           <div class="mc-st-form-controls with-multiple">
@@ -153,9 +153,10 @@ export default {
   data () {
     return {
       updating: false,
-      departureDates: this.$t('solidaryTransport.request.form.fields.when.departure.dates'),
-      departureHours: this.$t('solidaryTransport.request.form.fields.when.departure.hours'),
-      returnHours: this.$t('solidaryTransport.request.form.fields.when.return.hours')
+      type: this.$route.meta.type,
+      departureDates: this.$t('solidaryTransport.' + this.$route.meta.type + '.form.fields.when.departure.dates'),
+      departureHours: this.$t('solidaryTransport.' + this.$route.meta.type + '.form.fields.when.departure.hours'),
+      returnHours: this.$t('solidaryTransport.' + this.$route.meta.type + '.form.fields.when.return.hours'),
     }
   },
   computed: {
@@ -195,7 +196,7 @@ export default {
         setTimeout(() => {
           this.updating = false
         }, 100)
-      }  
+      }
     },
     changeDepartureSpecificDate: function (value) {
       if (!this.updating) {
@@ -206,7 +207,7 @@ export default {
         setTimeout(() => {
           this.updating = false
         }, 100)
-      }  
+      }
     },
     changeDepartureMarginHour: function (value) {
       if (!this.updating) {
@@ -217,7 +218,7 @@ export default {
         setTimeout(() => {
           this.updating = false
         }, 100)
-      }  
+      }
     },
     changeDepartureSpecificHour: function (value) {
       if (!this.updating) {
@@ -228,7 +229,7 @@ export default {
         setTimeout(() => {
           this.updating = false
         }, 100)
-      }  
+      }
     },
     changeReturnMarginHour: function (value) {
       if (!this.updating) {
@@ -239,7 +240,7 @@ export default {
         setTimeout(() => {
           this.updating = false
         }, 100)
-      }  
+      }
     },
     changeReturnSpecificHour: function (value) {
       if (!this.updating) {
@@ -250,7 +251,7 @@ export default {
         setTimeout(() => {
           this.updating = false
         }, 100)
-      }  
+      }
     },
     displayGeoSearchForOrigin: function () {
       this.$router.push({ name: "solidaryTransport.geoSearch", query: { action: 'solidaryTransport.search', type: 'request.origin' }});
@@ -270,7 +271,7 @@ export default {
           this.$refs.request.scrollToPoint(0, top, 0)
         })
       } else {
-        this.$router.push({name: 'solidaryTransport.home.request.user'})
+        this.$router.push({name: 'solidaryTransport.home.' + this.type + '.user'})
       }
     }
   },

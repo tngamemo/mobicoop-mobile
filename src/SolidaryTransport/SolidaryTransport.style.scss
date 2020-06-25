@@ -32,7 +32,7 @@ ion-icon {
   }
 
   &[name*="custom-logo"] {
-    mask-image: url(./assets/icons/logo.svg);
+    mask-image: url(/assets/logo.svg);
   }
 }
 
@@ -70,8 +70,8 @@ ion-content {
   }
 }
 
-@keyframes spin { 
-  100% { 
+@keyframes spin {
+  100% {
     transform: rotate(360deg);
   }
 }
@@ -218,7 +218,7 @@ ion-content {
           font-size: 12px;
           line-height: 1.3;
           color: var(--ion-color-step-600);
-          
+
           + .mc-st-form-list {
             margin-top: 20px;
           }
@@ -709,7 +709,7 @@ ion-content {
   .mc-st-summary {
     margin-top: 20px;
 
-    + .mc-st-form-item { 
+    + .mc-st-form-item {
         margin-top: 50px;
     }
 
@@ -860,7 +860,7 @@ ion-content {
 
             + .place {
               margin-top: 15px;
-            } 
+            }
 
             &:last-of-type {
               align-items: flex-end;
@@ -886,7 +886,7 @@ ion-content {
 
     .mc-st-summary-comment {
       margin-top: 40px;
-      
+
       .mc-st-summary-comment-message {
         margin-top: 10px;
         padding: 10px 20px;

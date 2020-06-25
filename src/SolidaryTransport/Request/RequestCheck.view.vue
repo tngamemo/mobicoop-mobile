@@ -5,7 +5,7 @@
         <ion-buttons slot="start">
           <ion-back-button text=""></ion-back-button>
         </ion-buttons>
-        <ion-title>{{$t('solidaryTransport.request.title')}} <sup>2/6</sup></ion-title>
+        <ion-title>{{$t('solidaryTransport.' + type + '.title')}} <sup>2/6</sup></ion-title>
       </ion-toolbar>
     </ion-header>
 
@@ -15,7 +15,7 @@
 
           <div class="mc-st-form-content">
             <div class="mc-st-form-header">
-              <div class="mc-st-form-title">{{$t('solidaryTransport.request.steps.check')}}</div>
+              <div class="mc-st-form-title">{{$t('solidaryTransport.' + type + '.steps.check')}}</div>
               <div class="mc-st-form-steps">
                 <span class="mc-st-form-step is-validate"></span>
                 <span class="mc-st-form-step is-active"></span>
@@ -29,8 +29,8 @@
             <template v-if="structures">
 
               <ion-item class="mc-st-form-item">
-                <ion-label class="mc-st-form-label as-title" color="primary" position="stacked">{{$t('solidaryTransport.request.form.fields.structure')}} :</ion-label>
-                <ion-select 
+                <ion-label class="mc-st-form-label as-title" color="primary" position="stacked">{{$t('solidaryTransport.' + type + '.form.fields.structure')}} :</ion-label>
+                <ion-select
                   required
                   :value="request.structure.id"
                   @ionChange="changeStructure($event)"
@@ -41,12 +41,12 @@
                 </ion-select>
               </ion-item>
               <div class="mc-st-form-details">
-                <span class="mc-st-form-note">{{$t('solidaryTransport.request.form.fields.structures')}}</span>
+                <span class="mc-st-form-note">{{$t('solidaryTransport.' + type + '.form.fields.structures')}}</span>
                 <span class="mc-st-form-error is-left" v-if="$v.request.structure.$error">{{$t('solidaryTransport.register.form.validators.required')}}</span>
               </div>
 
               <ion-item class="mc-st-form-item as-section-title" lines="none" v-if="getMandatoryProofs(request.structure.structureProofs).length !== 0">
-                <ion-label class="mc-st-form-label as-title" color="primary">{{$t('solidaryTransport.request.form.fields.mandatory')}} :</ion-label>
+                <ion-label class="mc-st-form-label as-title" color="primary">{{$t('solidaryTransport.' + type + '.form.fields.mandatory')}} :</ion-label>
               </ion-item>
 
               <template v-for="(proof, index) in getMandatoryProofs(request.structure.structureProofs)">
@@ -67,10 +67,10 @@
                 <template v-if="proof.input">
                   <ion-item class="mc-st-form-item" :key="`proof-${proof.id}-${index}`">
                     <ion-label position="floating">{{proof.label}}*</ion-label>
-                    <ion-input 
-                      class="mc-st-form-input" 
-                      type="text" 
-                      :value="request.proofs.mandatory[proof.id].value" 
+                    <ion-input
+                      class="mc-st-form-input"
+                      type="text"
+                      :value="request.proofs.mandatory[proof.id].value"
                       @input="request.proofs.mandatory[proof.id].value = $event.target.value;"
                     ></ion-input>
                   </ion-item>
@@ -80,7 +80,7 @@
                   <ion-item class="mc-st-form-item" :key="`proof-${proof.id}-${index}`">
                     <ion-label class="mc-st-form-label" color="primary" position="floating">{{ proof.label }}*</ion-label>
 
-                    <ion-select 
+                    <ion-select
                       required
                       :value="request.proofs.mandatory[proof.id].value"
                       @ionChange="request.proofs.mandatory[proof.id].value = $event.target.value;"
@@ -110,7 +110,7 @@
                 <template v-if="proof.file">
                   <div class="mc-st-form-item as-file" :key="`proof-${proof.id}-${index}`">
                     <ion-label class="mc-st-form-label" color="primary">{{ proof.label }}*</ion-label>
-                      
+
                     <template v-if="!processing">
                       <div v-if="request.proofs.mandatory[proof.id].file" class="file" style="color:black;">Votre fichier : {{request.proofs.mandatory[proof.id].file.name}}</div>
                     </template>
@@ -121,7 +121,7 @@
                       </ion-button>
                     </div>
                     <input :ref="'proof-file-' + proof.id" style="display: none" type="file" @change="changeProofFile($event, request.proofs.mandatory[proof.id])" />
-                    
+
                   </div>
                 </template>
 
@@ -131,7 +131,7 @@
               </template>
 
               <ion-item class="mc-st-form-item as-section-title" lines="none" v-if="getOptionalProofs(request.structure.structureProofs).length !== 0">
-                <ion-label class="mc-st-form-label as-title" color="primary">{{$t('solidaryTransport.request.form.fields.optional')}} :</ion-label>
+                <ion-label class="mc-st-form-label as-title" color="primary">{{$t('solidaryTransport.' + type + '.form.fields.optional')}} :</ion-label>
               </ion-item>
 
               <template v-for="(proof, index) in getOptionalProofs(request.structure.structureProofs)">
@@ -152,10 +152,10 @@
                 <template v-if="proof.input">
                   <ion-item class="mc-st-form-item" :key="`proof-${proof.id}-${index}`">
                     <ion-label position="floating">{{proof.label}}</ion-label>
-                    <ion-input 
-                      class="mc-st-form-input" 
-                      type="text" 
-                      :value="request.proofs.optional[proof.id].value" 
+                    <ion-input
+                      class="mc-st-form-input"
+                      type="text"
+                      :value="request.proofs.optional[proof.id].value"
                       @input="request.proofs.optional[proof.id].value = $event.target.value;"
                     ></ion-input>
                   </ion-item>
@@ -165,7 +165,7 @@
                   <ion-item class="mc-st-form-item" :key="`proof-${proof.id}-${index}`">
                     <ion-label class="mc-st-form-label" color="primary" position="floating">{{ proof.label }}</ion-label>
 
-                    <ion-select 
+                    <ion-select
                       required
                       :value="request.proofs.optional[proof.id].value"
                       @ionChange="request.proofs.optional[proof.id].value = $event.target.value;"
@@ -195,7 +195,7 @@
                 <template v-if="proof.file">
                   <div class="mc-st-form-item as-file" :key="`proof-${proof.id}-${index}`">
                     <ion-label class="mc-st-form-label" color="primary">{{ proof.label }}</ion-label>
-                      
+
                     <template v-if="!processing">
                       <div v-if="request.proofs.optional[proof.id].file" class="file" style="color:black;">Votre fichier : {{request.proofs.optional[proof.id].file.name}}</div>
                     </template>
@@ -206,13 +206,13 @@
                       </ion-button>
                     </div>
                     <input :ref="'proof-file-' + proof.id" style="display: none" type="file" @change="changeProofFile($event, request.proofs.optional[proof.id])" />
-                    
+
                   </div>
                 </template>
               </template>
 
             </template>
-            
+
           </div>
 
           <div class="mc-st-form-controls in-summary" v-if="structures">
@@ -247,7 +247,7 @@ import http from '../../Shared/Mixin/http.mixin'
 
 const mandatory = (proof) => {
   if (proof.type === 'checkbox') {
-    return proof.value === true 
+    return proof.value === true
   }
   if (proof.type === 'input') {
     return !_.isEmpty(proof.value)
@@ -268,7 +268,8 @@ export default {
     return {
       processing: false,
       structures: undefined,
-      support: process.env.VUE_APP_SOLIDARY_SUPPORT_HELP
+      support: process.env.VUE_APP_SOLIDARY_SUPPORT_HELP,
+      type: this.$route.meta.type
     }
   },
   computed: {
@@ -335,14 +336,14 @@ export default {
           this.$refs.request.scrollToPoint(0, top, 0)
         })
       } else {
-        this.$router.push({name: 'solidaryTransport.home.request.path'})
+        this.$router.push({name: 'solidaryTransport.home.' + this.type + '.path'})
       }
     }
   },
   created: function () {
     this.$store.dispatch('getSolidaryStructuresByGeolocation', {lat: this.request.homeAddress.latitude, lng: this.request.homeAddress.longitude})
       .then((structures) => {
-        
+
         if (structures.length !== 0) {
           if (!this.request.structure) {
             this.$store.commit('solidaryStructureUpdate', _.cloneDeep(structures[0]))
@@ -352,6 +353,10 @@ export default {
         setTimeout(() => {
            this.structures = structures
         }, 500)
+
+        if(this.type === 'usual') {
+          this.$router.replace({name: 'solidaryTransport.home.' + this.type + '.path'})
+        }
       })
       .catch((error) => {
         console.error(error)

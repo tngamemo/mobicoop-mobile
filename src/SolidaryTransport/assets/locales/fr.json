@@ -60,31 +60,31 @@
             }
           },
           "days": [
-            { 
+            {
               "value": "Mon",
               "label": "L"
             },
-            { 
+            {
               "value": "Tue",
               "label": "Ma"
             },
-            { 
+            {
               "value": "Wed",
               "label": "Me"
             },
-            { 
+            {
               "value": "Thu",
               "label": "J"
             },
-            { 
+            {
               "value": "Fri",
               "label": "V"
             },
-            { 
+            {
               "value": "Sat",
               "label": "S"
             },
-            { 
+            {
               "value": "Sun",
               "label": "D"
             }
@@ -147,59 +147,59 @@
               "specificHour": "Heure de départ",
               "day": "Indiquez les jours concernés pour lesquels vous avez besoin d’un trajet régulier :",
               "dates": [
-                { 
+                {
                   "value": "this-week",
                   "label": "Dans la semaine"
                 },
-                { 
+                {
                   "value": "in-two-weeks",
                   "label": "Dans les deux semaines"
                 },
-                { 
+                {
                   "value": "in-month",
                   "label": "Dans le mois"
                 }
               ],
               "days": [
-                { 
+                {
                   "value": "mon",
                   "label": "L"
                 },
-                { 
+                {
                   "value": "tue",
                   "label": "Ma"
                 },
-                { 
+                {
                   "value": "wed",
                   "label": "Me"
                 },
-                { 
+                {
                   "value": "thu",
                   "label": "J"
                 },
-                { 
+                {
                   "value": "fri",
                   "label": "V"
                 },
-                { 
+                {
                   "value": "sat",
                   "label": "S"
                 },
-                { 
+                {
                   "value": "sun",
                   "label": "D"
                 }
               ],
               "hours": [
-                { 
+                {
                   "value": "morning",
                   "label": "Entre 8h et 13h"
                 },
-                { 
+                {
                   "value": "afternoon",
                   "label": "Entre 13h et 18h"
                 },
-                { 
+                {
                   "value": "evening",
                   "label": "Entre 18h et 21h"
                 }
@@ -209,19 +209,148 @@
               "hour": "A quelle heure souhaitez-vous revenir ?",
               "specificHour": "Heure de retour",
               "hours": [
-                { 
+                {
                   "value": "hour-later",
                   "label": "Une heure plus tard"
                 },
-                { 
+                {
                   "value": "two-hours-later",
                   "label": "Deux heures plus tard"
                 },
-                { 
+                {
                   "value": "three-hours-later",
                   "label": "Trois heures plus tard"
                 },
-                { 
+                {
+                  "value": "no-need",
+                  "label": "Je n’ai pas besoin qu’on me ramène"
+                }
+              ]
+            },
+            "duration": "Pour combien de temps devez-vous faire ce trajet ?",
+            "durationStart": "Débute le",
+            "durationStartDate": "Date de début",
+            "durationEnd": "Se termine le",
+            "durationEndDate": "Date de fin"
+          },
+          "you": "Vos informations :",
+          "yourRequest": "Votre demande :"
+        },
+        "validators": {
+          "days": "Vous devez choisir au moins un jour",
+          "isAfter": "Les dates choisies doivent se succéder",
+          "required": "Ce champ est requis"
+        }
+      }
+    },
+    "usual": {
+      "title": "Déclarer un trajet habituel",
+      "steps": {
+        "intro": "1. Départ",
+        "check": "2. Vérification de la structure",
+        "path": "3. Votre trajet",
+        "punctual": "4. Vos horaires",
+        "regular": "4. Vos horaires",
+        "user": "5. Vous",
+        "summary": "6. Récapitulatif"
+      },
+      "form": {
+        "fields": {
+          "address": "Adresse de domicile",
+          "structure": "Structure accompagnante",
+          "structures": "Chaque structure a ses propres critères. Si vous ne remplissez pas les critères pour l’une, peut-être les remplisserez-vous pour une autre qui dessert aussi votre domicile ?",
+          "mandatory": "Critère(s) obligatoire(s)",
+          "optional": "Information(s) complémentaire(s)",
+          "subjects": "Que voulez-vous faire ?",
+          "origin": "D'où partez-vous ?",
+          "destination": "Où faut-il aller ? (si adresse connue)",
+          "regular": "Est-ce un trajet régulier ?",
+          "isRegular": "Oui, je ferai le trajet régulièrement",
+          "isPunctual": "Non",
+          "needs": "Autres informations :",
+          "when": {
+            "departure": {
+              "date": "A quelle date souhaitez-vous partir ?",
+              "specificDate": "Date du départ",
+              "hour": "A quelle heure souhaitez-vous partir ?",
+              "specificHour": "Heure de départ",
+              "day": "Indiquez les jours concernés pour lesquels vous avez besoin d’un trajet régulier :",
+              "dates": [
+                {
+                  "value": "this-week",
+                  "label": "Dans la semaine"
+                },
+                {
+                  "value": "in-two-weeks",
+                  "label": "Dans les deux semaines"
+                },
+                {
+                  "value": "in-month",
+                  "label": "Dans le mois"
+                }
+              ],
+              "days": [
+                {
+                  "value": "mon",
+                  "label": "L"
+                },
+                {
+                  "value": "tue",
+                  "label": "Ma"
+                },
+                {
+                  "value": "wed",
+                  "label": "Me"
+                },
+                {
+                  "value": "thu",
+                  "label": "J"
+                },
+                {
+                  "value": "fri",
+                  "label": "V"
+                },
+                {
+                  "value": "sat",
+                  "label": "S"
+                },
+                {
+                  "value": "sun",
+                  "label": "D"
+                }
+              ],
+              "hours": [
+                {
+                  "value": "morning",
+                  "label": "Entre 8h et 13h"
+                },
+                {
+                  "value": "afternoon",
+                  "label": "Entre 13h et 18h"
+                },
+                {
+                  "value": "evening",
+                  "label": "Entre 18h et 21h"
+                }
+              ]
+            },
+            "return": {
+              "hour": "A quelle heure souhaitez-vous revenir ?",
+              "specificHour": "Heure de retour",
+              "hours": [
+                {
+                  "value": "hour-later",
+                  "label": "Une heure plus tard"
+                },
+                {
+                  "value": "two-hours-later",
+                  "label": "Deux heures plus tard"
+                },
+                {
+                  "value": "three-hours-later",
+                  "label": "Trois heures plus tard"
+                },
+                {
                   "value": "no-need",
                   "label": "Je n’ai pas besoin qu’on me ramène"
                 }

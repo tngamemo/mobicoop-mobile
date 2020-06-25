@@ -22,7 +22,7 @@
     <ion-content color="primary">
       <div class="mc-st-container is-home">
         <div class="mc-st-logo">
-          <img class="mc-st-vector" src="../assets/icons/home.svg" />
+          <img class="mc-st-vector" src="/assets/home.svg" />
         </div>
 
         <template v-if="!this.$store.state.userStore.user">
@@ -78,13 +78,14 @@
                 color="success"
                 v-html="$t('solidaryTransport.home.actions.shareUsualRoute')"
                 @click="$router.push({name:'solidaryTransport.home.usual'})"
-                v-if="false"
+                v-if="declareUsualRide"
               ></ion-button>
 
               <ion-button
                 class="mc-st-action"
                 color="success"
                 v-html="$t('solidaryTransport.home.actions.request')"
+                v-if="askRide"
                 @click="$router.push({name:'solidaryTransport.home.request'})"
               ></ion-button>
 
@@ -165,7 +166,9 @@ export default {
     return {
       brand: process.env.VUE_APP_NAME,
       appModule: JSON.parse(process.env.VUE_APP_MODULE),
-      support: process.env.VUE_APP_SOLIDARY_SUPPORT_HELP
+      support: process.env.VUE_APP_SOLIDARY_SUPPORT_HELP,
+      askRide: JSON.parse(process.env.VUE_APP_SOLIDARY_ASK_RIDE),
+      declareUsualRide: JSON.parse(process.env.VUE_APP_SOLIDARY_DECLARE_USUAL_RIDE)
     };
   },
   computed: {

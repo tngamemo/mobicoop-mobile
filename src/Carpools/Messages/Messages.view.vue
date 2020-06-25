@@ -125,6 +125,10 @@ LICENSE
   height: 60px;
   background-color: #c4c4c4;
 }
+
+hr {
+  background-color: rgba(0, 0, 0, 0.1);
+}
 </style>
 
 <script>

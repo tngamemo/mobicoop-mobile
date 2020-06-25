@@ -344,7 +344,7 @@ export const solidaryTransportStore = {
 
     solidaryStructureUpdate(state, structure) {
       state.temporary.request.structure = structure
-      
+
       // Proofs
       state.temporary.request.proofs = {}
       let mandatory = {}
@@ -608,7 +608,7 @@ export const solidaryTransportStore = {
         })
       })
     },
-    postSolidaryResource: ({commit, state}) => {
+    postSolidaryResource: ({commit, state}, type) => {
       let solidary = _.cloneDeep(state.temporary.request)
       let structure = solidary.structure
 
@@ -618,7 +618,9 @@ export const solidaryTransportStore = {
       }
 
       // Normalize Solidary Ressource before Post request
-      solidary.subject = _.find(structure.subjects, {id: solidary.subject})['@id']
+      if (structure.subjects.length !== 0) {
+        solidary.subject = _.find(structure.subjects, {id: solidary.subject})['@id']
+      }
       solidary.structure = structure['@id']
 
       // Normalize Proofs
@@ -642,7 +644,7 @@ export const solidaryTransportStore = {
           }
         }
       })
-      
+
       // Normalize Needs
       let needs = solidary.needs
       solidary.needs = []
@@ -727,7 +729,7 @@ export const solidaryTransportStore = {
               solidary.returnDatetime = moment(solidary.outwardDatetime)
                 .add(marginHour, 'hours')
                 .format(format)
-            }            
+            }
           }
         }
 
@@ -824,7 +826,7 @@ export const solidaryTransportStore = {
               solidary.returnDeadlineDatetime = moment(solidary.outwardDeadlineDatetime)
                 .add(marginHour, 'hours')
                 .format(format)
-            }            
+            }
           }
         }
 
@@ -910,7 +912,7 @@ export const solidaryTransportStore = {
             solidary.returnDeadlineDatetime = moment(solidary.outwardDeadlineDatetime)
               .add(marginHour, 'hours')
               .format(format)
-          }            
+          }
         }
       }
 
@@ -920,10 +922,16 @@ export const solidaryTransportStore = {
       // console.log('returnDatetime', solidary.returnDatetime)
       // console.log('returnDeadlineDatetime', solidary.returnDeadlineDatetime)
       // console.log('marginDuration', solidary.marginDuration)
+      //Usual
+      if(type === 'usual') {
+        solidary.driver = 1;
+      }
 
       // Post Solidary
+      const endpoint = type === 'usual' ? '/solidaries/postUl' : '/solidaries';
+
       return new Promise((resolve, reject) => {
-        http.post("/solidaries", solidary)
+        http.post(endpoint, solidary)
           .then(resp => {
             return resp.data
           })
@@ -999,7 +1007,7 @@ export const solidaryTransportStore = {
       // console.log(volunteer.eMaxTime)
 
       // Normalize maxDistance to meters
-      volunteer.maxDistance = volunteer.maxDistance * 1000 
+      volunteer.maxDistance = volunteer.maxDistance * 1000
       // console.log(volunteer.maxDistance)
 
       // Post Solidary
@@ -1079,7 +1087,7 @@ export const solidaryTransportStore = {
           return ~~ ((Date.now() - birthday) / (31557600000))
         }
       }
-      return 
+      return
     },
     getUserCar: () => (user) => {
       if (user) {

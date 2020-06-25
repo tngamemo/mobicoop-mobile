@@ -19,7 +19,7 @@ import ProfileRealtime from './Profile/ProfileRealtime.view.vue';
 import ProfileAgenda from './Profile/ProfileAgenda.view.vue';
 import ProfileRequests from './Profile/ProfileRequests.view.vue';
 import ProfileRequest from './Profile/ProfileRequest.view.vue';
-import Messages from './Messages/Messages.view.vue';
+import Messages from '../Carpools/Messages/Messages.view.vue';
 
 // Solidary
 // Request related
@@ -92,49 +92,115 @@ export default [
         name: 'solidaryTransport.home.request',
         components: {
           home: Request
-        }
+        },
+        meta: { type: 'request' }
       },
       {
         path: '/solidary-transport/home/request/check',
         name: 'solidaryTransport.home.request.check',
         components: {
           home: RequestCheck
-        }
+        },
+        meta: { type: 'request' }
       },
       {
         path: '/solidary-transport/home/request/path',
         name: 'solidaryTransport.home.request.path',
         components: {
           home: RequestPath
-        }
+        },
+        meta: { type: 'request' }
       },
       {
         path: '/solidary-transport/home/request/punctual',
         name: 'solidaryTransport.home.request.punctual',
         components: {
           home: RequestPunctual
-        }
+        },
+        meta: { type: 'request' }
       },
       {
         path: '/solidary-transport/home/request/regular',
         name: 'solidaryTransport.home.request.regular',
         components: {
           home: RequestRegular
-        }
+        },
+        meta: { type: 'request' }
       },
       {
         path: '/solidary-transport/home/request/user',
         name: 'solidaryTransport.home.request.user',
         components: {
           home: RequestUser
-        }
+        },
+        meta: { type: 'request' }
       },
       {
         path: '/solidary-transport/home/request/summary',
         name: 'solidaryTransport.home.request.summary',
         components: {
           home: RequestSummary
-        }
+        },
+        meta: { type: 'request' }
+      },
+      // REQUEST ----- ( end here )
+
+      // USUAL ----- ( start here )
+      {
+        path: '/solidary-transport/home/usual',
+        name: 'solidaryTransport.home.usual',
+        components: {
+          home: Request
+        },
+        meta: { type: 'usual' }
+      },
+      {
+        path: '/solidary-transport/home/usual/check',
+        name: 'solidaryTransport.home.usual.check',
+        components: {
+          home: RequestCheck
+        },
+        meta: { type: 'usual' }
+      },
+      {
+        path: '/solidary-transport/home/usual/path',
+        name: 'solidaryTransport.home.usual.path',
+        components: {
+          home: RequestPath
+        },
+        meta: { type: 'usual' }
+      },
+      {
+        path: '/solidary-transport/home/usual/punctual',
+        name: 'solidaryTransport.home.usual.punctual',
+        components: {
+          home: RequestPunctual
+        },
+        meta: { type: 'usual' }
+      },
+      {
+        path: '/solidary-transport/home/usual/regular',
+        name: 'solidaryTransport.home.usual.regular',
+        components: {
+          home: RequestRegular
+        },
+        meta: { type: 'usual' }
+      },
+      {
+        path: '/solidary-transport/home/usual/user',
+        name: 'solidaryTransport.home.usual.user',
+        components: {
+          home: RequestUser
+        },
+        meta: { type: 'usual' }
+      },
+      {
+        path: '/solidary-transport/home/usual/summary',
+        name: 'solidaryTransport.home.usual.summary',
+        components: {
+          home: RequestSummary
+        },
+        meta: { type: 'usual' }
       },
       // REQUEST ----- ( end here )
 
