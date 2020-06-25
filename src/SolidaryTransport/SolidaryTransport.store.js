@@ -445,6 +445,16 @@ export const solidaryTransportStore = {
       state.temporary.volunteer = _.cloneDeep(state.default.volunteer)
     },
 
+    getSolidaryUserSuccess: (state, res)=> {
+      state.default.volunteer = res;
+      state.temporary.volunteer = _.cloneDeep(state.default.volunteer)
+    },
+
+    putSolidaryVolunteerSuccess: (state, res) => {
+      state.default.volunteer = res;
+      state.temporary.volunteer = _.cloneDeep(state.default.volunteer)
+    },
+
     solidaryVolunteerHomeAddressUpdate(state, address) {
       address = _.cloneDeep(address)
       // Remove useless elements
@@ -553,13 +563,17 @@ export const solidaryTransportStore = {
     },
     getVolunteerDetails({commit, state}, id){
       return new Promise((resolve, reject) => {
-        // let solidary = _.find(state.solidaries.objects, {id: parseInt(id)})
-        // if (!_.isUndefined(solidary)) {
-        //   resolve(solidary)
-        // } else {
-        //   reject('Solidary not found')
-        // }
-        resolve(undefined)
+        http.get(`/solidary_users/` + id)
+          .then(response => {
+            if (response) {
+              const data = response.data;
+              commit('getSolidaryUserSuccess', data);
+              resolve(data)
+            }
+          })
+          .catch(err => {
+            reject(err)
+          })
       })
     },
     registerStandardUser: ({commit, state}) => {
@@ -924,7 +938,7 @@ export const solidaryTransportStore = {
       // console.log('marginDuration', solidary.marginDuration)
       //Usual
       if(type === 'usual') {
-        solidary.driver = 1;
+        solidary.driver = true;
       }
 
       // Post Solidary
@@ -1018,6 +1032,24 @@ export const solidaryTransportStore = {
           })
           .then((response) => {
             commit('postSolidaryVolunteerSuccess')
+            resolve()
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
+    },
+    putSolidaryVolunteer: ({commit, state}) => {
+      let volunteer = _.cloneDeep(state.temporary.volunteer);
+
+      // Put Solidary
+      return new Promise((resolve, reject) => {
+        http.put("/solidary_volunteers/" + volunteer.id, volunteer)
+          .then(resp => {
+            return resp.data
+          })
+          .then((response) => {
+            commit('putSolidaryVolunteerSuccess', response);
             resolve()
           })
           .catch(err => {

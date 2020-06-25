@@ -215,11 +215,11 @@
 
             <ion-button class="mc-st-form-control as-loader" color="success" v-show="processing">
               <ion-icon slot="start" name="sync" size="large"></ion-icon>
-              <span v-html="$t('solidaryTransport.buttons.sendRequest')"></span>
+              <span v-html="$t('solidaryTransport.' + type + '.form.fields.sendRequest')"></span>
             </ion-button>
             <ion-button class="mc-st-form-control" color="success" @click="validate()" v-show="!processing">
               <ion-icon slot="start" name="checkmark" size="large"></ion-icon>
-              <span v-html="$t('solidaryTransport.buttons.sendRequest')"></span>
+              <span v-html="$t('solidaryTransport.' + type + '.form.fields.sendRequest')"></span>
             </ion-button>
 
           </div>

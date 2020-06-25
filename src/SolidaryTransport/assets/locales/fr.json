@@ -234,7 +234,8 @@
             "durationEndDate": "Date de fin"
           },
           "you": "Vos informations :",
-          "yourRequest": "Votre demande :"
+          "yourRequest": "Votre demande :",
+          "sendRequest": "Envoyer ma demande"
         },
         "validators": {
           "days": "Vous devez choisir au moins un jour",
@@ -363,7 +364,8 @@
             "durationEndDate": "Date de fin"
           },
           "you": "Vos informations :",
-          "yourRequest": "Votre demande :"
+          "yourRequest": "Votre trajet habituel :",
+          "sendRequest": "Envoyer mon trajet habituel"
         },
         "validators": {
           "days": "Vous devez choisir au moins un jour",
@@ -454,13 +456,14 @@
       "actions": {
         "agenda": "Mon agenda bénévole",
         "requests": "Mes demandes solidaires",
+        "carpools": "Mes annonces",
+        "accepted": "Mes covoiturages acceptés",
         "newRequest": "Faire une nouvelle demande",
         "manage": "Gérer mes alertes",
         "logout": "Se déconnecter",
         "delete": "Supprimer mon compte",
         "availabilities": "Disponibilités",
-        "journeys": "Trajets",
-        "requests": "Demandes"
+        "journeys": "Trajets"
       },
       "personal": {
         "title": "Modifier mon profil"

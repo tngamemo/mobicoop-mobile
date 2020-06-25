@@ -5,7 +5,7 @@
         <ion-buttons slot="start">
           <ion-back-button text=""></ion-back-button>
         </ion-buttons>
-        <ion-title>{{ $t('solidaryTransport.request.title') }} <sup>5/6</sup></ion-title>
+        <ion-title>{{ $t('solidaryTransport.' + type + '.title') }} <sup>5/6</sup></ion-title>
       </ion-toolbar>
     </ion-header>
 
@@ -15,7 +15,7 @@
 
           <div class="mc-st-form-content">
             <div class="mc-st-form-header">
-              <div class="mc-st-form-title">{{$t('solidaryTransport.request.steps.user')}}</div>
+              <div class="mc-st-form-title">{{$t('solidaryTransport.' + type + '.steps.user')}}</div>
               <div class="mc-st-form-steps">
                 <span class="mc-st-form-step is-validate"></span>
                 <span class="mc-st-form-step is-validate"></span>
@@ -317,7 +317,7 @@ export default {
             this.$refs.request.scrollToPoint(0, top, 0)
           })
         } else {
-          this.$router.push({name: 'solidaryTransport.home.request.summary'})
+          this.$router.push({name: 'solidaryTransport.home.' + this.type + '.summary'})
         }
       }
     }

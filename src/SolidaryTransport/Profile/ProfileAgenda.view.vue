@@ -10,13 +10,13 @@
     </ion-header>
 
     <ion-content color="primary">
-      
+
       <div class="mc-st-container">
 
         <div class="mc-st-form">
 
           <div class="mc-st-form-controls with-multiple on-top">
-            <ion-button 
+            <ion-button
               class="mc-st-form-control as-back"
               fill="solid"
               :color="!toggle ? 'primary' : 'light'"
@@ -35,14 +35,14 @@
 
           <div class="mc-st-form-content">
 
+            <br>
             <!-- Solidaries -->
             <template v-if="!toggle">
-              <div style="color: red;">Which API Endpoint ?</div>
               <div class="mc-st-form-item">
                 <ion-label class="mc-st-form-label as-title no-white-space" color="primary">{{$t('solidaryTransport.volunteer.form.fields.perimeter')}}</ion-label>
 
                 <div class="mc-st-form-range-wrapper">
-                  <ion-range 
+                  <ion-range
                     ref="max-distance"
                     class="mc-st-form-range"
                     :min="volunteer.minDeviationDistance"
@@ -66,10 +66,10 @@
                 </div>
               </div>
 
-              <template v-if="volunteer.hasStructure">
+              <template v-if="volunteer.structure">
                 <div class="mc-st-form-item" v-if="volunteer.structure.needs.length !== 0">
                   <ion-label class="mc-st-form-label as-title no-white-space" color="primary">{{$t('solidaryTransport.volunteer.form.fields.needs')}}</ion-label>
-                  
+
                   <div class="mc-st-form-checkbox-wrapper">
                     <ion-item class="mc-st-form-item" lines="none" v-for="(need, index) in volunteer.structure.needs" :key="index">
                       <ion-checkbox
@@ -94,9 +94,9 @@
                 </ion-toggle>
               </ion-item>
 
-              <div class="mc-st-form-item" v-if="volunteer.structure.needs.length !== 0">
+              <div class="mc-st-form-item" v-if="volunteer.structure && volunteer.structure.needs.length !== 0">
                 <ion-label class="mc-st-form-label as-title no-white-space" color="primary">{{$t('solidaryTransport.volunteer.form.fields.language')}}</ion-label>
-                
+
                 <div class="mc-st-form-checkbox-wrapper">
                   <ion-item class="mc-st-form-item" lines="none" v-for="(language, index) in languages" :key="index">
                     <ion-checkbox
@@ -123,7 +123,7 @@
 
             <!-- Journeys -->
             <template v-else>
-              <div style="color: black;">Trajets ? </div>
+
             </template>
 
           </div>
@@ -137,7 +137,7 @@
           </template>
 
           <!-- <div class="mc-st-form-controls in-summary" v-if="details">
-            <ion-button class="mc-st-form-control" 
+            <ion-button class="mc-st-form-control"
               color="success"
               v-html="$t('solidaryTransport.profile.actions.newRequest')"
               @click="$router.push({name:'solidaryTransport.home.request'})"
@@ -187,7 +187,7 @@ export default {
       this.toggle = !this.toggle
     },
     changeLanguages: function ($event) {
-      this.volunteer.languages.push($event.target.value)
+      this.volunteer.languages.push($event.target.value);
       this.volunteer.languages = _.uniq(this.volunteer.languages)
     },
     changeVehicle: function ($event) {
@@ -197,16 +197,20 @@ export default {
       this.volunteer.maxDistance = $event.target.value
     },
     validate: function () {
-      console.log('save')
+      this.$store.dispatch('putSolidaryVolunteer').then(() => {
+
+      }).catch( (error) => {
+        console.error(error)
+      })
     }
   },
   mounted: function () {
     this.$refs['max-distance'].value = this.volunteer.maxDistance
   },
   created: function () {
-    this.$store.dispatch('getVolunteerDetails')
+    this.$store.dispatch('getVolunteerDetails', this.$store.state.userStore.user.id)
       .then((details) => {
-        this.details = details
+
       })
       .catch((error) => {
         console.error(error)

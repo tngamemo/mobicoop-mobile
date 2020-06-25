@@ -25,6 +25,16 @@
               <span v-html="$t('solidaryTransport.profile.actions.requests')"></span>
             </ion-button>
 
+            <ion-button class="mc-st-action" color="success" @click="$router.push({name:'my-carpools'})">
+              <ion-icon slot="start" name="list-box"></ion-icon>
+              <span v-html="$t('solidaryTransport.profile.actions.carpools')"></span>
+            </ion-button>
+
+            <ion-button class="mc-st-action" color="success" @click="$router.push({name:'accepted-carpools'})">
+              <ion-icon slot="start" name="checkmark-circle"></ion-icon>
+              <span v-html="$t('solidaryTransport.profile.actions.accepted')"></span>
+            </ion-button>
+
             <ion-button class="mc-st-action" color="success" @click="$router.push({name:'solidaryTransport.profile.notifications'})">
               <ion-icon slot="start" name="notifications"></ion-icon>
               <span v-html="$t('solidaryTransport.profile.actions.manage')"></span>
@@ -48,7 +58,7 @@
 
 <style lang="scss">
   .mc-st-container.is-profile {
-    
+
   }
 </style>
 

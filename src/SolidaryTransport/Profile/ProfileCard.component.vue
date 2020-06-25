@@ -6,7 +6,7 @@
           <div class="mc-st-profile-avatar">
             <ion-thumbnail>
               <template v-if="getUserAvatar(userStore.user)">
-                <img :src="userStore.user.avatars[0]" :alt="userStore.user.givenName">
+                <img :src="userStore.user.avatars[0]" :alt="userStore.user.givenName" onerror="this.style.display='none'">
               </template>
             </ion-thumbnail>
           </div>
@@ -218,7 +218,7 @@
           position: relative;
           top: 50%;
           transform: translateY(-50%);
-          
+
           .key {
             display: flex;
             flex-direction: row;
@@ -238,7 +238,7 @@
 
             }
           }
-          
+
         }
       }
     }
@@ -266,7 +266,7 @@
         }
 
         + .mc-st-profile-action {
-          margin-left: 3px; 
+          margin-left: 3px;
         }
       }
     }

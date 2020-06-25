@@ -24,7 +24,7 @@
                 </div>
                 <div class="mc-st-summary-card-content">
                   <div class="times">
-                    <div class="time as-from"><!-- {{$moment(request.when.departure.specificHour).format('HH[h]mm')}} --></div>
+                    <div class="time as-from">{{$moment(solidary.outwardDatetime).format('HH[h]mm')}}</div>
                     <div class="time as-to"><!-- {{$moment(request.when.departure.specificHour).format('HH[h]mm')}} --></div>
                   </div>
                   <div class="places">
@@ -43,17 +43,6 @@
                     </div>
                   </div>
                 </div>
-              </div>
-
-              <div style="color: red;">
-                <span>outwardDatetime : {{solidary.outwardDatetime}}</span>
-                <span>outwardDealineDatetime :{{solidary.outwardDealineDatetime}}</span>
-                <span>returnDatetime: {{solidary.returnDatetime}}</span>
-                <span>returnDealineDatetime: {{solidary.returnDealineDatetime}}</span>
-                <span>marginDuration: {{solidary.marginDuration}}</span>
-                <span>frequency: {{solidary.frequency}}</span>
-                <span>days: {{solidary.days}}</span>
-                <span>regularDetail: {{solidary.regularDetail}}</span>
               </div>
             </div>
 

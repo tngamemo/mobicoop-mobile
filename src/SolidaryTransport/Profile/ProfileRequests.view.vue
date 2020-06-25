@@ -15,7 +15,7 @@
         <div class="mc-st-form">
 
           <div class="mc-st-form-controls with-multiple on-top">
-            <ion-button 
+            <ion-button
               class="mc-st-form-control as-back"
               fill="solid"
               :color="!toggle ? 'primary' : 'light'"
@@ -35,8 +35,7 @@
           <div class="mc-st-form-content">
 
             <!-- Solidaries -->
-            <template v-if="!toggle">
-              <div style="color: black;">Missing elements in API </div>
+            <template>
               <div class="mc-st-summary" v-if="solidaries">
                 <template v-for="(solidary, index) in solidaries">
                   <div class="mc-st-summary-card" :key="index" @click="$router.push({name:'solidaryTransport.profile.requests.request', query: {id: solidary.id}})">
@@ -46,7 +45,7 @@
                     </div>
                     <div class="mc-st-summary-card-content">
                       <div class="times">
-                        <div class="time as-from"><!-- {{$moment(request.when.departure.specificHour).format('HH[h]mm')}} --></div>
+                        <div class="time as-from">{{$moment(solidary.outwardDatetime).format('HH[h]mm')}}</div>
                         <div class="time as-to"><!-- {{$moment(request.when.departure.specificHour).format('HH[h]mm')}} --></div>
                       </div>
                       <div class="places">
@@ -66,30 +65,14 @@
                       </div>
                     </div>
                   </div>
-
-                  <div style="color: red;">
-                    <span>outwardDatetime : {{solidary.outwardDatetime}}</span>
-                    <span>outwardDealineDatetime :{{solidary.outwardDealineDatetime}}</span>
-                    <span>returnDatetime: {{solidary.returnDatetime}}</span>
-                    <span>returnDealineDatetime: {{solidary.returnDealineDatetime}}</span>
-                    <span>marginDuration: {{solidary.marginDuration}}</span>
-                    <span>frequency: {{solidary.frequency}}</span>
-                    <span>days: {{solidary.days}}</span>
-                    <span>regularDetail: {{solidary.regularDetail}}</span>
-                  </div>
                 </template>
               </div>
-            </template>
-
-            <!-- Journeys -->
-            <template v-else>
-              <div style="color: black;">Trajets ? </div>
             </template>
 
           </div>
 
           <div class="mc-st-form-controls in-summary" v-if="solidaries">
-            <ion-button class="mc-st-form-control" 
+            <ion-button class="mc-st-form-control"
               color="success"
               v-html="$t('solidaryTransport.profile.actions.newRequest')"
               @click="$router.push({name:'solidaryTransport.home.request'})"
