@@ -26,21 +26,23 @@
 
             <template v-if="structures">
 
+              <ion-radio-group>
               <ion-item class="mc-st-form-item" lines="none">
-                <ion-checkbox class="mc-st-form-checkbox" :value="false" :checked="volunteer.hasStructure === false" color="success" slot="start" @ionChange="changeHasStructure(false)"
-                ></ion-checkbox>
+                <ion-radio class="mc-st-form-checkbox" :value="false" :checked="volunteer.hasStructure === false" color="success" slot="start" @ionSelect="changeHasStructure(false)"
+                ></ion-radio>
                 <ion-label class="mc-st-form-label no-white-space" color="primary">{{$t('solidaryTransport.volunteer.form.fields.volunteerByMyself')}}</ion-label>
               </ion-item>
 
               <ion-item class="mc-st-form-item" lines="none">
-                <ion-checkbox class="mc-st-form-checkbox" :value="true" :checked="volunteer.hasStructure === true" color="success" slot="start" @ionChange="changeHasStructure(true)"
-                ></ion-checkbox>
+                <ion-radio class="mc-st-form-checkbox" :value="true" :checked="volunteer.hasStructure === true" color="success" slot="start" @ionSelect="changeHasStructure(true)"
+                ></ion-radio>
                 <ion-label class="mc-st-form-label no-white-space" color="primary">{{$t('solidaryTransport.volunteer.form.fields.volunteerByStructure')}}</ion-label>
               </ion-item>
+              </ion-radio-group>
 
               <ion-item class="mc-st-form-item" v-if="volunteer.hasStructure">
                 <ion-label class="mc-st-form-label as-title" color="primary" position="stacked">{{$t('solidaryTransport.volunteer.form.fields.structure')}} :</ion-label>
-                <ion-select 
+                <ion-select
                   required
                   :value="volunteer.structure.id"
                   @ionChange="changeStructure($event)"
@@ -51,7 +53,7 @@
                 </ion-select>
               </ion-item>
             </template>
-            
+
           </div>
 
           <div class="mc-st-form-controls with-multiple" v-if="structures">
@@ -119,7 +121,7 @@ export default {
   created: function () {
     this.$store.dispatch('getSolidaryStructures')
       .then((structures) => {
-        
+
         if (structures.length !== 0) {
           if (!this.volunteer.structure) {
             this.$store.commit('solidaryVolunteerStructureUpdate', _.cloneDeep(structures[0]))

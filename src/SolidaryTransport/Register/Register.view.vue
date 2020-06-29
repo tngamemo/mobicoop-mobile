@@ -17,7 +17,7 @@
 
               <div class="mc-st-form-other">{{$t('solidaryTransport.register.form.actions.or')}}</div>
 
-              <ion-button class="mc-st-form-action" color="success" v-html="$t('solidaryTransport.register.form.actions.request')" @click="$router.push({name:'solidaryTransport.register.request'})"></ion-button>
+              <ion-button class="mc-st-form-action" color="success" v-html="$t('solidaryTransport.register.form.actions.request')" @click="$router.push({name:'solidaryTransport.home.request'})"></ion-button>
             </div>
           </div>
 
@@ -32,7 +32,7 @@
 </template>
 
 <style lang="scss">
-  
+
 </style>
 
 <script>

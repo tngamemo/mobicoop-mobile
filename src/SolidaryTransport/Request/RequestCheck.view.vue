@@ -14,7 +14,7 @@
         <div class="mc-st-form">
 
           <div class="mc-st-form-content">
-            <div class="mc-st-form-header">
+            <div class="mc-st-form-header" v-if="type === 'request'">
               <div class="mc-st-form-title">{{$t('solidaryTransport.' + type + '.steps.check')}}</div>
               <div class="mc-st-form-steps">
                 <span class="mc-st-form-step is-validate"></span>
@@ -218,13 +218,15 @@
           <div class="mc-st-form-controls in-summary" v-if="structures">
             <ion-button class="mc-st-form-control as-back" color="light" v-html="$t('solidaryTransport.buttons.back')" @click="$router.back()"></ion-button>
 
-            <ion-button class="mc-st-form-control as-back" color="primary" @click="$refs['call'].click()">
-              <ion-icon slot="start" name="chatboxes"></ion-icon>
+            <ion-button class="mc-st-form-control as-back" :disabled="$v.$invalid" color="primary" @click="$refs['call'].click()">
+              <ion-icon slot="start" name="call"></ion-icon>
               <span v-html="$t('solidaryTransport.buttons.askHelp')"></span>
               <a ref="call" :href="support" style="display:none;"></a>
             </ion-button>
 
-            <ion-button class="mc-st-form-control" color="success" v-html="$t('solidaryTransport.buttons.next')" @click="validate()"></ion-button>
+            <div class="text-center or">{{$t('solidaryTransport.buttons.or')}}</div>
+
+            <ion-button class="mc-st-form-control" color="success" v-html="$t('solidaryTransport.' + type + '.form.next')" @click="validate()"></ion-button>
           </div>
 
           <div class="mc-st-loading" v-else>
@@ -237,7 +239,13 @@
     </ion-content>
   </ion-page>
 </template>
-
+<style>
+  .or{
+    width: 100%;
+    color: black;
+    font-size: small;
+  }
+</style>
 <script>
 import _ from 'lodash'
 import { mapState, mapGetters } from 'vuex'

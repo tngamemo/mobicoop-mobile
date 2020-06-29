@@ -28,11 +28,12 @@
               <ion-label class="mc-st-form-label as-title no-white-space" color="primary">{{$t('solidaryTransport.volunteer.form.fields.perimeter')}}</ion-label>
 
               <div class="mc-st-form-range-wrapper">
-                <ion-range 
+                <ion-range
                   ref="max-distance"
                   class="mc-st-form-range"
                   :min="volunteer.minDeviationDistance"
                   :max="volunteer.maxDeviationDistance"
+                  :value="volunteer.maxDistance"
                   pin="true"
                   snaps="true"
                   ticks="false"
@@ -52,10 +53,10 @@
               </div>
             </div>
 
-            <template v-if="volunteer.hasStructure">
+            <template v-if="volunteer.structure">
               <div class="mc-st-form-item" v-if="volunteer.structure.needs.length !== 0">
                 <ion-label class="mc-st-form-label as-title no-white-space" color="primary">{{$t('solidaryTransport.volunteer.form.fields.needs')}}</ion-label>
-                
+
                 <div class="mc-st-form-checkbox-wrapper">
                   <ion-item class="mc-st-form-item" lines="none" v-for="(need, index) in volunteer.structure.needs" :key="index">
                     <ion-checkbox
@@ -82,7 +83,7 @@
 
             <div class="mc-st-form-item" v-if="volunteer.structure.needs.length !== 0">
               <ion-label class="mc-st-form-label as-title no-white-space" color="primary">{{$t('solidaryTransport.volunteer.form.fields.language')}}</ion-label>
-              
+
               <div class="mc-st-form-checkbox-wrapper">
                 <ion-item class="mc-st-form-item" lines="none" v-for="(language, index) in languages" :key="index">
                   <ion-checkbox
@@ -124,7 +125,7 @@
                 <div class="mc-st-form-error is-left"  v-else-if="!$v.volunteer.userAgreementAccepted.required">{{$t('solidaryTransport.register.form.validators.required')}}</div>
               </template>
             </div>
-            
+
           </div>
 
           <div class="mc-st-form-controls with-multiple">
@@ -207,7 +208,7 @@ export default {
           this.$store.dispatch('postSolidaryVolunteer')
             .then((data) => {
               this.presentToast("Votre proposition en tant que bénévole à bien été envoyée", 'success');
-              //this.$router.push({name:'solidaryTransport.home'})
+              this.$router.push({name:'solidaryTransport.home'})
             })
             .catch((error) => {
               this.presentToast("Une erreur est survenue", 'danger')
@@ -222,6 +223,8 @@ export default {
   mounted: function () {
     this.$refs['max-distance'].value = this.volunteer.maxDistance
   },
-  created: function () {}
+  created: function () {
+    this.volunteer.maxDistance  = (this.volunteer.minDeviationDistance + this.volunteer.maxDeviationDistance)/2;
+  }
 }
 </script>

@@ -33,8 +33,9 @@
               </div>
 
               <div class="mc-st-form-checkbox-wrapper">
+                <ion-radio-group>
                 <ion-item class="mc-st-form-item" @click="$refs['departure-date'].click()">
-                  <ion-checkbox class="mc-st-form-checkbox no-clickable" slot="start" :checked="request.when.departure.specificDate !== undefined || (request.when.departure.specificDate === undefined && request.when.departure.marginDate === undefined)" color="success"></ion-checkbox>
+                  <ion-radio class="mc-st-form-checkbox no-clickable" slot="start" :value="undefined" :checked="request.when.departure.specificDate !== undefined || (request.when.departure.specificDate === undefined && request.when.departure.marginDate === undefined)" color="success"></ion-radio>
                   <ion-datetime
                     ref="departure-date"
                     class="mc-st-form-input no-clickable"
@@ -51,10 +52,11 @@
                   ></ion-datetime>
                 </ion-item>
                 <ion-item class="mc-st-form-item" lines="none" v-for="(item, index) in departureDates" :key="index">
-                  <ion-checkbox class="mc-st-form-checkbox" :value="request.when.departure.marginDate" :checked="request.when.departure.marginDate === item.value" color="success" slot="start" @ionChange="changeDepartureMarginDate(item.value)"
-                  ></ion-checkbox>
+                  <ion-radio class="mc-st-form-checkbox" :value="item.value" :checked="request.when.departure.marginDate === item.value" color="success" slot="start" @ionSelect="changeDepartureMarginDate(item.value)"
+                  ></ion-radio>
                   <ion-label class="mc-st-form-label no-white-space" color="primary">{{ item.label }}</ion-label>
                 </ion-item>
+                </ion-radio-group>
               </div>
             </div>
 
@@ -65,8 +67,9 @@
               </div>
 
               <div class="mc-st-form-checkbox-wrapper">
+                <ion-radio-group>
                 <ion-item class="mc-st-form-item" @click="$refs['departure-hour'].click()">
-                  <ion-checkbox class="mc-st-form-checkbox no-clickable" slot="start" :checked="request.when.departure.specificHour !== undefined || (request.when.departure.specificHour === undefined && request.when.departure.marginHour === undefined)" color="success"></ion-checkbox>
+                  <ion-radio class="mc-st-form-checkbox no-clickable" slot="start" :value="undefined" :checked="request.when.departure.specificHour !== undefined || (request.when.departure.specificHour === undefined && request.when.departure.marginHour === undefined)" color="success"></ion-radio>
                   <ion-datetime
                     ref="departure-hour"
                     class="mc-st-form-input no-clickable"
@@ -81,10 +84,11 @@
                   ></ion-datetime>
                 </ion-item>
                 <ion-item class="mc-st-form-item" lines="none" v-for="(item, index) in departureHours" :key="index">
-                  <ion-checkbox class="mc-st-form-checkbox" :value="request.when.departure.marginHour" :checked="request.when.departure.marginHour === item.value" color="success" slot="start" @ionChange="changeDepartureMarginHour(item.value)"
-                  ></ion-checkbox>
+                  <ion-radio class="mc-st-form-checkbox" :value="item.value" :checked="request.when.departure.marginHour === item.value" color="success" slot="start" @ionSelect="changeDepartureMarginHour(item.value)"
+                  ></ion-radio>
                   <ion-label class="mc-st-form-label no-white-space" color="primary">{{ item.label }}</ion-label>
                 </ion-item>
+                </ion-radio-group>
               </div>
             </div>
 
@@ -95,8 +99,9 @@
               </div>
 
               <div class="mc-st-form-checkbox-wrapper">
+                <ion-radio-group>
                 <ion-item class="mc-st-form-item" @click="$refs['return-hour'].click()">
-                  <ion-checkbox class="mc-st-form-checkbox no-clickable" slot="start" :checked="request.when.return.specificHour !== undefined || (request.when.return.specificHour === undefined && request.when.return.marginHour === undefined)" color="success"></ion-checkbox>
+                  <ion-radio class="mc-st-form-checkbox no-clickable" slot="start" :value="undefined" :checked="request.when.return.specificHour !== undefined || (request.when.return.specificHour === undefined && request.when.return.marginHour === undefined)" color="success"></ion-radio>
                   <ion-datetime
                     ref="return-hour"
                     class="mc-st-form-input no-clickable"
@@ -111,10 +116,11 @@
                   ></ion-datetime>
                 </ion-item>
                 <ion-item class="mc-st-form-item" lines="none" v-for="(item, index) in returnHours" :key="index">
-                  <ion-checkbox class="mc-st-form-checkbox" :value="request.when.return.marginHour" :checked="request.when.return.marginHour === item.value" color="success" slot="start" @ionChange="changeReturnMarginHour(item.value)"
-                  ></ion-checkbox>
+                  <ion-radio class="mc-st-form-checkbox" :value="item.value" :checked="request.when.return.marginHour === item.value" color="success" slot="start" @ionSelect="changeReturnMarginHour(item.value)"
+                  ></ion-radio>
                   <ion-label class="mc-st-form-label no-white-space" color="primary">{{ item.label }}</ion-label>
                 </ion-item>
+                </ion-radio-group>
               </div>
             </div>
 

@@ -22,7 +22,7 @@
 
             <ion-item class="mc-st-form-item">
               <ion-label position="floating">{{$t('solidaryTransport.register.form.fields.gender')}} *</ion-label>
-              <ion-select 
+              <ion-select
                 required
                 :value="user.gender"
                 @ionChange="user.gender = parseInt($event.target.value)"
@@ -40,10 +40,10 @@
 
             <ion-item class="mc-st-form-item">
               <ion-label position="floating">{{$t('solidaryTransport.register.form.fields.firstname')}} *</ion-label>
-              <ion-input 
-                class="mc-st-form-input" 
-                type="text" 
-                :value="user.givenName" 
+              <ion-input
+                class="mc-st-form-input"
+                type="text"
+                :value="user.givenName"
                 @input="user.givenName = $event.target.value;"
               ></ion-input>
             </ion-item>
@@ -54,10 +54,10 @@
 
             <ion-item class="mc-st-form-item">
               <ion-label position="floating">{{$t('solidaryTransport.register.form.fields.lastname')}} *</ion-label>
-              <ion-input 
-                class="mc-st-form-input" 
-                type="text" 
-                :value="user.familyName" 
+              <ion-input
+                class="mc-st-form-input"
+                type="text"
+                :value="user.familyName"
                 @input="user.familyName = $event.target.value;"
               ></ion-input>
             </ion-item>
@@ -97,7 +97,7 @@
             <ion-item class="mc-st-form-item">
               <ion-label position="floating">{{$t('solidaryTransport.register.form.fields.phone')}} *</ion-label>
               <ion-input
-                class="mc-st-form-input" 
+                class="mc-st-form-input"
                 type="text"
                 :value="user.telephone"
                 @input="user.telephone = $event.target.value;"
@@ -110,10 +110,10 @@
 
             <ion-item class="mc-st-form-item">
               <ion-label position="floating">{{$t('solidaryTransport.register.form.fields.email')}} *</ion-label>
-              <ion-input 
-                class="mc-st-form-input" 
-                type="email" 
-                @ionChange="checkMail()" 
+              <ion-input
+                class="mc-st-form-input"
+                type="email"
+                @ionChange="checkMail()"
                 @input="user.email = $event.target.value"
               ></ion-input>
               <ion-icon class="mc-st-form-icon rotating" v-show="checking" slot="end" size="medium" color="primary" name="sync"></ion-icon>
@@ -128,7 +128,7 @@
               <ion-label position="floating">{{$t('solidaryTransport.register.form.fields.password')}} *</ion-label>
               <template v-if="showPassword">
                 <ion-input
-                  class="mc-st-form-input" 
+                  class="mc-st-form-input"
                   type="text"
                   :value="user.password"
                   @input="user.password = $event.target.value;"
@@ -137,7 +137,7 @@
               </template>
               <template v-else>
                 <ion-input
-                  class="mc-st-form-input" 
+                  class="mc-st-form-input"
                   type="password"
                   :value="user.password"
                   @input="user.password = $event.target.value;"
@@ -156,7 +156,7 @@
               <ion-label position="floating">{{$t('solidaryTransport.register.form.fields.confirmPassword')}} *</ion-label>
               <template v-if="showPassword">
                 <ion-input
-                  class="mc-st-form-input" 
+                  class="mc-st-form-input"
                   type="text"
                   :value="password"
                   @input="password = $event.target.value;"
@@ -164,7 +164,7 @@
               </template>
               <template v-else>
                 <ion-input
-                  class="mc-st-form-input" 
+                  class="mc-st-form-input"
                   type="password"
                   :value="password"
                   @input="password = $event.target.value;"
@@ -194,7 +194,7 @@
                 <div class="mc-st-form-error"  v-else-if="!$v.user.userAgreementAccepted.required">{{$t('solidaryTransport.register.form.validators.required')}}</div>
               </template>
             </div>
-            
+
           </div>
 
           <div class="mc-st-form-controls with-multiple" :class="{'is-loading': processing}">
@@ -213,7 +213,7 @@
 </template>
 
 <style lang="scss">
-  
+
 </style>
 
 <script>
@@ -371,6 +371,11 @@ export default {
       }
     }
   },
-  created: function () {}
+  created: function () {
+    let n = new Date();
+    n.setFullYear(n.getFullYear() - process.env.VUE_APP_REGISTER_MIN_AGE);
+
+    this.user.birthDate = n.toISOString();
+  }
 }
 </script>

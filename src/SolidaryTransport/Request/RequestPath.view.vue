@@ -63,6 +63,9 @@
                 class="no-clickable"
               ></ion-input>
             </ion-item>
+            <div class="mc-st-form-details" v-if="$v.request.destination.$error">
+              <span class="mc-st-form-error" v-if="!$v.request.destination.required">{{$t('solidaryTransport.register.form.validators.required')}}</span>
+            </div>
 
             <ion-list class="mc-st-form-item">
               <ion-radio-group class="mc-st-form-radios">
@@ -118,7 +121,7 @@
 <script>
 import _ from 'lodash'
 import { mapState, mapGetters } from 'vuex'
-import { required } from 'vuelidate/lib/validators'
+import { required, requiredIf } from 'vuelidate/lib/validators'
 import { toast } from '../../Shared/Mixin/toast.mixin'
 
 export default {
@@ -147,6 +150,11 @@ export default {
     request: {
       origin: {
         required
+      },
+      destination: {
+        required: requiredIf(function(value) {
+          return this.type === 'usual';
+        })
       }
     }
   },
