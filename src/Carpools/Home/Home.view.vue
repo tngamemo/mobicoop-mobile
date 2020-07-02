@@ -44,7 +44,7 @@ LICENSE
           :icon="'briefcase'"
           @clickButton="redirectToCommunities()"
         />
-        <BlockAction
+        <BlockAction  v-if="showEvents"
           :action="'events'"
           :color="'rgba('+ secondary+ ', 1)'"
           :colorBg="'rgba('+ secondary+ ', 0.4)'"
@@ -155,6 +155,7 @@ export default {
       success: "",
       partner: JSON.parse(process.env.VUE_APP_PARTNER),
       showSolidarity: JSON.parse(process.env.VUE_APP_SHOW_SOLIDARITY_TRANSPORT),
+      showEvents: JSON.parse(process.env.VUE_APP_SHOW_EVENTS),
       noIconToolbar: JSON.parse(process.env.VUE_APP_NO_ICON_TOOLBAR),
     };
   },

@@ -287,7 +287,7 @@
     "askSend": "Une demande de covoiturage formelle a été envoyée",
     "askAccepted": "Le covoiturage a été accepté",
     "askDeclined": "Le covoiturage a été refusé",
-    "askFor": "Demande faite pour :",
+    "askFor": "Demande faite",
     "outward": "Aller",
     "return": "Retour",
     "alreadyAsk": "Vous avez déjà pris contact sur cette annonce.",
