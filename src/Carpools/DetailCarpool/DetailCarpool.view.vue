@@ -58,7 +58,7 @@ LICENSE
           v-if="carpoolRecap && carpoolRecap.frequency == 2 && fromMessage && askFromMessage.askStatus !== 1 && !!selectedDay"
           class="mc-recap-choose-day"
         >
-          <div class="mc-ask-header">{{ $t('DetailCarpool.askFor')}}</div>
+          <div class="mc-ask-header">{{ $t('DetailCarpool.askFor')}} du {{carpoolRecap.startDate | moment('DD/MM/YYYY')}} au {{carpoolRecap.toDate| moment('DD/MM/YYYY')}}</div>
           <ion-item v-for="(day, index) in selectedDay" :key="index">
 
             <div class="mc-choose-day d-flex justify-between">

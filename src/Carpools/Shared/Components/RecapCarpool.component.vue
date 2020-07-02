@@ -430,12 +430,12 @@ export default {
           if (step.role == "driver") {
             return {
               name: "home",
-              background: "mc-icon-step-background-green" + (this.recapCarpool.driver ? ' active' : '')
+              background: "mc-icon-step-background-green" + (this.recapCarpool.passenger ? ' active' : '')
             };
           } else {
             return {
               name: "person",
-              background: "mc-icon-step-background-primary" + (this.recapCarpool.passenger ? ' active' : '')
+              background: "mc-icon-step-background-primary" + (this.recapCarpool.driver ? ' active' : '')
             };
           }
           break;
@@ -444,12 +444,12 @@ export default {
           if (step.role == "driver") {
             return {
               name: "flag",
-              background: "mc-icon-step-background-green" + (this.recapCarpool.driver ? ' active' : '')
+              background: "mc-icon-step-background-green" + (this.recapCarpool.passenger ? ' active' : '')
             };
           } else {
             return {
               name: "flag",
-              background: "mc-icon-step-background-primary" + (this.recapCarpool.passenger ? ' active' : '')
+              background: "mc-icon-step-background-primary" + (this.recapCarpool.driver ? ' active' : '')
             };
           }
 

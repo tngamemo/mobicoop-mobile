@@ -49,3 +49,9 @@ target 'Grand Lyon' do
   # Add your Pods here
   pod 'Firebase/Messaging'
 end
+
+target 'Txik Txak' do
+  capacitor_pods
+  # Add your Pods here
+  pod 'Firebase/Messaging'
+end

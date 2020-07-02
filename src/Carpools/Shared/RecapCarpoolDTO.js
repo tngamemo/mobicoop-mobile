@@ -57,8 +57,10 @@ export default class RecapCarpoolDTO {
     this.returnTime = (!!carpool.returnTime) ? moment(carpool.returnTime).utc().format('HH:mm') : null;
     this.outwardTime = (!!carpool.outwardTime) ? moment(carpool.outwardTime).utc().format('HH:mm') : null ;
     this.priceCarpool = carpool.roundedPrice;
-    this.passenger = !!carpool.resultPassenger;
-    this.driver = !!carpool.resultDriver;
+    this.passenger = !!carpool.resultDriver;
+    this.driver =  !!carpool.resultPassenger;
+    this.startDate = carpool.startDate;
+    this.toDate = carpool.toDate;
 
     let result = carpool.resultDriver ;
     if (! !!result) result = carpool.resultPassenger;
@@ -94,6 +96,8 @@ export default class RecapCarpoolDTO {
     this.priceCarpool = carpool.roundedPrice;
     this.passenger = !!carpool.resultPassenger;
     this.driver = !!carpool.resultDriver;
+    this.startDate = carpool.startDate;
+    this.toDate = carpool.toDate;
 
     let result = carpool.resultDriver ;
     if (! !!result) result = carpool.resultPassenger;
