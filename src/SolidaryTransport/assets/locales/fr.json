@@ -260,14 +260,14 @@
       "form": {
         "next" : "Remplir la suite du formulaire",
         "fields": {
-          "address": "Adresse de domicile",
+          "address": "Lieu de départ",
           "structure": "Structure accompagnante",
           "structures": "Chaque structure a ses propres critères. Si vous ne remplissez pas les critères pour l’une, peut-être les remplisserez-vous pour une autre qui dessert aussi votre domicile ?",
           "mandatory": "Critère(s) obligatoire(s)",
           "optional": "Information(s) complémentaire(s)",
-          "subjects": "Que voulez-vous faire ?",
-          "origin": "D'où partez-vous ?",
-          "destination": "Où allez vous ?",
+          "subjects": "Je me déplace pour :",
+          "origin": "Lieu de départ",
+          "destination": "Lieu d'arrivée",
           "regular": "Est-ce un trajet régulier ?",
           "isRegular": "Oui, je ferai le trajet régulièrement",
           "isPunctual": "Non",
@@ -276,7 +276,7 @@
             "departure": {
               "date": "A quelle date souhaitez-vous partir ?",
               "specificDate": "Date du départ",
-              "hour": "A quelle heure souhaitez-vous partir ?",
+              "hour": "Heure de départ",
               "specificHour": "Heure de départ",
               "day": "Indiquez les jours concernés pour lesquels vous avez besoin d’un trajet régulier :",
               "dates": [
@@ -339,7 +339,7 @@
               ]
             },
             "return": {
-              "hour": "A quelle heure souhaitez-vous revenir ?",
+              "hour": "Heure de retour",
               "specificHour": "Heure de retour",
               "hours": [
                 {
@@ -356,7 +356,7 @@
                 },
                 {
                   "value": "no-need",
-                  "label": "Je n’ai pas besoin qu’on me ramène"
+                  "label": "Pas de retour planifié"
                 }
               ]
             },

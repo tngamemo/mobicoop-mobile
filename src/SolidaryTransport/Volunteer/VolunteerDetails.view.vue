@@ -207,7 +207,7 @@ export default {
           this.processing = true
           this.$store.dispatch('postSolidaryVolunteer')
             .then((data) => {
-              this.presentToast("Votre proposition en tant que bénévole à bien été envoyée", 'success');
+              this.presentToast("Votre proposition en tant que bénévole a bien été envoyée", 'success');
               this.$router.push({name:'solidaryTransport.home'})
             })
             .catch((error) => {

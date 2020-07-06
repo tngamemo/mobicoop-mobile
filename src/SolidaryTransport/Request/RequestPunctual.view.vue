@@ -5,7 +5,7 @@
         <ion-buttons slot="start">
           <ion-back-button text=""></ion-back-button>
         </ion-buttons>
-        <ion-title>{{$t('solidaryTransport.request.title')}} <sup>4/6</sup></ion-title>
+        <ion-title>{{$t('solidaryTransport.' + type + '.title')}} <sup>4/6</sup></ion-title>
       </ion-toolbar>
     </ion-header>
 
