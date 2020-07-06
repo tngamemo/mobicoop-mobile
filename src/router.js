@@ -31,12 +31,18 @@ import routerSolidaryTransport from './SolidaryTransport/SolidaryTransport.route
 
 Vue.use(IonicVueRouter);
 
+let redirectSolidary = false;
+const appModule = JSON.parse(process.env.VUE_APP_MODULE);
+if (JSON.parse(appModule.SOLIDARYTRANSPORT) && !JSON.parse(appModule.CARPOOL)) {
+  redirectSolidary = true;
+}
+
 const router = new IonicVueRouter({
   routes: [
     {
       path: '/',
       name: '',
-      redirect: '/carpools',
+      redirect: redirectSolidary ? '/solidary-transport' : '/carpools',
     },
     {
       path: '/carpools',
