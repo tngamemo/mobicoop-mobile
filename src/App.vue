@@ -64,6 +64,11 @@ LICENSE
       document.documentElement.style.setProperty('--ion-color-warning', '#' + process.env.VUE_APP_WARNING);
       document.documentElement.style.setProperty('--ion-color-danger', '#' + process.env.VUE_APP_DANGER);
 
+      document.documentElement.style.setProperty('background-color', '#' + process.env.VUE_APP_BEHIND_BACKGROUND_COLOR);
+      if (JSON.parse(process.env.VUE_APP_BEHIND_BACKGROUND_IMAGE)) {
+        document.documentElement.style.setProperty( 'background-image', 'url(/assets/behind_background.png)');
+      }
+
       // Fonction qui va log l'user ou utilisé un user par défault
       this.authUserOnStart();
 

@@ -15,6 +15,7 @@
     "serve:passpass": "vue-cli-service serve --mode passpass",
     "serve:txiktxak": "vue-cli-service serve --mode txiktxak",
     "serve:ehop": "vue-cli-service serve --mode ehop",
+    "serve:ibm": "vue-cli-service serve --mode ibm",
     "build": "vue-cli-service build",
     "build:grandlyon:test": "export NODE_ENV=production && export VUE_APP_API_URL=https://api.test.grand-lyon.mobicoop.io && vue-cli-service build --mode grandlyon",
     "build:mobicoop:test": "export NODE_ENV=production && export VUE_APP_API_URL=https://api.test.mobicoop.io && vue-cli-service build --mode mobicoop",
@@ -31,6 +32,7 @@
     "build:passpass:test": "export NODE_ENV=production && export VUE_APP_API_URL=https://api.test.passpass.mobicoop.io && vue-cli-service build --mode passpass",
     "build:txiktxak:test": "export NODE_ENV=production && export VUE_APP_API_URL=https://api.test.txiktxak.mobicoop.io && vue-cli-service build --mode txiktxak",
     "build:ehop:test": "export NODE_ENV=production && export VUE_APP_API_URL=https://api.test.mobicoop.io && vue-cli-service build --mode ehop",
+    "build:ibm:test": "export NODE_ENV=production && export VUE_APP_API_URL=https://api.test.ibm.mobicoop.io && vue-cli-service build --mode ibm",
     "lint": "vue-cli-service lint",
     "i18n:report": "vue-cli-service i18n:report --src './src/**/*.?(js|vue)' --locales './src/locales/**/*.json'",
     "postinstall": "jetifier"

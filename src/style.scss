@@ -141,6 +141,8 @@ ion-col {
   display: flex;
   justify-content: center;
   background: lightgrey;
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 
 .plt-desktop body {
@@ -182,15 +184,6 @@ ion-input {
   --placeholder-color: rgba(0, 0, 0, 0.6) !important;
 }
 
-.plt-desktop {
-  display: flex;
-  justify-content: center;
-  background: lightgrey;
-}
-
-.plt-desktop body {
-  max-width: 600px;
-}
 
 .mc-white-container {
   width: 100%;
