@@ -196,25 +196,37 @@ export default {
     changeMaxDistance: function ($event) {
       this.volunteer.maxDistance = $event.target.value
     },
-    validate: function () {
-      this.$store.dispatch('putSolidaryVolunteer').then(() => {
+    getVolunteer: function () {
+      this.$store.dispatch('getVolunteerDetails', this.$store.state.userStore.user.id)
+        .then((details) => {
 
-      }).catch( (error) => {
-        console.error(error)
-      })
+        })
+        .catch((error) => {
+          console.error(error)
+        })
+    },
+    validate: function () {
+      if (this.volunteer.id) {
+        this.$store.dispatch('putSolidaryVolunteer').then(() => {
+
+        }).catch( (error) => {
+          console.error(error)
+        })
+      } else {
+        this.$store.dispatch('postSolidaryVolunteer').then(() => {
+
+        }).catch( (error) => {
+          console.error(error)
+        })
+      }
+
     }
   },
   mounted: function () {
     this.$refs['max-distance'].value = this.volunteer.maxDistance
   },
   created: function () {
-    this.$store.dispatch('getVolunteerDetails', this.$store.state.userStore.user.id)
-      .then((details) => {
-
-      })
-      .catch((error) => {
-        console.error(error)
-      })
+    this.getVolunteer();
   }
 }
 </script>

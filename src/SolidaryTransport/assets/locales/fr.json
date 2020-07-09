@@ -55,9 +55,9 @@
             },
             "days": {
               "title": "Mes disponibilités journalières",
-              "morning": "Je suis disponible le matin (8h-13h) :",
-              "afternoon": "Je suis disponible l’après-midi (13h-18h) :",
-              "evening": "Je suis disponible en soirée (18h-21h) :"
+              "morning": "Je suis disponible le matin :",
+              "afternoon": "Je suis disponible l’après-midi :",
+              "evening": "Je suis disponible en soirée :"
             }
           },
           "days": [

@@ -83,6 +83,7 @@
                     class="mc-st-form-input"
                     display-format="HH:mm"
                     picker-format="HH:mm"
+                    minute-values="0,5,10,15,20,25,30,35,40,45,50,55"
                     :cancel-text="$t('solidaryTransport.buttons.cancel')"
                     :done-text="$t('solidaryTransport.buttons.validate')"
                     :placeholder="$t('solidaryTransport.' + type + '.form.fields.when.return.specificHour')"

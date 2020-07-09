@@ -971,9 +971,10 @@ export const solidaryTransportStore = {
           })
       })
     },
-    postSolidaryVolunteer: ({commit, state}) => {
-      let volunteer = _.cloneDeep(state.temporary.volunteer)
-      let structure = volunteer.structure
+    postSolidaryVolunteer: ({commit, state, rootState}) => {
+      let volunteer = _.cloneDeep(state.temporary.volunteer);
+      volunteer.email = rootState.userStore.user.email;
+      let structure = volunteer.structure;
 
       // The user is connected during the request
       if (_.isUndefined(volunteer.password)) {
