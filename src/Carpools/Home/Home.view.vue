@@ -37,7 +37,7 @@ LICENSE
       <div class="mc-white-container">
         <SearchQuick />
 
-        <BlockAction
+        <BlockAction v-if="showCommunities"
           :action="'communities'"
           :color="'rgba('+ primary+ ', 1)'"
           :colorBg="'rgba('+ primary+ ', 0.4)'"
@@ -156,6 +156,7 @@ export default {
       partner: JSON.parse(process.env.VUE_APP_PARTNER),
       showSolidarity: JSON.parse(process.env.VUE_APP_SHOW_SOLIDARITY_TRANSPORT),
       showEvents: JSON.parse(process.env.VUE_APP_SHOW_EVENTS),
+      showCommunities: JSON.parse(process.env.VUE_APP_SHOW_COMMUNITIES),
       noIconToolbar: JSON.parse(process.env.VUE_APP_NO_ICON_TOOLBAR),
     };
   },
