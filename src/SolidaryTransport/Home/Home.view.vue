@@ -36,12 +36,21 @@
               <ion-button
                 class="mc-st-action is-high"
                 color="success"
+                v-if="askRide"
                 v-html="$t('solidaryTransport.home.actions.request')"
                 @click="$router.push({name:'solidaryTransport.home.request'})"
               ></ion-button>
               <ion-button
                 class="mc-st-action is-high"
                 color="success"
+                v-html="$t('solidaryTransport.home.actions.' + usualRideText)"
+                @click="$router.push({name:'solidaryTransport.home.usual'})"
+                v-if="declareUsualRide"
+              ></ion-button>
+              <ion-button
+                class="mc-st-action is-high"
+                color="success"
+                v-if="declareVolunteer"
                 v-html="$t('solidaryTransport.home.actions.becomeVolunteer')"
                 @click="$router.push({name:'solidaryTransport.home.volunteer'})"
               ></ion-button>
@@ -69,6 +78,7 @@
               <ion-button
                 class="mc-st-action"
                 color="success"
+                v-if="declareVolunteer"
                 v-html="$t('solidaryTransport.home.actions.becomeVolunteer')"
                 @click="$router.push({name:'solidaryTransport.home.volunteer'})"
               ></ion-button>
@@ -76,7 +86,7 @@
               <ion-button
                 class="mc-st-action"
                 color="success"
-                v-html="$t('solidaryTransport.home.actions.shareUsualRoute')"
+                v-html="$t('solidaryTransport.home.actions.' + usualRideText)"
                 @click="$router.push({name:'solidaryTransport.home.usual'})"
                 v-if="declareUsualRide"
               ></ion-button>
@@ -168,7 +178,9 @@ export default {
       appModule: JSON.parse(process.env.VUE_APP_MODULE),
       support: process.env.VUE_APP_SOLIDARY_SUPPORT_HELP,
       askRide: JSON.parse(process.env.VUE_APP_SOLIDARY_ASK_RIDE),
-      declareUsualRide: JSON.parse(process.env.VUE_APP_SOLIDARY_DECLARE_USUAL_RIDE)
+      declareUsualRide: JSON.parse(process.env.VUE_APP_SOLIDARY_DECLARE_USUAL_RIDE),
+      declareVolunteer: JSON.parse(process.env.VUE_APP_SOLIDARY_DECLARE_VOLUNTEER),
+      usualRideText: process.env.VUE_APP_SOLIDARY_DECLARE_USUAL_RIDE_TEXT,
     };
   },
   computed: {

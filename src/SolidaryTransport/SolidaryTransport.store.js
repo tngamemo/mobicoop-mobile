@@ -563,7 +563,7 @@ export const solidaryTransportStore = {
     },
     getVolunteerDetails({commit, state}, id){
       return new Promise((resolve, reject) => {
-        http.get(`/solidary_users/` + id)
+        http.get(`/solidary_volunteers/` + id)
           .then(response => {
             if (response) {
               const data = response.data;

@@ -45,8 +45,8 @@
                   <ion-range
                     ref="max-distance"
                     class="mc-st-form-range"
-                    :min="volunteer.minDeviationDistance"
-                    :max="volunteer.maxDeviationDistance"
+                    :min="minDeviationDistance"
+                    :max="maxDeviationDistance"
                     pin="true"
                     snaps="true"
                     ticks="false"
@@ -54,8 +54,8 @@
                     debounce="200"
                     @ionChange="changeMaxDistance($event)"
                   >
-                    <ion-label color="primary" slot="start">{{volunteer.minDeviationDistance}}km</ion-label>
-                    <ion-label color="primary" slot="end">{{volunteer.maxDeviationDistance}}km</ion-label>
+                    <ion-label color="primary" slot="start">{{minDeviationDistance}}km</ion-label>
+                    <ion-label color="primary" slot="end">{{maxDeviationDistance}}km</ion-label>
                   </ion-range>
                 </div>
               </div>
@@ -123,7 +123,37 @@
 
             <!-- Journeys -->
             <template v-else>
-
+              <div class="mc-st-summary" v-if="solidaries">
+              <div v-for="(solidary, index) in solidaries">
+                <div class="mc-st-summary-card" :key="index" @click="$router.push({name:'solidaryTransport.profile.requests.request', query: {id: solidary.id}})">
+                  <div class="mc-st-summary-card-header">
+                    <span>{{$moment(solidary.outwardDatetime).format('D MMMM YYYY')}}</span>
+                    <!-- <span v-if="request.when.departure.marginHour">, {{getLabelForKeyToDisplay(departureHours,request.when.departure.marginHour)}}</span> -->
+                  </div>
+                  <div class="mc-st-summary-card-content">
+                    <div class="times">
+                      <div class="time as-from">{{$moment(solidary.outwardDatetime).format('HH[h]mm')}}</div>
+                      <div class="time as-to"><!-- {{$moment(request.when.departure.specificHour).format('HH[h]mm')}} --></div>
+                    </div>
+                    <div class="places">
+                      <div class="place as-from" v-if="solidary.origin">
+                        <span class="city">{{solidary.origin.county}}</span>
+                        <span class="address">{{solidary.origin.streetAddress}}</span>
+                      </div>
+                      <div class="place as-to">
+                        <template v-if="solidary.destination">
+                          <span class="city">{{solidary.destination.county}}</span>
+                          <span class="address">{{solidary.destination.streetAddress}}</span>
+                        </template>
+                        <template v-else>
+                          <span class="city">A définir ultérieurement</span>
+                        </template>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              </div>
             </template>
 
           </div>
@@ -167,9 +197,12 @@ export default {
   components: {},
   data () {
     return {
+      minDeviationDistance: 5,
+      maxDeviationDistance: 50,
       toggle: false,
       details: undefined,
-      languages: this.$t('solidaryTransport.volunteer.form.fields.languages')
+      languages: this.$t('solidaryTransport.volunteer.form.fields.languages'),
+      solidaries: []
     }
   },
   computed: {
@@ -197,7 +230,7 @@ export default {
       this.volunteer.maxDistance = $event.target.value
     },
     getVolunteer: function () {
-      this.$store.dispatch('getVolunteerDetails', this.$store.state.userStore.user.id)
+      this.$store.dispatch('getVolunteerDetails', this.$store.state.userStore.user.solidaryUser.id)
         .then((details) => {
 
         })
@@ -220,6 +253,16 @@ export default {
         })
       }
 
+    },
+    getSolidaries: function() {
+      this.$store.dispatch('getMySolidaries')
+        .then((solidaries) => {
+          // Only My Ride driver = true
+          this.solidaries = solidaries.filter(item => item.driver == true);
+        })
+        .catch((error) => {
+          console.error(error)
+        })
     }
   },
   mounted: function () {
@@ -227,6 +270,7 @@ export default {
   },
   created: function () {
     this.getVolunteer();
+    this.getSolidaries();
   }
 }
 </script>

@@ -37,7 +37,7 @@
             <!-- Solidaries -->
             <template>
               <div class="mc-st-summary" v-if="solidaries">
-                <template v-for="(solidary, index) in solidaries">
+                <template v-for="(solidary, index) in getSolidaries()">
                   <div class="mc-st-summary-card" :key="index" @click="$router.push({name:'solidaryTransport.profile.requests.request', query: {id: solidary.id}})">
                     <div class="mc-st-summary-card-header">
                       <span>{{$moment(solidary.outwardDatetime).format('D MMMM YYYY')}}</span>
@@ -109,6 +109,9 @@ export default {
   methods: {
     toggleDisplay: function () {
       this.toggle = !this.toggle
+    },
+    getSolidaries() {
+      return this.solidaries.filter(item => item.driver == this.toggle);
     }
   },
   created: function () {
