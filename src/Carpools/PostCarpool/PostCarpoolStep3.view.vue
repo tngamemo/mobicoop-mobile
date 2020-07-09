@@ -201,6 +201,7 @@ import {
   helpers,
   requiredIf
 } from "vuelidate/lib/validators";
+import { address } from "../../Shared/Mixin/address.mixin";
 
 import { isPlatform } from "@ionic/core";
 
@@ -218,6 +219,7 @@ export default {
       },
     };
   },
+  mixins: [address],
   validations: {
     addressessUseToPost: {
       origin: {
@@ -278,30 +280,13 @@ export default {
     },
 
     displayOrigin() {
-      let result = "";
       const addressess = this.$store.getters.addressessUseToPost;
-      if (!!addressess && addressess.origin) {
-        if (!!addressess.origin.displayLabel) {
-          result = `${addressess.origin.displayLabel[0]},  ${addressess.origin.displayLabel[1]}`;
-        } else {
-          result = `${addressess.origin.addressLocality},  ${addressess.origin.addressCountry}`;
-        }
-      }
-      return result;
+      return this.formatAddress(addressess.origin);
     },
 
     displayDestination() {
-      let result = "";
       const addressess = this.$store.getters.addressessUseToPost;
-      if (!!addressess && addressess.destination) {
-        if (!!addressess.destination.displayLabel) {
-          result = `${addressess.destination.displayLabel[0]},  ${addressess.destination.displayLabel[1]}`;
-        } else {
-          result = `${addressess.destination.addressLocality},  ${addressess.destination.addressCountry}`;
-        }
-      }
-
-      return result;
+      return this.formatAddress(addressess.destination);
     },
 
     directPointsCarpool() {

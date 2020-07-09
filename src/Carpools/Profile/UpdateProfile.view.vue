@@ -155,7 +155,7 @@ LICENSE
             <ion-input
               type="text"
               name="address"
-              :value="user.addresses[0].addressLocality"
+              :value="formatAddress(user.addresses[0])"
               readonly="true"
               class="no-clickable"
               v-bind:placeholder="$t('Register.address')"
@@ -240,6 +240,7 @@ LICENSE
 <script>
   import { required, email, sameAs, minLength, helpers } from 'vuelidate/lib/validators'
   import { toast } from '../../Shared/Mixin/toast.mixin';
+  import { address } from '../../Shared/Mixin/address.mixin';
   import Compressor from 'compressorjs';
 
   export default {
@@ -250,7 +251,7 @@ LICENSE
         maxBirthDate: new Date().toISOString()
       }
     },
-    mixins: [toast],
+    mixins: [toast, address],
     validations: {
       user: {
         givenName: {

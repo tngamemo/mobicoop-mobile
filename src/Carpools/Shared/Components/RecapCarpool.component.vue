@@ -361,10 +361,11 @@ LICENSE
 import { LMap, LTileLayer, LPolyline, LMarker } from "vue2-leaflet";
 import { isPlatform } from "@ionic/core";
 import {toast} from "../../../Shared/Mixin/toast.mixin";
+import {address} from "../../../Shared/Mixin/address.mixin";
 
 export default {
   name: "recap-carpool",
-  mixins: [toast],
+  mixins: [toast, address],
   data() {
     return {
       url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
@@ -412,6 +413,8 @@ export default {
           .utc()
           .format("HH[h]mm")}</b>: `;
       }
+      result += this.formatAddress(step);
+      /*
       if (!!step.displayLabel && step.displayLabel[0] && step.displayLabel[1]) {
         result += `${step.displayLabel[0]}`;
       } else {
@@ -421,6 +424,7 @@ export default {
           result += `${step.addressLocality}`;
         }
       }
+       */
       return result;
     },
 

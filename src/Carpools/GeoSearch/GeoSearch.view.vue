@@ -130,13 +130,14 @@ LICENSE
 
 <script>
 import { toast } from "../../Shared/Mixin/toast.mixin";
+import { address } from "../../Shared/Mixin/address.mixin";
 import { Plugins } from '@capacitor/core';
 import {isPlatform} from "@ionic/core";
 const { Geolocation } = Plugins;
 
 export default {
   name: "geo-search",
-  mixins: [toast],
+  mixins: [toast, address],
   components: {},
   created() {
     this.$store.state.searchStore.resultsGeo = [];
@@ -189,7 +190,7 @@ export default {
     selectGeo: function(address) {
       let addressDTO = address;
       this.$store.dispatch('setPreviousSearch', address);
-      const displayGeo = `${address.addressLocality}, ${address.addressCountry}`;
+      let displayGeo = this.formatAddress(address);
       switch (this.action) {
         case "search": {
           switch (this.type) {
