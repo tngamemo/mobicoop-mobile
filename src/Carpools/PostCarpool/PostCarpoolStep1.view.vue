@@ -140,6 +140,7 @@ import {
   helpers,
   requiredIf
 } from "vuelidate/lib/validators";
+import { address } from "../../Shared/Mixin/address.mixin";
 
 export default {
   name: "post-carpool-step1",
@@ -147,6 +148,7 @@ export default {
     return {
     };
   },
+  mixins: [address],
   validations: {
     carpoolToPost: {
       role: {
@@ -179,8 +181,9 @@ export default {
     },
 
     displayOrigin() {
-      let result = '';
       const addressess = this.$store.getters.addressessUseToPost;
+
+      /*
       if (!! addressess && addressess.origin){
 
         if (!! addressess.origin.displayLabel) {
@@ -188,22 +191,13 @@ export default {
         } else {
           result = `${addressess.origin.addressLocality},  ${addressess.origin.addressCountry}`;
         }
-      }
-      return result;
+      }*/
+      return this.formatAddress(addressess.origin);
     },
 
     displayDestination() {
-      let result = '';
       const addressess = this.$store.getters.addressessUseToPost;
-      if (!! addressess && addressess.destination){
-        if (!! addressess.destination.displayLabel) {
-          result = `${addressess.destination.displayLabel[0]},  ${addressess.destination.displayLabel[1]}`;
-        } else {
-          result = `${addressess.destination.addressLocality},  ${addressess.destination.addressCountry}`;
-        }
-      }
-
-      return result;
+      return this.formatAddress(addressess.destination);
     }
 
   },

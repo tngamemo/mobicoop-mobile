@@ -110,12 +110,13 @@ LICENSE
 
 <script>
 import { toast } from "../../../Shared/Mixin/toast.mixin";
+import { address } from "../../../Shared/Mixin/address.mixin";
 import SearchQuick from "../../Shared/Components/SearchQuick.component";
 import MiniMap from "../../Shared/Components/MiniMap.component";
 
 export default {
   name: "carpool-event",
-  mixins: [toast],
+  mixins: [toast, address],
   components: { SearchQuick, MiniMap },
   data() {
     return {
@@ -142,7 +143,7 @@ export default {
           if (!!this.event.address) {
             this.$store.commit("changeDestination", {
               addressDTO: this.event.address,
-              displayGeo: `${this.event.address.displayLabel[0]} , ${this.event.address.displayLabel[1]}`
+              displayGeo: this.formatAddress(this.event.address)
             });
 
             this.LMarker.push({

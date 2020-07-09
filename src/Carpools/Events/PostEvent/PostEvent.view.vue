@@ -108,7 +108,7 @@ LICENSE
           <ion-input
             type="text"
             name="address"
-            :value="eventToPost.address.addressLocality"
+            :value="formatAddress(eventToPost.address)"
             readonly="true"
             class="no-clickable"
             v-bind:placeholder="$t('Register.address')"
@@ -223,11 +223,12 @@ import {
   maxLength,
 } from "vuelidate/lib/validators";
 import { toast } from "../../../Shared/Mixin/toast.mixin";
+import { address } from "../../../Shared/Mixin/address.mixin";
 import Compressor from 'compressorjs';
 
 export default {
   name: "post-event",
-  mixins: [toast],
+  mixins: [toast, address],
   data() {
     return {
       image: null
