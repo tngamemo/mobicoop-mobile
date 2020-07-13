@@ -91,7 +91,7 @@ export const registerStore = {
           multiTransportMode: true,
           userAgreementAccepted: false,
           phoneDisplay: 1,
-          birthDate: n.toISOString(),
+          birthDate: JSON.parse(process.env.VUE_APP_REQUIRED_BIRTHDATE) ? n.toISOString() : null,
           maxDeviationTime:600,
           maxDeviationDistance:10000,
           anyRouteAsPassenger:false,
