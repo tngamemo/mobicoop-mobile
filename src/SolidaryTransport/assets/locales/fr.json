@@ -246,6 +246,9 @@
         }
       }
     },
+    "shareUsualRouteTitle" : {
+      "title": "Je donne un coup de pouce"
+    },
     "usual": {
       "title": "Déclarer un trajet habituel",
       "steps": {
@@ -326,15 +329,15 @@
               "hours": [
                 {
                   "value": "morning",
-                  "label": "Entre {m_min}h et {m_max}h"
+                  "label": "Entre 8h et 13h"
                 },
                 {
                   "value": "afternoon",
-                  "label": "Entre {a_min}h et {a_max}h"
+                  "label": "Entre 13h et 18h"
                 },
                 {
                   "value": "evening",
-                  "label": "Entre {e_min}h et {e_max}h"
+                  "label": "Entre 18h et 21h"
                 }
               ]
             },
