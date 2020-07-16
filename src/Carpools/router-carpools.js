@@ -106,7 +106,7 @@ export default [
         path: 'communities',
         name: 'communities',
         component: Communities,
-        beforeEnter: guardAccesByLogin
+        // beforeEnter: guardAccesByLogin
       },
       {
         path: 'profile',
@@ -204,10 +204,16 @@ export default [
     beforeEnter: guardAccesByLogin
   },
   {
+    path: 'allcommunities',
+    name: 'allcommunities',
+    component: Communities,
+    // beforeEnter: guardAccesByLogin
+  },
+  {
     path: 'community/:id',
     name: 'carpool-community',
     component: Community,
-    beforeEnter: guardAccesByLogin
+    // beforeEnter: guardAccesByLogin
   },
   {
     path: 'post-community',
@@ -219,13 +225,13 @@ export default [
     path: 'events',
     name: 'carpool-events',
     component: Events,
-    beforeEnter: guardAccesByLogin
+    // beforeEnter: guardAccesByLogin
   },
   {
     path: 'event/:id',
     name: 'carpool-event',
     component: Event,
-    beforeEnter: guardAccesByLogin
+    // beforeEnter: guardAccesByLogin
   },
   {
     path: 'post-event',

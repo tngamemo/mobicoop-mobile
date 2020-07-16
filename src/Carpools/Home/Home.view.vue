@@ -113,7 +113,7 @@ LICENSE
 .partner-img {
   width: 50%;
   object-fit: contain;
-  max-height: 100px;
+  // max-height: 100px;
 }
 
 .mc-home-header {
@@ -184,7 +184,7 @@ export default {
     },
 
     redirectToCommunities: function() {
-      this.$router.push({ name: "communities" });
+      this.$router.push({ name: !!this.$store.state.userStore.user ? "communities" : "allcommunities" });
     },
 
     redirectToEvents: function() {

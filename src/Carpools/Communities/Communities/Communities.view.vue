@@ -68,7 +68,7 @@ LICENSE
           ></ion-searchbar>
         </div>
 
-        <ion-button v-if="canCreateCommunity" class="mc-big-button" color="success" expand="block" v-on:click="goToPostCommunity()">
+        <ion-button v-if="canCreateCommunity && !!this.$store.state.userStore.user" class="mc-big-button" color="success" expand="block" v-on:click="goToPostCommunity()">
           <ion-icon name="add" class="ion-padding-end"></ion-icon>
           {{ $t('Communities.create')}}
         </ion-button>

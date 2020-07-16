@@ -46,6 +46,7 @@ LICENSE
           color="success"
           expand="block"
           v-on:click="goToPostEvent()"
+          v-if="!!this.$store.state.userStore.user"
         >
           <ion-icon name="add" class="ion-padding-end"></ion-icon>
           {{ $t('Events.create')}}

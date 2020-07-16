@@ -131,11 +131,12 @@ export default {
   data() {
     return {
       title: process.env.VUE_APP_NAME,
-      seeWelcome: localStorage.getItem("seeWelcome", true)
+      seeWelcome: localStorage.getItem("seeWelcome")
     };
   },
   mounted() {},
-  created() {},
+  created() {
+  },
   methods: {
     closeWelcome: function() {
       this.seeWelcome = false;
