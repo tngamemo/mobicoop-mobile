@@ -46,14 +46,14 @@
             <div class="mc-st-summary">
 
               <div class="mc-st-summary-text" v-if="request.subject">
-                Je souhaite me déplacer pour <span class="answer">{{getRequestSubjectToDisplay(request)}}</span>.
+                {{$t('solidaryTransport.' + this.type +'.summary.wish')}} <span class="answer">{{getRequestSubjectToDisplay(request)}}</span>.
               </div>
 
               <template v-if="request.frequency === 1">
                 <div class="mc-st-summary-text" v-if="request.subject">
-                  Ma demande est <span class="answer">ponctuelle</span>.
+                  {{$t('solidaryTransport.' + this.type +'.summary.is')}} <span class="answer">ponctuelle</span>.
 
-                  Je souhaite partir
+                  {{$t('solidaryTransport.' + this.type +'.summary.start')}}
                   <template v-if="request.when.departure.specificDate"> le <span class="answer">{{$moment(request.when.departure.specificDate).format('D MMMM YYYY')}}</span>
                   </template>
 
@@ -67,7 +67,7 @@
                   <template v-if="request.when.departure.marginHour">, de préférence <span class="answer">{{getLabelForKeyToDisplay(departureHours,request.when.departure.marginHour)}}</span>
                   </template>
 
-                  et revenir
+                  {{$t('solidaryTransport.' + this.type +'.summary.end')}}
                   <template v-if="request.when.return.specificHour"> à <span class="answer">{{$moment(request.when.return.specificHour).format('HH[h]mm')}}</span>
                   </template>
 

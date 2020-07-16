@@ -137,9 +137,9 @@
           "subjects": "Que voulez-vous faire ?",
           "origin": "D'où partez-vous ?",
           "destination": "Où faut-il aller ? (si adresse connue)",
-          "regular": "Est-ce un trajet régulier ?",
-          "isRegular": "Oui, je ferai le trajet régulièrement",
-          "isPunctual": "Non",
+          "regular": "Je souhaite faire ce trajet",
+          "isRegular": "De manière régulière",
+          "isPunctual": "Une seule fois",
           "needs": "Autres informations :",
           "when": {
             "departure": {
@@ -229,7 +229,7 @@
                 }
               ]
             },
-            "duration": "Pour combien de temps devez-vous faire ce trajet ?",
+            "duration": "Pour combien de temps souhaitez-vous faire trajet ?",
             "durationStart": "Débute le",
             "durationStartDate": "Date de début",
             "durationEnd": "Se termine le",
@@ -244,13 +244,16 @@
           "isAfter": "Les dates choisies doivent se succéder",
           "required": "Ce champ est requis"
         }
+      },
+      "summary" : {
+        "wish" : "Je souhaite me déplacer pour",
+        "is" : "Ma demande est",
+        "start" : "Je souhaite partir",
+        "end" : "et revenir"
       }
     },
-    "shareUsualRouteTitle" : {
-      "title": "Je donne un coup de pouce"
-    },
     "usual": {
-      "title": "Déclarer un trajet habituel",
+      "title": "Je donne un coup de pouce",
       "steps": {
         "intro": "1. Départ",
         "check": "2. Vérification de la structure",
@@ -271,9 +274,9 @@
           "subjects": "Je me déplace pour :",
           "origin": "Lieu de départ",
           "destination": "Lieu d'arrivée",
-          "regular": "Est-ce un trajet régulier ?",
-          "isRegular": "Oui, je ferai le trajet régulièrement",
-          "isPunctual": "Non",
+          "regular": "Je souhaite faire ce trajet",
+          "isRegular": "De manière régulière",
+          "isPunctual": "Une seule fois",
           "needs": "Autres informations :",
           "when": {
             "departure": {
@@ -363,7 +366,7 @@
                 }
               ]
             },
-            "duration": "Pour combien de temps devez-vous faire ce trajet ?",
+            "duration": "Pour combien de temps souhaitez-vous faire trajet ?",
             "durationStart": "Débute le",
             "durationStartDate": "Date de début",
             "durationEnd": "Se termine le",
@@ -378,6 +381,12 @@
           "isAfter": "Les dates choisies doivent se succéder",
           "required": "Ce champ est requis"
         }
+      },
+      "summary" : {
+        "wish" : "Je me déplacerai pour",
+        "is" : "Mon trajet est",
+        "start" : "Je partirai",
+        "end" : "et reviendrai"
       }
     },
     "home": {

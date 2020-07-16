@@ -277,7 +277,8 @@ export default {
       processing: false,
       structures: undefined,
       support: process.env.VUE_APP_SOLIDARY_SUPPORT_HELP,
-      type: this.$route.meta.type
+      type: this.$route.meta.type,
+      skipCheck: JSON.parse(process.env.VUE_APP_SOLIDARY_SKIP_REQUEST_CHECK)
     }
   },
   computed: {
@@ -362,7 +363,7 @@ export default {
            this.structures = structures
         }, 500)
 
-        if(this.type === 'usual') {
+        if(this.type === 'usual' || this.skipCheck) {
           this.$router.replace({name: 'solidaryTransport.home.' + this.type + '.path'})
         }
       })
