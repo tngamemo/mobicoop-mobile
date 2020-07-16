@@ -166,7 +166,7 @@ LICENSE
           </div>
 
           <ion-item>
-            <ion-label position="floating">{{ $t('Register.birthDate') }} *</ion-label>
+            <ion-label position="floating">{{ $t('Register.birthDate') }} <span v-if="requiredBirthdate">*</span></ion-label>
             <ion-datetime
               display-format="DD/MM/YYYY"
               picker-format="DD/MM/YYYY"
@@ -238,7 +238,7 @@ LICENSE
 </style>
 
 <script>
-  import { required, email, sameAs, minLength, helpers } from 'vuelidate/lib/validators'
+  import {required, email, sameAs, minLength, helpers, requiredIf} from 'vuelidate/lib/validators'
   import { toast } from '../../Shared/Mixin/toast.mixin';
   import { address } from '../../Shared/Mixin/address.mixin';
   import Compressor from 'compressorjs';
@@ -248,7 +248,8 @@ LICENSE
     data () {
       return {
         user: null,
-        maxBirthDate: new Date().toISOString()
+        maxBirthDate: new Date().toISOString(),
+        requiredBirthdate: JSON.parse(process.env.VUE_APP_REQUIRED_BIRTHDATE)
       }
     },
     mixins: [toast, address],
@@ -274,7 +275,9 @@ LICENSE
           required
         },
         birthDate: {
-          required
+          required : requiredIf(function () {
+            return this.requiredBirthdate;
+          }),
         }
       }
     },

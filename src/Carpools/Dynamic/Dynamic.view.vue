@@ -230,6 +230,7 @@ LICENSE
     margin-bottom: 20px;
   }
 
+  /*
   .marker-pin {
     width: 30px;
     height: 30px;
@@ -269,6 +270,7 @@ LICENSE
     margin-top: 9px;
     position: relative;
   }
+   */
 
   .muted {
     color: lightgrey;

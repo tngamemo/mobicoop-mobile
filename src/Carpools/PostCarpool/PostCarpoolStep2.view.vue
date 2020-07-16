@@ -374,7 +374,14 @@ export default {
     }
   },
   mixins: [toast],
-  created() {},
+  created() {
+    if (this.$store.getters.carpoolToPost.id) {
+      const outwardTime = this.$moment(this.$store.getters.carpoolToPost.outwardTime).format("HH:mm");
+      this.outwardTimeCopy = outwardTime;
+      const returnTime = this.$moment(this.$store.getters.carpoolToPost.returnTime).format("HH:mm");
+      this.returnTimeCopy = returnTime;
+    }
+  },
   computed: {
     carpoolToPost() {
       return this.$store.getters.carpoolToPost;
@@ -483,7 +490,7 @@ export default {
       if (!!this.$store.getters.carpoolToPost.outwardTime) {
         const hour = this.$store.getters.carpoolToPost.outwardTime.split(
           ":"
-        )[0];
+        )[0].slice(-2);
         const min = this.$store.getters.carpoolToPost.outwardTime.split(":")[1];
         const date = new Date();
 
@@ -500,7 +507,7 @@ export default {
 
     computeReturnTime() {
       if (!!this.$store.getters.carpoolToPost.returnTime) {
-        const hour = this.$store.getters.carpoolToPost.returnTime.split(":")[0];
+        const hour = this.$store.getters.carpoolToPost.returnTime.split(":")[0].slice(-2);
         const min = this.$store.getters.carpoolToPost.returnTime.split(":")[1];
         const date = new Date();
         date.setHours(hour, min);

@@ -55,7 +55,7 @@ LICENSE
           <MiniMap :LMarker="LMarker" :LPolyline="LPolyline" />
 
           <ion-button
-            v-if="!isInCommunity"
+            v-if="!isInCommunity && !!this.$store.state.userStore.user"
             :disabled="community.domain && isNotInDomain()"
             class="mc-big-button join-community"
             color="success"

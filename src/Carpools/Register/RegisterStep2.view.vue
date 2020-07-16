@@ -75,7 +75,7 @@ LICENSE
             </div>
 
             <ion-item>
-              <ion-label position="floating">{{ $t('Register.birthDate') }} *</ion-label>
+              <ion-label position="floating">{{ $t('Register.birthDate') }} <span v-if="requiredBirthdate">*</span></ion-label>
               <ion-datetime
                 display-format="DD/MM/YYYY"
                 picker-format="DD/MM/YYYY"
@@ -137,15 +137,19 @@ LICENSE
 </style>
 
 <script>
-    import { required, email, sameAs, minLength } from 'vuelidate/lib/validators'
+  import {required, email, sameAs, minLength, requiredIf} from 'vuelidate/lib/validators'
     import { mapState } from 'vuex'
     var moment = require('moment');
 
     const checked = value => value === true;
     const isMaxBirthDate = (value, vm) => {
-      let n = new Date();
-      n.setFullYear(n.getFullYear() - process.env.VUE_APP_REGISTER_MIN_AGE);
-      return moment(value).isBefore(moment(n.toISOString()));
+      if (JSON.parse(process.env.VUE_APP_REQUIRED_BIRTHDATE)) {
+        let n = new Date();
+        n.setFullYear(n.getFullYear() - process.env.VUE_APP_REGISTER_MIN_AGE);
+        return moment(value).isBefore(moment(n.toISOString()));
+      } else {
+        return true;
+      }
     }
 
     export default {
@@ -153,7 +157,8 @@ LICENSE
         data () {
             return {
                 maxBirthDate: this.getMaxBirthDate(),
-                minAge: process.env.VUE_APP_REGISTER_MIN_AGE
+                minAge: process.env.VUE_APP_REGISTER_MIN_AGE,
+                requiredBirthdate: JSON.parse(process.env.VUE_APP_REQUIRED_BIRTHDATE)
             }
         },
         validations: {
@@ -169,7 +174,9 @@ LICENSE
                     required,
                 },
                 birthDate: {
-                    required,
+                    required :  requiredIf(function () {
+                      return this.requiredBirthdate;
+                    }),
                     isMaxBirthDate
                 },
                 userAgreementAccepted: {

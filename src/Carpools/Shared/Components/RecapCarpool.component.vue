@@ -145,12 +145,12 @@ LICENSE
       >
         <l-tile-layer v-if="bounds" :url="url"></l-tile-layer>
         <l-polyline v-if="bounds" :lat-lngs="recapCarpool.directPoints" :color="'blue'"></l-polyline>
-        <l-marker
-          :lat-lng="[recapCarpool.outwardWaypoints[0].latitude, recapCarpool.outwardWaypoints[0].longitude]"
-        ></l-marker>
-        <l-marker
-          :lat-lng="[recapCarpool.outwardWaypoints[recapCarpool.outwardWaypoints.length - 1].latitude, recapCarpool.outwardWaypoints[recapCarpool.outwardWaypoints.length - 1].longitude]"
-        ></l-marker>
+        <l-marker :lat-lng="[recapCarpool.outwardWaypoints[0].latitude, recapCarpool.outwardWaypoints[0].longitude]">
+          <l-icon :iconSize="[30, 42]" :iconAnchor="[15, 42]" className="custom-div-icon"><div class="marker-pin"></div><ion-icon name="pin"></ion-icon></l-icon>
+        </l-marker>
+        <l-marker :lat-lng="[recapCarpool.outwardWaypoints[recapCarpool.outwardWaypoints.length - 1].latitude, recapCarpool.outwardWaypoints[recapCarpool.outwardWaypoints.length - 1].longitude]">
+          <l-icon :iconSize="[30, 42]" :iconAnchor="[15, 42]" className="custom-div-icon"><div class="marker-pin"></div><ion-icon name="flag"></ion-icon></l-icon>
+        </l-marker>
       </l-map>
     </div>
   </div>
@@ -358,7 +358,7 @@ LICENSE
 </style>
 
 <script>
-import { LMap, LTileLayer, LPolyline, LMarker } from "vue2-leaflet";
+import { LMap, LTileLayer, LPolyline, LMarker, LIcon } from "vue2-leaflet";
 import { isPlatform } from "@ionic/core";
 import {toast} from "../../../Shared/Mixin/toast.mixin";
 import {address} from "../../../Shared/Mixin/address.mixin";
@@ -382,7 +382,8 @@ export default {
     LMap,
     LTileLayer,
     LPolyline,
-    LMarker
+    LMarker,
+    LIcon
   },
   props: ["recap", "type"],
   mounted() {

@@ -48,7 +48,7 @@ LICENSE
           </keep-alive>
         </ion-tab>
 
-        <ion-tab tab="communities"  v-if="!!this.$store.state.userStore.user">
+        <ion-tab tab="communities" v-if="!!this.$store.state.userStore.user">
           <Communities />
         </ion-tab>
 

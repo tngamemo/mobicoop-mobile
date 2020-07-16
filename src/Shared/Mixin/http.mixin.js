@@ -55,12 +55,35 @@ http.interceptors.response.use((response) => {
       reject(error);
     });
   } else {
-    if (!regexIsMatching && error.response.config.url != '/login') {
-      createToasterLogin();
+    const regexRefresh = /^\/token\/\w+$/g
+    const regexIsMatchingRefresh = error.response.config.url.match(regexRefresh);
+    if (!regexIsMatchingRefresh) {
+      const refreshTokenUser = localStorage.getItem('refreshTokenUser');
+
+      return http.post("/token/refresh", {refreshToken : refreshTokenUser}).then( token => {
+        console.log(token);
+        error.config.headers['Authorization'] = 'Bearer ' + token.token;
+        error.config.baseURL = undefined;
+        return axios.request(error.config);
+      }).catch(() => {
+        if (!regexIsMatching && error.response.config.url != '/login') {
+          createToasterLogin();
+        }
+
+        return new Promise((resolve, reject) => {
+          reject(error);
+        });
+      });
+    } else {
+      if (!regexIsMatching && error.response.config.url != '/login') {
+        createToasterLogin();
+      }
+      return new Promise((resolve, reject) => {
+        reject(error);
+      });
     }
-    return new Promise((resolve, reject) => {
-      reject(error);
-    });
+
+
   }
 });
 

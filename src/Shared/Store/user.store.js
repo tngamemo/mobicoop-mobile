@@ -25,6 +25,7 @@ export const userStore = {
   state: {
     status: '',
     tokenUser: localStorage.getItem('tokenUser') || '',
+    refreshTokenUser: localStorage.getItem('refreshTokenUser') || '',
     tokenAnonymousUser: localStorage.getItem('tokenAnonymousUser') || '',
     user: null,
     userToUpdate: null,
@@ -45,8 +46,9 @@ export const userStore = {
       state.status = 'loading';
     },
 
-    auth_success(state, tokenUser) {
-      state.tokenUser = tokenUser;
+    auth_success(state, data) {
+      state.tokenUser = data.token;
+      state.refreshTokenUser = data.refreshToken;
     },
 
     auth_error(state) {
@@ -176,9 +178,9 @@ export const userStore = {
         http.post("/login" + mobile, {"username": params.username, "password": params.password})
           .then(resp => {
             if (resp) {
-              const tokenUser = resp.data.token
-              localStorage.setItem('tokenUser', tokenUser)
-              commit('auth_success', tokenUser)
+              localStorage.setItem('tokenUser', resp.data.token);
+              localStorage.setItem('refreshTokenUser', resp.data.refreshToken);
+              commit('auth_success', resp.data);
               resolve(resp)
             }
           })
@@ -289,6 +291,7 @@ export const userStore = {
       return new Promise((resolve, reject) => {
         commit('logout');
         localStorage.removeItem('tokenUser');
+        localStorage.removeItem('refreshTokenUser');
         resolve()
       })
     },
