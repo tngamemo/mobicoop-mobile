@@ -137,6 +137,12 @@ LICENSE
       >
         <l-tile-layer v-if="bounds" :url="url"></l-tile-layer>
         <l-polyline v-if="bounds" :lat-lngs="directPointsCarpool" :color="'blue'"></l-polyline>
+        <l-marker :lat-lng="[addressessUseToPost.origin.latitude, addressessUseToPost.origin.longitude]">
+          <l-icon :iconSize="[30, 42]" :iconAnchor="[15, 42]" className="custom-div-icon"><div class="marker-pin"></div><ion-icon name="pin"></ion-icon></l-icon>
+        </l-marker>
+        <l-marker :lat-lng="[addressessUseToPost.destination.latitude, addressessUseToPost.destination.longitude]">
+          <l-icon :iconSize="[30, 42]" :iconAnchor="[15, 42]" className="custom-div-icon"><div class="marker-pin"></div><ion-icon name="flag"></ion-icon></l-icon>
+        </l-marker>
       </l-map>
     </div>
   </div>
@@ -189,10 +195,14 @@ LICENSE
     --background: transparent;
   }
 }
+
+
+
+
 </style>
 
 <script>
-import { LMap, LTileLayer, LPolyline } from "vue2-leaflet";
+import { LMap, LTileLayer, LPolyline, LMarker, LIcon } from "vue2-leaflet";
 import {
   required,
   email,
@@ -234,7 +244,9 @@ export default {
   components: {
     LMap,
     LTileLayer,
-    LPolyline
+    LPolyline,
+    LMarker,
+    LIcon
   },
   mounted() {
     setTimeout(() => {
