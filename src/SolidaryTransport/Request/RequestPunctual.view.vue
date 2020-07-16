@@ -87,7 +87,7 @@
                 <ion-item class="mc-st-form-item" lines="none" v-for="(item, index) in departureHours" :key="index">
                   <ion-radio class="mc-st-form-checkbox" :value="item.value" :checked="request.when.departure.marginHour === item.value" color="success" slot="start" @ionSelect="changeDepartureMarginHour(item.value)"
                   ></ion-radio>
-                  <ion-label class="mc-st-form-label no-white-space" color="primary">{{ item.label }}</ion-label>
+                  <ion-label class="mc-st-form-label no-white-space" color="primary">Entre {{ item.min_time | moment('utc', 'HH') }}h et {{ item.max_time | moment('utc', 'HH')}}h</ion-label>
                 </ion-item>
                 </ion-radio-group>
               </div>
@@ -120,7 +120,7 @@
                 <ion-item class="mc-st-form-item" lines="none" v-for="(item, index) in returnHours" :key="index">
                   <ion-radio class="mc-st-form-checkbox" :value="item.value" :checked="request.when.return.marginHour === item.value" color="success" slot="start" @ionSelect="changeReturnMarginHour(item.value)"
                   ></ion-radio>
-                  <ion-label class="mc-st-form-label no-white-space" color="primary">{{ item.label }}</ion-label>
+                  <ion-label class="mc-st-form-label no-white-space" color="primary">Entre {{ item.min_time | moment('utc', 'HH') }}h et {{ item.max_time | moment('utc', 'HH') }}h</ion-label>
                 </ion-item>
                 </ion-radio-group>
               </div>
@@ -163,8 +163,8 @@ export default {
       updating: false,
       type: this.$route.meta.type,
       departureDates: this.$t('solidaryTransport.' + this.$route.meta.type + '.form.fields.when.departure.dates'),
-      departureHours: this.$t('solidaryTransport.' + this.$route.meta.type + '.form.fields.when.departure.hours'),
-      returnHours: this.$t('solidaryTransport.' + this.$route.meta.type + '.form.fields.when.return.hours'),
+      departureHours: [],
+      returnHours: [],
     }
   },
   computed: {
@@ -283,6 +283,13 @@ export default {
       }
     }
   },
-  created: function () {}
+  created: function () {
+    this.departureHours.push({'value': 'morning', 'min_time': this.request.structure.mMinTime, 'max_time': this.request.structure.mMaxTime});
+    this.departureHours.push({'value': 'afternoon', 'min_time': this.request.structure.aMinTime, 'max_time': this.request.structure.aMaxTime});
+    this.departureHours.push({'value': 'evening', 'min_time': this.request.structure.eMinTime, 'max_time': this.request.structure.eMaxTime});
+    this.returnHours.push({'value': 'morning','min_time': this.request.structure.mMinTime, 'max_time': this.request.structure.mMaxTime});
+    this.returnHours.push({'value': 'afternoon', 'min_time': this.request.structure.aMinTime, 'max_time': this.request.structure.aMaxTime});
+    this.returnHours.push({'value': 'evening', 'min_time': this.request.structure.eMinTime, 'max_time': this.request.structure.eMaxTime});
+  }
 }
 </script>
