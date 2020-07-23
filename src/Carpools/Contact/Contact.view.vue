@@ -169,7 +169,13 @@ export default {
   },
   mixins: [toast],
   props: [],
-  created() {},
+  created() {
+    if (this.$store.state.userStore.user) {
+      this.contactForm.givenName = this.$store.state.userStore.user.givenName;
+      this.contactForm.familyName = this.$store.state.userStore.user.familyName;
+      this.contactForm.email = this.$store.state.userStore.user.email;
+    }
+  },
   computed: {
     contactType() {
       const test = Object.assign(
