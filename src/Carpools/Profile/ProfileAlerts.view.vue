@@ -23,7 +23,7 @@ LICENSE
     <ion-header no-border>
       <ion-toolbar color="primary">
         <ion-buttons slot="start">
-          <ion-back-button default-href="profile"></ion-back-button>
+          <ion-back-button default-href="/carpools/home"></ion-back-button>
         </ion-buttons>
         <h1 class="ion-text-center"> {{ $t('ProfileAlerts.title') }} </h1>
       </ion-toolbar>

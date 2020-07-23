@@ -23,7 +23,7 @@ LICENSE
     <ion-header no-border>
       <ion-toolbar color="primary">
         <ion-buttons slot="start">
-          <ion-back-button default-href="/events"></ion-back-button>
+          <ion-back-button default-href="/carpools/home"></ion-back-button>
         </ion-buttons>
         <h1 v-if="event" class="ion-text-center">{{ event.name}}</h1>
         <h1 v-if="!event" class="ion-text-center">{{ $t('Event.title')}}</h1>

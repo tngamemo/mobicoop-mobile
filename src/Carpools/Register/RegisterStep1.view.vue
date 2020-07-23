@@ -74,7 +74,7 @@ LICENSE
       <div v-if="$v.user.email.$error">
         <div class="mc-error-label" v-if="!$v.user.email.required">{{$t('Validation.required')}}</div>
         <div class="mc-error-label" v-if="!$v.user.email.email">{{$t('Validation.email')}}</div>
-        <div class="mc-error-label" v-if="!$v.user.email.checkEmail">{{$t('Validation.checkEmail')}}</div>
+        <div class="mc-error-label" v-if="!$v.user.email.checkEmail">{{ this.$store.state.registerStore.checkEmailErrorMessage ? this.$store.state.registerStore.checkEmailErrorMessage : $t('Validation.checkEmail')}}</div>
       </div>
 
       <br />

@@ -34,6 +34,7 @@
     "build:txiktxak:test": "export NODE_ENV=production && export VUE_APP_API_URL=https://api.test.txiktxak.mobicoop.io && vue-cli-service build --mode txiktxak",
     "build:ehop:test": "export NODE_ENV=production && export VUE_APP_API_URL=https://api.test.mobicoop.io && vue-cli-service build --mode ehop",
     "build:ibm:test": "export NODE_ENV=production && export VUE_APP_API_URL=https://api.test.ibm.mobicoop.io && vue-cli-service build --mode ibm",
+    "build:ibm:prod": "export NODE_ENV=production && export VUE_APP_API_URL=https://api.ibm.mobiride.fr && export VUE_APP_API_PASSWORD=VZ86NUa3tcR1PLGe && vue-cli-service build --mode ibm",
     "lint": "vue-cli-service lint",
     "i18n:report": "vue-cli-service i18n:report --src './src/**/*.?(js|vue)' --locales './src/locales/**/*.json'",
     "postinstall": "jetifier"

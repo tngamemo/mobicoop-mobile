@@ -23,7 +23,7 @@ LICENSE
     <ion-header no-border>
       <ion-toolbar color="primary">
         <ion-buttons slot="start">
-          <ion-back-button default-href="home"></ion-back-button>
+          <ion-back-button default-href="/carpools/home"></ion-back-button>
         </ion-buttons>
         <h1 class="ion-text-center">{{ $t('Dynamic.title') }} </h1>
       </ion-toolbar>
@@ -120,7 +120,7 @@ LICENSE
           <!-- CurrentDynamic -->
           <ion-card class="dynamic-card" v-if="currentDynamic['@id']">
             <ion-card-content>
-              <div class="text-right muted" ><small>{{currentDynamic['@id']}}</small></div>
+              <!--<div class="text-right muted" ><small>{{currentDynamic['@id']}}</small></div>-->
               <div v-if="destination" class="d-flex align-center"><ion-icon name="flag"></ion-icon> {{this.destination.displayLabel[0]}}</div>
               <div class="" ><small>{{currentDynamic.role == 1 ? 'Conducteur' : 'Passager'}}</small></div>
               <div v-if="currentDynamic.comment" ><small>Commentaire : {{currentDynamic.comment}}</small></div>
@@ -131,14 +131,14 @@ LICENSE
           <!-- CurrentAsk -->
           <ion-card class="dynamic-card" v-if="currentAsk.id">
             <ion-card-content>
-              <div class="text-right"><small>{{currentAsk.id}}</small></div>
+              <!--<div class="text-right"><small>{{currentAsk.id}}</small></div>-->
               <div v-if="currentAsk.status == 1" class="text-center">Covoiturage Demandé</div>
               <div v-if="currentAsk.status == 2" class="text-center">Covoiturage Accepté</div>
               <div v-if="currentAsk.message" class="text-center">{{currentAsk.message}}</div>
               <div v-if="currentAsk.messages"><div class="text-center" v-for="message in currentAsk.messages">{{message.text}}</div></div>
 
               <div v-if="currentProof.id" class="text-center">
-                <ion-icon name="checkmark"></ion-icon> Preuve déposé <span class="muted"><small style="margin-left: 5px">{{currentProof.id}}</small></span>
+                <ion-icon name="checkmark"></ion-icon> Preuve déposé <span class="muted"><!--<small style="margin-left: 5px">{{currentProof.id}}</small>--></span>
               </div>
               <ion-button expand="block" v-if="!currentProof.id && currentDynamic.role === 1" @click="postDynamicProof()">Prise en charge du passager</ion-button>
               <ion-button expand="block" v-if="currentProof.id && currentDynamic.role === 1" @click="putDynamicProof()">Dépose du passager</ion-button>
