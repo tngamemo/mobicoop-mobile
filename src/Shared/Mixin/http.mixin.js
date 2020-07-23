@@ -60,10 +60,11 @@ http.interceptors.response.use((response) => {
     if (!regexIsMatchingRefresh) {
       const refreshTokenUser = localStorage.getItem('refreshTokenUser');
 
-      return http.post("/token/refresh", {refreshToken : refreshTokenUser}).then( token => {
-        console.log(token);
-        error.config.headers['Authorization'] = 'Bearer ' + token.token;
-        error.config.baseURL = undefined;
+      return http.post("/token/refresh", {refreshToken : refreshTokenUser}).then( resp => {
+        console.log(resp.data);
+        localStorage.setItem('tokenUser', resp.data.token);
+        error.config.headers['Authorization'] = 'Bearer ' + resp.data.token;
+        error.config.baseURL = process.env.VUE_APP_API_URL;
         return axios.request(error.config);
       }).catch(() => {
         if (!regexIsMatching && error.response.config.url != '/login') {
