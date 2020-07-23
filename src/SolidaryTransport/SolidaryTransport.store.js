@@ -1106,7 +1106,10 @@ export const solidaryTransportStore = {
     },
     getLabelForKeyToDisplay: () => (values, key) => {
       if (!_.isUndefined(values) && !_.isUndefined(key)) {
-        return _.find(values, {'value': key}).label.toLowerCase()
+        const f = _.find(values, {'value': key})
+        if (f) {
+          return f.label.toLowerCase()
+        }
       }
       return
     },

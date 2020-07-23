@@ -212,6 +212,18 @@
               "specificHour": "Heure de retour",
               "hours": [
                 {
+                  "value": "morning",
+                  "label": "Entre 8h et 13h"
+                },
+                {
+                  "value": "afternoon",
+                  "label": "Entre 13h et 18h"
+                },
+                {
+                  "value": "evening",
+                  "label": "Entre 18h et 21h"
+                },
+                {
                   "value": "hour-later",
                   "label": "Une heure plus tard"
                 },
@@ -348,6 +360,18 @@
               "hour": "Heure de retour",
               "specificHour": "Heure de retour",
               "hours": [
+                {
+                  "value": "morning",
+                  "label": "Entre 8h et 13h"
+                },
+                {
+                  "value": "afternoon",
+                  "label": "Entre 13h et 18h"
+                },
+                {
+                  "value": "evening",
+                  "label": "Entre 18h et 21h"
+                },
                 {
                   "value": "hour-later",
                   "label": "Une heure plus tard"
