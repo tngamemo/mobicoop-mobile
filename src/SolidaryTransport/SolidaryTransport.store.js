@@ -441,7 +441,8 @@ export const solidaryTransportStore = {
     },
 
     // Volunteer
-    postSolidaryVolunteerSuccess: (state) => {
+    postSolidaryVolunteerSuccess: (state, res) => {
+      state.default.volunteer = res;
       state.temporary.volunteer = _.cloneDeep(state.default.volunteer)
     },
 
@@ -1078,7 +1079,20 @@ export const solidaryTransportStore = {
     },
     getAddressToDisplay: () => (address) => {
       if (address) {
-        return `${address.addressLocality}, ${address.addressCountry}`
+        let displayGeo = '';
+        if (address.addressLocality) {
+          displayGeo += `${address.addressLocality}`;
+        }
+        if(address.streetAddress) {
+          displayGeo += `, ${address.streetAddress}`
+        }
+        if(address.postalCode) {
+          displayGeo += `, ${address.postalCode}`
+        }
+        if (address.addressCountry) {
+          displayGeo += `, ${address.addressCountry}`;
+        }
+        return displayGeo;
       }
       return
     },

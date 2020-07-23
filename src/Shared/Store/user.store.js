@@ -243,6 +243,7 @@ export const userStore = {
         delete params.addresses[0].id;
         delete params.addresses[0].geoJson;
         delete params.images;
+        delete params.solidaryUser;
         delete params.proEmail;
         http.put(`/users/${params.id}`, params)
           .then(resp => {

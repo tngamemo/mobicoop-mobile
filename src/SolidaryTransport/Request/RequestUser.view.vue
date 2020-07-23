@@ -115,7 +115,7 @@
             </div>
 
             <ion-item class="mc-st-form-item">
-              <ion-label position="floating">{{$t('solidaryTransport.register.form.fields.email')}} *</ion-label>
+              <ion-label position="floating">{{$t('solidaryTransport.register.form.fields.email')}}</ion-label>
               <ion-input
                 class="mc-st-form-input"
                 type="email"
@@ -265,7 +265,6 @@ export default {
           minLength: minLength(10)
         },
         email: {
-          required,
           email
         },
         homeAddress: {

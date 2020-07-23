@@ -15,7 +15,7 @@
           </div>
 
           <div class="mc-st-actions when-connected">
-            <ion-button class="mc-st-action" color="success" @click="$router.push({name:'solidaryTransport.profile.agenda'})">
+            <ion-button class="mc-st-action" color="success" v-if="seeDiary" @click="$router.push({name:'solidaryTransport.profile.agenda'})">
               <ion-icon slot="start" name="calendar"></ion-icon>
               <span v-html="$t('solidaryTransport.profile.actions.agenda')"></span>
             </ion-button>
@@ -73,7 +73,9 @@
       ProfileCard
     },
     data () {
-      return {}
+      return {
+        seeDiary : JSON.parse(process.env.VUE_APP_SOLIDARY_PROFIL_DIARY)
+      }
     },
     computed: {},
     methods: {

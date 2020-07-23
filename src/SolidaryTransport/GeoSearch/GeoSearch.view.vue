@@ -216,6 +216,10 @@ export default {
               this.$store.commit("solidaryVolunteerHomeAddressUpdate", address)
               break;
             }
+            case "user.home": {
+              this.$store.commit("updateUserAddress", {addressDTO : address});
+              break;
+            }
           }
           break;
         }

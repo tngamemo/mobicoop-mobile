@@ -30,7 +30,7 @@
 
             <ion-item class="mc-st-form-item">
               <ion-label position="floating">{{$t('solidaryTransport.register.form.fields.gender')}} *</ion-label>
-              <ion-select 
+              <ion-select
                 required
                 :value="user.gender"
                 @ionChange="user.gender = parseInt($event.target.value)"
@@ -48,10 +48,10 @@
 
             <ion-item class="mc-st-form-item">
               <ion-label position="floating">{{$t('solidaryTransport.register.form.fields.firstname')}} *</ion-label>
-              <ion-input 
-                class="mc-st-form-input" 
-                type="text" 
-                :value="user.givenName" 
+              <ion-input
+                class="mc-st-form-input"
+                type="text"
+                :value="user.givenName"
                 @input="user.givenName = $event.target.value;"
               ></ion-input>
             </ion-item>
@@ -62,10 +62,10 @@
 
             <ion-item class="mc-st-form-item">
               <ion-label position="floating">{{$t('solidaryTransport.register.form.fields.lastname')}} *</ion-label>
-              <ion-input 
-                class="mc-st-form-input" 
-                type="text" 
-                :value="user.familyName" 
+              <ion-input
+                class="mc-st-form-input"
+                type="text"
+                :value="user.familyName"
                 @input="user.familyName = $event.target.value;"
               ></ion-input>
             </ion-item>
@@ -105,7 +105,7 @@
             <ion-item class="mc-st-form-item">
               <ion-label position="floating">{{$t('solidaryTransport.register.form.fields.phone')}} *</ion-label>
               <ion-input
-                class="mc-st-form-input" 
+                class="mc-st-form-input"
                 type="text"
                 :value="user.telephone"
                 @input="user.telephone = $event.target.value;"
@@ -118,16 +118,16 @@
 
             <ion-item class="mc-st-form-item">
               <ion-label position="floating">{{$t('solidaryTransport.register.form.fields.email')}} *</ion-label>
-              <ion-input 
-                class="mc-st-form-input" 
+              <ion-input
+                class="mc-st-form-input"
                 type="email"
                 :value="user.email"
-                @ionChange="checkMail()" 
+                @ionChange="checkMail()"
                 @input="user.email = $event.target.value"
               ></ion-input>
               <ion-icon class="mc-st-form-icon rotating" v-show="checking" slot="end" size="medium" color="primary" name="sync"></ion-icon>
             </ion-item>
-            
+
           </div>
 
           <div class="mc-st-form-controls with-multiple" :class="{'is-loading': processing}">
@@ -212,6 +212,9 @@ export default {
     this.user = this.$store.state.userStore.userToUpdate;
   },
   methods: {
+    displayGeoSearch: function () {
+      this.$router.push({ name: "solidaryTransport.geoSearch", query: { action: 'solidaryTransport.search', type: 'user.home' }});
+    },
     changePicture(e) {
       const file = e.target.files[0];
       if (file.size <= 1000000) {

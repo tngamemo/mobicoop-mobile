@@ -137,7 +137,7 @@
           "subjects": "Que voulez-vous faire ?",
           "origin": "D'où partez-vous ?",
           "destination": "Où faut-il aller ? (si adresse connue)",
-          "regular": "Je souhaite faire ce trajet",
+          "regular": "Je souhaite faire ce trajet :",
           "isRegular": "De manière régulière",
           "isPunctual": "Une seule fois",
           "needs": "Autres informations :",
@@ -229,7 +229,7 @@
                 }
               ]
             },
-            "duration": "Pour combien de temps souhaitez-vous faire trajet ?",
+            "duration": "Sur quelle période souhaitez-vous réaliser ce trajet ?",
             "durationStart": "Débute le",
             "durationStartDate": "Date de début",
             "durationEnd": "Se termine le",
@@ -274,7 +274,7 @@
           "subjects": "Je me déplace pour :",
           "origin": "Lieu de départ",
           "destination": "Lieu d'arrivée",
-          "regular": "Je souhaite faire ce trajet",
+          "regular": "Je souhaite faire ce trajet :",
           "isRegular": "De manière régulière",
           "isPunctual": "Une seule fois",
           "needs": "Autres informations :",
@@ -366,7 +366,7 @@
                 }
               ]
             },
-            "duration": "Pour combien de temps souhaitez-vous faire trajet ?",
+            "duration": "Sur quelle période souhaitez-vous réaliser ce trajet ?",
             "durationStart": "Débute le",
             "durationStartDate": "Date de début",
             "durationEnd": "Se termine le",
@@ -391,7 +391,7 @@
     },
     "home": {
       "loading": "Chargement",
-      "information": "Bienvenue<br/> sur le service de transport solidaire !<br/> Ce service est destinée aux personnes [critère d’éligibilité] ou souhaitant donner un coup de pouce à un bénéficiaire. Vous pouvez également utiliser notre outil de covoiturage sans inscription.",
+      "information": "Partageons nos trajets du quotidien, même les plus courts !",
       "actions": {
         "becomeVolunteer": "Je me propose<br/> comme bénévole",
         "shareUsualRoute": "Je déclare<br/> mon trajet habituel",
@@ -419,6 +419,9 @@
       },
       "volunteer": {
         "home": "Adresse de domicile"
+      },
+      "user": {
+        "home": "Commune de résidence"
       }
     },
     "register": {

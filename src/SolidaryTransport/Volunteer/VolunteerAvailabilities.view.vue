@@ -32,11 +32,11 @@
               <ion-label class="mc-st-form-label as-intro no-white-space" color="primary">{{$t('solidaryTransport.volunteer.form.fields.availabilities.ranges.morning')}}</ion-label>
 
               <div class="mc-st-form-range-wrapper">
-                <ion-range 
+                <ion-range
                   ref="morning-range"
                   class="mc-st-form-range"
-                  :min="volunteer.mMin"
-                  :max="volunteer.mMax"
+                  :min="new Date(volunteer.structure.mMinTime).getUTCHours()"
+                  :max="new Date(volunteer.structure.mMaxTime).getUTCHours()"
                   dual-knobs="true"
                   pin="true"
                   snaps="true"
@@ -45,8 +45,8 @@
                   debounce="200"
                   @ionChange="changeRange($event, 'm')"
                 >
-                  <ion-label color="primary" slot="start">{{volunteer.mMin}}h</ion-label>
-                  <ion-label color="primary" slot="end">{{volunteer.mMax}}h</ion-label>
+                  <ion-label color="primary" slot="start">{{volunteer.structure.mMinTime | moment('utc', 'HH')}}h</ion-label>
+                  <ion-label color="primary" slot="end">{{volunteer.structure.mMaxTime | moment('utc', 'HH')}}h</ion-label>
                 </ion-range>
               </div>
             </div>
@@ -55,11 +55,11 @@
               <ion-label class="mc-st-form-label as-intro no-white-space" color="primary">{{$t('solidaryTransport.volunteer.form.fields.availabilities.ranges.afternoon')}}</ion-label>
 
               <div class="mc-st-form-range-wrapper">
-                <ion-range 
+                <ion-range
                   ref="afternoon-range"
                   class="mc-st-form-range"
-                  :min="volunteer.aMin"
-                  :max="volunteer.aMax"
+                  :min="new Date(volunteer.structure.aMinTime).getUTCHours()"
+                  :max="new Date(volunteer.structure.aMaxTime).getUTCHours()"
                   dual-knobs="true"
                   pin="true"
                   snaps="true"
@@ -68,8 +68,8 @@
                   debounce="200"
                   @ionChange="changeRange($event, 'a')"
                 >
-                  <ion-label color="primary" slot="start">{{volunteer.aMin}}h</ion-label>
-                  <ion-label color="primary" slot="end">{{volunteer.aMax}}h</ion-label>
+                  <ion-label color="primary" slot="start">{{volunteer.structure.aMinTime | moment('utc', 'HH')}}h</ion-label>
+                  <ion-label color="primary" slot="end">{{volunteer.structure.aMaxTime | moment('utc', 'HH')}}h</ion-label>
                 </ion-range>
               </div>
             </div>
@@ -78,11 +78,11 @@
               <ion-label class="mc-st-form-label as-intro no-white-space" color="primary">{{$t('solidaryTransport.volunteer.form.fields.availabilities.ranges.evening')}}</ion-label>
 
               <div class="mc-st-form-range-wrapper">
-                <ion-range 
+                <ion-range
                   ref="evening-range"
                   class="mc-st-form-range"
-                  :min="volunteer.eMin"
-                  :max="volunteer.eMax"
+                  :min="new Date(volunteer.structure.eMinTime).getUTCHours()"
+                  :max="new Date(volunteer.structure.eMaxTime).getUTCHours()"
                   dual-knobs="true"
                   pin="true"
                   snaps="true"
@@ -91,8 +91,8 @@
                   debounce="200"
                   @ionChange="changeRange($event, 'e')"
                 >
-                  <ion-label color="primary" slot="start">{{volunteer.eMin}}h</ion-label>
-                  <ion-label color="primary" slot="end">{{volunteer.eMax}}h</ion-label>
+                  <ion-label color="primary" slot="start">{{volunteer.structure.eMinTime | moment('utc', 'HH')}}h</ion-label>
+                  <ion-label color="primary" slot="end">{{volunteer.structure.eMaxTime | moment('utc', 'HH')}}h</ion-label>
                 </ion-range>
               </div>
             </div>
@@ -131,7 +131,7 @@
               </div>
             </div>
 
-            
+
           </div>
 
           <div class="mc-st-form-controls with-multiple">

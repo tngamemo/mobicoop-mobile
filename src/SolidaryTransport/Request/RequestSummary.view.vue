@@ -34,7 +34,7 @@
 
               <!-- User Information -->
               <div class="mc-st-summary-text">
-                Je suis <span class="answer">{{request.givenName || 'John'}} {{request.familyName || 'Doe'}}</span>, <span class="answer">{{getUserAge(request) || 100}} ans</span>, habitant à <span class="answer" v-if="request.homeAddress">{{request.homeAddress.county}}</span>. Je suis joignable par téléphone au <span class="answer">{{request.telephone || '0000000000'}}</span> ou bien par mail via l'adresse <span class="answer">{{request.email || 'john@doe.com'}}</span>.
+                Je suis <span class="answer">{{request.givenName || 'John'}} {{request.familyName || 'Doe'}}</span>, <span class="answer">{{getUserAge(request) || 100}} ans</span>, habitant à <span class="answer" v-if="request.homeAddress">{{request.homeAddress.county}}</span>. Je suis joignable par téléphone au <span class="answer">{{request.telephone || '0000000000'}}</span> <span v-if="request.email">ou bien par mail via l'adresse <span class="answer">{{request.email}}</span></span> .
               </div>
 
             </div>
