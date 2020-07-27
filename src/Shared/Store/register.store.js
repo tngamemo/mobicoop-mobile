@@ -28,7 +28,8 @@ export const registerStore = {
     statusCheckEmail: '',
     displayAddress : '',
     addresses: [],
-    userToRegister: null
+    userToRegister: null,
+    checkEmailErrorMessage: null,
   },
   mutations: {
     register_request(state) {
@@ -59,11 +60,16 @@ export const registerStore = {
       state.statusCheckEmail = 'loading';
     },
 
-    check_email_success(state) {
+    check_email_success(state, err) {
+      state.checkEmailErrorMessage = null
       state.statusCheckEmail = 'success';
     },
 
-    check_email_error(state) {
+
+    check_email_error(state, err) {
+      if (err.response && err.response.data) {
+        state.checkEmailErrorMessage = err.response.data["hydra:description"];
+      }
       state.statusCheckEmail = 'error';
     },
 
@@ -168,7 +174,7 @@ export const registerStore = {
             resolve(true)
           }
         }).catch(err => {
-          commit('check_email_success');
+          commit('check_email_error', err);
           reject(false)
         })
       })

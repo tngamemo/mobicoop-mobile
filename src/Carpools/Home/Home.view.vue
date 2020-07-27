@@ -114,7 +114,7 @@ LICENSE
 }
 
 .partner-img {
-  width: 50%;
+  width: 75%;
   object-fit: contain;
   // max-height: 100px;
 }

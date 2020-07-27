@@ -23,7 +23,7 @@ LICENSE
     <ion-header no-border>
       <ion-toolbar color="primary">
         <ion-buttons slot="start">
-          <ion-back-button default-href="messages"></ion-back-button>
+          <ion-back-button default-href="/carpools/home"></ion-back-button>
         </ion-buttons>
         <ion-item color="primary" lines="none" v-if="thread">
           <ion-avatar class="ion-margin-end ion-margin-start">
@@ -36,6 +36,11 @@ LICENSE
             </p>
           </ion-label>
         </ion-item>
+        <ion-buttons slot="end">
+          <ion-button v-on:click="presentActionSheet()">
+          <ion-icon slot="icon-only" name="more"></ion-icon>
+          </ion-button>
+        </ion-buttons>
       </ion-toolbar>
     </ion-header>
 
@@ -273,7 +278,7 @@ export default {
       message: "",
       ask: null,
       days: [],
-      thread : null,
+      thread : null
     };
   },
   props: [],
@@ -382,6 +387,29 @@ export default {
         name: "carpool-detail",
         params: { param: "fromMessage" }
       });
+    },
+    presentActionSheet() {
+      return this.$ionic.actionSheetController
+        .create({
+          buttons: [
+            {
+              text: this.$t('DetailCarpool.report'),
+              icon: 'warning',
+              handler: () => {
+                this.$router.push({ name: "carpool-contact", query: {demand : 'report'} });
+              },
+            },
+            {
+              text: 'Annuler',
+              icon: 'close',
+              role: 'cancel',
+              handler: () => {
+                console.log('Cancel clicked')
+              },
+            },
+          ],
+        })
+        .then(a => a.present())
     }
   }
 };

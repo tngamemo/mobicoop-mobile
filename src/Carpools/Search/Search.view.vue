@@ -23,7 +23,7 @@ LICENSE
     <ion-header no-border>
       <ion-toolbar color="primary">
         <ion-buttons slot="start">
-          <ion-back-button @click="$store.commit('reset_search_object')"></ion-back-button>
+          <ion-back-button default-href="/carpools/home" @click="$store.commit('reset_search_object')"></ion-back-button>
         </ion-buttons>
         <h1 class="ion-text-center"> {{ $t('Search.titlePage')}} </h1>
       </ion-toolbar>

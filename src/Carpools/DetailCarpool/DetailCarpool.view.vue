@@ -23,7 +23,7 @@ LICENSE
     <ion-header no-border>
       <ion-toolbar color="primary">
         <ion-buttons slot="start">
-          <ion-back-button></ion-back-button>
+          <ion-back-button default-href="/carpools/home"></ion-back-button>
         </ion-buttons>
         <h1 class="ion-text-center">{{ $t('DetailCarpool.title')}}</h1>
       </ion-toolbar>
@@ -247,6 +247,11 @@ LICENSE
           </ion-button>
           <br />
         </div>
+
+        <ion-button class="mc-big-button" color="danger" expand="block" v-if="carpoolRecap" v-on:click="redirectToContact()">
+          <ion-icon name="warning" class="ion-padding-end"></ion-icon>
+          {{ $t('DetailCarpool.report')}}
+        </ion-button>
       </div>
     </ion-content>
   </div>
@@ -534,7 +539,9 @@ export default {
           break;
       }
     },
-
+    redirectToContact() {
+      this.$router.push({ name: "carpool-contact", query: {demand : 'report'} });
+    },
     contact() {
       let role = 1;
       let result = this.carpoolSelected.resultDriver;
