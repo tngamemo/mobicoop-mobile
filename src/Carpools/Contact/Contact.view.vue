@@ -65,6 +65,7 @@ LICENSE
           <ion-label position="floating">Votre demande</ion-label>
           <ion-select
             required
+            :value="selectIndex"
             @ionChange="changeDemand($event.target.value)"
             :cancel-text="$t('Commons.cancel')"
           >
@@ -148,6 +149,7 @@ export default {
         message: "",
         type: 0
       },
+      selectIndex: 0
     };
   },
   validations: {
@@ -174,6 +176,13 @@ export default {
       this.contactForm.givenName = this.$store.state.userStore.user.givenName;
       this.contactForm.familyName = this.$store.state.userStore.user.familyName;
       this.contactForm.email = this.$store.state.userStore.user.email;
+    }
+
+  },
+  mounted() {
+    if (this.$route.query.demand) {
+      const index = this.contactType.findIndex(item => item.key === this.$route.query.demand);
+      this.changeDemand(index)
     }
   },
   computed: {
@@ -216,6 +225,7 @@ export default {
     },
 
     changeDemand(index) {
+      this.selectIndex = index;
       const contactType = this.contactType[index];
       this.contactForm.demand = contactType.key;
       this.contactForm.type = contactType.value == 'contact' ? 1 : 2;

@@ -292,7 +292,8 @@
     "return": "Retour",
     "alreadyAsk": "Vous avez déjà pris contact sur cette annonce.",
     "acceptAsk": "Accepter le covoiturage",
-    "declineAsk": "Refuser le covoiturage"
+    "declineAsk": "Refuser le covoiturage",
+    "report": "Signaler l'utilisateur"
   },
   "AskCarpool":{
     "title": "Demande de covoiturage",
