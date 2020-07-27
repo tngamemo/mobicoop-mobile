@@ -81,7 +81,7 @@
               </ion-toggle>
             </ion-item>
 
-            <div class="mc-st-form-item" v-if="volunteer.structure.needs.length !== 0">
+            <div class="mc-st-form-item">
               <ion-label class="mc-st-form-label as-title no-white-space" color="primary">{{$t('solidaryTransport.volunteer.form.fields.language')}}</ion-label>
 
               <div class="mc-st-form-checkbox-wrapper">
@@ -90,11 +90,11 @@
                     class="mc-st-form-checkbox"
                     color="success"
                     slot="start"
-                    :value="language.value"
-                    :checked="volunteer.languages.indexOf(language.value) !== -1"
+                    :value="language"
+                    :checked="volunteer.languages.indexOf(language) !== -1"
                     @ionChange="changeLanguages($event)"
                   ></ion-checkbox>
-                  <ion-label class="mc-st-form-label no-white-space" color="primary">{{ language.label }}</ion-label>
+                  <ion-label class="mc-st-form-label no-white-space" color="primary">{{ $t('solidaryTransport.languages.' + language) }}</ion-label>
                 </ion-item>
               </div>
             </div>
@@ -153,7 +153,7 @@ export default {
   components: {},
   data () {
     return {
-      languages: this.$t('solidaryTransport.volunteer.form.fields.languages'),
+      languages: JSON.parse(process.env.VUE_APP_I18N_LIST),
       brand: process.env.VUE_APP_NAME
     }
   },

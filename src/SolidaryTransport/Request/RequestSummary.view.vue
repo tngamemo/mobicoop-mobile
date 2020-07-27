@@ -64,7 +64,7 @@
                   <template v-if="request.when.departure.specificHour"> à <span class="answer">{{$moment(request.when.departure.specificHour).format('HH[h]mm')}}</span>
                   </template>
 
-                  <template v-if="request.when.departure.marginHour">, de préférence <span class="answer">{{getLabelForKeyToDisplay(departureHours,request.when.departure.marginHour)}}</span>
+                  <template v-if="request.when.departure.marginHour">, de préférence <span class="answer">{{getHourForKeyToDisplay(departureHours,request.when.departure.marginHour)}}</span>
                   </template>
 
                   {{$t('solidaryTransport.' + this.type +'.summary.end')}}
@@ -72,14 +72,14 @@
                   </template>
 
                   <template v-if="request.when.return.marginHour">
-                    <span class="answer">{{getLabelForKeyToDisplay(returnHours,request.when.return.marginHour)}}</span>
+                    <span class="answer">{{getHourForKeyToDisplay(returnHours,request.when.return.marginHour)}}</span>
                   </template>.
                 </div>
 
                 <div class="mc-st-summary-card">
                   <div class="mc-st-summary-card-header">
                     <span>Votre aller</span>
-                    <span v-if="request.when.departure.marginHour">, {{getLabelForKeyToDisplay(departureHours,request.when.departure.marginHour)}}</span>
+                    <span v-if="request.when.departure.marginHour">, {{getHourForKeyToDisplay(departureHours,request.when.departure.marginHour)}}</span>
                   </div>
                   <div class="mc-st-summary-card-content">
                     <div class="times" v-if="request.when.departure.specificHour">
@@ -107,7 +107,7 @@
                 <div class="mc-st-summary-card">
                   <div class="mc-st-summary-card-header">
                     <span>Votre retour</span>
-                    <span v-if="request.when.return.marginHour">, {{getLabelForKeyToDisplay(returnHours,request.when.return.marginHour)}}</span>
+                    <span v-if="request.when.return.marginHour">, {{getHourForKeyToDisplay(returnHours,request.when.return.marginHour)}}</span>
                   </div>
                   <div class="mc-st-summary-card-content">
                     <div class="times" v-if="request.when.return.specificHour">
@@ -148,7 +148,7 @@
                 <div class="mc-st-summary-card">
                   <div class="mc-st-summary-card-header">
                     <span>Votre aller</span>
-                    <span v-if="request.when.departure.marginHour">, {{getLabelForKeyToDisplay(departureHours,request.when.departure.marginHour)}}</span>
+                    <span v-if="request.when.departure.marginHour">, {{getHourForKeyToDisplay(departureHours,request.when.departure.marginHour)}}</span>
                   </div>
                   <div class="mc-st-summary-card-content">
                     <div class="times" v-if="request.when.departure.specificHour">
@@ -176,7 +176,7 @@
                 <div class="mc-st-summary-card" v-if="request.when.return.marginHour !== 'no-need'">
                   <div class="mc-st-summary-card-header">
                     <span>Votre retour</span>
-                    <span v-if="request.when.return.marginHour">, {{getLabelForKeyToDisplay(returnHours,request.when.return.marginHour)}}</span>
+                    <span v-if="request.when.return.marginHour">, {{getHourForKeyToDisplay(returnHours,request.when.return.marginHour)}}</span>
                   </div>
                   <div class="mc-st-summary-card-content">
                     <div class="times" v-if="request.when.return.specificHour">
@@ -202,7 +202,7 @@
                 </div>
 
                 <div class="mc-st-summary-text" v-if="request.subject">
-                  Je ferai ce trajet du <span class="answer">{{$moment(request.when.departure.specificDate).format('D MMMM YYYY')}}</span> au <span class="answer">{{$moment(request.when.return.specificDate).format('D MMMM YYYY')}}</span><template v-if="request.when.return.marginHour === 'no-need'"> et <span class="answer">{{getLabelForKeyToDisplay(returnHours,request.when.return.marginHour)}}</span></template>.
+                  Je ferai ce trajet du <span class="answer">{{$moment(request.when.departure.specificDate).format('D MMMM YYYY')}}</span> au <span class="answer">{{$moment(request.when.return.specificDate).format('D MMMM YYYY')}}</span><template v-if="request.when.return.marginHour === 'no-need'"> et <span class="answer">{{getHourForKeyToDisplay(returnHours,request.when.return.marginHour)}}</span></template>.
                 </div>
 
               </template>
@@ -247,16 +247,16 @@ export default {
       type: this.$route.meta.type,
       departureDates: this.$t('solidaryTransport.' + this.$route.meta.type + '.form.fields.when.departure.dates'),
       departureDays: this.$t('solidaryTransport.' + this.$route.meta.type + '.form.fields.when.departure.days'),
-      departureHours: this.$t('solidaryTransport.' + this.$route.meta.type + '.form.fields.when.departure.hours'),
-      returnHours: this.$t('solidaryTransport.' + this.$route.meta.type + '.form.fields.when.return.hours'),
-
+      departureHours: [],
+      returnHours: []
     }
   },
   computed: {
     ...mapGetters([
       'getUserAge',
       'getRequestSubjectToDisplay',
-      'getLabelForKeyToDisplay'
+      'getLabelForKeyToDisplay',
+      'getHourForKeyToDisplay'
     ]),
     request: {
       get() {
@@ -286,6 +286,13 @@ export default {
       }
     }
   },
-  created: function () {}
+  created: function () {
+    this.departureHours.push({'value': 'morning', 'min_time': this.request.structure.mMinTime, 'max_time': this.request.structure.mMaxTime});
+    this.departureHours.push({'value': 'afternoon', 'min_time': this.request.structure.aMinTime, 'max_time': this.request.structure.aMaxTime});
+    this.departureHours.push({'value': 'evening', 'min_time': this.request.structure.eMinTime, 'max_time': this.request.structure.eMaxTime});
+    this.returnHours.push({'value': 'morning','min_time': this.request.structure.mMinTime, 'max_time': this.request.structure.mMaxTime});
+    this.returnHours.push({'value': 'afternoon', 'min_time': this.request.structure.aMinTime, 'max_time': this.request.structure.aMaxTime});
+    this.returnHours.push({'value': 'evening', 'min_time': this.request.structure.eMinTime, 'max_time': this.request.structure.eMaxTime});
+  }
 }
 </script>

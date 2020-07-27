@@ -974,7 +974,9 @@ export const solidaryTransportStore = {
     },
     postSolidaryVolunteer: ({commit, state, rootState}) => {
       let volunteer = _.cloneDeep(state.temporary.volunteer);
-      volunteer.email = rootState.userStore.user.email;
+      if (rootState.userStore.user) {
+        volunteer.email = rootState.userStore.user.email;
+      }
       let structure = volunteer.structure;
 
       // The user is connected during the request
@@ -1023,7 +1025,7 @@ export const solidaryTransportStore = {
       // console.log(volunteer.eMaxTime)
 
       // Normalize maxDistance to meters
-      volunteer.maxDistance = volunteer.maxDistance * 1000
+      // volunteer.maxDistance = volunteer.maxDistance * 1000
       // console.log(volunteer.maxDistance)
 
       // Post Solidary
@@ -1109,6 +1111,15 @@ export const solidaryTransportStore = {
         const f = _.find(values, {'value': key})
         if (f) {
           return f.label.toLowerCase()
+        }
+      }
+      return
+    },
+    getHourForKeyToDisplay: () => (values, key) => {
+      if (!_.isUndefined(values) && !_.isUndefined(key)) {
+        const f = _.find(values, {'value': key})
+        if (f) {
+          return 'entre ' + moment(f.min_time).utc().format('HH') + 'h et ' + moment( f.max_time).utc().format('HH') +'h'
         }
       }
       return

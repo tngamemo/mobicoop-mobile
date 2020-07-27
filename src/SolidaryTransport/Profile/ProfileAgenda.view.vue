@@ -38,6 +38,118 @@
             <br>
             <!-- Solidaries -->
             <template v-if="!toggle">
+
+              <div>
+                <div class="mc-st-form-item">
+                  <ion-label class="mc-st-form-label as-title no-white-space" color="primary">{{$t('solidaryTransport.volunteer.form.fields.availabilities.ranges.title')}}</ion-label>
+                </div>
+
+                <div class="mc-st-form-item">
+                  <ion-label class="mc-st-form-label as-intro no-white-space" color="primary">{{$t('solidaryTransport.volunteer.form.fields.availabilities.ranges.morning')}}</ion-label>
+
+                  <div class="mc-st-form-range-wrapper">
+                    <ion-range
+                      ref="morning-range"
+                      class="mc-st-form-range"
+                      :min="structure.mMinTime"
+                      :max="structure.mMaxTime"
+                      dual-knobs="true"
+                      pin="true"
+                      snaps="true"
+                      ticks="false"
+                      color="primary"
+                      debounce="200"
+                      @ionChange="changeRange($event, 'm')"
+                    >
+                      <ion-label color="primary" slot="start">{{structure.mMinTime}}h</ion-label>
+                      <ion-label color="primary" slot="end">{{structure.mMaxTime}}h</ion-label>
+                    </ion-range>
+                  </div>
+                </div>
+
+                <div class="mc-st-form-item">
+                  <ion-label class="mc-st-form-label as-intro no-white-space" color="primary">{{$t('solidaryTransport.volunteer.form.fields.availabilities.ranges.afternoon')}}</ion-label>
+
+                  <div class="mc-st-form-range-wrapper">
+                    <ion-range
+                      ref="afternoon-range"
+                      class="mc-st-form-range"
+                      :min="structure.aMinTime"
+                      :max="structure.aMaxTime"
+                      dual-knobs="true"
+                      pin="true"
+                      snaps="true"
+                      ticks="false"
+                      color="primary"
+                      debounce="200"
+                      @ionChange="changeRange($event, 'a')"
+                    >
+                      <ion-label color="primary" slot="start">{{structure.aMinTime }}h</ion-label>
+                      <ion-label color="primary" slot="end">{{structure.aMaxTime }}h</ion-label>
+                    </ion-range>
+                  </div>
+                </div>
+
+                <div class="mc-st-form-item">
+                  <ion-label class="mc-st-form-label as-intro no-white-space" color="primary">{{$t('solidaryTransport.volunteer.form.fields.availabilities.ranges.evening')}}</ion-label>
+
+                  <div class="mc-st-form-range-wrapper">
+                    <ion-range
+                      ref="evening-range"
+                      class="mc-st-form-range"
+                      :min="structure.eMinTime"
+                      :max="structure.eMaxTime"
+                      dual-knobs="true"
+                      pin="true"
+                      snaps="true"
+                      ticks="false"
+                      color="primary"
+                      debounce="200"
+                      @ionChange="changeRange($event, 'e')"
+                    >
+                      <ion-label color="primary" slot="start">{{structure.eMinTime}}h</ion-label>
+                      <ion-label color="primary" slot="end">{{structure.eMaxTime}}h</ion-label>
+                    </ion-range>
+                  </div>
+                </div>
+                <br>
+
+                <div class="mc-st-form-item">
+                  <ion-label class="mc-st-form-label as-title no-white-space" color="primary">{{$t('solidaryTransport.volunteer.form.fields.availabilities.days.title')}}</ion-label>
+                </div>
+
+                <div class="mc-st-form-item">
+                  <ion-label class="mc-st-form-label as-intro no-white-space" color="primary">{{$t('solidaryTransport.volunteer.form.fields.availabilities.days.morning')}}</ion-label>
+
+                  <div class="mc-st-form-days-wrapper">
+                    <ion-button class="mc-st-form-day" :color="volunteer[`m${day.value}`] ? 'primary' : 'light'" v-for="(day, index) in availabilitiesDays" :key="day.value" @click="updateDay(`m${day.value}`)">
+                      <span class="label">{{day.label}}</span>
+                    </ion-button>
+                  </div>
+                </div>
+
+                <div class="mc-st-form-item">
+                  <ion-label class="mc-st-form-label as-intro no-white-space" color="primary">{{$t('solidaryTransport.volunteer.form.fields.availabilities.days.afternoon')}}</ion-label>
+
+                  <div class="mc-st-form-days-wrapper">
+                    <ion-button class="mc-st-form-day" :color="volunteer[`a${day.value}`] ? 'primary' : 'light'" v-for="(day, index) in availabilitiesDays" :key="day.value" @click="updateDay(`a${day.value}`)">
+                      <span class="label">{{day.label}}</span>
+                    </ion-button>
+                  </div>
+                </div>
+
+                <div class="mc-st-form-item">
+                  <ion-label class="mc-st-form-label as-intro no-white-space" color="primary">{{$t('solidaryTransport.volunteer.form.fields.availabilities.days.evening')}}</ion-label>
+
+                  <div class="mc-st-form-days-wrapper">
+                    <ion-button class="mc-st-form-day" :color="volunteer[`e${day.value}`] ? 'primary' : 'light'" v-for="(day, index) in availabilitiesDays" :key="day.value" @click="updateDay(`e${day.value}`)">
+                      <span class="label">{{day.label}}</span>
+                    </ion-button>
+                  </div>
+                </div>
+              </div>
+              <br>
+
               <div class="mc-st-form-item">
                 <ion-label class="mc-st-form-label as-title no-white-space" color="primary">{{$t('solidaryTransport.volunteer.form.fields.perimeter')}}</ion-label>
 
@@ -103,11 +215,11 @@
                       class="mc-st-form-checkbox"
                       color="success"
                       slot="start"
-                      :value="language.value"
-                      :checked="volunteer.languages.indexOf(language.value) !== -1"
+                      :value="language"
+                      :checked="volunteer.languages.indexOf(language) !== -1"
                       @ionChange="changeLanguages($event)"
                     ></ion-checkbox>
-                    <ion-label class="mc-st-form-label no-white-space" color="primary">{{ language.label }}</ion-label>
+                    <ion-label class="mc-st-form-label no-white-space" color="primary">{{ $t('solidaryTransport.languages.' + language) }}</ion-label>
                   </ion-item>
                 </div>
               </div>
@@ -191,6 +303,7 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex'
+import moment from 'moment'
 
 export default {
   name: 'solidaryTransport.profile.agenda',
@@ -201,8 +314,10 @@ export default {
       maxDeviationDistance: 50,
       toggle: false,
       details: undefined,
-      languages: this.$t('solidaryTransport.volunteer.form.fields.languages'),
-      solidaries: []
+      languages: JSON.parse(process.env.VUE_APP_I18N_LIST),
+      solidaries: [],
+      structure: { mMinTime: 0, mMaxTime: 24, aMinTime: 0, aMaxTime: 24, eMinTime: 0, eMaxTime: 24},
+      availabilitiesDays: this.$t('solidaryTransport.volunteer.form.fields.days')
     }
   },
   computed: {
@@ -218,6 +333,14 @@ export default {
   methods: {
     toggleDisplay: function () {
       this.toggle = !this.toggle
+    },
+    changeRange: function($event, key) {
+      let value = $event.target.value
+      this.volunteer[`${key}MinTime`] = value.lower
+      this.volunteer[`${key}MaxTime`] = value.upper
+    },
+    updateDay: function(key) {
+      this.volunteer[key] = !this.volunteer[key]
     },
     changeLanguages: function ($event) {
       this.volunteer.languages.push($event.target.value);
@@ -267,6 +390,9 @@ export default {
   },
   mounted: function () {
     this.$refs['max-distance'].value = this.volunteer.maxDistance
+    this.$refs['morning-range'].value = { lower: moment(this.volunteer.mMinTime).format('HH') || this.volunteer.mMin, upper: moment(this.volunteer.mMaxTime).format('HH') || this.volunteer.mMax }
+    this.$refs['afternoon-range'].value = { lower:  moment(this.volunteer.aMinTime).format('HH') ||this.volunteer.aMin, upper:  moment(this.volunteer.aMaxTime).format('HH') ||this.volunteer.aMax }
+    this.$refs['evening-range'].value = { lower:  moment(this.volunteer.eMinTime).format('HH') ||this.volunteer.eMin, upper:  moment(this.volunteer.eMaxTime).format('HH') ||this.volunteer.eMax }
   },
   created: function () {
     this.getVolunteer();

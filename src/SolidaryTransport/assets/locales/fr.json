@@ -588,6 +588,11 @@
           "error": "Une erreur est survenue durant la récupération de votre mot de passe."
         }
       }
+    },
+    "languages": {
+      "fr" : "Français",
+      "en" : "Anglais",
+      "ar" : "Arabe"
     }
   }
 }
