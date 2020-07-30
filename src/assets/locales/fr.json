@@ -322,7 +322,7 @@
     "leaveHasMember" : "Si vous avez encore des annonces valides associées à cette communauté, ces annonces ne seront plus marquées comme étant liées à la communauté une fois que vous l'aurez quittée",
     "isOwnerLeave" : "En tant que référent de cette communauté, vous ne pouvez pas la quitter. Contactez le support technique pour changer de référent ou supprimer cette communauté.",
     "joinCommu": "Rejoindre la communauté",
-    "join_success": "Vous avez rejoins la communauté",
+    "join_success": "Vous avez rejoint la communauté",
     "leave_success": "Vous avez quitté la communauté",
     "domain": "Votre adresse mail doit faire partie d'un de ces domaines : ",
     "join-error": "Vous ne pouvez pas rejoindre cette communauté"
