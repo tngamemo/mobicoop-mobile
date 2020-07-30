@@ -102,7 +102,7 @@
               <div class="mc-st-form-checkbox-wrapper">
                 <ion-radio-group>
                 <ion-item class="mc-st-form-item" @click="$refs['return-hour'].click()">
-                  <ion-radio class="mc-st-form-checkbox no-clickable" slot="start" :value="undefined" :checked="request.when.return.specificHour !== undefined || (request.when.return.specificHour === undefined && request.when.return.marginHour === undefined)" color="success"></ion-radio>
+                  <ion-radio class="mc-st-form-checkbox no-clickable" slot="start" :value="undefined" :checked="request.when.return.specificHour !== undefined" color="success"></ion-radio>
                   <ion-datetime
                     ref="return-hour"
                     class="mc-st-form-input no-clickable"
@@ -122,6 +122,11 @@
                   ></ion-radio>
                   <ion-label class="mc-st-form-label no-white-space" color="primary">Entre {{ item.min_time | moment('utc', 'HH') }}h et {{ item.max_time | moment('utc', 'HH') }}h</ion-label>
                 </ion-item>
+                  <ion-item class="mc-st-form-item" lines="none" v-if="type == 'COMMENTrequest'">
+                    <ion-radio class="mc-st-form-checkbox" :value="undefined" :checked="request.when.return.marginHour === undefined && request.when.return.specificHour === undefined" color="success" slot="start" @ionSelect="noHour()"
+                    ></ion-radio>
+                    <ion-label class="mc-st-form-label no-white-space" color="primary">{{$t('solidaryTransport.request.form.fields.when.return.noHour')}}</ion-label>
+                  </ion-item>
                 </ion-radio-group>
               </div>
             </div>
@@ -195,6 +200,17 @@ export default {
     }
   },
   methods: {
+    noHour() {
+      if (!this.updating) {
+        this.updating = true
+        this.request.when.return.marginHour = undefined;
+        this.request.when.return.specificHour = undefined
+
+        setTimeout(() => {
+          this.updating = false
+        }, 100)
+      }
+    },
     changeDepartureMarginDate: function (value) {
       if (!this.updating) {
         this.updating = true

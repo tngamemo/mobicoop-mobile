@@ -210,6 +210,7 @@
             "return": {
               "hour": "A quelle heure souhaitez-vous revenir ?",
               "specificHour": "Heure de retour",
+              "noHour": "Pas besoin qu'on me ramène",
               "hours": [
                 {
                   "value": "morning",
@@ -359,6 +360,7 @@
             "return": {
               "hour": "Heure de retour",
               "specificHour": "Heure de retour",
+              "noHour": "Pas besoin qu'on me ramène",
               "hours": [
                 {
                   "value": "morning",
