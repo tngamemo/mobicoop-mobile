@@ -6,8 +6,8 @@ android {
         applicationId "eu.covivo.covisoft"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 89
-        versionName "1.0"
+        versionCode 93
+        versionName "2.0.9"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -20,37 +20,30 @@ android {
     productFlavors {
         mobicoop {
           applicationId 'eu.covivo.covisoft'
-          versionName '2.0.8'
           dimension "api"
         }
         ouestgo {
             applicationId 'fr.mobicoop.ouestgo'
-            versionName '2.0.8'
             dimension "api"
         }
         movici {
             applicationId 'fr.auvergnerhonealpes.movici'
-            versionName '2.0.8'
             dimension "api"
         }
         picholines {
           applicationId 'eu.covivo.picholines'
-          versionName '2.0.8'
           dimension "api"
         }
         passpass {
           applicationId 'fr.covivo.passpass'
-          versionName '2.0.8'
           dimension "api"
         }
         grandlyon {
           applicationId 'fr.mobicoop.grandlyon'
-          versionName '2.0.7'
           dimension "api"
         }
         txiktxak {
           applicationId 'fr.mobicoop.txiktxak'
-          versionName '2.0.8'
           dimension "api"
         }
     }
@@ -92,7 +85,7 @@ import java.util.regex.Pattern
 
 task flavourCheck() {
   println "Vérification de la flavour"
-  String fileContents = new File('app/src/main/assets/public/build.info').text
+  String fileContents = new File('/Users/volteris/Documents/idea/mobicoop-v2/android/app/src/main/assets/public/build.info').text
   Gradle gradle = getGradle()
   String tskReqStr = gradle.getStartParameter().getTaskRequests().toString()
   println tskReqStr
