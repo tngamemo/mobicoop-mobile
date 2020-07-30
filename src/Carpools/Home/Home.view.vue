@@ -25,7 +25,7 @@ LICENSE
         <div class="mc-home-header">
           <div class="mc-home-log">
             <img v-if="!noIconToolbar" class="background-img ion-margin-end" src="/assets/home.png" alt="" />
-            <h1>{{ title }}</h1>
+            <h1  v-if="!noTextToolbar">{{ title }}</h1>
           </div>
         </div>
       </ion-toolbar>
@@ -122,8 +122,10 @@ LICENSE
     align-items: center;
 
     img {
-      width: 26px;
-      height: 26px;
+      // width: 26px;
+      height: 36px;
+      margin-top: 6px;
+      margin-bottom: 6px;
     }
 
     h1 {
@@ -158,6 +160,7 @@ export default {
       showEvents: JSON.parse(process.env.VUE_APP_SHOW_EVENTS),
       showCommunities: JSON.parse(process.env.VUE_APP_SHOW_COMMUNITIES),
       noIconToolbar: JSON.parse(process.env.VUE_APP_NO_ICON_TOOLBAR),
+      noTextToolbar: JSON.parse(process.env.VUE_APP_NO_TEXT_TOOLBAR),
     };
   },
   created() {
