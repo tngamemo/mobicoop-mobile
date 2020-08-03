@@ -67,7 +67,7 @@
                   <template v-if="request.when.departure.marginHour">, de préférence <span class="answer">{{getHourForKeyToDisplay(departureHours,request.when.departure.marginHour)}}</span>
                   </template>
 
-                  {{$t('solidaryTransport.' + this.type +'.summary.end')}}
+                  <span v-if="request.when.return.specificHour || request.when.return.marginHour">{{$t('solidaryTransport.' + this.type +'.summary.end')}}</span>
                   <template v-if="request.when.return.specificHour"> à <span class="answer">{{$moment(request.when.return.specificHour).format('HH[h]mm')}}</span>
                   </template>
 
@@ -104,7 +104,7 @@
                   </div>
                 </div>
 
-                <div class="mc-st-summary-card">
+                <div class="mc-st-summary-card" v-if="request.when.return.specificHour || request.when.return.marginHour">
                   <div class="mc-st-summary-card-header">
                     <span>Votre retour</span>
                     <span v-if="request.when.return.marginHour">, {{getHourForKeyToDisplay(returnHours,request.when.return.marginHour)}}</span>

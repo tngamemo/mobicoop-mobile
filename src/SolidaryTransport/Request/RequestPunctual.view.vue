@@ -122,7 +122,7 @@
                   ></ion-radio>
                   <ion-label class="mc-st-form-label no-white-space" color="primary">Entre {{ item.min_time | moment('utc', 'HH') }}h et {{ item.max_time | moment('utc', 'HH') }}h</ion-label>
                 </ion-item>
-                  <ion-item class="mc-st-form-item" lines="none" v-if="type == 'COMMENTrequest'">
+                  <ion-item class="mc-st-form-item" lines="none" v-if="type == 'request'">
                     <ion-radio class="mc-st-form-checkbox" :value="undefined" :checked="request.when.return.marginHour === undefined && request.when.return.specificHour === undefined" color="success" slot="start" @ionSelect="noHour()"
                     ></ion-radio>
                     <ion-label class="mc-st-form-label no-white-space" color="primary">{{$t('solidaryTransport.request.form.fields.when.return.noHour')}}</ion-label>
@@ -157,7 +157,7 @@ const hasDate = (value) => {
   return !_.isEmpty(value.specificDate) || !_.isEmpty(value.marginDate)
 }
 const hasHour = (value) => {
-  return !_.isEmpty(value.specificHour) || !_.isEmpty(value.marginHour)
+    return !_.isEmpty(value.specificHour) || !_.isEmpty(value.marginHour)
 }
 
 export default {
@@ -194,7 +194,13 @@ export default {
           hasHour
         },
         return: {
-          hasHour
+          hasHour : function () {
+            if (this.type = 'request') {
+              return true;
+            } else {
+              return hasHour;
+            }
+          }
         }
       }
     }

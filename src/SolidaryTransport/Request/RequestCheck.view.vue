@@ -230,8 +230,14 @@
           </div>
 
           <div class="mc-st-loading" v-else>
-            <ion-spinner name="crescent" class="mc-st-loading-spinner"></ion-spinner>
-            <p class="mc-st-loading-message">{{$t('solidaryTransport.commons.loading')}}</p>
+            <div v-if="!error" >
+              <ion-spinner name="crescent" class="mc-st-loading-spinner"></ion-spinner>
+              <p class="mc-st-loading-message">{{$t('solidaryTransport.commons.loading')}}</p>
+            </div>
+            <div v-if="error" >
+              <p class="mc-st-loading-message">{{$t('solidaryTransport.' + type + '.errors.structure')}}</p>
+            </div>
+
           </div>
 
         </div>
@@ -278,7 +284,8 @@ export default {
       structures: undefined,
       support: process.env.VUE_APP_SOLIDARY_SUPPORT_HELP,
       type: this.$route.meta.type,
-      skipCheck: JSON.parse(process.env.VUE_APP_SOLIDARY_SKIP_REQUEST_CHECK)
+      skipCheck: JSON.parse(process.env.VUE_APP_SOLIDARY_SKIP_REQUEST_CHECK),
+      error: false
     }
   },
   computed: {
@@ -357,15 +364,18 @@ export default {
           if (!this.request.structure) {
             this.$store.commit('solidaryStructureUpdate', _.cloneDeep(structures[0]))
           }
+
+          setTimeout(() => {
+            this.structures = structures
+          }, 500)
+
+          if(this.type === 'usual' || this.skipCheck) {
+            this.$router.replace({name: 'solidaryTransport.home.' + this.type + '.path'})
+          }
+        } else {
+          this.error = true;
         }
 
-        setTimeout(() => {
-           this.structures = structures
-        }, 500)
-
-        if(this.type === 'usual' || this.skipCheck) {
-          this.$router.replace({name: 'solidaryTransport.home.' + this.type + '.path'})
-        }
       })
       .catch((error) => {
         console.error(error)

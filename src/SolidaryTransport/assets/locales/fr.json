@@ -126,6 +126,9 @@
         "user": "5. Vous",
         "summary": "6. Récapitulatif"
       },
+      "errors" : {
+        "structure" : "Votre lieu de départ n'est hélas pris en charge par aucune structure accompagnante"
+      },
       "form": {
         "next" : "Remplir la suite du formulaire",
         "fields": {
@@ -275,6 +278,9 @@
         "regular": "4. Vos horaires",
         "user": "5. Vous",
         "summary": "6. Récapitulatif"
+      },
+      "errors" : {
+        "structure" : "Votre lieu de départ n'est pas pris en charge par notre service"
       },
       "form": {
         "next" : "Remplir la suite du formulaire",

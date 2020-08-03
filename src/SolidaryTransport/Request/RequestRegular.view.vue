@@ -46,8 +46,9 @@
               </div>
 
               <div class="mc-st-form-checkbox-wrapper">
+                <ion-radio-group>
                 <ion-item class="mc-st-form-item" @click="$refs['departure-hour'].click()">
-                  <ion-checkbox class="mc-st-form-checkbox no-clickable" slot="start" :checked="request.when.departure.specificHour !== undefined || (request.when.departure.specificHour === undefined && request.when.departure.marginHour === undefined)" color="success"></ion-checkbox>
+                  <ion-radio class="mc-st-form-checkbox no-clickable" slot="start" :value="undefined" :checked="request.when.departure.specificHour !== undefined" color="success"></ion-radio>
                   <ion-datetime
                     ref="departure-hour"
                     class="mc-st-form-input no-clickable"
@@ -62,10 +63,11 @@
                   ></ion-datetime>
                 </ion-item>
                 <ion-item class="mc-st-form-item" lines="none" v-for="(item, index) in departureHours" :key="index">
-                  <ion-checkbox class="mc-st-form-checkbox" :value="request.when.departure.marginHour" :checked="request.when.departure.marginHour === item.value" color="success" slot="start" @ionChange="changeDepartureMarginHour(item.value)"
-                  ></ion-checkbox>
+                  <ion-radio class="mc-st-form-checkbox" :value="request.when.departure.marginHour" :checked="request.when.departure.marginHour === item.value" color="success" slot="start" @ionChange="changeDepartureMarginHour(item.value)"
+                  ></ion-radio>
                   <ion-label class="mc-st-form-label no-white-space" color="primary">Entre {{ item.min_time | moment('utc', 'HH') }}h et {{ item.max_time | moment('utc', 'HH') }}h</ion-label>
                 </ion-item>
+                </ion-radio-group>
               </div>
             </div>
 
@@ -76,8 +78,9 @@
               </div>
 
               <div class="mc-st-form-checkbox-wrapper">
+                <ion-radio-group>
                 <ion-item class="mc-st-form-item" @click="$refs['return-hour'].click()">
-                  <ion-checkbox class="mc-st-form-checkbox no-clickable" slot="start" :checked="request.when.return.specificHour !== undefined || (request.when.return.specificHour === undefined && request.when.return.marginHour === undefined)" color="success"></ion-checkbox>
+                  <ion-radio class="mc-st-form-checkbox no-clickable" slot="start" :value="undefined" :checked="request.when.return.specificHour !== undefined" color="success"></ion-radio>
                   <ion-datetime
                     ref="return-hour"
                     class="mc-st-form-input"
@@ -93,10 +96,16 @@
                   ></ion-datetime>
                 </ion-item>
                 <ion-item class="mc-st-form-item" lines="none" v-for="(item, index) in returnHours" :key="index">
-                  <ion-checkbox class="mc-st-form-checkbox" :value="request.when.return.marginHour" :checked="request.when.return.marginHour === item.value" color="success" slot="start" @ionChange="changeReturnMarginHour(item.value)"
-                  ></ion-checkbox>
+                  <ion-radio class="mc-st-form-checkbox" :value="request.when.return.marginHour" :checked="request.when.return.marginHour === item.value" color="success" slot="start" @ionChange="changeReturnMarginHour(item.value)"
+                  ></ion-radio>
                   <ion-label class="mc-st-form-label no-white-space" color="primary">Entre {{ item.min_time | moment('utc', 'HH') }}h et {{ item.max_time | moment('utc', 'HH') }}h</ion-label>
                 </ion-item>
+                  <ion-item class="mc-st-form-item" lines="none" v-if="type == 'request'">
+                    <ion-radio class="mc-st-form-checkbox" :value="undefined" :checked="request.when.return.marginHour === undefined && request.when.return.specificHour === undefined" color="success" slot="start" @ionSelect="noHour()"
+                    ></ion-radio>
+                    <ion-label class="mc-st-form-label no-white-space" color="primary">{{$t('solidaryTransport.request.form.fields.when.return.noHour')}}</ion-label>
+                  </ion-item>
+                </ion-radio-group>
               </div>
             </div>
 
@@ -236,7 +245,13 @@ export default {
           }
         },
         return: {
-          hasHour,
+          hasHour : function () {
+            if (this.type = 'request') {
+              return true;
+            } else {
+              return hasHour;
+            }
+          },
           specificDate: {
             hasDate
           }
@@ -245,6 +260,17 @@ export default {
     }
   },
   methods: {
+    noHour() {
+      if (!this.updating) {
+        this.updating = true
+        this.request.when.return.marginHour = undefined;
+        this.request.when.return.specificHour = undefined;
+
+        setTimeout(() => {
+          this.updating = false
+        }, 100)
+      }
+    },
     updateDay: function(index) {
       if (this.request.days[index]) {
         this.request.days[index] = 0
@@ -266,8 +292,8 @@ export default {
     changeDepartureMarginHour: function (value) {
       if (!this.updating) {
         this.updating = true
-        this.request.when.departure.specificHour = undefined
-        this.request.when.departure.marginHour = value
+        this.request.when.departure.specificHour = undefined;
+        this.request.when.departure.marginHour = value;
 
         setTimeout(() => {
           this.updating = false
