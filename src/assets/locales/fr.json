@@ -181,7 +181,28 @@
     "confirmDeleteHeader": "Etes-vous sur de vouloir supprimer cette annonce ? ",
     "confirmDeleteText": "Toute suppression d'annonce est définitive, êtes-vous sur de vouloir supprimer cette annonce ?",
     "error": "Une erreur est survenue. Veuillez réessayer ultérieurement.",
-    "potentialCarpoolers": "covoiturage(s) potentiel(s)"
+    "potentialCarpoolers": "covoiturage(s) potentiel(s)",
+    "payCarpoolers": "Payer"
+  },
+  "Payment" : {
+    "pending" : "En attente de paiement",
+    "online" : "Payé en ligne",
+    "direct" : "Payé à la main",
+    "unpaid" : "Non payé",
+    "paid" : "Payé",
+    "title" : "Paiements",
+    "amount" : "Montant",
+    "validate" : "Valider",
+    "pay" : {
+      "online" : "Je paie en ligne",
+      "direct" : "J'ai payé à la main",
+      "success" : "Le paiement a été validé"
+    },
+    "collect" : {
+      "online" : "J'ai reçu un paiement en ligne",
+      "direct" : "J'ai reçu un paiement à la main",
+      "success" : "La confirmation de paiement a été validé"
+    }
   },
   "AcceptedCarpools": {
     "title": "Mes covoiturages acceptés",

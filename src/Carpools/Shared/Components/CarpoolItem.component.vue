@@ -164,6 +164,24 @@ LICENSE
           @click="searchPotentialCarpoolers()"
         >{{carpool.potentialCarpoolers}} {{$t("MyCarpools.potentialCarpoolers")}}</ion-button>
       </div>
+      <div
+        v-if="payment && activatedPayment"
+        class="mc-carpool-potential-carpoolers"
+      >
+        <div v-if="payment.paymentStatus === 1" class="text-center text-success"><b>{{$t("Payment.online")}}</b></div>
+        <div v-if="payment.paymentStatus === 2" class="text-center text-success"><b>{{$t("Payment.direct")}}</b></div>
+        <div v-if="payment.paymentStatus === 4" class="text-center text-success"><b>{{$t("Payment.paid")}}</b></div>
+        <ion-button v-if="payment.paymentStatus === 0 || payment.paymentStatus === 3"
+          class="mc-big-button normal-wrap"
+          fill="outline"
+          color="success"
+          expand="block"
+          @click="payCarpoolers()"
+        >
+          <span v-if="payment.paymentStatus === 0">{{$t("Payment.pending")}}</span>
+          <span v-if="payment.paymentStatus === 3">{{$t("Payment.unpaid")}}</span>
+        </ion-button>
+      </div>
     </div>
   </div>
 </template>
@@ -312,6 +330,10 @@ LICENSE
     }
   }
 }
+
+  .text-success {
+    color: var(--ion-color-success)
+  }
 </style>
 
 
@@ -320,10 +342,11 @@ import { toast } from "../../../Shared/Mixin/toast.mixin";
 
 export default {
   name: "carpool-item",
-  props: ["carpool", "type", "carpoolSource"],
+  props: ["carpool", "type", "carpoolSource", "payment"],
   data() {
     return {
       avatarLoaded: false,
+      activatedPayment: JSON.parse(process.env.VUE_APP_PAYMENT)
     };
   },
   mixins: [toast],
@@ -458,6 +481,14 @@ export default {
 
       let filters = {};
       this.$router.push({name: "post-carpool", params: {filters}});
+    },
+    payCarpoolers() {
+      this.$router.push({ name: 'payment', query : {
+          frequency: this.carpool.frequency,
+          type: this.carpool.driver ? 2 : 1,
+          week: this.payment.paymentItemWeek,
+          defaultId: this.payment.paymentItemId
+        }})
     }
   }
 };

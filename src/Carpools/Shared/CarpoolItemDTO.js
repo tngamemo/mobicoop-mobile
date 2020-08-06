@@ -53,6 +53,7 @@ export default class CarpoolItemDTO {
     }
     this.resultDriverOrPassenger = this.resultDriveOrPassenger(carpool);
     this.isMultipleTimes = this.resultDriverOrPassenger.outward.multipleTimes;
+    this.paymentStatus = carpool.paymentStatus
     return this;
   }
 
