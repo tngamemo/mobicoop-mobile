@@ -37,6 +37,9 @@ LICENSE
         </div>
 
         <div v-if="$store.state.paymentStore.statusPayment == 'success' && payments">
+          <div class="text-center" v-if="payments.length == 0">
+            {{$t('Payment.none')}}
+          </div>
           <div class="mc-carpool-item" v-for="payment in payments">
             <!-- Header -->
             <div class="mc-carpool-header d-flex justify-between align-center flex-wrap">
@@ -79,15 +82,31 @@ LICENSE
               <div class="text-center" v-if="payment.frequency == 1">{{payment.date | moment("dddd D[.]MM")}}</div>
               <div class="text-center" v-if="payment.frequency == 2">
 
+                <div class="mc-cp-form-days-wrapper">
+                  <div class="mc-cp-form-days-title">Aller</div>
+                  <ion-button class="mc-cp-form-day" :color="hasDataToPost(day.value, payment) ? 'primary' : 'light'" v-for="(day, index) in getOutwardOrReturnDay('outward', payment)" :disabled="day.value.status === 0" :key="day.value.id" @click="updateDay(day.value, payment)">
+                    <span class="label">{{$t(day.trad)}}</span>
+                  </ion-button>
+                </div>
+
+                <div class="mc-cp-form-days-wrapper">
+                  <div class="mc-cp-form-days-title">Retour</div>
+                  <ion-button class="mc-cp-form-day" :color="hasDataToPost(day.value, payment) ? 'primary' : 'light'" v-for="(day, index) in getOutwardOrReturnDay('return', payment)" :disabled="day.value.status === 0" :key="day.value.id" @click="updateDay(day.value, payment)">
+                    <span class="label">{{$t(day.trad)}}</span>
+                  </ion-button>
+                </div>
+
+
               </div>
-              <div class="text-center"><b>{{$t('Payment.amount')}} : {{payment.amount}}€</b></div>
+              <div v-if="payment.frequency == 1" class="text-center"><b>{{$t('Payment.amount')}} : {{payment.amount}}€</b></div>
+              <div v-if="payment.frequency == 2" class="text-center"><b>{{$t('Payment.amount')}} : {{getTotalForRecurrentPayment(payment)}}€</b></div>
               <div>
                 <ion-item lines="none" class="item-transparent">
                   <ion-label>{{ $t('Payment.' + (type == 1 ? 'pay' : 'collect') + '.direct')}}</ion-label>
                   <ion-checkbox
                     slot="start"
                     color="success"
-                    @ionChange="addForPost($event, payment, 2)"
+                    @ionChange="addForPost($event, payment, mode)"
                   ></ion-checkbox>
                 </ion-item>
               </div>
@@ -119,6 +138,44 @@ LICENSE
 </template>
 
 <style lang="scss">
+  .mc-cp-form-days-wrapper {
+    margin-bottom: 10px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .mc-cp-form-days-title {
+      width : 70px;
+      font-weight: bold;
+      text-align: left;
+    }
+
+    .mc-cp-form-day {
+      --background: var(--ion-color-light);
+      --color: var(--ion-color-primary);
+      width: 32px;
+      height: 32px;
+      --padding-start: 0;
+      --padding-end: 0;
+      --border-radius: 32px;
+      --border-color: var(--ion-color-primary);
+      --border-style: solid;
+      --border-width: 1px;
+      transition: background .3s, color .3s;
+
+      .label {
+        font-size: 12px;
+        text-transform: none;
+        font-weight: bold;
+      }
+    }
+
+    .ion-color-light {
+      --ion-color-contrast: var(--ion-color-primary) !important
+    }
+  }
+
 
   .confirm-footer{
     position: fixed;
@@ -158,7 +215,9 @@ LICENSE
         payments: null,
         avatarLoaded: false,
         type: 0,
-        dataToPost: null
+        dataToPost: null,
+        mode: 2,
+        weeks: []
       }
     },
     mixins: [toast],
@@ -176,10 +235,37 @@ LICENSE
       getPayment(params) {
         this.$store.dispatch('getPayment', params)
           .then((res) => {
-            this.payments = res.data['hydra:member'];
+            const result = res.data['hydra:member'];
+            result.forEach(payment => {
+              payment.selectedDays = [];
+              if(payment.frequency == 2) {
+                payment.outwardDays.forEach(item => {
+                  item.mode = this.mode
+                  if (item.status !== 0) {
+                    payment.selectedDays.push(item)
+                  }
+                })
+                payment.returnDays.forEach(item => {
+                  item.mode = this.mode
+                  if (item.status !== 0) {
+                    payment.selectedDays.push(item)
+                  }
+                })
+              }
+              payment.items = [];
+              payment.selected = false;
+            });
+            this.payments = result
           })
           .catch((error) => {
             this.presentToast(this.$t("Commons.error"), "danger");
+          })
+      },
+      getWeeks(askId) {
+        this.$store.dispatch('getWeeks', params)
+          .then((res) => {
+          })
+          .catch((error) => {
           })
       },
       onImgLoad: function() {
@@ -187,23 +273,59 @@ LICENSE
       },
       addForPost(event, payment, mode) {
         if(event.detail.checked) {
-          this.dataToPost.items.push({
-            id: payment.id,
-            status: 1,
-            mode: mode
-          })
+          payment.selected = true
+          if (payment.frequency == 1) {
+            this.dataToPost.items.push({
+              id: payment.id,
+              status: 1,
+              mode: mode
+            })
+          } else if (payment.frequency == 2) {
+            this.setItems(payment)
+          }
         } else {
-          const index = this.dataToPost.items.findIndex(item => item.id === payment.id);
-          this.dataToPost.items.splice(index, 1);
+          payment.selected = false
+          if (payment.frequency == 1) {
+            const index = this.dataToPost.items.findIndex(item => item.id === payment.id);
+            this.dataToPost.items.splice(index, 1);
+          } else if (payment.frequency == 2) {
+            this.setItems(payment)
+          }
         }
       },
       getTotal() {
         let total = 0;
         this.dataToPost.items.forEach(item => {
-          const p = this.payments.find(payment => payment.id === item.id)
-          total += Number(p.amount)
-        })
+          if (this.payments[0].frequency == 1) {
+            const p = this.payments.find(payment => payment.id === item.id)
+            total += Number(p.amount)
+          } else {
+            const o = this.payments.find(payment => payment.outwardDays.find(od => od.id == item.id) )
+            if(o) {
+              total += Number(o.outwardAmount)
+            }
+            const r = this.payments.find(payment => payment.returnDays.find(od => od.id == item.id))
+            if(r) {
+              total += Number(r.returnAmount)
+            }
+          }
+
+        });
         return total
+      },
+      getTotalForRecurrentPayment(payment) {
+        let total = 0;
+        payment.selectedDays.forEach(item => {
+            const o = payment.outwardDays.find(od => od.id == item.id)
+            if(o) {
+              total += Number(payment.outwardAmount)
+            }
+            const r = payment.returnDays.find(od => od.id == item.id)
+            if(r) {
+              total += Number(payment.returnAmount)
+            }
+          });
+        return total;
       },
       postPayment() {
         this.$store.dispatch('postPayment', this.dataToPost)
@@ -214,6 +336,56 @@ LICENSE
           .catch((error) => {
             this.presentToast(this.$t("Commons.error"), "danger");
           })
+      },
+      getOutwardOrReturnDay(type, payment) {
+          const days = [
+            { name: "mon", trad: "Carpool.L"},
+            { name: "tue", trad: "Carpool.Ma"},
+            { name: "wed", trad: "Carpool.Me"},
+            { name: "thu", trad: "Carpool.J"},
+            { name: "fri", trad: "Carpool.V"},
+            { name: "sat", trad: "Carpool.S"},
+            { name: "sun", trad: "Carpool.D"},
+          ]
+          const result = [];
+          payment[type + 'Days'].forEach((item, index) => {
+            result.push({
+              name: days[index].name,
+              trad: days[index].trad,
+              value: item,
+            });
+          });
+          return result;
+      },
+      hasDataToPost(item, payment) {
+        if(payment.selectedDays.find(data => data.id === item.id)) {
+          return true
+        } else {
+          return false
+        }
+      },
+      updateDay(value, payment) {
+        const findedIndex = payment.selectedDays.findIndex(item => item.id === value.id);
+        if (findedIndex != -1) {
+          payment.selectedDays.splice(findedIndex, 1)
+        } else {
+          payment.selectedDays.push(value);
+        }
+        this.setItems(payment)
+      },
+      setItems(payment) {
+        if(payment.selected) {
+          payment.items = payment.selectedDays
+        } else {
+          payment.items = []
+        }
+        this.setDataToPost();
+      },
+      setDataToPost() {
+        this.dataToPost.items = [];
+        this.payments.forEach(payment => {
+          this.dataToPost.items.push(...payment.items)
+        })
       }
     }
   }

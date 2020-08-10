@@ -193,6 +193,7 @@
     "title" : "Paiements",
     "amount" : "Montant",
     "validate" : "Valider",
+    "none" : "Aucun paiement à effectuer",
     "pay" : {
       "online" : "Je paie en ligne",
       "direct" : "J'ai payé à la main",

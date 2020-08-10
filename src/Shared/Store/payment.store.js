@@ -53,6 +53,17 @@ export const paymentStore = {
         })
       })
     },
+    getWeeks: ({commit}, askId) => {
+      return new Promise((resolve, reject) => {
+        http.get("/asks/" + askId + "/pendingPayment").then(resp => {
+          if (resp) {
+            resolve(resp)
+          }
+        }).catch(err => {
+          reject(err)
+        })
+      })
+    },
     postPayment: ({commit}, data) => {
       commit('payment_request');
       return new Promise((resolve, reject) => {
