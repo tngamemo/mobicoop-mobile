@@ -64,6 +64,10 @@ export const userStore = {
       state.user = user;
     },
 
+    user_request_error(state) {
+      state.status = 'error';
+    },
+
     user_alerts_request(state) {
       state.statusAlerts = 'loading';
     },
@@ -253,6 +257,7 @@ export const userStore = {
             resolve(resp)
           })
           .catch(err => {
+            commit('user_request_error');
             console.log(err);
             reject(err)
           })
