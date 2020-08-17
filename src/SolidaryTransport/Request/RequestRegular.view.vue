@@ -246,7 +246,7 @@ export default {
         },
         return: {
           hasHour : function () {
-            if (this.type = 'request') {
+            if (this.type == 'request') {
               return true;
             } else {
               return hasHour;
