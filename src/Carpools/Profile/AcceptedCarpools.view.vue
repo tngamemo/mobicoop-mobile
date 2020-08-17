@@ -102,6 +102,7 @@ LICENSE
         payment.paymentItemId = carpool.paymentItemId;
         payment.paymentItemWeek = carpool.paymentItemWeek;
         payment.unpaidDate = carpool.unpaidDate;
+        payment.askId = carpool.asks[0] ? carpool.asks[0].askId : null;
         return payment;
       },
       filterCarpools() {

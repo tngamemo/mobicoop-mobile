@@ -487,7 +487,8 @@ export default {
           frequency: this.carpool.frequency,
           type: this.carpool.driver ? 2 : 1,
           week: this.payment.paymentItemWeek,
-          defaultId: this.payment.paymentItemId
+          defaultId: this.payment.paymentItemId,
+          askId: this.payment.askId
         }})
     }
   }

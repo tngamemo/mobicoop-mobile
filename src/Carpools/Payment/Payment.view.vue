@@ -30,6 +30,13 @@ LICENSE
     </ion-header>
 
     <ion-content color="primary" no-bounce>
+      <ion-item color="transparent" v-if="frequency == 2 && weeks.length > 0">
+        <!--<ion-label></ion-label>-->
+        <ion-select :value="selectedWeek" cancel-text="Annuler" class="selectWeek" interface="action-sheet" @ionChange="setWeeks($event)">
+          <ion-select-option v-for="week in weeks" :value="week.numWeek.toString() + week.year.toString()">du {{week.fromDate | moment('DD/MM/YYYY')}} au {{week.toDate | moment('DD/MM/YYYY')}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
       <div class="mc-white-container" >
 
         <div class="ion-text-center" v-if="$store.state.paymentStore.statusPayment == 'loading'" >
@@ -202,6 +209,12 @@ LICENSE
     margin-left: 15px
   }
 }
+
+  .selectWeek {
+    max-width: 100%;
+    width: 100%;
+    text-align: center;
+  }
 </style>
 
 <script>
@@ -217,7 +230,10 @@ LICENSE
         type: 0,
         dataToPost: null,
         mode: 2,
-        weeks: []
+        frequency: null,
+        askId: null,
+        weeks: [],
+        selectedWeek: null
       }
     },
     mixins: [toast],
@@ -225,14 +241,21 @@ LICENSE
     created() {
       this.defaultPaymentId = this.$route.query.defaultId;
       this.type = Number(this.$route.query.type);
+      this.frequency = Number(this.$route.query.frequency);
+      this.askId = this.$route.query.askId;
+      this.selectedWeek =  this.$route.query.week;
       this.dataToPost = {
         type : this.type,
         items : []
       };
       this.getPayment(this.$route.query);
+      if(this.frequency == 2) {
+        this.getWeeks(this.askId);
+      }
     },
     methods: {
       getPayment(params) {
+        params.week = this.selectedWeek;
         this.$store.dispatch('getPayment', params)
           .then((res) => {
             const result = res.data['hydra:member'];
@@ -262,11 +285,16 @@ LICENSE
           })
       },
       getWeeks(askId) {
-        this.$store.dispatch('getWeeks', params)
+        this.$store.dispatch('getWeeks', askId)
           .then((res) => {
+            this.weeks = res.data.weekItems;
           })
           .catch((error) => {
           })
+      },
+      setWeeks(week) {
+        this.selectedWeek = week.numWeek.toString() + week.year.toString();
+        this.getPayment(this.$route.query)
       },
       onImgLoad: function() {
         this.avatarLoaded = true;
