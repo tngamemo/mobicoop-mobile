@@ -440,6 +440,11 @@ export const solidaryTransportStore = {
       state.temporary.request.destination = address
     },
 
+    resetSolidaryVolunteer: (state) => {
+      state.temporary.volunteer = _.cloneDeep(state.default.volunteer)
+    },
+
+
     // Volunteer
     postSolidaryVolunteerSuccess: (state, res) => {
       state.default.volunteer = res;

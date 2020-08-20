@@ -52,7 +52,7 @@
                 color="success"
                 v-if="declareVolunteer"
                 v-html="$t('solidaryTransport.home.actions.becomeVolunteer')"
-                @click="$router.push({name:'solidaryTransport.home.volunteer'})"
+                @click="$store.commit('resetSolidaryVolunteer'); $router.push({name:'solidaryTransport.home.volunteer'})"
               ></ion-button>
               <ion-button class="mc-st-action as-light" color="light" @click="$refs['call'].click()">
                 <ion-icon slot="start" name="chatboxes"></ion-icon>
@@ -80,7 +80,7 @@
                 color="success"
                 v-if="declareVolunteer"
                 v-html="$t('solidaryTransport.home.actions.becomeVolunteer')"
-                @click="$router.push({name:'solidaryTransport.home.volunteer'})"
+                @click="$store.commit('resetSolidaryVolunteer'); $router.push({name:'solidaryTransport.home.volunteer'})"
               ></ion-button>
 
               <ion-button
