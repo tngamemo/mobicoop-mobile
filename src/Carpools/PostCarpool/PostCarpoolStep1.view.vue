@@ -170,7 +170,11 @@ export default {
       }
     },
   },
-  created() {},
+  created() {
+    if(this.carpoolToPost.outwardDate == "") {
+      this.$store.commit('changeDateOutwardCarpool', {outwardDate: new Date()})
+    }
+  },
   computed: {
     carpoolToPost() {
       return this.$store.getters.carpoolToPost;

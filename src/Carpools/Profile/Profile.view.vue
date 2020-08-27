@@ -185,6 +185,7 @@ export default {
     logout: function() {
       this.$store.dispatch("logout").then(() => {
         // On va authentifier l'appli via un utilisateur anonyme
+        this.$store.commit("reset_current_dynamic");
         this.$store.dispatch("authAnonymousUser");
       });
       this.$router.push("home");

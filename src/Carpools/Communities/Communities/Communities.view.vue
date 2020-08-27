@@ -74,7 +74,7 @@ LICENSE
         </ion-button>
       </div>
       <div class="mc-white-container">
-        <div class="ion-text-center ion-margin-top" v-if="!communities">
+        <div class="ion-text-center ion-margin-top" v-if="this.$store.getters.statusGetCommunities == 'loading'">
           <ion-icon size="large" color="primary" class="rotating" name="md-sync"></ion-icon>
         </div>
         <ion-item
