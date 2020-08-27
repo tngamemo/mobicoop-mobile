@@ -202,6 +202,7 @@
   },
   "Commons": {
     "error": "Une erreur est survenue",
+    "form-error"  : "Le formulaire présente une erreur",
     "success": "Action effectuée avec succès",
     "cancel": "Annuler",
     "validate": "Valider",
@@ -210,7 +211,8 @@
     "confirm": "Confirmer",
     "update" : "Modifier",
     "version-recommended" : "Une nouvelle version de l'application est disponible.<br><br> Nous vous recommandons de la mettre à jour.",
-    "version-min" : "Une nouvelle version majeure de l'application est disponible.<br><br> Vous devez la mettre à jour pour pouvoir continuer à utiliser l'application."
+    "version-min" : "Une nouvelle version majeure de l'application est disponible.<br><br> Vous devez la mettre à jour pour pouvoir continuer à utiliser l'application.",
+    "gps-permission" : "Vous devez authoriser le GPS pour démarrer cette fonctionalité"
   },
   "Validation" : {
     "required" : "Ce champ est requis",
@@ -411,7 +413,8 @@
     "iam" : "Je suis",
     "comment": "Commentaire",
     "reset" : "Reset",
-    "close" : "Fermer"
+    "close" : "Fermer",
+    "wait" :  "recherche actuellement un covoitureur en dynamique et les résultats s'actualisent en temps réel. Vous pouvez aussi retourner sur la recherche standard en page d'accueil."
   }
 
 }

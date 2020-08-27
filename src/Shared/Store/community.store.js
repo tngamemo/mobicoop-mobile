@@ -256,6 +256,10 @@ export const communityStore = {
       return state.communities
     },
 
+    statusGetCommunities: state => {
+      return state.statusGetCommunities;
+    },
+
     statusGetCommunity: state => {
       return state.statusGetCommunity;
     },

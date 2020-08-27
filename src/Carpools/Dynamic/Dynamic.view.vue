@@ -288,6 +288,7 @@ LICENSE
   import { Plugins } from '@capacitor/core';
   import {isPlatform} from "@ionic/core";
   const { Geolocation } = Plugins;
+  const { Permissions } = Plugins;
   const { LocalNotifications } = Plugins;
 
 
@@ -366,16 +367,22 @@ LICENSE
         this.$router.push({ name: "geoSearch", query: { type, action } });
       },
       async launchDynamic() {
-        const coordinates = await Geolocation.getCurrentPosition();
-        this.$store.commit('set_dynamic_my_position', {latitude: coordinates.coords.latitude.toString(), longitude: coordinates.coords.longitude.toString()});
-        this.$store.commit('set_dynamic_destination', this.$store.state.searchStore.searchObject.outwardWaypoints[1]);
-        console.log(this.destination);
-        this.currentDynamic.waypoints = [{latitude: this.myPosition.latitude, longitude: this.myPosition.longitude}, { latitude: this.destination.latitude, longitude: this.destination.longitude}];
+        const p = await Permissions.query({name: "geolocation"})
+        if (p.state == "granted" || p.state == "prompt") {
+          const coordinates = await Geolocation.getCurrentPosition();
+          this.$store.commit('set_dynamic_my_position', {latitude: coordinates.coords.latitude.toString(), longitude: coordinates.coords.longitude.toString()});
+          this.$store.commit('set_dynamic_destination', this.$store.state.searchStore.searchObject.outwardWaypoints[1]);
+          console.log(this.destination);
+          this.currentDynamic.waypoints = [{latitude: this.myPosition.latitude, longitude: this.myPosition.longitude}, { latitude: this.destination.latitude, longitude: this.destination.longitude}];
 
-        this.$store.dispatch('launchDynamics').then( () => {
-          console.log(this.currentDynamic);
-          this.startBackgroundGeolocation();
-        });
+          this.$store.dispatch('launchDynamics').then( () => {
+            console.log(this.currentDynamic);
+            this.startBackgroundGeolocation();
+          });
+        } else if (p.state == "denied") {
+          this.presentToast(this.$t("Commons.gps-permission"), "danger");
+        }
+
       },
       updateDynamics(result, body) {
         return this.$store.dispatch('putDynamics', {

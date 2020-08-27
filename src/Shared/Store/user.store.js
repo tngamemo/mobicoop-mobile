@@ -460,7 +460,7 @@ export const userStore = {
         mobile = 2
       }
       return new Promise((resolve, reject) => {
-        http.post(`/push_token`, { token: params, type: mobile })
+        http.post(`/push_tokens`, { token: params, type: mobile })
           .then(resp => {
             resolve(resp)
           })

@@ -38,7 +38,8 @@ LICENSE
     data () {
       return {
         msg: 'Welcome to Your Vue.js App',
-        loaded: false
+        loaded: false,
+        firstGtag: localStorage.getItem('firstGtag') || true
       }
     },
     watch:{
@@ -47,6 +48,12 @@ LICENSE
         if(JSON.parse(process.env.VUE_APP_ANALYTICS_ACTIVATED)) {
           window._paq.push(['setCustomUrl', '/' + window.location.hash.substr(1)]);
           window._paq.push(['trackPageView']);
+        }
+        if(JSON.parse(process.env.VUE_APP_GTAG_ACTIVATED)) {
+          gtag('event', 'screen_view', {
+            'app_name': process.env.VUE_APP_NAME,
+            'screen_name' : window.location.hash.substr(1)
+          });
         }
       }
     },
@@ -76,6 +83,9 @@ LICENSE
     mounted() {
       if(JSON.parse(process.env.VUE_APP_ANALYTICS_ACTIVATED)) {
         this.initAnalytics();
+      }
+      if(JSON.parse(process.env.VUE_APP_GTAG_ACTIVATED)) {
+        this.initGtags();
       }
     },
     methods: {
@@ -135,6 +145,25 @@ LICENSE
             Matomo.getAsyncTracker().trackPageView();
           }
         }, 250);
+      },
+      initGtags() {
+        document.body.appendChild(Object.assign(document.createElement('script'), {
+          type: 'text/javascript',
+          src: 'https://www.googletagmanager.com/gtag/js?id=' + process.env.VUE_APP_GTAG_ID,
+          onload: () => {
+            window.dataLayer = window.dataLayer || [];
+            window.gtag = function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', process.env.VUE_APP_GTAG_ID);
+            if( this.firstGtag ) {
+              gtag('event', 'conversion', {
+                'allow_custom_scripts': true,
+                'send_to': 'DC-8013475/movici/premi0+standard'
+              });
+              localStorage.setItem('firstGtag', false);
+            }
+          }
+        }));
       },
       getVersion() {
         this.$store.dispatch('getVersions').then(res => {
