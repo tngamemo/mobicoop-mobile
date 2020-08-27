@@ -6,8 +6,8 @@ android {
         applicationId "eu.covivo.covisoft"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 94
-        versionName "2.1.0"
+        versionCode 95
+        versionName "2.1.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

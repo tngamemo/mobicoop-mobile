@@ -28,7 +28,7 @@ LICENSE
     <div style="padding: 10px">
       <div class="mc-block-action-visuel">
         <div class="mc-block-action-image">
-          <img class src="/assets/background.png" alt="" />
+          <img class :src="'/assets/' + action + '.png'" alt="" />
           <!--
           <div class="mc-block-action-icon" v-bind:style="style.backgroundHeader">
             <ion-icon :name="icon" size="medium"></ion-icon>
