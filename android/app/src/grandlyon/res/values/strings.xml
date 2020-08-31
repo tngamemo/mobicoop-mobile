@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">En covoit' GrandLyon</string>
-    <string name="title_activity_main">En covoit' GrandLyon</string>
+    <string name="app_name">En covoit\' GrandLyon</string>
+    <string name="title_activity_main">En covoit\' GrandLyon</string>
     <string name="package_name">fr.mobicoop.grandlyon</string>
     <string name="custom_url_scheme">fr.mobicoop.grandlyon</string>
   <string name="mauron85_bgloc_account_name">@string/app_name</string>
