@@ -244,11 +244,17 @@ export const userStore = {
     updateUser({commit}, params) {
       commit('auth_request');
       return new Promise((resolve, reject) => {
+        /*
+        if(params.addresses && params.addresses.length > 1) {
+          params.addresses = [params.addresses[0]]
+        }
+         */
         delete params.addresses[0].id;
         delete params.addresses[0].geoJson;
         delete params.images;
         delete params.solidaryUser;
         delete params.proEmail;
+        delete params.diaries;
         http.put(`/users/${params.id}`, params)
           .then(resp => {
 

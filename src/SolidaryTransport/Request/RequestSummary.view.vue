@@ -67,7 +67,7 @@
                   <template v-if="request.when.departure.marginHour">, de préférence <span class="answer">{{getHourForKeyToDisplay(departureHours,request.when.departure.marginHour)}}</span>
                   </template>
 
-                  <span v-if="request.when.return.specificHour || request.when.return.marginHour">{{$t('solidaryTransport.' + this.type +'.summary.end')}}</span>
+                  <span v-if="request.when.return.specificHour || request.when.return.marginHour"> {{$t('solidaryTransport.' + this.type +'.summary.end')}} </span>
                   <template v-if="request.when.return.specificHour"> à <span class="answer">{{$moment(request.when.return.specificHour).format('HH[h]mm')}}</span>
                   </template>
 
@@ -274,7 +274,7 @@ export default {
         this.processing = true
         this.$store.dispatch('postSolidaryResource', this.type)
           .then((data) => {
-            this.presentToast("Votre demande de coup de pouce à été envoyée avec succès", 'success');
+            this.presentToast("Votre demande de coup de pouce a été envoyée", 'success');
             this.$router.push({name:'solidaryTransport.home'})
           })
           .catch((error) => {

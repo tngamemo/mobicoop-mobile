@@ -405,8 +405,8 @@
             "durationEndDate": "Date de fin"
           },
           "you": "Vos informations :",
-          "yourRequest": "Votre trajet habituel :",
-          "sendRequest": "Envoyer mon trajet habituel"
+          "yourRequest": "Votre trajet :",
+          "sendRequest": "Envoyer mon trajet"
         },
         "validators": {
           "days": "Vous devez choisir au moins un jour",

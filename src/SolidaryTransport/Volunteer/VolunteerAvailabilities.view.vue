@@ -28,7 +28,7 @@
               <ion-label class="mc-st-form-label as-title no-white-space" color="primary">{{$t('solidaryTransport.volunteer.form.fields.availabilities.ranges.title')}}</ion-label>
             </div>
 
-            <div class="mc-st-form-item">
+            <div class="mc-st-form-item" v-if="volunteer.structure">
               <ion-label class="mc-st-form-label as-intro no-white-space" color="primary">{{$t('solidaryTransport.volunteer.form.fields.availabilities.ranges.morning')}}</ion-label>
 
               <div class="mc-st-form-range-wrapper">
@@ -51,7 +51,7 @@
               </div>
             </div>
 
-            <div class="mc-st-form-item">
+            <div class="mc-st-form-item" v-if="volunteer.structure">
               <ion-label class="mc-st-form-label as-intro no-white-space" color="primary">{{$t('solidaryTransport.volunteer.form.fields.availabilities.ranges.afternoon')}}</ion-label>
 
               <div class="mc-st-form-range-wrapper">
@@ -74,7 +74,7 @@
               </div>
             </div>
 
-            <div class="mc-st-form-item">
+            <div class="mc-st-form-item" v-if="volunteer.structure">
               <ion-label class="mc-st-form-label as-intro no-white-space" color="primary">{{$t('solidaryTransport.volunteer.form.fields.availabilities.ranges.evening')}}</ion-label>
 
               <div class="mc-st-form-range-wrapper">
