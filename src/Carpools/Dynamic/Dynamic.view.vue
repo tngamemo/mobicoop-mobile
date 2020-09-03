@@ -92,93 +92,95 @@ LICENSE
 
 
         <!-- State 2  -->
-        <div v-if="$store.state.dynamicStore.statusActive == 'success' && state == 2 && destination">
+        <div v-if="$store.state.dynamicStore.statusActive == 'success' && state == 2">
 
-          <div class="dynamic-map" >
-            <l-map
-              v-if="map.showCard"
-              :ref="'dynamicMap'"
-              style="height: 300px; width: 300px; border-radius: 150px;"
-              :zoom="map.zoom"
-              :bounds="bounds"
-              :options="map.optionsCard"
-            >
-              <l-tile-layer :url="map.url"></l-tile-layer>
-              <!--<l-polyline v-if="bounds" :lat-lngs="recapCarpool.directPoints" :color="'blue'"></l-polyline>-->
-              <l-marker :lat-lng="[myPosition.latitude, myPosition.longitude]">
-                <l-icon :iconSize="[30, 42]" :iconAnchor="[15, 42]" className="custom-div-icon"><div class="marker-pin"></div><ion-icon :name="currentDynamic.role == 1 ? 'car' : 'person'"></ion-icon></l-icon>
-              </l-marker>
-              <l-marker v-if="currentAsk.position" :lat-lng="[currentAsk.position.latitude, currentAsk.position.longitude]">
-                <l-icon :iconSize="[30, 42]" :iconAnchor="[15, 42]" className="custom-div-icon"><div class="marker-pin"></div><ion-icon :name="currentDynamic.role == 1 ? 'person' : 'car'"></ion-icon></l-icon>
-              </l-marker>
-              <l-marker :lat-lng="[destination.latitude, destination.longitude]">
-                <l-icon :iconSize="[30, 42]" :iconAnchor="[15, 42]" className="custom-div-icon"><div class="marker-pin"></div><ion-icon name="locate"></ion-icon></l-icon>
-              </l-marker>
-            </l-map>
-          </div>
+          <div v-if="destination">
+            <div class="dynamic-map" >
+              <l-map
+                v-if="map.showCard"
+                :ref="'dynamicMap'"
+                style="height: 300px; width: 300px; border-radius: 150px;"
+                :zoom="map.zoom"
+                :bounds="bounds"
+                :options="map.optionsCard"
+              >
+                <l-tile-layer :url="map.url"></l-tile-layer>
+                <!--<l-polyline v-if="bounds" :lat-lngs="recapCarpool.directPoints" :color="'blue'"></l-polyline>-->
+                <l-marker :lat-lng="[myPosition.latitude, myPosition.longitude]">
+                  <l-icon :iconSize="[30, 42]" :iconAnchor="[15, 42]" className="custom-div-icon"><div class="marker-pin"></div><ion-icon :name="currentDynamic.role == 1 ? 'car' : 'person'"></ion-icon></l-icon>
+                </l-marker>
+                <l-marker v-if="currentAsk.position" :lat-lng="[currentAsk.position.latitude, currentAsk.position.longitude]">
+                  <l-icon :iconSize="[30, 42]" :iconAnchor="[15, 42]" className="custom-div-icon"><div class="marker-pin"></div><ion-icon :name="currentDynamic.role == 1 ? 'person' : 'car'"></ion-icon></l-icon>
+                </l-marker>
+                <l-marker :lat-lng="[destination.latitude, destination.longitude]">
+                  <l-icon :iconSize="[30, 42]" :iconAnchor="[15, 42]" className="custom-div-icon"><div class="marker-pin"></div><ion-icon name="locate"></ion-icon></l-icon>
+                </l-marker>
+              </l-map>
+            </div>
 
-          <!-- CurrentDynamic -->
-          <ion-card class="dynamic-card" v-if="currentDynamic['@id']">
-            <ion-card-content>
-              <!--<div class="text-right muted" ><small>{{currentDynamic['@id']}}</small></div>-->
-              <div v-if="destination" class="d-flex align-center"><ion-icon name="flag"></ion-icon> {{this.destination.displayLabel[0]}}</div>
-              <div class="" ><small>{{currentDynamic.role == 1 ? 'Conducteur' : 'Passager'}}</small></div>
-              <div v-if="currentDynamic.comment" ><small>Commentaire : {{currentDynamic.comment}}</small></div>
-              <div v-if="currentDynamic.destination"><b>Arrivé</b></div>
-            </ion-card-content>
-          </ion-card>
-
-          <!-- CurrentAsk -->
-          <ion-card class="dynamic-card" v-if="currentAsk.id">
-            <ion-card-content>
-              <!--<div class="text-right"><small>{{currentAsk.id}}</small></div>-->
-              <div v-if="currentAsk.status == 1" class="text-center">Covoiturage Demandé</div>
-              <div v-if="currentAsk.status == 2" class="text-center">Covoiturage Accepté</div>
-              <div v-if="currentAsk.message" class="text-center">{{currentAsk.message}}</div>
-              <div v-if="currentAsk.messages"><div class="text-center" v-for="message in currentAsk.messages">{{message.text}}</div></div>
-
-              <div v-if="currentProof.id" class="text-center">
-                <ion-icon name="checkmark"></ion-icon> Preuve déposé <span class="muted"><!--<small style="margin-left: 5px">{{currentProof.id}}</small>--></span>
-              </div>
-              <ion-button expand="block" v-if="!currentProof.id && currentDynamic.role === 1" @click="postDynamicProof()">Prise en charge du passager</ion-button>
-              <ion-button expand="block" v-if="currentProof.id && currentDynamic.role === 1" @click="putDynamicProof()">Dépose du passager</ion-button>
-              <div v-if="currentAsk.proof">
-                <!--<div class="text-right muted"><small>{{currentAsk.proof.id}}</small></div>-->
-                <!--<div>ProofStatus : {{currentAsk.proof.needed}}</div>-->
-                <ion-button expand="block" v-if="!currentProof.id && currentAsk.proof.needed == 'pickUp' && currentDynamic.role === 2" @click="postDynamicProof()">Je suis pris en charge</ion-button>
-                <ion-button expand="block" v-if="currentAsk.proof.needed == 'dropOff' && currentDynamic.role === 2" @click="putDynamicProof()">Je suis déposé</ion-button>
-              </div>
-
-
-            </ion-card-content>
-          </ion-card>
-
-
-          <div v-if="!currentAsk.id && currentDynamic.role === 2 && currentDynamic.results && currentDynamic.results.length > 0">
-            <ion-card class="dynamic-card" v-for="(result, index) in currentDynamic.results">
+            <!-- CurrentDynamic -->
+            <ion-card class="dynamic-card" v-if="currentDynamic['@id']">
               <ion-card-content>
-                <div>
-                  <div>{{result.carpooler.givenName}} {{result.carpooler.shortFamilyName}}</div>
-                  <div v-if="result.carpooler.phone">{{result.carpooler.phone}}</div>
-                  <div class="d-flex align-center"><ion-icon name="flag"></ion-icon> {{result.resultPassenger.outward.destination.addressLocality}}</div>
-                </div>
-              <ion-button  expand="block" @click="postDynamicAskAlert(result.resultPassenger.outward.matchingId)">Covoiturer</ion-button>
+                <!--<div class="text-right muted" ><small>{{currentDynamic['@id']}}</small></div>-->
+                <div v-if="destination" class="d-flex align-center"><ion-icon name="flag"></ion-icon> {{this.destination.displayLabel[0]}}</div>
+                <div class="" ><small>{{currentDynamic.role == 1 ? 'Conducteur' : 'Passager'}}</small></div>
+                <div v-if="currentDynamic.comment" ><small>Commentaire : {{currentDynamic.comment}}</small></div>
+                <div v-if="currentDynamic.destination"><b>Arrivé</b></div>
               </ion-card-content>
             </ion-card>
-          </div>
 
-          <div v-if="!currentAsk.id && currentDynamic.role === 1 && currentDynamic.asks && currentDynamic.asks.length > 0">
-            <ion-card  class="dynamic-card" v-for="(result, index) in currentDynamic.asks">
+            <!-- CurrentAsk -->
+            <ion-card class="dynamic-card" v-if="currentAsk.id">
               <ion-card-content>
-                <div>
-                  <div>{{result.user.givenName}} {{result.user.shortFamilyName}}</div>
-                  <div v-if="result.user.phone">{{result.user.phone}}</div>
-                  <div v-if="result.messages"><div  class="text-center" v-for="message in result.messages">{{message.text}}</div></div>
-                  <div><ion-icon name="locate"></ion-icon> {{result.user.position.displayLabel[0]}}</div>
+                <!--<div class="text-right"><small>{{currentAsk.id}}</small></div>-->
+                <div v-if="currentAsk.status == 1" class="text-center">Covoiturage Demandé</div>
+                <div v-if="currentAsk.status == 2" class="text-center">Covoiturage Accepté</div>
+                <div v-if="currentAsk.message" class="text-center">{{currentAsk.message}}</div>
+                <div v-if="currentAsk.messages"><div class="text-center" v-for="message in currentAsk.messages">{{message.text}}</div></div>
+
+                <div v-if="currentProof.id" class="text-center">
+                  <ion-icon name="checkmark"></ion-icon> Preuve déposé <span class="muted"><!--<small style="margin-left: 5px">{{currentProof.id}}</small>--></span>
                 </div>
-              <ion-button expand="block" @click="putDynamicAsks(result.id, '')">Accepter</ion-button>
+                <ion-button expand="block" v-if="!currentProof.id && currentDynamic.role === 1" @click="postDynamicProof()">Prise en charge du passager</ion-button>
+                <ion-button expand="block" v-if="currentProof.id && currentDynamic.role === 1" @click="putDynamicProof()">Dépose du passager</ion-button>
+                <div v-if="currentAsk.proof">
+                  <!--<div class="text-right muted"><small>{{currentAsk.proof.id}}</small></div>-->
+                  <!--<div>ProofStatus : {{currentAsk.proof.needed}}</div>-->
+                  <ion-button expand="block" v-if="!currentProof.id && currentAsk.proof.needed == 'pickUp' && currentDynamic.role === 2" @click="postDynamicProof()">Je suis pris en charge</ion-button>
+                  <ion-button expand="block" v-if="currentAsk.proof.needed == 'dropOff' && currentDynamic.role === 2" @click="putDynamicProof()">Je suis déposé</ion-button>
+                </div>
+
+
               </ion-card-content>
             </ion-card>
+
+
+            <div v-if="!currentAsk.id && currentDynamic.role === 2 && currentDynamic.results && currentDynamic.results.length > 0">
+              <ion-card class="dynamic-card" v-for="(result, index) in currentDynamic.results">
+                <ion-card-content>
+                  <div>
+                    <div>{{result.carpooler.givenName}} {{result.carpooler.shortFamilyName}}</div>
+                    <div v-if="result.carpooler.phone">{{result.carpooler.phone}}</div>
+                    <div class="d-flex align-center"><ion-icon name="flag"></ion-icon> {{result.resultPassenger.outward.destination.addressLocality}}</div>
+                  </div>
+                  <ion-button  expand="block" @click="postDynamicAskAlert(result.resultPassenger.outward.matchingId)">Covoiturer</ion-button>
+                </ion-card-content>
+              </ion-card>
+            </div>
+
+            <div v-if="!currentAsk.id && currentDynamic.role === 1 && currentDynamic.asks && currentDynamic.asks.length > 0">
+              <ion-card  class="dynamic-card" v-for="(result, index) in currentDynamic.asks">
+                <ion-card-content>
+                  <div>
+                    <div>{{result.user.givenName}} {{result.user.shortFamilyName}}</div>
+                    <div v-if="result.user.phone">{{result.user.phone}}</div>
+                    <div v-if="result.messages"><div  class="text-center" v-for="message in result.messages">{{message.text}}</div></div>
+                    <div><ion-icon name="locate"></ion-icon> {{result.user.position.displayLabel[0]}}</div>
+                  </div>
+                  <ion-button expand="block" @click="putDynamicAsks(result.id, '')">Accepter</ion-button>
+                </ion-card-content>
+              </ion-card>
+            </div>
           </div>
 
           <!-- Close -->
@@ -286,6 +288,7 @@ LICENSE
   import { Plugins } from '@capacitor/core';
   import {isPlatform} from "@ionic/core";
   const { Geolocation } = Plugins;
+  const { Permissions } = Plugins;
   const { LocalNotifications } = Plugins;
 
 
@@ -332,7 +335,7 @@ LICENSE
         return this.$store.state.dynamicStore.myPosition;
       },
       destination() {
-          return this.$store.state.dynamicStore.destination;
+        return this.$store.state.dynamicStore.destination;
       },
       currentDynamic() {
         return this.$store.state.dynamicStore.currentDynamic
@@ -364,16 +367,22 @@ LICENSE
         this.$router.push({ name: "geoSearch", query: { type, action } });
       },
       async launchDynamic() {
-        const coordinates = await Geolocation.getCurrentPosition();
-        this.$store.commit('set_dynamic_my_position', {latitude: coordinates.coords.latitude.toString(), longitude: coordinates.coords.longitude.toString()});
-        this.$store.commit('set_dynamic_destination', this.$store.state.searchStore.searchObject.outwardWaypoints[1]);
-        console.log(this.destination);
-        this.currentDynamic.waypoints = [{latitude: this.myPosition.latitude, longitude: this.myPosition.longitude}, { latitude: this.destination.latitude, longitude: this.destination.longitude}];
+        const p = await Permissions.query({name: "geolocation"})
+        if (p.state == "granted" || p.state == "prompt") {
+          const coordinates = await Geolocation.getCurrentPosition();
+          this.$store.commit('set_dynamic_my_position', {latitude: coordinates.coords.latitude.toString(), longitude: coordinates.coords.longitude.toString()});
+          this.$store.commit('set_dynamic_destination', this.$store.state.searchStore.searchObject.outwardWaypoints[1]);
+          console.log(this.destination);
+          this.currentDynamic.waypoints = [{latitude: this.myPosition.latitude, longitude: this.myPosition.longitude}, { latitude: this.destination.latitude, longitude: this.destination.longitude}];
 
-        this.$store.dispatch('launchDynamics').then( () => {
-          console.log(this.currentDynamic);
-          this.startBackgroundGeolocation();
-        });
+          this.$store.dispatch('launchDynamics').then( () => {
+            console.log(this.currentDynamic);
+            this.startBackgroundGeolocation();
+          });
+        } else if (p.state == "denied") {
+          this.presentToast(this.$t("Commons.gps-permission"), "danger");
+        }
+
       },
       updateDynamics(result, body) {
         return this.$store.dispatch('putDynamics', {

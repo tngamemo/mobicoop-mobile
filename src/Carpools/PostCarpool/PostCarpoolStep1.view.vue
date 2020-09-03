@@ -141,6 +141,7 @@ import {
   requiredIf
 } from "vuelidate/lib/validators";
 import { address } from "../../Shared/Mixin/address.mixin";
+import { toast } from "../../Shared/Mixin/toast.mixin";
 
 export default {
   name: "post-carpool-step1",
@@ -148,7 +149,7 @@ export default {
     return {
     };
   },
-  mixins: [address],
+  mixins: [address, toast],
   validations: {
     carpoolToPost: {
       role: {
@@ -170,7 +171,11 @@ export default {
       }
     },
   },
-  created() {},
+  created() {
+    if(this.carpoolToPost.outwardDate == "") {
+      this.$store.commit('changeDateOutwardCarpool', {outwardDate: new Date()})
+    }
+  },
   computed: {
     carpoolToPost() {
       return this.$store.getters.carpoolToPost;
@@ -206,6 +211,7 @@ export default {
       this.$v.$reset();
       this.$v.$touch();
       if (this.$v.$invalid) {
+        this.presentToast(this.$t("Commons.form-error"), "danger");
         return false;
       } else {
         return true;

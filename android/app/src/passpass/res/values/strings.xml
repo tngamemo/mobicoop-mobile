@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">PassPass</string>
-    <string name="title_activity_main">PassPass</string>
+    <string name="app_name">PassPass Covoiturage</string>
+    <string name="title_activity_main">PassPass Covoiturage</string>
     <string name="package_name">com.covivo.passpass</string>
     <string name="custom_url_scheme">com.covivo.passpass</string>
   <string name="mauron85_bgloc_account_name">@string/app_name</string>

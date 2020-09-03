@@ -157,7 +157,7 @@ LICENSE
          this.password = '';
 
          if (!! this.$store.getters.redirectionUrl) {
-            this.$router.push({path: this.$store.getters.redirectionUrl});
+            this.$router.replace({path: this.$store.getters.redirectionUrl});
             this.$store.commit('redirectionUrl_reset');
          } else {
             this.$router.push('home');

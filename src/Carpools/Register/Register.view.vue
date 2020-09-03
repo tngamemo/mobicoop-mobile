@@ -85,6 +85,12 @@ export default {
       this.$store
         .dispatch("register")
         .then(res => {
+          if(JSON.parse(process.env.VUE_APP_GTAG_ACTIVATED)) {
+            gtag('event', 'conversion', {
+              'allow_custom_scripts': true,
+              'send_to': 'DC-8013475/movici/movic0+standard'
+            });
+          }
           this.$store.commit("register_reset");
           this.$router.push("home");
           this.$router.push({path: "/confirm-registration/" + email});
