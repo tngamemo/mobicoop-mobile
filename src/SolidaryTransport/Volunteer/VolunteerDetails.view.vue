@@ -224,7 +224,7 @@ export default {
     this.$refs['max-distance'].value = this.volunteer.maxDistance
   },
   created: function () {
-    this.volunteer.maxDistance  = (this.volunteer.minDeviationDistance + this.volunteer.maxDeviationDistance)/2;
+    this.volunteer.maxDistance  = Math.trunc((this.volunteer.minDeviationDistance + this.volunteer.maxDeviationDistance)/2);
   }
 }
 </script>
