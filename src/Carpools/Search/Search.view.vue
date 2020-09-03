@@ -40,11 +40,11 @@ LICENSE
             <ion-icon name="car"></ion-icon>
             <ion-badge class="cp-badge" color="secondary">{{numberOfResultsSearch}}</ion-badge>
           </ion-segment-button>
-          <ion-segment-button value="rdex">
+          <ion-segment-button v-if="hasSearchPT" value="rdex">
             <ion-icon name="more"></ion-icon>
             <ion-badge class="cp-badge" color="secondary">{{numberOfResultsRdex}}</ion-badge>
           </ion-segment-button>
-          <ion-segment-button value="publicTransport">
+          <ion-segment-button  v-if="hasSearchRdex" value="publicTransport">
             <ion-icon name="bus"></ion-icon>
             <ion-badge class="cp-badge" color="secondary">{{numberOfResultsPT}}</ion-badge>
           </ion-segment-button>
@@ -118,6 +118,10 @@ LICENSE
     padding-top: 4px;
     padding-left: 4.5px;
   }
+
+  ion-segment-button {
+    max-width: none;
+  }
 </style>
 
 <script>
@@ -172,7 +176,9 @@ LICENSE
     },
     data () {
       return {
-        tab: 'carpool'
+        tab: 'carpool',
+        hasSearchPT: JSON.parse(process.env.VUE_APP_SEARCH_PT),
+        hasSearchRdex: JSON.parse(process.env.VUE_APP_SEARCH_RDEX)
       }
     },
 
@@ -183,8 +189,12 @@ LICENSE
       search(role) {
         this.$store.state.searchStore.searchObject.role = role;
         this.$store.dispatch('searchCarpools', this.$route.params.filters);
-        this.$store.dispatch('searchPublicTransports');
-        this.$store.dispatch('searchRdex');
+        if (this.hasSearchPT) {
+          this.$store.dispatch('searchPublicTransports');
+        }
+        if (this.hasSearchPT) {
+          this.$store.dispatch('searchRdex');
+        }
       },
       getFormattedCarpoolItem(carpool) {
         return new CarpoolItemDTO().carpoolItemFromSearch(carpool)
