@@ -52,7 +52,46 @@ export default class CarpoolItemDTO {
       this.returnTime = carpool.returnTime;
     }
     this.resultDriverOrPassenger = this.resultDriveOrPassenger(carpool);
-    this.isMultipleTimes = this.resultDriverOrPassenger.outward.multipleTimes;
+    if(this.resultDriverOrPassenger  && this.resultDriverOrPassenger.outward) {
+      this.isMultipleTimes = this.resultDriverOrPassenger.outward.multipleTimes;
+    }
+    return this;
+  }
+
+  carpoolItemFromRdex(carpool){
+    this.id = carpool.id;
+    this.externalOperator =  carpool.externalOperator;
+    this.externalOrigin = carpool.externalOrigin;
+    this.externalUrl = carpool.externalUrl;
+    this.frequency = carpool.frequency;
+    this.price = carpool.roundedPrice;
+    this.passenger = !!carpool.resultDriver;
+    this.driver = !!carpool.resultPassenger;
+    this.seats = carpool.seats;
+    this.origin = carpool.origin;
+    this.destination = carpool.destination;
+    this.carpooler = this.getCarpooler(carpool);
+    this.community = carpool.communities;
+    this.pendingAsk = carpool.pendingAsk;
+    this.acceptedAsk = carpool.acceptedAsk;
+    if (carpool.frequency == 1) {
+      this.date = carpool.date;
+      this.time = carpool.time;
+      // indexTime permet d'afficher l'horaire de prise en charge, si passager on prend le 2eme outward waypoint et l'avant dernier pour la dépose.
+      const indexTime = !!carpool.resultDriver ? 1 : 0;
+      this.outwardTime = this.resultDriveOrPassenger(carpool).outward.waypoints[indexTime].time;
+      const arr = [...this.resultDriveOrPassenger(carpool).outward.waypoints];
+      this.outwardEndTime = arr[arr.length - (1 + indexTime)].time;
+    }
+    if (carpool.frequency == 2) {
+      this.regularDays = this.getRegularDaysFromSearch(carpool);
+      this.outwardTime = carpool.outwardTime;
+      this.returnTime = carpool.returnTime;
+    }
+    this.resultDriverOrPassenger = this.resultDriveOrPassenger(carpool);
+    if(this.resultDriverOrPassenger && this.resultDriverOrPassenger.outward) {
+      this.isMultipleTimes = this.resultDriverOrPassenger.outward.multipleTimes;
+    }
     return this;
   }
 
@@ -109,7 +148,9 @@ export default class CarpoolItemDTO {
 
   getCarpooler(carpool) {
     const carpooler = {};
-    carpooler.avatar = carpool.carpooler.avatars[0];
+    if (carpool.carpooler.avatars) {
+      carpooler.avatar = carpool.carpooler.avatars[0];
+    }
     carpooler.givenName = carpool.carpooler.givenName;
     carpooler.shortFamilyName = carpool.carpooler.shortFamilyName;
     return carpooler

@@ -19,7 +19,7 @@ LICENSE
 **************************/
 
 <template>
-  <div class="mc-carpool-item">
+  <div class="mc-carpool-item pointer">
     <div class="mc-carpool-header d-flex justify-between align-center flex-wrap">
       <div v-if="isPunctualCarpool">
         <span>{{ getDateCarpoolItem }}</span>
@@ -87,7 +87,8 @@ LICENSE
     </div>
 
     <div class="mc-carpool-footer">
-      <div v-if="this.carpool.carpooler && type == 'search'" class="d-flex align-center">
+      <div v-if="this.carpool.carpooler && type == 'search'" class="d-flex justify-between align-center">
+        <div class="d-flex align-center">
         <ion-thumbnail>
           <img
             :hidden="!(this.carpool.carpooler.avatar && this.avatarLoaded)"
@@ -99,6 +100,10 @@ LICENSE
         <strong
           class="mc-carpool-carpooler"
         >{{this.carpool.carpooler.givenName}} {{this.carpool.carpooler.shortFamilyName}}</strong>
+        </div>
+        <div v-if="this.carpool.externalOperator">
+          {{this.carpool.externalOperator}}
+        </div>
       </div>
       <div v-if="type == 'my-carpool'">
         <div class="ion-text-start">

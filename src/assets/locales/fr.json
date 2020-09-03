@@ -88,6 +88,7 @@
     "titlePage": "Résultats",
     "error": "Une erreur est survenue durant la recherche. Veuillez réessayer ultérieurement.",
     "nbResult": "Aucun résultat de covoiturage |{count} annonce de covoiturage trouvée | {count} annonces de covoiturages trouvées",
+    "nbResultPT": "Aucun résultat |{count} trajet trouvé | {count} trajets trouvés",
     "step": "Etape"
   },
   "Help": {
