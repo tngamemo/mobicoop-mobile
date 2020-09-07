@@ -34,7 +34,7 @@ export default class CarpoolItemDTO {
     this.origin = carpool.origin;
     this.destination = carpool.destination;
     this.carpooler = this.getCarpooler(carpool);
-    this.community = carpool.communities;
+    this.community =  Array.isArray(carpool.communities) ? carpool.communities : Object.keys(carpool.communities);
     this.pendingAsk = carpool.pendingAsk;
     this.acceptedAsk = carpool.acceptedAsk;
     if (carpool.frequency == 1) {
@@ -71,7 +71,6 @@ export default class CarpoolItemDTO {
     this.origin = carpool.origin;
     this.destination = carpool.destination;
     this.carpooler = this.getCarpooler(carpool);
-    this.community = carpool.communities;
     this.pendingAsk = carpool.pendingAsk;
     this.acceptedAsk = carpool.acceptedAsk;
     if (carpool.frequency == 1) {

@@ -250,6 +250,18 @@ export const communityStore = {
           })
       })
     },
+    getCommunityImages({commit}, communityId) {
+      return new Promise((resolve, reject) => {
+        http.get(`/communities/${communityId}/images`)
+          .then(resp => {
+            resolve(resp)
+          })
+          .catch(err => {
+            console.log('error');
+            reject(err)
+          })
+      })
+    },
   },
   getters : {
     communities: state => {

@@ -101,6 +101,13 @@ LICENSE
           class="mc-carpool-carpooler"
         >{{this.carpool.carpooler.givenName}} {{this.carpool.carpooler.shortFamilyName}}</strong>
         </div>
+        <div v-if="this.carpool.communityImages && this.carpool.communityImages.length > 0">
+          <span v-for="c in this.carpool.communityImages">
+            <ion-thumbnail>
+              <img :src="c[0].versions.square_250" />
+            </ion-thumbnail>
+          </span>
+        </div>
         <div v-if="this.carpool.externalOperator">
           {{this.carpool.externalOperator}}
         </div>
@@ -332,7 +339,17 @@ export default {
     };
   },
   mixins: [toast],
-  mounted() {},
+  mounted() {
+    if(this.carpool.community && this.carpool.community.length > 0) {
+      this.carpool.communityImages = []
+      this.carpool.community.forEach(c => {
+        this.$store.dispatch("getCommunityImages", c).then(res => {
+          this.carpool.communityImages.push(res.data['hydra:member']);
+          this.$forceUpdate();
+        })
+      });
+    }
+  },
   computed: {
     getDateCarpoolItem() {
       return this.$moment(this.carpool.date).format("dddd D[.]MM");

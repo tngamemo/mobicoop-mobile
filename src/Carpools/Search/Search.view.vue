@@ -116,7 +116,13 @@ LICENSE
     height: 18px;
     width: 18px;
     padding-top: 4px;
-    padding-left: 4.5px;
+    padding-left: 0px;
+    text-align: center;
+    padding-right: 0px;
+  }
+
+  .ios .cp-badge {
+    transform: translateX(26px) translateY(0px);
   }
 
   ion-segment-button {

@@ -99,35 +99,42 @@ LICENSE
     methods: {
       getText(ptLeg) {
         let duration = moment().startOf('day');
-        if (ptLeg.duration.includes('H')) {
-          duration = moment(ptLeg.duration, '[PT]H[H]m[M]ss[S]');
-        } else if (ptLeg.duration.includes('M')) {
-          duration = moment(ptLeg.duration, '[PT]m[M]ss[S]');
-        } else if (ptLeg.duration.includes('S')) {
-          duration = moment(ptLeg.duration, '[PT]ss[S]');
+        if(ptLeg.duration) {
+          duration = moment().startOf('day').add(ptLeg.duration, 'seconds')
+
+          /*
+          ptLeg.duration = ptLeg.duration.toString();
+          if (ptLeg.duration.includes('H')) {
+            duration = moment(ptLeg.duration, '[PT]H[H]m[M]ss[S]');
+          } else if (ptLeg.duration.includes('M')) {
+            duration = moment(ptLeg.duration, '[PT]m[M]ss[S]');
+          } else if (ptLeg.duration.includes('S')) {
+            duration = moment(ptLeg.duration, '[PT]ss[S]');
+          }
+           */
         }
 
         switch (ptLeg.travelMode.name) {
           case "CAR":
-            return 'Prendre la voiture de  <b>' + ptLeg.ptdeparture.name +  '</b> jusqu\'à <b>'  + ptLeg.ptarrival.name + '</b>.' + '<br><small>Durée estimée : ' + duration.format('m[m] ss[s]') + '</small>';
+            return 'Prendre la voiture de  <b>' + ptLeg.ptdeparture.address.displayLabel[0] +  '</b> jusqu\'à <b>'  + ptLeg.ptarrival.address.displayLabel[0] + '</b>.' + '<br><small>Durée estimée : ' + duration.format('m[m] ss[s]') + '</small>';
           case "BUS":
-            return 'Prendre le Bus en partance de <b>' + ptLeg.ptdeparture.name + '</b> et en direction de <b>' + ptLeg.direction + '</b><br>' + "Descendre à <b>" + ptLeg.ptarrival.name + '</b>' + '<br><small>Durée estimée : ' + duration.format('m[m] s[s]') + '</small>';
+            return 'Prendre le Bus en partance de <b>' + ptLeg.ptdeparture.address.displayLabel[0] + '</b> et en direction de <b>' + ptLeg.direction + '</b><br>' + "Descendre à <b>" + ptLeg.ptarrival.address.displayLabel[0] + '</b>' + '<br><small>Durée estimée : ' + duration.format('m[m] s[s]') + '</small>';
           case "TRAMWAY":
-            return 'Prendre le Tramway en partance de <b>' + ptLeg.ptdeparture.name + '</b> et en direction de <b>' + ptLeg.direction + '</b><br>' + "Descendre à <b>" + ptLeg.ptarrival.name + '</b>' + '<br><small>Durée estimée : ' + duration.format('m[m] s[s]') + '</small>';
+            return 'Prendre le Tramway en partance de <b>' + ptLeg.ptdeparture.address.displayLabel[0] + '</b> et en direction de <b>' + ptLeg.direction + '</b><br>' + "Descendre à <b>" + ptLeg.ptarrival.address.displayLabel[0] + '</b>' + '<br><small>Durée estimée : ' + duration.format('m[m] s[s]') + '</small>';
           case "COACH":
-            return 'Prendre le Bus en partance de <b>' + ptLeg.ptdeparture.name + '</b> et en direction de <b>' + ptLeg.direction + '</b><br>' + "Descendre à <b>" + ptLeg.ptarrival.name + '</b>' + '<br><small>Durée estimée : ' + duration.format('m[m] s[s]') + '</small>';
+            return 'Prendre le Bus en partance de <b>' + ptLeg.ptdeparture.address.displayLabel[0] + '</b> et en direction de <b>' + ptLeg.direction + '</b><br>' + "Descendre à <b>" + ptLeg.ptarrival.address.displayLabel[0] + '</b>' + '<br><small>Durée estimée : ' + duration.format('m[m] s[s]') + '</small>';
           case "TRAIN":
-            return 'Prendre le Train en partance de <b>' + ptLeg.ptdeparture.name + '</b> et en direction de <b>' + ptLeg.direction + '</b><br>' + "Descendre à <b>" + ptLeg.ptarrival.name + '</b>' + '<br><small>Durée estimée : ' + duration.format('m[m] s[s]') + '</small>';
+            return 'Prendre le Train en partance de <b>' + ptLeg.ptdeparture.address.displayLabel[0] + '</b> et en direction de <b>' + ptLeg.direction + '</b><br>' + "Descendre à <b>" + ptLeg.ptarrival.address.displayLabel[0] + '</b>' + '<br><small>Durée estimée : ' + duration.format('m[m] s[s]') + '</small>';
           case "TRAIN_LOCAL":
-            return 'Prendre le Train en partance de <b>' + ptLeg.ptdeparture.name + '</b> et en direction de <b>' + ptLeg.direction + '</b><br>' + "Descendre à <b>" + ptLeg.ptarrival.name + '</b>' + '<br><small>Durée estimée : ' + duration.format('m[m] s[s]') + '</small>';
+            return 'Prendre le Train en partance de <b>' + ptLeg.ptdeparture.address.displayLabel[0] + '</b> et en direction de <b>' + ptLeg.direction + '</b><br>' + "Descendre à <b>" + ptLeg.ptarrival.address.displayLabel[0] + '</b>' + '<br><small>Durée estimée : ' + duration.format('m[m] s[s]') + '</small>';
           case "TRAIN_HIGH_SPEED":
-            return 'Prendre le Train en partance de <b>' + ptLeg.ptdeparture.name + '</b> et en direction de <b>' + ptLeg.direction + '</b><br>' + "Descendre à <b>" + ptLeg.ptarrival.name + '</b>' + '<br><small>Durée estimée : ' + duration.format('m[m] s[s]') + '</small>';
+            return 'Prendre le Train en partance de <b>' + ptLeg.ptdeparture.address.displayLabel[0] + '</b> et en direction de <b>' + ptLeg.direction + '</b><br>' + "Descendre à <b>" + ptLeg.ptarrival.address.displayLabel[0] + '</b>' + '<br><small>Durée estimée : ' + duration.format('m[m] s[s]') + '</small>';
           case "BIKE":
-            return 'Prendre le vélo de  <b>' + ptLeg.ptdeparture.name +  '</b> jusqu\'à <b>'  + ptLeg.ptarrival.name + '</b>.' + '<br><small>Durée estimée : ' + duration.format('m[m] s[s]') + '</small>';
+            return 'Prendre le vélo de  <b>' + ptLeg.ptdeparture.address.displayLabel[0] +  '</b> jusqu\'à <b>'  + ptLeg.ptarrival.address.displayLabel[0] + '</b>.' + '<br><small>Durée estimée : ' + duration.format('m[m] s[s]') + '</small>';
           case "WALK":
-            return 'Marcher de  <b>' + ptLeg.ptdeparture.name +  '</b> jusqu\'à <b>'  + ptLeg.ptarrival.name + '</b>.' + '<br><small>Durée estimée : ' + duration.format('m[m] s[s]') + '</small>';
+            return 'Marcher de  <b>' + ptLeg.ptdeparture.address.displayLabel[0] +  '</b> jusqu\'à <b>'  + ptLeg.ptarrival.address.displayLabel[0] + '</b>.' + '<br><small>Durée estimée : ' + duration.format('m[m] s[s]') + '</small>';
           case "SUBWAY":
-            return 'Prendre le Métro en partance de <b>' + ptLeg.ptdeparture.name + '</b> et en direction de <b>' + ptLeg.direction + '</b><br>' + "Descendre à <b>" + ptLeg.ptarrival.name + '</b>' + '<br><small>Durée estimée : ' + duration.format('m[m] s[s]') + '</small>';
+            return 'Prendre le Métro en partance de <b>' + ptLeg.ptdeparture.address.displayLabel[0] + '</b> et en direction de <b>' + ptLeg.direction + '</b><br>' + "Descendre à <b>" + ptLeg.ptarrival.address.displayLabel[0] + '</b>' + '<br><small>Durée estimée : ' + duration.format('m[m] s[s]') + '</small>';
           case "WAITING":
             return 'Veuillez attendre ' + duration.format('m') + ' minutes';
           default:
