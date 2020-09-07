@@ -26,7 +26,7 @@ LICENSE
         <ion-label position="floating">{{$t('PostCarpool.origin')}}</ion-label>
         <ion-input
           type="text"
-          class="no-clickable"
+          class="no-clickable ellipsis"
           :placeholder="$t('Search.origin')"
           :value="displayOrigin"
         ></ion-input>
@@ -48,7 +48,7 @@ LICENSE
             <ion-label position="floating">{{$t('PostCarpool.step')}} {{index + 1}}</ion-label>
             <ion-input
               type="text"
-              class="no-clickable"
+              class="no-clickable ellipsis"
               :placeholder="$t('Search.step')"
               :value="displayStep(index)"
             ></ion-input>
@@ -70,7 +70,7 @@ LICENSE
         <ion-label position="floating">{{$t('PostCarpool.destination')}}</ion-label>
         <ion-input
           type="text"
-          class="no-clickable"
+          class="no-clickable ellipsis"
           :placeholder="$t('Search.destination')"
           :value="displayDestination"
         ></ion-input>

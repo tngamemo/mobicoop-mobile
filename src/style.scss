@@ -170,6 +170,10 @@ ion-col {
     --background:var(--charcoal,#36454f);
 }
 
+.ellipsis {
+  text-overflow: ellipsis;
+}
+
 
 ion-item {
   visibility: visible;

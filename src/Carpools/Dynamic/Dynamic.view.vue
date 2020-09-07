@@ -50,7 +50,7 @@ LICENSE
             <ion-label position="floating">{{$t('Search.destination')}}</ion-label>
             <ion-input
               type="text"
-              class="no-clickable"
+              class="no-clickable ellipsis"
               :placeholder="$t('Search.destination')"
               :value="this.$store.state.searchStore.display.destination"
             ></ion-input>

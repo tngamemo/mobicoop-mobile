@@ -30,7 +30,7 @@ LICENSE
     </ion-header>
 
     <ion-content color="primary" no-bounce>
-      <div class="mc-white-container" style="height: 100%">
+      <div class="mc-white-container" style="height: 100%;">
 
         <div class="mc-form-login">
 
@@ -89,7 +89,8 @@ LICENSE
       flex: 1;
       flex-direction: column;
       display: flex;
-      justify-content: center
+      justify-content: center;
+      overflow: scroll;
     }
   }
 </style>

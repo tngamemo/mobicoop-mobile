@@ -22,6 +22,7 @@
 		77397E46349C1B24E780CD04 /* Pods_Grand_Lyon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A553FBCF5C28BB918961DC1 /* Pods_Grand_Lyon.framework */; };
 		7E58C2DFAF4A614EC197C59C /* Pods_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 582D0F00A9C256EA7C0CC948 /* Pods_App.framework */; };
 		812ABABB246D7D0C00DC9A9D /* GoogleService-Info-Movici.plist in Resources */ = {isa = PBXBuildFile; fileRef = 812ABABA246D7D0C00DC9A9D /* GoogleService-Info-Movici.plist */; };
+		8133F5A025012CD1008D2490 /* GoogleService-Info-Grand Lyon.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8133F59F25012CD1008D2490 /* GoogleService-Info-Grand Lyon.plist */; };
 		816F3EB5242CE44D0015981B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504EC3071FED79650016851F /* AppDelegate.swift */; };
 		816F3EB9242CE44D0015981B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 504EC3101FED79650016851F /* LaunchScreen.storyboard */; };
 		816F3EBA242CE44D0015981B /* public in Resources */ = {isa = PBXBuildFile; fileRef = 50B271D01FEDC1A000F3C39B /* public */; };
@@ -81,7 +82,6 @@
 		81B68661243F756300A2FBC5 /* MobicoopAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 81B6865F243F755D00A2FBC5 /* MobicoopAssets.xcassets */; };
 		81B68662243F759100A2FBC5 /* PassPassAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 81B68645243F6D0500A2FBC5 /* PassPassAssets.xcassets */; };
 		81BE23E22472DB200073D645 /* GoogleService-Info-PassPass.plist in Resources */ = {isa = PBXBuildFile; fileRef = 81BE23E12472DB1F0073D645 /* GoogleService-Info-PassPass.plist */; };
-		81BE23E42472DB330073D645 /* GoogleService-Info-Grand Lyon.plist in Resources */ = {isa = PBXBuildFile; fileRef = 81BE23E32472DB320073D645 /* GoogleService-Info-Grand Lyon.plist */; };
 		81BE23E62472DB430073D645 /* GoogleService-Info-Picholines.plist in Resources */ = {isa = PBXBuildFile; fileRef = 81BE23E52472DB430073D645 /* GoogleService-Info-Picholines.plist */; };
 		81BE23E82472DB4D0073D645 /* GoogleService-Info-OuestGo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 81BE23E72472DB4C0073D645 /* GoogleService-Info-OuestGo.plist */; };
 		A084ECDBA7D38E1E42DFC39D /* (null) in Frameworks */ = {isa = PBXBuildFile; };
@@ -121,6 +121,7 @@
 		812ABABF246D834B00DC9A9D /* Picholines.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Picholines.entitlements; sourceTree = "<group>"; };
 		812ABAC0246D835500DC9A9D /* PassPass.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PassPass.entitlements; sourceTree = "<group>"; };
 		812ABAC1246D835E00DC9A9D /* Grand Lyon.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Grand Lyon.entitlements"; sourceTree = "<group>"; };
+		8133F59F25012CD1008D2490 /* GoogleService-Info-Grand Lyon.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info-Grand Lyon.plist"; path = "../../../../../../Desktop/GoogleService-Info-Grand Lyon.plist"; sourceTree = "<group>"; };
 		816F3EC5242CE44D0015981B /* Picholines.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Picholines.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		816F3EC6242CE44E0015981B /* Picholines-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Picholines-Info.plist"; path = "/Users/volteris/Documents/idea/mobicoop-v2/ios/App/Picholines-Info.plist"; sourceTree = "<absolute>"; };
 		816F3EC7242CE4AA0015981B /* PicholinesAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = PicholinesAssets.xcassets; sourceTree = "<group>"; };
@@ -144,7 +145,6 @@
 		81B6865D243F752900A2FBC5 /* Mobicoop-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Mobicoop-Info.plist"; path = "/Users/volteris/Documents/idea/mobicoop-v2/ios/App/Mobicoop-Info.plist"; sourceTree = "<absolute>"; };
 		81B6865F243F755D00A2FBC5 /* MobicoopAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MobicoopAssets.xcassets; sourceTree = "<group>"; };
 		81BE23E12472DB1F0073D645 /* GoogleService-Info-PassPass.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-PassPass.plist"; sourceTree = "<group>"; };
-		81BE23E32472DB320073D645 /* GoogleService-Info-Grand Lyon.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-Grand Lyon.plist"; sourceTree = "<group>"; };
 		81BE23E52472DB430073D645 /* GoogleService-Info-Picholines.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-Picholines.plist"; sourceTree = "<group>"; };
 		81BE23E72472DB4C0073D645 /* GoogleService-Info-OuestGo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-OuestGo.plist"; sourceTree = "<group>"; };
 		8B18C8B8C502A53E11D9DE0A /* Pods-Txik Txak.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Txik Txak.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Txik Txak/Pods-Txik Txak.debug.xcconfig"; sourceTree = "<group>"; };
@@ -303,7 +303,7 @@
 				81A5BD6124ADDD9D00F13A16 /* TxikTxak-Info.plist */,
 				812ABABA246D7D0C00DC9A9D /* GoogleService-Info-Movici.plist */,
 				81BE23E72472DB4C0073D645 /* GoogleService-Info-OuestGo.plist */,
-				81BE23E32472DB320073D645 /* GoogleService-Info-Grand Lyon.plist */,
+				8133F59F25012CD1008D2490 /* GoogleService-Info-Grand Lyon.plist */,
 				81BE23E12472DB1F0073D645 /* GoogleService-Info-PassPass.plist */,
 				81BE23E52472DB430073D645 /* GoogleService-Info-Picholines.plist */,
 				81A5BD6524ADEAFE00F13A16 /* GoogleService-Info-Txik Txak.plist */,
@@ -594,9 +594,9 @@
 				817E8CC324644BAB0060A3B8 /* capacitor.config.json in Resources */,
 				817E8CC524644BAB0060A3B8 /* Main.storyboard in Resources */,
 				817E8CC724644BAB0060A3B8 /* config.xml in Resources */,
+				8133F5A025012CD1008D2490 /* GoogleService-Info-Grand Lyon.plist in Resources */,
 				817E8CCF24644C7B0060A3B8 /* GrandLyon-Info.plist in Resources */,
 				817E8CD224644CC80060A3B8 /* GrandLyonAssets.xcassets in Resources */,
-				81BE23E42472DB330073D645 /* GoogleService-Info-Grand Lyon.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1343,13 +1343,13 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 8X98ZWRY77;
+				DEVELOPMENT_TEAM = 96Q289G5H6;
 				INFOPLIST_FILE = "GrandLyon-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 2.0.8;
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-DDEBUG\"";
-				PRODUCT_BUNDLE_IDENTIFIER = fr.mobicoop.grandlyon;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobicoop.grandlyon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG USE_PUSH";
@@ -1367,12 +1367,12 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 8X98ZWRY77;
+				DEVELOPMENT_TEAM = 96Q289G5H6;
 				INFOPLIST_FILE = "GrandLyon-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 2.0.8;
-				PRODUCT_BUNDLE_IDENTIFIER = fr.mobicoop.grandlyon;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobicoop.grandlyon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = USE_PUSH;

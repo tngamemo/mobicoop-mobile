@@ -128,8 +128,8 @@ export default class RecapCarpoolDTO {
     this.seats = carpool.seats;
     this.comment = carpool.comment;
     this.user = carpool.carpooler;
-    this.returnTime = moment(carpool.returnTime).utc().format('HH:mm');
-    this.outwardTime = moment(carpool.outwardTime).utc().format('HH:mm');
+    this.returnTime = carpool.returnTime ? moment(carpool.returnTime).utc().format('HH:mm') : null;
+    this.outwardTime = carpool.outwardTime ? moment(carpool.outwardTime).utc().format('HH:mm') : null;
     this.passenger = !!carpool.resultPassenger;
     this.driver = !!carpool.resultDriver;
 

@@ -51,7 +51,7 @@ LICENSE
         <ion-item  v-on:click="goGeoSearch('origin', 'post')">
           <ion-input
             type="text"
-            class="no-clickable"
+            class="no-clickable ellipsis"
             :placeholder="$t('Search.origin')"
             :value="displayOrigin"
             >
@@ -74,7 +74,7 @@ LICENSE
         <ion-item v-on:click="goGeoSearch('destination', 'post')">
           <ion-input
             type="text"
-            class="no-clickable"
+            class="no-clickable ellipsis"
             :placeholder="$t('Search.destination')"
             :value="displayDestination"
             >

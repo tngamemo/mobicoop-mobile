@@ -20,6 +20,9 @@ LICENSE
 
 <template>
   <div id="app">
+    <div class="d-flex justify-center align-center" style="height: 100%" v-if="!loaded">
+      <ion-icon size="large" color="light" class="rotating" name="md-sync"></ion-icon>
+    </div>
     <ion-app v-if="loaded">
       <ion-vue-router />
     </ion-app>
@@ -264,5 +267,9 @@ LICENSE
 
 <style lang="scss">
   @import "./style.scss";
+
+  #app {
+    height: 100%;
+  }
 
 </style>

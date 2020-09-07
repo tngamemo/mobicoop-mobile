@@ -19,6 +19,7 @@
     "serve:crf": "vue-cli-service serve --mode crf",
     "build": "vue-cli-service build",
     "build:grandlyon:test": "export NODE_ENV=production && export VUE_APP_API_URL=https://api.test.grand-lyon.mobicoop.io && vue-cli-service build --mode grandlyon",
+    "build:grandlyon:prod": "export NODE_ENV=production && export VUE_APP_API_URL=https://api.encovoit-grandlyon.com && export VUE_APP_API_PASSWORD=UHlno5BvBUswu22l && vue-cli-service build --mode grandlyon",
     "build:mobicoop:test": "export NODE_ENV=production && export VUE_APP_API_URL=https://api.test.mobicoop.io && vue-cli-service build --mode mobicoop",
     "build:ouestgo:dev": "vue-cli-service build --mode ouestgo",
     "build:ouestgo:test": "export NODE_ENV=production && export VUE_APP_API_URL=https://api.test.lab.ouestgo.fr && vue-cli-service build --mode ouestgo",
