@@ -6,8 +6,8 @@ android {
         applicationId "eu.covivo.covisoft"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 95
-        versionName "2.1.1"
+        versionCode 96
+        versionName "2.1.2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -39,7 +39,7 @@ android {
           dimension "api"
         }
         grandlyon {
-          applicationId 'fr.mobicoop.grandlyon'
+          applicationId 'com.mobicoop.grandlyon'
           dimension "api"
         }
         txiktxak {

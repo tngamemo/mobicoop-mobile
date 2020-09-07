@@ -26,7 +26,7 @@ LICENSE
         <ion-label position="floating">{{$t('PostCarpool.origin')}}</ion-label>
         <ion-input
           type="text"
-          class="no-clickable"
+          class="no-clickable ellipsis"
           :placeholder="$t('Search.origin')"
           :value="displayOrigin"
         ></ion-input>
@@ -48,7 +48,7 @@ LICENSE
             <ion-label position="floating">{{$t('PostCarpool.step')}} {{index + 1}}</ion-label>
             <ion-input
               type="text"
-              class="no-clickable"
+              class="no-clickable ellipsis"
               :placeholder="$t('Search.step')"
               :value="displayStep(index)"
             ></ion-input>
@@ -70,7 +70,7 @@ LICENSE
         <ion-label position="floating">{{$t('PostCarpool.destination')}}</ion-label>
         <ion-input
           type="text"
-          class="no-clickable"
+          class="no-clickable ellipsis"
           :placeholder="$t('Search.destination')"
           :value="displayDestination"
         ></ion-input>
@@ -104,6 +104,7 @@ LICENSE
         cancel-text="Fermer"
         ok-text="Valider"
         :value="selectedCommunities"
+        @ionChange="setCommunities($event)"
       >
         <ion-select-option
           v-for="community in this.$store.getters.userCommunities"
@@ -222,6 +223,7 @@ export default {
       url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
       zoom: 8,
       showCard: true,
+      selectedCommunities: [],
       optionsCard: {
         dragging: !isPlatform(window.document.defaultView, "mobile"),
         touchZoom: isPlatform(window.document.defaultView, "mobile"),
@@ -254,6 +256,7 @@ export default {
     }, 0);
   },
   created() {
+    this.selectedCommunities = this.$store.state.carpoolStore.carpoolToPost.communities;
     this.unwatch = this.$store.watch(
       (state, getters) => getters.currentSlider,
       (newValue, oldValue) => {
@@ -277,10 +280,6 @@ export default {
       );
       if (!!this.$refs.map) this.$refs.map.mapObject.invalidateSize();
       return bounds;
-    },
-
-    selectedCommunities() {
-      return this.$store.getters.carpoolToPost.communities;
     },
 
     carpoolToPost() {
@@ -343,6 +342,10 @@ export default {
     addInputStep: function() {
       this.$store.getters.addressessUseToPost["step"].push({});
     },
+
+    setCommunities(event) {
+      this.$store.state.carpoolStore.carpoolToPost.communities = event.detail.value;
+    }
 
   }
 };
