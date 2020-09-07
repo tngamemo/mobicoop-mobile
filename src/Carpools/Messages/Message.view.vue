@@ -393,6 +393,15 @@ export default {
         .create({
           buttons: [
             {
+              text: this.thread.blocked ? this.$t('DetailCarpool.unblock') : this.$t('DetailCarpool.block'),
+              icon: 'close-circle',
+              handler: () => {
+                this.$store.dispatch('blockUser', this.thread.idRecipient).then(res => {
+                  this.$router.back();
+                });
+              },
+            },
+            {
               text: this.$t('DetailCarpool.report'),
               icon: 'warning',
               handler: () => {

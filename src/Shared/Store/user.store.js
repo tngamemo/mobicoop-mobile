@@ -469,6 +469,17 @@ export const userStore = {
           })
       })
     },
+    blockUser({commit}, userId) {
+      return new Promise((resolve, reject) => {
+        http.post(`/blocks`, {user: '/users/' + userId})
+          .then(resp => {
+            resolve(resp)
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
+    },
 
   },
   getters : {
