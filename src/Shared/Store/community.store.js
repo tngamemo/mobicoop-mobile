@@ -145,7 +145,7 @@ export const communityStore = {
       state.counter = state.counter + 1;
       const c = state.counter;
       return new Promise((resolve, reject) => {
-        http.get(`/communities?page=`+ state.page + '&perPage=30&name=' + query)
+        http.get(`/communities?page=`+ state.page + '&perPage=30&order[name]=ASC&name=' + query)
           .then(resp => {
             if(c === state.counter) {
               resolve(resp);

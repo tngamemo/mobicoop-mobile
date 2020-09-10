@@ -46,7 +46,7 @@ LICENSE
               v-on:click="goToCommunity(commu.id)"
             >
               <ion-thumbnail>
-                <img :src="!!commu.images[0] && commu.images[0].versions.square_250" />
+                <img :src="!!commu.images[0] ? commu.images[0].versions.square_250 : '/assets/communities.png'" />
               </ion-thumbnail>
             </div>
           </div>
@@ -79,7 +79,7 @@ LICENSE
           <div class="d-flex mc-communities-community">
             <div class="mc-communities-avatar">
               <ion-thumbnail>
-                <img :src="!!commu.images[0] && commu.images[0].versions.square_250" alt />
+                <img :src="!!commu.images[0] ? commu.images[0].versions.square_250 : '/assets/communities.png'" alt />
               </ion-thumbnail>
             </div>
             <div class="mc-communities-text">

@@ -414,6 +414,7 @@
     "comment": "Commentaire",
     "reset" : "Reset",
     "close" : "Fermer",
+    "no-results": "L'application recherche actuellement un covoitureur en dynamique et les résultats s'actualisent en temps réel. Vous pouvez aussi consulter la recherche standard en page d'accueil.",
     "wait" :  "recherche actuellement un covoitureur en dynamique et les résultats s'actualisent en temps réel. Vous pouvez aussi retourner sur la recherche standard en page d'accueil."
   }
 
