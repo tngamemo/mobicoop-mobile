@@ -54,8 +54,8 @@ LICENSE
 
         <div class="mc-communities-search">
           <ion-searchbar
-            @ionInput="searchText = $event.target.value"
-            @ionClear="searchText = ''"
+            @ionInput="search($event.target.value)"
+            @ionClear="search('')"
             color="transparent"
             placeholder="Rechercher une communauté"
           ></ion-searchbar>
@@ -203,11 +203,9 @@ export default {
   computed: {
     communities() {
       if (!!this.$store.getters.communities) {
-        return this.$store.getters.communities.filter(commu => {
-          return commu.name
-            .toUpperCase()
-            .includes(this.searchText.toUpperCase());
-        });
+        return this.$store.getters.communities;
+      } else {
+        return [];
       }
     },
 
@@ -217,9 +215,14 @@ export default {
   },
   methods: {
     getAllCommunities() {
-      this.$store.dispatch("getAllCommunities").catch(error => {
+      this.$store.dispatch("getAllCommunities", this.searchText).catch(error => {
         this.presentToast(this.$t("Commons.error"), "danger");
       });
+    },
+    search(value) {
+      this.searchText = value;
+      this.$store.state.communityStore.page = 1;
+      this.getAllCommunities();
     },
     goToPostCommunity() {
       this.$router.push({
