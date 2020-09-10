@@ -20,6 +20,9 @@ LICENSE
 
 <template>
   <div id="app">
+    <div class="d-flex justify-center align-center" style="height: 100%" v-if="!loaded">
+      <ion-icon size="large" color="light" class="rotating" name="md-sync"></ion-icon>
+    </div>
     <ion-app v-if="loaded">
       <ion-vue-router />
     </ion-app>
@@ -32,6 +35,7 @@ LICENSE
   import { Plugins } from '@capacitor/core';
   const { Device } = Plugins;
   const { Browser } = Plugins;
+  var Color = require('color');
 
   export default {
     name: 'app',
@@ -61,18 +65,34 @@ LICENSE
 
       document.title = process.env.VUE_APP_NAME;
       // On change les couleurs en fonction de l'environement
-      document.documentElement.style.setProperty('--ion-color-primary', '#' + process.env.VUE_APP_PRIMARY);
-      document.documentElement.style.setProperty('--ion-color-primary-rgb', process.env.VUE_APP_PRIMARY_RGB);
-      document.documentElement.style.setProperty('--ion-color-secondary', '#' + process.env.VUE_APP_SECONDARY);
-      document.documentElement.style.setProperty('--ion-color-secondary-rgb', process.env.VUE_APP_SECONDARY_RGB);
-      document.documentElement.style.setProperty('--ion-color-tertiary', '#' + process.env.VUE_APP_TERTIARY);
-      document.documentElement.style.setProperty('--ion-color-success', '#' + process.env.VUE_APP_SUCCESS);
-      document.documentElement.style.setProperty('--ion-color-success-rgb',  process.env.VUE_APP_SUCCESS_RGB);
-      document.documentElement.style.setProperty('--ion-color-warning', '#' + process.env.VUE_APP_WARNING);
-      document.documentElement.style.setProperty('--ion-color-danger', '#' + process.env.VUE_APP_DANGER);
+      var colors = [];
+      colors.push({name: 'primary', color: Color('#' + process.env.VUE_APP_PRIMARY)});
+      colors.push({name: 'secondary', color: Color('#' + process.env.VUE_APP_SECONDARY)});
+      colors.push({name: 'tertiary', color: Color('#' + process.env.VUE_APP_TERTIARY)});
+      colors.push({name: 'success', color: Color('#' + process.env.VUE_APP_SUCCESS)});
+      colors.push({name: 'warning', color: Color('#' + process.env.VUE_APP_WARNING)});
+      colors.push({name: 'danger', color: Color('#' + process.env.VUE_APP_DANGER)});
+
+      colors.forEach(item => {
+        document.documentElement.style.setProperty('--ion-color-' + item.name, item.color.hex());
+        document.documentElement.style.setProperty('--ion-color-' + item.name + '-rgb', item.color.rgb().array().toString());
+        document.documentElement.style.setProperty('--ion-color-' + item.name + '-contrast', '#ffffff');
+        document.documentElement.style.setProperty('--ion-color-' + item.name + '-contrast-rgb', '255, 255, 255');
+        document.documentElement.style.setProperty('--ion-color-' + item.name + '-shade', item.color.lighten(0.2).hex());
+        document.documentElement.style.setProperty('--ion-color-' + item.name + '-tint', item.color.darken(0.2).hex());
+      })
+
       document.documentElement.style.setProperty('--ion-color-light-contrast', '#' + process.env.VUE_APP_PRIMARY);
       document.documentElement.style.setProperty('--ion-color-light-contrast-rgb', '#' + process.env.VUE_APP_PRIMARY_RGB);
 
+      /*
+      document.documentElement.style.setProperty('--ion-color-primary', '#' + process.env.VUE_APP_PRIMARY);
+      document.documentElement.style.setProperty('--ion-color-primary-rgb', process.env.VUE_APP_PRIMARY_RGB);
+      document.documentElement.style.setProperty('--ion-color-secondary', '#' + process.env.VUE_APP_SECONDARY);
+      document.documentElement.style.setProperty('--ion-color-success-rgb',  process.env.VUE_APP_SUCCESS_RGB);
+      document.documentElement.style.setProperty('--ion-color-warning', '#' + process.env.VUE_APP_WARNING);
+      document.documentElement.style.setProperty('--ion-color-danger', '#' + process.env.VUE_APP_DANGER);
+      */
       document.documentElement.style.setProperty('background-color', '#' + process.env.VUE_APP_BEHIND_BACKGROUND_COLOR);
       if (JSON.parse(process.env.VUE_APP_BEHIND_BACKGROUND_IMAGE)) {
         document.documentElement.style.setProperty( 'background-image', 'url(/assets/behind_background.png)');
@@ -247,5 +267,9 @@ LICENSE
 
 <style lang="scss">
   @import "./style.scss";
+
+  #app {
+    height: 100%;
+  }
 
 </style>

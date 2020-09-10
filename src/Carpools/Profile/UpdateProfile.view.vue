@@ -157,7 +157,7 @@ LICENSE
               name="address"
               :value="formatAddress(user.addresses[0])"
               readonly="true"
-              class="no-clickable"
+              class="no-clickable ellipsis"
               v-bind:placeholder="$t('Register.address')"
             ></ion-input>
           </ion-item>
@@ -291,7 +291,7 @@ LICENSE
       changePicture(e) {
         const file = e.target.files[0];
         if (file) {
-          if (this.user.images.length > 0) {
+          if (this.user.images && this.user.images.length > 0) {
             Promise.all([this.user.images.map(item => {
               return this.$store.dispatch('deleteImage', item.id);
             })]).then(() => {
