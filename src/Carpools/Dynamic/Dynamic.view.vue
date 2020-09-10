@@ -155,7 +155,10 @@ LICENSE
             </ion-card>
 
 
-            <div v-if="!currentAsk.id && currentDynamic.role === 2 && currentDynamic.results && currentDynamic.results.length > 0">
+            <div v-if="!currentAsk.id && currentDynamic.role === 2 && currentDynamic.results">
+              <div v-if="currentDynamic.results.length === 0" class="ion-text-center no-results">
+                <small>{{$t('Dynamic.no-results')}}</small>
+              </div>
               <ion-card class="dynamic-card" v-for="(result, index) in currentDynamic.results">
                 <ion-card-content>
                   <div>
@@ -168,7 +171,10 @@ LICENSE
               </ion-card>
             </div>
 
-            <div v-if="!currentAsk.id && currentDynamic.role === 1 && currentDynamic.asks && currentDynamic.asks.length > 0">
+            <div v-if="!currentAsk.id && currentDynamic.role === 1 && currentDynamic.asks">
+              <div v-if="currentDynamic.asks.length === 0" class="ion-text-center no-results">
+                <small>{{$t('Dynamic.no-results')}}</small>
+              </div>
               <ion-card  class="dynamic-card" v-for="(result, index) in currentDynamic.asks">
                 <ion-card-content>
                   <div>
@@ -276,6 +282,12 @@ LICENSE
 
   .muted {
     color: lightgrey;
+  }
+
+  .no-results {
+    color: #666;
+    margin-bottom: 20px;
+    line-height: 15px;
   }
 
 </style>

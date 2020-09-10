@@ -72,7 +72,10 @@ export const dynamicStore = {
     post_dynamic_success(state, res) {
       state.status = 'success';
       state.state = 2;
-      state.currentDynamic = res.data
+      state.currentDynamic = res.data;
+      if(!state.currentDynamic.asks) {
+        state.currentDynamic.asks = []
+      }
     },
 
     post_dynamic_ask_success(state, res) {

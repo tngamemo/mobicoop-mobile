@@ -17,6 +17,7 @@
     "serve:ehop": "vue-cli-service serve --mode ehop",
     "serve:ibm": "vue-cli-service serve --mode ibm",
     "serve:crf": "vue-cli-service serve --mode crf",
+    "serve:carsat": "vue-cli-service serve --mode carsat",
     "build": "vue-cli-service build",
     "build:grandlyon:test": "export NODE_ENV=production && export VUE_APP_API_URL=https://api.test.grand-lyon.mobicoop.io && vue-cli-service build --mode grandlyon",
     "build:grandlyon:prod": "export NODE_ENV=production && export VUE_APP_API_URL=https://api.encovoit-grandlyon.com && export VUE_APP_API_PASSWORD=UHlno5BvBUswu22l && vue-cli-service build --mode grandlyon",
@@ -39,6 +40,7 @@
     "build:ibm:test": "export NODE_ENV=production && export VUE_APP_API_URL=https://api.test.ibm.mobicoop.io && vue-cli-service build --mode ibm",
     "build:ibm:prod": "export NODE_ENV=production && export VUE_APP_API_URL=https://api.ibm.mobiride.fr && export VUE_APP_API_PASSWORD=VZ86NUa3tcR1PLGe && vue-cli-service build --mode ibm",
     "build:crf:test": "export NODE_ENV=production && export VUE_APP_API_URL=https://api.test.croix-rouge.mobicoop.io && vue-cli-service build --mode crf",
+    "build:carsat:test": "export NODE_ENV=production && export VUE_APP_API_URL=https://api.test.covoituragecarsat.mobiride.fr && vue-cli-service build --mode carsat",
     "lint": "vue-cli-service lint",
     "i18n:report": "vue-cli-service i18n:report --src './src/**/*.?(js|vue)' --locales './src/locales/**/*.json'",
     "postinstall": "jetifier"

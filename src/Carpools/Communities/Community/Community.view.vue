@@ -46,7 +46,7 @@ LICENSE
       <div v-if="community">
         <div class="mc-community-avatar">
           <ion-thumbnail>
-            <img :src="!!community.images[0] && community.images[0].versions.square_250" alt />
+            <img :src="!!community.images[0] ? community.images[0].versions.square_250 : '/assets/communities.png'" alt />
           </ion-thumbnail>
         </div>
 
