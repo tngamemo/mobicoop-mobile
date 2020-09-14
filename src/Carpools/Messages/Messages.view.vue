@@ -80,8 +80,8 @@ LICENSE
                 <img v-if="!message.avatarsRecipient" src="/assets/user.png" alt />
               </ion-avatar>
               <ion-label>
-                <p class="message-name">
-                  <b>{{message.givenName}} {{message.shortFamilyName}}</b>
+                <p class="message-name d-flex align-center">
+                  <ion-icon class="mr-5" v-if="message.blockerId" name="close-circle"></ion-icon> <b>{{message.givenName}} {{message.shortFamilyName}}</b>
                 </p>
                 <p
                   v-if="message.carpoolInfos"
@@ -103,6 +103,11 @@ LICENSE
 </template>
 
 <style lang="scss">
+
+  .mr-5 {
+    margin-right : 5px;
+  }
+
 .mc-messages-type-selector {
   @media screen and (max-width: 320px) {
     flex-wrap: wrap;

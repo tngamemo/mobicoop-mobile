@@ -298,7 +298,9 @@
     "declineAsk": "Refuser le covoiturage",
     "report": "Signaler l'utilisateur",
     "block" : "Bloquer l'utilisateur",
-    "unblock" : "Débloquer l'utilisateur"
+    "unblock" : "Débloquer l'utilisateur",
+    "blocked" : "Cet utilisateur vous a bloqué",
+    "block-other" : "Vous avez bloqué cet utilisateur"
   },
   "AskCarpool":{
     "title": "Demande de covoiturage",
