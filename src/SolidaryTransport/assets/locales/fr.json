@@ -293,7 +293,7 @@
           "subjects": "Je me déplace pour :",
           "origin": "Lieu de départ",
           "destination": "Lieu d'arrivée",
-          "regular": "Je souhaite faire ce trajet :",
+          "regular": "Je compte faire ce trajet :",
           "isRegular": "De manière régulière",
           "isPunctual": "Une seule fois",
           "needs": "Autres informations :",
@@ -303,7 +303,7 @@
               "specificDate": "Date du départ",
               "hour": "Heure de départ",
               "specificHour": "Heure de départ",
-              "day": "Indiquez les jours concernés pour lesquels vous avez besoin d’un trajet régulier :",
+              "day": "Indiquez les jours concernés par votre trajet régulier :",
               "dates": [
                 {
                   "value": "this-week",
@@ -398,7 +398,7 @@
                 }
               ]
             },
-            "duration": "Sur quelle période souhaitez-vous réaliser ce trajet ?",
+            "duration": "Sur quelle période comptez-vous réaliser ce trajet ?",
             "durationStart": "Débute le",
             "durationStartDate": "Date de début",
             "durationEnd": "Se termine le",
@@ -416,7 +416,7 @@
       },
       "summary" : {
         "wish" : "Je me déplacerai pour",
-        "is" : "Mon trajet est",
+        "is" : "Mon annonce est",
         "start" : "Je partirai",
         "end" : "et reviendrai"
       }

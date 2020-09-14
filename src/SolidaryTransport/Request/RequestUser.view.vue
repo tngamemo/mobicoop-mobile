@@ -180,6 +180,25 @@
                 <span class="mc-st-form-error" v-if="!$v.password.samePassword">{{$t('solidaryTransport.register.form.validators.passwordSamePassword')}}</span>
                 <span class="mc-st-form-error" v-else-if="!$v.password.required">{{$t('solidaryTransport.register.form.validators.required')}}</span>
               </div>
+
+              <ion-item class="mc-st-form-item as-agreement" lines="none">
+                <ion-checkbox
+                  class="mc-st-form-checkbox"
+                  color="success"
+                  slot="start"
+                  :value="request.userAgreementAccepted"
+                  @ionChange="request.userAgreementAccepted = $event.target.checked"
+                ></ion-checkbox>
+                <ion-label class="mc-st-form-label no-white-space" color="primary">{{ $t('solidaryTransport.register.form.fields.agreement.accept', {'brand': brand}) }}</ion-label>
+              </ion-item>
+              <div class="mc-st-form-details">
+                <span class="mc-st-form-note" @click="displayCGU()" v-html="$t('solidaryTransport.register.form.fields.agreement.read')"></span>
+
+                <template v-if="$v.request.userAgreementAccepted.$error">
+                  <div class="mc-st-form-error"  v-if="!$v.request.userAgreementAccepted.checked">{{$t('solidaryTransport.register.form.validators.checked')}}</div>
+                  <div class="mc-st-form-error"  v-else-if="!$v.request.userAgreementAccepted.required">{{$t('solidaryTransport.register.form.validators.required')}}</div>
+                </template>
+              </div>
             </template>
 
           </div>
@@ -227,7 +246,8 @@ export default {
       password: undefined,
       showPassword: false,
       minAge: process.env.VUE_APP_REGISTER_MIN_AGE,
-      type: this.$route.meta.type
+      type: this.$route.meta.type,
+      brand: process.env.VUE_APP_NAME
     }
   },
   computed: {
@@ -286,6 +306,9 @@ export default {
           return this.request.password
         })
       }
+      validations.request.userAgreementAccepted = {
+        required
+      }
     }
 
     return validations
@@ -302,6 +325,9 @@ export default {
     },
     displayGeoSearch: function () {
       this.$router.push({ name: "solidaryTransport.geoSearch", query: { action: 'solidaryTransport.search', type: 'request.home' }});
+    },
+    displayCGU: function () {
+      this.$router.push({ name: "solidaryTransport.article", query: { id: process.env.VUE_APP_SOLIDARY_CGU_ARTICLE_ID, title: this.$t('solidaryTransport.commons.cgu')}});
     },
     validate: function () {
       if (!this.processing) {

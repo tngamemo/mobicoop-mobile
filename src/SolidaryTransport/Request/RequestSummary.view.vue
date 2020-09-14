@@ -136,7 +136,7 @@
 
               <template v-if="request.frequency === 2">
                 <div class="mc-st-summary-text" v-if="request.subject">
-                  Ma demande est <span class="answer">régulière</span> et concerne les jours suivants :
+                  {{$t('solidaryTransport.' + type + '.summary.is')}} <span class="answer">régulière</span> et concerne les jours suivants :
                 </div>
 
                 <div class="mc-st-form-days-wrapper">

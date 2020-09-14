@@ -239,7 +239,13 @@ export default {
       when: {
         isAfter,
         departure: {
-          hasHour,
+          hasHour : function () {
+            if (this.type == 'request') {
+              return true;
+            } else {
+              return hasHour;
+            }
+          },
           specificDate: {
             hasDate
           }
