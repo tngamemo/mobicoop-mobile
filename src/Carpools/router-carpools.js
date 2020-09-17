@@ -54,6 +54,13 @@ import PublicTransport from './PublicTransport/PublicTransport.view.vue';
 
 import Vue from 'vue'
 import store from '../Shared/Store/store';
+import Request from "../SolidaryTransport/Request/Request.view";
+import RequestCheck from "../SolidaryTransport/Request/RequestCheck.view";
+import RequestPath from "../SolidaryTransport/Request/RequestPath.view";
+import RequestPunctual from "../SolidaryTransport/Request/RequestPunctual.view";
+import RequestRegular from "../SolidaryTransport/Request/RequestRegular.view";
+import RequestUser from "../SolidaryTransport/Request/RequestUser.view";
+import RequestSummary from "../SolidaryTransport/Request/RequestSummary.view";
 
 Vue.use(IonicVueRouter);
 
@@ -255,4 +262,48 @@ export default [
     component: Dynamic,
     beforeEnter: guardAccesByLogin
   },
+  // REQUEST ----- ( start here )
+  {
+    path: 'solidary/home/request',
+    name: 'carpool.solidary.home.request',
+    component: Request,
+    meta: { type: 'request' }
+  },
+  {
+    path: 'solidary/home/request/check',
+    name: 'carpool.solidary.home.request.check',
+    component: RequestCheck,
+    meta: { type: 'request' }
+  },
+  {
+    path: 'solidary/home/request/path',
+    name: 'carpool.solidary.home.request.path',
+    component: RequestPath,
+    meta: { type: 'request' }
+  },
+  {
+    path: 'solidary/home/request/punctual',
+    name: 'carpool.solidary.home.request.punctual',
+    component: RequestPunctual,
+    meta: { type: 'request' }
+  },
+  {
+    path: 'solidary/home/request/regular',
+    name: 'carpool.solidary.home.request.regular',
+    component: RequestRegular,
+    meta: { type: 'request' }
+  },
+  {
+    path: 'solidary/home/request/user',
+    name: 'carpool.solidary.home.request.user',
+    component: RequestUser,
+    meta: { type: 'request' }
+  },
+  {
+    path: 'solidary/home/request/summary',
+    name: 'carpool.solidary.home.request.summary',
+    component: RequestSummary,
+    meta: { type: 'request' }
+  },
+  // REQUEST ----- ( end here )
 ]

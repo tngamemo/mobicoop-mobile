@@ -352,7 +352,7 @@ export default {
           this.$refs.request.scrollToPoint(0, top, 0)
         })
       } else {
-        this.$router.push({name: 'solidaryTransport.home.' + this.type + '.path'})
+        this.$router.push({name: (this.$route.name.includes('carpool') ? 'carpool.solidary' : 'solidaryTransport') + '.home.' + this.type + '.path'})
       }
     }
   },
@@ -370,7 +370,7 @@ export default {
           }, 500)
 
           if(this.type === 'usual' || this.skipCheck) {
-            this.$router.replace({name: 'solidaryTransport.home.' + this.type + '.path'})
+            this.$router.replace({name: (this.$route.name.includes('carpool') ? 'carpool.solidary' : 'solidaryTransport') + '.home.' + this.type + '.path'})
           }
         } else {
           this.error = true;

@@ -284,10 +284,10 @@ export default {
       }
     },
     displayGeoSearchForOrigin: function () {
-      this.$router.push({ name: "solidaryTransport.geoSearch", query: { action: 'solidaryTransport.search', type: 'request.origin' }});
+      this.$router.push({ name: (this.$route.name.includes('carpool') ? '' : 'solidaryTransport.') + 'geoSearch', query: { action: 'solidaryTransport.search', type: 'request.origin' }});
     },
     displayGeoSearchForDestination: function () {
-      this.$router.push({ name: "solidaryTransport.geoSearch", query: { action: 'solidaryTransport.search', type: 'request.destination' }});
+      this.$router.push({ name:(this.$route.name.includes('carpool') ? '' : 'solidaryTransport.') + 'geoSearch', query: { action: 'solidaryTransport.search', type: 'request.destination' }});
     },
     validate: function () {
       this.$v.$reset();
@@ -301,7 +301,7 @@ export default {
           this.$refs.request.scrollToPoint(0, top, 0)
         })
       } else {
-        this.$router.push({name: 'solidaryTransport.home.' + this.type + '.user'})
+        this.$router.push({name: (this.$route.name.includes('carpool') ? 'carpool.solidary' : 'solidaryTransport') + '.home.' + this.type + '.user'})
       }
     }
   },

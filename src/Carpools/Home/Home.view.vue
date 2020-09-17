@@ -228,7 +228,7 @@ export default {
     },
 
     redirectToSolidarity: function() {
-      this.$router.push({ name: "carpool-solidarity" });
+      this.$router.push({ name: "carpool.solidary.home.request" });
     },
 
     redirectToSolidarityPost: function() {

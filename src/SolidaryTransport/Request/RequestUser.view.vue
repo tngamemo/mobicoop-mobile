@@ -342,7 +342,7 @@ export default {
             this.$refs.request.scrollToPoint(0, top, 0)
           })
         } else {
-          this.$router.push({name: 'solidaryTransport.home.' + this.type + '.summary'})
+          this.$router.push({name: (this.$route.name.includes('carpool') ? 'carpool.solidary' : 'solidaryTransport') + '.home.' + this.type + '.summary'})
         }
       }
     }

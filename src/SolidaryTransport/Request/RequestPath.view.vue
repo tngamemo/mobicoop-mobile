@@ -163,10 +163,10 @@ export default {
       this.$store.commit('solidaryRequestFrequencyChange')
     },
     displayGeoSearchForOrigin: function () {
-      this.$router.push({ name: "solidaryTransport.geoSearch", query: { action: 'solidaryTransport.search', type: 'request.origin' }});
+      this.$router.push({ name: (this.$route.name.includes('carpool') ? '' : 'solidaryTransport.') + 'geoSearch', query: { action: 'solidaryTransport.search', type: 'request.origin' }});
     },
     displayGeoSearchForDestination: function () {
-      this.$router.push({ name: "solidaryTransport.geoSearch", query: { action: 'solidaryTransport.search', type: 'request.destination' }});
+      this.$router.push({ name: (this.$route.name.includes('carpool') ? '' : 'solidaryTransport.') + 'geoSearch', query: { action: 'solidaryTransport.search', type: 'request.destination' }});
     },
     validate: function () {
       this.$v.$reset();
@@ -181,9 +181,9 @@ export default {
         })
       } else {
         if (this.request.frequency === 1) {
-          this.$router.push({name: 'solidaryTransport.home.' + this.type + '.punctual'})
+          this.$router.push({name: (this.$route.name.includes('carpool') ? 'carpool.solidary' : 'solidaryTransport') + '.home.' + this.type + '.punctual'})
         } else {
-          this.$router.push({name: 'solidaryTransport.home.' + this.type + '.regular'})
+          this.$router.push({name: (this.$route.name.includes('carpool') ? 'carpool.solidary' : 'solidaryTransport') + '.home.' + this.type + '.regular'})
         }
       }
     }

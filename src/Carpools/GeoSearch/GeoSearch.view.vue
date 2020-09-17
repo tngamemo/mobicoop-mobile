@@ -265,6 +265,42 @@ export default {
           break;
         }
 
+        case "solidaryTransport.search": {
+          this.$store.commit("solidaryAddressUpdate", address)
+
+          switch (this.type) {
+            case "register": {
+              this.$store.commit("solidaryUserAddressUpdate", address)
+              break;
+            }
+
+            case "request.home": {
+              this.$store.commit("solidaryRequestHomeAddressUpdate", address)
+              break;
+            }
+
+            case "request.origin": {
+              this.$store.commit("solidaryRequestOriginAddressUpdate", address)
+              break;
+            }
+
+            case "request.destination": {
+              this.$store.commit("solidaryRequestDestinationAddressUpdate", address)
+              break;
+            }
+
+            case "volunteer.home": {
+              this.$store.commit("solidaryVolunteerHomeAddressUpdate", address)
+              break;
+            }
+            case "user.home": {
+              this.$store.commit("updateUserAddress", {addressDTO : address});
+              break;
+            }
+          }
+          break;
+        }
+
         default:
           break;
       }
