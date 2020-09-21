@@ -94,6 +94,7 @@ export const registerStore = {
           email: '',
           password: '',
           confirmPassword: '',
+          communityId: null,
           multiTransportMode: true,
           userAgreementAccepted: false,
           phoneDisplay: 1,
@@ -126,6 +127,10 @@ export const registerStore = {
       if (isPlatform(window.document.defaultView, "android")) {
         u.mobileRegistration = 3;
       }
+      if(u.communityId) {
+        u.communityId = Number(u.communityId)
+      }
+
       return new Promise((resolve, reject) => {
         http.post("/users/register", u).then(resp => {
           if (resp) {

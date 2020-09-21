@@ -140,12 +140,12 @@ export const communityStore = {
   },
   actions: {
 
-    getAllCommunities({commit, state}, query) {
+    getAllCommunities({commit, state}, param) {
       commit('communities_request');
       state.counter = state.counter + 1;
       const c = state.counter;
       return new Promise((resolve, reject) => {
-        http.get(`/communities?page=`+ state.page + '&perPage=30&order[name]=ASC&name=' + query)
+        http.get(`/communities?page=`+ state.page + '&perPage=' + param.number +'&order[name]=ASC&name=' + param.query)
           .then(resp => {
             if(c === state.counter) {
               resolve(resp);

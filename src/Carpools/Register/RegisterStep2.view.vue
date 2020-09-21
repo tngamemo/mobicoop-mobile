@@ -89,6 +89,25 @@ LICENSE
               <div class="mc-error-label"  v-if="!$v.user.birthDate.required">{{$t('Validation.required')}}</div>
               <div class="mc-error-label"  v-if="!$v.user.birthDate.isMaxBirthDate">{{$t('Validation.age', { value: minAge })}}</div>
             </div>
+            <div class="mc-select-communities text-left" v-if="showCommunities && this.communities.length > 0">
+              <ion-item lines="none" class="item-communities">
+                <ion-label position="floating">{{$t('Register.community')}}</ion-label>
+                <ion-select
+                  placeholder="Sélectionnez une communauté"
+                  interface="alert"
+                  cancel-text="Fermer"
+                  ok-text="Valider"
+                  :value="user.communityId"
+                  @ionChange="setCommunities($event)"
+                >
+                  <ion-select-option
+                    v-for="community in communities"
+                    :key="community.id"
+                    :value="community.id"
+                  >{{ community.name }}</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </div>
             <br>
             <ion-item lines="none">
               <ion-checkbox
@@ -105,6 +124,7 @@ LICENSE
               <div class="mc-error-label"  v-if="!$v.user.userAgreementAccepted.required">{{$t('Validation.required')}}</div>
               <div class="mc-error-label"  v-if="!$v.user.userAgreementAccepted.checked">{{$t('Validation.required')}}</div>
             </div>
+
 
             <br>
             <a class="text-center pointer" v-on:click="$router.push('/article/1')">Voir les conditions</a>
@@ -158,7 +178,9 @@ LICENSE
             return {
                 maxBirthDate: this.getMaxBirthDate(),
                 minAge: process.env.VUE_APP_REGISTER_MIN_AGE,
-                requiredBirthdate: JSON.parse(process.env.VUE_APP_REQUIRED_BIRTHDATE)
+                requiredBirthdate: JSON.parse(process.env.VUE_APP_REQUIRED_BIRTHDATE),
+                showCommunities: JSON.parse(process.env.VUE_APP_REGISTER_COMMUNITY),
+                communities: []
             }
         },
         validations: {
@@ -198,9 +220,14 @@ LICENSE
                 get() {
                     return this.$store.state.registerStore.displayAddress
                 }
-            }
+            },
         },
         created() {
+          if (this.showCommunities) {
+            this.$store.dispatch('getAllCommunities', {query: '', number: 1000}).then(res => {
+              this.communities = res.data['hydra:member']
+            })
+          }
         },
         methods: {
             getMaxBirthDate() {
@@ -223,6 +250,9 @@ LICENSE
             changeUserAgreementAccepted(event) {
                 event.detail.checked ? ( this.user.userAgreementAccepted = true) : (this.user.userAgreementAccepted = false);
             },
+            setCommunities(event) {
+              this.user.communityId = event.detail.value;
+            }
         }
     }
 </script>

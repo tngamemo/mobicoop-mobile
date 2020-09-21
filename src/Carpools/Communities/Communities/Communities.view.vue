@@ -215,7 +215,7 @@ export default {
   },
   methods: {
     getAllCommunities() {
-      this.$store.dispatch("getAllCommunities", this.searchText).catch(error => {
+      this.$store.dispatch("getAllCommunities", {query : this.searchText, number: 30}).catch(error => {
         this.presentToast(this.$t("Commons.error"), "danger");
       });
     },
