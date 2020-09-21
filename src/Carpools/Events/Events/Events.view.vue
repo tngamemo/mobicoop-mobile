@@ -72,7 +72,7 @@ LICENSE
           <div class="d-flex mc-events-item">
             <div class="mc-events-avatar">
               <ion-thumbnail>
-                <img :src="!!event.images[0] && event.images[0].versions.square_250" />
+                <img :src="!!event.images[0] && event.images[0].versions.square_250" alt="" />
               </ion-thumbnail>
             </div>
             <div class="mc-events-text">

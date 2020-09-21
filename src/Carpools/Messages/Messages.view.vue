@@ -76,8 +76,8 @@ LICENSE
           <ion-item-sliding v-for="message in messages" :key="message.id">
             <ion-item class="message-list" @click="goToMessage(message)">
               <ion-avatar class="ion-margin-end ion-margin-start avatar">
-                <img v-if="message.avatarsRecipient" v-bind:src="message.avatarsRecipient" alt />
-                <img v-if="!message.avatarsRecipient" src="/assets/user.png" alt />
+                <img v-if="message.avatarsRecipient" v-bind:src="message.avatarsRecipient" alt="" />
+                <img v-if="!message.avatarsRecipient" src="/assets/user.png" alt="" />
               </ion-avatar>
               <ion-label>
                 <p class="message-name d-flex align-center">

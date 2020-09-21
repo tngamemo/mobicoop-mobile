@@ -46,7 +46,7 @@ LICENSE
       <div v-if="community">
         <div class="mc-community-avatar">
           <ion-thumbnail>
-            <img :src="!!community.images[0] ? community.images[0].versions.square_250 : '/assets/communities.png'" alt />
+            <img :src="!!community.images[0] ? community.images[0].versions.square_250 : '/assets/communities.png'" alt="" />
           </ion-thumbnail>
         </div>
 
@@ -89,7 +89,7 @@ LICENSE
                 @click="goToMessage(user.user)"
               >
                 <ion-thumbnail>
-                  <img :src="user.user.avatars[0]" alt />
+                  <img :src="user.user.avatars[0]" alt="" />
                 </ion-thumbnail>
                 {{user.user.givenName}}
 

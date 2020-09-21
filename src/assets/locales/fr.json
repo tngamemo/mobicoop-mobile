@@ -213,7 +213,8 @@
     "update" : "Modifier",
     "version-recommended" : "Une nouvelle version de l'application est disponible.<br><br> Nous vous recommandons de la mettre à jour.",
     "version-min" : "Une nouvelle version majeure de l'application est disponible.<br><br> Vous devez la mettre à jour pour pouvoir continuer à utiliser l'application.",
-    "gps-permission" : "Vous devez authoriser le GPS pour démarrer cette fonctionalité"
+    "gps-permission" : "Vous devez authoriser le GPS pour démarrer cette fonctionalité",
+    "gps-activation" : "Veuillez activer le GPS"
   },
   "Validation" : {
     "required" : "Ce champ est requis",

@@ -94,6 +94,7 @@ LICENSE
             :hidden="!(this.carpool.carpooler.avatar && this.avatarLoaded)"
             :src="this.carpool.carpooler.avatar"
             @load="onImgLoad()"
+            alt=""
           />
           <!--<ion-icon v-if="! this.avatarLoaded" name="contact" size="large"></ion-icon>-->
         </ion-thumbnail>

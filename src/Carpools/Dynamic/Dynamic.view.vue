@@ -133,6 +133,7 @@ LICENSE
             <ion-card class="dynamic-card" v-if="currentAsk.id">
               <ion-card-content>
                 <!--<div class="text-right"><small>{{currentAsk.id}}</small></div>-->
+                <div v-if="currentAsk.user" class="text-center"><b>{{currentAsk.user.givenName}} {{currentAsk.user.shortFamilyName}}</b></div>
                 <div v-if="currentAsk.status == 1" class="text-center">Covoiturage Demandé</div>
                 <div v-if="currentAsk.status == 2" class="text-center">Covoiturage Accepté</div>
                 <div v-if="currentAsk.message" class="text-center">{{currentAsk.message}}</div>
@@ -381,7 +382,10 @@ LICENSE
       async launchDynamic() {
         const p = await Permissions.query({name: "geolocation"})
         if (p.state == "granted" || p.state == "prompt") {
-          const coordinates = await Geolocation.getCurrentPosition();
+          const coordinates = await Geolocation.getCurrentPosition().catch(error => {
+            console.log(error);
+            this.presentToast(this.$t("Commons.gps-activation"), "danger");
+          });
           this.$store.commit('set_dynamic_my_position', {latitude: coordinates.coords.latitude.toString(), longitude: coordinates.coords.longitude.toString()});
           this.$store.commit('set_dynamic_destination', this.$store.state.searchStore.searchObject.outwardWaypoints[1]);
           console.log(this.destination);
