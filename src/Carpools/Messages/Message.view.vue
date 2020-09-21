@@ -27,8 +27,8 @@ LICENSE
         </ion-buttons>
         <ion-item color="primary" lines="none" v-if="thread">
           <ion-avatar class="ion-margin-end ion-margin-start">
-            <img v-if="thread.avatarsRecipient" v-bind:src="thread.avatarsRecipient" alt />
-            <img v-if="!thread.avatarsRecipient" src="/assets/user.png" alt />
+            <img v-if="thread.avatarsRecipient" v-bind:src="thread.avatarsRecipient" alt="" />
+            <img v-if="!thread.avatarsRecipient" src="/assets/user.png" alt="" />
           </ion-avatar>
           <ion-label>
             <p class="message-name">

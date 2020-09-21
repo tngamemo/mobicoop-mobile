@@ -168,7 +168,10 @@ export const registerStore = {
       commit('check_email_request');
       return new Promise((resolve, reject) => {
         http.get("/users/checkEmail?email=" + params).then(resp => {
-          if (resp) {
+          if (resp.data && resp.data.error) {
+            commit('check_email_error', err);
+            reject(false)
+          } else {
             commit('check_email_success');
             resolve(true)
           }
