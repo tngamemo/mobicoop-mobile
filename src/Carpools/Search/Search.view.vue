@@ -40,11 +40,11 @@ LICENSE
             <ion-icon name="car"></ion-icon>
             <ion-badge class="cp-badge" color="secondary">{{numberOfResultsSearch}}</ion-badge>
           </ion-segment-button>
-          <ion-segment-button v-if="hasSearchPT" value="rdex">
+          <ion-segment-button v-if="hasSearchRdex" value="rdex">
             <ion-icon name="more"></ion-icon>
             <ion-badge class="cp-badge" color="secondary">{{numberOfResultsRdex}}</ion-badge>
           </ion-segment-button>
-          <ion-segment-button  v-if="hasSearchRdex" value="publicTransport">
+          <ion-segment-button  v-if="hasSearchPT" value="publicTransport">
             <ion-icon name="bus"></ion-icon>
             <ion-badge class="cp-badge" color="secondary">{{numberOfResultsPT}}</ion-badge>
           </ion-segment-button>
@@ -85,7 +85,7 @@ LICENSE
           <ion-icon size="large" color="primary" class="rotating" v-if="getStatusOfPTSearch == 'loading'" name="md-sync"></ion-icon>
         </div>
 
-        <div class="" v-if="getStatusOfPTSearch == 'success' && publicTransportList.length > 0">
+        <div class="" v-if="getStatusOfPTSearch == 'success'">
           <div class="ion-margin-bottom text-grey"><small> {{ $tc('Search.nbResultPT', numberOfResultsPT )}} <b>en transport en commun</b></small></div>
           <div v-for="(result, index) in publicTransportList" :key="index" v-on:click="goToDetailPT(index)">
             <PublicTransportItem :pt-item="result" />
