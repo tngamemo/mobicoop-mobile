@@ -113,7 +113,7 @@ LICENSE
           <div
             class="d-flex align-center justify-center"
             v-if="!($store.state.messageStore.statusPostMessage == 'loading' || $store.state.messageStore.statusCompleteThread == 'loading' || $store.state.carpoolStore.statusCarpoolAsk == 'loading') && this.thread.blockerId"
-          ><ion-icon style="visibility: visible" class="mr-5" name="close-circle"></ion-icon> {{ this.thread.blockerId === $store.state.userStore.user.id ? $t('DetailCarpool.block-other') : $t('DetailCarpool.blocked')}}</div>
+          ><img class="c-icon mr-5" style="visibility: visible" src="/assets/account-cancel.png"/> {{ this.thread.blockerId === $store.state.userStore.user.id ? $t('DetailCarpool.block-other') : $t('DetailCarpool.blocked')}}</div>
 
           <div
             class="ion-text-center"
@@ -402,7 +402,7 @@ export default {
           buttons: [
             {
               text: this.thread.blockerId ? (this.thread.blockerId === this.$store.state.userStore.user.id ? this.$t('DetailCarpool.unblock') : this.$t('DetailCarpool.blocked') ) : this.$t('DetailCarpool.block'),
-              icon: 'close-circle',
+              icon: '',
               handler: () => {
                 if (this.thread.blockerId == null || this.thread.blockerId === this.$store.state.userStore.user.id) {
                   this.$store.dispatch('blockUser', this.thread.idRecipient).then(res => {
@@ -413,14 +413,14 @@ export default {
             },
             {
               text: this.$t('DetailCarpool.report'),
-              icon: 'warning',
+              icon: '',
               handler: () => {
                 this.$router.push({ name: "carpool-contact", query: {demand : 'report'} });
               },
             },
             {
               text: 'Annuler',
-              icon: 'close',
+              icon: '',
               role: 'cancel',
               handler: () => {
                 console.log('Cancel clicked')

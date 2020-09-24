@@ -81,7 +81,7 @@ LICENSE
               </ion-avatar>
               <ion-label>
                 <p class="message-name d-flex align-center">
-                  <ion-icon class="mr-5" v-if="message.blockerId" name="close-circle"></ion-icon> <b>{{message.givenName}} {{message.shortFamilyName}}</b>
+                  <img class="c-icon mr-5" v-if="message.blockerId" style="visibility: visible" src="/assets/account-cancel.png"/><b>{{message.givenName}} {{message.shortFamilyName}}</b>
                 </p>
                 <p
                   v-if="message.carpoolInfos"
