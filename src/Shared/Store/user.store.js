@@ -412,7 +412,6 @@ export const userStore = {
     return new Promise((resolve, reject) => {
       http.post(`/users/checkPhoneToken`, params)
         .then(resp => {
-          commit('user_request_success', resp.data);
           resolve(resp)
         })
         .catch(err => {

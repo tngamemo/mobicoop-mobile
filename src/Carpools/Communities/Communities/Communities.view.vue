@@ -173,7 +173,7 @@ export default {
   created() {
     // On récupére les communities
     this.$store.state.communityStore.page = 1;
-    this.getAllCommunities();
+    this.getAllCommunities(null);
 
     if (!!this.$store.getters.userId) {
       this.$store.dispatch("getUserCommunities").catch(error => {
@@ -189,8 +189,7 @@ export default {
     infiniteScroll.addEventListener('ionInfinite', event => {
       setTimeout(() => {
         this.$store.state.communityStore.page = this.$store.state.communityStore.page + 1;
-        this.getAllCommunities();
-        event.target.complete();
+        this.getAllCommunities(event);
 
         // App logic to determine if all data is loaded
         // and disable the infinite scroll
@@ -214,15 +213,19 @@ export default {
     }
   },
   methods: {
-    getAllCommunities() {
-      this.$store.dispatch("getAllCommunities", this.searchText).catch(error => {
+    getAllCommunities(event) {
+      this.$store.dispatch("getAllCommunities", this.searchText).then(res => {
+        if (event) {
+          event.target.complete();
+        }
+      }).catch(error => {
         this.presentToast(this.$t("Commons.error"), "danger");
       });
     },
     search(value) {
       this.searchText = value;
       this.$store.state.communityStore.page = 1;
-      this.getAllCommunities();
+      this.getAllCommunities(null);
     },
     goToPostCommunity() {
       this.$router.push({

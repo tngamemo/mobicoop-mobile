@@ -330,15 +330,19 @@ LICENSE
           });
       },
       updateUser() {
-        this.$store.dispatch('updateUser', this.user)
-          .then(res => {
-            this.$router.push('profile');
-            this.$store.state.userStore.userToUpdate = null;
-            this.presentToast(this.$t("UpdateProfile.success"), 'success')
-          })
-          .catch(err => {
-            this.presentToast(this.$t("Commons.error"), 'danger')
-          });
+        this.$v.$reset();
+        this.$v.$touch();
+        if (!this.$v.$invalid) {
+          this.$store.dispatch('updateUser', this.user)
+            .then(res => {
+              this.$router.push('profile');
+              this.$store.state.userStore.userToUpdate = null;
+              this.presentToast(this.$t("UpdateProfile.success"), 'success')
+            })
+            .catch(err => {
+              this.presentToast(this.$t("Commons.error"), 'danger')
+            });
+        }
       },
       setPhoneToken() {
         this.$store.dispatch('generatePhoneToken', this.user.id)
@@ -391,7 +395,9 @@ LICENSE
         this.$store.dispatch('checkPhoneTokenPost', {telephone : this.user.telephone, phoneToken : phoneToken})
           .then(res => {
             if (res) {
-              this.user = Object.assign({}, this.$store.state.userStore.user );
+              this.$store.dispatch('getUser', { idUser: this.user.id }).then(res => {
+                this.user = Object.assign({}, this.$store.state.userStore.user );
+              });
               this.presentToast(this.$t("Commons.success"), "success");
             } else {
               this.presentToast(this.$t("Commons.error"), "tertiary");
