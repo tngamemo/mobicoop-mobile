@@ -109,8 +109,8 @@ LICENSE
             </ion-thumbnail>
           </span>
         </div>
-        <div v-if="this.carpool.externalOperator">
-          {{this.carpool.externalOperator}}
+        <div v-if="this.carpool.externalOrigin">
+          {{this.carpool.externalOrigin}}
         </div>
       </div>
       <div v-if="type == 'my-carpool'">
