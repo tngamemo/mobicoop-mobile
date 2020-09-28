@@ -400,6 +400,7 @@ export default {
       return this.$ionic.actionSheetController
         .create({
           buttons: [
+            /*
             {
               text: this.thread.blockerId ? (this.thread.blockerId === this.$store.state.userStore.user.id ? this.$t('DetailCarpool.unblock') : this.$t('DetailCarpool.blocked') ) : this.$t('DetailCarpool.block'),
               icon: '',
@@ -411,6 +412,7 @@ export default {
                 }
               },
             },
+             */
             {
               text: this.$t('DetailCarpool.report'),
               icon: '',
