@@ -40,10 +40,10 @@
               "client_type": 3
             },
             {
-              "client_id": "610048529011-g0suflkvp8hbg0lskv3v706kkpu17vd3.apps.googleusercontent.com",
+              "client_id": "610048529011-qiped8e7q7aoeropn3vk4o4955tddpqc.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "fr.mobicoop.grandlyon"
+                "bundle_id": "fr.covivo.eggerway"
               }
             }
           ]
@@ -92,10 +92,46 @@
               "client_type": 3
             },
             {
-              "client_id": "610048529011-g0suflkvp8hbg0lskv3v706kkpu17vd3.apps.googleusercontent.com",
+              "client_id": "610048529011-qiped8e7q7aoeropn3vk4o4955tddpqc.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "fr.mobicoop.grandlyon"
+                "bundle_id": "fr.covivo.eggerway"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:610048529011:android:4ee880b0ee0850b8599006",
+        "android_client_info": {
+          "package_name": "com.mobicoop.grandlyon"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "610048529011-t7q4nfni7fedvv52d9clneop8nlaoaml.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFvHAFfvqm_bxcfxaOykTC8MFsezPUGr4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "610048529011-t7q4nfni7fedvv52d9clneop8nlaoaml.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "610048529011-qiped8e7q7aoeropn3vk4o4955tddpqc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "fr.covivo.eggerway"
               }
             }
           ]
@@ -128,10 +164,10 @@
               "client_type": 3
             },
             {
-              "client_id": "610048529011-g0suflkvp8hbg0lskv3v706kkpu17vd3.apps.googleusercontent.com",
+              "client_id": "610048529011-qiped8e7q7aoeropn3vk4o4955tddpqc.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "fr.mobicoop.grandlyon"
+                "bundle_id": "fr.covivo.eggerway"
               }
             }
           ]
@@ -172,10 +208,10 @@
               "client_type": 3
             },
             {
-              "client_id": "610048529011-g0suflkvp8hbg0lskv3v706kkpu17vd3.apps.googleusercontent.com",
+              "client_id": "610048529011-qiped8e7q7aoeropn3vk4o4955tddpqc.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "fr.mobicoop.grandlyon"
+                "bundle_id": "fr.covivo.eggerway"
               }
             }
           ]
@@ -216,10 +252,10 @@
               "client_type": 3
             },
             {
-              "client_id": "610048529011-g0suflkvp8hbg0lskv3v706kkpu17vd3.apps.googleusercontent.com",
+              "client_id": "610048529011-qiped8e7q7aoeropn3vk4o4955tddpqc.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "fr.mobicoop.grandlyon"
+                "bundle_id": "fr.covivo.eggerway"
               }
             }
           ]
@@ -260,10 +296,10 @@
               "client_type": 3
             },
             {
-              "client_id": "610048529011-g0suflkvp8hbg0lskv3v706kkpu17vd3.apps.googleusercontent.com",
+              "client_id": "610048529011-qiped8e7q7aoeropn3vk4o4955tddpqc.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "fr.mobicoop.grandlyon"
+                "bundle_id": "fr.covivo.eggerway"
               }
             }
           ]
@@ -312,10 +348,10 @@
               "client_type": 3
             },
             {
-              "client_id": "610048529011-g0suflkvp8hbg0lskv3v706kkpu17vd3.apps.googleusercontent.com",
+              "client_id": "610048529011-qiped8e7q7aoeropn3vk4o4955tddpqc.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "fr.mobicoop.grandlyon"
+                "bundle_id": "fr.covivo.eggerway"
               }
             }
           ]
@@ -356,10 +392,10 @@
               "client_type": 3
             },
             {
-              "client_id": "610048529011-g0suflkvp8hbg0lskv3v706kkpu17vd3.apps.googleusercontent.com",
+              "client_id": "610048529011-qiped8e7q7aoeropn3vk4o4955tddpqc.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "fr.mobicoop.grandlyon"
+                "bundle_id": "fr.covivo.eggerway"
               }
             }
           ]
@@ -400,10 +436,46 @@
               "client_type": 3
             },
             {
-              "client_id": "610048529011-g0suflkvp8hbg0lskv3v706kkpu17vd3.apps.googleusercontent.com",
+              "client_id": "610048529011-qiped8e7q7aoeropn3vk4o4955tddpqc.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "fr.mobicoop.grandlyon"
+                "bundle_id": "fr.covivo.eggerway"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:610048529011:android:728b89c2223eff05599006",
+        "android_client_info": {
+          "package_name": "fr.covivo.eggerway"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "610048529011-t7q4nfni7fedvv52d9clneop8nlaoaml.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFvHAFfvqm_bxcfxaOykTC8MFsezPUGr4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "610048529011-t7q4nfni7fedvv52d9clneop8nlaoaml.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "610048529011-qiped8e7q7aoeropn3vk4o4955tddpqc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "fr.covivo.eggerway"
               }
             }
           ]
@@ -444,10 +516,10 @@
               "client_type": 3
             },
             {
-              "client_id": "610048529011-g0suflkvp8hbg0lskv3v706kkpu17vd3.apps.googleusercontent.com",
+              "client_id": "610048529011-qiped8e7q7aoeropn3vk4o4955tddpqc.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "fr.mobicoop.grandlyon"
+                "bundle_id": "fr.covivo.eggerway"
               }
             }
           ]
@@ -488,10 +560,10 @@
               "client_type": 3
             },
             {
-              "client_id": "610048529011-g0suflkvp8hbg0lskv3v706kkpu17vd3.apps.googleusercontent.com",
+              "client_id": "610048529011-qiped8e7q7aoeropn3vk4o4955tddpqc.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "fr.mobicoop.grandlyon"
+                "bundle_id": "fr.covivo.eggerway"
               }
             }
           ]
@@ -532,10 +604,10 @@
               "client_type": 3
             },
             {
-              "client_id": "610048529011-g0suflkvp8hbg0lskv3v706kkpu17vd3.apps.googleusercontent.com",
+              "client_id": "610048529011-qiped8e7q7aoeropn3vk4o4955tddpqc.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "fr.mobicoop.grandlyon"
+                "bundle_id": "fr.covivo.eggerway"
               }
             }
           ]
@@ -576,10 +648,10 @@
               "client_type": 3
             },
             {
-              "client_id": "610048529011-g0suflkvp8hbg0lskv3v706kkpu17vd3.apps.googleusercontent.com",
+              "client_id": "610048529011-qiped8e7q7aoeropn3vk4o4955tddpqc.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "fr.mobicoop.grandlyon"
+                "bundle_id": "fr.covivo.eggerway"
               }
             }
           ]
@@ -612,10 +684,10 @@
               "client_type": 3
             },
             {
-              "client_id": "610048529011-g0suflkvp8hbg0lskv3v706kkpu17vd3.apps.googleusercontent.com",
+              "client_id": "610048529011-qiped8e7q7aoeropn3vk4o4955tddpqc.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "fr.mobicoop.grandlyon"
+                "bundle_id": "fr.covivo.eggerway"
               }
             }
           ]
@@ -648,10 +720,46 @@
               "client_type": 3
             },
             {
-              "client_id": "610048529011-g0suflkvp8hbg0lskv3v706kkpu17vd3.apps.googleusercontent.com",
+              "client_id": "610048529011-qiped8e7q7aoeropn3vk4o4955tddpqc.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "fr.mobicoop.grandlyon"
+                "bundle_id": "fr.covivo.eggerway"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:610048529011:android:ab945d722f5a2232599006",
+        "android_client_info": {
+          "package_name": "fr.mobicoop.txiktxak"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "610048529011-t7q4nfni7fedvv52d9clneop8nlaoaml.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFvHAFfvqm_bxcfxaOykTC8MFsezPUGr4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "610048529011-t7q4nfni7fedvv52d9clneop8nlaoaml.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "610048529011-qiped8e7q7aoeropn3vk4o4955tddpqc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "fr.covivo.eggerway"
               }
             }
           ]

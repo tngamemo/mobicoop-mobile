@@ -73,7 +73,7 @@ LICENSE
             v-on:click="selectGeo(address)"
           >
             <div class="iconSearch">
-              <img v-bind:src="address.icon" alt />
+              <img v-bind:src="address.icon" alt="" />
             </div>
             <ion-card-header>
               <ion-card-title class="mc-small-card-title">{{ address.displayLabel[0] }}</ion-card-title>
@@ -92,7 +92,7 @@ LICENSE
             v-on:click="selectGeo(address)"
           >
             <div class="iconSearch">
-              <img v-bind:src="address.icon" alt />
+              <img v-bind:src="address.icon" alt="" />
             </div>
             <ion-card-header>
               <ion-card-title class="mc-small-card-title">{{ address.displayLabel[0] }}</ion-card-title>

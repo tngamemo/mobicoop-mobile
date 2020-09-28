@@ -30,11 +30,12 @@ LICENSE
     </ion-header>
 
     <ion-content color="primary" no-bounce>
-      <div class="mc-white-container" style="height: 100%">
+      <div class="mc-white-container" style="height: 100%;">
 
         <div class="mc-form-login">
 
           <div class="mc-form-login-input">
+            <div class="mc-form-login-input-center">
             <form>
               <!-- Input with placeholder -->
               <ion-item>
@@ -63,6 +64,7 @@ LICENSE
               <a v-if="$store.state.userStore.resetPasswordStatus != 'loading'" class="pointer" @click="resetPassword">{{ $t('Login.forgotPassword') }}</a>
               <ion-icon size="large" color="background" class="rotating" v-if="$store.state.userStore.resetPasswordStatus == 'loading'" name="md-sync"></ion-icon>
             </div>
+            </div>
           </div>
 
           <div class="mc-form-login-button">
@@ -89,7 +91,12 @@ LICENSE
       flex: 1;
       flex-direction: column;
       display: flex;
-      justify-content: center
+      overflow-y: scroll;
+    }
+
+    .mc-form-login-input-center {
+      margin-top: auto;
+      margin-bottom: auto;
     }
   }
 </style>
@@ -157,7 +164,7 @@ LICENSE
          this.password = '';
 
          if (!! this.$store.getters.redirectionUrl) {
-            this.$router.push({path: this.$store.getters.redirectionUrl});
+            this.$router.replace({path: this.$store.getters.redirectionUrl});
             this.$store.commit('redirectionUrl_reset');
          } else {
             this.$router.push('home');

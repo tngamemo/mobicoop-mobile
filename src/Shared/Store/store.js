@@ -32,6 +32,7 @@ import { eventStore } from './event.store';
 import { appStore } from './app.store';
 import { dynamicStore } from './dynamic.store';
 import { publicTransportStore } from './public-transport.store';
+import { rdexStore } from './rdex.store';
 import { paymentStore } from './payment.store';
 import createPersistedState from "vuex-persistedstate";
 
@@ -53,6 +54,7 @@ export default new Vuex.Store({
     eventStore: eventStore,
     dynamicStore: dynamicStore,
     publicTransportStore: publicTransportStore,
+    rdexStore: rdexStore,
     paymentStore: paymentStore
   }
 })

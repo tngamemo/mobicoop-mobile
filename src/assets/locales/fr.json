@@ -45,7 +45,8 @@
     "userAgreementAccepted": "J'accepte la charte de la plateforme et sa politique de confidentialité",
     "success" : "Succès de l'inscription",
     "visible-by-all": "Visible par tous",
-    "see-cgu": "Voir les CGU"
+    "see-cgu": "Voir les CGU",
+    "community" : "Communauté"
   },
   "ConfirmRegistration" : {
     "title" : "Validation du mail",
@@ -88,6 +89,7 @@
     "titlePage": "Résultats",
     "error": "Une erreur est survenue durant la recherche. Veuillez réessayer ultérieurement.",
     "nbResult": "Aucun résultat de covoiturage |{count} annonce de covoiturage trouvée | {count} annonces de covoiturages trouvées",
+    "nbResultPT": "Aucun résultat |{count} trajet trouvé | {count} trajets trouvés",
     "step": "Etape"
   },
   "Help": {
@@ -224,6 +226,7 @@
   },
   "Commons": {
     "error": "Une erreur est survenue",
+    "form-error"  : "Le formulaire présente une erreur",
     "success": "Action effectuée avec succès",
     "cancel": "Annuler",
     "validate": "Valider",
@@ -232,7 +235,9 @@
     "confirm": "Confirmer",
     "update" : "Modifier",
     "version-recommended" : "Une nouvelle version de l'application est disponible.<br><br> Nous vous recommandons de la mettre à jour.",
-    "version-min" : "Une nouvelle version majeure de l'application est disponible.<br><br> Vous devez la mettre à jour pour pouvoir continuer à utiliser l'application."
+    "version-min" : "Une nouvelle version majeure de l'application est disponible.<br><br> Vous devez la mettre à jour pour pouvoir continuer à utiliser l'application.",
+    "gps-permission" : "Vous devez authoriser le GPS pour démarrer cette fonctionalité",
+    "gps-activation" : "Veuillez activer le GPS"
   },
   "Validation" : {
     "required" : "Ce champ est requis",
@@ -315,7 +320,11 @@
     "alreadyAsk": "Vous avez déjà pris contact sur cette annonce.",
     "acceptAsk": "Accepter le covoiturage",
     "declineAsk": "Refuser le covoiturage",
-    "report": "Signaler l'utilisateur"
+    "report": "Signaler l'utilisateur",
+    "block" : "Bloquer l'utilisateur",
+    "unblock" : "Débloquer l'utilisateur",
+    "blocked" : "Cet utilisateur vous a bloqué",
+    "block-other" : "Vous avez bloqué cet utilisateur"
   },
   "AskCarpool":{
     "title": "Demande de covoiturage",
@@ -433,7 +442,9 @@
     "iam" : "Je suis",
     "comment": "Commentaire",
     "reset" : "Reset",
-    "close" : "Fermer"
+    "close" : "Fermer",
+    "no-results": "L'application recherche actuellement un covoitureur en dynamique et les résultats s'actualisent en temps réel. Vous pouvez aussi consulter la recherche standard en page d'accueil.",
+    "wait" :  "recherche actuellement un covoitureur en dynamique et les résultats s'actualisent en temps réel. Vous pouvez aussi retourner sur la recherche standard en page d'accueil."
   }
 
 }

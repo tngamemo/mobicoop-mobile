@@ -64,6 +64,10 @@ export const userStore = {
       state.user = user;
     },
 
+    user_request_error(state) {
+      state.status = 'error';
+    },
+
     user_alerts_request(state) {
       state.statusAlerts = 'loading';
     },
@@ -252,6 +256,7 @@ export const userStore = {
             resolve(resp)
           })
           .catch(err => {
+            commit('user_request_error');
             console.log(err);
             reject(err)
           })
@@ -407,7 +412,6 @@ export const userStore = {
     return new Promise((resolve, reject) => {
       http.post(`/users/checkPhoneToken`, params)
         .then(resp => {
-          commit('user_request_success', resp.data);
           resolve(resp)
         })
         .catch(err => {
@@ -455,7 +459,18 @@ export const userStore = {
         mobile = 2
       }
       return new Promise((resolve, reject) => {
-        http.post(`/push_token`, { token: params, type: mobile })
+        http.post(`/push_tokens`, { token: params, type: mobile })
+          .then(resp => {
+            resolve(resp)
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
+    },
+    blockUser({commit}, userId) {
+      return new Promise((resolve, reject) => {
+        http.post(`/blocks`, {user: '/users/' + userId})
           .then(resp => {
             resolve(resp)
           })

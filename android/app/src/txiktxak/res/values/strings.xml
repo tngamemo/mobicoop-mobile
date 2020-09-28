@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">Txik Txak Covoiturage</string>
-    <string name="title_activity_main">Txik Txak Covoiturage</string>
+    <string name="app_name">Txik Txak Kovoit\'</string>
+    <string name="title_activity_main">Txik Txak Kovoit\'</string>
     <string name="package_name">fr.mobicoop.txiktxak</string>
     <string name="custom_url_scheme">fr.mobicoop.txiktxak</string>-->
     <string name="mauron85_bgloc_account_name">@string/app_name</string>

@@ -32,6 +32,7 @@ export const communityStore = {
     file: null,
     page: 1,
     total: 0,
+    counter: 0,
     postCommunity: null
   },
   mutations: {
@@ -139,14 +140,18 @@ export const communityStore = {
   },
   actions: {
 
-    getAllCommunities({commit, state}) {
+    getAllCommunities({commit, state}, param) {
       commit('communities_request');
+      state.counter = state.counter + 1;
+      const c = state.counter;
       return new Promise((resolve, reject) => {
-        http.get(`/communities?page=`+ state.page + '&perPage=30')
+        http.get(`/communities?page=`+ state.page + '&perPage=' + param.number +'&order[name]=ASC&name=' + param.query)
           .then(resp => {
-            resolve(resp)
-            state.total = resp.data['hydra:totalItems'];
-            commit('communities_success', resp.data['hydra:member']);
+            if(c === state.counter) {
+              resolve(resp);
+              state.total = resp.data['hydra:totalItems'];
+              commit('communities_success', resp.data['hydra:member']);
+            }
           })
           .catch(err => {
             console.log('error');
@@ -250,10 +255,26 @@ export const communityStore = {
           })
       })
     },
+    getCommunityImages({commit}, communityId) {
+      return new Promise((resolve, reject) => {
+        http.get(`/communities/${communityId}/images`)
+          .then(resp => {
+            resolve(resp)
+          })
+          .catch(err => {
+            console.log('error');
+            reject(err)
+          })
+      })
+    },
   },
   getters : {
     communities: state => {
       return state.communities
+    },
+
+    statusGetCommunities: state => {
+      return state.statusGetCommunities;
     },
 
     statusGetCommunity: state => {

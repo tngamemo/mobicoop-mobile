@@ -96,7 +96,8 @@ LICENSE
     name: 'confirm-registration',
     data () {
       return {
-        validatedDateToken: ''
+        validatedDateToken: '',
+        showPublish: JSON.parse(process.env.VUE_APP_REGISTER_PUBLISH)
       }
     },
     mixins: [toast],
@@ -134,6 +135,9 @@ LICENSE
           .then(res => {
             this.presentToast("Vous êtes connecté", 'success');
             this.$router.push({ name: "carpoolsHome" });
+            if(this.showPublish) {
+              this.$router.push({ name: "post-carpool" });
+            }
 
             if(isPlatform(window.document.defaultView, "capacitor")) {
               PushNotifications.requestPermission().then(result => {

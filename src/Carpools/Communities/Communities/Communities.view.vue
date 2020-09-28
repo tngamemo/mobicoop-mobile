@@ -31,16 +31,9 @@ LICENSE
     </ion-header>
 
     <ion-content color="primary" no-bounce>
-      <div
-        class="ion-text-center ion-margin-top"
-        v-if="this.$store.getters.statusGetCommunities == 'loading'"
-      >
-        <ion-icon size="large" color="light" class="rotating" name="md-sync"></ion-icon>
-      </div>
 
       <div
         class="mc-communities-first-block"
-        v-if="this.$store.getters.statusGetCommunities != 'loading'"
       >
         <div class="mc-my-communities" v-if="!!userCommunities">
           <p>{{ $t('Communities.myCommunities')}}</p>
@@ -53,7 +46,7 @@ LICENSE
               v-on:click="goToCommunity(commu.id)"
             >
               <ion-thumbnail>
-                <img :src="!!commu.images[0] && commu.images[0].versions.square_250" />
+                <img :src="!!commu.images[0] ? commu.images[0].versions.square_250 : '/assets/communities.png'" alt="" />
               </ion-thumbnail>
             </div>
           </div>
@@ -61,8 +54,8 @@ LICENSE
 
         <div class="mc-communities-search">
           <ion-searchbar
-            @ionInput="searchText = $event.target.value"
-            @ionClear="searchText = ''"
+            @ionInput="search($event.target.value)"
+            @ionClear="search('')"
             color="transparent"
             placeholder="Rechercher une communauté"
           ></ion-searchbar>
@@ -74,7 +67,7 @@ LICENSE
         </ion-button>
       </div>
       <div class="mc-white-container">
-        <div class="ion-text-center ion-margin-top" v-if="!communities">
+        <div class="ion-text-center ion-margin-top" v-if="this.$store.getters.statusGetCommunities == 'loading'">
           <ion-icon size="large" color="primary" class="rotating" name="md-sync"></ion-icon>
         </div>
         <ion-item
@@ -86,7 +79,7 @@ LICENSE
           <div class="d-flex mc-communities-community">
             <div class="mc-communities-avatar">
               <ion-thumbnail>
-                <img :src="!!commu.images[0] && commu.images[0].versions.square_250" alt />
+                <img :src="!!commu.images[0] ? commu.images[0].versions.square_250 : '/assets/communities.png'" alt="" />
               </ion-thumbnail>
             </div>
             <div class="mc-communities-text">
@@ -180,7 +173,7 @@ export default {
   created() {
     // On récupére les communities
     this.$store.state.communityStore.page = 1;
-    this.getAllCommunities();
+    this.getAllCommunities(null);
 
     if (!!this.$store.getters.userId) {
       this.$store.dispatch("getUserCommunities").catch(error => {
@@ -196,8 +189,7 @@ export default {
     infiniteScroll.addEventListener('ionInfinite', event => {
       setTimeout(() => {
         this.$store.state.communityStore.page = this.$store.state.communityStore.page + 1;
-        this.getAllCommunities();
-        event.target.complete();
+        this.getAllCommunities(event);
 
         // App logic to determine if all data is loaded
         // and disable the infinite scroll
@@ -210,11 +202,9 @@ export default {
   computed: {
     communities() {
       if (!!this.$store.getters.communities) {
-        return this.$store.getters.communities.filter(commu => {
-          return commu.name
-            .toUpperCase()
-            .includes(this.searchText.toUpperCase());
-        });
+        return this.$store.getters.communities;
+      } else {
+        return [];
       }
     },
 
@@ -223,10 +213,19 @@ export default {
     }
   },
   methods: {
-    getAllCommunities() {
-      this.$store.dispatch("getAllCommunities").catch(error => {
+    getAllCommunities(event) {
+      this.$store.dispatch("getAllCommunities", {query : this.searchText, number: 30}).then(res => {
+        if (event) {
+          event.target.complete();
+        }
+      }).catch(error => {
         this.presentToast(this.$t("Commons.error"), "danger");
       });
+    },
+    search(value) {
+      this.searchText = value;
+      this.$store.state.communityStore.page = 1;
+      this.getAllCommunities(null);
     },
     goToPostCommunity() {
       this.$router.push({

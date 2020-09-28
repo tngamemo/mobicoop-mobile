@@ -110,7 +110,7 @@ LICENSE
             name="address"
             :value="formatAddress(eventToPost.address)"
             readonly="true"
-            class="no-clickable"
+            class="no-clickable ellipsis"
             v-bind:placeholder="$t('Register.address')"
           ></ion-input>
         </ion-item>

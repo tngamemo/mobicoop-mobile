@@ -27,7 +27,7 @@ LICENSE
           <ion-label position="floating">{{$t('Search.origin')}}</ion-label>
           <ion-input
             type="text"
-            class="no-clickable"
+            class="no-clickable ellipsis"
             :placeholder="$t('Search.origin')"
             :value="this.$store.state.searchStore.display.origin"
           ></ion-input>
@@ -48,7 +48,7 @@ LICENSE
           <ion-label position="floating">{{$t('Search.destination')}}</ion-label>
           <ion-input
             type="text"
-            class="no-clickable"
+            class="no-clickable ellipsis"
             :placeholder="$t('Search.destination')"
             :value="this.$store.state.searchStore.display.destination"
           ></ion-input>

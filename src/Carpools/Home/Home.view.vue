@@ -95,7 +95,7 @@ LICENSE
         </ion-button>
 
         <div v-if="partner" class="d-flex justify-center ion-margin">
-          <img alt class="partner-img" src="/assets/partner.png" />
+          <img alt class="partner-img" src="/assets/partner.png" alt="" />
         </div>
       </div>
     </ion-content>

@@ -20,6 +20,9 @@ LICENSE
 
 <template>
   <div id="app">
+    <div class="d-flex justify-center align-center" style="height: 100%" v-if="!loaded">
+      <ion-icon size="large" color="light" class="rotating" name="md-sync"></ion-icon>
+    </div>
     <ion-app v-if="loaded">
       <ion-vue-router />
     </ion-app>
@@ -32,13 +35,15 @@ LICENSE
   import { Plugins } from '@capacitor/core';
   const { Device } = Plugins;
   const { Browser } = Plugins;
+  var Color = require('color');
 
   export default {
     name: 'app',
     data () {
       return {
         msg: 'Welcome to Your Vue.js App',
-        loaded: false
+        loaded: false,
+        firstGtag: localStorage.getItem('firstGtag') || true
       }
     },
     watch:{
@@ -48,21 +53,45 @@ LICENSE
           window._paq.push(['setCustomUrl', '/' + window.location.hash.substr(1)]);
           window._paq.push(['trackPageView']);
         }
+        if(JSON.parse(process.env.VUE_APP_GTAG_ACTIVATED)) {
+          gtag('event', 'screen_view', {
+            'app_name': process.env.VUE_APP_NAME,
+            'screen_name' : window.location.hash.substr(1)
+          });
+        }
       }
     },
     created: function () {
 
       document.title = process.env.VUE_APP_NAME;
       // On change les couleurs en fonction de l'environement
+      var colors = [];
+      colors.push({name: 'primary', color: Color('#' + process.env.VUE_APP_PRIMARY)});
+      colors.push({name: 'secondary', color: Color('#' + process.env.VUE_APP_SECONDARY)});
+      colors.push({name: 'tertiary', color: Color('#' + process.env.VUE_APP_TERTIARY)});
+      colors.push({name: 'success', color: Color('#' + process.env.VUE_APP_SUCCESS)});
+      colors.push({name: 'warning', color: Color('#' + process.env.VUE_APP_WARNING)});
+      colors.push({name: 'danger', color: Color('#' + process.env.VUE_APP_DANGER)});
+
+      colors.forEach(item => {
+        document.documentElement.style.setProperty('--ion-color-' + item.name, item.color.hex());
+        document.documentElement.style.setProperty('--ion-color-' + item.name + '-rgb', item.color.rgb().array().toString());
+        document.documentElement.style.setProperty('--ion-color-' + item.name + '-contrast', '#ffffff');
+        document.documentElement.style.setProperty('--ion-color-' + item.name + '-contrast-rgb', '255, 255, 255');
+        document.documentElement.style.setProperty('--ion-color-' + item.name + '-shade', item.color.lighten(0.2).hex());
+        document.documentElement.style.setProperty('--ion-color-' + item.name + '-tint', item.color.darken(0.2).hex());
+      })
+
+
+      /*
       document.documentElement.style.setProperty('--ion-color-primary', '#' + process.env.VUE_APP_PRIMARY);
       document.documentElement.style.setProperty('--ion-color-primary-rgb', process.env.VUE_APP_PRIMARY_RGB);
       document.documentElement.style.setProperty('--ion-color-secondary', '#' + process.env.VUE_APP_SECONDARY);
-      document.documentElement.style.setProperty('--ion-color-secondary-rgb', process.env.VUE_APP_SECONDARY_RGB);
-      document.documentElement.style.setProperty('--ion-color-tertiary', '#' + process.env.VUE_APP_TERTIARY);
-      document.documentElement.style.setProperty('--ion-color-success', '#' + process.env.VUE_APP_SUCCESS);
       document.documentElement.style.setProperty('--ion-color-success-rgb',  process.env.VUE_APP_SUCCESS_RGB);
       document.documentElement.style.setProperty('--ion-color-warning', '#' + process.env.VUE_APP_WARNING);
       document.documentElement.style.setProperty('--ion-color-danger', '#' + process.env.VUE_APP_DANGER);
+      */
+
 
       document.documentElement.style.setProperty('background-color', '#' + process.env.VUE_APP_BEHIND_BACKGROUND_COLOR);
       if (JSON.parse(process.env.VUE_APP_BEHIND_BACKGROUND_IMAGE)) {
@@ -76,6 +105,9 @@ LICENSE
     mounted() {
       if(JSON.parse(process.env.VUE_APP_ANALYTICS_ACTIVATED)) {
         this.initAnalytics();
+      }
+      if(JSON.parse(process.env.VUE_APP_GTAG_ACTIVATED)) {
+        this.initGtags();
       }
     },
     methods: {
@@ -135,6 +167,25 @@ LICENSE
             Matomo.getAsyncTracker().trackPageView();
           }
         }, 250);
+      },
+      initGtags() {
+        document.body.appendChild(Object.assign(document.createElement('script'), {
+          type: 'text/javascript',
+          src: 'https://www.googletagmanager.com/gtag/js?id=' + process.env.VUE_APP_GTAG_ID,
+          onload: () => {
+            window.dataLayer = window.dataLayer || [];
+            window.gtag = function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', process.env.VUE_APP_GTAG_ID);
+            if( this.firstGtag ) {
+              gtag('event', 'conversion', {
+                'allow_custom_scripts': true,
+                'send_to': 'DC-8013475/movici/premi0+standard'
+              });
+              localStorage.setItem('firstGtag', false);
+            }
+          }
+        }));
       },
       getVersion() {
         this.$store.dispatch('getVersions').then(res => {
@@ -216,5 +267,9 @@ LICENSE
 
 <style lang="scss">
   @import "./style.scss";
+
+  #app {
+    height: 100%;
+  }
 
 </style>
