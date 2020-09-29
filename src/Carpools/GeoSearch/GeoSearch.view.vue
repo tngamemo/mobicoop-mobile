@@ -223,6 +223,14 @@ export default {
               break;
             }
 
+            case "update_bank_address": {
+              this.$store.commit("updateBankAddress", {
+                addressDTO,
+                displayGeo
+              });
+              break;
+            }
+
             case "update_community_address": {
               this.$store.commit("updateCommunityAddress", {
                 addressDTO,

@@ -23,6 +23,7 @@ import http from '../Mixin/http.mixin'
 export const paymentStore = {
   state: {
     statusPayment: '',
+    bankAccount: null
   },
   mutations: {
     payment_request(state) {
@@ -35,7 +36,22 @@ export const paymentStore = {
 
     payment_error(state) {
       state.statusPayment = 'error';
-    }
+    },
+
+    reset_bank_account(state) {
+      state.bankAccount = {
+        iban: '',
+        bic: ''
+      }
+    },
+
+    update_bank_account(state, data) {
+      state.bankAccount = data
+    },
+
+    updateBankAddress(state, payload) {
+      state.bankAccount.address = payload.addressDTO;
+    },
 
   },
   actions: {
@@ -76,6 +92,62 @@ export const paymentStore = {
           commit('payment_error');
           reject(err)
         })
+      })
+    },
+    getBankAccount: ({commit, state}, params) => {
+      return new Promise((resolve, reject) => {
+        http.get("/users/paymentProfile", {params : params}).then(resp => {
+          if (resp) {
+            if(resp.data['hydra:member'][0].bankAccounts[0]) {
+              commit('update_bank_account', resp.data['hydra:member'][0].bankAccounts[0]);
+            } else if(state.bankAccount.id) {
+              commit('reset_bank_account');
+            }
+            resolve(resp)
+          }
+        }).catch(err => {
+          reject(err)
+        })
+      })
+    },
+    disableBankAccount: ({commit}, bankAccountId) => {
+      return new Promise((resolve, reject) => {
+        http.get("/bank_accounts/disable?idBankAccount=" + bankAccountId).then(resp => {
+          if (resp) {
+            commit('reset_bank_account');
+            resolve(resp)
+          }
+        }).catch(err => {
+          reject(err)
+        })
+      })
+    },
+    postBankAccount: ({commit}, data) => {
+      delete data.address.id;
+      delete data.address.geoJson;
+      return new Promise((resolve, reject) => {
+        http.post("/bank_accounts" , data).then(resp => {
+          if (resp) {
+            commit('update_bank_account', resp.data);
+            resolve(resp)
+          }
+        }).catch(err => {
+          reject(err)
+        })
+      })
+    },
+    sendValidationDocument: ({commit}, params) => {
+      return new Promise((resolve, reject) => {
+        const formData = new FormData();
+        formData.append('file', params.file);
+
+        http.post(`/validation_documents`, formData)
+          .then(resp => {
+            resolve(resp)
+          })
+          .catch(err => {
+            reject(err)
+          })
       })
     },
   },
