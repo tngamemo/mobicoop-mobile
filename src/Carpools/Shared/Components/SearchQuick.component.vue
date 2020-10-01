@@ -78,7 +78,7 @@ LICENSE
 
             <ion-col size="6" class="d-flex ion-align-items-end">
               <ion-item lines="none">
-                <ion-label>Trajet régulier</ion-label>
+                <ion-label style="white-space: normal">Trajet régulier</ion-label>
                 <ion-checkbox
                   slot="start"
                   :checked="this.$store.state.searchStore.searchObject.frequency == 2"

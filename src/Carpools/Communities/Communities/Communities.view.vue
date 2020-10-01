@@ -30,7 +30,7 @@ LICENSE
       </ion-toolbar>
     </ion-header>
 
-    <ion-content color="primary" no-bounce>
+    <ion-content id="communities" color="primary" no-bounce>
 
       <div
         class="mc-communities-first-block"
@@ -184,6 +184,10 @@ export default {
 
   },
   mounted() {
+    setTimeout(() => {
+    document.querySelector('#communities').shadowRoot.querySelector('.scroll-y').setAttribute('style', 'overflow-anchor:none');
+    }, 500);
+
     const infiniteScroll = document.getElementById('infinite-scroll');
 
     infiniteScroll.addEventListener('ionInfinite', event => {
