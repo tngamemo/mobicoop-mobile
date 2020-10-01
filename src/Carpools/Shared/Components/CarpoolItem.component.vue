@@ -178,13 +178,13 @@ LICENSE
         >{{carpool.potentialCarpoolers}} {{$t("MyCarpools.potentialCarpoolers")}}</ion-button>
       </div>
       <div
-        v-if="payment && activatedPayment"
+        v-if="payment && payment.paymentItemId && activatedPayment"
         class="mc-carpool-potential-carpoolers"
       >
         <div v-if="payment.paymentStatus === 1" class="text-center text-success"><b>{{$t("Payment.online")}}</b></div>
         <div v-if="payment.paymentStatus === 2" class="text-center text-success"><b>{{$t("Payment.direct")}}</b></div>
         <div v-if="payment.paymentStatus === 4" class="text-center text-success"><b>{{$t("Payment.paid")}}</b></div>
-        <ion-button v-if="payment.paymentStatus === 0 || payment.paymentStatus === 3"
+        <ion-button v-if="payment.paymentItemId && (payment.paymentStatus === 0 || payment.paymentStatus === 3)"
           class="mc-big-button normal-wrap"
           fill="outline"
           color="success"
@@ -508,7 +508,7 @@ export default {
     payCarpoolers() {
       this.$router.push({ name: 'payment', query : {
           frequency: this.carpool.frequency,
-          type: this.carpool.driver ? 2 : 1,
+          type: this.carpool.driver ? 1 : 2,
           week: this.payment.paymentItemWeek,
           defaultId: this.payment.paymentItemId,
           askId: this.payment.askId
