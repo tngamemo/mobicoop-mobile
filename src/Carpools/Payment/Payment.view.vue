@@ -43,7 +43,7 @@ LICENSE
           <ion-icon size="large" color="primary" class="rotating"  name="md-sync"></ion-icon>
         </div>
 
-        <div v-if="$store.state.paymentStore.statusPayment == 'success' && payments">
+        <div v-if="$store.state.paymentStore.statusPayment == 'success' && payments" style="margin-bottom: 74px">
           <div class="text-center" v-if="payments.length == 0">
             {{$t('Payment.none')}}
           </div>
@@ -113,7 +113,8 @@ LICENSE
                   <ion-checkbox
                     slot="start"
                     color="success"
-                    @ionChange="addForPost($event, payment, 2)"
+                    :checked="payment.selectedMode == 2"
+                    @click="addForPost($event, payment, 2)"
                   ></ion-checkbox>
                 </ion-item>
                 <ion-item lines="none" class="item-transparent" v-if="payment.electronicallyPayable && payment.canPayElectronically">
@@ -121,7 +122,8 @@ LICENSE
                   <ion-checkbox
                     slot="start"
                     color="success"
-                    @ionChange="addForPost($event, payment, 1)"
+                    :checked="payment.selectedMode == 1"
+                    @click="addForPost($event, payment, 1)"
                   ></ion-checkbox>
                 </ion-item>
               </div>
@@ -198,7 +200,8 @@ LICENSE
     left: 0px;
     bottom: 0px;
     background-color: var(--ion-color-primary);
-    padding: 15px
+    padding: 15px;
+    z-index: 9;
   }
 
   .item-transparent {
@@ -284,7 +287,7 @@ LICENSE
                 })
               }
               payment.items = [];
-              payment.selected = false;
+              payment.selectedMode = 0;
             });
             this.payments = result
           })
@@ -308,9 +311,14 @@ LICENSE
         this.avatarLoaded = true;
       },
       addForPost(event, payment, mode) {
-        if(event.detail.checked) {
-          payment.selected = true
+        console.log(event);
+        if(payment.selectedMode != mode) {
+          payment.selectedMode = mode
           if (payment.frequency == 1) {
+            const index = this.dataToPost.items.findIndex(item => item.id === payment.id);
+            if(index >= 0) {
+              this.dataToPost.items.splice(index, 1);
+            }
             this.dataToPost.items.push({
               id: payment.id,
               status: 1,
@@ -320,7 +328,7 @@ LICENSE
             this.setItems(payment)
           }
         } else {
-          payment.selected = false
+          payment.selectedMode = 0
           if (payment.frequency == 1) {
             const index = this.dataToPost.items.findIndex(item => item.id === payment.id);
             this.dataToPost.items.splice(index, 1);
@@ -410,7 +418,7 @@ LICENSE
         this.setItems(payment)
       },
       setItems(payment) {
-        if(payment.selected) {
+        if(payment.selectedMode != 0) {
           payment.items = payment.selectedDays
         } else {
           payment.items = []

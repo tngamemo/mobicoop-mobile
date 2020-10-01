@@ -178,13 +178,13 @@ LICENSE
         >{{carpool.potentialCarpoolers}} {{$t("MyCarpools.potentialCarpoolers")}}</ion-button>
       </div>
       <div
-        v-if="payment && payment.paymentItemId && activatedPayment"
+        v-if="payment && activatedPayment"
         class="mc-carpool-potential-carpoolers"
       >
         <div v-if="payment.paymentStatus === 1" class="text-center text-success"><b>{{$t("Payment.online")}}</b></div>
         <div v-if="payment.paymentStatus === 2" class="text-center text-success"><b>{{$t("Payment.direct")}}</b></div>
         <div v-if="payment.paymentStatus === 4" class="text-center text-success"><b>{{$t("Payment.paid")}}</b></div>
-        <ion-button v-if="payment.paymentItemId && (payment.paymentStatus === 0 || payment.paymentStatus === 3)"
+        <ion-button v-if="payment.paymentStatus === 0 || payment.paymentStatus === 3"
           class="mc-big-button normal-wrap"
           fill="outline"
           color="success"
