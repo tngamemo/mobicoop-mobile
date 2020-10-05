@@ -114,7 +114,8 @@ LICENSE
                     slot="start"
                     color="success"
                     :checked="payment.selectedMode == 2"
-                    @click="addForPost($event, payment, 2)"
+                    @click="ionChangeSelect = 2"
+                    @ionChange="addForPost($event, payment, 2)"
                   ></ion-checkbox>
                 </ion-item>
                 <ion-item lines="none" class="item-transparent" v-if="payment.electronicallyPayable && payment.canPayElectronically">
@@ -123,7 +124,8 @@ LICENSE
                     slot="start"
                     color="success"
                     :checked="payment.selectedMode == 1"
-                    @click="addForPost($event, payment, 1)"
+                    @click="ionChangeSelect = 1"
+                    @ionChange="addForPost($event, payment, 1)"
                   ></ion-checkbox>
                 </ion-item>
               </div>
@@ -230,6 +232,9 @@ LICENSE
 
 <script>
   import {toast} from "../../Shared/Mixin/toast.mixin";
+  import {isPlatform} from "@ionic/core";
+  import { Plugins } from '@capacitor/core';
+  const { Browser } = Plugins;
 
   export default {
     name: 'payment',
@@ -244,7 +249,8 @@ LICENSE
         frequency: null,
         askId: null,
         weeks: [],
-        selectedWeek: null
+        selectedWeek: null,
+        ionChangeSelect: 0
       }
     },
     mixins: [toast],
@@ -311,29 +317,31 @@ LICENSE
         this.avatarLoaded = true;
       },
       addForPost(event, payment, mode) {
-        console.log(event);
-        if(payment.selectedMode != mode) {
-          payment.selectedMode = mode
-          if (payment.frequency == 1) {
-            const index = this.dataToPost.items.findIndex(item => item.id === payment.id);
-            if(index >= 0) {
-              this.dataToPost.items.splice(index, 1);
+        // fix ionChange trigger for all
+        if(mode == this.ionChangeSelect) {
+          if (payment.selectedMode != mode) {
+            payment.selectedMode = mode
+            if (payment.frequency == 1) {
+              const index = this.dataToPost.items.findIndex(item => item.id === payment.id);
+              if (index >= 0) {
+                this.dataToPost.items.splice(index, 1);
+              }
+              this.dataToPost.items.push({
+                id: payment.id,
+                status: 1,
+                mode: mode
+              })
+            } else if (payment.frequency == 2) {
+              this.setItems(payment)
             }
-            this.dataToPost.items.push({
-              id: payment.id,
-              status: 1,
-              mode: mode
-            })
-          } else if (payment.frequency == 2) {
-            this.setItems(payment)
-          }
-        } else {
-          payment.selectedMode = 0
-          if (payment.frequency == 1) {
-            const index = this.dataToPost.items.findIndex(item => item.id === payment.id);
-            this.dataToPost.items.splice(index, 1);
-          } else if (payment.frequency == 2) {
-            this.setItems(payment)
+          } else {
+            payment.selectedMode = 0
+            if (payment.frequency == 1) {
+              const index = this.dataToPost.items.findIndex(item => item.id === payment.id);
+              this.dataToPost.items.splice(index, 1);
+            } else if (payment.frequency == 2) {
+              this.setItems(payment)
+            }
           }
         }
       },
@@ -374,12 +382,31 @@ LICENSE
       postPayment() {
         this.$store.dispatch('postPayment', this.dataToPost)
           .then((res) => {
-            this.presentToast(this.$t('Payment.' + (this.type == 1 ? 'pay' : 'collect') + '.success'), "success");
-            this.$router.back()
+            if (res.data.redirectUrl) {
+                window.open(res.data.redirectUrl,"_self");
+            } else {
+              this.presentToast(this.$t('Payment.' + (this.type == 1 ? 'pay' : 'collect') + '.success'), "success");
+              this.$router.back()
+            }
           })
           .catch((error) => {
             this.presentToast(this.$t("Commons.error"), "danger");
           })
+      },
+      async openBrowser(url) {
+        await Browser.open({ url: url });
+        Browser.addListener('browserFinished', (err, result) => {
+          console.log(err, result, 'browserFinished');
+          if (err) {
+            return console.warn('[Browser-Finished] Something went wrong!');
+          }
+        });
+        Browser.addListener('browserPageLoaded', (err, result) => {
+          console.log(err, result, 'BrowserPageLoad');
+          if (err) {
+            return console.warn('[Browser-PageLoad] Something went wrong!');
+          }
+        });
       },
       getOutwardOrReturnDay(type, payment) {
           const days = [
