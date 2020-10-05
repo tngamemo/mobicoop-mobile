@@ -91,7 +91,7 @@ http.interceptors.response.use((response) => {
 async function createToasterLogin() {
   const existingVueInstance = document.querySelector('#app').__vue__;
   const toast = await existingVueInstance.$ionic.toastController.create({
-    message: 'Veuillez vous reconnectez',
+    message: 'Veuillez vous reconnecter',
     duration: 5000,
     showCloseButton: false,
     position: 'bottom',
