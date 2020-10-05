@@ -108,6 +108,8 @@ LICENSE
   background-image: url("/assets/banner.png");
   background-repeat: no-repeat;
   background-size: 100%;
+  // background-size: cover;
+  // background-position: center;
 }
 
 .partner-img {
