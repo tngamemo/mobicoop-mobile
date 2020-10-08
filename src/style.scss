@@ -383,3 +383,7 @@ ion-tab-button {
   left: 5px;
   text-align: center;
 }
+
+.leaflet-control-attribution {
+  pointer-events: none;
+}

@@ -68,6 +68,7 @@
     "jwt-decode": "^2.2.0",
     "leaflet": "^1.6.0",
     "leaflet-fullscreen": "^1.0.2",
+    "uk.co.workingedge.phonegap.plugin.launchnavigator": "^5.0.5",
     "vue": "^2.5.11",
     "vue-i18n": "^8.15.3",
     "vue-moment": "^4.1.0",

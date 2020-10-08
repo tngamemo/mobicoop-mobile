@@ -109,7 +109,7 @@ LICENSE
                 <l-marker :lat-lng="[myPosition.latitude, myPosition.longitude]">
                   <l-icon :iconSize="[30, 42]" :iconAnchor="[15, 42]" className="custom-div-icon"><div class="marker-pin"></div><ion-icon :name="currentDynamic.role == 1 ? 'car' : 'person'"></ion-icon></l-icon>
                 </l-marker>
-                <l-marker v-if="currentAsk.position" :lat-lng="[currentAsk.position.latitude, currentAsk.position.longitude]">
+                <l-marker v-if="currentAsk.user && currentAsk.user.position" :lat-lng="[currentAsk.user.position.latitude, currentAsk.user.position.longitude]">
                   <l-icon :iconSize="[30, 42]" :iconAnchor="[15, 42]" className="custom-div-icon"><div class="marker-pin"></div><ion-icon :name="currentDynamic.role == 1 ? 'person' : 'car'"></ion-icon></l-icon>
                 </l-marker>
                 <l-marker :lat-lng="[destination.latitude, destination.longitude]">
@@ -139,16 +139,22 @@ LICENSE
                 <div v-if="currentAsk.message" class="text-center">{{currentAsk.message}}</div>
                 <div v-if="currentAsk.messages"><div class="text-center" v-for="message in currentAsk.messages">{{message.text}}</div></div>
 
+                <!--
+                <ion-button expand="block" v-if="!currentProof.id && currentDynamic.role === 1 && this.currentAsk.user.position && this.currentAsk.user.position.latitude && this.currentAsk.user.position.latitude" @click="launchNavigation()">
+                  <ion-icon slot="start" name="navigate"></ion-icon>
+                  Ouvrir le GPS
+                </ion-button>
+                -->
                 <div v-if="currentProof.id" class="text-center">
                   <ion-icon name="checkmark"></ion-icon> Preuve déposé <span class="muted"><!--<small style="margin-left: 5px">{{currentProof.id}}</small>--></span>
                 </div>
-                <ion-button expand="block" v-if="!currentProof.id && currentDynamic.role === 1" @click="postDynamicProof()">Prise en charge du passager</ion-button>
-                <ion-button expand="block" v-if="currentProof.id && currentDynamic.role === 1" @click="putDynamicProof()">Dépose du passager</ion-button>
+                <ion-button expand="block" v-if="!currentProof.id && currentDynamic.role === 1" @click="postDynamicProof()">Mon passager monte dans le véhicule</ion-button>
+                <ion-button expand="block" v-if="currentProof.id && currentDynamic.role === 1" @click="putDynamicProof()">Mon passager descend du véhicule</ion-button>
                 <div v-if="currentAsk.proof">
                   <!--<div class="text-right muted"><small>{{currentAsk.proof.id}}</small></div>-->
                   <!--<div>ProofStatus : {{currentAsk.proof.needed}}</div>-->
-                  <ion-button expand="block" v-if="!currentProof.id && currentAsk.proof.needed == 'pickUp' && currentDynamic.role === 2" @click="postDynamicProof()">Je suis pris en charge</ion-button>
-                  <ion-button expand="block" v-if="currentAsk.proof.needed == 'dropOff' && currentDynamic.role === 2" @click="putDynamicProof()">Je suis déposé</ion-button>
+                  <ion-button expand="block" v-if="!currentProof.id && currentAsk.proof.needed == 'pickUp' && currentDynamic.role === 2" @click="postDynamicProof()">Je monte dans le véhicule</ion-button>
+                  <ion-button expand="block" v-if="currentAsk.proof.needed == 'dropOff' && currentDynamic.role === 2" @click="putDynamicProof()">Je descend du véhicule</ion-button>
                 </div>
 
 
@@ -319,8 +325,7 @@ LICENSE
             touchZoom: isPlatform(window.document.defaultView, "mobile"),
             tap: !isPlatform(window.document.defaultView, "mobile"),
             zoomControl: false
-          },
-          updatePositionInterval: null
+          }
         },
       }
     },
@@ -340,6 +345,9 @@ LICENSE
         } else {
           return null;
         }
+      },
+      updatePositionInterval() {
+        return this.$store.state.dynamicStore.updatePositionInterval
       },
       state() {
         return this.$store.state.dynamicStore.state
@@ -414,7 +422,10 @@ LICENSE
           "finished": true
         }).then(() => {
           this.stopBackgroundGeolocation();
-        });
+        }).catch(() => {
+          this.$store.commit('reset_current_dynamic');
+          this.stopBackgroundGeolocation();
+        })
       },
       updatePosition() {
         this.updateDynamics('update_position',{
@@ -491,6 +502,8 @@ LICENSE
           stationaryRadius: 1, // 20
           distanceFilter: 1, // 30
           interval: 15000,
+          notificationTitle: 'Covoiturage Dynamique',
+          notificationText: 'Activé',
           debug: false, //  enable this hear sounds for background-geolocation life-cycle.
           stopOnTerminate: false, // enable this to clear background location settings when the app terminates
         };
@@ -515,6 +528,9 @@ LICENSE
 
           });
 
+        if(this.updatePositionInterval) {
+          clearInterval(this.updatePositionInterval);
+        }
         this.updatePositionInterval = setInterval(() => {
           this.updatePosition();
         }, 15000);
@@ -526,6 +542,7 @@ LICENSE
         if(this.updatePositionInterval) {
           clearInterval(this.updatePositionInterval);
         }
+        BackgroundGeolocation.removeAllListeners();
         BackgroundGeolocation.stop();
       },
       async sendLocalNotification() {
@@ -543,7 +560,31 @@ LICENSE
             }
           ]
         });
-      }
+      },
+      /*
+      launchNavigation() {
+          const options = {
+            appSelection : {
+              dialogHeaderText: 'Lancez la navigation',
+              cancelButtonText: 'Annuler',
+              rememberChoice : {
+                enabled : false,
+                prompt : {
+                  headerText: 'Retenir votre choix ?',
+                  bodyText: 'Utiliser la même application la prochaine fois ?',
+                  yesButtonText: 'Oui',
+                  noButtonText: 'Non'
+                }
+              }
+            },
+          };
+          launchnavigator.navigate([this.currentAsk.position.latitude, this.currentAsk.position.longitude], options)
+            .then(
+              success => console.log('Launched navigator'),
+              error => console.log('Error launching navigator', error)
+            );
+        }
+       */
     }
   }
 </script>

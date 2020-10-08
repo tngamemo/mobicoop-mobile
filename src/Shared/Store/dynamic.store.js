@@ -32,8 +32,8 @@ export const dynamicStore = {
     currentDynamic : {},
     currentAsk : {},
     currentProof: {},
-    asksLength: 0
-
+    asksLength: 0,
+    updatePositionInterval: null
   },
   mutations: {
     dynamic_request(state) {
