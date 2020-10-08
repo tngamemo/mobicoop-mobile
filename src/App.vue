@@ -265,7 +265,7 @@ LICENSE
       },
       registerDeeplink() {
         if (isPlatform(window.document.defaultView, "capacitor")) {
-          App.addListener('appUrlOpen', function (data) {
+          App.addListener('appUrlOpen', data => {
             const slug = data.url.split("#").pop();
 
             // We only push to the route if there is a slug present
