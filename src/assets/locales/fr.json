@@ -100,7 +100,7 @@
     "error": "Une erreur est survenue. Veuillez réessayer ultérieurement.",
     "carpool": "Covoiturage",
     "direct": "Direct",
-    "none" : "Aucun message",
+    "none" : "Vous n'avez pas encore échangé avec un autre inscrit",
     "delete-success": "Le fil de discussion a été supprimé avec succès",
     "confirmDeleteHeader": "Etes-vous sur de vouloir supprimer ce fil de discussion ? ",
     "confirmDeleteText": "Toute suppression est définitive, êtes-vous sur de vouloir supprimer ce fil de discussion ?"
@@ -140,6 +140,8 @@
     "visibility-all": "Visible dès la publication de l'annonce, par tous les inscrits",
     "phoneToken": "Envoyer un code de vérification",
     "phoneTokenPopup": "Vérification du téléphone",
+    "phoneTokenPopupDesc" : "Nous avons envoyé un code de vérification par sms au {value}. Veuillez renseigner ce code de vérification ci-dessous.",
+    "phoneTokenPopupCode" : "Code de vérification",
     "newsSubscription" : "Recevoir les actualités",
     "file-size": "L'image ne doit pas dépasser 1 Mo"
   },

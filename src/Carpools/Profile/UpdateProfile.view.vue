@@ -128,7 +128,8 @@ LICENSE
 
           <div v-if="!user.phoneValidatedDate" class="mc-button-phone">
             <ion-button class='mc-small-button' fill="outline" color="primary" v-on:click='setPhoneToken'>
-              {{ $t('UpdateProfile.phoneToken') }}
+              <ion-icon v-if="loadingPhoneToken" size="large" class="rotating" name="md-sync"></ion-icon>
+              <span v-if="!loadingPhoneToken">{{ $t('UpdateProfile.phoneToken') }}</span>
             </ion-button>
           </div>
 
@@ -249,7 +250,8 @@ LICENSE
       return {
         user: null,
         maxBirthDate: new Date().toISOString(),
-        requiredBirthdate: JSON.parse(process.env.VUE_APP_REQUIRED_BIRTHDATE)
+        requiredBirthdate: JSON.parse(process.env.VUE_APP_REQUIRED_BIRTHDATE),
+        loadingPhoneToken: false
       }
     },
     mixins: [toast, address],
@@ -345,24 +347,35 @@ LICENSE
         }
       },
       setPhoneToken() {
-        this.$store.dispatch('generatePhoneToken', this.user.id)
-          .then(res => {
-            this.displayPhoneTokenAlert();
-          })
-          .catch(() => {
-            this.presentToast(this.$t("Commons.error"), "danger");
+        this.$v.$reset();
+        this.$v.$touch();
+        if (!this.$v.$invalid) {
+          this.loadingPhoneToken = true;
+          this.$store.dispatch('updateUser', this.user).then(res => {
+            this.$store.dispatch('generatePhoneToken', this.user.id)
+              .then(res => {
+                this.loadingPhoneToken = false;
+                this.displayPhoneTokenAlert(res.data.telephone);
+              })
+              .catch(() => {
+                this.loadingPhoneToken = false;
+                this.presentToast(this.$t("Commons.error"), "danger");
+              });
+          }).catch(() => {
+            this.loadingPhoneToken = false;
           });
-
+        }
       },
-      displayPhoneTokenAlert() {
+      displayPhoneTokenAlert(phone) {
         return this.$ionic.alertController
           .create({
             header: this.$t('UpdateProfile.phoneTokenPopup'),
+            message: this.$t('UpdateProfile.phoneTokenPopupDesc', {value: phone}),
             inputs: [
               {
                 name: "phoneToken",
                 id: "phoneToken",
-                placeholder: this.$t('UpdateProfile.phoneTokenPopup')
+                placeholder: this.$t('UpdateProfile.phoneTokenPopupCode')
               }
             ],
             buttons: [
