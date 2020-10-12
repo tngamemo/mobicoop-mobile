@@ -304,6 +304,7 @@ LICENSE
   // import { BackgroundGeolocation } from '@mauron85/cordova-plugin-background-geolocation';
   import { LMap, LTileLayer, LPolyline, LMarker, LIcon } from "vue2-leaflet";
   import { BackgroundGeolocation, BackgroundGeolocationEvents } from '@ionic-native/background-geolocation';
+  import { OpenNativeSettings } from '@ionic-native/open-native-settings';
   import { Plugins } from '@capacitor/core';
   import {isPlatform} from "@ionic/core";
   const { Geolocation } = Plugins;
@@ -392,7 +393,7 @@ LICENSE
         if (p.state == "granted" || p.state == "prompt") {
           const coordinates = await Geolocation.getCurrentPosition().catch(error => {
             console.log(error);
-            this.presentToast(this.$t("Commons.gps-activation"), "danger");
+            this.presentGpsToast('Commons.gps-activation');
           });
           this.$store.commit('set_dynamic_my_position', {latitude: coordinates.coords.latitude.toString(), longitude: coordinates.coords.longitude.toString()});
           this.$store.commit('set_dynamic_destination', this.$store.state.searchStore.searchObject.outwardWaypoints[1]);
@@ -404,9 +405,27 @@ LICENSE
             this.startBackgroundGeolocation();
           });
         } else if (p.state == "denied") {
-          this.presentToast(this.$t("Commons.gps-permission"), "danger");
+          this.presentGpsToast('Commons.gps-permission');
         }
 
+      },
+      async presentGpsToast(text) {
+        const toast = await this.$ionic.toastController.create({
+          message: this.$t(text),
+          duration: 5000,
+          showCloseButton: false,
+          position: 'top',
+          color: 'danger',
+          buttons: [
+            {
+              text: 'Paramètres',
+              handler: () => {
+                OpenNativeSettings.open('location');
+              }
+            }
+          ]
+        });
+        toast.present();
       },
       updateDynamics(result, body) {
         return this.$store.dispatch('putDynamics', {
