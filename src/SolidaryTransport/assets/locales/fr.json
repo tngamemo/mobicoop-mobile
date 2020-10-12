@@ -299,9 +299,9 @@
           "needs": "Autres informations :",
           "when": {
             "departure": {
-              "date": "A quelle date souhaitez-vous partir ?",
+              "date": "A quelle date comptez-vous partir ?",
               "specificDate": "Date du départ",
-              "hour": "Heure de départ",
+              "hour": "A quelle heure comptez-vous partir ?",
               "specificHour": "Heure de départ",
               "day": "Indiquez les jours concernés par votre trajet régulier :",
               "dates": [
@@ -364,7 +364,7 @@
               ]
             },
             "return": {
-              "hour": "Heure de retour",
+              "hour": "A quelle heure comptez-vous revenir ?",
               "specificHour": "Heure de retour",
               "noHour": "Pas besoin qu'on me ramène",
               "hours": [
