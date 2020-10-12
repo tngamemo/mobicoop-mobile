@@ -76,12 +76,12 @@ LICENSE
           <ion-item-sliding v-for="message in messages" :key="message.id">
             <ion-item class="message-list" @click="goToMessage(message)">
               <ion-avatar class="ion-margin-end ion-margin-start avatar">
-                <img v-if="message.avatarsRecipient" v-bind:src="message.avatarsRecipient" alt />
-                <img v-if="!message.avatarsRecipient" src="/assets/user.png" alt />
+                <img v-if="message.avatarsRecipient" v-bind:src="message.avatarsRecipient" alt="" />
+                <img v-if="!message.avatarsRecipient" src="/assets/user.png" alt="" />
               </ion-avatar>
               <ion-label>
-                <p class="message-name">
-                  <b>{{message.givenName}} {{message.shortFamilyName}}</b>
+                <p class="message-name d-flex align-center">
+                  <img class="c-icon mr-5" v-if="message.blockerId" style="visibility: visible" src="/assets/account-cancel.png"/><b>{{message.givenName}} {{message.shortFamilyName}}</b>
                 </p>
                 <p
                   v-if="message.carpoolInfos"
@@ -103,6 +103,11 @@ LICENSE
 </template>
 
 <style lang="scss">
+
+  .mr-5 {
+    margin-right : 5px;
+  }
+
 .mc-messages-type-selector {
   @media screen and (max-width: 320px) {
     flex-wrap: wrap;

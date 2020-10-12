@@ -30,7 +30,7 @@ LICENSE
       </ion-toolbar>
     </ion-header>
 
-    <ion-content color="primary" no-bounce>
+    <ion-content id="communities" color="primary" no-bounce>
 
       <div
         class="mc-communities-first-block"
@@ -46,7 +46,7 @@ LICENSE
               v-on:click="goToCommunity(commu.id)"
             >
               <ion-thumbnail>
-                <img :src="!!commu.images[0] ? commu.images[0].versions.square_250 : '/assets/communities.png'" />
+                <img :src="!!commu.images[0] ? commu.images[0].versions.square_250 : '/assets/communities.png'" alt="" />
               </ion-thumbnail>
             </div>
           </div>
@@ -79,7 +79,7 @@ LICENSE
           <div class="d-flex mc-communities-community">
             <div class="mc-communities-avatar">
               <ion-thumbnail>
-                <img :src="!!commu.images[0] ? commu.images[0].versions.square_250 : '/assets/communities.png'" alt />
+                <img :src="!!commu.images[0] ? commu.images[0].versions.square_250 : '/assets/communities.png'" alt="" />
               </ion-thumbnail>
             </div>
             <div class="mc-communities-text">
@@ -173,7 +173,7 @@ export default {
   created() {
     // On récupére les communities
     this.$store.state.communityStore.page = 1;
-    this.getAllCommunities();
+    this.getAllCommunities(null);
 
     if (!!this.$store.getters.userId) {
       this.$store.dispatch("getUserCommunities").catch(error => {
@@ -184,13 +184,16 @@ export default {
 
   },
   mounted() {
+    setTimeout(() => {
+    document.querySelector('#communities').shadowRoot.querySelector('.scroll-y').setAttribute('style', 'overflow-anchor:none');
+    }, 500);
+
     const infiniteScroll = document.getElementById('infinite-scroll');
 
     infiniteScroll.addEventListener('ionInfinite', event => {
       setTimeout(() => {
         this.$store.state.communityStore.page = this.$store.state.communityStore.page + 1;
-        this.getAllCommunities();
-        event.target.complete();
+        this.getAllCommunities(event);
 
         // App logic to determine if all data is loaded
         // and disable the infinite scroll
@@ -203,7 +206,7 @@ export default {
   computed: {
     communities() {
       if (!!this.$store.getters.communities) {
-        return this.$store.getters.communities;
+        return this.$store.getters.communities.filter(item => item.communitySecurities && item.communitySecurities.length == 0);
       } else {
         return [];
       }
@@ -214,15 +217,19 @@ export default {
     }
   },
   methods: {
-    getAllCommunities() {
-      this.$store.dispatch("getAllCommunities", this.searchText).catch(error => {
+    getAllCommunities(event) {
+      this.$store.dispatch("getAllCommunities", {query : this.searchText, number: 30}).then(res => {
+        if (event) {
+          event.target.complete();
+        }
+      }).catch(error => {
         this.presentToast(this.$t("Commons.error"), "danger");
       });
     },
     search(value) {
       this.searchText = value;
       this.$store.state.communityStore.page = 1;
-      this.getAllCommunities();
+      this.getAllCommunities(null);
     },
     goToPostCommunity() {
       this.$router.push({

@@ -98,7 +98,7 @@ LICENSE
         </ion-button>
 
         <div v-if="partner" class="d-flex justify-center ion-margin">
-          <img alt class="partner-img" src="/assets/partner.png" />
+          <img alt class="partner-img" src="/assets/partner.png" alt="" />
         </div>
       </div>
     </ion-content>
@@ -111,6 +111,8 @@ LICENSE
   background-image: url("/assets/banner.png");
   background-repeat: no-repeat;
   background-size: 100%;
+  // background-size: cover;
+  // background-position: center;
 }
 
 .partner-img {

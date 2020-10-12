@@ -420,7 +420,6 @@ export const userStore = {
     return new Promise((resolve, reject) => {
       http.post(`/users/checkPhoneToken`, params)
         .then(resp => {
-          commit('user_request_success', resp.data);
           resolve(resp)
         })
         .catch(err => {
@@ -469,6 +468,17 @@ export const userStore = {
       }
       return new Promise((resolve, reject) => {
         http.post(`/push_tokens`, { token: params, type: mobile })
+          .then(resp => {
+            resolve(resp)
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
+    },
+    blockUser({commit}, userId) {
+      return new Promise((resolve, reject) => {
+        http.post(`/blocks`, {user: '/users/' + userId})
           .then(resp => {
             resolve(resp)
           })

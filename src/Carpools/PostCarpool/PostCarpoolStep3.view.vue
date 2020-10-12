@@ -83,10 +83,10 @@ LICENSE
       </div>
     </div>
 
-    <div class="mc-select-communities text-left mc-no-communities" v-if="this.$store.getters.userCommunities.length == 0">
+    <div class="mc-select-communities text-left mc-no-communities" v-if="showCommunities && this.$store.getters.userCommunities.length == 0">
       {{$t('PostCarpool.no-communities')}}
     </div>
-    <div class="mc-select-communities text-left" v-if="this.$store.getters.userCommunities.length > 0">
+    <div class="mc-select-communities text-left" v-if="showCommunities && this.$store.getters.userCommunities.length > 0">
       <ion-icon
         size="large"
         color="primary"
@@ -223,6 +223,7 @@ export default {
       url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
       zoom: 8,
       showCard: true,
+      showCommunities: JSON.parse(process.env.VUE_APP_SHOW_COMMUNITIES),
       selectedCommunities: [],
       optionsCard: {
         dragging: !isPlatform(window.document.defaultView, "mobile"),

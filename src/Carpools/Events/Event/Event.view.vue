@@ -46,7 +46,7 @@ LICENSE
       <div v-if="event">
         <div class="mc-event-avatar">
           <ion-thumbnail>
-            <img :src="!!event.images[0] && event.images[0].versions.square_250" />
+            <img :src="!!event.images[0] && event.images[0].versions.square_250" alt="" />
           </ion-thumbnail>
         </div>
 

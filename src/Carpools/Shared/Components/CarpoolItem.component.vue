@@ -19,7 +19,7 @@ LICENSE
 **************************/
 
 <template>
-  <div class="mc-carpool-item">
+  <div class="mc-carpool-item pointer">
     <div class="mc-carpool-header d-flex justify-between align-center flex-wrap">
       <div v-if="isPunctualCarpool">
         <span>{{ getDateCarpoolItem }}</span>
@@ -87,18 +87,31 @@ LICENSE
     </div>
 
     <div class="mc-carpool-footer">
-      <div v-if="this.carpool.carpooler && type == 'search'" class="d-flex align-center">
+      <div v-if="this.carpool.carpooler && type == 'search'" class="d-flex justify-between align-center">
+        <div class="d-flex align-center">
         <ion-thumbnail>
           <img
             :hidden="!(this.carpool.carpooler.avatar && this.avatarLoaded)"
             :src="this.carpool.carpooler.avatar"
             @load="onImgLoad()"
+            alt=""
           />
           <!--<ion-icon v-if="! this.avatarLoaded" name="contact" size="large"></ion-icon>-->
         </ion-thumbnail>
         <strong
           class="mc-carpool-carpooler"
         >{{this.carpool.carpooler.givenName}} {{this.carpool.carpooler.shortFamilyName}}</strong>
+        </div>
+        <div v-if="this.carpool.communityImages && this.carpool.communityImages.length > 0">
+          <span v-for="c in this.carpool.communityImages">
+            <ion-thumbnail>
+              <img :src="c[0].versions.square_250" />
+            </ion-thumbnail>
+          </span>
+        </div>
+        <div v-if="this.carpool.externalOrigin">
+          {{this.carpool.externalOrigin}}
+        </div>
       </div>
       <div v-if="type == 'my-carpool'">
         <div class="ion-text-start">
@@ -327,7 +340,17 @@ export default {
     };
   },
   mixins: [toast],
-  mounted() {},
+  mounted() {
+    if(this.carpool.community && this.carpool.community.length > 0) {
+      this.carpool.communityImages = []
+      this.carpool.community.forEach(c => {
+        this.$store.dispatch("getCommunityImages", c).then(res => {
+          this.carpool.communityImages.push(res.data['hydra:member']);
+          this.$forceUpdate();
+        })
+      });
+    }
+  },
   computed: {
     getDateCarpoolItem() {
       return this.$moment(this.carpool.date).format("dddd D[.]MM");

@@ -21,7 +21,7 @@ LICENSE
 <template>
   <div class="mc-pt-item pointer">
     <div>{{ptItem.ptdeparture.address.streetAddress}}, {{ptItem.ptdeparture.address.addressLocality}} à {{ptItem.ptdeparture.date | moment('utc', 'HH[h]mm')}}</div>
-    <div class="d-flex">
+    <div class="d-flex" style="flex-wrap: wrap">
       <div v-for="(leg, index) in ptItem.ptlegs" class="d-flex align-center">
         <span class="mdi" :class="getIcon(leg)"></span>
         <ion-badge class="mc-badge-line-number" v-if="leg.ptline" color="primary">{{leg.ptline.number}}</ion-badge>

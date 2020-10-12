@@ -67,7 +67,7 @@ export const publicTransportStore = {
 
         http.get("/public_transport/journeys", {params: data}).then(resp => {
             if (resp) {
-              commit('pt_search_success', resp.data["hydra:member"]);
+              commit('pt_search_success', resp.data ? resp.data["hydra:member"] : []);
               resolve(resp)
             }
         }).catch(err => {

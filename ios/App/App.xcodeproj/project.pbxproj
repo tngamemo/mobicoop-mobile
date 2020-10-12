@@ -3,14 +3,14 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 48;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		0018801505260CC481FB55A1 /* Pods_Txik_Txak.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E438D84400A3CB0E733553D0 /* Pods_Txik_Txak.framework */; };
 		2FAD9763203C412B000D30F8 /* config.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2FAD9762203C412B000D30F8 /* config.xml */; };
-		41296B647F9E31E04E9F6260 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
-		4F7D059C945AA861F16E7806 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
+		41296B647F9E31E04E9F6260 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; };
+		4F7D059C945AA861F16E7806 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; };
 		50379B232058CBB4000EE86E /* capacitor.config.json in Resources */ = {isa = PBXBuildFile; fileRef = 50379B222058CBB4000EE86E /* capacitor.config.json */; };
 		504EC3081FED79650016851F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504EC3071FED79650016851F /* AppDelegate.swift */; };
 		504EC30D1FED79650016851F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 504EC30B1FED79650016851F /* Main.storyboard */; };
@@ -84,8 +84,8 @@
 		81BE23E22472DB200073D645 /* GoogleService-Info-PassPass.plist in Resources */ = {isa = PBXBuildFile; fileRef = 81BE23E12472DB1F0073D645 /* GoogleService-Info-PassPass.plist */; };
 		81BE23E62472DB430073D645 /* GoogleService-Info-Picholines.plist in Resources */ = {isa = PBXBuildFile; fileRef = 81BE23E52472DB430073D645 /* GoogleService-Info-Picholines.plist */; };
 		81BE23E82472DB4D0073D645 /* GoogleService-Info-OuestGo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 81BE23E72472DB4C0073D645 /* GoogleService-Info-OuestGo.plist */; };
-		A084ECDBA7D38E1E42DFC39D /* (null) in Frameworks */ = {isa = PBXBuildFile; };
-		C4931EAFBB76EA38FDF8219C /* (null) in Frameworks */ = {isa = PBXBuildFile; };
+		A084ECDBA7D38E1E42DFC39D /* BuildFile in Frameworks */ = {isa = PBXBuildFile; };
+		C4931EAFBB76EA38FDF8219C /* BuildFile in Frameworks */ = {isa = PBXBuildFile; };
 		D2DE11C465D056F6074C85A7 /* Pods_PassPass.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E67C0BAF98B68423BB4EBEF2 /* Pods_PassPass.framework */; };
 		DE57FEB27618795EC4ED528B /* Pods_Movici.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C0A7723EDE94964338E0AC5 /* Pods_Movici.framework */; };
 		FBB8703E1E907137FFBC3E17 /* Pods_PassPass.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E67C0BAF98B68423BB4EBEF2 /* Pods_PassPass.framework */; };
@@ -164,7 +164,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A084ECDBA7D38E1E42DFC39D /* (null) in Frameworks */,
+				A084ECDBA7D38E1E42DFC39D /* BuildFile in Frameworks */,
 				7E58C2DFAF4A614EC197C59C /* Pods_App.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -173,7 +173,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				41296B647F9E31E04E9F6260 /* (null) in Frameworks */,
+				41296B647F9E31E04E9F6260 /* BuildFile in Frameworks */,
 				56686892599CFA0CE31314D3 /* Pods_Picholines.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -198,7 +198,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4F7D059C945AA861F16E7806 /* (null) in Frameworks */,
+				4F7D059C945AA861F16E7806 /* BuildFile in Frameworks */,
 				6A2E24577BC25BAA01CE7560 /* Pods_OuestGo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -207,7 +207,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C4931EAFBB76EA38FDF8219C /* (null) in Frameworks */,
+				C4931EAFBB76EA38FDF8219C /* BuildFile in Frameworks */,
 				DE57FEB27618795EC4ED528B /* Pods_Movici.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -346,6 +346,7 @@
 				504EC3011FED79650016851F /* Frameworks */,
 				504EC3021FED79650016851F /* Resources */,
 				9592DBEFFC6D2A0C8D5DEB22 /* [CP] Embed Pods Frameworks */,
+				EB69A2A45E63935ACD0A3879 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -366,6 +367,7 @@
 				816F3EB8242CE44D0015981B /* Resources */,
 				816F3EC1242CE44D0015981B /* Scheme Control Script */,
 				8112C876242CF2290081909B /* [CP] Embed Pods Frameworks */,
+				090CA9A5FE7327CB3E023E2A /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -386,6 +388,7 @@
 				817E8CC024644BAB0060A3B8 /* Resources */,
 				817E8CC824644BAB0060A3B8 /* Scheme Control Script */,
 				817E8CC924644BAB0060A3B8 /* [CP] Embed Pods Frameworks */,
+				A7AF2523C0740380998CB20D /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -406,6 +409,7 @@
 				81A5BD5224ADDD9C00F13A16 /* Resources */,
 				81A5BD5B24ADDD9C00F13A16 /* Scheme Control Script */,
 				81A5BD5C24ADDD9C00F13A16 /* [CP] Embed Pods Frameworks */,
+				5B8C4013E63843ADCEFE8ED3 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -426,6 +430,7 @@
 				81AC96F124226D6300C2029E /* Resources */,
 				81D08C5C2424E3A1002CDB49 /* Scheme Control Script */,
 				8112C874242CF2160081909B /* [CP] Embed Pods Frameworks */,
+				8656736F827FF8C6017A2225 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -446,6 +451,7 @@
 				81AC97092422758500C2029E /* Resources */,
 				81D08C5B2424DBFC002CDB49 /* Scheme Control Script */,
 				8112C875242CF2220081909B /* [CP] Embed Pods Frameworks */,
+				F4D2120E3E13380F26361FD5 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -466,6 +472,7 @@
 				81B68636243F6CC200A2FBC5 /* Resources */,
 				81B6863E243F6CC200A2FBC5 /* Scheme Control Script */,
 				81B6863F243F6CC200A2FBC5 /* [CP] Embed Pods Frameworks */,
+				59D55DD06B5026413EC607B2 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -531,7 +538,7 @@
 				};
 			};
 			buildConfigurationList = 504EC2FF1FED79650016851F /* Build configuration list for PBXProject "App" */;
-			compatibilityVersion = "Xcode 8.0";
+			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -677,6 +684,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		090CA9A5FE7327CB3E023E2A /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Picholines/Pods-Picholines-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		42EB3C52B47EA2209894F687 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -721,6 +743,36 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		59D55DD06B5026413EC607B2 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PassPass/Pods-PassPass-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5B8C4013E63843ADCEFE8ED3 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Txik Txak/Pods-Txik Txak-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		6634F4EFEBD30273BCE97C65 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -744,10 +796,10 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
+			inputFileListPaths = (
 			);
 			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
+			outputFileListPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -759,10 +811,10 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
+			inputFileListPaths = (
 			);
 			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
+			outputFileListPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -774,10 +826,10 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
+			inputFileListPaths = (
 			);
 			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
+			outputFileListPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -847,10 +899,10 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
+			inputFileListPaths = (
 			);
 			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
+			outputFileListPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -902,10 +954,10 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
+			inputFileListPaths = (
 			);
 			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
+			outputFileListPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -957,10 +1009,10 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
+			inputFileListPaths = (
 			);
 			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
+			outputFileListPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1021,19 +1073,49 @@
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nvalue=$(cat $SRCROOT/public/build.info)\necho \"$value\"\n\nif [ \"$value\" = \"ouestgo\" ]; \nthen\n    echo \"SCHEME OK\"\nelse\n    echo \"NOT GOOD SCHEME\"\n    exit 1\nfi;\n";
 		};
+		8656736F827FF8C6017A2225 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-OuestGo/Pods-OuestGo-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		9592DBEFFC6D2A0C8D5DEB22 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
+			inputFileListPaths = (
 			);
 			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
+			outputFileListPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-App/Pods-App-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A7AF2523C0740380998CB20D /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Grand Lyon/Pods-Grand Lyon-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		B49877455BDD4FAE0212CB69 /* [CP] Check Pods Manifest.lock */ = {
@@ -1056,6 +1138,36 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EB69A2A45E63935ACD0A3879 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-App/Pods-App-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F4D2120E3E13380F26361FD5 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Movici/Pods-Movici-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1249,7 +1361,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -1262,7 +1375,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = App/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				MARKETING_VERSION = 2.0.8;
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-DDEBUG\"";
 				PRODUCT_BUNDLE_IDENTIFIER = eu.covivo.covisoft;
@@ -1281,7 +1397,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = App/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				MARKETING_VERSION = 2.0.8;
 				PRODUCT_BUNDLE_IDENTIFIER = eu.covivo.covisoft;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1302,7 +1421,10 @@
 				DEVELOPMENT_TEAM = 8X98ZWRY77;
 				INFOPLIST_FILE = "Picholines-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				MARKETING_VERSION = 2.0.8;
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-DDEBUG\"";
 				PRODUCT_BUNDLE_IDENTIFIER = eu.covivo.picholines;
@@ -1324,7 +1446,10 @@
 				DEVELOPMENT_TEAM = 8X98ZWRY77;
 				INFOPLIST_FILE = "Picholines-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				MARKETING_VERSION = 2.0.8;
 				PRODUCT_BUNDLE_IDENTIFIER = eu.covivo.picholines;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1346,7 +1471,10 @@
 				DEVELOPMENT_TEAM = 96Q289G5H6;
 				INFOPLIST_FILE = "GrandLyon-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				MARKETING_VERSION = 2.0.8;
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-DDEBUG\"";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mobicoop.grandlyon;
@@ -1370,7 +1498,10 @@
 				DEVELOPMENT_TEAM = 96Q289G5H6;
 				INFOPLIST_FILE = "GrandLyon-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				MARKETING_VERSION = 2.0.8;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mobicoop.grandlyon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1392,7 +1523,10 @@
 				DEVELOPMENT_TEAM = 8X98ZWRY77;
 				INFOPLIST_FILE = "TxikTxak-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				MARKETING_VERSION = 2.0.8;
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-DDEBUG\"";
 				PRODUCT_BUNDLE_IDENTIFIER = fr.mobicoop.txiktxak;
@@ -1414,7 +1548,10 @@
 				DEVELOPMENT_TEAM = 8X98ZWRY77;
 				INFOPLIST_FILE = "TxikTxak-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				MARKETING_VERSION = 2.0.8;
 				PRODUCT_BUNDLE_IDENTIFIER = fr.mobicoop.txiktxak;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1435,7 +1572,10 @@
 				DEVELOPMENT_TEAM = 3VPN9SWU8K;
 				INFOPLIST_FILE = "OuestGo-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				MARKETING_VERSION = 2.0.8;
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-DDEBUG\"";
 				PRODUCT_BUNDLE_IDENTIFIER = fr.mobicoop.ouestgo;
@@ -1457,7 +1597,10 @@
 				DEVELOPMENT_TEAM = 3VPN9SWU8K;
 				INFOPLIST_FILE = "OuestGo-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				MARKETING_VERSION = 2.0.8;
 				PRODUCT_BUNDLE_IDENTIFIER = fr.mobicoop.ouestgo;
 				PRODUCT_NAME = OuestGo;
@@ -1478,7 +1621,10 @@
 				DEVELOPMENT_TEAM = 6RT7MUDED3;
 				INFOPLIST_FILE = "Movici-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				MARKETING_VERSION = 2.0.8;
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-DDEBUG\"";
 				PRODUCT_BUNDLE_IDENTIFIER = fr.auvergnerhonealpes.movici;
@@ -1500,7 +1646,10 @@
 				DEVELOPMENT_TEAM = 6RT7MUDED3;
 				INFOPLIST_FILE = "Movici-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				MARKETING_VERSION = 2.0.8;
 				PRODUCT_BUNDLE_IDENTIFIER = fr.auvergnerhonealpes.movici;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1521,7 +1670,10 @@
 				DEVELOPMENT_TEAM = 8X98ZWRY77;
 				INFOPLIST_FILE = "PassPass-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				MARKETING_VERSION = 2.0.8;
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-DDEBUG\"";
 				PRODUCT_BUNDLE_IDENTIFIER = com.covivo.passpass;
@@ -1543,7 +1695,10 @@
 				DEVELOPMENT_TEAM = 8X98ZWRY77;
 				INFOPLIST_FILE = "PassPass-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				MARKETING_VERSION = 2.0.8;
 				PRODUCT_BUNDLE_IDENTIFIER = com.covivo.passpass;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1563,7 +1718,10 @@
 				DEVELOPMENT_TEAM = 8X98ZWRY77;
 				INFOPLIST_FILE = "Mobicoop-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				MARKETING_VERSION = 2.0.8;
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-DDEBUG\"";
 				PRODUCT_BUNDLE_IDENTIFIER = com.covivo.covisoft;
@@ -1584,7 +1742,10 @@
 				DEVELOPMENT_TEAM = 8X98ZWRY77;
 				INFOPLIST_FILE = "Mobicoop-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				MARKETING_VERSION = 2.0.8;
 				PRODUCT_BUNDLE_IDENTIFIER = com.covivo.covisoft;
 				PRODUCT_NAME = "$(TARGET_NAME)";

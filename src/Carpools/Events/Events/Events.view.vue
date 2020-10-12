@@ -29,7 +29,7 @@ LICENSE
       </ion-toolbar>
     </ion-header>
 
-    <ion-content color="primary" no-bounce>
+    <ion-content id="events" color="primary" no-bounce>
       <div class="mc-events-first-block">
         <MiniMap :LMarker="LMarker" />
         <div class="mc-events-search">
@@ -72,7 +72,7 @@ LICENSE
           <div class="d-flex mc-events-item">
             <div class="mc-events-avatar">
               <ion-thumbnail>
-                <img :src="!!event.images[0] && event.images[0].versions.square_250" />
+                <img :src="!!event.images[0] && event.images[0].versions.square_250" alt="" />
               </ion-thumbnail>
             </div>
             <div class="mc-events-text">
@@ -182,6 +182,11 @@ export default {
     this.getAllEvents();
   },
   mounted() {
+
+    setTimeout(() => {
+      document.querySelector('#events').shadowRoot.querySelector('.scroll-y').setAttribute('style', 'overflow-anchor:none');
+    }, 500);
+
     const infiniteScroll = document.getElementById('infinite-scroll');
 
     infiniteScroll.addEventListener('ionInfinite', event => {

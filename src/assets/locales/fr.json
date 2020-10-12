@@ -45,7 +45,8 @@
     "userAgreementAccepted": "J'accepte la charte de la plateforme et sa politique de confidentialité",
     "success" : "Succès de l'inscription",
     "visible-by-all": "Visible par tous",
-    "see-cgu": "Voir les CGU"
+    "see-cgu": "Voir les CGU",
+    "community" : "Communauté"
   },
   "ConfirmRegistration" : {
     "title" : "Validation du mail",
@@ -93,6 +94,7 @@
     "titlePage": "Résultats",
     "error": "Une erreur est survenue durant la recherche. Veuillez réessayer ultérieurement.",
     "nbResult": "Aucun résultat de covoiturage |{count} annonce de covoiturage trouvée | {count} annonces de covoiturages trouvées",
+    "nbResultPT": "Aucun résultat |{count} trajet trouvé | {count} trajets trouvés",
     "step": "Etape"
   },
   "Help": {
@@ -103,7 +105,7 @@
     "error": "Une erreur est survenue. Veuillez réessayer ultérieurement.",
     "carpool": "Covoiturage",
     "direct": "Direct",
-    "none" : "Aucun message",
+    "none" : "Vous n'avez pas encore échangé avec un autre inscrit",
     "delete-success": "Le fil de discussion a été supprimé avec succès",
     "confirmDeleteHeader": "Etes-vous sur de vouloir supprimer ce fil de discussion ? ",
     "confirmDeleteText": "Toute suppression est définitive, êtes-vous sur de vouloir supprimer ce fil de discussion ?"
@@ -143,6 +145,8 @@
     "visibility-all": "Visible dès la publication de l'annonce, par tous les inscrits",
     "phoneToken": "Envoyer un code de vérification",
     "phoneTokenPopup": "Vérification du téléphone",
+    "phoneTokenPopupDesc" : "Nous avons envoyé un code de vérification par sms au {value}. Veuillez renseigner ce code de vérification ci-dessous.",
+    "phoneTokenPopupCode" : "Code de vérification",
     "newsSubscription" : "Recevoir les actualités",
     "file-size": "L'image ne doit pas dépasser 1 Mo"
   },
@@ -217,7 +221,8 @@
     "update" : "Modifier",
     "version-recommended" : "Une nouvelle version de l'application est disponible.<br><br> Nous vous recommandons de la mettre à jour.",
     "version-min" : "Une nouvelle version majeure de l'application est disponible.<br><br> Vous devez la mettre à jour pour pouvoir continuer à utiliser l'application.",
-    "gps-permission" : "Vous devez authoriser le GPS pour démarrer cette fonctionalité"
+    "gps-permission" : "Vous devez authoriser le GPS pour démarrer cette fonctionalité",
+    "gps-activation" : "Veuillez activer le GPS"
   },
   "Validation" : {
     "required" : "Ce champ est requis",
@@ -300,7 +305,11 @@
     "alreadyAsk": "Vous avez déjà pris contact sur cette annonce.",
     "acceptAsk": "Accepter le covoiturage",
     "declineAsk": "Refuser le covoiturage",
-    "report": "Signaler l'utilisateur"
+    "report": "Signaler l'utilisateur",
+    "block" : "Bloquer l'utilisateur",
+    "unblock" : "Débloquer l'utilisateur",
+    "blocked" : "Cet utilisateur vous a bloqué",
+    "block-other" : "Vous avez bloqué cet utilisateur"
   },
   "AskCarpool":{
     "title": "Demande de covoiturage",

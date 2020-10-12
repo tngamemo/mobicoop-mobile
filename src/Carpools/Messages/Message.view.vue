@@ -27,8 +27,8 @@ LICENSE
         </ion-buttons>
         <ion-item color="primary" lines="none" v-if="thread">
           <ion-avatar class="ion-margin-end ion-margin-start">
-            <img v-if="thread.avatarsRecipient" v-bind:src="thread.avatarsRecipient" alt />
-            <img v-if="!thread.avatarsRecipient" src="/assets/user.png" alt />
+            <img v-if="thread.avatarsRecipient" v-bind:src="thread.avatarsRecipient" alt="" />
+            <img v-if="!thread.avatarsRecipient" src="/assets/user.png" alt="" />
           </ion-avatar>
           <ion-label>
             <p class="message-name">
@@ -111,10 +111,16 @@ LICENSE
           </div>
 
           <div
+            class="d-flex align-center justify-center"
+            v-if="!($store.state.messageStore.statusPostMessage == 'loading' || $store.state.messageStore.statusCompleteThread == 'loading' || $store.state.carpoolStore.statusCarpoolAsk == 'loading') && this.thread.blockerId"
+          ><img class="c-icon mr-5" style="visibility: visible" src="/assets/account-cancel.png"/> {{ this.thread.blockerId === $store.state.userStore.user.id ? $t('DetailCarpool.block-other') : $t('DetailCarpool.blocked')}}</div>
+
+          <div
             class="ion-text-center"
-            v-if="!($store.state.messageStore.statusPostMessage == 'loading' || $store.state.messageStore.statusCompleteThread == 'loading' || $store.state.carpoolStore.statusCarpoolAsk == 'loading') && this.thread.idMessage == -99"
+            v-if="!($store.state.messageStore.statusPostMessage == 'loading' || $store.state.messageStore.statusCompleteThread == 'loading' || $store.state.carpoolStore.statusCarpoolAsk == 'loading') && this.thread.idMessage == -99 && !this.thread.blockerId"
           >{{$t('Message.no-thread')}}</div>
 
+          <div v-if="!this.thread.blockerId">
           <div v-for="(day, index) in days" :key="index">
             <div class="text-center from-now">{{ $moment(day.date).utc().startOf('minute').fromNow()}}</div>
             <div class="message-flex" v-for="(m, index) in day.messages" :key="index">
@@ -122,6 +128,7 @@ LICENSE
                 :class="m.user.id === $store.state.userStore.user.id ? 'day-message-right' : 'day-message-left'"
               >{{m.text}}</div>
             </div>
+          </div>
           </div>
         </div>
 
@@ -131,6 +138,7 @@ LICENSE
               style="margin-top: 0px"
               v-bind:placeholder="$t('Message.textarea')"
               v-bind:value="message"
+              :disabled="thread.blockerId != null"
               @input="message = $event.target.value"
             ></ion-textarea>
             <ion-icon
@@ -393,15 +401,26 @@ export default {
         .create({
           buttons: [
             {
+              text: this.thread.blockerId ? (this.thread.blockerId === this.$store.state.userStore.user.id ? this.$t('DetailCarpool.unblock') : this.$t('DetailCarpool.blocked') ) : this.$t('DetailCarpool.block'),
+              icon: '',
+              handler: () => {
+                if (this.thread.blockerId == null || this.thread.blockerId === this.$store.state.userStore.user.id) {
+                  this.$store.dispatch('blockUser', this.thread.idRecipient).then(res => {
+                    this.$router.back();
+                  });
+                }
+              },
+            },
+            {
               text: this.$t('DetailCarpool.report'),
-              icon: 'warning',
+              icon: '',
               handler: () => {
                 this.$router.push({ name: "carpool-contact", query: {demand : 'report'} });
               },
             },
             {
               text: 'Annuler',
-              icon: 'close',
+              icon: '',
               role: 'cancel',
               handler: () => {
                 console.log('Cancel clicked')

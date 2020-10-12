@@ -33,6 +33,7 @@ import { appStore } from './app.store';
 import { solidaryTransportStore } from '../../SolidaryTransport/SolidaryTransport.store';
 import { dynamicStore } from './dynamic.store';
 import { publicTransportStore } from './public-transport.store';
+import { rdexStore } from './rdex.store';
 import createPersistedState from "vuex-persistedstate";
 
 
@@ -53,6 +54,7 @@ export default new Vuex.Store({
     eventStore: eventStore,
     solidaryTransportStore: solidaryTransportStore,
     dynamicStore: dynamicStore,
-    publicTransportStore: publicTransportStore
+    publicTransportStore: publicTransportStore,
+    rdexStore: rdexStore
   }
 })

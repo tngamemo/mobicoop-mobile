@@ -36,7 +36,7 @@ LICENSE
           <div class="mc-user-bloc-info">
             <div class="mc-user-image">
               <ion-thumbnail v-if="!! user.avatars">
-                <img :src="user.avatars[0]" alt />
+                <img :src="user.avatars[0]" alt="" />
               </ion-thumbnail>
             </div>
 
@@ -130,8 +130,9 @@ LICENSE
 
   .mc-user-bloc-info {
     display: flex;
-    width: 100%;
+    width: calc(100% - 48px);
     flex-wrap: wrap;
+
   }
 
   .mc-user-image {
