@@ -161,6 +161,12 @@ export default [
     // beforeEnter: guardAccesByLogin
   },
   {
+    path: 'payment/paye',
+    name: 'paye',
+    component: Paye,
+    // beforeEnter: guardAccesByLogin
+  },
+  {
     path: 'bank-account',
     name: 'bank-account',
     component: BankAccount,
