@@ -139,8 +139,9 @@ LICENSE
                 <div v-if="currentAsk.message" class="text-center">{{currentAsk.message}}</div>
                 <div v-if="currentAsk.messages"><div class="text-center" v-for="message in currentAsk.messages">{{message.text}}</div></div>
 
+
                 <!--
-                <ion-button expand="block" v-if="!currentProof.id && currentDynamic.role === 1 && this.currentAsk.user.position && this.currentAsk.user.position.latitude && this.currentAsk.user.position.latitude" @click="launchNavigation()">
+                <ion-button expand="block" v-if="!currentProof.id && currentDynamic.role === 1 && this.currentAsk.user.position && this.currentAsk.user.position.latitude && this.currentAsk.user.position.longitude" @click="launchNavigation()">
                   <ion-icon slot="start" name="navigate"></ion-icon>
                   Ouvrir le GPS
                 </ion-button>
@@ -302,6 +303,9 @@ LICENSE
 <script>
   import {toast} from "../../Shared/Mixin/toast.mixin";
   // import { BackgroundGeolocation } from '@mauron85/cordova-plugin-background-geolocation';
+  import { OpenNativeSettings } from '@ionic-native/open-native-settings';
+  // import { LaunchNavigator, LaunchNavigatorOptions } from '@ionic-native/launch-navigator';
+
   import { LMap, LTileLayer, LPolyline, LMarker, LIcon } from "vue2-leaflet";
   import { BackgroundGeolocation, BackgroundGeolocationEvents } from '@ionic-native/background-geolocation';
   import { Plugins } from '@capacitor/core';
@@ -392,7 +396,8 @@ LICENSE
         if (p.state == "granted" || p.state == "prompt") {
           const coordinates = await Geolocation.getCurrentPosition().catch(error => {
             console.log(error);
-            this.presentToast(this.$t("Commons.gps-activation"), "danger");
+            this.presentGpsToast('Commons.gps-activation');
+            //this.presentToast(this.$t("Commons.gps-activation"), "danger");
           });
           this.$store.commit('set_dynamic_my_position', {latitude: coordinates.coords.latitude.toString(), longitude: coordinates.coords.longitude.toString()});
           this.$store.commit('set_dynamic_destination', this.$store.state.searchStore.searchObject.outwardWaypoints[1]);
@@ -404,9 +409,27 @@ LICENSE
             this.startBackgroundGeolocation();
           });
         } else if (p.state == "denied") {
-          this.presentToast(this.$t("Commons.gps-permission"), "danger");
+          this.presentGpsToast(this.$t('Commons.gps-permission'));
         }
 
+      },
+      async presentGpsToast(text) {
+        const toast = await this.$ionic.toastController.create({
+          message: this.$t(text),
+          duration: 5000,
+          showCloseButton: false,
+          position: 'top',
+          color: 'danger',
+          buttons: [
+            {
+              text: 'Paramètres',
+              handler: () => {
+                OpenNativeSettings.open('location');
+              }
+            }
+          ]
+        });
+        toast.present();
       },
       updateDynamics(result, body) {
         return this.$store.dispatch('putDynamics', {
@@ -578,13 +601,13 @@ LICENSE
               }
             },
           };
-          launchnavigator.navigate([this.currentAsk.position.latitude, this.currentAsk.position.longitude], options)
+        LaunchNavigator.navigate([this.currentAsk.position.latitude, this.currentAsk.position.longitude], options)
             .then(
               success => console.log('Launched navigator'),
               error => console.log('Error launching navigator', error)
             );
         }
-       */
+        */
     }
   }
 </script>
