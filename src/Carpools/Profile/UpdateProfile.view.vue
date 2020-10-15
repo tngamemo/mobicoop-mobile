@@ -284,9 +284,7 @@ LICENSE
       }
     },
     created() {
-      if(this.$store.state.userStore.userToUpdate == null) {
-        this.$store.state.userStore.userToUpdate = this.$store.state.userStore.user;
-      }
+      this.$store.state.userStore.userToUpdate = this.$store.state.userStore.user;
       this.user = this.$store.state.userStore.userToUpdate;
     },
     methods: {

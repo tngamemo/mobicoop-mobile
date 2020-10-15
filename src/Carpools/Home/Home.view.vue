@@ -100,6 +100,10 @@ LICENSE
         <div v-if="partner" class="d-flex justify-center ion-margin">
           <img alt class="partner-img" src="/assets/partner.png" alt="" />
         </div>
+
+        <div class="text-center" v-if="version">
+          <ion-text color="primary"><small style="opacity: 0.75">version {{version}}</small></ion-text>
+        </div>
       </div>
     </ion-content>
   </div>
@@ -151,6 +155,9 @@ import UserHome from "./Components/UserHome.component";
 import BlockAction from "./Components/BlockAction.component";
 import ModuleModal from "../../Shared/Component/ModuleModal.component";
 import SearchQuick from "../Shared/Components/SearchQuick.component";
+import {isPlatform} from "@ionic/core";
+import { Plugins } from '@capacitor/core';
+const { Device } = Plugins;
 
 
 export default {
@@ -173,6 +180,7 @@ export default {
       showCommunities: JSON.parse(process.env.VUE_APP_SHOW_COMMUNITIES),
       noIconToolbar: JSON.parse(process.env.VUE_APP_NO_ICON_TOOLBAR),
       noTextToolbar: JSON.parse(process.env.VUE_APP_NO_TEXT_TOOLBAR),
+      version: null
     };
   },
   created() {
@@ -193,6 +201,7 @@ export default {
     }
   },
   mounted() {
+    this.getVersion();
     // caching for crawlers
     setTimeout(() => {
       window.prerenderReady = true;
@@ -247,9 +256,15 @@ export default {
               router: this.$router
             },
           },
-        })
+        });
 
         await modal.present();
+    },
+    async getVersion() {
+      if (isPlatform(window.document.defaultView, "capacitor")) {
+        let info = await Device.getInfo();
+        this.version = info.appVersion;
+      }
     }
   }
 };
