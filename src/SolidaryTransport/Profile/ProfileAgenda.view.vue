@@ -39,7 +39,13 @@
             <!-- Solidaries -->
             <template v-if="!toggle">
 
-              <div>
+              <div class="mc-st-loading" v-if="loading">
+                <ion-spinner name="crescent" class="mc-st-loading-spinner"></ion-spinner>
+                <p class="mc-st-loading-message">{{$t('solidaryTransport.commons.loading')}}</p>
+              </div>
+
+              <div v-if="showVolunteer">
+                <div>
                 <div class="mc-st-form-item">
                   <ion-label class="mc-st-form-label as-title no-white-space" color="primary">{{$t('solidaryTransport.volunteer.form.fields.availabilities.ranges.title')}}</ion-label>
                 </div>
@@ -231,6 +237,7 @@
                   <ion-textarea :value="volunteer.comment" @ionChange="volunteer.comment = $event.target.value" :placeholder="$t('solidaryTransport.volunteer.form.fields.commentSample')" :auto-grow="true"></ion-textarea>
                 </ion-item>
               </div>
+              </div>
             </template>
 
             <!-- Journeys -->
@@ -270,7 +277,7 @@
 
           </div>
 
-          <template v-if="!toggle">
+          <template v-if="!toggle && showVolunteer">
             <div class="mc-st-form-controls with-multiple">
               <ion-button class="mc-st-form-control as-back" color="light" v-html="$t('solidaryTransport.buttons.back')" @click="$router.back()"></ion-button>
 
@@ -317,7 +324,9 @@ export default {
       languages: JSON.parse(process.env.VUE_APP_I18N_LIST),
       solidaries: [],
       structure: { mMinTime: 0, mMaxTime: 24, aMinTime: 0, aMaxTime: 24, eMinTime: 0, eMaxTime: 24},
-      availabilitiesDays: this.$t('solidaryTransport.volunteer.form.fields.days')
+      availabilitiesDays: this.$t('solidaryTransport.volunteer.form.fields.days'),
+      loading: false,
+      showVolunteer: false
     }
   },
   computed: {
@@ -353,11 +362,14 @@ export default {
       this.volunteer.maxDistance = $event.target.value
     },
     getVolunteer: function () {
+      this.loading = true;
       this.$store.dispatch('getVolunteerDetails', this.$store.state.userStore.user.solidaryUser.id)
         .then((details) => {
-
+          this.showVolunteer = true;
+          this.loading = false;
         })
         .catch((error) => {
+          this.loading = false;
           console.error(error)
         })
     },
