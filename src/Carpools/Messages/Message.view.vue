@@ -94,12 +94,36 @@ LICENSE
             <ion-text
               color="secondary"
               class="d-flex justify-center align-center"
-              v-if="this.ask.status == 2 || this.ask.status == 3"
+              v-if="!ask.canUpdateAsk && (this.ask.status == 2 || this.ask.status == 3)"
             >
               <ion-icon class="status-icon" name="hourglass"></ion-icon>
               <b>{{$t('Message.waiting')}}</b>
             </ion-text>
+            <div class="text-center justify-center" v-if="ask.canUpdateAsk && (ask.status == 2 || ask.status == 3)">
+              <ion-icon size="large" color="primary" class="rotating" v-if="$store.state.carpoolStore.statusCarpoolAskPost == 'loading'" name="md-sync"></ion-icon>
+              <div v-if="$store.state.carpoolStore.statusCarpoolAskPost != 'loading'">
+              <ion-button v-on:click="updateAsk(6)" v-if="ask.status == 2" class="mc-small-button ion-text-wrap ask-button" color="danger">
+                <div><ion-icon name="close-circle"></ion-icon> {{ $t('Commons.decline') }}</div>
+              </ion-button>
+
+              <ion-button v-on:click="updateAsk(4)" v-if="ask.status == 2" class="mc-small-button ion-text-wrap ask-button accept-button" color="success">
+                <ion-icon size="large" color="background" class="rotating" v-if="$store.state.carpoolStore.statusCarpoolAskPost == 'loading'" name="md-sync"></ion-icon>
+                <div ><ion-icon name="checkmark-circle"></ion-icon> {{ $t('Commons.accept') }}</div>
+              </ion-button>
+
+              <ion-button v-on:click="updateAsk(7)" v-if="ask.status == 3" class="mc-small-button ion-text-wrap ask-button" color="danger">
+                <ion-icon size="large" color="background" class="rotating" v-if="$store.state.carpoolStore.statusCarpoolAskPost == 'loading'" name="md-sync"></ion-icon>
+                <div><ion-icon name="close-circle"></ion-icon> {{ $t('Commons.decline') }}</div>
+              </ion-button>
+
+              <ion-button v-on:click="updateAsk(5)" v-if="ask.status == 3" class="mc-small-button ion-text-wrap ask-button accept-button" color="success">
+                <ion-icon size="large" color="background" class="rotating" v-if="$store.state.carpoolStore.statusCarpoolAskPost == 'loading'" name="md-sync"></ion-icon>
+                <div><ion-icon name="checkmark-circle"></ion-icon> {{ $t('Commons.accept') }}</div>
+              </ion-button>
+              </div>
+            </div>
           </div>
+
         </div>
 
         <div ref="messagesZone" class="messages-zone" v-if="this.thread">
@@ -274,10 +298,27 @@ LICENSE
     }
   }
 }
+
+  .accept-button {
+    margin-left: 20px
+  }
+
+  .ask-button > div {
+    display: flex;
+    justify-content: center;
+    align-items: center ;
+  }
+
+  .ask-button ion-icon {
+    height: 24px;
+    width: 24px;
+    margin-right: 10px;
+  }
 </style>
 
 <script>
 import CarpoolItemDTO from "../Shared/CarpoolItemDTO";
+import {toast} from "../../Shared/Mixin/toast.mixin";
 
 export default {
   name: "message",
@@ -295,6 +336,7 @@ export default {
       return this.$store.state.messageStore.completeThread;
     }
   },
+  mixins: [toast],
   created() {
     if (this.$store.state.messageStore.tempDirectThread) {
       this.thread = this.$store.state.messageStore.tempDirectThread;
@@ -360,6 +402,23 @@ export default {
           });
       }
     },
+    updateAsk(status) {
+      const payload = {
+        idAsk: this.ask.id,
+        userId: this.$store.getters.userId,
+        data: { askStatus: status }
+      };
+      this.$store
+        .dispatch("updateAskCarpool", payload)
+        .then(res => {
+          this.presentToast(this.$t("DetailCarpool.updateSuccess"), "success");
+          this.$router.push({ name: "carpoolsHome" });
+        })
+        .catch(err => {
+          console.log(err);
+          this.presentToast(this.$t("Commons.error"), "danger");
+        });
+    },
 
     send() {
       // construction du message
@@ -400,7 +459,6 @@ export default {
       return this.$ionic.actionSheetController
         .create({
           buttons: [
-            /*
             {
               text: this.thread.blockerId ? (this.thread.blockerId === this.$store.state.userStore.user.id ? this.$t('DetailCarpool.unblock') : this.$t('DetailCarpool.blocked') ) : this.$t('DetailCarpool.block'),
               icon: '',
@@ -412,7 +470,6 @@ export default {
                 }
               },
             },
-             */
             {
               text: this.$t('DetailCarpool.report'),
               icon: '',

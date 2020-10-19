@@ -206,7 +206,7 @@ export default {
   computed: {
     communities() {
       if (!!this.$store.getters.communities) {
-        return this.$store.getters.communities;
+        return this.$store.getters.communities.filter(item => item.communitySecurities && item.communitySecurities.length == 0);
       } else {
         return [];
       }

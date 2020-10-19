@@ -160,7 +160,7 @@ LICENSE
           g.type='text/javascript'; g.async=true; g.defer=true; g.src= "https://"+u+'/matomo.js'; s.parentNode.insertBefore(g,s);
         })();
         var mt = setInterval(function () {
-          if (Matomo.initialized) {
+          if (typeof Matomo !== 'undefined' && Matomo.initialized) {
             clearInterval(mt);
             var u = process.env.VUE_APP_ANALYTICS_ENDPOINT;
             Matomo.getAsyncTracker().setTrackerUrl( 'https://'+u+'/matomo.php');

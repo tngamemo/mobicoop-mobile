@@ -192,7 +192,7 @@ LICENSE
             v-on:click="updateAsk(6)"
             v-if="askFromMessage.askStatus == 2"
             class="mc-big-button ion-text-wrap"
-            color="danher"
+            color="danger"
             expand="block"
           >
             <ion-icon

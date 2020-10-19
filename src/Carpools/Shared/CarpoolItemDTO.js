@@ -138,6 +138,7 @@ export default class CarpoolItemDTO {
     this.price = carpool.roundedPrice;
     this.return = carpool.return;
     this.status = ask.askStatus;
+    this.canUpdateAsk = ask.canUpdateAsk;
     if (carpool.frequency == 2) {
       this.regularDays = this.getRegularDaysFromSearch(carpool);
       this.outwardTime = this.getTimes(this.resultDriveOrPassenger(carpool).outward);
