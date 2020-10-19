@@ -120,6 +120,7 @@ export default {
         this.solidaries = solidaries
       })
       .catch((error) => {
+        this.solidaries = [];
         console.error(error)
       })
   }

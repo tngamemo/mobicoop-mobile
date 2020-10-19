@@ -63,7 +63,7 @@
                   ></ion-datetime>
                 </ion-item>
                 <ion-item class="mc-st-form-item" lines="none" v-for="(item, index) in departureHours" :key="index">
-                  <ion-radio class="mc-st-form-checkbox" :value="request.when.departure.marginHour" :checked="request.when.departure.marginHour === item.value" color="success" slot="start" @ionChange="changeDepartureMarginHour(item.value)"
+                  <ion-radio class="mc-st-form-checkbox" :value="item.value" :checked="request.when.departure.marginHour === item.value" color="success" slot="start" @ionSelect="changeDepartureMarginHour(item.value)"
                   ></ion-radio>
                   <ion-label class="mc-st-form-label no-white-space" color="primary">Entre {{ item.min_time | moment('utc', 'HH') }}h et {{ item.max_time | moment('utc', 'HH') }}h</ion-label>
                 </ion-item>
@@ -96,7 +96,7 @@
                   ></ion-datetime>
                 </ion-item>
                 <ion-item class="mc-st-form-item" lines="none" v-for="(item, index) in returnHours" :key="index">
-                  <ion-radio class="mc-st-form-checkbox" :value="request.when.return.marginHour" :checked="request.when.return.marginHour === item.value" color="success" slot="start" @ionChange="changeReturnMarginHour(item.value)"
+                  <ion-radio class="mc-st-form-checkbox" :value="item.value" :checked="request.when.return.marginHour === item.value" color="success" slot="start" @ionSelect="changeReturnMarginHour(item.value)"
                   ></ion-radio>
                   <ion-label class="mc-st-form-label no-white-space" color="primary">Entre {{ item.min_time | moment('utc', 'HH') }}h et {{ item.max_time | moment('utc', 'HH') }}h</ion-label>
                 </ion-item>

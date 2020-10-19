@@ -144,6 +144,7 @@
           "isRegular": "De manière régulière",
           "isPunctual": "Une seule fois",
           "needs": "Autres informations :",
+          "comment": "Un commentaire ?",
           "when": {
             "departure": {
               "date": "A quelle date souhaitez-vous partir ?",
@@ -297,6 +298,7 @@
           "isRegular": "De manière régulière",
           "isPunctual": "Une seule fois",
           "needs": "Autres informations :",
+          "comment": "Un commentaire ?",
           "when": {
             "departure": {
               "date": "A quelle date comptez-vous partir ?",

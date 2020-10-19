@@ -101,7 +101,7 @@
             </div>
 
             <ion-item class="mc-st-form-item">
-              <ion-label position="floating">{{$t('solidaryTransport.register.form.fields.phone')}} *</ion-label>
+              <ion-label position="floating">{{$t('solidaryTransport.register.form.fields.phone')}}</ion-label>
               <ion-input
                 class="mc-st-form-input"
                 type="text"
@@ -225,7 +225,7 @@
 import _ from 'lodash'
 import moment from 'moment'
 import { mapGetters, mapState } from 'vuex'
-import { required, between, email, sameAs, minLength, helpers } from 'vuelidate/lib/validators'
+import { required, between, email, sameAs, minLength, helpers, requiredIf } from 'vuelidate/lib/validators'
 
 const oneUppercase = helpers.regex("oneUppercase", /[A-Z]/);
 const oneDigit = helpers.regex("oneDigit", /\d/);
@@ -281,11 +281,16 @@ export default {
           isMaxBirthDate
         },
         telephone: {
-          required,
+          required: requiredIf(function(model) {
+            return (model.email == undefined || model.email == "") ;
+          }),
           minLength: minLength(10)
         },
         email: {
-          email
+          email,
+          required: requiredIf(function(model) {
+            return (model.telephone == undefined || model.telephone == "") ;
+          })
         },
         homeAddress: {
           hasAddress

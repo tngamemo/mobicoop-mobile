@@ -874,6 +874,16 @@ export const solidaryTransportStore = {
             .set({hour: specificHour.hour(), minute: specificHour.minute(), second: 0})
             .format(format)
 
+          let outwardTimes = {};
+          Object.entries(solidary.days).forEach(item => {
+            if(item[1] == 1) {
+              outwardTimes[item[0]] = specificHour.format('hh:mm')
+            } else if (item[1] == 0) {
+              outwardTimes[item[0]] = null
+            }
+          });
+          solidary.outwardTimes = outwardTimes;
+
           delete solidary['marginDuration']
         }
 
@@ -894,10 +904,20 @@ export const solidaryTransportStore = {
             .set({hour: marginHour})
             .add(solidary.marginDuration, 'seconds')
             .format(format)
-            solidary.outwardDeadlineDatetime = moment(solidary.outwardDeadlineDatetime)
+          solidary.outwardDeadlineDatetime = moment(solidary.outwardDeadlineDatetime)
             .set({hour: marginHour})
             .add(solidary.marginDuration, 'seconds')
             .format(format)
+
+          let outwardTimes = {};
+          Object.entries(solidary.days).forEach(item => {
+            if(item[1] == 1) {
+              outwardTimes[item[0]] = moment().set({hour: marginHour, minute: 0}).format('hh:mm')
+            } else if (item[1] == 0) {
+              outwardTimes[item[0]] = null
+            }
+          });
+          solidary.outwardTimes = outwardTimes;
         }
 
         // And return at a specific hour
@@ -909,6 +929,16 @@ export const solidaryTransportStore = {
           solidary.returnDeadlineDatetime = moment(solidary.outwardDeadlineDatetime)
             .set({hour: specificHour.hour(), minute: specificHour.minute(), second: 0})
             .format(format)
+
+          let returnTimes = {};
+          Object.entries(solidary.days).forEach(item => {
+            if(item[1] == 1) {
+              returnTimes[item[0]] = specificHour.format('hh:mm')
+            } else if (item[1] == 0) {
+              returnTimes[item[0]] = null
+            }
+          });
+          solidary.returnTimes = returnTimes;
         }
 
         // And return n hours after
@@ -934,6 +964,16 @@ export const solidaryTransportStore = {
             solidary.returnDeadlineDatetime = moment(solidary.outwardDeadlineDatetime)
               .add(marginHour, 'hours')
               .format(format)
+
+            let returnTimes = {};
+            Object.entries(solidary.days).forEach(item => {
+              if(item[1] == 1) {
+                returnTimes[item[0]] = moment().set({hour: marginHour, minute: 0}).format('hh:mm')
+              } else if (item[1] == 0) {
+                returnTimes[item[0]] = null
+              }
+            });
+            solidary.returnTimes = returnTimes;
           }
         }
       }
@@ -949,6 +989,13 @@ export const solidaryTransportStore = {
         solidary.driver = true;
       }
 
+      if(solidary.email === "") {
+        delete solidary['email']
+      }
+      if(solidary.telephone === "") {
+        delete solidary['telephone']
+      }
+
       // Post Solidary
       const endpoint = type === 'usual' ? '/solidaries/postUl' : '/solidaries';
 
@@ -960,13 +1007,15 @@ export const solidaryTransportStore = {
           .then((resp) => {
             let solidary = resp
             let promises = []
-            _.each(proofsToUpload, (proof) => {
-              let formData = new FormData()
-              formData.append('file', proof.file)
-              formData.append('structureProof', proof.structureProof)
-              formData.append('solidary', solidary['@id'])
-              promises.push(http.post(`/proofs`, formData))
-            })
+            if (type !== 'usual') {
+              _.each(proofsToUpload, (proof) => {
+                let formData = new FormData()
+                formData.append('file', proof.file)
+                formData.append('structureProof', proof.structureProof)
+                formData.append('solidary', solidary['@id'])
+                promises.push(http.post(`/proofs`, formData))
+              })
+            }
 
             return Promise.all(promises)
           })

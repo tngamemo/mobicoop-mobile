@@ -166,6 +166,7 @@ import { mapState, mapGetters } from "vuex";
 
 import ProfileCard from "../Profile/ProfileCard.component.vue";
 import ModuleModal from "../../Shared/Component/ModuleModal.component";
+import {isPlatform} from "@ionic/core";
 
 export default {
   name: "solidaryTransport.home",
@@ -176,7 +177,7 @@ export default {
     return {
       brand: process.env.VUE_APP_NAME,
       appModule: JSON.parse(process.env.VUE_APP_MODULE),
-      support: process.env.VUE_APP_SOLIDARY_SUPPORT_HELP,
+      support: "",
       askRide: JSON.parse(process.env.VUE_APP_SOLIDARY_ASK_RIDE),
       declareUsualRide: JSON.parse(process.env.VUE_APP_SOLIDARY_DECLARE_USUAL_RIDE),
       declareVolunteer: JSON.parse(process.env.VUE_APP_SOLIDARY_DECLARE_VOLUNTEER),
@@ -206,6 +207,12 @@ export default {
       await modal.present();
     }
   },
-  created: function() {}
+  created: function() {
+    if(isPlatform(window.document.defaultView, "capacitor")) {
+      this.support = process.env.VUE_APP_SOLIDARY_SUPPORT_HELP
+    } else {
+      this.support = process.env.VUE_APP_SOLIDARY_SUPPORT_MAIL
+    }
+  }
 };
 </script>

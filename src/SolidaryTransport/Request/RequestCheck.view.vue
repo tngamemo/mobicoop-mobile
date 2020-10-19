@@ -51,7 +51,7 @@
 
               <template v-for="(proof, index) in getMandatoryProofs(request.structure.structureProofs)">
                 <template v-if="proof.checkbox">
-                  <ion-item class="mc-st-form-item" :key="`proof-${proof.id}-${index}`" lines="none" >
+                  <ion-item class="mc-st-form-item" :key="`proof-ckeckbox-${proof.id}-${index}`" lines="none" >
                     <ion-checkbox
                       class="mc-st-form-checkbox"
                       color="success"
@@ -65,7 +65,7 @@
                 </template>
 
                 <template v-if="proof.input">
-                  <ion-item class="mc-st-form-item" :key="`proof-${proof.id}-${index}`">
+                  <ion-item class="mc-st-form-item" :key="`proof-input-${proof.id}-${index}`">
                     <ion-label position="floating">{{proof.label}}*</ion-label>
                     <ion-input
                       class="mc-st-form-input"
@@ -77,7 +77,7 @@
                 </template>
 
                 <template v-if="proof.selectbox">
-                  <ion-item class="mc-st-form-item" :key="`proof-${proof.id}-${index}`">
+                  <ion-item class="mc-st-form-item" :key="`proof-selectbox-${proof.id}-${index}`">
                     <ion-label class="mc-st-form-label" color="primary" position="floating">{{ proof.label }}*</ion-label>
 
                     <ion-select
@@ -108,7 +108,7 @@
                 </template>
 
                 <template v-if="proof.file">
-                  <div class="mc-st-form-item as-file" :key="`proof-${proof.id}-${index}`">
+                  <div class="mc-st-form-item as-file" :key="`proof-file-${proof.id}-${index}`">
                     <ion-label class="mc-st-form-label" color="primary">{{ proof.label }}*</ion-label>
 
                     <template v-if="!processing">
@@ -136,7 +136,7 @@
 
               <template v-for="(proof, index) in getOptionalProofs(request.structure.structureProofs)">
                 <template v-if="proof.checkbox">
-                  <ion-item class="mc-st-form-item" :key="`proof-${proof.id}-${index}`" lines="none" >
+                  <ion-item class="mc-st-form-item" :key="`proofopt-checkbox-${proof.id}-${index}`" lines="none" >
                     <ion-checkbox
                       class="mc-st-form-checkbox"
                       color="success"
@@ -150,7 +150,7 @@
                 </template>
 
                 <template v-if="proof.input">
-                  <ion-item class="mc-st-form-item" :key="`proof-${proof.id}-${index}`">
+                  <ion-item class="mc-st-form-item" :key="`proofopt-input--${proof.id}-${index}`">
                     <ion-label position="floating">{{proof.label}}</ion-label>
                     <ion-input
                       class="mc-st-form-input"
@@ -162,7 +162,7 @@
                 </template>
 
                 <template v-if="proof.selectbox">
-                  <ion-item class="mc-st-form-item" :key="`proof-${proof.id}-${index}`">
+                  <ion-item class="mc-st-form-item" :key="`proofopt-selectbox-${proof.id}-${index}`">
                     <ion-label class="mc-st-form-label" color="primary" position="floating">{{ proof.label }}</ion-label>
 
                     <ion-select
@@ -193,19 +193,19 @@
                 </template>
 
                 <template v-if="proof.file">
-                  <div class="mc-st-form-item as-file" :key="`proof-${proof.id}-${index}`">
+                  <div class="mc-st-form-item as-file" :key="`proofopt-file-${proof.id}-${index}`">
                     <ion-label class="mc-st-form-label" color="primary">{{ proof.label }}</ion-label>
 
                     <template v-if="!processing">
                       <div v-if="request.proofs.optional[proof.id].file" class="file" style="color:black;">Votre fichier : {{request.proofs.optional[proof.id].file.name}}</div>
                     </template>
                     <div class="mc-st-form-controls">
-                      <ion-button class="mc-st-form-control as-cta" color="light" @click="$refs['proof-file-' + proof.id][0].click()">
+                      <ion-button class="mc-st-form-control as-cta" color="light" @click="$refs['proofopt-file-' + proof.id][0].click()">
                         <ion-icon slot="start" name="map"></ion-icon>
                         <span v-html="$t('solidaryTransport.buttons.chooseProof')"></span>
                       </ion-button>
                     </div>
-                    <input :ref="'proof-file-' + proof.id" style="display: none" type="file" @change="changeProofFile($event, request.proofs.optional[proof.id])" />
+                    <input :ref="'proofopt-file-' + proof.id" style="display: none" type="file" @change="changeProofFile($event, request.proofs.optional[proof.id])" />
 
                   </div>
                 </template>
@@ -359,7 +359,7 @@ export default {
   created: function () {
     this.$store.dispatch('getSolidaryStructuresByGeolocation', {lat: this.request.homeAddress.latitude, lng: this.request.homeAddress.longitude})
       .then((structures) => {
-
+        
         if (structures.length !== 0) {
           if (!this.request.structure) {
             this.$store.commit('solidaryStructureUpdate', _.cloneDeep(structures[0]))
