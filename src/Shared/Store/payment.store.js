@@ -19,6 +19,7 @@
  **************************/
 
 import http from '../Mixin/http.mixin'
+import {isPlatform} from "@ionic/core";
 
 export const paymentStore = {
   state: {
@@ -82,6 +83,11 @@ export const paymentStore = {
     },
     postPayment: ({commit}, data) => {
       commit('payment_request');
+      if (isPlatform(window.document.defaultView, "capacitor")) {
+        data.origin = 1;
+      } else {
+        data.origin = 2;
+      }
       return new Promise((resolve, reject) => {
         http.post("/payment_payments" , data).then(resp => {
           if (resp) {

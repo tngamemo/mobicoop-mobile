@@ -210,6 +210,10 @@
       "success" : "La confirmation de paiement a été validé"
     }
   },
+  "Paye" : {
+    "title" : "Payé",
+    "paye" : "Payé avec succès"
+  },
   "BankAccount" : {
     "title": "Mes coordonnées bancaires",
     "iban" : "IBAN",

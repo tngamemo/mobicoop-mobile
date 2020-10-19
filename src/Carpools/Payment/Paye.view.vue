@@ -30,7 +30,13 @@ LICENSE
     </ion-header>
 
     <ion-content color="primary" no-bounce>
+      <div class="mc-white-container" >
 
+      <div class="d-flex flex-col align-center">
+        <ion-icon color="success" size="large" name="checkmark-circle"></ion-icon>
+        <ion-text color="success">{{ $t('Paye.paye') }}</ion-text>
+      </div>
+      </div>
     </ion-content>
   </div>
 </template>
@@ -40,6 +46,7 @@ LICENSE
 </style>
 
 <script>
+  import {toast} from "../../Shared/Mixin/toast.mixin";
 
   export default {
     name: 'paye',

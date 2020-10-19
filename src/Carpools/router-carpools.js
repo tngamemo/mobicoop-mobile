@@ -53,6 +53,7 @@ import Dynamic from './Dynamic/Dynamic.view.vue';
 import PublicTransport from './PublicTransport/PublicTransport.view.vue';
 import Payment from './Payment/Payment.view.vue';
 import BankAccount from './Payment/BankAccount.view.vue';
+import Paye from './Payment/Paye.view.vue';
 
 import Vue from 'vue'
 import store from '../Shared/Store/store';
