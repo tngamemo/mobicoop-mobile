@@ -52,7 +52,7 @@ LICENSE
                 expand="block"
                 v-on:click="selectRole('passenger')"
               >
-                <ion-icon size="large" name="person"></ion-icon>
+                <ion-icon size="large" name="walk"></ion-icon>
                 <p>{{ $t('AskCarpool.passenger')}}</p>
               </div>
             </div>
