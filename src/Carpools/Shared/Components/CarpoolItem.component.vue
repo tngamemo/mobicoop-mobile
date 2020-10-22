@@ -69,7 +69,7 @@ LICENSE
           <ion-icon size="large" name="car"></ion-icon>
         </div>
         <div v-if="this.carpool.passenger" class="mc-carpool-passenger">
-          <ion-icon size="large" name="person"></ion-icon>
+          <ion-icon size="large" name="walk"></ion-icon>
         </div>
       </div>
       <div class="d-flex mc-carpool-way">
@@ -101,6 +101,11 @@ LICENSE
         <strong
           class="mc-carpool-carpooler"
         >{{this.carpool.carpooler.givenName}} {{this.carpool.carpooler.shortFamilyName}}</strong>
+        </div>
+        <div v-if="this.carpool.carpooler.telephone && (this.carpool.carpooler.phoneDisplay == 2 || this.carpool.acceptedAsk)">
+          <ion-fab-button :href="'tel:' + carpool.carpooler.telephone" target="_self" style="height: 40px; width: 40px;">
+            <ion-icon name="call"></ion-icon>
+          </ion-fab-button>
         </div>
         <div v-if="this.carpool.communityImages && this.carpool.communityImages.length > 0">
           <span v-for="c in this.carpool.communityImages">
@@ -481,6 +486,9 @@ export default {
 
       let filters = {};
       this.$router.push({name: "post-carpool", params: {filters}});
+    },
+    call(telephone) {
+      window.location.href ="tel:" + telephone;
     }
   }
 };

@@ -34,7 +34,9 @@ export default class CarpoolItemDTO {
     this.origin = carpool.origin;
     this.destination = carpool.destination;
     this.carpooler = this.getCarpooler(carpool);
-    this.community =  Array.isArray(carpool.communities) ? carpool.communities : Object.keys(carpool.communities);
+    if(carpool.communities) {
+      this.community =  Array.isArray(carpool.communities) ? carpool.communities : Object.keys(carpool.communities);
+    }
     this.pendingAsk = carpool.pendingAsk;
     this.acceptedAsk = carpool.acceptedAsk;
     if (carpool.frequency == 1) {
@@ -151,6 +153,8 @@ export default class CarpoolItemDTO {
     }
     carpooler.givenName = carpool.carpooler.givenName;
     carpooler.shortFamilyName = carpool.carpooler.shortFamilyName;
+    carpooler.telephone = carpool.carpooler.telephone;
+    carpooler.phoneDisplay = carpool.carpooler.phoneDisplay;
     return carpooler
   }
 

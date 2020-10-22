@@ -56,7 +56,7 @@ LICENSE
 
         <ion-grid class="ion-margin-bottom mc-block-date">
           <ion-row>
-            <ion-col size="4" v-if="this.from != 'event'">
+            <ion-col size="4">
               <ion-item v-if="showDate">
                 <ion-label position="floating">{{$t('Search.date')}}</ion-label>
                 <ion-datetime
@@ -72,7 +72,7 @@ LICENSE
               </ion-item>
             </ion-col>
 
-            <ion-col size="2" v-if="this.from != 'event' && clearDate">
+            <ion-col size="2" v-if="clearDate">
               <div class="pointer"><ion-icon class="reset-color" size="large" name="close-circle" @click="resetDate()" style="margin-top: 20px"></ion-icon></div>
             </ion-col>
 
