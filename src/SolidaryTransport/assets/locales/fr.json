@@ -549,7 +549,8 @@
         "title": "Mes options temps réel"
       },
       "agenda": {
-        "title": "Mon agenda"
+        "title": "Mon agenda",
+        "empty" : "Vous n'avez pas renseigné de disponibilités pour être conducteur.ice bénévole"
       },
       "requests": {
         "title": "Mes demandes solidaires"

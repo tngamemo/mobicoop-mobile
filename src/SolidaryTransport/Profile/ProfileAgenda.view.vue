@@ -44,6 +44,11 @@
                 <p class="mc-st-loading-message">{{$t('solidaryTransport.commons.loading')}}</p>
               </div>
 
+              <div class="text-center" style="color: black" v-if="!loading && !showVolunteer">
+                {{$t('solidaryTransport.profile.agenda.empty')}}
+              </div>
+
+
               <div v-if="showVolunteer">
                 <div>
                 <div class="mc-st-form-item">
@@ -364,21 +369,34 @@ export default {
     },
     getVolunteer: function () {
       this.loading = true;
-      this.$store.dispatch('getVolunteerDetails', this.$store.state.userStore.user.solidaryUser.id)
-        .then((details) => {
-          this.showVolunteer = true;
-          setTimeout(() => {
-            console.log(Number(moment(this.volunteer.mMaxTime).format('HH')));
-            this.$refs['morning-range'].value = { lower: Number(moment(this.volunteer.mMinTime).format('HH')) || this.volunteer.mMin, upper: Number(moment(this.volunteer.mMaxTime).format('HH')) || this.volunteer.mMax }
-            this.$refs['afternoon-range'].value = { lower:  Number(moment(this.volunteer.aMinTime).format('HH')) ||this.volunteer.aMin, upper:  Number(moment(this.volunteer.aMaxTime).format('HH')) ||this.volunteer.aMax }
-            this.$refs['evening-range'].value = { lower:  Number(moment(this.volunteer.eMinTime).format('HH')) ||this.volunteer.eMin, upper: Number(moment(this.volunteer.eMaxTime).format('HH')) ||this.volunteer.eMax }
-          }, 500);
-          this.loading = false;
-        })
-        .catch((error) => {
-          this.loading = false;
-          console.error(error)
-        })
+      if (this.$store.state.userStore.user.solidaryUser) {
+        this.$store.dispatch('getVolunteerDetails', this.$store.state.userStore.user.solidaryUser.id)
+          .then((details) => {
+            this.showVolunteer = true;
+            setTimeout(() => {
+              console.log(Number(moment(this.volunteer.mMaxTime).format('HH')));
+              this.$refs['morning-range'].value = {
+                lower: Number(moment(this.volunteer.mMinTime).format('HH')) || this.volunteer.mMin,
+                upper: Number(moment(this.volunteer.mMaxTime).format('HH')) || this.volunteer.mMax
+              }
+              this.$refs['afternoon-range'].value = {
+                lower: Number(moment(this.volunteer.aMinTime).format('HH')) || this.volunteer.aMin,
+                upper: Number(moment(this.volunteer.aMaxTime).format('HH')) || this.volunteer.aMax
+              }
+              this.$refs['evening-range'].value = {
+                lower: Number(moment(this.volunteer.eMinTime).format('HH')) || this.volunteer.eMin,
+                upper: Number(moment(this.volunteer.eMaxTime).format('HH')) || this.volunteer.eMax
+              }
+            }, 500);
+            this.loading = false;
+          })
+          .catch((error) => {
+            this.loading = false;
+            console.error(error)
+          })
+      } else {
+        this.loading = false;
+      }
     },
     validate: function () {
       if (this.volunteer.id) {
