@@ -154,6 +154,8 @@ export default class CarpoolItemDTO {
     }
     carpooler.givenName = carpool.carpooler.givenName;
     carpooler.shortFamilyName = carpool.carpooler.shortFamilyName;
+    carpooler.telephone = carpool.carpooler.telephone;
+    carpooler.phoneDisplay = carpool.carpooler.phoneDisplay;
     return carpooler
   }
 

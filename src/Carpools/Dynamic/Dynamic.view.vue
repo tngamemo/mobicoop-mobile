@@ -107,10 +107,10 @@ LICENSE
                 <l-tile-layer :url="map.url"></l-tile-layer>
                 <!--<l-polyline v-if="bounds" :lat-lngs="recapCarpool.directPoints" :color="'blue'"></l-polyline>-->
                 <l-marker :lat-lng="[myPosition.latitude, myPosition.longitude]">
-                  <l-icon :iconSize="[30, 42]" :iconAnchor="[15, 42]" className="custom-div-icon"><div class="marker-pin"></div><ion-icon :name="currentDynamic.role == 1 ? 'car' : 'person'"></ion-icon></l-icon>
+                  <l-icon :iconSize="[30, 42]" :iconAnchor="[15, 42]" className="custom-div-icon"><div class="marker-pin"></div><ion-icon :name="currentDynamic.role == 1 ? 'car' : 'walk'"></ion-icon></l-icon>
                 </l-marker>
                 <l-marker v-if="currentAsk.user && currentAsk.user.position" :lat-lng="[currentAsk.user.position.latitude, currentAsk.user.position.longitude]">
-                  <l-icon :iconSize="[30, 42]" :iconAnchor="[15, 42]" className="custom-div-icon"><div class="marker-pin"></div><ion-icon :name="currentDynamic.role == 1 ? 'person' : 'car'"></ion-icon></l-icon>
+                  <l-icon :iconSize="[30, 42]" :iconAnchor="[15, 42]" className="custom-div-icon"><div class="marker-pin"></div><ion-icon :name="currentDynamic.role == 1 ? 'walk' : 'car'"></ion-icon></l-icon>
                 </l-marker>
                 <l-marker :lat-lng="[destination.latitude, destination.longitude]">
                   <l-icon :iconSize="[30, 42]" :iconAnchor="[15, 42]" className="custom-div-icon"><div class="marker-pin"></div><ion-icon name="locate"></ion-icon></l-icon>
@@ -134,27 +134,28 @@ LICENSE
               <ion-card-content>
                 <!--<div class="text-right"><small>{{currentAsk.id}}</small></div>-->
                 <div v-if="currentAsk.user" class="text-center"><b>{{currentAsk.user.givenName}} {{currentAsk.user.shortFamilyName}}</b></div>
+                <div v-if="currentAsk.user && currentAsk.user.telephone" class="text-center" ></div> <a  :href="'tel:' + currentAsk.user.telephone">{{currentAsk.user.telephone}}</a>
                 <div v-if="currentAsk.status == 1" class="text-center">Covoiturage Demandé</div>
                 <div v-if="currentAsk.status == 2" class="text-center">Covoiturage Accepté</div>
                 <div v-if="currentAsk.message" class="text-center">{{currentAsk.message}}</div>
                 <div v-if="currentAsk.messages"><div class="text-center" v-for="message in currentAsk.messages">{{message.text}}</div></div>
 
-                <!--
-                <ion-button expand="block" v-if="!currentProof.id && currentDynamic.role === 1 && this.currentAsk.user.position && this.currentAsk.user.position.latitude && this.currentAsk.user.position.latitude" @click="launchNavigation()">
+
+                <ion-button class="mc-dynamic-button" expand="block" v-if="!currentProof.id && currentDynamic.role === 1 && this.currentAsk.user.position && this.currentAsk.user.position.latitude && this.currentAsk.user.position.latitude" @click="launchNavigation()">
                   <ion-icon slot="start" name="navigate"></ion-icon>
                   Ouvrir le GPS
                 </ion-button>
-                -->
+
                 <div v-if="currentProof.id" class="text-center">
-                  <ion-icon name="checkmark"></ion-icon> Preuve déposé <span class="muted"><!--<small style="margin-left: 5px">{{currentProof.id}}</small>--></span>
+                  <ion-icon name="checkmark"></ion-icon> Preuve déposée <span class="muted"><!--<small style="margin-left: 5px">{{currentProof.id}}</small>--></span>
                 </div>
-                <ion-button expand="block" v-if="!currentProof.id && currentDynamic.role === 1" @click="postDynamicProof()">Mon passager monte dans le véhicule</ion-button>
-                <ion-button expand="block" v-if="currentProof.id && currentDynamic.role === 1" @click="putDynamicProof()">Mon passager descend du véhicule</ion-button>
+                <ion-button class="mc-dynamic-button" expand="block" v-if="!currentProof.id && currentDynamic.role === 1" @click="postDynamicProof()">Mon passager monte dans le véhicule</ion-button>
+                <ion-button class="mc-dynamic-button" expand="block" v-if="currentProof.id && currentDynamic.role === 1" @click="putDynamicProof()">Mon passager descend du véhicule</ion-button>
                 <div v-if="currentAsk.proof">
                   <!--<div class="text-right muted"><small>{{currentAsk.proof.id}}</small></div>-->
                   <!--<div>ProofStatus : {{currentAsk.proof.needed}}</div>-->
-                  <ion-button expand="block" v-if="!currentProof.id && currentAsk.proof.needed == 'pickUp' && currentDynamic.role === 2" @click="postDynamicProof()">Je monte dans le véhicule</ion-button>
-                  <ion-button expand="block" v-if="currentAsk.proof.needed == 'dropOff' && currentDynamic.role === 2" @click="putDynamicProof()">Je descend du véhicule</ion-button>
+                  <ion-button class="mc-dynamic-button" expand="block" v-if="!currentProof.id && currentAsk.proof.needed == 'pickUp' && currentDynamic.role === 2" @click="postDynamicProof()">Je monte dans le véhicule</ion-button>
+                  <ion-button class="mc-dynamic-button" expand="block" v-if="currentAsk.proof.needed == 'dropOff' && currentDynamic.role === 2" @click="putDynamicProof()">Je descend du véhicule</ion-button>
                 </div>
 
 
@@ -173,7 +174,7 @@ LICENSE
                     <div v-if="result.carpooler.phone">{{result.carpooler.phone}}</div>
                     <div class="d-flex align-center"><ion-icon name="flag"></ion-icon> {{result.resultPassenger.outward.destination.addressLocality}}</div>
                   </div>
-                  <ion-button  expand="block" @click="postDynamicAskAlert(result.resultPassenger.outward.matchingId)">Covoiturer</ion-button>
+                  <ion-button class="mc-dynamic-button" expand="block" @click="postDynamicAskAlert(result.resultPassenger.outward.matchingId)">Covoiturer</ion-button>
                 </ion-card-content>
               </ion-card>
             </div>
@@ -181,6 +182,7 @@ LICENSE
             <div v-if="!currentAsk.id && currentDynamic.role === 1 && currentDynamic.asks">
               <div v-if="currentDynamic.asks.length === 0" class="ion-text-center no-results">
                 <small>{{$t('Dynamic.no-results')}}</small>
+                <ion-button class="mc-dynamic-button mt-5 search-button" fill="outline" expand="block" @click="goToSearchPage()">Voir les résultats de recherche classiques</ion-button>
               </div>
               <ion-card  class="dynamic-card" v-for="(result, index) in currentDynamic.asks">
                 <ion-card-content>
@@ -190,7 +192,7 @@ LICENSE
                     <div v-if="result.messages"><div  class="text-center" v-for="message in result.messages">{{message.text}}</div></div>
                     <div><ion-icon name="locate"></ion-icon> {{result.user.position.displayLabel[0]}}</div>
                   </div>
-                  <ion-button expand="block" @click="putDynamicAsks(result.id, '')">Accepter</ion-button>
+                  <ion-button class="mc-dynamic-button"  expand="block" @click="putDynamicAsks(result.id, '')">Accepter</ion-button>
                 </ion-card-content>
               </ion-card>
             </div>
@@ -295,6 +297,16 @@ LICENSE
     color: #666;
     margin-bottom: 20px;
     line-height: 15px;
+  }
+
+  .mt-5 {
+    margin-top: 5px;
+  }
+
+  .mc-dynamic-button {
+    white-space: initial;
+    font-weight: 700;
+    --border-radius: 33px!important;
   }
 
 </style>
@@ -580,8 +592,19 @@ LICENSE
           ]
         });
       },
-      /*
+      goToSearchPage() {
+        this.$router.push({ name: "search", params: {filters: null} });
+      },
       launchNavigation() {
+        let prefix;
+        if (isPlatform(window.document.defaultView, "ios")) {
+          window.open("http://maps.apple.com/?saddr=Current%20Location&daddr=" + this.currentAsk.user.position.latitude + "," + this.currentAsk.user.position.longitude , '_system');
+        } else if (isPlatform(window.document.defaultView, "android")) {
+          window.open("google.navigation:q=" + this.currentAsk.user.position.latitude + "," + this.currentAsk.user.position.longitude + "&mode=d" , '_system');
+        }
+
+        //window.open(prefix + ":" + this.currentAsk.user.position.latitude + "," + this.currentAsk.user.position.longitude , '_system');
+        /*
           const options = {
             appSelection : {
               dialogHeaderText: 'Lancez la navigation',
@@ -602,8 +625,8 @@ LICENSE
               success => console.log('Launched navigator'),
               error => console.log('Error launching navigator', error)
             );
+         */
         }
-       */
     }
   }
 </script>

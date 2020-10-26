@@ -141,6 +141,7 @@ export default {
           this.getAdsEvent();
 
           if (!!this.event.address) {
+            this.$store.state.searchStore.searchObject.frequency = 1;
             this.$store.commit("changeDestination", {
               addressDTO: this.event.address,
               displayGeo: this.formatAddress(this.event.address)

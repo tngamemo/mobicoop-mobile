@@ -113,6 +113,10 @@ export const userStore = {
 
     user_accepted_carpools_request_success(state, data) {
       state.statusAcceptedCarpools = 'success';
+      // for phone display
+      data['hydra:member'].forEach(item => {
+        item.asks[0].results[0].acceptedAsk = true;
+      })
       state.acceptedCarpools = data['hydra:member'].reverse();
     },
 

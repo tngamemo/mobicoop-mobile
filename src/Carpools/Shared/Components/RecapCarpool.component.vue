@@ -88,7 +88,7 @@ LICENSE
             <ion-icon size="large" name="car"></ion-icon>
           </div>
           <div v-if="recapCarpool.passenger" class="mc-carpool-passenger">
-            <ion-icon size="large" name="person"></ion-icon>
+            <ion-icon size="large" name="walk"></ion-icon>
           </div>
         </div>
 
@@ -110,7 +110,7 @@ LICENSE
         </div>
       </div>
 
-      <div class="mc-recap-footer text-left" v-if="!! recapCarpool.seats && type != 'askCarpool'">
+      <div class="mc-recap-footer text-left" v-if="!!recapCarpool.seats && type != 'askCarpool' && recapCarpool.driver">
         Places disponibles
         <div class="d-flex">
           <ion-icon v-for="index in parseInt(recapCarpool.seats)" :key="index" name="person">{{index}}</ion-icon>
@@ -249,6 +249,7 @@ LICENSE
     background: rgba(var(--ion-color-primary-rgb), 0.1);
     border: 1px solid rgba(var(--ion-color-primary-rgb), 0.1);
     border-radius: 20px;
+    overflow: hidden;
 
     .mc-recap-header {
       padding: 10px;
