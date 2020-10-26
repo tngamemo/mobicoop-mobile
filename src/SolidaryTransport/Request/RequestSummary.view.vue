@@ -274,7 +274,7 @@ export default {
         this.processing = true
         this.$store.dispatch('postSolidaryResource', this.type)
           .then((data) => {
-            this.presentToast("Votre demande de coup de pouce a été envoyée", 'success');
+            this.presentToast(this.type == 'usual' ? "Votre offre de coup de pouce a été envoyée" : "Votre demande de coup de pouce a été envoyée", 'success');
             this.$router.push({name: (this.$route.name.includes('carpool') ? 'carpoolsHome' : 'solidaryTransport.home') })
           })
           .catch((error) => {

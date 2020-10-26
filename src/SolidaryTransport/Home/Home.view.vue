@@ -208,7 +208,7 @@ export default {
     }
   },
   created: function() {
-    if(isPlatform(window.document.defaultView, "capacitor")) {
+    if(isPlatform(window.document.defaultView, "capacitor") || isPlatform(window.document.defaultView, "mobileweb")) {
       this.support = process.env.VUE_APP_SOLIDARY_SUPPORT_HELP
     } else {
       this.support = process.env.VUE_APP_SOLIDARY_SUPPORT_MAIL

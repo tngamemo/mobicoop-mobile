@@ -1101,6 +1101,29 @@ export const solidaryTransportStore = {
     },
     putSolidaryVolunteer: ({commit, state}) => {
       let volunteer = _.cloneDeep(state.temporary.volunteer);
+      delete volunteer.user;
+      delete volunteer.needs;
+      delete volunteer.solidaries;
+      delete volunteer.diaries;
+      delete volunteer.validatedCandidate;
+      delete volunteer.updatedDate;
+      delete volunteer.newsSubscription;
+
+      let format = 'YYYY-MM-DDTHH:mm:ssZ'
+      // Normalize Range
+      volunteer.mMinTime = moment().set({hour: volunteer.mMinTime, minute: 0, second: 0}).format(format)
+      volunteer.mMaxTime = moment().set({hour: volunteer.mMaxTime, minute: 0, second: 0}).format(format)
+      volunteer.aMinTime = moment().set({hour: volunteer.aMinTime, minute: 0, second: 0}).format(format)
+      volunteer.aMaxTime = moment().set({hour: volunteer.aMaxTime, minute: 0, second: 0}).format(format)
+      volunteer.eMinTime = moment().set({hour: volunteer.eMinTime, minute: 0, second: 0}).format(format)
+      volunteer.eMaxTime = moment().set({hour: volunteer.eMaxTime, minute: 0, second: 0}).format(format)
+
+      delete(volunteer['mMin'])
+      delete(volunteer['mMax'])
+      delete(volunteer['aMin'])
+      delete(volunteer['aMax'])
+      delete(volunteer['eMin'])
+      delete(volunteer['eMax'])
 
       // Put Solidary
       return new Promise((resolve, reject) => {

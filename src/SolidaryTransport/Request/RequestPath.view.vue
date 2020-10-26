@@ -106,7 +106,7 @@
               <ion-label class="mc-st-form-label as-title no-white-space" color="primary">{{$t('solidaryTransport.' + type + '.form.fields.comment')}}</ion-label>
 
               <ion-item class="mc-st-form-item as-textarea" lines="none">
-                <ion-textarea :value="request.comment" @ionChange="request.comment = $event.target.value" :placeholder="$t('solidaryTransport.volunteer.form.fields.commentSample')" :auto-grow="true"></ion-textarea>
+                <ion-textarea :value="request.comment" @ionChange="request.comment = $event.target.value" :placeholder="$t('solidaryTransport.' + type + '.form.fields.commentSample')" :auto-grow="true"></ion-textarea>
               </ion-item>
             </div>
 

@@ -170,6 +170,7 @@
                     ticks="false"
                     color="primary"
                     debounce="200"
+                    :value="volunteer.maxDistance"
                     @ionChange="changeMaxDistance($event)"
                   >
                     <ion-label color="primary" slot="start">{{minDeviationDistance}}km</ion-label>
@@ -366,6 +367,12 @@ export default {
       this.$store.dispatch('getVolunteerDetails', this.$store.state.userStore.user.solidaryUser.id)
         .then((details) => {
           this.showVolunteer = true;
+          setTimeout(() => {
+            console.log(Number(moment(this.volunteer.mMaxTime).format('HH')));
+            this.$refs['morning-range'].value = { lower: Number(moment(this.volunteer.mMinTime).format('HH')) || this.volunteer.mMin, upper: Number(moment(this.volunteer.mMaxTime).format('HH')) || this.volunteer.mMax }
+            this.$refs['afternoon-range'].value = { lower:  Number(moment(this.volunteer.aMinTime).format('HH')) ||this.volunteer.aMin, upper:  Number(moment(this.volunteer.aMaxTime).format('HH')) ||this.volunteer.aMax }
+            this.$refs['evening-range'].value = { lower:  Number(moment(this.volunteer.eMinTime).format('HH')) ||this.volunteer.eMin, upper: Number(moment(this.volunteer.eMaxTime).format('HH')) ||this.volunteer.eMax }
+          }, 500);
           this.loading = false;
         })
         .catch((error) => {
@@ -401,10 +408,7 @@ export default {
     }
   },
   mounted: function () {
-    this.$refs['max-distance'].value = this.volunteer.maxDistance
-    this.$refs['morning-range'].value = { lower: moment(this.volunteer.mMinTime).format('HH') || this.volunteer.mMin, upper: moment(this.volunteer.mMaxTime).format('HH') || this.volunteer.mMax }
-    this.$refs['afternoon-range'].value = { lower:  moment(this.volunteer.aMinTime).format('HH') ||this.volunteer.aMin, upper:  moment(this.volunteer.aMaxTime).format('HH') ||this.volunteer.aMax }
-    this.$refs['evening-range'].value = { lower:  moment(this.volunteer.eMinTime).format('HH') ||this.volunteer.eMin, upper:  moment(this.volunteer.eMaxTime).format('HH') ||this.volunteer.eMax }
+    // this.$refs['max-distance'].value = this.volunteer.maxDistance
   },
   created: function () {
     this.getVolunteer();
