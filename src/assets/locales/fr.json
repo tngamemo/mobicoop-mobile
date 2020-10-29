@@ -190,6 +190,8 @@
     "payCarpoolers": "Payer"
   },
   "Payment" : {
+    "paye" : "Payer",
+    "validate-paye" : "Valider le paiement",
     "pending" : "En attente de paiement",
     "online" : "Payé en ligne",
     "direct" : "Payé à la main",
