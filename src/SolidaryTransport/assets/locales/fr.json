@@ -550,7 +550,8 @@
       },
       "agenda": {
         "title": "Mon agenda",
-        "empty" : "Vous n'avez pas renseigné de disponibilités pour être conducteur.ice bénévole"
+        "empty" : "Vous n'avez pas renseigné de disponibilités pour être conducteur.ice bénévole",
+        "success" : "Vos disponibilités ont été mises à jour"
       },
       "requests": {
         "title": "Mes demandes solidaires"

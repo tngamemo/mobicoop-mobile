@@ -34,7 +34,7 @@
 
               <!-- User Information -->
               <div class="mc-st-summary-text">
-                Je suis <span class="answer">{{request.givenName || 'John'}} {{request.familyName || 'Doe'}}</span>, <span class="answer">{{getUserAge(request) || 100}} ans</span>, habitant à <span class="answer" v-if="request.homeAddress">{{request.homeAddress.county}}</span>. Je suis joignable <span v-if="request.telephone">par téléphone au <span class="answer">{{request.telephone || '0000000000'}}</span></span> <span v-if="request.email && request.telephone">ou bien</span><span v-if="request.email"> par mail via l'adresse <span class="answer">{{request.email}}</span></span> .
+                Je suis <span class="answer">{{request.givenName || 'John'}} {{request.familyName || 'Doe'}}</span>, <span class="answer">{{getUserAge(request) || 100}} ans</span>, habitant à <span class="answer" v-if="request.homeAddress">{{request.homeAddress.addressLocality}}</span>. Je suis joignable <span v-if="request.telephone">par téléphone au <span class="answer">{{request.telephone || '0000000000'}}</span></span> <span v-if="request.email && request.telephone">ou bien</span><span v-if="request.email"> par mail via l'adresse <span class="answer">{{request.email}}</span></span> .
               </div>
 
             </div>
@@ -88,12 +88,12 @@
                     <div class="times" v-else></div>
                     <div class="places">
                       <div class="place as-from" v-if="request.origin">
-                        <span class="city">{{request.origin.county}}</span>
+                        <span class="city">{{request.origin.addressLocality}}</span>
                         <span class="address">{{request.origin.streetAddress}}</span>
                       </div>
                       <div class="place as-to">
                         <template v-if="request.destination">
-                          <span class="city">{{request.destination.county}}</span>
+                          <span class="city">{{request.destination.addressLocality}}</span>
                           <span class="address">{{request.destination.streetAddress}}</span>
                         </template>
                         <template v-else>
@@ -117,7 +117,7 @@
                     <div class="places">
                       <div class="place as-from">
                         <template v-if="request.destination">
-                          <span class="city">{{request.destination.county}}</span>
+                          <span class="city">{{request.destination.addressLocality}}</span>
                           <span class="address">{{request.destination.streetAddress}}</span>
                         </template>
                         <template v-else>
@@ -125,7 +125,7 @@
                         </template>
                       </div>
                       <div class="place as-to" v-if="request.origin">
-                        <span class="city">{{request.origin.county}}</span>
+                        <span class="city">{{request.origin.addressLocality}}</span>
                         <span class="address">{{request.origin.streetAddress}}</span>
                       </div>
                     </div>
@@ -157,12 +157,12 @@
                     <div class="times" v-else></div>
                     <div class="places">
                       <div class="place as-from" v-if="request.origin">
-                        <span class="city">{{request.origin.county}}</span>
+                        <span class="city">{{request.origin.addressLocality}}</span>
                         <span class="address">{{request.origin.streetAddress}}</span>
                       </div>
                       <div class="place as-to">
                         <template v-if="request.destination">
-                          <span class="city">{{request.destination.county}}</span>
+                          <span class="city">{{request.destination.addressLocality}}</span>
                           <span class="address">{{request.destination.streetAddress}}</span>
                         </template>
                         <template v-else>
@@ -186,7 +186,7 @@
                     <div class="places">
                       <div class="place as-from">
                         <template v-if="request.destination">
-                          <span class="city">{{request.destination.county}}</span>
+                          <span class="city">{{request.destination.addressLocality}}</span>
                           <span class="address">{{request.destination.streetAddress}}</span>
                         </template>
                         <template v-else>
@@ -194,7 +194,7 @@
                         </template>
                       </div>
                       <div class="place as-to" v-if="request.origin">
-                        <span class="city">{{request.origin.county}}</span>
+                        <span class="city">{{request.origin.addressLocality}}</span>
                         <span class="address">{{request.origin.streetAddress}}</span>
                       </div>
                     </div>

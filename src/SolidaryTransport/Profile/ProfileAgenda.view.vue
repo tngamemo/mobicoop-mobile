@@ -374,6 +374,11 @@ export default {
           .then((details) => {
             this.showVolunteer = true;
             setTimeout(() => {
+              /*
+              if (this.volunteer.solidaryUserStructures.length > 0) {
+                this.setStructure(this.volunteer.solidaryUserStructures[0]);
+              }
+               */
               console.log(Number(moment(this.volunteer.mMaxTime).format('HH')));
               this.$refs['morning-range'].value = {
                 lower: Number(moment(this.volunteer.mMinTime).format('HH')) || this.volunteer.mMin,
@@ -398,16 +403,27 @@ export default {
         this.loading = false;
       }
     },
+    setStructure(struct) {
+      struct.mMinTime = Number(moment(struct.mMinTime).format('HH'));
+      struct.mMaxTime = Number(moment(struct.mMaxTime).format('HH'));
+      struct.aMinTime = Number(moment(struct.aMinTime).format('HH'));
+      struct.aMaxTime = Number(moment(struct.aMaxTime).format('HH'));
+      struct.eMinTime = Number(moment(struct.eMinTime).format('HH'));
+      struct.eMaxTime = Number(moment(struct.eMaxTime).format('HH'));
+      this.structure = struct;
+    },
     validate: function () {
       if (this.volunteer.id) {
         this.$store.dispatch('putSolidaryVolunteer').then(() => {
-
+          this.presentToast(this.$t("solidaryTransport.profile.agenda.success"), 'success');
+          this.$router.back()
         }).catch( (error) => {
           console.error(error)
         })
       } else {
         this.$store.dispatch('postSolidaryVolunteer').then(() => {
-
+          this.presentToast(this.$t("solidaryTransport.profile.agenda.success"), 'success');
+          this.$router.back()
         }).catch( (error) => {
           console.error(error)
         })
