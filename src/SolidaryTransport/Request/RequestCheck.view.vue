@@ -221,7 +221,7 @@
             <ion-button class="mc-st-form-control as-back" :disabled="$v.$invalid" color="primary" @click="$refs['call'].click()">
               <ion-icon slot="start" name="call"></ion-icon>
               <span v-html="$t('solidaryTransport.buttons.askHelp')"></span>
-              <a ref="call" :href="support" style="display:none;"></a>
+              <a ref="call" :href="getSupport()" style="display:none;"></a>
             </ion-button>
 
             <div class="text-center or">{{$t('solidaryTransport.buttons.or')}}</div>
@@ -340,6 +340,13 @@ export default {
       let structure = _.find(this.structures, {id: parseInt($event.target.value)})
       this.$store.commit('solidaryStructureUpdate', structure)
     },
+    getSupport() {
+      if (this.request.structure && this.request.structure.telephone) {
+        return 'tel:' + this.request.structure.telephone;
+      } else {
+        return this.support;
+      }
+    },
     validate: function () {
       this.$v.$reset();
       this.$v.$touch();
@@ -359,7 +366,7 @@ export default {
   created: function () {
     this.$store.dispatch('getSolidaryStructuresByGeolocation', {lat: this.request.homeAddress.latitude, lng: this.request.homeAddress.longitude})
       .then((structures) => {
-        
+
         if (structures.length !== 0) {
           if (!this.request.structure) {
             this.$store.commit('solidaryStructureUpdate', _.cloneDeep(structures[0]))
