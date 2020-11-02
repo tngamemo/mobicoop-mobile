@@ -18,6 +18,10 @@
     <param name="android-package" value="org.apache.cordova.dialogs.Notification"/>
   </feature>
 
+  <feature name="SpeechRecognition">
+    <param name="android-package" value="com.pbakondy.SpeechRecognition"/>
+  </feature>
+
   <feature name="LaunchNavigator">
     <param name="android-package" value="uk.co.workingedge.phonegap.plugin.LaunchNavigatorPlugin"/>
   </feature>

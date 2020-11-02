@@ -35,6 +35,13 @@ LICENSE
       </ion-fab-button>
     </ion-fab>
 
+    <!-- Speech -->
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed" v-if="$store.state.dynamicStore.statusActive == 'success' && state == 2">
+      <ion-fab-button color="light" @click="requestSpeechRecognition()">
+        <ion-icon size="large" color="primary" name="mic"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+
     <ion-content color="primary" no-bounce>
       <div class="mc-white-container" >
 
@@ -134,7 +141,7 @@ LICENSE
               <ion-card-content>
                 <!--<div class="text-right"><small>{{currentAsk.id}}</small></div>-->
                 <div v-if="currentAsk.user" class="text-center"><b>{{currentAsk.user.givenName}} {{currentAsk.user.shortFamilyName}}</b></div>
-                <div v-if="currentAsk.user && currentAsk.user.telephone" class="text-center" ></div> <a  :href="'tel:' + currentAsk.user.telephone">{{currentAsk.user.telephone}}</a>
+                <div v-if="currentAsk.user && currentAsk.user.telephone" class="text-center" ><a  :href="'tel:' + currentAsk.user.telephone">{{currentAsk.user.telephone}}</a></div>
                 <div v-if="currentAsk.status == 1" class="text-center">Covoiturage Demandé</div>
                 <div v-if="currentAsk.status == 2" class="text-center">Covoiturage Accepté</div>
                 <div v-if="currentAsk.message" class="text-center">{{currentAsk.message}}</div>
@@ -197,6 +204,7 @@ LICENSE
               </ion-card>
             </div>
           </div>
+
 
           <!-- Close -->
           <ion-button class='mc-big-button' color="danger" expand="block" @click="closeDynamics()">
@@ -316,6 +324,7 @@ LICENSE
   // import { BackgroundGeolocation } from '@mauron85/cordova-plugin-background-geolocation';
   import { LMap, LTileLayer, LPolyline, LMarker, LIcon } from "vue2-leaflet";
   import { BackgroundGeolocation, BackgroundGeolocationEvents } from '@ionic-native/background-geolocation';
+  import { SpeechRecognition } from '@ionic-native/speech-recognition';
   import { OpenNativeSettings } from '@ionic-native/open-native-settings';
   import { Plugins } from '@capacitor/core';
   import {isPlatform} from "@ionic/core";
@@ -602,31 +611,30 @@ LICENSE
         } else if (isPlatform(window.document.defaultView, "android")) {
           window.open("google.navigation:q=" + this.currentAsk.user.position.latitude + "," + this.currentAsk.user.position.longitude + "&mode=d" , '_system');
         }
-
-        //window.open(prefix + ":" + this.currentAsk.user.position.latitude + "," + this.currentAsk.user.position.longitude , '_system');
-        /*
-          const options = {
-            appSelection : {
-              dialogHeaderText: 'Lancez la navigation',
-              cancelButtonText: 'Annuler',
-              rememberChoice : {
-                enabled : false,
-                prompt : {
-                  headerText: 'Retenir votre choix ?',
-                  bodyText: 'Utiliser la même application la prochaine fois ?',
-                  yesButtonText: 'Oui',
-                  noButtonText: 'Non'
-                }
-              }
-            },
-          };
-          launchnavigator.navigate([this.currentAsk.position.latitude, this.currentAsk.position.longitude], options)
-            .then(
-              success => console.log('Launched navigator'),
-              error => console.log('Error launching navigator', error)
-            );
-         */
-        }
+      },
+      requestSpeechRecognition() {
+        window.plugins.speechRecognition.hasPermission(hasPermission => {
+          if(!hasPermission) {
+            window.plugins.speechRecognition.requestPermission(() => {
+              this.askSpeechRecognition()
+            });
+          } else {
+            this.askSpeechRecognition()
+          }
+        });
+      },
+      askSpeechRecognition() {
+        window.plugins.speechRecognition.startListening(res => {
+            console.log(res);
+        }, () => {},{
+            language: "fr-FR",
+              maxResults: 2,
+            prompt: "Parlez",
+            partialResults: true,
+            popup: true
+          }
+        )
+      }
     }
   }
 </script>
