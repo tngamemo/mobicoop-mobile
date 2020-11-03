@@ -118,7 +118,7 @@ LICENSE
                     @ionChange="addForPost($event, payment, 2)"
                   ></ion-checkbox>
                 </ion-item>
-                <ion-item lines="none" class="item-transparent" v-if="payment.electronicallyPayable && payment.canPayElectronically">
+                <ion-item lines="none" class="item-transparent" v-if="type == 1 && payment.electronicallyPayable && payment.canPayElectronically">
                   <ion-label>{{ $t('Payment.' + (type == 1 ? 'pay' : 'collect') + '.online')}}</ion-label>
                   <ion-checkbox
                     slot="start"

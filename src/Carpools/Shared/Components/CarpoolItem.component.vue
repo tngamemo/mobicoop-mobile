@@ -196,8 +196,8 @@ LICENSE
           expand="block"
           @click="payCarpoolers()"
         >
-          <span v-if="this.carpool.driver">{{$t("Payment.paye")}}</span>
-          <span v-if="!this.carpool.driver">{{$t("Payment.validate-paye")}}</span>
+          <span v-if="!this.carpool.driver">{{$t("Payment.paye")}}</span>
+          <span v-if="this.carpool.driver">{{$t("Payment.validate-paye")}}</span>
         </ion-button>
       </div>
     </div>
@@ -516,7 +516,7 @@ export default {
     payCarpoolers() {
       this.$router.push({ name: 'payment', query : {
           frequency: this.carpool.frequency,
-          type: this.carpool.driver ? 1 : 2,
+          type: this.carpool.driver ? 2 : 1,
           week: this.payment.paymentItemWeek,
           defaultId: this.payment.paymentItemId,
           askId: this.payment.askId
