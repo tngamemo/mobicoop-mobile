@@ -59,7 +59,7 @@ export default {
       required: true
     }
   },
-  watch: { 
+  watch: {
     initRedirect: function(redirect) {
       this.redirect = redirect
     }
@@ -90,9 +90,9 @@ export default {
             this.loading = false
             console.log(err)
             if (err.response.status == 401) {
-              console.log("Erreur d'identifiants", 'danger')
+              this.presentToast("La connexion a échoué, veuillez vérifier votre adresse mail et votre mot de passe.", 'danger')
             } else {
-              console.log("Une erreur est survenue", 'danger')
+              this.presentToast("Une erreur est survenue", 'danger')
             }
           })
       }
