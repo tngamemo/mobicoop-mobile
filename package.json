@@ -11,6 +11,7 @@
     "serve:mobicoop": "vue-cli-service serve --mode mobicoop",
     "serve:ouestgo": "vue-cli-service serve --mode ouestgo",
     "serve:movici": "vue-cli-service serve --mode movici",
+    "serve:movici:prod": "export NODE_ENV=production && export VUE_APP_API_URL=https://api.movici.auvergnerhonealpes.fr && export VUE_APP_API_PASSWORD=KmsBd8rdKVT2n53u && vue-cli-service serve --mode movici",
     "serve:picholines": "vue-cli-service serve --mode picholines",
     "serve:passpass": "vue-cli-service serve --mode passpass",
     "serve:txiktxak": "vue-cli-service serve --mode txiktxak",
