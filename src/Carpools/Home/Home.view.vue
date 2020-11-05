@@ -61,6 +61,22 @@ LICENSE
           @clickSecondButton="redirectToSolidarityPost()"
         />
 
+        <div class="mc-download-app" v-if="isNotCapacitor && appMobileVersion && appMobileVersion.androidRecommendedLink && appMobileVersion.iosRecommendedLink">
+          <div>
+            <p class="text-center"><b>Retrouvez nos applications mobiles sur les stores</b></p>
+          </div>
+          <ion-grid>
+            <ion-row>
+              <ion-col class="d-flex align-center" style="margin-right: 10px">
+                <a style="width: 100%" :href="appMobileVersion.iosRecommendedLink" target="_blank"><img style="width: 100%" src="/assets/download_appstore.svg"  alt="" /></a>
+              </ion-col>
+              <ion-col class="d-flex align-center" style="margin-left: 10px">
+                <a style="width: 100%" :href="appMobileVersion.androidRecommendedLink" target="_blank"><img style="width: 100%" src="/assets/download_googleplay.png"  alt="" /></a>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </div>
+
         <ion-button
           class="mc-big-button"
           color="primary"
@@ -114,6 +130,19 @@ LICENSE
   background-size: 100%;
   // background-size: cover;
   // background-position: center;
+}
+
+.mc-download-app {
+  border-radius: 10px;
+  margin-bottom: 20px;
+  color: white;
+  padding: 20px;
+  background: rgba(var(--ion-color-primary-rgb), 0.4);
+
+  p {
+    margin: 0px;
+    margin-bottom: 20px;
+  }
 }
 
 .partner-img {
@@ -170,6 +199,7 @@ export default {
       showCommunities: JSON.parse(process.env.VUE_APP_SHOW_COMMUNITIES),
       noIconToolbar: JSON.parse(process.env.VUE_APP_NO_ICON_TOOLBAR),
       noTextToolbar: JSON.parse(process.env.VUE_APP_NO_TEXT_TOOLBAR),
+      isNotCapacitor: !isPlatform(window.document.defaultView, "capacitor"),
       version: null
     };
   },
@@ -184,6 +214,11 @@ export default {
     this.success = window
       .getComputedStyle(document.body)
       .getPropertyValue("--ion-color-success-rgb");
+  },
+  computed: {
+    appMobileVersion(){
+      return this.$store.state.appStore.version;
+    }
   },
   mounted() {
     this.getVersion();
