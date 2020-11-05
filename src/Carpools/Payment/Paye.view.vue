@@ -23,7 +23,7 @@ LICENSE
     <ion-header no-border>
       <ion-toolbar color="primary">
         <ion-buttons slot="start">
-          <ion-back-button default-href="/carpools/home"></ion-back-button>
+          <ion-back-button ref="backButton" default-href="/carpools/profile"></ion-back-button>
         </ion-buttons>
         <h1 class="ion-text-center">{{ $t('Paye.title') }} </h1>
       </ion-toolbar>
@@ -35,6 +35,8 @@ LICENSE
       <div class="d-flex flex-col align-center">
         <ion-icon color="success" size="large" name="checkmark-circle"></ion-icon>
         <ion-text color="success">{{ $t('Paye.paye') }}</ion-text>
+        <br>
+        <div style="color:lightgrey"><small>retour dans {{countdown}}s</small></div>
       </div>
       </div>
     </ion-content>
@@ -52,19 +54,34 @@ LICENSE
     name: 'paye',
     data () {
       return {
-
+        paymentId: null,
+        countdown: 6,
+        countdownInterval: null
       }
     },
     mixins: [toast],
     props : [],
     created() {
+      this.paymentId = this.$route.query.paymentPaymentId;
+      if (this.paymentId) {
+        // this.getPayment(this.paymentId);
+      }
+
+      this.countdownInterval = setInterval(() => {
+        this.countdown--
+        if(this.countdown <= 0) {
+          clearInterval(this.countdownInterval);
+          this.$refs.backButton.click();
+        }
+      }, 1000)
 
     },
     methods: {
-      getPayment(params) {
-        params.week = this.selectedWeek;
-        this.$store.dispatch('getPayment', params)
+      getPayment(id) {
+        // todo get payment by id
+        this.$store.dispatch('getPayment', {id: id})
           .then((res) => {
+            console.log(res);
             const result = res.data['hydra:member'];
           })
           .catch((error) => {
