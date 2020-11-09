@@ -56,3 +56,9 @@ target 'Txik Txak' do
   # Add your Pods here
   pod 'Firebase/Messaging'
 end
+
+target 'MobiSDIS' do
+  capacitor_pods
+  # Add your Pods here
+  pod 'Firebase/Messaging'
+end

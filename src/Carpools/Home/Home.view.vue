@@ -127,9 +127,10 @@ LICENSE
   padding: 30px;
   background-image: url("/assets/banner.png");
   background-repeat: no-repeat;
-  background-size: 100%;
-  // background-size: cover;
-  // background-position: center;
+  // background-size: 100%;
+  background-size: cover;
+  background-position: center;
+  margin-bottom: -10px;
 }
 
 .mc-download-app {
