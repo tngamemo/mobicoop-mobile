@@ -209,6 +209,7 @@
     "collect" : {
       "online" : "J'ai reçu un paiement en ligne",
       "direct" : "J'ai reçu un paiement à la main",
+      "report" : "Signaler un impayé",
       "success" : "La confirmation de paiement a été validé"
     }
   },
