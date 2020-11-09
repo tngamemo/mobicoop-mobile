@@ -22,17 +22,19 @@ export const address = {
   methods: {
     formatAddress(address) {
       let displayGeo = '';
-      if (address.addressLocality) {
-        displayGeo += `${address.addressLocality}`;
-      }
-      if(address.streetAddress) {
-        displayGeo += `, ${address.streetAddress}`
-      }
-      if(address.postalCode) {
-        displayGeo += `, ${address.postalCode}`
-      }
-      if (address.addressCountry) {
-        displayGeo += `, ${address.addressCountry}`;
+      if (address) {
+        if (address.addressLocality) {
+          displayGeo += `${address.addressLocality}`;
+        }
+        if (address.streetAddress) {
+          displayGeo += `, ${address.streetAddress}`
+        }
+        if (address.postalCode) {
+          displayGeo += `, ${address.postalCode}`
+        }
+        if (address.addressCountry) {
+          displayGeo += `, ${address.addressCountry}`;
+        }
       }
       return displayGeo;
     }

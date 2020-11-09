@@ -51,6 +51,9 @@ import PostCommunity from './Communities/PostCommunity/PostCommunity.view.vue';
 import PostEvent from './Events/PostEvent/PostEvent.view.vue';
 import Dynamic from './Dynamic/Dynamic.view.vue';
 import PublicTransport from './PublicTransport/PublicTransport.view.vue';
+import Payment from './Payment/Payment.view.vue';
+import BankAccount from './Payment/BankAccount.view.vue';
+import Paye from './Payment/Paye.view.vue';
 
 import Vue from 'vue'
 import store from '../Shared/Store/store';
@@ -158,6 +161,23 @@ export default [
     path: 'accepted-carpools',
     name: 'accepted-carpools',
     component: AcceptedCarpools
+  },
+  {
+    path: 'payment',
+    name: 'payment',
+    component: Payment,
+    // beforeEnter: guardAccesByLogin
+  },
+  {
+    path: 'payment/paye',
+    name: 'paye',
+    component: Paye,
+    // beforeEnter: guardAccesByLogin
+  },
+  {
+    path: 'bank-account',
+    name: 'bank-account',
+    component: BankAccount,
   },
   {
     path: 'post-carpool-step',

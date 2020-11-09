@@ -7,4 +7,5 @@
   <string name="mauron85_bgloc_account_name">@string/app_name</string>
   <string name="mauron85_bgloc_account_type">com.covivo.passpass.account</string>
   <string name="mauron85_bgloc_content_authority">com.covivo.passpass</string>
+  <string name="host">m.passpasscovoiturage.fr</string>
 </resources>

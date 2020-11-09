@@ -1,0 +1,5 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target" : { "namespace": "android_app", "package_name": "fr.auvergnerhonealpes.movici",
+    "sha256_cert_fingerprints": ["2B:B6:B4:6A:F5:EB:96:34:03:0F:98:BE:7F:55:BD:41:76:69:5A:B6:67:D9:F4:9A:8B:AC:FF:7D:54:66:D2:6A"] }
+}]

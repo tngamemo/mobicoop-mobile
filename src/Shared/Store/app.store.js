@@ -26,6 +26,7 @@ export const appStore = {
     seeSliderLoader: false,
     statusContact: '',
     statusVersion: '',
+    version: null,
     userCookies: false
   },
   mutations: {
@@ -49,8 +50,9 @@ export const appStore = {
       state.statusVersion = 'loading'
     },
 
-    version_success(state) {
+    version_success(state, version) {
       state.statusVersion = 'success'
+      state.version = version;
     },
 
     version_error(state) {
@@ -93,7 +95,7 @@ export const appStore = {
         commit('version_request');
         http.get(`/versions`)
           .then(resp => {
-            commit('version_success');
+            commit('version_success', resp.data['hydra:member'].length > 0 ? resp.data['hydra:member'][0] : null);
             resolve(resp)
           })
           .catch(err => {

@@ -46,6 +46,10 @@ android {
           applicationId 'fr.mobicoop.txiktxak'
           dimension "api"
         }
+        mobisdis {
+          applicationId 'fr.mobicoop.mobisdis'
+          dimension "api"
+        }
     }
 }
 

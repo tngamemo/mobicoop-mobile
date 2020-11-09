@@ -1,0 +1,5 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target" : { "namespace": "android_app", "package_name": "fr.covivo.passpass",
+    "sha256_cert_fingerprints": ["1B:02:00:F9:94:11:F2:17:03:99:2F:C5:9C:1E:A5:75:85:E2:46:B2:88:01:E6:1F:2A:11:B8:77:12:2E:94:C7"] }
+}]

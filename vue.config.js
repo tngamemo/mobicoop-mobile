@@ -18,6 +18,12 @@ module.exports = {
       new CopyPlugin([
         { from: 'instanceAssets/' + process.env.VUE_APP_INSTANCE.toLowerCase(), to: 'assets', force: true},
       ]),
+      new CopyPlugin([
+        { from: 'src/assets/icons', to: 'assets', force: true},
+      ]),
+      new CopyPlugin([
+        { from: 'instanceWellKnown/' + process.env.VUE_APP_INSTANCE.toLowerCase(), to: '.well-known', force: true},
+      ]),
       new CreateFileWebpack({path: './www', fileName: 'build.info', content: process.env.VUE_APP_INSTANCE.toLowerCase()})
     ]
   }
