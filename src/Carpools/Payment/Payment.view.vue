@@ -128,6 +128,10 @@ LICENSE
                     @ionChange="addForPost($event, payment, 1)"
                   ></ion-checkbox>
                 </ion-item>
+
+                <ion-item lines="none" class="item-transparent" v-if="type == 2" @click="report(payment)">
+                  <ion-label class="text-center" color="danger">{{ $t('Payment.collect.report')}}</ion-label>
+                </ion-item>
               </div>
             </div>
 
@@ -457,6 +461,41 @@ LICENSE
         this.payments.forEach(payment => {
           this.dataToPost.items.push(...payment.items)
         })
+      },
+      report(payment) {
+        this.$ionic.alertController
+          .create({
+            header: this.$t("Payment.report.title"),
+            message: this.$t("Payment.report.message"),
+            buttons: [
+              {
+                text: this.$t("Commons.cancel"),
+                role: 'cancel',
+                cssClass: 'secondary'
+              },
+              {
+                text: this.$t("Commons.confirm"),
+                handler: () => {
+                  const dataToPost = {
+                    type : this.type,
+                    items : [{
+                      id: payment.id,
+                      status: 3,
+                      mode: 2
+                    }]
+                  };
+                  this.$store.dispatch('postPayment', dataToPost).then(() => {
+                    this.presentToast(this.$t("Payment.report.success"), "success");
+                    this.$router.back();
+                  }).catch(() => {
+                    this.presentToast(this.$t("Commons.error"), "danger");
+                    this.$router.back();
+                  })
+                },
+              },
+            ],
+          })
+          .then(a => a.present())
       }
     }
   }

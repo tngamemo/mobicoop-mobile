@@ -211,6 +211,12 @@
       "direct" : "J'ai reçu un paiement à la main",
       "report" : "Signaler un impayé",
       "success" : "La confirmation de paiement a été validé"
+    },
+    "report" : {
+      "title" : "Signaler un impayé",
+      "message" : "Êtes vous sur de vouloir signaler un impayé ?",
+      "report" : "Signaler",
+      "success" : "L'impayé a été signalé"
     }
   },
   "Paye" : {
