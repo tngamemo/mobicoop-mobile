@@ -48,24 +48,6 @@ LICENSE
           ></ion-icon>
         </ion-item>
 
-        <div v-if="myPosition">
-          <ion-item
-            class="flex-card"
-            v-if="myPosition.displayLabel[0]"
-            v-on:click="selectGeo(myPosition)"
-          >
-            <div class="iconSearch">
-              <ion-icon size="large" color="primary" name="locate"></ion-icon>
-            </div>
-            <ion-card-header>
-              <ion-card-title class="mc-small-card-title">{{ myPosition.displayLabel[0] }}</ion-card-title>
-              <ion-card-subtitle>
-                <div>{{ myPosition.displayLabel[1] }}</div>
-              </ion-card-subtitle>
-            </ion-card-header>
-          </ion-item>
-        </div>
-
         <div v-for="address in this.$store.state.searchStore.resultsGeo" :key="address.key">
           <ion-item
             class="flex-card"
@@ -79,6 +61,24 @@ LICENSE
               <ion-card-title class="mc-small-card-title">{{ address.displayLabel[0] }}</ion-card-title>
               <ion-card-subtitle>
                 <div>{{ address.displayLabel[1] }}</div>
+              </ion-card-subtitle>
+            </ion-card-header>
+          </ion-item>
+        </div>
+
+        <div v-if="myPosition">
+          <ion-item
+            class="flex-card"
+            v-if="myPosition.displayLabel[0]"
+            v-on:click="selectGeo(myPosition)"
+          >
+            <div class="iconSearch">
+              <ion-icon size="large" color="primary" name="locate"></ion-icon>
+            </div>
+            <ion-card-header>
+              <ion-card-title class="mc-small-card-title">{{ myPosition.displayLabel[0] }}</ion-card-title>
+              <ion-card-subtitle>
+                <div>{{ myPosition.displayLabel[1] }}</div>
               </ion-card-subtitle>
             </ion-card-header>
           </ion-item>

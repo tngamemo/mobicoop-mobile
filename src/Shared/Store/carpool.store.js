@@ -428,7 +428,11 @@ export const carpoolStore = {
 
         // On va supprimer toutes les données qui sont nulles ou vides
         const dataToSend = Object.assign({}, state.carpoolToPost);
-        Object.keys(dataToSend).forEach((key) => (dataToSend[key] == null || dataToSend[key] == '') && delete dataToSend[key]);
+        Object.keys(dataToSend).forEach((key) => {
+          if (dataToSend[key] === null || dataToSend[key] === '') {
+            delete dataToSend[key]
+          }
+        });
 
         return http.post(`/carpools`, dataToSend)
           .then(resp => {

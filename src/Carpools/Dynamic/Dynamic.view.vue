@@ -134,7 +134,7 @@ LICENSE
               <ion-card-content>
                 <!--<div class="text-right"><small>{{currentAsk.id}}</small></div>-->
                 <div v-if="currentAsk.user" class="text-center"><b>{{currentAsk.user.givenName}} {{currentAsk.user.shortFamilyName}}</b></div>
-                <div v-if="currentAsk.user && currentAsk.user.telephone" class="text-center" ></div> <a  :href="'tel:' + currentAsk.user.telephone">{{currentAsk.user.telephone}}</a>
+                <div v-if="currentAsk.user && currentAsk.user.telephone" class="text-center" ><a  :href="'tel:' + currentAsk.user.telephone">{{currentAsk.user.telephone}}</a></div>
                 <div v-if="currentAsk.status == 1" class="text-center">Covoiturage Demandé</div>
                 <div v-if="currentAsk.status == 2" class="text-center">Covoiturage Accepté</div>
                 <div v-if="currentAsk.message" class="text-center">{{currentAsk.message}}</div>

@@ -7,10 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0018801505260CC481FB55A1 /* Pods_Txik_Txak.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E438D84400A3CB0E733553D0 /* Pods_Txik_Txak.framework */; };
+		0018801505260CC481FB55A1 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
+		0349135023F5DA80AC9BA366 /* Pods_Txik_Txak.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D78B1B9C94FCF272DEA7743 /* Pods_Txik_Txak.framework */; };
 		2FAD9763203C412B000D30F8 /* config.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2FAD9762203C412B000D30F8 /* config.xml */; };
-		41296B647F9E31E04E9F6260 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; };
-		4F7D059C945AA861F16E7806 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; };
+		41296B647F9E31E04E9F6260 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
+		4F7D059C945AA861F16E7806 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		50379B232058CBB4000EE86E /* capacitor.config.json in Resources */ = {isa = PBXBuildFile; fileRef = 50379B222058CBB4000EE86E /* capacitor.config.json */; };
 		504EC3081FED79650016851F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504EC3071FED79650016851F /* AppDelegate.swift */; };
 		504EC30D1FED79650016851F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 504EC30B1FED79650016851F /* Main.storyboard */; };
@@ -31,6 +32,17 @@
 		816F3EBF242CE44D0015981B /* config.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2FAD9762203C412B000D30F8 /* config.xml */; };
 		816F3EC9242CE4B20015981B /* PicholinesAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 816F3EC7242CE4AA0015981B /* PicholinesAssets.xcassets */; };
 		816F3ECA242CE5B10015981B /* Picholines-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 816F3EC6242CE44E0015981B /* Picholines-Info.plist */; };
+		8179D01225594FBC00980C4C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504EC3071FED79650016851F /* AppDelegate.swift */; };
+		8179D01625594FBC00980C4C /* GoogleService-Info-Txik Txak.plist in Resources */ = {isa = PBXBuildFile; fileRef = 81A5BD6524ADEAFE00F13A16 /* GoogleService-Info-Txik Txak.plist */; };
+		8179D01725594FBC00980C4C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 504EC3101FED79650016851F /* LaunchScreen.storyboard */; };
+		8179D01825594FBC00980C4C /* public in Resources */ = {isa = PBXBuildFile; fileRef = 50B271D01FEDC1A000F3C39B /* public */; };
+		8179D01925594FBC00980C4C /* capacitor.config.json in Resources */ = {isa = PBXBuildFile; fileRef = 50379B222058CBB4000EE86E /* capacitor.config.json */; };
+		8179D01A25594FBC00980C4C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 504EC30B1FED79650016851F /* Main.storyboard */; };
+		8179D01C25594FBC00980C4C /* TxikTxak-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 81A5BD6124ADDD9D00F13A16 /* TxikTxak-Info.plist */; };
+		8179D01D25594FBC00980C4C /* config.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2FAD9762203C412B000D30F8 /* config.xml */; };
+		8179D0382559509500980C4C /* MobiSDIS-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8179D02525594FBD00980C4C /* MobiSDIS-Info.plist */; };
+		8179D043255950EE00980C4C /* MobiSDISAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8179D042255950EE00980C4C /* MobiSDISAssets.xcassets */; };
+		8179D057255954CA00980C4C /* GoogleService-Info-MobiSDIS.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8179D056255954CA00980C4C /* GoogleService-Info-MobiSDIS.plist */; };
 		817E8CBD24644BAB0060A3B8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504EC3071FED79650016851F /* AppDelegate.swift */; };
 		817E8CC124644BAB0060A3B8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 504EC3101FED79650016851F /* LaunchScreen.storyboard */; };
 		817E8CC224644BAB0060A3B8 /* public in Resources */ = {isa = PBXBuildFile; fileRef = 50B271D01FEDC1A000F3C39B /* public */; };
@@ -84,10 +96,11 @@
 		81BE23E22472DB200073D645 /* GoogleService-Info-PassPass.plist in Resources */ = {isa = PBXBuildFile; fileRef = 81BE23E12472DB1F0073D645 /* GoogleService-Info-PassPass.plist */; };
 		81BE23E62472DB430073D645 /* GoogleService-Info-Picholines.plist in Resources */ = {isa = PBXBuildFile; fileRef = 81BE23E52472DB430073D645 /* GoogleService-Info-Picholines.plist */; };
 		81BE23E82472DB4D0073D645 /* GoogleService-Info-OuestGo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 81BE23E72472DB4C0073D645 /* GoogleService-Info-OuestGo.plist */; };
-		A084ECDBA7D38E1E42DFC39D /* BuildFile in Frameworks */ = {isa = PBXBuildFile; };
-		C4931EAFBB76EA38FDF8219C /* BuildFile in Frameworks */ = {isa = PBXBuildFile; };
+		A084ECDBA7D38E1E42DFC39D /* (null) in Frameworks */ = {isa = PBXBuildFile; };
+		C4931EAFBB76EA38FDF8219C /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		D2DE11C465D056F6074C85A7 /* Pods_PassPass.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E67C0BAF98B68423BB4EBEF2 /* Pods_PassPass.framework */; };
 		DE57FEB27618795EC4ED528B /* Pods_Movici.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C0A7723EDE94964338E0AC5 /* Pods_Movici.framework */; };
+		F84AAED9E07AF2844C1EF3C0 /* Pods_MobiSDIS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F33704986AE6AF2027236CEE /* Pods_MobiSDIS.framework */; };
 		FBB8703E1E907137FFBC3E17 /* Pods_PassPass.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E67C0BAF98B68423BB4EBEF2 /* Pods_PassPass.framework */; };
 /* End PBXBuildFile section */
 
@@ -125,6 +138,10 @@
 		816F3EC5242CE44D0015981B /* Picholines.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Picholines.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		816F3EC6242CE44E0015981B /* Picholines-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Picholines-Info.plist"; path = "/Users/volteris/Documents/idea/mobicoop-v2/ios/App/Picholines-Info.plist"; sourceTree = "<absolute>"; };
 		816F3EC7242CE4AA0015981B /* PicholinesAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = PicholinesAssets.xcassets; sourceTree = "<group>"; };
+		8179D02425594FBC00980C4C /* MobiSDIS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MobiSDIS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8179D02525594FBD00980C4C /* MobiSDIS-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "MobiSDIS-Info.plist"; path = "/Users/volteris/Documents/idea/mobicoop-v2/ios/App/MobiSDIS-Info.plist"; sourceTree = "<absolute>"; };
+		8179D042255950EE00980C4C /* MobiSDISAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MobiSDISAssets.xcassets; sourceTree = "<group>"; };
+		8179D056255954CA00980C4C /* GoogleService-Info-MobiSDIS.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-MobiSDIS.plist"; sourceTree = "<group>"; };
 		817E8CCD24644BAB0060A3B8 /* Grand Lyon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Grand Lyon.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		817E8CCE24644BAB0060A3B8 /* GrandLyon-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "GrandLyon-Info.plist"; path = "/Users/volteris/Documents/idea/mobicoop-v2/ios/App/GrandLyon-Info.plist"; sourceTree = "<absolute>"; };
 		817E8CD024644CB50060A3B8 /* GrandLyonAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = GrandLyonAssets.xcassets; sourceTree = "<group>"; };
@@ -148,15 +165,18 @@
 		81BE23E52472DB430073D645 /* GoogleService-Info-Picholines.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-Picholines.plist"; sourceTree = "<group>"; };
 		81BE23E72472DB4C0073D645 /* GoogleService-Info-OuestGo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-OuestGo.plist"; sourceTree = "<group>"; };
 		8B18C8B8C502A53E11D9DE0A /* Pods-Txik Txak.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Txik Txak.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Txik Txak/Pods-Txik Txak.debug.xcconfig"; sourceTree = "<group>"; };
+		8D78B1B9C94FCF272DEA7743 /* Pods_Txik_Txak.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Txik_Txak.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		902C98C63362C39935A4385D /* Pods-App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App.debug.xcconfig"; path = "Pods/Target Support Files/Pods-App/Pods-App.debug.xcconfig"; sourceTree = "<group>"; };
 		9719F8E8F3D1EDB7EAC3A603 /* Pods-Txik Txak.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Txik Txak.release.xcconfig"; path = "Pods/Target Support Files/Pods-Txik Txak/Pods-Txik Txak.release.xcconfig"; sourceTree = "<group>"; };
 		9E57571C9F54CFB5A21ACEC6 /* Pods-Grand Lyon.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Grand Lyon.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Grand Lyon/Pods-Grand Lyon.debug.xcconfig"; sourceTree = "<group>"; };
 		A499D109DE77C321FA5AACC2 /* Pods-PassPass.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PassPass.release.xcconfig"; path = "Pods/Target Support Files/Pods-PassPass/Pods-PassPass.release.xcconfig"; sourceTree = "<group>"; };
 		B5B1B0CD92260C1F49F7FC15 /* Pods-Movici.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Movici.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Movici/Pods-Movici.debug.xcconfig"; sourceTree = "<group>"; };
 		D12368848BA50F09F7676E42 /* Pods-OuestGo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OuestGo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OuestGo/Pods-OuestGo.debug.xcconfig"; sourceTree = "<group>"; };
-		E438D84400A3CB0E733553D0 /* Pods_Txik_Txak.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Txik_Txak.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D2604CBD31BE67DFE9B4C5F1 /* Pods-MobiSDIS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobiSDIS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MobiSDIS/Pods-MobiSDIS.debug.xcconfig"; sourceTree = "<group>"; };
+		D2760C47EBECE89231B0F56F /* Pods-MobiSDIS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobiSDIS.release.xcconfig"; path = "Pods/Target Support Files/Pods-MobiSDIS/Pods-MobiSDIS.release.xcconfig"; sourceTree = "<group>"; };
 		E67C0BAF98B68423BB4EBEF2 /* Pods_PassPass.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PassPass.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F13E884ADDDCBC572AFDB82C /* Pods-Picholines.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Picholines.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Picholines/Pods-Picholines.debug.xcconfig"; sourceTree = "<group>"; };
+		F33704986AE6AF2027236CEE /* Pods_MobiSDIS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MobiSDIS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,7 +184,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A084ECDBA7D38E1E42DFC39D /* BuildFile in Frameworks */,
+				A084ECDBA7D38E1E42DFC39D /* (null) in Frameworks */,
 				7E58C2DFAF4A614EC197C59C /* Pods_App.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -173,8 +193,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				41296B647F9E31E04E9F6260 /* BuildFile in Frameworks */,
+				41296B647F9E31E04E9F6260 /* (null) in Frameworks */,
 				56686892599CFA0CE31314D3 /* Pods_Picholines.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8179D01325594FBC00980C4C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F84AAED9E07AF2844C1EF3C0 /* Pods_MobiSDIS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -190,7 +218,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0018801505260CC481FB55A1 /* Pods_Txik_Txak.framework in Frameworks */,
+				0018801505260CC481FB55A1 /* (null) in Frameworks */,
+				0349135023F5DA80AC9BA366 /* Pods_Txik_Txak.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -198,7 +227,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4F7D059C945AA861F16E7806 /* BuildFile in Frameworks */,
+				4F7D059C945AA861F16E7806 /* (null) in Frameworks */,
 				6A2E24577BC25BAA01CE7560 /* Pods_OuestGo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -207,7 +236,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C4931EAFBB76EA38FDF8219C /* BuildFile in Frameworks */,
+				C4931EAFBB76EA38FDF8219C /* (null) in Frameworks */,
 				DE57FEB27618795EC4ED528B /* Pods_Movici.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -241,8 +270,9 @@
 				1C0A7723EDE94964338E0AC5 /* Pods_Movici.framework */,
 				7A553FBCF5C28BB918961DC1 /* Pods_Grand_Lyon.framework */,
 				091659A8431A7FE1B6092F40 /* Pods_OuestGo.framework */,
-				E438D84400A3CB0E733553D0 /* Pods_Txik_Txak.framework */,
 				4E1A3E21558115DD8FBC05BA /* Pods_Picholines.framework */,
+				F33704986AE6AF2027236CEE /* Pods_MobiSDIS.framework */,
+				8D78B1B9C94FCF272DEA7743 /* Pods_Txik_Txak.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -274,6 +304,7 @@
 				81B6865C243F752800A2FBC5 /* Mobicoop.app */,
 				817E8CCD24644BAB0060A3B8 /* Grand Lyon.app */,
 				81A5BD6024ADDD9C00F13A16 /* Txik Txak.app */,
+				8179D02425594FBC00980C4C /* MobiSDIS.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -292,6 +323,7 @@
 				81B68645243F6D0500A2FBC5 /* PassPassAssets.xcassets */,
 				817E8CD024644CB50060A3B8 /* GrandLyonAssets.xcassets */,
 				81A5BD6324ADDEB700F13A16 /* TxikTxakAssets.xcassets */,
+				8179D042255950EE00980C4C /* MobiSDISAssets.xcassets */,
 				504EC3101FED79650016851F /* LaunchScreen.storyboard */,
 				504EC3131FED79650016851F /* Info.plist */,
 				81B6865D243F752900A2FBC5 /* Mobicoop-Info.plist */,
@@ -301,12 +333,14 @@
 				81B68644243F6CC300A2FBC5 /* PassPass-Info.plist */,
 				817E8CCE24644BAB0060A3B8 /* GrandLyon-Info.plist */,
 				81A5BD6124ADDD9D00F13A16 /* TxikTxak-Info.plist */,
+				8179D02525594FBD00980C4C /* MobiSDIS-Info.plist */,
 				812ABABA246D7D0C00DC9A9D /* GoogleService-Info-Movici.plist */,
 				81BE23E72472DB4C0073D645 /* GoogleService-Info-OuestGo.plist */,
 				8133F59F25012CD1008D2490 /* GoogleService-Info-Grand Lyon.plist */,
 				81BE23E12472DB1F0073D645 /* GoogleService-Info-PassPass.plist */,
 				81BE23E52472DB430073D645 /* GoogleService-Info-Picholines.plist */,
 				81A5BD6524ADEAFE00F13A16 /* GoogleService-Info-Txik Txak.plist */,
+				8179D056255954CA00980C4C /* GoogleService-Info-MobiSDIS.plist */,
 				2FAD9762203C412B000D30F8 /* config.xml */,
 				50B271D01FEDC1A000F3C39B /* public */,
 			);
@@ -330,6 +364,8 @@
 				7BBE58283A12DB0FB19374C2 /* Pods-Grand Lyon.release.xcconfig */,
 				8B18C8B8C502A53E11D9DE0A /* Pods-Txik Txak.debug.xcconfig */,
 				9719F8E8F3D1EDB7EAC3A603 /* Pods-Txik Txak.release.xcconfig */,
+				D2604CBD31BE67DFE9B4C5F1 /* Pods-MobiSDIS.debug.xcconfig */,
+				D2760C47EBECE89231B0F56F /* Pods-MobiSDIS.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -376,6 +412,27 @@
 			name = Picholines;
 			productName = App;
 			productReference = 816F3EC5242CE44D0015981B /* Picholines.app */;
+			productType = "com.apple.product-type.application";
+		};
+		8179D00F25594FBC00980C4C /* MobiSDIS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8179D02125594FBC00980C4C /* Build configuration list for PBXNativeTarget "MobiSDIS" */;
+			buildPhases = (
+				8179D01025594FBC00980C4C /* [CP] Check Pods Manifest.lock */,
+				8179D01125594FBC00980C4C /* Sources */,
+				8179D01325594FBC00980C4C /* Frameworks */,
+				8179D01525594FBC00980C4C /* Resources */,
+				8179D01E25594FBC00980C4C /* Scheme Control Script */,
+				8179D01F25594FBC00980C4C /* [CP] Embed Pods Frameworks */,
+				8179D02025594FBC00980C4C /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MobiSDIS;
+			productName = App;
+			productReference = 8179D02425594FBC00980C4C /* MobiSDIS.app */;
 			productType = "com.apple.product-type.application";
 		};
 		817E8CBA24644BAB0060A3B8 /* Grand Lyon */ = {
@@ -558,6 +615,7 @@
 				81B68630243F6CC200A2FBC5 /* PassPass */,
 				817E8CBA24644BAB0060A3B8 /* Grand Lyon */,
 				81A5BD4C24ADDD9C00F13A16 /* Txik Txak */,
+				8179D00F25594FBC00980C4C /* MobiSDIS */,
 			);
 		};
 /* End PBXProject section */
@@ -589,6 +647,23 @@
 				816F3ECA242CE5B10015981B /* Picholines-Info.plist in Resources */,
 				816F3EBF242CE44D0015981B /* config.xml in Resources */,
 				81BE23E62472DB430073D645 /* GoogleService-Info-Picholines.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8179D01525594FBC00980C4C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8179D01625594FBC00980C4C /* GoogleService-Info-Txik Txak.plist in Resources */,
+				8179D01725594FBC00980C4C /* LaunchScreen.storyboard in Resources */,
+				8179D01825594FBC00980C4C /* public in Resources */,
+				8179D01925594FBC00980C4C /* capacitor.config.json in Resources */,
+				8179D01A25594FBC00980C4C /* Main.storyboard in Resources */,
+				8179D0382559509500980C4C /* MobiSDIS-Info.plist in Resources */,
+				8179D01C25594FBC00980C4C /* TxikTxak-Info.plist in Resources */,
+				8179D043255950EE00980C4C /* MobiSDISAssets.xcassets in Resources */,
+				8179D01D25594FBC00980C4C /* config.xml in Resources */,
+				8179D057255954CA00980C4C /* GoogleService-Info-MobiSDIS.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -853,6 +928,76 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nvalue=$(cat $SRCROOT/public/build.info)\necho \"$value\"\n\nif [ \"$value\" = \"picholines\" ]; \nthen\n    echo \"SCHEME OK\"\nelse\n    echo \"NOT GOOD SCHEME\"\n    exit 1\nfi;\n";
+		};
+		8179D01025594FBC00980C4C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MobiSDIS-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8179D01E25594FBC00980C4C /* Scheme Control Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Scheme Control Script";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nvalue=$(cat $SRCROOT/public/build.info)\necho \"$value\"\n\nif [ \"$value\" = \"mobisdis\" ]; \nthen\n    echo \"SCHEME OK\"\nelse\n    echo \"NOT GOOD SCHEME\"\n    exit 1\nfi;\n";
+		};
+		8179D01F25594FBC00980C4C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MobiSDIS/Pods-MobiSDIS-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8179D02025594FBC00980C4C /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MobiSDIS/Pods-MobiSDIS-resources.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 		817E8CBB24644BAB0060A3B8 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1189,6 +1334,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		8179D01125594FBC00980C4C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8179D01225594FBC00980C4C /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		817E8CBC24644BAB0060A3B8 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1452,6 +1605,55 @@
 				);
 				MARKETING_VERSION = 2.0.8;
 				PRODUCT_BUNDLE_IDENTIFIER = eu.covivo.picholines;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = USE_PUSH;
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		8179D02225594FBC00980C4C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D2604CBD31BE67DFE9B4C5F1 /* Pods-MobiSDIS.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Picholines.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_TEAM = 8X98ZWRY77;
+				INFOPLIST_FILE = "MobiSDIS-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 2.0.8;
+				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-DDEBUG\"";
+				PRODUCT_BUNDLE_IDENTIFIER = fr.mobicoop.mobisdis;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG USE_PUSH";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		8179D02325594FBC00980C4C /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D2760C47EBECE89231B0F56F /* Pods-MobiSDIS.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Picholines.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_TEAM = 8X98ZWRY77;
+				INFOPLIST_FILE = "MobiSDIS-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 2.0.8;
+				PRODUCT_BUNDLE_IDENTIFIER = fr.mobicoop.mobisdis;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = USE_PUSH;
 				SWIFT_VERSION = 4.2;
@@ -1781,6 +1983,15 @@
 			buildConfigurations = (
 				816F3EC3242CE44D0015981B /* Debug */,
 				816F3EC4242CE44D0015981B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8179D02125594FBC00980C4C /* Build configuration list for PBXNativeTarget "MobiSDIS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8179D02225594FBC00980C4C /* Debug */,
+				8179D02325594FBC00980C4C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
