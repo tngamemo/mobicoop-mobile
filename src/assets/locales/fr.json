@@ -10,6 +10,11 @@
     "CGU": "CGU",
     "contact": "Contacter"
   },
+  "Langs" : {
+    "change" : "Changer de langue",
+    "fr" : "Français",
+    "en" : "Anglais"
+  },
   "Nav": {
     "home": "Accueil",
     "help": "Aide",

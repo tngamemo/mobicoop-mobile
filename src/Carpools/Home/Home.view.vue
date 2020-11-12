@@ -28,6 +28,11 @@ LICENSE
             <h1  v-if="!noTextToolbar">{{ title }}</h1>
           </div>
         </div>
+        <ion-buttons slot="secondary">
+          <ion-button v-if="langs.length > 1" @click="showLangs()">
+            <ion-icon slot="icon-only" icon="globe"></ion-icon>
+          </ion-button>
+        </ion-buttons>
       </ion-toolbar>
     </ion-header>
 
@@ -200,6 +205,7 @@ export default {
       showCommunities: JSON.parse(process.env.VUE_APP_SHOW_COMMUNITIES),
       noIconToolbar: JSON.parse(process.env.VUE_APP_NO_ICON_TOOLBAR),
       noTextToolbar: JSON.parse(process.env.VUE_APP_NO_TEXT_TOOLBAR),
+      langs: JSON.parse(process.env.VUE_APP_LANGS),
       isNotCapacitor: !isPlatform(window.document.defaultView, "capacitor"),
       version: null
     };
@@ -271,6 +277,33 @@ export default {
         let info = await Device.getInfo();
         this.version = info.appVersion;
       }
+    },
+    async showLangs() {
+      const buttons = [];
+      this.langs.forEach(item => {
+        buttons.push({
+          text: this.$t('Langs.' + item),
+          handler: () => {
+            this.setLang(item)
+          }
+        });
+      })
+      buttons.push(
+        {
+          text: this.$t('Commons.cancel'),
+          role: 'cancel',
+        },
+      );
+
+      const actionSheet = await this.$ionic.actionSheetController
+        .create({
+          header: this.$t('Langs.change'),
+          buttons: buttons,
+        });
+      return actionSheet.present();
+    },
+    setLang(lang) {
+      this.$i18n.locale = lang;
     }
   }
 };
