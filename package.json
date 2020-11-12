@@ -44,7 +44,7 @@
     "build:crf:test": "export NODE_ENV=production && export VUE_APP_API_URL=https://api.test.croix-rouge.mobicoop.io && vue-cli-service build --mode crf",
     "build:carsat:test": "export NODE_ENV=production && export VUE_APP_API_URL=https://api.test.covoituragecarsat.mobiride.fr && vue-cli-service build --mode carsat",
     "build:carsat:prod": "export NODE_ENV=production && export VUE_APP_API_URL=https://api.covoituragecarsat.mobiride.fr && export VUE_APP_API_PASSWORD=0yEGX8rBw8cxozsS && vue-cli-service build --mode carsat",
-    "build:mobisdis:test": "export NODE_ENV=production && export VUE_APP_API_URL=http://api.test.mobisdis.mobicoop.io && vue-cli-service build --mode mobisdis",
+    "build:mobisdis:test": "export NODE_ENV=production && export VUE_APP_API_URL=https://api.test.mobisdis.mobicoop.io && vue-cli-service build --mode mobisdis",
     "lint": "vue-cli-service lint",
     "i18n:report": "vue-cli-service i18n:report --src './src/**/*.?(js|vue)' --locales './src/locales/**/*.json'",
     "postinstall": "jetifier"
