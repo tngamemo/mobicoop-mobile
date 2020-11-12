@@ -90,7 +90,7 @@ LICENSE
               <div class="mc-error-label"  v-if="!$v.user.birthDate.isMaxBirthDate">{{$t('Validation.age', { value: minAge })}}</div>
             </div>
             <div class="mc-select-communities text-left" v-if="showCommunities && this.communities.length > 0">
-              <ion-item lines="none" class="item-communities">
+              <ion-item class="item-communities">
                 <ion-label position="floating">{{$t('Register.community')}}</ion-label>
                 <ion-select
                   placeholder="Sélectionnez une communauté"
@@ -107,6 +107,9 @@ LICENSE
                   >{{ community.name }}</ion-select-option>
                 </ion-select>
               </ion-item>
+              <div v-if="$v.user.communityId.$error">
+                <div class="mc-error-label"  v-if="!$v.user.communityId.required">{{$t('Validation.required')}}</div>
+              </div>
             </div>
             <br>
             <ion-item lines="none">
@@ -180,6 +183,7 @@ LICENSE
                 minAge: process.env.VUE_APP_REGISTER_MIN_AGE,
                 requiredBirthdate: JSON.parse(process.env.VUE_APP_REQUIRED_BIRTHDATE),
                 showCommunities: JSON.parse(process.env.VUE_APP_REGISTER_COMMUNITY),
+                neededCommunities: JSON.parse(process.env.VUE_APP_REGISTER_COMMUNITY_NEEDED),
                 communities: []
             }
         },
@@ -204,6 +208,11 @@ LICENSE
                 userAgreementAccepted: {
                     required,
                     checked
+                },
+                communityId: {
+                  required :  requiredIf(function () {
+                    return this.neededCommunities;
+                  }),
                 }
             }
         },
