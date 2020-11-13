@@ -1,3 +1,98 @@
 {
-  "msg": "Hello World!"
+    "msg": "Hello World!",
+    "solidaryTransport": {
+        "languages": {
+            "ar": "Arabic"
+        },
+        "geoSearch": {
+            "placeholder": "Enter your address"
+        },
+        "usual": {
+            "form": {
+                "fields": {
+                    "commentSample": "Comment on this trip, (for example, ‘I offer this carpooling when I go shopping. The boot will therefore be loaded on the way back.’)",
+                    "comment": "Any comment?",
+                    "needs": "Further information:",
+                    "isPunctual": "Only once",
+                    "optional": "Additional information",
+                    "mandatory": "Mandatory criteria"
+                }
+            }
+        },
+        "request": {
+            "form": {
+                "fields": {
+                    "sendRequest": "Send my request",
+                    "yourRequest": "Your request:",
+                    "you": "Your information:",
+                    "commentSample": "Comment on this trip, (for example, ‘I offer this carpooling when I go shopping. The boot will therefore be loaded on the way back.’)",
+                    "comment": "Any comment?",
+                    "needs": "Further information:",
+                    "subjects": "What do you want to do?",
+                    "optional": "Additional information",
+                    "mandatory": "Mandatory criteria"
+                }
+            },
+            "steps": {
+                "user": "5. You",
+                "intro": "1. Where do you live?"
+            }
+        },
+        "volunteer": {
+            "form": {
+                "fields": {
+                    "commentSample": "Comment on this volunteering (for example, ‘I bring my children to school before going to work’)",
+                    "comment": "Any comment?",
+                    "languages": [
+                        {
+                            "label": "Français",
+                            "value": "fr"
+                        },
+                        {
+                            "label": "English",
+                            "value": "en"
+                        },
+                        {
+                            "label": "Arabic",
+                            "value": "ar"
+                        }
+                    ]
+                }
+            },
+            "steps": {
+                "details": "4. Additional information",
+                "user": "3. You"
+            },
+            "title": "Be a volunteer"
+        },
+        "navigation": {
+            "messages": "Messages",
+            "profile": "Profile",
+            "login": "Log in",
+            "register": "Register",
+            "help": "Help",
+            "home": "Home"
+        },
+        "commons": {
+            "cgu": "Terms of Use",
+            "other": "Other",
+            "maxFileSize": "The file that you are trying to send must not exceed 1 MB",
+            "loading": "Loading",
+            "gender": {
+                "nc": "Other"
+            }
+        },
+        "buttons": {
+            "or": "or",
+            "askHelp": "Ask by phone",
+            "sendRequest": "Send my request",
+            "cancel": "Cancel",
+            "save": "Save",
+            "validate": "Validate",
+            "confirm": "Confirm",
+            "register": "Register",
+            "next": "Next",
+            "back": "Back"
+        }
+    }
 }
