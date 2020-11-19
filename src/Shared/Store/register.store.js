@@ -130,6 +130,9 @@ export const registerStore = {
       if(u.communityId) {
         u.communityId = Number(u.communityId)
       }
+      if(!u.gender) {
+        u.gender = 3
+      }
 
       return new Promise((resolve, reject) => {
         http.post("/users/register", u).then(resp => {

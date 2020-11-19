@@ -57,7 +57,7 @@ LICENSE
             <br>
 
             <ion-item>
-              <ion-label position="floating">{{$t('Register.gender')}} *</ion-label>
+              <ion-label position="floating">{{$t('Register.gender')}} <span v-if="genderRequired">*</span></ion-label>
               <ion-select
                 required
                 :value="user.gender"
@@ -184,6 +184,7 @@ LICENSE
                 requiredBirthdate: JSON.parse(process.env.VUE_APP_REQUIRED_BIRTHDATE),
                 showCommunities: JSON.parse(process.env.VUE_APP_REGISTER_COMMUNITY),
                 neededCommunities: JSON.parse(process.env.VUE_APP_REGISTER_COMMUNITY_NEEDED),
+                genderRequired: JSON.parse(process.env.VUE_APP_GENDER_REQUIRED),
                 communities: []
             }
         },
@@ -197,7 +198,9 @@ LICENSE
                     required
                 },
                 gender: {
-                    required,
+                    required : requiredIf(function () {
+                      return this.genderRequired;
+                    }),
                 },
                 birthDate: {
                     required :  requiredIf(function () {
