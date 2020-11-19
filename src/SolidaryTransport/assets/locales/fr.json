@@ -145,7 +145,7 @@
           "isPunctual": "Une seule fois",
           "needs": "J'aimerais l'aide du conducteur pour :",
           "comment": "Un commentaire ?",
-          "commentSample" : "Commentaire sur ce trajet, (par exemple, \"Je propose ce covoiturage lorsque j'irai faire mes courses. Le coffre sera donc chargé au retour.\")",
+          "commentSample" : "Commentaire sur ce trajet (par exemple, \"j'aurais un gros sac à dos, est ce qu'il y a de la place dans le coffre ? \").",
           "when": {
             "departure": {
               "date": "A quelle date souhaitez-vous partir ?",

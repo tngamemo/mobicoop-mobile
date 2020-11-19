@@ -450,7 +450,10 @@ export const solidaryTransportStore = {
     // Volunteer
     postSolidaryVolunteerSuccess: (state, res) => {
       state.default.volunteer = res;
-      state.temporary.volunteer = _.cloneDeep(state.default.volunteer)
+      setTimeout(() => {
+        state.temporary.volunteer = _.cloneDeep(state.default.volunteer)
+      }, 1000);
+
     },
 
     getSolidaryUserSuccess: (state, res)=> {
