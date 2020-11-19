@@ -189,6 +189,7 @@ LICENSE
         <div v-if="payment.paymentStatus === 1" class="text-center text-success"><b>{{$t("Payment.online")}}</b></div>
         <div v-if="payment.paymentStatus === 2" class="text-center text-success"><b>{{$t("Payment.direct")}}</b></div>
         <div v-if="payment.paymentStatus === 4" class="text-center text-success"><b>{{$t("Payment.paid")}}</b></div>
+        <div v-if="payment.paymentStatus === 3" style="margin-bottom: 20px" class="text-center text-danger"><b>{{$t("Payment.unpaid")}}</b></div>
         <ion-button v-if="payment.paymentStatus === 0 || payment.paymentStatus === 3"
           class="mc-big-button normal-wrap"
           fill="outline"
@@ -351,6 +352,9 @@ LICENSE
 
   .text-success {
     color: var(--ion-color-success)
+  }
+  .text-danger {
+    color: var(--ion-color-danger)
   }
 </style>
 

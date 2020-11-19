@@ -195,7 +195,7 @@
     "pending" : "En attente de paiement",
     "online" : "Payé en ligne",
     "direct" : "Payé à la main",
-    "unpaid" : "Non payé",
+    "unpaid" : "Impayé",
     "paid" : "Payé",
     "title" : "Paiements",
     "amount" : "Montant",
