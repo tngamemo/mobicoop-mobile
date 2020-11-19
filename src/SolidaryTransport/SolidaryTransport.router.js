@@ -66,6 +66,15 @@ let preventAccess = function (to, from, next) {
   }
 }
 
+let preventAccessRequest = function (to, from, next) {
+  let request = store.state.solidaryTransportStore.temporary.request;
+  if (request.homeAddress) {
+    next()
+  } else {
+    next({name: from.name.includes('carpool') ? 'carpoolsHome' : 'solidaryTransport.home'})
+  }
+}
+
 export default [
   {
     path: '',
@@ -101,7 +110,8 @@ export default [
         components: {
           home: RequestCheck
         },
-        meta: { type: 'request' }
+        meta: { type: 'request' },
+        beforeEnter: preventAccessRequest
       },
       {
         path: '/solidary-transport/home/request/path',
@@ -109,7 +119,8 @@ export default [
         components: {
           home: RequestPath
         },
-        meta: { type: 'request' }
+        meta: { type: 'request' },
+        beforeEnter: preventAccessRequest
       },
       {
         path: '/solidary-transport/home/request/punctual',
@@ -117,7 +128,8 @@ export default [
         components: {
           home: RequestPunctual
         },
-        meta: { type: 'request' }
+        meta: { type: 'request' },
+        beforeEnter: preventAccessRequest
       },
       {
         path: '/solidary-transport/home/request/regular',
@@ -125,7 +137,8 @@ export default [
         components: {
           home: RequestRegular
         },
-        meta: { type: 'request' }
+        meta: { type: 'request' },
+        beforeEnter: preventAccessRequest
       },
       {
         path: '/solidary-transport/home/request/user',
@@ -133,7 +146,8 @@ export default [
         components: {
           home: RequestUser
         },
-        meta: { type: 'request' }
+        meta: { type: 'request' },
+        beforeEnter: preventAccessRequest
       },
       {
         path: '/solidary-transport/home/request/summary',
@@ -141,7 +155,8 @@ export default [
         components: {
           home: RequestSummary
         },
-        meta: { type: 'request' }
+        meta: { type: 'request' },
+        beforeEnter: preventAccessRequest
       },
       // REQUEST ----- ( end here )
 
@@ -160,7 +175,8 @@ export default [
         components: {
           home: RequestCheck
         },
-        meta: { type: 'usual' }
+        meta: { type: 'usual' },
+        beforeEnter: preventAccessRequest
       },
       {
         path: '/solidary-transport/home/usual/path',
@@ -168,7 +184,8 @@ export default [
         components: {
           home: RequestPath
         },
-        meta: { type: 'usual' }
+        meta: { type: 'usual' },
+        beforeEnter: preventAccessRequest
       },
       {
         path: '/solidary-transport/home/usual/punctual',
@@ -176,7 +193,8 @@ export default [
         components: {
           home: RequestPunctual
         },
-        meta: { type: 'usual' }
+        meta: { type: 'usual' },
+        beforeEnter: preventAccessRequest
       },
       {
         path: '/solidary-transport/home/usual/regular',
@@ -184,7 +202,8 @@ export default [
         components: {
           home: RequestRegular
         },
-        meta: { type: 'usual' }
+        meta: { type: 'usual' },
+        beforeEnter: preventAccessRequest
       },
       {
         path: '/solidary-transport/home/usual/user',
@@ -192,7 +211,8 @@ export default [
         components: {
           home: RequestUser
         },
-        meta: { type: 'usual' }
+        meta: { type: 'usual' },
+        beforeEnter: preventAccessRequest
       },
       {
         path: '/solidary-transport/home/usual/summary',
@@ -200,7 +220,8 @@ export default [
         components: {
           home: RequestSummary
         },
-        meta: { type: 'usual' }
+        meta: { type: 'usual' },
+        beforeEnter: preventAccessRequest
       },
       // REQUEST ----- ( end here )
 

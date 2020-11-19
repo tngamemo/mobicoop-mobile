@@ -180,6 +180,7 @@
                 <span class="mc-st-form-error" v-if="!$v.password.samePassword">{{$t('solidaryTransport.register.form.validators.passwordSamePassword')}}</span>
                 <span class="mc-st-form-error" v-else-if="!$v.password.required">{{$t('solidaryTransport.register.form.validators.required')}}</span>
               </div>
+              <div style="color:grey; line-height: 13px; margin-top: 5px;"><small >* Votre mot de passe vous permettra de vous connecter à votre compte, ce y compris si vous ne disposez pas d'une adresse e-mail.</small></div>
 
               <ion-item class="mc-st-form-item as-agreement" lines="none">
                 <ion-checkbox

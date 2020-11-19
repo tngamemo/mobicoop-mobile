@@ -91,7 +91,7 @@
             }
           ],
           "perimeter": "Mon périmètre de trajets :",
-          "needs": "Je suis prêt à :",
+          "needs": "Je suis prêt·e  à :",
           "vehicle": "Je possède un véhicule :",
           "language": "Langues parlées :",
           "languages": [
@@ -143,9 +143,9 @@
           "regular": "Je souhaite faire ce trajet :",
           "isRegular": "De manière régulière",
           "isPunctual": "Une seule fois",
-          "needs": "Autres informations :",
+          "needs": "J'aimerais l'aide du conducteur pour :",
           "comment": "Un commentaire ?",
-          "commentSample" : "Commentaire sur ce trajet, (par exemple, \"Je propose ce covoiturage lorsque j'irai faire mes courses. Le coffre sera donc chargé au retour.\")",
+          "commentSample" : "Commentaire sur ce trajet (par exemple, \"j'aurais un gros sac à dos, est ce qu'il y a de la place dans le coffre ? \").",
           "when": {
             "departure": {
               "date": "A quelle date souhaitez-vous partir ?",
@@ -298,7 +298,7 @@
           "regular": "Je compte faire ce trajet :",
           "isRegular": "De manière régulière",
           "isPunctual": "Une seule fois",
-          "needs": "Autres informations :",
+          "needs": "Je suis prêt·e à :",
           "comment": "Un commentaire ?",
           "commentSample": "Commentaire sur ce trajet, (par exemple, \"Je propose ce covoiturage lorsque j'irai faire mes courses. Le coffre sera donc chargé au retour.\")",
           "when": {
