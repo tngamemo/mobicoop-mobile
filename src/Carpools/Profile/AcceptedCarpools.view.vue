@@ -49,6 +49,12 @@ LICENSE
           {{ $t('AcceptedCarpools.error')}}
         </div>
 
+        <div v-if="$store.state.userStore.statusAcceptedCarpools == 'success' ">
+        <div class="ion-text-center mb-20" v-if="filterCarpools(carpools).length > 0 && webURL">
+          <small>{{ $t('AcceptedCarpools.proof', {value: webURL})}}</small>
+        </div>
+        </div>
+
         <div v-if="$store.state.userStore.statusAcceptedCarpools == 'success'"
           v-for="(carpool, index) in filterCarpools(carpools)"
           :key="index"
@@ -66,6 +72,10 @@ LICENSE
     margin-top: 25px;
     margin-bottom: 25px;
   }
+
+  .mb-20 {
+    margin-bottom: 20px;
+  }
 </style>
 
 <script>
@@ -76,7 +86,8 @@ LICENSE
     name: 'accepted-carpools',
     data () {
       return {
-        archived : false
+        archived : false,
+        webURL: process.env.VUE_APP_WEB_URL
       }
     },
     components: {
