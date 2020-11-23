@@ -218,7 +218,8 @@
           <div class="mc-st-form-controls in-summary" v-if="structures">
             <ion-button class="mc-st-form-control as-back" color="light" v-html="$t('solidaryTransport.buttons.back')" @click="$router.back()"></ion-button>
 
-            <ion-button class="mc-st-form-control as-back" :disabled="$v.$invalid" color="primary" @click="$refs['call'].click()">
+            <!-- :disabled="$v.$invalid"  -->
+            <ion-button  class="mc-st-form-control as-back" :disabled="true" color="primary" @click="$refs['call'].click()">
               <ion-icon slot="start" name="call"></ion-icon>
               <span v-html="$t('solidaryTransport.buttons.askHelp')"></span>
               <a ref="call" :href="getSupport()" style="display:none;"></a>
