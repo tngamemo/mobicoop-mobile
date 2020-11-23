@@ -54,7 +54,7 @@
                 v-html="$t('solidaryTransport.home.actions.becomeVolunteer')"
                 @click="$store.commit('resetSolidaryVolunteer'); $router.push({name:'solidaryTransport.home.volunteer'})"
               ></ion-button>
-              <ion-button class="mc-st-action as-light" color="light" @click="$refs['call'].click()">
+              <ion-button v-if="support" class="mc-st-action as-light" color="light" @click="$refs['call'].click()">
                 <ion-icon slot="start" name="chatboxes"></ion-icon>
                 <span v-html="$t('solidaryTransport.home.actions.contact', {'brand': brand})"></span>
                 <a ref="call" :href="support" style="display:none;"></a>
@@ -115,7 +115,7 @@
                 <span v-html="$t('solidaryTransport.home.actions.help')"></span>
               </ion-button>
 
-              <ion-button class="mc-st-action as-light" color="light" @click="$refs['call'].click()">
+              <ion-button v-if="support" class="mc-st-action as-light" color="light" @click="$refs['call'].click()">
                 <ion-icon slot="start" name="chatboxes"></ion-icon>
                 <span v-html="$t('solidaryTransport.home.actions.contact', {'brand': brand})"></span>
                 <a ref="call" :href="support" style="display:none;"></a>

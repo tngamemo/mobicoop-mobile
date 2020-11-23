@@ -134,7 +134,7 @@
         "fields": {
           "address": "Adresse de domicile",
           "structure": "Structure accompagnante",
-          "structures": "Chaque structure a ses propres critères. Si vous ne remplissez pas les critères pour l’une, peut-être les remplisserez-vous pour une autre qui dessert aussi votre domicile ?",
+          "structures": "Chaque structure a ses propres critères. Si vous ne remplissez pas les critères pour l’une, peut-être les remplirez-vous pour une autre qui dessert aussi votre domicile ?",
           "mandatory": "Critère(s) obligatoire(s)",
           "optional": "Information(s) complémentaire(s)",
           "subjects": "Que voulez-vous faire ?",
@@ -289,7 +289,7 @@
         "fields": {
           "address": "Lieu de départ",
           "structure": "Structure accompagnante",
-          "structures": "Chaque structure a ses propres critères. Si vous ne remplissez pas les critères pour l’une, peut-être les remplisserez-vous pour une autre qui dessert aussi votre domicile ?",
+          "structures": "Chaque structure a ses propres critères. Si vous ne remplissez pas les critères pour l’une, peut-être les remplirez-vous pour une autre qui dessert aussi votre domicile ?",
           "mandatory": "Critère(s) obligatoire(s)",
           "optional": "Information(s) complémentaire(s)",
           "subjects": "Je me déplace pour :",
