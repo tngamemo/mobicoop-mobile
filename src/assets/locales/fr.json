@@ -202,7 +202,8 @@
     "confirmDeleteHeader": "Etes-vous sur de vouloir supprimer cette annonce ? ",
     "confirmDeleteText": "Toute suppression d'annonce est définitive, êtes-vous sur de vouloir supprimer cette annonce ?",
     "error": "Une erreur est survenue. Veuillez réessayer ultérieurement.",
-    "potentialCarpoolers": "covoiturages potentiels"
+    "potentialCarpoolers": "covoiturages potentiels",
+    "proof" : "Pour télécharger l'historique de vos covoiturages et preuves, accéder à {value} depuis votre ordinateur"
   },
   "Slider": {
     "prev": "Précédent",
