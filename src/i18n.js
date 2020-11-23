@@ -36,6 +36,7 @@ function loadMessages (locales) {
   return messages
 }
 
+
 function loadLocaleMessages() {
   const locales = require.context('./assets/locales', true, /[A-Za-z0-9-_,\s]+\.json$/i)
   let localeMessages = loadMessages(locales)
@@ -43,12 +44,18 @@ function loadLocaleMessages() {
   let appModule = JSON.parse(process.env.VUE_APP_MODULE);
   // Merge locales if Solidarity Transport module enabled
   //if (appModule.SOLIDARYTRANSPORT == "true") {
-    const solidaryTransportLocales = require.context(`./${process.env.VUE_APP_SOLIDARY_ROUTENAME}/assets/locales`, true, /[A-Za-z0-9-_,\s]+\.json$/i)
-    const solidaryTransportLocaleMessages = loadMessages(solidaryTransportLocales)
+  const solidaryTransportLocales = require.context(`./${process.env.VUE_APP_SOLIDARY_ROUTENAME}/assets/locales`, true, /[A-Za-z0-9-_,\s]+\.json$/i)
+  const solidaryTransportLocaleMessages = loadMessages(solidaryTransportLocales)
 
-    localeMessages = _.merge(localeMessages, solidaryTransportLocaleMessages)
+  localeMessages = _.merge(localeMessages, solidaryTransportLocaleMessages)
   //}
 
+  try{
+    const instanceLocales = require.context(`./assets/instanceLocales/${process.env.VUE_APP_INSTANCE}`, true, /[A-Za-z0-9-_,\s]+\.json$/i)
+    const instanceLocaleMessages = loadMessages(instanceLocales)
+
+    localeMessages = _.merge(localeMessages, instanceLocaleMessages)
+  } catch (ignored) {}
   return localeMessages
 }
 
