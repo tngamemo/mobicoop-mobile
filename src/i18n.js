@@ -20,11 +20,12 @@
 
 import Vue from 'vue'
 import VueI18n from 'vue-i18n'
+import _ from 'lodash'
+var fs = require('fs');
 
 Vue.use(VueI18n)
 
-function loadLocaleMessages() {
-  const locales = require.context('./assets/locales', true, /[A-Za-z0-9-_,\s]+\.json$/i)
+function loadMessages (locales) {
   const messages = {}
   locales.keys().forEach(key => {
     const matched = key.match(/([A-Za-z0-9-_]+)\./i)
@@ -34,6 +35,21 @@ function loadLocaleMessages() {
     }
   })
   return messages
+}
+
+
+function loadLocaleMessages() {
+  const locales = require.context('./assets/locales', true, /[A-Za-z0-9-_,\s]+\.json$/i)
+  let localeMessages = loadMessages(locales)
+
+
+  try{
+  const instanceLocales = require.context(`./assets/instanceLocales/${process.env.VUE_APP_INSTANCE}`, true, /[A-Za-z0-9-_,\s]+\.json$/i)
+  const instanceLocaleMessages = loadMessages(instanceLocales)
+
+  localeMessages = _.merge(localeMessages, instanceLocaleMessages)
+  } catch (ignored) {}
+  return localeMessages
 }
 
 export default new VueI18n({
