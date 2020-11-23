@@ -51,9 +51,11 @@ import PostCommunity from './Communities/PostCommunity/PostCommunity.view.vue';
 import PostEvent from './Events/PostEvent/PostEvent.view.vue';
 import Dynamic from './Dynamic/Dynamic.view.vue';
 import PublicTransport from './PublicTransport/PublicTransport.view.vue';
+import Reviews from "./Profile/Reviews";
 
 import Vue from 'vue'
 import store from '../Shared/Store/store';
+
 
 Vue.use(IonicVueRouter);
 
@@ -151,6 +153,11 @@ export default [
     path: 'accepted-carpools',
     name: 'accepted-carpools',
     component: AcceptedCarpools
+  },
+  {
+    path: 'reviews',
+    name: 'reviews',
+    component: Reviews
   },
   {
     path: 'post-carpool-step',

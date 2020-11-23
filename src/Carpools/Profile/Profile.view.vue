@@ -106,6 +106,9 @@ LICENSE
             <ion-icon class="ion-margin-end" name="notifications"></ion-icon>
             {{ $t('Profile.alerts') }}
           </ion-button>
+          <ion-button class="mc-big-button" color="success" expand="block" @click="$router.push('reviews')">
+            <ion-icon class="ion-margin-end" name="quote"></ion-icon>{{ $t('Profile.reviews') }}
+          </ion-button>
           <ion-button class="mc-big-button" color="warning" expand="block" @click="logout()">
             <ion-icon class="ion-margin-end" name="log-out"></ion-icon>
             {{ $t('Profile.logout') }}
