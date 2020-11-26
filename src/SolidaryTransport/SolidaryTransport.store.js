@@ -321,7 +321,9 @@ export const solidaryTransportStore = {
 
     // Request Mutations below
     postSolidaryResourceSuccess: (state) => {
-      state.temporary.request = _.cloneDeep(state.default.request)
+      setTimeout(() => {
+        state.temporary.request = _.cloneDeep(state.default.request)
+      }, 1000);
     },
 
     solidaryRequestFrequencyChange(state){
