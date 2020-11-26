@@ -59,7 +59,7 @@ LICENSE
           v-for="(carpool, index) in filterCarpools(carpools)"
           :key="index"
         >
-          <CarpoolItem :carpool="getFormattedCarpoolItem(carpool)" :type="'search'" />
+          <CarpoolItem :carpool="getFormattedCarpoolItem(carpool)" :type="'search'" :payment="getPayment(carpool)" />
         </div>
       </div>
     </ion-content>
@@ -106,6 +106,15 @@ LICENSE
     methods: {
       getFormattedCarpoolItem(carpool) {
         return new CarpoolItemDTO().carpoolItemFromSearch(carpool.asks[0].results[0])
+      },
+      getPayment(carpool) {
+        const payment = {};
+        payment.paymentStatus = carpool.paymentStatus;
+        payment.paymentItemId = carpool.paymentItemId;
+        payment.paymentItemWeek = carpool.paymentItemWeek;
+        payment.unpaidDate = carpool.unpaidDate;
+        payment.askId = carpool.asks[0] ? carpool.asks[0].askId : null;
+        return payment;
       },
       filterCarpools() {
         return this.carpools.filter(carpool => {

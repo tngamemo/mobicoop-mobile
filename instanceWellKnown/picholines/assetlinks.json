@@ -1,0 +1,5 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target" : { "namespace": "android_app", "package_name": "eu.covivo.picholines",
+    "sha256_cert_fingerprints": ["18:44:3D:38:3A:43:47:F0:CE:2E:4F:90:68:90:CD:FD:48:B0:E8:0E:F0:98:C3:9F:46:0F:62:49:02:FC:C1:2E"] }
+}]

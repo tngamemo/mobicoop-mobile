@@ -67,8 +67,8 @@ export const registerStore = {
 
 
     check_email_error(state, err) {
-      if (err.response && err.response.data) {
-        state.checkEmailErrorMessage = err.response.data["hydra:description"];
+      if (err) {
+        state.checkEmailErrorMessage = err;
       }
       state.statusCheckEmail = 'error';
     },
@@ -178,14 +178,14 @@ export const registerStore = {
       return new Promise((resolve, reject) => {
         http.get("/users/checkEmail?email=" + params).then(resp => {
           if (resp.data && resp.data.error) {
-            commit('check_email_error', err);
+            commit('check_email_error', resp.data.message);
             reject(false)
           } else {
             commit('check_email_success');
             resolve(true)
           }
         }).catch(err => {
-          commit('check_email_error', err);
+          commit('check_email_error', err.response.data["hydra:description"]);
           reject(false)
         })
       })

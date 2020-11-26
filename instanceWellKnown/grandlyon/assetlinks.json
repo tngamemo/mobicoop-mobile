@@ -1,0 +1,5 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target" : { "namespace": "android_app", "package_name": "com.mobicoop.grandlyon",
+    "sha256_cert_fingerprints": ["AE:83:5D:8E:25:D6:90:D0:97:BE:E5:04:A3:D0:72:B8:86:F7:EF:A1:FA:9D:56:E2:0C:B8:BF:66:6F:52:23:F2"] }
+}]

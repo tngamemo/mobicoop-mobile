@@ -143,6 +143,7 @@ export const userStore = {
     },
 
     updateUserAddress(state, payload) {
+      payload.addressDTO.home = true;
       state.userToUpdate.addresses = [payload.addressDTO];
     },
 

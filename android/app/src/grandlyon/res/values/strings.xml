@@ -7,4 +7,5 @@
   <string name="mauron85_bgloc_account_name">@string/app_name</string>
   <string name="mauron85_bgloc_account_type">com.mobicoop.grandlyon.account</string>
   <string name="mauron85_bgloc_content_authority">com.mobicoop.grandlyon</string>
+  <string name="host">m.encovoit-grandlyon.com</string>
 </resources>
