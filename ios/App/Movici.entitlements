@@ -6,7 +6,7 @@
 	<string>development</string>
 	<key>com.apple.developer.associated-domains</key>
 	<array>
-		<string>applinks:m2.test.movici.mobicoop.io</string>
+		<string>applinks:m.movici.auvergnerhonealpes.fr</string>
 	</array>
 </dict>
 </plist>

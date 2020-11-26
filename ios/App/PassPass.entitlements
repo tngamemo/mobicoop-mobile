@@ -6,7 +6,7 @@
 	<string>development</string>
 	<key>com.apple.developer.associated-domains</key>
 	<array>
-		<string>webcredentials:example.com</string>
+		<string>applinks:m.passpasscovoiturage.fr</string>
 	</array>
 </dict>
 </plist>
