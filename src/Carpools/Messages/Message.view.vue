@@ -162,7 +162,7 @@ LICENSE
               style="margin-top: 0px"
               v-bind:placeholder="$t('Message.textarea')"
               v-bind:value="message"
-              :disabled="thread.blockerId != null"
+              :disabled="thread && thread.blockerId != null"
               @input="message = $event.target.value"
             ></ion-textarea>
             <ion-icon

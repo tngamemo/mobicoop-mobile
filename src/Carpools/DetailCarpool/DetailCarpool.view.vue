@@ -104,10 +104,14 @@ LICENSE
               color="primary"
               expand="block"
               fill="outline"
+              :disabled="contactLoader"
               v-on:click="contact()"
             >
-              <ion-icon name="mail" class="ion-padding-end"></ion-icon>
-              {{ $t('DetailCarpool.contact') }}
+              <span v-if="!contactLoader">
+                <ion-icon name="mail" class="ion-padding-end"></ion-icon>
+                {{ $t('DetailCarpool.contact') }}
+              </span>
+              <ion-icon  v-if="contactLoader" color="primary" size="large" class="rotating" name="md-sync"></ion-icon>
             </ion-button>
 
             <ion-button
@@ -303,7 +307,8 @@ export default {
       carpoolRecap: null,
       fromMessage: false,
       askFromMessage: null,
-      selectedDay: []
+      selectedDay: [],
+      contactLoader: false
     };
   },
   created() {
@@ -543,6 +548,7 @@ export default {
       this.$router.push({ name: "carpool-contact", query: {demand : 'report'} });
     },
     contact() {
+      this.contactLoader = true;
       let role = 1;
       let result = this.carpoolSelected.resultDriver;
       if (
@@ -570,10 +576,20 @@ export default {
         .then(resp => {
           console.log(resp);
           // this.presentToast(this.$t("AskCarpool.contactSuccess"), "success");
-          this.$router.push({ name: "messages" });
+          this.$store.dispatch(
+            "getAllMessagesCarpool",
+            this.$store.state.userStore.user.id
+          ).then(() => {
+            this.contactLoader = false;
+            this.$router.push({ name: "message" , params: { idAsk: resp.data.askId, idRecipient: this.carpoolSelected.carpooler.id}});
+          }).catch(err=> {
+            this.contactLoader = false;
+          });
+
         })
         .catch(err => {
           console.log(err);
+          this.contactLoader = false;
           this.presentToast(this.$t("Commons.error"), "danger");
         });
     }
