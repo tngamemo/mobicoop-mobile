@@ -7,4 +7,5 @@
     <string name="mauron85_bgloc_account_name">@string/app_name</string>
     <string name="mauron85_bgloc_account_type">fr.mobicoop.mobisdis</string>
     <string name="mauron85_bgloc_content_authority">fr.mobicoop.mobisdis</string>
+    <string name="host">m.test.mobisdis.mobicoop.io</string>
 </resources>
