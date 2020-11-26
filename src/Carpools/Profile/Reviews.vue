@@ -71,7 +71,21 @@ LICENSE
             </div>
           </div>
           <div v-if="tab == 'received'">
-
+            <div v-for="review in reviews.receivedReviews">
+              <div class="mc-review-bubble">
+                <div style="margin-bottom: -10px"><ion-icon style="margin-right: 5px; margin-left: 0px;" color="primary" class="ion-margin-end" name="quote"></ion-icon></div>
+                <div style="margin: 0px 25px;"><b>{{ review.content}}</b></div>
+                <div style="margin-top: -10px" class="d-flex justify-end"><ion-icon style="margin-right: 0px; margin-left: 5px; margin-top: auto" color="primary" class="ion-margin-end" name="quote"></ion-icon></div>
+              </div>
+              <div class="d-flex justify-end align-center mc-user" style="margin-bottom: 5px;">
+                <div class="mc-user-image">
+                  <ion-thumbnail v-if="!!review.reviewer.avatar">
+                    <img :src="review.reviewer.avatar" alt="" />
+                  </ion-thumbnail>
+                </div>
+                <b>{{review.reviewer.givenName}} {{review.reviewer.shortFamilyName}}</b><span style="margin-right: 5px; margin-left: 5px"> - </span> {{review.date | moment('utc', 'DD/MM/YYYY')}}
+              </div>
+            </div>
           </div>
           <div v-if="tab == 'given'">
             <div v-for="review in reviews.givenReviews">
@@ -86,7 +100,7 @@ LICENSE
                     <img :src="review.reviewed.avatar" alt="" />
                   </ion-thumbnail>
                 </div>
-                <b>{{review.reviewed.givenName}} {{review.reviewed.shortFamilyName}}</b>  - {{review.date}}
+                <b>{{review.reviewed.givenName}} {{review.reviewed.shortFamilyName}} </b><span style="margin-right: 5px; margin-left: 5px"> - </span> {{review.date | moment('utc', 'DD/MM/YYYY')}}
               </div>
             </div>
           </div>
