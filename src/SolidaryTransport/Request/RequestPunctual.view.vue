@@ -35,7 +35,7 @@
               <div class="mc-st-form-checkbox-wrapper">
                 <ion-radio-group>
                 <ion-item class="mc-st-form-item" @click="$refs['departure-date'].click()">
-                  <ion-radio class="mc-st-form-checkbox no-clickable" slot="start" :value="undefined" :checked="request.when.departure.specificDate !== undefined || (request.when.departure.specificDate === undefined && request.when.departure.marginDate === undefined)" color="success"></ion-radio>
+                  <!--<ion-radio class="mc-st-form-checkbox no-clickable" slot="start" :value="undefined" :checked="request.when.departure.specificDate !== undefined || (request.when.departure.specificDate === undefined && request.when.departure.marginDate === undefined)" color="success"></ion-radio>-->
                   <ion-datetime
                     ref="departure-date"
                     class="mc-st-form-input no-clickable"
@@ -51,11 +51,13 @@
                     @ionFocus="changeDepartureSpecificDate($event.target.value)"
                   ></ion-datetime>
                 </ion-item>
+                  <!--
                 <ion-item class="mc-st-form-item" lines="none" v-for="(item, index) in departureDates" :key="index">
                   <ion-radio class="mc-st-form-checkbox" :value="item.value" :checked="request.when.departure.marginDate === item.value" color="success" slot="start" @ionSelect="changeDepartureMarginDate(item.value)"
                   ></ion-radio>
                   <ion-label class="mc-st-form-label no-white-space" color="primary">{{ item.label }}</ion-label>
                 </ion-item>
+                  -->
                 </ion-radio-group>
               </div>
             </div>
