@@ -118,25 +118,32 @@ LICENSE
       },
       filterCarpools() {
         return this.carpools.filter(carpool => {
+          return this.archived !== this.isArchivedCarpool(carpool)
+          /*
           if(this.archived) {
             if (this.isArchivedCarpool(carpool)){
-              return carpool
+              return true
+            } else {
+              return false
             }
           } else {
             if (!this.isArchivedCarpool(carpool)){
-              return carpool
+              return true
+            } else {
+              return false
             }
           }
+           */
         })
       },
       isArchivedCarpool(carpool) {
         let result = false;
 
         if (carpool.frequency > 1) {
-          result = this.$moment(carpool.outwardLimitDate).isBefore(this.$moment());
+          result = this.$moment(carpool.outwardDate).isBefore(this.$moment());
         } else {
-          const dateAndTimeOutwardDate = this.$moment(`${this.$moment(carpool.outwardDate).format('YYYY-MM-DD')}`);
-          const dateAndTimeReturnDate = this.$moment(`${this.$moment(carpool.returnDate).format('YYYY-MM-DD')}`);
+          const dateAndTimeOutwardDate = this.$moment(`${this.$moment(carpool.outwardLimitDate).format('YYYY-MM-DD')}`);
+          const dateAndTimeReturnDate = this.$moment(`${this.$moment(carpool.returnLimitDate).format('YYYY-MM-DD')}`);
           result = this.$moment(dateAndTimeOutwardDate).isBefore(this.$moment()) || this.$moment(dateAndTimeReturnDate).isBefore(this.$moment());
         }
 

@@ -96,7 +96,7 @@ LICENSE
                   </ion-button>
                 </div>
 
-                <div class="mc-cp-form-days-wrapper">
+                <div class="mc-cp-form-days-wrapper" v-if="payment.returnDays">
                   <div class="mc-cp-form-days-title">Retour</div>
                   <ion-button class="mc-cp-form-day" :color="hasDataToPost(day.value, payment) ? 'primary' : 'light'" v-for="(day, index) in getOutwardOrReturnDay('return', payment)" :disabled="day.value.status === 0" :key="day.value.id" @click="updateDay(day.value, payment)">
                     <span class="label">{{$t(day.trad)}}</span>
@@ -289,12 +289,14 @@ LICENSE
                     payment.selectedDays.push(item)
                   }
                 })
-                payment.returnDays.forEach(item => {
-                  item.mode = this.mode
-                  if (item.status !== 0) {
-                    payment.selectedDays.push(item)
-                  }
-                })
+                if(payment.returnDays) {
+                  payment.returnDays.forEach(item => {
+                    item.mode = this.mode
+                    if (item.status !== 0) {
+                      payment.selectedDays.push(item)
+                    }
+                  })
+                }
               }
               payment.items = [];
               payment.selectedMode = 0;
@@ -314,7 +316,7 @@ LICENSE
           })
       },
       setWeeks(week) {
-        this.selectedWeek = week.numWeek.toString() + week.year.toString();
+        this.selectedWeek = week.detail.value
         this.getPayment(this.$route.query)
       },
       onImgLoad: function() {
@@ -360,8 +362,8 @@ LICENSE
             if(o) {
               total += Number(o.outwardAmount)
             }
-            const r = this.payments.find(payment => payment.returnDays.find(od => od.id == item.id))
-            if(r) {
+            const r = this.payments.find(payment => payment.returnDays && payment.returnDays.find(od => od.id == item.id))
+            if (r) {
               total += Number(r.returnAmount)
             }
           }
@@ -376,9 +378,11 @@ LICENSE
             if(o) {
               total += Number(payment.outwardAmount)
             }
-            const r = payment.returnDays.find(od => od.id == item.id)
-            if(r) {
-              total += Number(payment.returnAmount)
+            if(payment.returnDays) {
+              const r = payment.returnDays.find(od => od.id == item.id)
+              if (r) {
+                total += Number(payment.returnAmount)
+              }
             }
           });
         return total;
@@ -423,13 +427,15 @@ LICENSE
             { name: "sun", trad: "Carpool.D"},
           ]
           const result = [];
-          payment[type + 'Days'].forEach((item, index) => {
-            result.push({
-              name: days[index].name,
-              trad: days[index].trad,
-              value: item,
+          if(payment[type + 'Days']) {
+            payment[type + 'Days'].forEach((item, index) => {
+              result.push({
+                name: days[index].name,
+                trad: days[index].trad,
+                value: item,
+              });
             });
-          });
+          }
           return result;
       },
       hasDataToPost(item, payment) {
