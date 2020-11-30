@@ -183,6 +183,8 @@ export default {
     if (this.$route.query.demand) {
       const index = this.contactType.findIndex(item => item.key === this.$route.query.demand);
       this.changeDemand(index)
+    } else {
+      this.changeDemand(0)
     }
   },
   computed: {
@@ -228,7 +230,7 @@ export default {
       this.selectIndex = index;
       const contactType = this.contactType[index];
       this.contactForm.demand = contactType.key;
-      this.contactForm.type = contactType.value == 'contact' ? 1 : 2;
+      this.contactForm.type = contactType.value == 'support' ? 0 : 1;
     }
   }
 };
