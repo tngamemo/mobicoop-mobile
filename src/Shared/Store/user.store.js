@@ -114,10 +114,16 @@ export const userStore = {
     user_accepted_carpools_request_success(state, data) {
       state.statusAcceptedCarpools = 'success';
       // for phone display
+      const result= [];
       data['hydra:member'].forEach(item => {
-        item.asks[0].results[0].acceptedAsk = true;
-      })
-      state.acceptedCarpools = data['hydra:member'].reverse();
+        item.asks.forEach(ask => {
+          const carpool = Object.assign({}, item);
+          ask.results[0].acceptedAsk = true;
+          carpool.asks = [ask];
+          result.push(carpool);
+        });
+      }),
+      state.acceptedCarpools = result.reverse();
     },
 
 
@@ -333,6 +339,7 @@ export const userStore = {
       return new Promise((resolve, reject) => {
         http.get(`/carpools/accepted`)
           .then(resp => {
+
             commit('user_accepted_carpools_request_success', resp.data);
             resolve(resp)
           })
