@@ -26,10 +26,13 @@
               </div>
             </div>
 
+            <div class="text-center"><ion-text  color="primary" v-if="userConnected">Vous êtes connecté</ion-text></div>
+
             <ion-item class="mc-st-form-item">
               <ion-label position="floating">{{$t('solidaryTransport.register.form.fields.gender')}} *</ion-label>
               <ion-select
                 required
+                :disabled="userConnected"
                 :value="request.gender"
                 @ionChange="request.gender = parseInt($event.target.value)"
                 :cancel-text="$t('solidaryTransport.buttons.cancel')"
@@ -49,6 +52,7 @@
               <ion-input
                 class="mc-st-form-input"
                 type="text"
+                :disabled="userConnected"
                 :value="request.givenName"
                 @input="request.givenName = $event.target.value;"
               ></ion-input>
@@ -63,6 +67,7 @@
               <ion-input
                 class="mc-st-form-input"
                 type="text"
+                :disabled="userConnected"
                 :value="request.familyName"
                 @input="request.familyName = $event.target.value;"
               ></ion-input>
@@ -78,6 +83,7 @@
                 picker-format="DD/MM/YYYY"
                 :cancel-text="$t('solidaryTransport.buttons.cancel')"
                 :done-text="$t('solidaryTransport.buttons.validate')"
+                :disabled="userConnected"
                 :value="request.birthDate"
                 @ionChange="request.birthDate = $event.detail.value; $v.$reset('request.birthDate');"
               ></ion-datetime>
@@ -93,6 +99,7 @@
                 type="text"
                 :value="getAddressToDisplay(request.homeAddress)"
                 readonly="true"
+                :disabled="userConnected"
                 class="no-clickable"
               ></ion-input>
             </ion-item>
@@ -105,6 +112,7 @@
               <ion-input
                 class="mc-st-form-input"
                 type="text"
+                :disabled="userConnected"
                 :value="request.telephone"
                 @input="request.telephone = $event.target.value;"
               ></ion-input>
@@ -119,6 +127,7 @@
               <ion-input
                 class="mc-st-form-input"
                 type="email"
+                :disabled="userConnected"
                 :value="request.email"
                 @ionChange="request.email = $event.target.value"
               ></ion-input>
@@ -248,7 +257,8 @@ export default {
       showPassword: false,
       minAge: process.env.VUE_APP_REGISTER_MIN_AGE,
       type: this.$route.meta.type,
-      brand: process.env.VUE_APP_NAME
+      brand: process.env.VUE_APP_NAME,
+      userConnected: false
     }
   },
   computed: {
@@ -355,6 +365,7 @@ export default {
   },
   created: function () {
     if (this.$store.state.userStore.user) {
+      // this.userConnected = true;
       let user = _.cloneDeep(this.$store.state.userStore.user)
       this.request.gender = user.gender
       this.request.givenName = user.givenName
