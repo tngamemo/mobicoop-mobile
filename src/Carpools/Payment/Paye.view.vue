@@ -36,6 +36,10 @@ LICENSE
         <ion-icon color="success" size="large" name="checkmark-circle"></ion-icon>
         <ion-text color="success">{{ $t('Paye.paye') }}</ion-text>
         <br>
+        <div style="line-height: 14px" v-if="donation">
+          <small>{{this.$t('Paye.donation-text')}} <a href="https://www.helloasso.com/associations/covoiturage-libre-fr/collectes/campagne-courante/" target="_blank">{{this.$t('Paye.donation-here')}}</a> !</small>
+        </div>
+        <br>
         <div style="color:lightgrey"><small>retour dans {{countdown}}s</small></div>
       </div>
       </div>
@@ -56,7 +60,8 @@ LICENSE
       return {
         paymentId: null,
         countdown: 6,
-        countdownInterval: null
+        countdownInterval: null,
+        donation: JSON.parse(process.env.VUE_APP_DONATION)
       }
     },
     mixins: [toast],

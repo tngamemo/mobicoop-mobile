@@ -136,6 +136,10 @@ LICENSE
             </div>
 
           </div>
+
+          <div style="line-height: 14px" v-if="donation">
+            <small>{{this.$t('Paye.donation-text')}} <a href="https://www.helloasso.com/associations/covoiturage-libre-fr/collectes/campagne-courante/" target="_blank">{{this.$t('Paye.donation-here')}}</a> !</small>
+          </div>
         </div>
 
       </div>
@@ -254,7 +258,8 @@ LICENSE
         askId: null,
         weeks: [],
         selectedWeek: null,
-        ionChangeSelect: 0
+        ionChangeSelect: 0,
+        donation: JSON.parse(process.env.VUE_APP_DONATION)
       }
     },
     mixins: [toast],

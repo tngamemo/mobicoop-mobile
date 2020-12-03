@@ -23,6 +23,7 @@ import { IonicVueRouter } from '@ionic/vue'
 
 import Home from './Carpools/Home/Home.view.vue';
 import Carpools from './Carpools/Carpools.view.vue';
+import Error from './Shared/View/Error.view.vue';
 import SolidaryTransport from './SolidaryTransport/SolidaryTransport.view.vue';
 
 import Vue from 'vue'
@@ -59,7 +60,12 @@ const router = new IonicVueRouter({
       children: [
         ...routerSolidaryTransport
       ]
-    }
+    },
+    {
+      path: '*',
+      name: 'error',
+      component: Error
+    },
   ],
 })
 
