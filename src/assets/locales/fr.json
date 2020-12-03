@@ -221,7 +221,9 @@
   },
   "Paye" : {
     "title" : "Payé",
-    "paye" : "Payé avec succès"
+    "paye" : "Payé avec succès",
+    "donation-text" : "Mobicoop est un service libre, sans commission et sans publicité. Mais pour contribuer à maintenir la plateforme, vous pouvez nous donner un coup de pouce en faisant",
+    "donation-here" : "un don ici"
   },
   "BankAccount" : {
     "title": "Mes coordonnées bancaires",

@@ -266,13 +266,16 @@ LICENSE
       registerDeeplink() {
         if (isPlatform(window.document.defaultView, "capacitor")) {
           App.addListener('appUrlOpen', data => {
-            const slug = data.url.split("#").pop();
 
-            // We only push to the route if there is a slug present
-            if (slug) {
-              this.$router.push({
-                path: slug
-              });
+            if (data.url.includes("#")) {
+              const slug = data.url.split("#").pop();
+
+              // We only push to the route if there is a slug present
+              if (slug) {
+                this.$router.push({path: slug});
+              }
+            } else {
+              this.$router.replace({ name: "carpoolsHome" });
             }
           });
         }
