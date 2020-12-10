@@ -76,6 +76,15 @@ function guardAccesByLogin(to, from, next) {
   }
 }
 
+let preventAccessRequest = function (to, from, next) {
+  let request = store.state.solidaryTransportStore.temporary.request;
+  if (request.homeAddress) {
+    next()
+  } else {
+    next({name: from.name.includes('carpool') ? 'carpoolsHome' : 'solidaryTransport.home'})
+  }
+}
+
 export default [
   {
     path: '',
@@ -293,37 +302,43 @@ export default [
     path: 'solidary/home/request/check',
     name: 'carpool.solidary.home.request.check',
     component: RequestCheck,
-    meta: { type: 'request' }
+    meta: { type: 'request' },
+    beforeEnter: preventAccessRequest
   },
   {
     path: 'solidary/home/request/path',
     name: 'carpool.solidary.home.request.path',
     component: RequestPath,
-    meta: { type: 'request' }
+    meta: { type: 'request' },
+    beforeEnter: preventAccessRequest
   },
   {
     path: 'solidary/home/request/punctual',
     name: 'carpool.solidary.home.request.punctual',
     component: RequestPunctual,
-    meta: { type: 'request' }
+    meta: { type: 'request' },
+    beforeEnter: preventAccessRequest
   },
   {
     path: 'solidary/home/request/regular',
     name: 'carpool.solidary.home.request.regular',
     component: RequestRegular,
-    meta: { type: 'request' }
+    meta: { type: 'request' },
+    beforeEnter: preventAccessRequest
   },
   {
     path: 'solidary/home/request/user',
     name: 'carpool.solidary.home.request.user',
     component: RequestUser,
-    meta: { type: 'request' }
+    meta: { type: 'request' },
+    beforeEnter: preventAccessRequest
   },
   {
     path: 'solidary/home/request/summary',
     name: 'carpool.solidary.home.request.summary',
     component: RequestSummary,
-    meta: { type: 'request' }
+    meta: { type: 'request' },
+    beforeEnter: preventAccessRequest
   },
   // REQUEST ----- ( end here )
 ]

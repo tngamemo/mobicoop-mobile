@@ -211,7 +211,12 @@ export default {
               this.$router.push({name:'solidaryTransport.home'})
             })
             .catch((error) => {
-              this.presentToast("Une erreur est survenue", 'danger')
+              if (error.response.data['hydra:description'] == "Already a SolidaryUser") {
+                this.presentToast("Un compte bénévole existe déjà pour cette adresse email", 'danger')
+              } else {
+                this.presentToast("Une erreur est survenue", 'danger')
+              }
+
             })
             .finally(() => {
               this.processing = false

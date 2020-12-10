@@ -26,6 +26,7 @@
 
             <template v-if="structures">
 
+              <!--
               <ion-radio-group>
               <ion-item class="mc-st-form-item" lines="none">
                 <ion-radio class="mc-st-form-checkbox" :value="false" :checked="volunteer.hasStructure === false" color="success" slot="start" @ionSelect="changeHasStructure(false)"
@@ -39,8 +40,9 @@
                 <ion-label class="mc-st-form-label no-white-space" color="primary">{{$t('solidaryTransport.volunteer.form.fields.volunteerByStructure')}}</ion-label>
               </ion-item>
               </ion-radio-group>
+              -->
 
-              <ion-item class="mc-st-form-item" v-if="volunteer.hasStructure">
+              <ion-item class="mc-st-form-item">
                 <ion-label class="mc-st-form-label as-title" color="primary" position="stacked">{{$t('solidaryTransport.volunteer.form.fields.structure')}} :</ion-label>
                 <ion-select
                   required
@@ -119,6 +121,9 @@ export default {
     }
   },
   created: function () {
+    this.$store.state.solidaryTransportStore.temporary.volunteer = _.cloneDeep(this.$store.state.solidaryTransportStore.default.volunteer);
+    this.$store.state.solidaryTransportStore.temporary.volunteer.hasStructure = true;
+
     this.$store.dispatch('getSolidaryStructures')
       .then((structures) => {
 

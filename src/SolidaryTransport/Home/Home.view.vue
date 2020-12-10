@@ -78,7 +78,7 @@
               <ion-button
                 class="mc-st-action"
                 color="success"
-                v-if="declareVolunteer"
+                v-if="declareVolunteer && !this.$store.state.userStore.user.solidaryUser.id"
                 v-html="$t('solidaryTransport.home.actions.becomeVolunteer')"
                 @click="$store.commit('resetSolidaryVolunteer'); $router.push({name:'solidaryTransport.home.volunteer'})"
               ></ion-button>
