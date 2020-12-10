@@ -461,6 +461,9 @@ LICENSE
       },
       setItems(payment) {
         if(payment.selectedMode != 0) {
+          payment.selectedDays.forEach(item => {
+            item.mode = payment.selectedMode;
+          });
           payment.items = payment.selectedDays
         } else {
           payment.items = []
