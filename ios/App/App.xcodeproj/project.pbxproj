@@ -22,8 +22,8 @@
 		6A2E24577BC25BAA01CE7560 /* Pods_OuestGo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 091659A8431A7FE1B6092F40 /* Pods_OuestGo.framework */; };
 		77397E46349C1B24E780CD04 /* Pods_Grand_Lyon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A553FBCF5C28BB918961DC1 /* Pods_Grand_Lyon.framework */; };
 		7E58C2DFAF4A614EC197C59C /* Pods_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 582D0F00A9C256EA7C0CC948 /* Pods_App.framework */; };
-		811F4DBD257010E1000B39AE /* GoogleService-Info-GrandLyon.plist in Resources */ = {isa = PBXBuildFile; fileRef = 811F4DBC257010E1000B39AE /* GoogleService-Info-GrandLyon.plist */; };
-		811F4DBE257010E1000B39AE /* GoogleService-Info-GrandLyon.plist in Resources */ = {isa = PBXBuildFile; fileRef = 811F4DBC257010E1000B39AE /* GoogleService-Info-GrandLyon.plist */; };
+		811F4DBD257010E1000B39AE /* GoogleService-Info-Grand Lyon.plist in Resources */ = {isa = PBXBuildFile; fileRef = 811F4DBC257010E1000B39AE /* GoogleService-Info-Grand Lyon.plist */; };
+		811F4DBE257010E1000B39AE /* GoogleService-Info-Grand Lyon.plist in Resources */ = {isa = PBXBuildFile; fileRef = 811F4DBC257010E1000B39AE /* GoogleService-Info-Grand Lyon.plist */; };
 		812ABABB246D7D0C00DC9A9D /* GoogleService-Info-Movici.plist in Resources */ = {isa = PBXBuildFile; fileRef = 812ABABA246D7D0C00DC9A9D /* GoogleService-Info-Movici.plist */; };
 		816F3EB5242CE44D0015981B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504EC3071FED79650016851F /* AppDelegate.swift */; };
 		816F3EB9242CE44D0015981B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 504EC3101FED79650016851F /* LaunchScreen.storyboard */; };
@@ -128,7 +128,7 @@
 		8112C870242CF1040081909B /* Cordova.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Cordova.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		811F4D9F2570082F000B39AE /* Txik Txak.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Txik Txak.entitlements"; sourceTree = "<group>"; };
 		811F4DA02570084D000B39AE /* MobiSDIS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MobiSDIS.entitlements; sourceTree = "<group>"; };
-		811F4DBC257010E1000B39AE /* GoogleService-Info-GrandLyon.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-GrandLyon.plist"; sourceTree = "<group>"; };
+		811F4DBC257010E1000B39AE /* GoogleService-Info-Grand Lyon.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-Grand Lyon.plist"; sourceTree = "<group>"; };
 		812ABABA246D7D0C00DC9A9D /* GoogleService-Info-Movici.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-Movici.plist"; sourceTree = "<group>"; };
 		812ABABC246D828400DC9A9D /* Movici.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Movici.entitlements; sourceTree = "<group>"; };
 		812ABABD246D833500DC9A9D /* Mobicoop.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Mobicoop.entitlements; sourceTree = "<group>"; };
@@ -339,7 +339,7 @@
 				8179D02525594FBD00980C4C /* MobiSDIS-Info.plist */,
 				812ABABA246D7D0C00DC9A9D /* GoogleService-Info-Movici.plist */,
 				81BE23E72472DB4C0073D645 /* GoogleService-Info-OuestGo.plist */,
-				811F4DBC257010E1000B39AE /* GoogleService-Info-GrandLyon.plist */,
+				811F4DBC257010E1000B39AE /* GoogleService-Info-Grand Lyon.plist */,
 				81BE23E12472DB1F0073D645 /* GoogleService-Info-PassPass.plist */,
 				81BE23E52472DB430073D645 /* GoogleService-Info-Picholines.plist */,
 				81A5BD6524ADEAFE00F13A16 /* GoogleService-Info-Txik Txak.plist */,
@@ -634,7 +634,7 @@
 				50379B232058CBB4000EE86E /* capacitor.config.json in Resources */,
 				504EC30D1FED79650016851F /* Main.storyboard in Resources */,
 				2FAD9763203C412B000D30F8 /* config.xml in Resources */,
-				811F4DBD257010E1000B39AE /* GoogleService-Info-GrandLyon.plist in Resources */,
+				811F4DBD257010E1000B39AE /* GoogleService-Info-Grand Lyon.plist in Resources */,
 				81AC96FF24226F0D00C2029E /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -676,7 +676,7 @@
 				817E8CC124644BAB0060A3B8 /* LaunchScreen.storyboard in Resources */,
 				817E8CC224644BAB0060A3B8 /* public in Resources */,
 				817E8CC324644BAB0060A3B8 /* capacitor.config.json in Resources */,
-				811F4DBE257010E1000B39AE /* GoogleService-Info-GrandLyon.plist in Resources */,
+				811F4DBE257010E1000B39AE /* GoogleService-Info-Grand Lyon.plist in Resources */,
 				817E8CC524644BAB0060A3B8 /* Main.storyboard in Resources */,
 				817E8CC724644BAB0060A3B8 /* config.xml in Resources */,
 				817E8CCF24644C7B0060A3B8 /* GrandLyon-Info.plist in Resources */,
