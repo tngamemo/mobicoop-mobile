@@ -392,6 +392,7 @@ LICENSE
       }
       this.$store.dispatch('getActiveDynamic').then( res => {
         if(res.data['hydra:member'].length > 0) {
+          this.presentToast("Un covoiturage dynamique est déjà actif, Veuillez le fermer si vous souhaitez renseigner une nouvelle destination", "secondary");
           this.startBackgroundGeolocation();
         }
       });
