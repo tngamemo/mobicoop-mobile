@@ -29,7 +29,7 @@
           <div class="mc-st-content">
             <div class="mc-st-information" :class="{'is-active': this.$store.state.solidaryTransportStore.messages.home.display}">
               <ion-icon class="mc-information-icon" name="close" @click="closeInformation()"></ion-icon>
-              <div class="mc-information-text" v-html="$t('solidaryTransport.home.information')"></div>
+              <div style="margin-top: 15px" class="mc-information-text" v-html="$t('solidaryTransport.home.information')"></div>
             </div>
 
             <div class="mc-st-actions">

@@ -566,7 +566,11 @@
           "carpoolAskRefused": "Covoiturage refusé",
           "carpoolAdRenewal": "Renouveller mes trajets en fin de validité",
           "carpoolProposalCanceled": "Annulation d'un covoiturage",
-          "validateCreateEvent": "Confirmation de création d'événement"
+          "validateCreateEvent": "Confirmation de création d'événement",
+          "payAfterCarpool": "Payer un covoiturage effectué",
+          "payAfterCarpoolRegular": "Payer une semaine de covoiturage",
+          "confirmDirectPayment": "Confirmer le paiement d'un covoiturage",
+          "confirmDirectPaymentRegular": "Confirmer le paiement d'une semaine de covoiturage"
         },
         "types": {
           "1": "Message",
