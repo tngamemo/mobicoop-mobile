@@ -24,7 +24,7 @@ LICENSE
       {{$t('BannerCookie.desc')}}
       <a
         style="color:#284b99"
-        v-on:click="$router.push('/article/4')"
+        v-on:click="$router.push('/article/18')"
       >{{$t('BannerCookie.politic')}}</a>
     </p>
     <button class="mc-button-cookie" v-on:click="setUserCookie">{{$t('BannerCookie.agree')}}</button>
