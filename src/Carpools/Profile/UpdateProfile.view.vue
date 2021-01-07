@@ -203,6 +203,11 @@ LICENSE
           </span>
           </ion-button>
 
+          <br>
+          <ion-button class='mc-small-button' color="primary" fill="outline" expand="block" @click="updatePassword()">
+            {{ $t('UpdateProfile.updatePassword') }}
+          </ion-button>
+
         </div>
 
       </div>
@@ -243,6 +248,7 @@ LICENSE
   import { toast } from '../../Shared/Mixin/toast.mixin';
   import { address } from '../../Shared/Mixin/address.mixin';
   import Compressor from 'compressorjs';
+  import {isPlatform} from "@ionic/core";
 
   export default {
     name: 'update-profile',
@@ -423,7 +429,48 @@ LICENSE
       },
       changeNewsSubscription(event){
         this.user.newsSubscription = event.detail.checked
-      }
+      },
+      updatePassword() {
+        return this.$ionic.alertController
+          .create({
+            header: this.$t("UpdateProfile.updatePassword"),
+            inputs: [
+              {
+                name: "password",
+                id: "password",
+                placeholder: this.$t("Login.password-placeholder")
+              },
+              {
+                name: "confirmPassword",
+                id: "confirmPassword",
+                placeholder: this.$t("Login.confirm-password-placeholder")
+              }
+            ],
+            buttons: [
+              {
+                text: this.$t("Commons.cancel"),
+                role: "cancel",
+                cssClass: "secondary",
+                handler: () => {}
+              },
+              {
+                text: this.$t("Login.newPassword"),
+                handler: (data) => {
+                  if (data.password == data.confirmPassword) {
+                    this.$store.dispatch('updatePassword', {id: this.user.id, password: data.password}).then(() => {
+                      this.presentToast("Le mot de passe a bien été réinitialisé", "success");
+                    }).catch(() => {
+                      this.presentToast(this.$t("Commons.error"), "danger");
+                    });
+                  } else {
+                    this.presentToast("Le mot de passe et sa confirmation doivent être identiques", 'danger')
+                  }
+                }
+              }
+            ]
+          })
+          .then(a => a.present());
+      },
     }
   }
 </script>

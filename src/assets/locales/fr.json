@@ -146,7 +146,8 @@
     "phoneTokenPopupDesc" : "Nous avons envoyé un code de vérification par sms au {value}. Veuillez renseigner ce code de vérification ci-dessous.",
     "phoneTokenPopupCode" : "Code de vérification",
     "newsSubscription" : "Recevoir les actualités",
-    "file-size": "L'image ne doit pas dépasser 1 Mo"
+    "file-size": "L'image ne doit pas dépasser 1 Mo",
+    "updatePassword": "Modifier mon mot de passe"
   },
   "ProfileAlerts": {
     "title": "Mes alertes",
