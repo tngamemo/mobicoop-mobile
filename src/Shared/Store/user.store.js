@@ -445,6 +445,20 @@ export const userStore = {
           })
       })
     },
+    finalizeResetPassword({commit}, params) {
+      return new Promise((resolve, reject) => {
+        commit('reset_password_request');
+        http.post(`/users/password_update`, params)
+          .then(resp => {
+            commit('reset_password_success');
+            resolve(resp)
+          })
+          .catch(err => {
+            commit('reset_password_error');
+            reject(err)
+          })
+      })
+    },
     deleteUser({commit, state}) {
       return new Promise((resolve, reject) => {
         commit('delete_user_request');
