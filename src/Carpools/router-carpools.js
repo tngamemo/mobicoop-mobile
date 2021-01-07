@@ -54,6 +54,7 @@ import PublicTransport from './PublicTransport/PublicTransport.view.vue';
 import Payment from './Payment/Payment.view.vue';
 import BankAccount from './Payment/BankAccount.view.vue';
 import Paye from './Payment/Paye.view.vue';
+import ResetPassword from './Login/ResetPassword.view.vue';
 
 import Vue from 'vue'
 import store from '../Shared/Store/store';
@@ -290,6 +291,11 @@ export default [
     name: 'dynamic',
     component: Dynamic,
     beforeEnter: guardAccesByLogin
+  },
+  {
+    path: 'reset-password',
+    name: 'reset-password',
+    component: ResetPassword,
   },
   // REQUEST ----- ( start here )
   {

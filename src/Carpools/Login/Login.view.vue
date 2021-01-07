@@ -208,7 +208,15 @@ LICENSE
               {
                 text: this.$t("Login.sendResetEmail"),
                 handler: (data) => {
-                    this.$store.dispatch('resetPassword', {email: data.mail}).then(() => {
+                  let mobileRegistration = 1;
+                  if (isPlatform(window.document.defaultView, "ios")) {
+                    mobileRegistration = 2;
+                  }
+                  if (isPlatform(window.document.defaultView, "android")) {
+                    mobileRegistration = 3;
+                  }
+
+                    this.$store.dispatch('resetPassword', {email: data.mail, mobileRegistration : mobileRegistration}).then(() => {
                       this.presentToast(this.$t("Login.passwordSuccess"), "secondary");
                     }).catch(() => {
                       this.presentToast(this.$t("Commons.error"), "danger");

@@ -23,8 +23,10 @@
     "log-in": "Se connecter",
     "mail-placeholder": "Adresse mail",
     "password-placeholder": "Mot de passe",
+    "confirm-password-placeholder": "Confirmation du mot de passe",
     "forgotPassword": "Mot de passe oublié ?",
     "resetPassword": "Réinitialisation du mot de passe",
+    "newPassword": "Valider le mot de passe",
     "sendResetEmail": "Envoyer le mail de réinitialisation",
     "passwordSuccess" : "Votre demande a bien été prise en compte, Vous allez recevoir un mail pour la remise à zéro de votre mot de passe"
   },
