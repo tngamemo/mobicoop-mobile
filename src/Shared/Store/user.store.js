@@ -281,6 +281,22 @@ export const userStore = {
       })
     },
 
+    updatePassword({commit}, params) {
+      return new Promise((resolve, reject) => {
+        var bcrypt = require('bcryptjs');
+        var salt = bcrypt.genSaltSync(10);
+        var hash = bcrypt.hashSync(params.password, salt);
+
+        http.put(`/users/${params.id}`, {password: hash})
+          .then(resp => {
+            resolve(resp)
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
+    },
+
     updateUserPicture({commit}, params) {
       return new Promise((resolve, reject) => {
         const formData = new FormData();
