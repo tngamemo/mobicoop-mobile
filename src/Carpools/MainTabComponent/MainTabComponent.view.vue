@@ -86,7 +86,7 @@ LICENSE
               <ion-label>{{ $t('Nav.messages') }}</ion-label>
             </ion-tab-button>
 
-            <ion-tab-button v-if="!!this.$store.state.userStore.user && hasCommunities" tab="communities" :to="{ name: 'communities' }">
+            <ion-tab-button v-if="!!this.$store.state.userStore.user && hasCommunities && communityInTabbar" tab="communities" :to="{ name: 'communities' }">
               <ion-icon name="people"></ion-icon>
               <ion-label>{{ $t('Nav.communities') }}</ion-label>
             </ion-tab-button>
@@ -150,7 +150,8 @@ LICENSE
     data () {
       return {
         isMobile: isPlatform(window.document.defaultView, "mobile"),
-        hasCommunities: JSON.parse(process.env.VUE_APP_SHOW_COMMUNITIES)
+        hasCommunities: JSON.parse(process.env.VUE_APP_SHOW_COMMUNITIES),
+        communityInTabbar: JSON.parse(process.env.VUE_APP_COMMUNITY_IN_TABBAR),
       }
     }
   }

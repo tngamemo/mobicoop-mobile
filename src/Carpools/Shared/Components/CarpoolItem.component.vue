@@ -87,7 +87,7 @@ LICENSE
     </div>
 
     <div class="mc-carpool-footer">
-      <div v-if="this.carpool.carpooler && type == 'search'" class="d-flex justify-between align-center">
+      <div v-if="this.carpool.carpooler && (type == 'search' || type == 'accepted' )" class="d-flex justify-between align-center">
         <div class="d-flex align-center">
         <ion-thumbnail>
           <img
@@ -199,6 +199,20 @@ LICENSE
         >
           <span v-if="!this.carpool.driver">{{$t("Payment.paye")}}</span>
           <span v-if="this.carpool.driver">{{$t("Payment.validate-paye")}}</span>
+        </ion-button>
+      </div>
+      <div class="mt-10" v-if="activatedProof && type == 'accepted'">
+        <div @click="proofAlert()" class="d-flex align-center">
+          <div>Preuve géolocalisée d'un trajet</div>
+          <div class="proof-info"><ion-icon name="alert"></ion-icon></div>
+        </div>
+        <ion-button v-if="!carpoolProofId" class="mc-big-button normal-wrap" fill="outline" expand="block" color="primary" @click="postProof()">
+          <ion-icon size="large" class="rotating" v-if="proofLoading" name="md-sync"></ion-icon>
+          <span  v-if="!proofLoading">Certifier prise en charge</span>
+        </ion-button>
+        <ion-button v-if="carpoolProofId" class="mc-big-button normal-wrap" fill="outline" expand="block" color="primary" @click="putProof()">
+          <ion-icon size="large" class="rotating" v-if="proofLoading" name="md-sync"></ion-icon>
+          <span  v-if="!proofLoading">Certifier dépose</span>
         </ion-button>
       </div>
     </div>
@@ -356,19 +370,32 @@ LICENSE
   .text-danger {
     color: var(--ion-color-danger)
   }
+
+  .mt-10 {
+    margin-top: 10px;
+  }
+
+  .proof-info {
+    margin-left: 5px;
+    display: flex;
+  }
 </style>
 
 
 <script>
 import { toast } from "../../../Shared/Mixin/toast.mixin";
+import {Plugins} from "@capacitor/core";
+const { Geolocation } = Plugins;
 
 export default {
   name: "carpool-item",
-  props: ["carpool", "type", "carpoolSource", "payment"],
+  props: ["carpool", "type", "carpoolSource", "payment", "carpoolProofId"],
   data() {
     return {
       avatarLoaded: false,
-      activatedPayment: JSON.parse(process.env.VUE_APP_PAYMENT)
+      proofLoading: false,
+      activatedPayment: JSON.parse(process.env.VUE_APP_PAYMENT),
+      activatedProof: JSON.parse(process.env.VUE_APP_CAN_SEE_PROOF)
     };
   },
   mixins: [toast],
@@ -380,6 +407,13 @@ export default {
           this.carpool.communityImages.push(res.data['hydra:member']);
           this.$forceUpdate();
         })
+      });
+    }
+
+    if (this.carpoolProofId) {
+      this.$store.dispatch('getClassicProof', this.carpoolProofId).then(res => {
+        console.log('PROOF');
+        console.log(res)
       });
     }
   },
@@ -525,7 +559,49 @@ export default {
           defaultId: this.payment.paymentItemId,
           askId: this.payment.askId
         }})
-    }
+    },
+    proofAlert() {
+      this.presentToast(
+        this.$t("AcceptedCarpools.proof-info"),
+        "secondary"
+      );
+    },
+    async postProof() {
+      this.proofLoading = true;
+      const coordinates = await Geolocation.getCurrentPosition();
+      if (coordinates) {
+        const params = { askId: this.carpool.id, latitude: coordinates.coords.latitude.toString() , longitude: coordinates.coords.longitude.toString()}
+        this.$store.dispatch("postClassicProof", params).then(res => {
+          this.carpoolProofId = res.data.id;
+          this.proofLoading = false;
+          this.presentToast("Preuve envoyée", "success");
+        }).catch(error => {
+          this.proofLoading = false;
+          this.presentToast(this.$parent.$t("Commons.error"), "danger");
+        });
+      } else {
+        this.proofLoading = false;
+        this.presentToast(this.$parent.$t("Commons.error"), "danger");
+      }
+    },
+    async putProof() {
+      this.proofLoading = true;
+      const coordinates = await Geolocation.getCurrentPosition();
+      if (coordinates) {
+        const params = { id: this.carpoolProofId, latitude: coordinates.coords.latitude.toString() , longitude: coordinates.coords.longitude.toString()}
+        this.$store.dispatch("putClassicProof", params).then(res => {
+          this.proofLoading = false;
+          this.presentToast("Preuve envoyée", "success");
+        }).catch(error => {
+          this.proofLoading = false;
+          this.presentToast(this.$parent.$t("Commons.error"), "danger");
+        });
+      } else {
+        this.proofLoading = false;
+        this.presentToast(this.$parent.$t("Commons.error"), "danger");
+      }
+    },
+
   }
 };
 </script>
