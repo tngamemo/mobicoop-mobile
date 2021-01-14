@@ -59,7 +59,7 @@ LICENSE
           v-for="(carpool, index) in filterCarpools(carpools)"
           :key="index"
         >
-          <CarpoolItem :carpool="getFormattedCarpoolItem(carpool)" :type="'accepted'" :payment="getPayment(carpool)" />
+          <CarpoolItem :carpool="getFormattedCarpoolItem(carpool)" :type="'accepted'" :payment="getPayment(carpool)" :carpoolProofId="carpool.asks[0].carpoolProofId"/>
         </div>
       </div>
     </ion-content>
