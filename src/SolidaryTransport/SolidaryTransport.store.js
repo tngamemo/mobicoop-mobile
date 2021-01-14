@@ -602,6 +602,7 @@ export const solidaryTransportStore = {
       if (isPlatform(window.document.defaultView, "android")) {
         user.mobileRegistration = 3;
       }
+      user.backLink = '/#/solidary-transport/register/success?email=' + user.email + '&token=';
       // Register user
       return new Promise((resolve, reject) => {
         http.post("/users/register", user).then(resp => {
