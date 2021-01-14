@@ -259,7 +259,8 @@
     "confirmDeleteText": "Toute suppression d'annonce est définitive, êtes-vous sur de vouloir supprimer cette annonce ?",
     "error": "Une erreur est survenue. Veuillez réessayer ultérieurement.",
     "potentialCarpoolers": "covoiturages potentiels",
-    "proof" : "Pour télécharger l'historique de vos covoiturages et preuves, accéder à {value} depuis votre ordinateur"
+    "proof" : "Pour télécharger l'historique de vos covoiturages et preuves, accéder à {value} depuis votre ordinateur",
+    "proof-info" : "La preuve géolocalisée d'un trajet en covoiturage vous permet, si elle est exigée par votre employeur ou votre territoire, de leur certifier la réalisation de ce trajet et profiter d'incitatifs comme le forfait mobilité durable."
   },
   "Slider": {
     "prev": "Précédent",

@@ -87,7 +87,7 @@ LICENSE
     </div>
 
     <div class="mc-carpool-footer">
-      <div v-if="this.carpool.carpooler && type == 'search'" class="d-flex justify-between align-center">
+      <div v-if="this.carpool.carpooler && (type == 'search' || type == 'accepted' )" class="d-flex justify-between align-center">
         <div class="d-flex align-center">
         <ion-thumbnail>
           <img
@@ -199,6 +199,21 @@ LICENSE
         >
           <span v-if="!this.carpool.driver">{{$t("Payment.paye")}}</span>
           <span v-if="this.carpool.driver">{{$t("Payment.validate-paye")}}</span>
+        </ion-button>
+      </div>
+      <div class="mt-10" v-if="activatedProof && type == 'accepted'">
+        <div @click="proofAlert()" class="">
+          <span>Preuve géolocalisée d'un trajet</span>
+          <span class="proof-info"><ion-icon name="alert"></ion-icon></span>
+        </div>
+        <ion-button class="mc-big-button normal-wrap" fill="outline" color="primary" @click="postProof()">
+          Certifier prise en charge
+        </ion-button>
+        <ion-button class="mc-big-button normal-wrap" fill="outline" color="primary" @click="putProof()">
+          Certifier dépose
+        </ion-button>
+        <ion-button class="mc-big-button normal-wrap" fill="outline" color="primary" @click="cancelProof()">
+          Annuler
         </ion-button>
       </div>
     </div>
@@ -356,6 +371,15 @@ LICENSE
   .text-danger {
     color: var(--ion-color-danger)
   }
+
+  .mt-10 {
+    margin-top: 10px;
+  }
+
+  .proof-info {
+    margin-left: 5px;
+    margin-top: 3px
+  }
 </style>
 
 
@@ -368,7 +392,8 @@ export default {
   data() {
     return {
       avatarLoaded: false,
-      activatedPayment: JSON.parse(process.env.VUE_APP_PAYMENT)
+      activatedPayment: JSON.parse(process.env.VUE_APP_PAYMENT),
+      activatedProof: JSON.parse(process.env.VUE_APP_CAN_SEE_PROOF)
     };
   },
   mixins: [toast],
@@ -525,6 +550,12 @@ export default {
           defaultId: this.payment.paymentItemId,
           askId: this.payment.askId
         }})
+    },
+    proofAlert() {
+      this.presentToast(
+        this.$t("AcceptedCarpools.proof-info"),
+        "secondary"
+      );
     }
   }
 };
