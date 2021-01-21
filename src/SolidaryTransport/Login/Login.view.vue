@@ -49,6 +49,7 @@
 <script>
 import jwt_decode from 'jwt-decode'
 import { toast } from '../../Shared/Mixin/toast.mixin'
+import {isPlatform} from "@ionic/core";
 
 export default {
   name: 'solidaryTransport.login',
@@ -134,7 +135,15 @@ export default {
             {
               text: this.$t('solidaryTransport.login.forgotPassword.actions.validate'),
               handler: (data) => {
-                this.$store.dispatch('resetPassword', {email: data.email}).then(() => {
+                let mobileRegistration = 1;
+                if (isPlatform(window.document.defaultView, "ios")) {
+                  mobileRegistration = 2;
+                }
+                if (isPlatform(window.document.defaultView, "android")) {
+                  mobileRegistration = 3;
+                }
+
+                this.$store.dispatch('resetPassword', {email: data.email, mobileRegistration : mobileRegistration}).then(() => {
                   this.presentToast(this.$t('solidaryTransport.login.forgotPassword.messages.success'), 'secondary')
                 }).catch(() => {
                   this.presentToast(this.$t('solidaryTransport.login.forgotPassword.messages.error'), 'danger')
