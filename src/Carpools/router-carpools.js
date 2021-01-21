@@ -52,10 +52,13 @@ import PostEvent from './Events/PostEvent/PostEvent.view.vue';
 import Dynamic from './Dynamic/Dynamic.view.vue';
 import PublicTransport from './PublicTransport/PublicTransport.view.vue';
 import Reviews from "./Profile/Reviews";
+import Payment from './Payment/Payment.view.vue';
+import BankAccount from './Payment/BankAccount.view.vue';
+import Paye from './Payment/Paye.view.vue';
+import ResetPassword from './Login/ResetPassword.view.vue';
 
 import Vue from 'vue'
 import store from '../Shared/Store/store';
-
 
 Vue.use(IonicVueRouter);
 
@@ -160,6 +163,23 @@ export default [
     component: Reviews
   },
   {
+    path: 'payment',
+    name: 'payment',
+    component: Payment,
+    // beforeEnter: guardAccesByLogin
+  },
+  {
+    path: 'payment/paye',
+    name: 'paye',
+    component: Paye,
+    // beforeEnter: guardAccesByLogin
+  },
+  {
+    path: 'bank-account',
+    name: 'bank-account',
+    component: BankAccount,
+  },
+  {
     path: 'post-carpool-step',
     name: 'post-carpool-step',
     component: PostCarpoolStep
@@ -261,5 +281,10 @@ export default [
     name: 'dynamic',
     component: Dynamic,
     beforeEnter: guardAccesByLogin
+  },
+  {
+    path: 'reset-password',
+    name: 'reset-password',
+    component: ResetPassword,
   },
 ]

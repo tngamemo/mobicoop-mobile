@@ -64,3 +64,7 @@ $ cordova-res android --skip-config --copy
 ```
 
 For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).
+
+
+## Create Deeplink for instance
+https://capacitorjs.com/docs/guides/deep-links

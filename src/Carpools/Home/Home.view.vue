@@ -110,8 +110,8 @@ LICENSE
           {{ $t('HOME.contact') }}
         </ion-button>
 
-        <div v-if="partner" class="d-flex justify-center ion-margin">
-          <img alt class="partner-img" src="/assets/partner.png" alt="" />
+        <div v-if="partner" class="ion-margin text-center">
+          <img class="partner-img" src="/assets/partner.png" alt="" />
         </div>
 
         <div class="text-center" v-if="version">

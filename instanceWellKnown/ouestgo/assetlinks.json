@@ -1,0 +1,5 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target" : { "namespace": "android_app", "package_name": "fr.mobicoop.ouestgo",
+    "sha256_cert_fingerprints": ["BC:49:36:6D:5C:93:12:6C:C1:3F:2E:CA:39:03:16:29:F9:D0:65:57:4B:3A:4F:1E:2A:E7:8C:0D:82:B1:22:29"] }
+}]

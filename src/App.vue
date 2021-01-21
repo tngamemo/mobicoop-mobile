@@ -35,6 +35,7 @@ LICENSE
   import { Plugins } from '@capacitor/core';
   const { Device } = Plugins;
   const { Browser } = Plugins;
+  const { App } = Plugins;
   var Color = require('color');
 
   export default {
@@ -109,6 +110,7 @@ LICENSE
       if(JSON.parse(process.env.VUE_APP_GTAG_ACTIVATED)) {
         this.initGtags();
       }
+      this.registerDeeplink();
     },
     methods: {
 
@@ -260,6 +262,23 @@ LICENSE
           if (a < b) return false;
         }
         return false
+      },
+      registerDeeplink() {
+        if (isPlatform(window.document.defaultView, "capacitor")) {
+          App.addListener('appUrlOpen', data => {
+
+            if (data.url.includes("#")) {
+              const slug = data.url.split("#").pop();
+
+              // We only push to the route if there is a slug present
+              if (slug) {
+                this.$router.push({path: slug});
+              }
+            } else {
+              this.$router.replace({ name: "carpoolsHome" });
+            }
+          });
+        }
       }
     }
   }

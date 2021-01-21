@@ -114,10 +114,16 @@ export const userStore = {
     user_accepted_carpools_request_success(state, data) {
       state.statusAcceptedCarpools = 'success';
       // for phone display
+      const result= [];
       data['hydra:member'].forEach(item => {
-        item.asks[0].results[0].acceptedAsk = true;
-      })
-      state.acceptedCarpools = data['hydra:member'].reverse();
+        item.asks.forEach(ask => {
+          const carpool = Object.assign({}, item);
+          ask.results[0].acceptedAsk = true;
+          carpool.asks = [ask];
+          result.push(carpool);
+        });
+      }),
+      state.acceptedCarpools = result.reverse();
     },
 
 
@@ -143,6 +149,7 @@ export const userStore = {
     },
 
     updateUserAddress(state, payload) {
+      payload.addressDTO.home = true;
       state.userToUpdate.addresses = [payload.addressDTO];
     },
 
@@ -267,6 +274,22 @@ export const userStore = {
       })
     },
 
+    updatePassword({commit}, params) {
+      return new Promise((resolve, reject) => {
+        var bcrypt = require('bcryptjs');
+        var salt = bcrypt.genSaltSync(10);
+        var hash = bcrypt.hashSync(params.password, salt);
+
+        http.put(`/users/${params.id}`, {password: hash})
+          .then(resp => {
+            resolve(resp)
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
+    },
+
     updateUserPicture({commit}, params) {
       return new Promise((resolve, reject) => {
         const formData = new FormData();
@@ -324,6 +347,7 @@ export const userStore = {
       return new Promise((resolve, reject) => {
         http.get(`/carpools/accepted`)
           .then(resp => {
+
             commit('user_accepted_carpools_request_success', resp.data);
             resolve(resp)
           })
@@ -427,6 +451,20 @@ export const userStore = {
       return new Promise((resolve, reject) => {
         commit('reset_password_request');
         http.post(`/users/password_update_request`, params)
+          .then(resp => {
+            commit('reset_password_success');
+            resolve(resp)
+          })
+          .catch(err => {
+            commit('reset_password_error');
+            reject(err)
+          })
+      })
+    },
+    finalizeResetPassword({commit}, params) {
+      return new Promise((resolve, reject) => {
+        commit('reset_password_request');
+        http.post(`/users/password_update`, params)
           .then(resp => {
             commit('reset_password_success');
             resolve(resp)

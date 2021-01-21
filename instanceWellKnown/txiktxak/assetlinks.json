@@ -1,0 +1,5 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target" : { "namespace": "android_app", "package_name": "fr.mobicoop.txiktxak",
+    "sha256_cert_fingerprints": ["8A:8A:6D:29:7E:8E:8F:9C:4E:39:52:22:48:D9:B8:F7:A9:78:20:91:72:12:89:E4:5A:02:E0:D7:52:C2:1F:C7"] }
+}]

@@ -23,8 +23,10 @@
     "log-in": "Se connecter",
     "mail-placeholder": "Adresse mail",
     "password-placeholder": "Mot de passe",
+    "confirm-password-placeholder": "Confirmation du mot de passe",
     "forgotPassword": "Mot de passe oublié ?",
     "resetPassword": "Réinitialisation du mot de passe",
+    "newPassword": "Valider le mot de passe",
     "sendResetEmail": "Envoyer le mail de réinitialisation",
     "passwordSuccess" : "Votre demande a bien été prise en compte, Vous allez recevoir un mail pour la remise à zéro de votre mot de passe"
   },
@@ -82,6 +84,7 @@
     "update_user_address": "Adresse",
     "update_event_address": "Adresse",
     "update_community_address": "Adresse",
+    "update_bank_address": "Adresse complète",
     "destination": "Lieu d'arrivée",
     "placeHolder": "Veuillez renseigner une adresse (Ville, etc...)",
     "date": "Date",
@@ -150,7 +153,8 @@
     "phoneTokenPopupDesc" : "Nous avons envoyé un code de vérification par sms au {value}. Veuillez renseigner ce code de vérification ci-dessous.",
     "phoneTokenPopupCode" : "Code de vérification",
     "newsSubscription" : "Recevoir les actualités",
-    "file-size": "L'image ne doit pas dépasser 1 Mo"
+    "file-size": "L'image ne doit pas dépasser 1 Mo",
+    "updatePassword": "Modifier mon mot de passe"
   },
   "ProfileAlerts": {
     "title": "Mes alertes",
@@ -162,6 +166,10 @@
     "carpool_ad_renewal": "Renouveller mes trajets en fin de validité",
     "carpool_proposal_canceled": "Annulation d'un covoiturage",
     "validate_create_event": "Confirmation de création d'événement",
+    "pay_after_carpool": "Payer un covoiturage effectué",
+    "pay_after_carpool_regular": "Payer une semaine de covoiturage",
+    "confirm_direct_payment": "Confirmer le paiement d'un covoiturage",
+    "confirm_direct_payment_regular": "Confirmer le paiement d'une semaine de covoiturage",
     "medium-1": "Message",
     "medium-2": "Email",
     "medium-3": "SMS",
@@ -192,7 +200,60 @@
     "confirmDeleteHeader": "Etes-vous sur de vouloir supprimer cette annonce ? ",
     "confirmDeleteText": "Toute suppression d'annonce est définitive, êtes-vous sur de vouloir supprimer cette annonce ?",
     "error": "Une erreur est survenue. Veuillez réessayer ultérieurement.",
-    "potentialCarpoolers": "covoiturage(s) potentiel(s)"
+    "potentialCarpoolers": "covoiturage(s) potentiel(s)",
+    "payCarpoolers": "Payer"
+  },
+  "Payment" : {
+    "paye" : "Payer",
+    "validate-paye" : "Valider le paiement",
+    "pending" : "En attente de paiement",
+    "online" : "Payé en ligne",
+    "direct" : "Payé à la main",
+    "unpaid" : "Impayé",
+    "paid" : "Payé",
+    "title" : "Paiements",
+    "amount" : "Montant",
+    "validate" : "Valider",
+    "none" : "Aucun paiement à effectuer",
+    "pay" : {
+      "online" : "Je paie en ligne",
+      "direct" : "J'ai payé à la main",
+      "success" : "Le paiement a été validé"
+    },
+    "collect" : {
+      "online" : "J'ai reçu un paiement en ligne",
+      "direct" : "J'ai reçu un paiement à la main",
+      "report" : "Signaler un impayé",
+      "success" : "La confirmation de paiement a été validé"
+    },
+    "report" : {
+      "title" : "Signaler un impayé",
+      "message" : "Êtes vous sur de vouloir signaler un impayé ?",
+      "report" : "Signaler",
+      "success" : "L'impayé a été signalé"
+    }
+  },
+  "Paye" : {
+    "title" : "Payé",
+    "paye" : "Payé avec succès",
+    "donation-text" : "Mobicoop est un service libre, sans commission et sans publicité. Mais pour contribuer à maintenir la plateforme, vous pouvez nous donner un coup de pouce en faisant",
+    "donation-here" : "un don ici"
+  },
+  "BankAccount" : {
+    "title": "Mes coordonnées bancaires",
+    "iban" : "IBAN",
+    "bic" : "BIC",
+    "address" : "Adresse complète",
+    "success" : "Les coordonnées bancaires ont bien été enregistrée",
+    "document-success" : "Le document d'identité a bien été envoyé",
+    "disable" : "Supprimer les coordonnées bancaires",
+    "identity" : "Vérification d'identité",
+    "identity-desc": "La vérification d'identité sur la base d'un document d'identité à jour (carte d'identité recto-verso, passeport, permis de conduire) est une obligation légale pour recevoir des paiements. Cette obligation est motivée par la lutte contre le blanchiement.",
+    "identity-send": "Envoyer mon document d'identité",
+    "waiting": "Document en attente de validation",
+    "accepted": "Document accepté",
+    "refused": "Document refusé",
+    "outdated" : "Document périmé"
   },
   "AcceptedCarpools": {
     "title": "Mes covoiturages acceptés",
@@ -205,7 +266,8 @@
     "confirmDeleteText": "Toute suppression d'annonce est définitive, êtes-vous sur de vouloir supprimer cette annonce ?",
     "error": "Une erreur est survenue. Veuillez réessayer ultérieurement.",
     "potentialCarpoolers": "covoiturages potentiels",
-    "proof" : "Pour télécharger l'historique de vos covoiturages et preuves, accéder à {value} depuis votre ordinateur"
+    "proof" : "Pour télécharger l'historique de vos covoiturages et preuves, accéder à {value} depuis votre ordinateur",
+    "proof-info" : "La preuve géolocalisée d'un trajet en covoiturage vous permet, si elle est exigée par votre employeur ou votre territoire, de leur certifier la réalisation de ce trajet et profiter d'incitatifs comme le forfait mobilité durable."
   },
   "Slider": {
     "prev": "Précédent",
@@ -236,6 +298,8 @@
     "sameAsPassword" : "La confirmation et le mot de passe ne sont pas identiques",
     "minLength" : "Le mot de passe doit comprendre 8 caractères minimum",
     "minLengthTel" : "Le téléphone doit comprendre 10 chiffres minimum",
+    "minLengthIBAN" : "L'IBAN doit comprendre 27 caractères minimum",
+    "minLengthBIC" : "Le BIC doit comprendre 8 caractères minimum",
     "oneUppercase" : "Le mot de passe doit comprendre 1 majuscule",
     "oneDigit" : "Le mot de passe doit comprendre 1 chiffre",
     "minValue" : "La valeur ne peut pas être inférieure à {value}",

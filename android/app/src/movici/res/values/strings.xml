@@ -7,4 +7,5 @@
   <string name="mauron85_bgloc_account_name">@string/app_name</string>
   <string name="mauron85_bgloc_account_type">fr.auvergnerhonealpes.movici.account</string>
   <string name="mauron85_bgloc_content_authority">fr.auvergnerhonealpes.movici</string>
+  <string name="host">m.movici.auvergnerhonealpes.fr</string>
 </resources>

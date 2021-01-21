@@ -97,6 +97,10 @@ LICENSE
             <ion-icon class="ion-margin-end" name="checkmark-circle"></ion-icon> {{ $t('Profile.my-accepted-carpools') }}
           </ion-button>
 
+          <ion-button v-if="showPayment" class='mc-big-button' color="success" expand="block" @click="$router.push('bank-account')">
+            <ion-icon class="ion-margin-end" name="card"></ion-icon> {{ $t('BankAccount.title') }}
+          </ion-button>
+
           <ion-button
             class="mc-big-button"
             color="success"
@@ -174,7 +178,9 @@ import {toast} from "../../Shared/Mixin/toast.mixin";
 export default {
   name: "profile",
   data() {
-    return {};
+    return {
+      showPayment: JSON.parse(process.env.VUE_APP_PAYMENT)
+    };
   },
   mixins: [toast],
   computed: {
