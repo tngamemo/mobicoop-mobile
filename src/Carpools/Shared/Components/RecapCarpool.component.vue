@@ -122,14 +122,27 @@ LICENSE
 
     <div class="mc-recap-user" v-if="!!recapCarpool.user && type != 'askCarpool'">
       <div class="mc-recap-user-bloc-info">
-        <div class="mc-user-image">
+        <div class="mc-user-image position-relative">
           <ion-thumbnail v-if="!! recapCarpool.user.avatars">
             <img alt="" :src="recapCarpool.user.avatars[0]" />
           </ion-thumbnail>
+          <ion-icon v-if="showExperienced && recapCarpool.user.experienced" class="experienced" name="star"></ion-icon>
         </div>
 
         <div class="mc-recap-user-info">
-          <p>{{recapCarpool.user.givenName }} {{recapCarpool.user.shortFamilyName }}</p>
+          <div><p>{{recapCarpool.user.givenName }} {{recapCarpool.user.shortFamilyName }}</p></div>
+          <div>
+          <ion-button
+            v-if="showReviews && recapCarpool.user.id"
+            class="mc-small-button"
+            color="primary"
+            fill="outline"
+            @click="$router.push({name : 'profile-public', params : {id: recapCarpool.user.id }})"
+          >
+            <ion-icon name="eye"></ion-icon>
+            <span class="ion-margin-start">{{ $t('Commons.see') }}</span>
+          </ion-button>
+          </div>
         </div>
       </div>
     </div>
@@ -330,6 +343,7 @@ LICENSE
     .mc-recap-user-bloc-info {
       color: var(--ion-color-primary);
       display: flex;
+      width: 100%
     }
 
     ion-thumbnail {
@@ -339,9 +353,11 @@ LICENSE
 
     .mc-recap-user-info {
       display: flex;
-      justify-content: center;
-      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
       margin-left: 20px;
+      width: 100%;
+      flex-wrap: wrap;
 
       p {
         margin: 0;
@@ -376,7 +392,9 @@ export default {
         dragging: !isPlatform(window.document.defaultView, "mobile"),
         touchZoom: isPlatform(window.document.defaultView, "mobile"),
         tap: !isPlatform(window.document.defaultView, "mobile")
-      }
+      },
+      showExperienced: JSON.parse(process.env.VUE_APP_EXPERIENCED),
+      showReviews: JSON.parse(process.env.VUE_APP_REVIEWS)
     };
   },
   components: {

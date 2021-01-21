@@ -89,13 +89,14 @@ LICENSE
     <div class="mc-carpool-footer">
       <div v-if="this.carpool.carpooler && (type == 'search' || type == 'accepted' )" class="d-flex justify-between align-center">
         <div class="d-flex align-center">
-        <ion-thumbnail>
+        <ion-thumbnail class="position-relative">
           <img
             :hidden="!(this.carpool.carpooler.avatar && this.avatarLoaded)"
             :src="this.carpool.carpooler.avatar"
             @load="onImgLoad()"
             alt=""
           />
+          <ion-icon v-if="showExperienced && this.carpool.carpooler.experienced" class="experienced" name="star"></ion-icon>
           <!--<ion-icon v-if="! this.avatarLoaded" name="contact" size="large"></ion-icon>-->
         </ion-thumbnail>
         <strong
@@ -395,7 +396,8 @@ export default {
       avatarLoaded: false,
       proofLoading: false,
       activatedPayment: JSON.parse(process.env.VUE_APP_PAYMENT),
-      activatedProof: JSON.parse(process.env.VUE_APP_CAN_SEE_PROOF)
+      activatedProof: JSON.parse(process.env.VUE_APP_CAN_SEE_PROOF),
+      showExperienced: JSON.parse(process.env.VUE_APP_EXPERIENCED)
     };
   },
   mixins: [toast],

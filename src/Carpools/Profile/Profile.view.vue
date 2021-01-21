@@ -34,10 +34,11 @@ LICENSE
         <!-- Bloc user -->
         <div class="mc-user-profile ion-margin-bottom" v-if="user">
           <div class="mc-user-bloc-info">
-            <div class="mc-user-image">
+            <div class="mc-user-image position-relative">
               <ion-thumbnail v-if="!! user.avatars">
                 <img :src="user.avatars[0]" alt="" />
               </ion-thumbnail>
+              <ion-icon v-if="showExperienced && user.experienced" class="experienced" name="star"></ion-icon>
             </div>
 
             <div class="mc-user-info">
@@ -110,6 +111,9 @@ LICENSE
             <ion-icon class="ion-margin-end" name="notifications"></ion-icon>
             {{ $t('Profile.alerts') }}
           </ion-button>
+          <ion-button v-if="showReviews" class="mc-big-button" color="success" expand="block" @click="$router.push('reviews')">
+            <ion-icon class="ion-margin-end" name="quote"></ion-icon>{{ $t('Profile.reviews') }}
+          </ion-button>
           <ion-button class="mc-big-button" color="warning" expand="block" @click="logout()">
             <ion-icon class="ion-margin-end" name="log-out"></ion-icon>
             {{ $t('Profile.logout') }}
@@ -176,7 +180,9 @@ export default {
   name: "profile",
   data() {
     return {
-      showPayment: JSON.parse(process.env.VUE_APP_PAYMENT)
+      showPayment: JSON.parse(process.env.VUE_APP_PAYMENT),
+      showReviews: JSON.parse(process.env.VUE_APP_REVIEWS),
+      showExperienced: JSON.parse(process.env.VUE_APP_EXPERIENCED)
     };
   },
   mixins: [toast],

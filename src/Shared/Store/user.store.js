@@ -252,6 +252,21 @@ export const userStore = {
       })
     },
 
+    /**
+     * Fonction pour récupérer les informations d'un utilisateur
+     */
+    getPublicUser({commit}, params) {
+      return new Promise((resolve, reject) => {
+        http.get(`/public_profiles/${params.id}`)
+          .then(resp => {
+            resolve(resp)
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
+    },
+
     updateUser({commit}, params) {
       commit('auth_request');
       return new Promise((resolve, reject) => {

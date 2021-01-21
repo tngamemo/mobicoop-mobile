@@ -75,9 +75,10 @@ LICENSE
         >
           <ion-item-sliding v-for="message in messages" :key="message.id">
             <ion-item class="message-list" @click="goToMessage(message)">
-              <ion-avatar class="ion-margin-end ion-margin-start avatar">
+              <ion-avatar class="ion-margin-end ion-margin-start avatar position-relative">
                 <img v-if="message.avatarsRecipient" v-bind:src="message.avatarsRecipient" alt="" />
                 <img v-if="!message.avatarsRecipient" src="/assets/user.png" alt="" />
+                <ion-icon v-if="showExperienced && message.experienced" class="experienced" name="star"></ion-icon>
               </ion-avatar>
               <ion-label>
                 <p class="message-name d-flex align-center">
@@ -141,7 +142,8 @@ export default {
   name: "messages",
   data() {
     return {
-      direct: false
+      direct: false,
+      showExperienced: JSON.parse(process.env.VUE_APP_EXPERIENCED)
     };
   },
   computed: {

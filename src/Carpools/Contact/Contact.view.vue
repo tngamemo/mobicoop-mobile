@@ -90,7 +90,7 @@ LICENSE
 
         <p class="mc-contact-rgpd">
           {{$t('Contact.rgpd')}}
-          <a class="link pointer" v-on:click="$router.push('/article/4')">{{ $t('Contact.protectionLink') }}</a>.
+          <a class="link pointer" v-on:click="goToProtection()">{{ $t('Contact.protectionLink') }}</a>.
         </p>
 
         <ion-button class="mc-small-button" color="success" expand="block" @click="sendContact()">
@@ -231,6 +231,16 @@ export default {
       const contactType = this.contactType[index];
       this.contactForm.demand = contactType.key;
       this.contactForm.type = contactType.value == 'support' ? 0 : 1;
+    },
+
+    goToProtection() {
+      const t = this.$t("Contact.protection-external-link");
+      if (t !== "Contact.protection-external-link") {
+        window.open(t, '_blank');
+      } else {
+        this.$router.push('/article/4')
+      }
+
     }
   }
 };

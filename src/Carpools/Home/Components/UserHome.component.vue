@@ -43,11 +43,12 @@ LICENSE
 
     <div class="mc-user-home-profile" v-if="!!this.$store.state.userStore.user">
       <div class="mc-user-bloc-info">
-        <div class="mc-user-image">
+        <div class="mc-user-image position-relative">
           {{this.$store.state.userStore.avatars}}
           <ion-thumbnail v-if="!! this.$store.state.userStore.user.avatars">
             <img :src="this.$store.state.userStore.user.avatars[0]" alt="" />
           </ion-thumbnail>
+          <ion-icon v-if="showExperienced && this.$store.state.userStore.user.experienced" class="experienced" name="star"></ion-icon>
         </div>
 
         <div class="mc-user-info">
@@ -131,7 +132,8 @@ export default {
   data() {
     return {
       title: process.env.VUE_APP_NAME,
-      seeWelcome: localStorage.getItem("seeWelcome")
+      seeWelcome: localStorage.getItem("seeWelcome"),
+      showExperienced: JSON.parse(process.env.VUE_APP_EXPERIENCED)
     };
   },
   mounted() {},

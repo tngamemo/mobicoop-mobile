@@ -133,11 +133,18 @@
     "my-announce": "Mes annonces",
     "my-accepted-carpools": "Mes covoiturages acceptés",
     "alerts": "Gérer mes alertes",
+    "reviews": "Gérer mes avis",
     "logout": "Se déconnecter",
     "delete": "Supprimer mon compte",
     "confirmDeleteTitle": "Supprimer mon compte",
     "confirmDeleteText": "Vous allez supprimer votre compte et l'ensemble des données liées. Cette opération est irréversible. Êtes vous sur de vouloir supprimer votre compte",
     "delete-success" : "Votre compte a été supprimé"
+  },
+  "Reviews" : {
+    "title" : "Avis",
+    "toGive" : "À Donner",
+    "received" : "Reçus",
+    "given" : "Donnés"
   },
   "UpdateProfile": {
     "title" : "Modifier mon profil",
@@ -287,7 +294,9 @@
     "gps-permission" : "Vous devez authoriser le GPS pour démarrer cette fonctionalité",
     "gps-activation" : "Veuillez activer le GPS",
     "accept": "Accepter",
-    "decline": "Refuser"
+    "decline": "Refuser",
+    "send" : "Envoyer",
+    "see" : "Voir"
   },
   "Validation" : {
     "required" : "Ce champ est requis",
