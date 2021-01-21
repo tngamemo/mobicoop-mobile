@@ -37,7 +37,7 @@
     "build:picholines:test": "export NODE_ENV=production && export VUE_APP_API_URL=https://api.test.picholines.mobicoop.io && vue-cli-service build --mode picholines",
     "build:picholines:prod": "export NODE_ENV=production && export VUE_APP_API_URL=https://api.picholines.fr && export VUE_APP_API_PASSWORD=JibAJGiwVG2f2B1j && export VUE_APP_CAN_SEE_PROOF=false && vue-cli-service build --mode picholines",
     "build:passpass:test": "export NODE_ENV=production && export VUE_APP_API_URL=https://api.test.passpass.mobicoop.io && vue-cli-service build --mode passpass",
-    "build:passpass:prod": "export NODE_ENV=production && export VUE_APP_API_URL=https://api.passpasscovoiturage.fr && export VUE_APP_API_PASSWORD=woLPuw84NHR3 && export VUE_APP_PAYMENT=false && export VUE_APP_CAN_SEE_PROOF=false && vue-cli-service build --mode passpass",
+    "build:passpass:prod": "export NODE_ENV=production && export VUE_APP_API_URL=https://api.passpasscovoiturage.fr && export VUE_APP_API_PASSWORD=woLPuw84NHR3 && export VUE_APP_CAN_SEE_PROOF=false && vue-cli-service build --mode passpass",
     "build:txiktxak:test": "export NODE_ENV=production && export VUE_APP_API_URL=https://api.test.txiktxak.mobicoop.io && vue-cli-service build --mode txiktxak",
     "build:txiktxak:prod": "export NODE_ENV=production && export VUE_APP_API_URL=https://api.txiktxak-kovoit.fr && export VUE_APP_API_USERNAME=mobile_txiktxak && export VUE_APP_API_PASSWORD=xLkCH5l0VQ86v65P && vue-cli-service build --mode txiktxak",
     "build:ehop:test": "export NODE_ENV=production && export VUE_APP_API_URL=https://api.test.mobicoop.io && vue-cli-service build --mode ehop",
