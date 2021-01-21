@@ -51,10 +51,11 @@ LICENSE
           <div v-if="tab == 'toGive'">
             <div v-for="review in reviews.reviewsToGive">
               <div class="d-flex align-center mc-user" style="margin-bottom: 5px;">
-                <div class="mc-user-image">
+                <div class="mc-user-image position-relative">
                   <ion-thumbnail v-if="!!review.reviewed.avatar">
                     <img :src="review.reviewed.avatar" alt="" />
                   </ion-thumbnail>
+                  <ion-icon v-if="showExperienced && review.reviewed.experienced" class="experienced" name="star"></ion-icon>
                 </div>
                 <b>{{review.reviewed.givenName}} {{review.reviewed.shortFamilyName}}</b>
               </div>
@@ -78,10 +79,11 @@ LICENSE
                 <div style="margin-top: -10px" class="d-flex justify-end"><ion-icon style="margin-right: 0px; margin-left: 5px; margin-top: auto" color="primary" class="ion-margin-end" name="quote"></ion-icon></div>
               </div>
               <div class="d-flex justify-end align-center mc-user" style="margin-bottom: 5px;">
-                <div class="mc-user-image">
+                <div class="mc-user-image position-relative">
                   <ion-thumbnail v-if="!!review.reviewer.avatar">
                     <img :src="review.reviewer.avatar" alt="" />
                   </ion-thumbnail>
+                  <ion-icon v-if="showExperienced && review.reviewer.experienced" class="experienced" name="star"></ion-icon>
                 </div>
                 <b>{{review.reviewer.givenName}} {{review.reviewer.shortFamilyName}}</b><span style="margin-right: 5px; margin-left: 5px"> - </span> {{review.date | moment('utc', 'DD/MM/YYYY')}}
               </div>
@@ -95,10 +97,11 @@ LICENSE
                 <div style="margin-top: -10px" class="d-flex justify-end"><ion-icon style="margin-right: 0px; margin-left: 5px; margin-top: auto" color="primary" class="ion-margin-end" name="quote"></ion-icon></div>
               </div>
               <div class="d-flex justify-end align-center mc-user" style="margin-bottom: 5px;">
-                <div class="mc-user-image">
+                <div class="mc-user-image position-relative">
                   <ion-thumbnail v-if="!!review.reviewed.avatar">
                     <img :src="review.reviewed.avatar" alt="" />
                   </ion-thumbnail>
+                  <ion-icon v-if="showExperienced && review.reviewed.experienced" class="experienced" name="star"></ion-icon>
                 </div>
                 <b>{{review.reviewed.givenName}} {{review.reviewed.shortFamilyName}} </b><span style="margin-right: 5px; margin-left: 5px"> - </span> {{review.date | moment('utc', 'DD/MM/YYYY')}}
               </div>
@@ -163,7 +166,8 @@ LICENSE
     name: 'reviews',
     data () {
       return {
-        tab : 'toGive'
+        tab : 'toGive',
+        showExperienced: JSON.parse(process.env.VUE_APP_EXPERIENCED)
       }
     },
     components: {

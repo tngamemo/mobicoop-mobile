@@ -26,9 +26,10 @@ LICENSE
           <ion-back-button default-href="/carpools/home"></ion-back-button>
         </ion-buttons>
         <ion-item color="primary" lines="none" v-if="thread">
-          <ion-avatar class="ion-margin-end ion-margin-start">
+          <ion-avatar class="ion-margin-end ion-margin-start position-relative">
             <img v-if="thread.avatarsRecipient" v-bind:src="thread.avatarsRecipient" alt="" />
             <img v-if="!thread.avatarsRecipient" src="/assets/user.png" alt="" />
+            <ion-icon v-if="showExperienced && thread.experienced" class="experienced" name="star"></ion-icon>
           </ion-avatar>
           <ion-label>
             <p class="message-name">
@@ -327,7 +328,8 @@ export default {
       message: "",
       ask: null,
       days: [],
-      thread : null
+      thread : null,
+      showExperienced: JSON.parse(process.env.VUE_APP_EXPERIENCED)
     };
   },
   props: [],

@@ -290,7 +290,8 @@
     "gps-activation" : "Veuillez activer le GPS",
     "accept": "Accepter",
     "decline": "Refuser",
-    "send" : "Envoyer"
+    "send" : "Envoyer",
+    "see" : "Voir"
   },
   "Validation" : {
     "required" : "Ce champ est requis",

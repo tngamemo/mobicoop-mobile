@@ -56,6 +56,7 @@ import Payment from './Payment/Payment.view.vue';
 import BankAccount from './Payment/BankAccount.view.vue';
 import Paye from './Payment/Paye.view.vue';
 import ResetPassword from './Login/ResetPassword.view.vue';
+import ProfilePublic from './Profile/ProfilePublic.view.vue';
 
 import Vue from 'vue'
 import store from '../Shared/Store/store';
@@ -286,5 +287,10 @@ export default [
     path: 'reset-password',
     name: 'reset-password',
     component: ResetPassword,
+  },
+  {
+    path: 'public/profile/:id',
+    name: 'profile-public',
+    component: ProfilePublic,
   },
 ]
