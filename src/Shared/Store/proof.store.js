@@ -43,7 +43,7 @@ export const proofStore = {
     },
     putClassicProof: ({commit, state}, params) => {
       return new Promise((resolve, reject) => {
-        http.put("/classic_proofs/" + params.id, params ).then(resp => {
+        http.put("/classic_proofs/" + params.id, {latitude: params.latitude, longitude: params.longitude} ).then(resp => {
           if (resp) {
             resolve(resp)
           }
