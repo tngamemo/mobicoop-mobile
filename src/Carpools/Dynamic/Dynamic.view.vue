@@ -392,14 +392,28 @@ LICENSE
       }
       this.$store.dispatch('getActiveDynamic').then( res => {
         if(res.data['hydra:member'].length > 0) {
-          this.presentToast("Un covoiturage dynamique est déjà actif, Veuillez le fermer si vous souhaitez renseigner une nouvelle destination", "secondary");
-          this.startBackgroundGeolocation();
+          this.setActiveDynamic()
         }
       });
     },
     methods: {
       goGeoSearch(type, action) {
         this.$router.push({ name: "geoSearch", query: { type, action } });
+      },
+      async setActiveDynamic() {
+        this.presentToast("Un covoiturage dynamique est déjà actif, Veuillez le fermer si vous souhaitez renseigner une nouvelle destination", "secondary");
+
+        const p = await Permissions.query({name: "geolocation"});
+        if (p.state == "granted" || p.state == "prompt") {
+          const coordinates = await Geolocation.getCurrentPosition().catch(error => {
+            console.log(error);
+            this.presentGpsToast('Commons.gps-activation');
+          });
+          this.$store.commit('set_dynamic_my_position', {latitude: coordinates.coords.latitude.toString(), longitude: coordinates.coords.longitude.toString()});
+          this.startBackgroundGeolocation();
+        } else if (p.state == "denied") {
+          this.presentGpsToast('Commons.gps-permission');
+        }
       },
       async launchDynamic() {
         const p = await Permissions.query({name: "geolocation"})

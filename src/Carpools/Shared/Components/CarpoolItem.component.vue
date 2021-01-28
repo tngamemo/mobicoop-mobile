@@ -395,6 +395,7 @@ export default {
     return {
       avatarLoaded: false,
       proofLoading: false,
+      proof: null,
       activatedPayment: JSON.parse(process.env.VUE_APP_PAYMENT),
       activatedProof: JSON.parse(process.env.VUE_APP_CAN_SEE_PROOF),
       showExperienced: JSON.parse(process.env.VUE_APP_EXPERIENCED)
@@ -413,10 +414,7 @@ export default {
     }
 
     if (this.carpoolProofId) {
-      this.$store.dispatch('getClassicProof', this.carpoolProofId).then(res => {
-        console.log('PROOF');
-        console.log(res)
-      });
+      this.getProof();
     }
   },
   computed: {
@@ -568,6 +566,11 @@ export default {
         "secondary"
       );
     },
+    getProof() {
+      this.$store.dispatch("getClassicProof", this.carpoolProofId).then(res => {
+        this.proof = res.data;
+      });
+    },
     async postProof() {
       this.proofLoading = true;
       const coordinates = await Geolocation.getCurrentPosition();
@@ -575,6 +578,7 @@ export default {
         const params = { askId: this.carpool.id, latitude: coordinates.coords.latitude.toString() , longitude: coordinates.coords.longitude.toString()}
         this.$store.dispatch("postClassicProof", params).then(res => {
           this.carpoolProofId = res.data.id;
+          this.getProof();
           this.proofLoading = false;
           this.presentToast("Preuve envoyée", "success");
         }).catch(error => {
@@ -593,6 +597,7 @@ export default {
         const params = { id: this.carpoolProofId, latitude: coordinates.coords.latitude.toString() , longitude: coordinates.coords.longitude.toString()}
         this.$store.dispatch("putClassicProof", params).then(res => {
           this.proofLoading = false;
+          this.getProof();
           this.presentToast("Preuve envoyée", "success");
         }).catch(error => {
           this.proofLoading = false;

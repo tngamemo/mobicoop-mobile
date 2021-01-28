@@ -119,6 +119,9 @@ LICENSE
           v-if="!$v.user.confirmPassword.sameAsPassword"
         >{{$t('Validation.sameAsPassword')}}</div>
       </div>
+      <br>
+
+      <div class="text-asterisk text-left"><small>* Champ obligatoire</small></div>
     </div>
   </div>
 </template>
@@ -145,6 +148,11 @@ LICENSE
     margin-top: 3px;
   }
 }
+
+  .text-asterisk {
+    font-size: 14px;
+    color: rgba(0,0,0,0.4)
+  }
 </style>
 
 <script>

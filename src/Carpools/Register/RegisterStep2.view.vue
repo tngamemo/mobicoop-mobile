@@ -132,6 +132,9 @@ LICENSE
             <br>
             <a class="text-center pointer" v-on:click="$router.push('/article/1')">Voir les conditions</a>
 
+            <br>
+            <div class="text-asterisk text-left"><small>* Champ obligatoire</small></div>
+
           </div>
 
         </div>
@@ -155,6 +158,11 @@ LICENSE
       display: flex;
       justify-content: center
     }
+  }
+
+  .text-asterisk {
+    font-size: 14px;
+    color: rgba(0,0,0,0.4)
   }
 
 </style>
