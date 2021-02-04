@@ -76,6 +76,17 @@ export const appStore = {
     }
   },
   actions: {
+    getContactType() {
+      return new Promise((resolve, reject) => {
+        http.get(`/contact_types`)
+          .then(resp => {
+            resolve(resp)
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
+    },
     sendContact({commit}, payload) {
       return new Promise((resolve, reject) => {
         commit('contact_request');

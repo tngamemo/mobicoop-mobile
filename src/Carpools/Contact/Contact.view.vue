@@ -61,7 +61,7 @@ LICENSE
           ></ion-input>
         </ion-item>
 
-        <ion-item>
+        <ion-item v-if="contactType.length > 0">
           <ion-label position="floating">Votre demande</ion-label>
           <ion-select
             required
@@ -73,7 +73,7 @@ LICENSE
               v-for="(type, index) in contactType"
               :key="index"
               :value="index"
-            >{{$t(`Contact.${type.key}`)}}</ion-select-option>
+            >{{$t(`Contact.${type.demand}`)}}</ion-select-option>
           </ion-select>
         </ion-item>
 
@@ -124,6 +124,8 @@ LICENSE
       color: var(--ion-color-warning);
     }
   }
+
+
 }
 </style>
 
@@ -147,9 +149,10 @@ export default {
         email: "",
         demand: "",
         message: "",
-        type: 0
+        type: 0,
       },
-      selectIndex: 0
+      selectIndex: 0,
+      contactType : []
     };
   },
   validations: {
@@ -177,26 +180,29 @@ export default {
       this.contactForm.familyName = this.$store.state.userStore.user.familyName;
       this.contactForm.email = this.$store.state.userStore.user.email;
     }
+    this.getContactType();
 
   },
   mounted() {
-    if (this.$route.query.demand) {
-      const index = this.contactType.findIndex(item => item.key === this.$route.query.demand);
-      this.changeDemand(index)
-    } else {
-      this.changeDemand(0)
-    }
+
   },
   computed: {
-    contactType() {
-      const test = Object.assign(
-        [],
-        this.json2array(JSON.parse(process.env.VUE_APP_CONTACT_TYPES))
-      );
-      return test;
-    }
   },
   methods: {
+    getContactType() {
+      this.$store.dispatch("getContactType", this.contactForm)
+        .then(resp => {
+         this.contactType = resp.data['hydra:member'];
+          if (this.$route.query.demand) {
+            const index = this.contactType.findIndex(item => item.key === this.$route.query.demand);
+            this.changeDemand(index)
+          } else {
+            this.changeDemand(0)
+          }
+        }).catch(err => {
+          this.presentToast(this.$t("Commons.error"), "danger");
+        });
+    },
     sendContact() {
       this.$v.$reset();
       this.$v.$touch();
@@ -229,8 +235,8 @@ export default {
     changeDemand(index) {
       this.selectIndex = index;
       const contactType = this.contactType[index];
-      this.contactForm.demand = contactType.key;
-      this.contactForm.type = contactType.value == 'support' ? 0 : 1;
+      this.contactForm.demand = contactType.demand;
+      this.contactForm.type = contactType.objectCode == 'support' ? 0 : 1;
     },
 
     goToProtection() {

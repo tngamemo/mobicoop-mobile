@@ -8,5 +8,12 @@
       "title": "Mes déplacements professionnels",
       "text": "Je covoiture pendant mon travail"
     }
+  },
+  "Contact" : {
+    "infos34" : "Demande de renseignement - SDIS 34",
+    "infos31" : "Demande de renseignement - SDIS 31",
+    "infos75" : "Demande de renseignement - SDIS 75",
+    "infos95" : "Demande de renseignement - SDIS 95",
+    "infos13" : "Demande de renseignement - SDIS 13"
   }
 }
