@@ -140,7 +140,7 @@ LICENSE
         let result = false;
 
         if (carpool.frequency > 1) {
-          result = this.$moment(carpool.outwardLimitDate).isBefore(this.$moment().startOf('day'));
+          result = this.$moment(carpool.outwardDate).isBefore(this.$moment().startOf('day'));
         } else {
           const dateAndTimeOutwardDate = this.$moment(`${this.$moment(carpool.outwardDate).format('YYYY-MM-DD')}`);
           const dateAndTimeReturnDate = this.$moment(`${this.$moment(carpool.returnDate).format('YYYY-MM-DD')}`);
