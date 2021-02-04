@@ -1,8 +1,12 @@
 {
   "BlockAction": {
     "communities": {
+      "title": "Mes déplacements domicile-travail",
+      "text": "Je covoiture pour me rendre au travail"
+    },
+    "events": {
       "title": "Mes déplacements professionnels",
-      "text": "Rejoindre les covoitureurs de mon SDIS"
+      "text": "Je covoiture pendant mon travail"
     }
   }
 }
