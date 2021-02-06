@@ -41,7 +41,6 @@
 		8179D01D25594FBC00980C4C /* config.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2FAD9762203C412B000D30F8 /* config.xml */; };
 		8179D0382559509500980C4C /* MobiSDIS-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8179D02525594FBD00980C4C /* MobiSDIS-Info.plist */; };
 		8179D043255950EE00980C4C /* MobiSDISAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8179D042255950EE00980C4C /* MobiSDISAssets.xcassets */; };
-		8179D057255954CA00980C4C /* GoogleService-Info-MobiSDIS.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8179D056255954CA00980C4C /* GoogleService-Info-MobiSDIS.plist */; };
 		817E8CBD24644BAB0060A3B8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504EC3071FED79650016851F /* AppDelegate.swift */; };
 		817E8CC124644BAB0060A3B8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 504EC3101FED79650016851F /* LaunchScreen.storyboard */; };
 		817E8CC224644BAB0060A3B8 /* public in Resources */ = {isa = PBXBuildFile; fileRef = 50B271D01FEDC1A000F3C39B /* public */; };
@@ -95,7 +94,10 @@
 		81BE23E22472DB200073D645 /* GoogleService-Info-PassPass.plist in Resources */ = {isa = PBXBuildFile; fileRef = 81BE23E12472DB1F0073D645 /* GoogleService-Info-PassPass.plist */; };
 		81BE23E62472DB430073D645 /* GoogleService-Info-Picholines.plist in Resources */ = {isa = PBXBuildFile; fileRef = 81BE23E52472DB430073D645 /* GoogleService-Info-Picholines.plist */; };
 		81BE23E82472DB4D0073D645 /* GoogleService-Info-OuestGo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 81BE23E72472DB4C0073D645 /* GoogleService-Info-OuestGo.plist */; };
+		81E3A59D25CC36A6006D5F53 /* GoogleService-Info-MobiSDIS.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8179D056255954CA00980C4C /* GoogleService-Info-MobiSDIS.plist */; };
+		81E3A5BB25CC4527006D5F53 /* GoogleService-Info-Mobicoop.plist in Resources */ = {isa = PBXBuildFile; fileRef = 81E3A5B025CC4512006D5F53 /* GoogleService-Info-Mobicoop.plist */; };
 		A084ECDBA7D38E1E42DFC39D /* (null) in Frameworks */ = {isa = PBXBuildFile; };
+		C05BA51A2B4E35A4AE08B623 /* Pods_Mobicoop.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A74FC4D65D6F58889760B61 /* Pods_Mobicoop.framework */; };
 		C4931EAFBB76EA38FDF8219C /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		D2DE11C465D056F6074C85A7 /* Pods_PassPass.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E67C0BAF98B68423BB4EBEF2 /* Pods_PassPass.framework */; };
 		DE57FEB27618795EC4ED528B /* Pods_Movici.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C0A7723EDE94964338E0AC5 /* Pods_Movici.framework */; };
@@ -121,7 +123,9 @@
 		504EC3131FED79650016851F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		50B271D01FEDC1A000F3C39B /* public */ = {isa = PBXFileReference; lastKnownFileType = folder; path = public; sourceTree = SOURCE_ROOT; };
 		582D0F00A9C256EA7C0CC948 /* Pods_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5A74FC4D65D6F58889760B61 /* Pods_Mobicoop.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mobicoop.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		64855E3DA1BC17FEE445B813 /* Pods-PassPass.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PassPass.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PassPass/Pods-PassPass.debug.xcconfig"; sourceTree = "<group>"; };
+		745E9284E9B4A20E51AA9BB7 /* Pods-Mobicoop.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mobicoop.release.xcconfig"; path = "Pods/Target Support Files/Pods-Mobicoop/Pods-Mobicoop.release.xcconfig"; sourceTree = "<group>"; };
 		7A553FBCF5C28BB918961DC1 /* Pods_Grand_Lyon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Grand_Lyon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BBE58283A12DB0FB19374C2 /* Pods-Grand Lyon.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Grand Lyon.release.xcconfig"; path = "Pods/Target Support Files/Pods-Grand Lyon/Pods-Grand Lyon.release.xcconfig"; sourceTree = "<group>"; };
 		8112C86D242CF0FE0081909B /* Capacitor.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Capacitor.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -165,6 +169,8 @@
 		81BE23E12472DB1F0073D645 /* GoogleService-Info-PassPass.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-PassPass.plist"; sourceTree = "<group>"; };
 		81BE23E52472DB430073D645 /* GoogleService-Info-Picholines.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-Picholines.plist"; sourceTree = "<group>"; };
 		81BE23E72472DB4C0073D645 /* GoogleService-Info-OuestGo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-OuestGo.plist"; sourceTree = "<group>"; };
+		81E3A5B025CC4512006D5F53 /* GoogleService-Info-Mobicoop.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-Mobicoop.plist"; sourceTree = "<group>"; };
+		821EEF21955DE986FD731E6C /* Pods-Mobicoop.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mobicoop.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Mobicoop/Pods-Mobicoop.debug.xcconfig"; sourceTree = "<group>"; };
 		8B18C8B8C502A53E11D9DE0A /* Pods-Txik Txak.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Txik Txak.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Txik Txak/Pods-Txik Txak.debug.xcconfig"; sourceTree = "<group>"; };
 		8D78B1B9C94FCF272DEA7743 /* Pods_Txik_Txak.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Txik_Txak.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		902C98C63362C39935A4385D /* Pods-App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App.debug.xcconfig"; path = "Pods/Target Support Files/Pods-App/Pods-App.debug.xcconfig"; sourceTree = "<group>"; };
@@ -255,6 +261,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C05BA51A2B4E35A4AE08B623 /* Pods_Mobicoop.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -274,6 +281,7 @@
 				4E1A3E21558115DD8FBC05BA /* Pods_Picholines.framework */,
 				F33704986AE6AF2027236CEE /* Pods_MobiSDIS.framework */,
 				8D78B1B9C94FCF272DEA7743 /* Pods_Txik_Txak.framework */,
+				5A74FC4D65D6F58889760B61 /* Pods_Mobicoop.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -344,6 +352,7 @@
 				81BE23E52472DB430073D645 /* GoogleService-Info-Picholines.plist */,
 				81A5BD6524ADEAFE00F13A16 /* GoogleService-Info-Txik Txak.plist */,
 				8179D056255954CA00980C4C /* GoogleService-Info-MobiSDIS.plist */,
+				81E3A5B025CC4512006D5F53 /* GoogleService-Info-Mobicoop.plist */,
 				2FAD9762203C412B000D30F8 /* config.xml */,
 				50B271D01FEDC1A000F3C39B /* public */,
 			);
@@ -369,6 +378,8 @@
 				9719F8E8F3D1EDB7EAC3A603 /* Pods-Txik Txak.release.xcconfig */,
 				D2604CBD31BE67DFE9B4C5F1 /* Pods-MobiSDIS.debug.xcconfig */,
 				D2760C47EBECE89231B0F56F /* Pods-MobiSDIS.release.xcconfig */,
+				821EEF21955DE986FD731E6C /* Pods-Mobicoop.debug.xcconfig */,
+				745E9284E9B4A20E51AA9BB7 /* Pods-Mobicoop.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -547,10 +558,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 81B68659243F752800A2FBC5 /* Build configuration list for PBXNativeTarget "Mobicoop" */;
 			buildPhases = (
+				FAB9C0694E29C5093C77D2B4 /* [CP] Check Pods Manifest.lock */,
 				81B6864B243F752800A2FBC5 /* Sources */,
 				81B6864D243F752800A2FBC5 /* Frameworks */,
 				81B6864F243F752800A2FBC5 /* Resources */,
 				81B68657243F752800A2FBC5 /* Scheme Control Script */,
+				D75EE234D5C9625AC1EDB021 /* [CP] Embed Pods Frameworks */,
+				6CAB7AD7C4B551E074936DC6 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -661,11 +675,11 @@
 				8179D01725594FBC00980C4C /* LaunchScreen.storyboard in Resources */,
 				8179D01825594FBC00980C4C /* public in Resources */,
 				8179D01925594FBC00980C4C /* capacitor.config.json in Resources */,
+				81E3A59D25CC36A6006D5F53 /* GoogleService-Info-MobiSDIS.plist in Resources */,
 				8179D01A25594FBC00980C4C /* Main.storyboard in Resources */,
 				8179D0382559509500980C4C /* MobiSDIS-Info.plist in Resources */,
 				8179D043255950EE00980C4C /* MobiSDISAssets.xcassets in Resources */,
 				8179D01D25594FBC00980C4C /* config.xml in Resources */,
-				8179D057255954CA00980C4C /* GoogleService-Info-MobiSDIS.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -753,6 +767,7 @@
 				81B68661243F756300A2FBC5 /* MobicoopAssets.xcassets in Resources */,
 				81B68653243F752800A2FBC5 /* capacitor.config.json in Resources */,
 				81B68655243F752800A2FBC5 /* Main.storyboard in Resources */,
+				81E3A5BB25CC4527006D5F53 /* GoogleService-Info-Mobicoop.plist in Resources */,
 				81B6865E243F754400A2FBC5 /* Mobicoop-Info.plist in Resources */,
 				81B68656243F752800A2FBC5 /* config.xml in Resources */,
 			);
@@ -866,6 +881,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6CAB7AD7C4B551E074936DC6 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Mobicoop/Pods-Mobicoop-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		8112C874242CF2160081909B /* [CP] Embed Pods Frameworks */ = {
@@ -1287,6 +1317,21 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		D75EE234D5C9625AC1EDB021 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Mobicoop/Pods-Mobicoop-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		EB69A2A45E63935ACD0A3879 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1315,6 +1360,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Movici/Pods-Movici-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FAB9C0694E29C5093C77D2B4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Mobicoop-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1914,6 +1981,7 @@
 		};
 		81B6865A243F752800A2FBC5 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 821EEF21955DE986FD731E6C /* Pods-Mobicoop.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Mobicoop.entitlements;
@@ -1926,9 +1994,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0.8;
+				MARKETING_VERSION = 6.0.0;
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-DDEBUG\"";
-				PRODUCT_BUNDLE_IDENTIFIER = com.covivo.covisoft;
+				PRODUCT_BUNDLE_IDENTIFIER = eu.covivo.covisoft;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG USE_PUSH";
 				SWIFT_VERSION = 4.2;
@@ -1938,6 +2006,7 @@
 		};
 		81B6865B243F752800A2FBC5 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 745E9284E9B4A20E51AA9BB7 /* Pods-Mobicoop.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Mobicoop.entitlements;
@@ -1950,8 +2019,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0.8;
-				PRODUCT_BUNDLE_IDENTIFIER = com.covivo.covisoft;
+				MARKETING_VERSION = 6.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = eu.covivo.covisoft;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = USE_PUSH;
 				SWIFT_VERSION = 4.2;

@@ -2,9 +2,10 @@
 <resources>
     <string name="app_name">Mobicoop</string>
     <string name="title_activity_main">Mobicoop</string>
-    <string name="package_name">eu.covivo.covisoft</string>
-    <string name="custom_url_scheme">eu.covivo.covisoft</string>
+    <string name="package_name">fr.covivo.android.lorraine</string>
+    <string name="custom_url_scheme">fr.covivo.android.lorraine</string>
   <string name="mauron85_bgloc_account_name">@string/app_name</string>
-  <string name="mauron85_bgloc_account_type">eu.covivo.covisoft.account</string>
-  <string name="mauron85_bgloc_content_authority">eu.covivo.covisoft</string>
+  <string name="mauron85_bgloc_account_type">fr.covivo.android.lorraine</string>
+  <string name="mauron85_bgloc_content_authority">fr.covivo.android.lorraine</string>
+  <string name="host">m.mobicoop.fr</string>
 </resources>
