@@ -1,0 +1,5 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target" : { "namespace": "android_app", "package_name": "fr.covivo.android.lorraine",
+    "sha256_cert_fingerprints": ["41:91:06:9A:B7:9E:11:30:BD:E0:BE:20:56:D0:5D:08:33:89:9C:8D:37:FD:1D:3E:A9:31:8B:1A:DE:08:EE:E5"] }
+}]

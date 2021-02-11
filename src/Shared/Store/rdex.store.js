@@ -54,8 +54,8 @@ export const rdexStore = {
 
         // date: moment(rootState.searchStore.searchObject.outwardDate).format('YYYY-MM-DDTHH:mm:ssZ'),
         const data = {
-          driver: (rootState.searchStore.searchObject.role == 1 || rootState.searchStore.searchObject.role == 3)? 1 : 0,
-          passenger: (rootState.searchStore.searchObject.role == 2 || rootState.searchStore.searchObject.role == 3)? 1 : 0,
+          driver: (rootState.searchStore.searchObject.role == 2 || rootState.searchStore.searchObject.role == 3)? 1 : 0,
+          passenger: (rootState.searchStore.searchObject.role == 1 || rootState.searchStore.searchObject.role == 3)? 1 : 0,
           from_latitude : rootState.searchStore.searchObject.outwardWaypoints[0].latitude,
           from_longitude : rootState.searchStore.searchObject.outwardWaypoints[0].longitude,
           to_latitude : rootState.searchStore.searchObject.outwardWaypoints[1].latitude,

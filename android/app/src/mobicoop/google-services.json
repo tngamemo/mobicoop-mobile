@@ -1,0 +1,863 @@
+{
+  "project_info": {
+    "project_number": "610048529011",
+    "firebase_url": "https://covisoft-84af5.firebaseio.com",
+    "project_id": "covisoft-84af5",
+    "storage_bucket": "covisoft-84af5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:610048529011:android:0ae806ef212bb9d9",
+        "android_client_info": {
+          "package_name": "com.covivo.covoitoura"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "610048529011-d1m2h618hig7ncofaqqdcfddudh1pdkc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.covivo.covoitoura",
+            "certificate_hash": "e8bb8455879efe0d140235130bd89e4d382574b4"
+          }
+        },
+        {
+          "client_id": "610048529011-t7q4nfni7fedvv52d9clneop8nlaoaml.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFvHAFfvqm_bxcfxaOykTC8MFsezPUGr4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "610048529011-t7q4nfni7fedvv52d9clneop8nlaoaml.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "610048529011-2pigc3bq3h7bdb7olo05dg989v6rq0t1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "eu.covivo.covisoft",
+                "app_store_id": "388658537"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:610048529011:android:92bf3f284e70911c",
+        "android_client_info": {
+          "package_name": "com.covivo.covoitoura.debug"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "610048529011-k123si7bu9p9miakv4h5g4mu3iu4mtsu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.covivo.covoitoura.debug",
+            "certificate_hash": "f84ba32b6ca1847c150f20e91b48e84ddbb0027a"
+          }
+        },
+        {
+          "client_id": "610048529011-kq6p5ef31af95gpnqj06fo8rd2o2q8fm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.covivo.covoitoura.debug",
+            "certificate_hash": "e8bb8455879efe0d140235130bd89e4d382574b4"
+          }
+        },
+        {
+          "client_id": "610048529011-t7q4nfni7fedvv52d9clneop8nlaoaml.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFvHAFfvqm_bxcfxaOykTC8MFsezPUGr4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "610048529011-t7q4nfni7fedvv52d9clneop8nlaoaml.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "610048529011-2pigc3bq3h7bdb7olo05dg989v6rq0t1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "eu.covivo.covisoft",
+                "app_store_id": "388658537"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:610048529011:android:4ee880b0ee0850b8599006",
+        "android_client_info": {
+          "package_name": "com.mobicoop.grandlyon"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "610048529011-t7q4nfni7fedvv52d9clneop8nlaoaml.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFvHAFfvqm_bxcfxaOykTC8MFsezPUGr4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "610048529011-t7q4nfni7fedvv52d9clneop8nlaoaml.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "610048529011-2pigc3bq3h7bdb7olo05dg989v6rq0t1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "eu.covivo.covisoft",
+                "app_store_id": "388658537"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:610048529011:android:0d4d08658216da4f599006",
+        "android_client_info": {
+          "package_name": "eu.covivo.covisoft"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "610048529011-t7q4nfni7fedvv52d9clneop8nlaoaml.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFvHAFfvqm_bxcfxaOykTC8MFsezPUGr4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "610048529011-t7q4nfni7fedvv52d9clneop8nlaoaml.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "610048529011-2pigc3bq3h7bdb7olo05dg989v6rq0t1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "eu.covivo.covisoft",
+                "app_store_id": "388658537"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:610048529011:android:2c49757478211438599006",
+        "android_client_info": {
+          "package_name": "eu.covivo.picholines"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "610048529011-t7q4nfni7fedvv52d9clneop8nlaoaml.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFvHAFfvqm_bxcfxaOykTC8MFsezPUGr4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "610048529011-t7q4nfni7fedvv52d9clneop8nlaoaml.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "610048529011-2pigc3bq3h7bdb7olo05dg989v6rq0t1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "eu.covivo.covisoft",
+                "app_store_id": "388658537"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:610048529011:android:23e01a4d64a54e2d",
+        "android_client_info": {
+          "package_name": "fr.auvergnerhonealpes.movici"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "610048529011-pobctrd47kpok0c7d6nkuc759pe56tao.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "fr.auvergnerhonealpes.movici",
+            "certificate_hash": "78086ef7deebf97bc3ed7232579590b3e8a77967"
+          }
+        },
+        {
+          "client_id": "610048529011-t7q4nfni7fedvv52d9clneop8nlaoaml.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFvHAFfvqm_bxcfxaOykTC8MFsezPUGr4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "610048529011-t7q4nfni7fedvv52d9clneop8nlaoaml.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "610048529011-2pigc3bq3h7bdb7olo05dg989v6rq0t1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "eu.covivo.covisoft",
+                "app_store_id": "388658537"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:610048529011:android:4b167dae667cc245",
+        "android_client_info": {
+          "package_name": "fr.auvergnerhonealpes.movici.debug"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "610048529011-3bemnjdlv29t6rjsflnt83b8rk8gcoti.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "fr.auvergnerhonealpes.movici.debug",
+            "certificate_hash": "f84ba32b6ca1847c150f20e91b48e84ddbb0027a"
+          }
+        },
+        {
+          "client_id": "610048529011-t7q4nfni7fedvv52d9clneop8nlaoaml.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFvHAFfvqm_bxcfxaOykTC8MFsezPUGr4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "610048529011-t7q4nfni7fedvv52d9clneop8nlaoaml.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "610048529011-2pigc3bq3h7bdb7olo05dg989v6rq0t1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "eu.covivo.covisoft",
+                "app_store_id": "388658537"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:610048529011:android:596371cb7d02330a",
+        "android_client_info": {
+          "package_name": "fr.covivo.android.lorraine"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "610048529011-77c2r863lr303h3gk7feq1rkbpd5lg4t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "fr.covivo.android.lorraine",
+            "certificate_hash": "ae96653dc2f4bd6d50c91010e91576d9e0558035"
+          }
+        },
+        {
+          "client_id": "610048529011-t7q4nfni7fedvv52d9clneop8nlaoaml.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFvHAFfvqm_bxcfxaOykTC8MFsezPUGr4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "610048529011-t7q4nfni7fedvv52d9clneop8nlaoaml.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "610048529011-2pigc3bq3h7bdb7olo05dg989v6rq0t1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "eu.covivo.covisoft",
+                "app_store_id": "388658537"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:610048529011:android:89e2f3d1638386aa",
+        "android_client_info": {
+          "package_name": "fr.covivo.android.lorraine.debug"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "610048529011-mutqvl4qgit5rg1tm8eokj6alnnstjg2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "fr.covivo.android.lorraine.debug",
+            "certificate_hash": "f84ba32b6ca1847c150f20e91b48e84ddbb0027a"
+          }
+        },
+        {
+          "client_id": "610048529011-u17196dmla40mp3sb52f3ueeelpomg3o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "fr.covivo.android.lorraine.debug",
+            "certificate_hash": "ae96653dc2f4bd6d50c91010e91576d9e0558035"
+          }
+        },
+        {
+          "client_id": "610048529011-t7q4nfni7fedvv52d9clneop8nlaoaml.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFvHAFfvqm_bxcfxaOykTC8MFsezPUGr4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "610048529011-t7q4nfni7fedvv52d9clneop8nlaoaml.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "610048529011-2pigc3bq3h7bdb7olo05dg989v6rq0t1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "eu.covivo.covisoft",
+                "app_store_id": "388658537"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:610048529011:android:64c63ad087a7c6c1",
+        "android_client_info": {
+          "package_name": "fr.covivo.egger"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "610048529011-sjmb0l8q7l74vhdpb7ktleddl96fpmbi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "fr.covivo.egger",
+            "certificate_hash": "4593e9c2ee527c2303de996986705cc9f2dfe397"
+          }
+        },
+        {
+          "client_id": "610048529011-t7q4nfni7fedvv52d9clneop8nlaoaml.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFvHAFfvqm_bxcfxaOykTC8MFsezPUGr4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "610048529011-t7q4nfni7fedvv52d9clneop8nlaoaml.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "610048529011-2pigc3bq3h7bdb7olo05dg989v6rq0t1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "eu.covivo.covisoft",
+                "app_store_id": "388658537"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:610048529011:android:7a2525f65d21c852",
+        "android_client_info": {
+          "package_name": "fr.covivo.egger.debug"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "610048529011-c59mv7evnhslmnafvatogvkpkdj99k5c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "fr.covivo.egger.debug",
+            "certificate_hash": "5fa5dcdb45e223db8cc3d0c9a557e7acfb6eb1ab"
+          }
+        },
+        {
+          "client_id": "610048529011-t7q4nfni7fedvv52d9clneop8nlaoaml.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFvHAFfvqm_bxcfxaOykTC8MFsezPUGr4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "610048529011-t7q4nfni7fedvv52d9clneop8nlaoaml.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "610048529011-2pigc3bq3h7bdb7olo05dg989v6rq0t1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "eu.covivo.covisoft",
+                "app_store_id": "388658537"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:610048529011:android:728b89c2223eff05599006",
+        "android_client_info": {
+          "package_name": "fr.covivo.eggerway"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "610048529011-t7q4nfni7fedvv52d9clneop8nlaoaml.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFvHAFfvqm_bxcfxaOykTC8MFsezPUGr4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "610048529011-t7q4nfni7fedvv52d9clneop8nlaoaml.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "610048529011-2pigc3bq3h7bdb7olo05dg989v6rq0t1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "eu.covivo.covisoft",
+                "app_store_id": "388658537"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:610048529011:android:9acf908aa7042499",
+        "android_client_info": {
+          "package_name": "fr.covivo.passpass"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "610048529011-046n04bd2l4dvkcnn4gc07a0gk9htrtq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "fr.covivo.passpass",
+            "certificate_hash": "b47e264a024c4e7b9ae722acbc514d678094c40c"
+          }
+        },
+        {
+          "client_id": "610048529011-t7q4nfni7fedvv52d9clneop8nlaoaml.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFvHAFfvqm_bxcfxaOykTC8MFsezPUGr4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "610048529011-t7q4nfni7fedvv52d9clneop8nlaoaml.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "610048529011-2pigc3bq3h7bdb7olo05dg989v6rq0t1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "eu.covivo.covisoft",
+                "app_store_id": "388658537"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:610048529011:android:ccfd138980fedbfe",
+        "android_client_info": {
+          "package_name": "fr.covivo.passpass.debug"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "610048529011-cvinchoqcnmimepe4d3a27qm06a160bb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "fr.covivo.passpass.debug",
+            "certificate_hash": "d5002b0c6acb58f22ffc7afbd4e5a12e02d743fe"
+          }
+        },
+        {
+          "client_id": "610048529011-t7q4nfni7fedvv52d9clneop8nlaoaml.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFvHAFfvqm_bxcfxaOykTC8MFsezPUGr4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "610048529011-t7q4nfni7fedvv52d9clneop8nlaoaml.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "610048529011-2pigc3bq3h7bdb7olo05dg989v6rq0t1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "eu.covivo.covisoft",
+                "app_store_id": "388658537"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:610048529011:android:3c012b08bc3ea07c",
+        "android_client_info": {
+          "package_name": "fr.covivo.reunion"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "610048529011-igu4q5mt50s3dml8jqjo5umjv9gh8dfq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "fr.covivo.reunion",
+            "certificate_hash": "e7a58d8a15ba94b202df726e274e79ef9bc9a0fd"
+          }
+        },
+        {
+          "client_id": "610048529011-t7q4nfni7fedvv52d9clneop8nlaoaml.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFvHAFfvqm_bxcfxaOykTC8MFsezPUGr4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "610048529011-t7q4nfni7fedvv52d9clneop8nlaoaml.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "610048529011-2pigc3bq3h7bdb7olo05dg989v6rq0t1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "eu.covivo.covisoft",
+                "app_store_id": "388658537"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:610048529011:android:20e9812cbf11dab0",
+        "android_client_info": {
+          "package_name": "fr.covivo.reunion.debug"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "610048529011-b1qikqrsc03m6f5cm6sus66k62umiqf4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "fr.covivo.reunion.debug",
+            "certificate_hash": "f84ba32b6ca1847c150f20e91b48e84ddbb0027a"
+          }
+        },
+        {
+          "client_id": "610048529011-t7q4nfni7fedvv52d9clneop8nlaoaml.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFvHAFfvqm_bxcfxaOykTC8MFsezPUGr4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "610048529011-t7q4nfni7fedvv52d9clneop8nlaoaml.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "610048529011-2pigc3bq3h7bdb7olo05dg989v6rq0t1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "eu.covivo.covisoft",
+                "app_store_id": "388658537"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:610048529011:android:9ea925bafe82a8b6599006",
+        "android_client_info": {
+          "package_name": "fr.mobicoop.grandlyon"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "610048529011-t7q4nfni7fedvv52d9clneop8nlaoaml.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFvHAFfvqm_bxcfxaOykTC8MFsezPUGr4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "610048529011-t7q4nfni7fedvv52d9clneop8nlaoaml.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "610048529011-2pigc3bq3h7bdb7olo05dg989v6rq0t1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "eu.covivo.covisoft",
+                "app_store_id": "388658537"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:610048529011:android:a2221e2ef654f7ba599006",
+        "android_client_info": {
+          "package_name": "fr.mobicoop.mobisdis"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "610048529011-t7q4nfni7fedvv52d9clneop8nlaoaml.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFvHAFfvqm_bxcfxaOykTC8MFsezPUGr4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "610048529011-t7q4nfni7fedvv52d9clneop8nlaoaml.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "610048529011-2pigc3bq3h7bdb7olo05dg989v6rq0t1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "eu.covivo.covisoft",
+                "app_store_id": "388658537"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:610048529011:android:34a453c3ec5ca6d1599006",
+        "android_client_info": {
+          "package_name": "fr.mobicoop.ouestgo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "610048529011-t7q4nfni7fedvv52d9clneop8nlaoaml.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFvHAFfvqm_bxcfxaOykTC8MFsezPUGr4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "610048529011-t7q4nfni7fedvv52d9clneop8nlaoaml.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "610048529011-2pigc3bq3h7bdb7olo05dg989v6rq0t1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "eu.covivo.covisoft",
+                "app_store_id": "388658537"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:610048529011:android:ab945d722f5a2232599006",
+        "android_client_info": {
+          "package_name": "fr.mobicoop.txiktxak"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "610048529011-t7q4nfni7fedvv52d9clneop8nlaoaml.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFvHAFfvqm_bxcfxaOykTC8MFsezPUGr4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "610048529011-t7q4nfni7fedvv52d9clneop8nlaoaml.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "610048529011-2pigc3bq3h7bdb7olo05dg989v6rq0t1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "eu.covivo.covisoft",
+                "app_store_id": "388658537"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
