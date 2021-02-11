@@ -43,9 +43,7 @@ LICENSE
         </ion-tab>
 
         <ion-tab tab="messages" v-if="!!this.$store.state.userStore.user">
-          <keep-alive>
           <Messages />
-          </keep-alive>
         </ion-tab>
 
         <ion-tab tab="communities" v-if="!!this.$store.state.userStore.user">
@@ -81,7 +79,7 @@ LICENSE
               <ion-label>{{ $t('Nav.sign-in') }}</ion-label>
             </ion-tab-button>
 
-            <ion-tab-button v-if="!!this.$store.state.userStore.user" tab="messages" :to="{ name: 'messages' }">
+            <ion-tab-button v-if="!!this.$store.state.userStore.user" tab="messages" :to="{ name: 'messages' }" @click="updateMessages()">
               <ion-icon name="text"></ion-icon>
               <ion-label>{{ $t('Nav.messages') }}</ion-label>
             </ion-tab-button>
@@ -152,6 +150,18 @@ LICENSE
         isMobile: isPlatform(window.document.defaultView, "mobile"),
         hasCommunities: JSON.parse(process.env.VUE_APP_SHOW_COMMUNITIES),
         communityInTabbar: JSON.parse(process.env.VUE_APP_COMMUNITY_IN_TABBAR),
+      }
+    },
+    methods: {
+      updateMessages() {
+        this.$store.dispatch(
+          "getAllMessagesCarpool",
+          this.$store.state.userStore.user.id
+        );
+        this.$store.dispatch(
+          "getAllMessagesDirect",
+          this.$store.state.userStore.user.id
+        );
       }
     }
   }

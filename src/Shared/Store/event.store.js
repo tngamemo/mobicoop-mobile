@@ -89,7 +89,8 @@ export const eventStore = {
         status: 1,
         useTime: false,
         url: '',
-        user: ''
+        user: '',
+        private: false
       };
       state.file = null
     },

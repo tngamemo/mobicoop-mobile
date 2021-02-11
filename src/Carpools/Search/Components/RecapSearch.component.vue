@@ -33,7 +33,7 @@ LICENSE
     <div class="mc-recap-search-filters mb-5" v-if="!!this.filters">
       <p class="mb-5">{{$t('RecapSearch.filters')}} :</p>
       <div>
-        <div v-if="!!this.filters.communities" class="mc-recap-search-filter">{{$t('RecapSearch.communities')}}</div>
+        <div v-if="!!this.filters.communities" @click="emptyCommunities()" class="mc-recap-search-filter">{{$t('RecapSearch.communities')}} <ion-icon name="close"></ion-icon></div>
       </div>
     </div>
 
@@ -100,6 +100,11 @@ LICENSE
     methods: {
       search(role) {
         this.$store.state.searchStore.searchObject.role = role;
+        this.$store.dispatch('searchCarpools', this.$route.params.filters)
+      },
+
+      emptyCommunities() {
+        this.$route.params.filters = null;
         this.$store.dispatch('searchCarpools', this.$route.params.filters)
       },
 

@@ -285,6 +285,10 @@ export default {
       } else {
 
          this.eventToPost.user = this.$store.getters.user["@id"];
+         if (!!!this.eventToPost.private) {
+           this.eventToPost.private = false;
+         }
+
 
          this.$store
           .dispatch("postEvent", this.eventToPost)

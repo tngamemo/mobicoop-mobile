@@ -218,7 +218,7 @@ LICENSE
         this.$router.push({ name: 'public-transport', params: { param: index } });
       },
       goToDetailRdex(carpool) {
-        window.open(carpool.externalUrl + carpool.externalOrigin, '_blank');
+        window.open(carpool.externalUrl, '_blank');
       },
       getName() {
         return process.env.VUE_APP_NAME
