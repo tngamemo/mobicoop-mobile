@@ -24,7 +24,7 @@
           </div>
 
           <div class="mc-form-alternate">
-            <div class="pointer" @click="forgotPassword()">{{$t('solidaryTransport.login.form.forgotPassword')}}</div>
+            <div class="pointer" @click="forgotPassword()"><u>{{$t('solidaryTransport.login.form.forgotPassword')}}</u></div>
             <br>
             <div class="pointer" @click="$router.push({name: 'solidaryTransport.register' })" v-html="$t('solidaryTransport.login.form.notRegistered')"></div>
           </div>
