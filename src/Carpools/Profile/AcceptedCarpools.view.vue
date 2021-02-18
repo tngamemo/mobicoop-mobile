@@ -105,7 +105,7 @@ LICENSE
     },
     methods: {
       getFormattedCarpoolItem(carpool) {
-        return new CarpoolItemDTO().carpoolItemFromSearch(carpool.asks[0].results[0])
+        return new CarpoolItemDTO().carpoolItemFromSearch(carpool)
       },
       getPayment(carpool) {
         const payment = {};

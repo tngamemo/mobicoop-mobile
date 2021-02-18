@@ -57,7 +57,56 @@ export default class CarpoolItemDTO {
     if(this.resultDriverOrPassenger  && this.resultDriverOrPassenger.outward) {
       this.isMultipleTimes = this.resultDriverOrPassenger.outward.multipleTimes;
     }
-    this.paymentStatus = carpool.paymentStatus
+    this.paymentStatus = carpool.paymentStatus;
+    return this;
+  }
+
+  carpoolItemFromMyCarpoolAccepted(carpool){
+    this.id = carpool.id;
+    this.frequency = carpool.frequency;
+    this.price = carpool.price;
+    this.passenger = carpool.rolePassenger;
+    this.driver = carpool.roleDriver;
+    this.seats = carpool.seats;
+    this.origin = carpool.waypoints[0].address;
+    this.destination = [...carpool.waypoints].pop().address;
+    let carpooler = null;
+    if (carpool.driver.id) {
+      carpooler = carpool.driver
+    } else {
+      carpooler = passengers[0];
+    }
+
+
+
+
+    this.carpooler = this.getCarpooler(carpool);
+    /*
+    if(carpool.communities) {
+      this.community =  Array.isArray(carpool.communities) ? carpool.communities : Object.keys(carpool.communities);
+    }
+     */
+    this.pendingAsk = carpool.pendingAsk;
+    this.acceptedAsk = carpool.acceptedAsk;
+    if (carpool.frequency == 1) {
+      this.date = carpool.outwardDate;
+      this.time = carpool.outwardTime;
+      // indexTime permet d'afficher l'horaire de prise en charge, si passager on prend le 2eme outward waypoint et l'avant dernier pour la dépose.
+      const indexTime = !!carpool.resultDriver ? 1 : 0;
+      this.outwardTime = this.resultDriveOrPassenger(carpool).outward.waypoints[indexTime].time;
+      const arr = [...this.resultDriveOrPassenger(carpool).outward.waypoints];
+      this.outwardEndTime = arr[arr.length - (1 + indexTime)].time;
+    }
+    if (carpool.frequency == 2) {
+      this.regularDays = this.getRegularDaysFromSearch(carpool);
+      this.outwardTime = carpool.outwardTime;
+      this.returnTime = carpool.returnTime;
+    }
+    this.resultDriverOrPassenger = this.resultDriveOrPassenger(carpool);
+    if(this.resultDriverOrPassenger  && this.resultDriverOrPassenger.outward) {
+      this.isMultipleTimes = this.resultDriverOrPassenger.outward.multipleTimes;
+    }
+    this.paymentStatus = carpool.paymentStatus;
     return this;
   }
 

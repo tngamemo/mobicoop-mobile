@@ -112,6 +112,7 @@ export const userStore = {
     },
 
     user_accepted_carpools_request_success(state, data) {
+      /*
       state.statusAcceptedCarpools = 'success';
       // for phone display
       const result= [];
@@ -123,7 +124,8 @@ export const userStore = {
           result.push(carpool);
         });
       }),
-      state.acceptedCarpools = result.reverse();
+       */
+      state.acceptedCarpools = data['hydra:member'].reverse();
     },
 
 
@@ -360,7 +362,7 @@ export const userStore = {
     getAcceptedCarpools({commit}, userId) {
       commit('user_accepted_carpools_request');
       return new Promise((resolve, reject) => {
-        http.get(`/carpools/accepted`)
+        http.get(`/my-carpools`)
           .then(resp => {
 
             commit('user_accepted_carpools_request_success', resp.data);
