@@ -33,6 +33,7 @@ LICENSE
   import jwt_decode from "jwt-decode";
   import {isPlatform} from "@ionic/core";
   import { Plugins } from '@capacitor/core';
+  import { EventBus } from './Shared/Mixin/event-bus.js';
   const { Device } = Plugins;
   const { Browser } = Plugins;
   const { App } = Plugins;
@@ -104,15 +105,24 @@ LICENSE
 
     },
     mounted() {
-      if(JSON.parse(process.env.VUE_APP_ANALYTICS_ACTIVATED)) {
-        this.initAnalytics();
-      }
-      if(JSON.parse(process.env.VUE_APP_GTAG_ACTIVATED)) {
-        this.initGtags();
-      }
+      EventBus.$on('INIT_STATISTICS', () => {
+        this.initStatistics();
+      });
+      this.initStatistics();
       this.registerDeeplink();
     },
     methods: {
+
+      initStatistics() {
+        if (this.$store.state.appStore.userCookies && this.$store.state.appStore.userCookies.statistics) {
+          if (JSON.parse(process.env.VUE_APP_ANALYTICS_ACTIVATED)) {
+            this.initAnalytics();
+          }
+          if (JSON.parse(process.env.VUE_APP_GTAG_ACTIVATED)) {
+            this.initGtags();
+          }
+        }
+      },
 
       authUserOnStart: function() {
         // Get the user api Token. If empty, we connect with the anonymous User

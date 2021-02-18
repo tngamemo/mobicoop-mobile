@@ -458,9 +458,19 @@
     "title": "Solidarité"
   },
   "BannerCookie": {
-    "desc": "Pour son fonctionnement, cette application utilise des cookies pour maintenir active votre connexion au site et réaliser des statistiques de visite sans aucune finalité commerciale. Ces statistiques sont anonymisées et leurs données restent dans un outil interne. Elles ne sont pas transmises à un tiers.",
+    "private-life": "Vie privée",
+    "private-life-choice": "vous donne le choix",
+    "desc": "Pour son fonctionnement, cette application utilise des cookies. Choisissez librement les cookies que vous souhaitez activer.",
+    "politic-desc": "Pour plus de détails sur notre gestion des données dans la",
     "politic": "Politique de confidentialité",
-    "agree": "J'ai compris"
+    "agree": "J'ai compris",
+    "connexion": "Maintenir votre connexion active",
+    "statistics": "Nous partager les statistiques anonymes de votre visite.",
+    "statistics-desc": "Ces statistiques sont sans finalité commerciale et leur données restent dans un outil interne. Elles nous aident à améliorer le service, et témoigner de sa popularité pour le maintenir gratuit.",
+    "socialNetwork": "Ajouter les fonctionnalités de réseaux sociaux",
+    "necessary-cookie" : "Cookie nécessaire",
+    "optional-cookie" : "Cookie optionnel",
+    "register": "Enregistrer"
   },
   "RecapSearch": {
     "filters": "Filtres",

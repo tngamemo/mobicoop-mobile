@@ -114,6 +114,9 @@ LICENSE
           <img class="partner-img" src="/assets/partner.png" alt="" />
         </div>
 
+        <div class="text-center" @click="$store.state.appStore.userCookies.seePopup = true">
+          <ion-text color="primary"><small style="opacity: 0.75">Gestion des cookies</small></ion-text>
+        </div>
         <div class="text-center" v-if="version">
           <ion-text color="primary"><small style="opacity: 0.75">version {{version}}</small></ion-text>
         </div>
