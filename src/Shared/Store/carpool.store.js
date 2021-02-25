@@ -96,7 +96,7 @@ export const carpoolStore = {
       state.statusContactCarpool = '';
       state.distanceCarpool = '';
       state.directPointsCarpool = '';
-      state.priceCarpool = '';
+      state.priceCarpool = !!carpool.outwardDriverPrice ? carpool.outwardDriverPrice : carpool.outwardPassengerPrice;
       state.carpoolToPost = carpool;
       if (state.carpoolToPost.schedule) {
         const scheduleCopy = JSON.parse(JSON.stringify(state.carpoolToPost.schedule));
@@ -157,6 +157,7 @@ export const carpoolStore = {
     carpoolPost_fromSearch(state, payload) {
       if (!!payload.origin) state.addressessUseToPost.origin = payload.origin;
       if (!!payload.destination) state.addressessUseToPost.destination = payload.destination;
+      if (!!payload.step) state.addressessUseToPost.step = payload.step;
       if (!!payload.frequency) state.carpoolToPost.frequency = payload.frequency;
       if (!!payload.outwardDate) state.carpoolToPost.outwardDate = payload.outwardDate;
     },
@@ -353,14 +354,15 @@ export const carpoolStore = {
       state.addressessUseToPost = copyAddresses;
     },
 
-    treatementUpdateAddresses({ state, dispatch }) {
+    treatementUpdateAddresses({ state, dispatch }, payload) {
       if (state.addressessUseToPost.origin && state.addressessUseToPost.destination) {
         const arrayOfStep = state.addressessUseToPost.step.filter(value => Object.keys(value).length !== 0)
         const addresses = [state.addressessUseToPost.origin, ...arrayOfStep, state.addressessUseToPost.destination];
 
         state.carpoolToPost.outwardWaypoints = addresses;
 
-        dispatch('getDistanceOfCarpool', { addresses });
+        const noPriceChange = (!!payload && payload.noPriceChange) ? true : false
+        dispatch('getDistanceOfCarpool', { addresses, noPriceChange });
       }
     },
 
@@ -383,10 +385,12 @@ export const carpoolStore = {
             commit('distance_success', { distance: resp.data['hydra:member'][0].distance })
             commit('carpool_gps', { directPoints: resp.data['hydra:member'][0].directPoints })
 
-            dispatch('getPriceofCarpool', { priceKm: Math.round(state.distanceCarpool * process.env.VUE_APP_PRICE_BY_KM * 100) / 100 / 1000 }).then(resp => {
-              // On commit et envoie le resultat
-              commit('price_carpool_success', { price: resp.data.value })
-            })
+            if(!payload.noPriceChange) {
+              dispatch('getPriceofCarpool', {priceKm: Math.round(state.distanceCarpool * process.env.VUE_APP_PRICE_BY_KM * 100) / 100 / 1000}).then(resp => {
+                // On commit et envoie le resultat
+                commit('price_carpool_success', {price: resp.data.value})
+              })
+            }
             resolve(resp)
           })
           .catch(err => {

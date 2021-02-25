@@ -536,6 +536,7 @@ export default {
       const payload = {
         origin: carpool.outwardWaypoints[0].address,
         destination: carpool.outwardWaypoints[carpool.outwardWaypoints.length - 1].address,
+        step: carpool.outwardWaypoints.length > 2 ? carpool.outwardWaypoints.slice(1, carpool.outwardWaypoints.length - 1).map(item => item.address) : [],
         outwardDate: carpool.outwardDate,
         frequency: carpool.frequency
       };
@@ -543,7 +544,7 @@ export default {
       this.$store.commit("carpoolPost_update", carpool);
       this.$store.commit("carpoolPost_fromSearch", payload);
       if (payload.origin || payload.outwardDate) {
-        this.$store.dispatch("treatementUpdateAddresses");
+        this.$store.dispatch("treatementUpdateAddresses", {noPriceChange: true});
       }
 
       let filters = {};
