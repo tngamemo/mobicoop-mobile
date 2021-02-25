@@ -68,45 +68,34 @@ export default class CarpoolItemDTO {
     this.passenger = carpool.rolePassenger;
     this.driver = carpool.roleDriver;
     this.seats = carpool.seats;
-    this.origin = carpool.waypoints[0].address;
-    this.destination = [...carpool.waypoints].pop().address;
-    let carpooler = null;
+    this.origin = this.roleDriveOrPassenger(carpool).waypoints[0];
+    this.destination = [...this.roleDriveOrPassenger(carpool).waypoints].pop();
+
     if (carpool.driver.id) {
-      carpooler = carpool.driver
+      this.carpooler = this.getCarpooler({carpooler: carpool.driver});
     } else {
-      carpooler = passengers[0];
+      this.carpooler = this.getCarpooler({carpooler: carpool.passenger});
     }
 
-
-
-
-    this.carpooler = this.getCarpooler(carpool);
-    /*
-    if(carpool.communities) {
-      this.community =  Array.isArray(carpool.communities) ? carpool.communities : Object.keys(carpool.communities);
-    }
-     */
-    this.pendingAsk = carpool.pendingAsk;
-    this.acceptedAsk = carpool.acceptedAsk;
+    //this.pendingAsk = carpool.pendingAsk;
+    this.acceptedAsk = carpool.asks;
     if (carpool.frequency == 1) {
       this.date = carpool.outwardDate;
       this.time = carpool.outwardTime;
-      // indexTime permet d'afficher l'horaire de prise en charge, si passager on prend le 2eme outward waypoint et l'avant dernier pour la dépose.
-      const indexTime = !!carpool.resultDriver ? 1 : 0;
-      this.outwardTime = this.resultDriveOrPassenger(carpool).outward.waypoints[indexTime].time;
-      const arr = [...this.resultDriveOrPassenger(carpool).outward.waypoints];
-      this.outwardEndTime = arr[arr.length - (1 + indexTime)].time;
+      this.outwardTime = this.roleDriveOrPassenger(carpool).waypoints[0].time;
+      const arr = [...this.roleDriveOrPassenger(carpool).waypoints];
+      this.outwardEndTime = arr[arr.length - 1].time;
     }
     if (carpool.frequency == 2) {
-      this.regularDays = this.getRegularDaysFromSearch(carpool);
-      this.outwardTime = carpool.outwardTime;
-      this.returnTime = carpool.returnTime;
+      this.regularDays = this.getRegularDaysFromAccepted(this.roleDriveOrPassenger(carpool));
+      this.outwardTime = this.roleDriveOrPassenger(carpool).schedule.pickUpTime;
+      this.returnTime = this.roleDriveOrPassenger(carpool).schedule.returnPickUpTime;
     }
-    this.resultDriverOrPassenger = this.resultDriveOrPassenger(carpool);
+    this.resultDriverOrPassenger = this.roleDriveOrPassenger(carpool);
     if(this.resultDriverOrPassenger  && this.resultDriverOrPassenger.outward) {
       this.isMultipleTimes = this.resultDriverOrPassenger.outward.multipleTimes;
     }
-    this.paymentStatus = carpool.paymentStatus;
+    this.paymentStatus = this.roleDriveOrPassenger(carpool).payment.status;
     return this;
   }
 
@@ -223,6 +212,20 @@ export default class CarpoolItemDTO {
       return result;
   }
 
+  getRegularDaysFromAccepted(carpool) {
+    const result = [];
+    if (carpool.schedule) {
+      result.push({trad: 'Carpool.L', value: carpool.schedule.mon.check});
+      result.push({trad: 'Carpool.Ma', value:  carpool.schedule.tue.check});
+      result.push({trad: 'Carpool.Me', value:  carpool.schedule.wed.check});
+      result.push({trad: 'Carpool.J', value:  carpool.schedule.thu.check});
+      result.push({trad: 'Carpool.V', value:  carpool.schedule.fri.check});
+      result.push({trad: 'Carpool.S', value: carpool.schedule.sat.check});
+      result.push({trad: 'Carpool.D', value: carpool.schedule.sun.check});
+    }
+    return result;
+  }
+
   getRegularDaysFromMyCarpool(carpool) {
     const result = [];
     if (carpool) {
@@ -270,6 +273,10 @@ export default class CarpoolItemDTO {
 
   resultDriveOrPassenger(carpool) {
     return !! carpool.resultDriver ? carpool.resultDriver : carpool.resultPassenger;
+  }
+
+  roleDriveOrPassenger(carpool) {
+    return !!carpool.driver.id ? carpool.driver : carpool.passenger;
   }
 
 }

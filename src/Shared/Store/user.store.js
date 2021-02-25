@@ -125,7 +125,23 @@ export const userStore = {
         });
       }),
        */
-      state.acceptedCarpools = data['hydra:member'].reverse();
+      state.statusAcceptedCarpools = 'success';
+      // je sépare les passengers
+      const result= [];
+      data['hydra:member'].forEach(item => {
+        if (item.passengers.length == 0 && !!item.driver.id) {
+          result.push(item);
+        } else {
+          item.passengers.forEach(passenger => {
+            const c = Object.assign({}, item);
+            c.passenger = passenger;
+            result.push(c)
+          })
+        }
+      });
+
+
+      state.acceptedCarpools = result.reverse();
     },
 
 
@@ -362,7 +378,7 @@ export const userStore = {
     getAcceptedCarpools({commit}, userId) {
       commit('user_accepted_carpools_request');
       return new Promise((resolve, reject) => {
-        http.get(`/my-carpools`)
+        http.get(`/my_carpools`)
           .then(resp => {
 
             commit('user_accepted_carpools_request_success', resp.data);

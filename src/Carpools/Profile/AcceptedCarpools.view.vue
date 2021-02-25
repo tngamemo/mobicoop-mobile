@@ -59,7 +59,7 @@ LICENSE
           v-for="(carpool, index) in filterCarpools(carpools)"
           :key="index"
         >
-          <CarpoolItem :carpool="getFormattedCarpoolItem(carpool)" :type="'accepted'" :payment="getPayment(carpool)" :carpoolProofId="carpool.asks[0].carpoolProofId"/>
+          <CarpoolItem :carpool="getFormattedCarpoolItem(carpool)" :type="'accepted'" :payment="getPayment(carpool)" :carpoolProofId="null"/>
         </div>
       </div>
     </ion-content>
@@ -105,15 +105,22 @@ LICENSE
     },
     methods: {
       getFormattedCarpoolItem(carpool) {
-        return new CarpoolItemDTO().carpoolItemFromSearch(carpool)
+        return new CarpoolItemDTO().carpoolItemFromMyCarpoolAccepted(carpool)
       },
       getPayment(carpool) {
+        let c;
+        if (carpool.driver.id) {
+          c = carpool.driver
+        } else if (carpool.passenger.id) {
+          c = carpool.passenger
+        }
+
         const payment = {};
-        payment.paymentStatus = carpool.paymentStatus;
-        payment.paymentItemId = carpool.paymentItemId;
-        payment.paymentItemWeek = carpool.paymentItemWeek;
-        payment.unpaidDate = carpool.unpaidDate;
-        payment.askId = carpool.asks[0] ? carpool.asks[0].askId : null;
+        payment.paymentStatus = c.payment.status;
+        payment.paymentItemId = c.payment.itemId;
+        payment.paymentItemWeek = c.payment.week;
+        payment.unpaidDate = c.payment.unpaidDate;
+        payment.askId = c.askId;
         return payment;
       },
       filterCarpools() {
