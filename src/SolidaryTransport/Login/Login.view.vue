@@ -142,6 +142,7 @@ export default {
                 if (isPlatform(window.document.defaultView, "android")) {
                   mobileRegistration = 3;
                 }
+                const backLink = process.env.VUE_APP_DOMAIN + '/#/solidary-transport/reset-password?token=';
 
                 this.$store.dispatch('resetPassword', {email: data.email, mobileRegistration : mobileRegistration}).then(() => {
                   this.presentToast(this.$t('solidaryTransport.login.forgotPassword.messages.success'), 'secondary')

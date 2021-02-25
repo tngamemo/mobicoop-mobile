@@ -44,6 +44,7 @@ import GeoSearch from './GeoSearch/GeoSearch.view.vue';
 import Vue from 'vue'
 import store from '../Shared/Store/store'
 import _ from 'lodash'
+import ResetPassword from "../Carpools/Login/ResetPassword.view";
 
 let preventAccess = function (to, from, next) {
   let user = store.state.userStore.user
@@ -393,6 +394,11 @@ export default [
     path: 'article',
     name: 'solidaryTransport.article',
     component: Help
+  },
+  {
+    path: 'reset-password',
+    name: 'solidaryTransport.reset-password',
+    component: ResetPassword,
   },
 ]
 
