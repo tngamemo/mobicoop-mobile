@@ -142,7 +142,7 @@ LICENSE
             this.$store.dispatch('finalizeResetPassword', {password, pwdToken})
               .then(res => {
                 this.presentToast("Le mot de passe a bien été réinitialisé", 'success');
-                this.$router.push('login');
+                  this.$router.push( (this.$route.name.includes('solidaryTransport') ? 'solidaryTransport.' : '' ) + 'login');
               })
               .catch(err => {
                 this.presentToast("Une erreur est survenue", 'danger')

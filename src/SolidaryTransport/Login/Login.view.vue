@@ -144,7 +144,7 @@ export default {
                 }
                 const backLink = process.env.VUE_APP_DOMAIN + '/#/solidary-transport/reset-password?token=';
 
-                this.$store.dispatch('resetPassword', {email: data.email, mobileRegistration : mobileRegistration}).then(() => {
+                this.$store.dispatch('resetPassword', {email: data.email, mobileRegistration : mobileRegistration, backLink: backLink}).then(() => {
                   this.presentToast(this.$t('solidaryTransport.login.forgotPassword.messages.success'), 'secondary')
                 }).catch(() => {
                   this.presentToast(this.$t('solidaryTransport.login.forgotPassword.messages.error'), 'danger')
