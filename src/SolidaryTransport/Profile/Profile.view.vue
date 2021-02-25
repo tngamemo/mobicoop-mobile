@@ -20,17 +20,17 @@
               <span v-html="$t('solidaryTransport.profile.actions.agenda')"></span>
             </ion-button>
 
-            <ion-button class="mc-st-action" color="success" @click="$router.push({name:'solidaryTransport.profile.requests'})">
+            <ion-button class="mc-st-action" color="success" v-if="!light" @click="$router.push({name:'solidaryTransport.profile.requests'})">
               <ion-icon slot="start" name="hand"></ion-icon>
               <span v-html="$t('solidaryTransport.profile.actions.requests')"></span>
             </ion-button>
 
-            <ion-button class="mc-st-action" color="success" @click="$router.push({name:'my-carpools'})">
+            <ion-button class="mc-st-action" color="success" v-if="!light" @click="$router.push({name:'my-carpools'})">
               <ion-icon slot="start" name="list-box"></ion-icon>
               <span v-html="$t('solidaryTransport.profile.actions.carpools')"></span>
             </ion-button>
 
-            <ion-button class="mc-st-action" color="success" @click="$router.push({name:'accepted-carpools'})">
+            <ion-button class="mc-st-action" color="success" v-if="!light" @click="$router.push({name:'accepted-carpools'})">
               <ion-icon slot="start" name="checkmark-circle"></ion-icon>
               <span v-html="$t('solidaryTransport.profile.actions.accepted')"></span>
             </ion-button>
@@ -74,7 +74,8 @@
     },
     data () {
       return {
-        seeDiary : JSON.parse(process.env.VUE_APP_SOLIDARY_PROFIL_DIARY)
+        seeDiary : JSON.parse(process.env.VUE_APP_SOLIDARY_PROFIL_DIARY),
+        light : JSON.parse(process.env.VUE_APP_SOLIDARY_LIGHT)
       }
     },
     computed: {},
