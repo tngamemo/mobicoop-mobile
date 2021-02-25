@@ -20,3 +20,21 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw?
+fastlane/Fastfile
+fastlane/Pluginfile
+fastlane/README.md
+fastlane/report.xml
+Gemfile
+Gemfile.lock
+Movici.app.dSYM.zip
+.gitignore
+Movici.ipa
+PassPass.app.dSYM.zip
+PassPass.ipa
+Txik Txak.app.dSYM.zip
+Txik Txak.ipa
+ios/App/App.xcodeproj/xcshareddata/xcschemes/Grand Lyon.xcscheme
+ios/App/App.xcodeproj/xcshareddata/xcschemes/Mobicoop.xcscheme
+ios/App/App.xcodeproj/xcshareddata/xcschemes/MobiSDIS.xcscheme
+ios/App/App.xcodeproj/xcshareddata/xcschemes/PassPass.xcscheme
+ios/App/App.xcodeproj/xcshareddata/xcschemes/Txik Txak.xcscheme
