@@ -172,7 +172,7 @@ LICENSE
         </div>
       </div>
       <div
-        v-if="type == 'my-carpool' && carpool.potentialCarpoolers > 0"
+        v-if="type == 'my-carpool'"
         class="mc-carpool-potential-carpoolers"
       >
         <ion-button
@@ -180,6 +180,7 @@ LICENSE
           fill="outline"
           color="success"
           expand="block"
+          :disabled="carpool.potentialCarpoolers == 0"
           @click="searchPotentialCarpoolers()"
         >{{carpool.potentialCarpoolers}} {{$t("MyCarpools.potentialCarpoolers")}}</ion-button>
       </div>
