@@ -215,8 +215,9 @@ LICENSE
                   if (isPlatform(window.document.defaultView, "android")) {
                     mobileRegistration = 3;
                   }
+                  const backLink = process.env.VUE_APP_DOMAIN + '/#/carpools/reset-password?token=';
 
-                    this.$store.dispatch('resetPassword', {email: data.mail, mobileRegistration : mobileRegistration}).then(() => {
+                    this.$store.dispatch('resetPassword', {email: data.mail, mobileRegistration : mobileRegistration, backLink: backLink}).then(() => {
                       this.presentToast(this.$t("Login.passwordSuccess"), "secondary");
                     }).catch(() => {
                       this.presentToast(this.$t("Commons.error"), "danger");

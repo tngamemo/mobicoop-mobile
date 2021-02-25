@@ -127,6 +127,7 @@ export const registerStore = {
       if (isPlatform(window.document.defaultView, "android")) {
         u.mobileRegistration = 3;
       }
+      u.backLink = process.env.VUE_APP_DOMAIN + '/#/carpools/confirm-registration/' + u.email + '&token=';
       if(u.communityId) {
         u.communityId = Number(u.communityId)
       }
