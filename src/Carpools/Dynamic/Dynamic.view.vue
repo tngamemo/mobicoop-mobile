@@ -456,7 +456,7 @@ LICENSE
       },
       updateDynamics(result, body) {
         return this.$store.dispatch('putDynamics', {
-          id : this.currentDynamic['@id'].replace('/dynamics/',''),
+          id : !!this.currentDynamic['@id'] ? this.currentDynamic['@id'].replace('/dynamics/','') : this.currentDynamic['@id'],
           body : body,
           result : result
         })
