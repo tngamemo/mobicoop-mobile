@@ -776,6 +776,8 @@ export const solidaryTransportStore = {
                 .add(solidary.returnMarginDuration, 'seconds')
                 .format(format)
             }
+          } else {
+            delete solidary.returnMarginDuration;
           }
         }
 
