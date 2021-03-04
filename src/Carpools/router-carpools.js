@@ -72,7 +72,7 @@ Vue.use(IonicVueRouter);
 
 function guardAccesByLogin(to, from, next) {
   if (to.name !== 'login' && !store.getters.userId && !store.getters.userId) {
-    store.commit('redirectionUrl_change', to.path);
+    store.commit('redirectionUrl_change', {name: to.name, params: to.params});
     next({ name: 'login'})
   } else {
     next()

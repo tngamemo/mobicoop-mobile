@@ -7,7 +7,7 @@ import Home from './Home/Home.view.vue';
 import Register from './Register/Register.view.vue';
 import RegisterSubscribe from './Register/RegisterSubscribe.view.vue';
 import RegisterSuccess from './Register/RegisterSuccess.view.vue';
-import Login from './Login/Login.view.vue';
+import LoginSolidary from './Login/LoginSolidary.view.vue';
 
 // Logged
 import Profile from './Profile/Profile.view.vue';
@@ -288,7 +288,7 @@ export default [
       {
         path: '/solidary-transport/login',
         name: 'solidaryTransport.login',
-        component: Login,
+        component: LoginSolidary,
         beforeEnter: preventAccess
       },
       {

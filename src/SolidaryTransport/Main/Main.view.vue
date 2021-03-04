@@ -18,10 +18,10 @@
 
     <ion-tab tab="login">
       <template v-if="$route.query.redirect">
-        <Login :init-redirect="{name: $route.query.redirect || 'solidaryTransport.home'}"/>
+        <LoginSolidary :init-redirect="{name: $route.query.redirect || 'solidaryTransport.home'}"/>
       </template>
       <template v-else>
-        <Login :init-redirect="{name: 'solidaryTransport.home'}"/>
+        <LoginSolidary :init-redirect="{name: 'solidaryTransport.home'}"/>
       </template>
     </ion-tab>
 
@@ -107,7 +107,7 @@
   import Home from '../Home/Home.view.vue';
   import Help from '../Help/Help.view.vue';
   import Register from '../Register/Register.view.vue';
-  import Login from '../Login/Login.view.vue';
+  import LoginSolidary from '../Login/LoginSolidary.view.vue';
   // import Register from '../Register/Register.view.vue';
   // import Login from '../Login/Login.view.vue';
   // import Help from '../Help/Help.view.vue';
@@ -121,7 +121,7 @@
       Home,
       Help,
       Register,
-      Login
+      LoginSolidary
     },
     data () {
       return {

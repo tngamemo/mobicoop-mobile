@@ -164,7 +164,7 @@ LICENSE
          this.password = '';
 
          if (!! this.$store.getters.redirectionUrl) {
-            this.$router.replace({path: this.$store.getters.redirectionUrl});
+            this.$router.replace({name: this.$store.getters.redirectionUrl.name, params: this.$store.getters.redirectionUrl.params});
             this.$store.commit('redirectionUrl_reset');
          } else {
             this.$router.push('home');

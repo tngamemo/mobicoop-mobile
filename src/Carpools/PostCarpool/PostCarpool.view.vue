@@ -72,7 +72,7 @@ LICENSE
   border: 2px solid rgba(var(--ion-color-primary-rgb), 0.4);
   .mc-carpool-post-solidarity-alert {
     padding: 10px;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     border-radius: 20px;
     background: rgba(var(--ion-color-primary-rgb), 0.1);
   }
