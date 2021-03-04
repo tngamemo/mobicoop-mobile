@@ -100,6 +100,16 @@ LICENSE
 .component-content {
   overflow-x: scroll;
   height: calc(100% - 50px);
+  padding-right: 6px;
+}
+
+.component-content::-webkit-scrollbar {
+  display: block;
+  width: 3px;
+}
+.component-content::-webkit-scrollbar-thumb {
+  background-color: var(--ion-color-primary);
+  border-radius: 5px;
 }
 
 .swiper-zoom-container {
