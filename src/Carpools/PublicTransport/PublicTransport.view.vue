@@ -46,6 +46,9 @@ LICENSE
                   <span class="mdi" :class="getIcon(leg)"></span>
                   <ion-badge class="mc-badge-line-number" v-if="leg.ptline" color="primary">{{leg.ptline.number}}</ion-badge>
                 </div>
+                <div v-if="leg.ptline">
+                  <p>{{leg.ptline.ptcompany.name}}</p>
+                </div>
               </ion-col>
               <ion-col size="2">
                 <div>{{leg.ptdeparture.date | moment('utc', 'HH[h]mm')}}</div>
