@@ -48,6 +48,9 @@ LICENSE
           <ion-thumbnail>
             <img :src="!!community.images[0] ? community.images[0].versions.square_250 : '/assets/communities.png'" alt="" />
           </ion-thumbnail>
+          <ion-chip v-if="community.nbMembers" color="medium" outline>
+            <ion-label>{{$t('Community.memberNumber', {nb: community.nbMembers})}}</ion-label>
+          </ion-chip>
         </div>
 
         <div class="mc-community-description mc-community-padding">
@@ -223,7 +226,7 @@ export default {
   },
   created() {
     this.getSpecificCommunity();
-    // this.getAdsCommunity();
+    // this.getAdsCommunity()
   },
   computed: {
     isInCommunity() {
@@ -245,7 +248,7 @@ export default {
         .dispatch("getSpecificCommunity", communityId)
         .then(resp => {
           this.community = resp.data;
-
+          
           this.LMarker.push({
             latlng: [
               this.community.address.latitude,
