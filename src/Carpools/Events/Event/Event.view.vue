@@ -57,6 +57,7 @@ LICENSE
             <span><b>Fin : </b>{{event.toDate | moment("utc", "DD/MM/YY") }}</span>
           </div>
           <p class="mc-event-address">{{event.address.displayLabel[0]}}, {{event.address.displayLabel[1]}}</p>
+          <a v-if="!!event.url" class="mc-event-url" :href="validateUrl()" target="_blank">{{ validateUrl() }} </a>
         </div>
 
         <div class="mc-event-padding">
@@ -105,6 +106,13 @@ LICENSE
     font-style:  italic;
     font-size: small;
   }
+  .mc-event-url {
+    color:white;
+    text-decoration:none;
+    padding-top: 10px;
+    display:block;
+    font-size: 13px;
+  }
 }
 </style>
 
@@ -129,7 +137,8 @@ export default {
   created() {
     this.getSpecificEvent();
   },
-  computed: {},
+  computed: {
+  },
   methods: {
     getSpecificEvent() {
       // On récupére l'event\
@@ -237,7 +246,14 @@ export default {
           ]
         })
         .then(a => a.present());
-    }
+    },
+    validateUrl: function() {
+        if(!!this.event.url && this.event.url.includes('http')){
+            return this.event.url;
+        }else{
+          return 'http://'+this.event.url;
+        }
+      }
   }
 };
 </script>

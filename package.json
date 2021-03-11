@@ -8,6 +8,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "serve:grandlyon": "vue-cli-service serve --mode grandlyon",
+    "serve:grandlyon:local":"export VUE_APP_API_URL=http://localhost:8080 && vue-cli-service serve --mode grandlyon",
     "serve:mobicoopsolidary": "vue-cli-service serve --mode mobicoop",
     "serve:mobicoop": "vue-cli-service serve --mode mobicoop",
     "serve:ouestgo": "vue-cli-service serve --mode ouestgo",
