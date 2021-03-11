@@ -133,7 +133,7 @@ LICENSE
           <div><p>{{recapCarpool.user.givenName }} {{recapCarpool.user.shortFamilyName }}</p></div>
           <div>
           <ion-button
-            v-if="showReviews && recapCarpool.user.id"
+            v-if="recapCarpool.user.id"
             class="mc-small-button"
             color="primary"
             fill="outline"

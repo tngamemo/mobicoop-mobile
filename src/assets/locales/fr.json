@@ -255,6 +255,9 @@
     "refused": "Document refusé",
     "outdated" : "Document périmé"
   },
+  "PublicProfile": {
+    "title": "Voir mon profil public"
+  },
   "AcceptedCarpools": {
     "title": "Mes covoiturages acceptés",
     "come-up": "À venir",

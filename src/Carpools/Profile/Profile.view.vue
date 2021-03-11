@@ -94,6 +94,10 @@ LICENSE
             {{ $t('Profile.my-announce') }}
           </ion-button>
 
+            <ion-button class='mc-big-button' color="success" expand="block" @click="$router.push({name : 'profile-public', params : {id: user.id }})">
+            <ion-icon class="ion-margin-end" name="person"></ion-icon> {{ $t('PublicProfile.title') }}
+          </ion-button>
+
           <ion-button class='mc-big-button' color="success" expand="block" @click="$router.push('accepted-carpools')">
             <ion-icon class="ion-margin-end" name="checkmark-circle"></ion-icon> {{ $t('Profile.my-accepted-carpools') }}
           </ion-button>
