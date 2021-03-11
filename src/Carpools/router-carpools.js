@@ -57,6 +57,7 @@ import BankAccount from './Payment/BankAccount.view.vue';
 import Paye from './Payment/Paye.view.vue';
 import ResetPassword from './Login/ResetPassword.view.vue';
 import ProfilePublic from './Profile/ProfilePublic.view.vue';
+import Speech from './Speech/Speech.view.vue';
 
 import Vue from 'vue'
 import store from '../Shared/Store/store';
@@ -74,7 +75,7 @@ function guardAccesByLogin(to, from, next) {
 
 export default [
   {
-    path: '',
+    path: 'no',
     name: 'mainTabComponent',
     component: MainTabComponent,
     children: [
@@ -292,5 +293,10 @@ export default [
     path: 'public/profile/:id',
     name: 'profile-public',
     component: ProfilePublic,
+  },
+  {
+    path: '',
+    name: 'speech',
+    component: Speech,
   },
 ]

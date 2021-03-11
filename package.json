@@ -57,6 +57,7 @@
     "postinstall": "jetifier"
   },
   "dependencies": {
+    "@capacitor-community/speech-recognition": "git+https://github.com/capacitor-community/speech-recognition.git#master",
     "@capacitor/android": "2.4.2",
     "@capacitor/cli": "2.4.2",
     "@capacitor/core": "2.4.2",
