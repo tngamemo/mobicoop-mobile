@@ -108,9 +108,9 @@ LICENSE
   }
   .mc-event-url {
     color:white;
-    text-decoration:none;
+    text-decoration: none;
     padding-top: 10px;
-    display:block;
+    display: block;
     font-size: 13px;
   }
 }
