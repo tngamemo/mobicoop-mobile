@@ -23,8 +23,11 @@ LICENSE
     <div class="d-flex justify-center align-center" style="height: 100%" v-if="!loaded">
       <ion-icon size="large" color="light" class="rotating" name="md-sync"></ion-icon>
     </div>
-    <ion-app v-if="loaded">
+    <ion-app v-if="loaded && !error" >
       <ion-vue-router />
+    </ion-app>
+    <ion-app v-if="error">
+      <p>test</p>
     </ion-app>
   </div>
 </template>
@@ -33,6 +36,7 @@ LICENSE
   import jwt_decode from "jwt-decode";
   import {isPlatform} from "@ionic/core";
   import { Plugins } from '@capacitor/core';
+  import axios from 'axios';
   const { Device } = Plugins;
   const { Browser } = Plugins;
   const { App } = Plugins;
@@ -44,7 +48,8 @@ LICENSE
       return {
         msg: 'Welcome to Your Vue.js App',
         loaded: false,
-        firstGtag: localStorage.getItem('firstGtag') || true
+        firstGtag: localStorage.getItem('firstGtag') || true,
+        error: false      
       }
     },
     watch:{
@@ -98,10 +103,13 @@ LICENSE
       if (JSON.parse(process.env.VUE_APP_BEHIND_BACKGROUND_IMAGE)) {
         document.documentElement.style.setProperty( 'background-image', 'url(/assets/behind_background.png)');
       }
-
-      // Fonction qui va log l'user ou utilisé un user par défault
-      this.authUserOnStart();
-
+      
+      if(!JSON.parse(process.env.VUE_APP_CHECK_API_ALIVED)) {
+        this.checkApiAlived()
+      } else {
+        // Fonction qui va log l'user ou utilisé un user par défault
+        this.authUserOnStart();
+      }
     },
     mounted() {
       if(JSON.parse(process.env.VUE_APP_ANALYTICS_ACTIVATED)) {
@@ -113,7 +121,20 @@ LICENSE
       this.registerDeeplink();
     },
     methods: {
-
+      checkApiAlived: function () {
+        const http = axios.create({
+          baseURL: process.env.VUE_APP_API_URL,
+          timeout: 10000,
+          headers: { 'Content-Type': 'application/json', 'accept': 'application/ld+json' },
+        });
+        http.get('/rdex/journeys').then((res)=> {
+          this.authUserOnStart();
+        }
+        ).catch(() => {
+                this.loaded = true;
+                this.error =true;
+              })
+      },
       authUserOnStart: function() {
         // Get the user api Token. If empty, we connect with the anonymous User
         if (this.$store.state.userStore.tokenUser) {
