@@ -104,7 +104,7 @@ LICENSE
         document.documentElement.style.setProperty( 'background-image', 'url(/assets/behind_background.png)');
       }
       
-      if(!JSON.parse(process.env.VUE_APP_CHECK_API_ALIVED)) {
+      if(JSON.parse(process.env.VUE_APP_CHECK_API_ALIVED)) {
         this.checkApiAlived()
       } else {
         // Fonction qui va log l'user ou utilisé un user par défault
