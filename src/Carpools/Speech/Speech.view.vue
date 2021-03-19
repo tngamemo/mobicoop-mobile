@@ -32,11 +32,10 @@ LICENSE
     <ion-content color="primary" no-bounce>
       <div class="mc-white-container" >
 
-        <ion-button @click="start()">Start</ion-button>
+        <ion-button expand="block" :color="activated ? 'success' : 'primary'" @click="start()">Start</ion-button>
         <br>
-        <ion-button @click="stop()">Stop</ion-button>
+        <ion-button expand="block" color="danger" @click="stop()">Stop</ion-button>
         <br>
-        <div v-if="activated">Activé</div>
       </div>
     </ion-content>
   </div>
@@ -50,12 +49,15 @@ LICENSE
   import {toast} from "../../Shared/Mixin/toast.mixin";
   import { Plugins } from "@capacitor/core";
   const { SpeechRecognition } = Plugins;
+  import { TextToSpeech } from '@capacitor-community/text-to-speech';
 
   export default {
     name: 'speech',
     data () {
       return {
-        activated
+        activated: false,
+        recognitionListener: null,
+        stopRecognitionListener: null
       }
     },
     mixins: [toast],
@@ -83,33 +85,54 @@ LICENSE
       },
       startRecognition() {
         this.activated = true;
+        this.speak('Un nouveau covoiturage est proposé. Que souhaitez vous faire ?');
+        this.recognitionListener = SpeechRecognition.addListener('speech-recognition-result', (res) => {
+          if (res.matches[0].toLowerCase().includes("accepter")) {
+            this.speak('Vous avez accepté le covoiturage.');
+            this.presentToast("Vous avez accepté le covoiturage", "success");
+            this.stop();
+          }
+          if (res.matches[0].toLowerCase().includes("refuser")) {
+            this.speak('Vous avez refusé le covoiturage.');
+            this.presentToast("Vous avez refusé le covoiturage", "danger");
+            this.stop();
+          }
+        });
+        this.stopRecognitionListener = SpeechRecognition.addListener('speech-recognition-stopped', () => {
+          this.stop()
+        })
         SpeechRecognition.start({
           language: "fr-FR",
           maxResults: 1000,
           prompt: "Parlez",
           partialResults: true,
-          popup: true,
+          popup: false,
         }).then(res => {
-          console.log(res);
-          console.log(res.matches[0].toLowerCase());
-          console.log(res.matches[0].toLowerCase().includes("accepter"));
-          if (res.matches[0].toLowerCase().includes("accepter")) {
-            this.presentToast("Accepter", "success");
-            this.stop();
-          }
-          if (res.matches[0].toLowerCase().includes("refuser")) {
-            this.presentToast("Refuser", "danger");
-            this.stop();
-          }
+
         }).catch(() => {
-          console.log('catch');
-          this.activated = false;
+          this.stop()
         });
       },
       stop() {
         this.activated = false;
+        if (this.recognitionListener) {
+          this.recognitionListener.remove();
+        }
+        if (this.stopRecognitionListener) {
+          this.stopRecognitionListener.remove();
+        }
         SpeechRecognition.stop();
       },
+      async speak(text) {
+        await TextToSpeech.speak({
+          text: text,
+          lang: 'fr_FR',
+          rate: 1.0,
+          pitch: 1.0,
+          volume: 1.0,
+          category: 'ambient',
+        });
+      }
     }
   }
 </script>

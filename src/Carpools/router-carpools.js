@@ -75,7 +75,7 @@ function guardAccesByLogin(to, from, next) {
 
 export default [
   {
-    path: 'no',
+    path: '',
     name: 'mainTabComponent',
     component: MainTabComponent,
     children: [
@@ -295,7 +295,7 @@ export default [
     component: ProfilePublic,
   },
   {
-    path: '',
+    path: 'speech',
     name: 'speech',
     component: Speech,
   },
