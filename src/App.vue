@@ -27,7 +27,12 @@ LICENSE
       <ion-vue-router />
     </ion-app>
     <ion-app v-if="error">
-      <p>test</p>
+    <div style="padding: 125px">
+      <div class="mc-service-unavailable-image">
+          <img class src="/assets/home.png" alt="" />
+      </div>
+      <p class="mc-service-unavailable-text" v-html="$t('ServiceUnavailable.text')"></p>
+    </div>
     </ion-app>
   </div>
 </template>
@@ -127,7 +132,7 @@ LICENSE
           timeout: 10000,
           headers: { 'Content-Type': 'application/json', 'accept': 'application/ld+json' },
         });
-        http.get('/rdex/journeys').then((res)=> {
+        http.get('/rdex/journeyds').then((res)=> {
           this.authUserOnStart();
         }
         ).catch(() => {
@@ -312,4 +317,15 @@ LICENSE
     height: 100%;
   }
 
+  .mc-service-unavailable-image {
+    position: relative;
+    margin: 0 auto;
+    width: 150px;
+    text-align: center;
+  }
+
+  .mc-service-unavailable-text {
+    color: #ffffff;
+    text-align: center;
+  }
 </style>
