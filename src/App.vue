@@ -132,7 +132,7 @@ LICENSE
           timeout: 10000,
           headers: { 'Content-Type': 'application/json', 'accept': 'application/ld+json' },
         });
-        http.get('/rdex/journeyds').then((res)=> {
+        http.get('/rdex/journeys').then((res)=> {
           this.authUserOnStart();
         }
         ).catch(() => {
