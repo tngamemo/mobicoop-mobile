@@ -27,7 +27,7 @@ LICENSE
       <ion-vue-router />
     </ion-app>
     <ion-app v-if="error">
-    <div style="padding: 125px">
+    <div style="padding: 25px">
       <div class="mc-service-unavailable-image">
           <img class src="/assets/home.png" alt="" />
       </div>
