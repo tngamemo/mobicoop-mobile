@@ -82,6 +82,12 @@ LICENSE
                           @ionInput="currentDynamic.comment = $event.target.value">
             </ion-textarea>
           </ion-item>
+
+          <ion-item lines="none">
+            <ion-label>Commande vocale</ion-label>
+            <ion-toggle @ionChange="setVocal($event.target.checked)" :checked="vocal"></ion-toggle>
+          </ion-item>
+
           <br>
           <!-- Start button -->
           <ion-button class='mc-big-button' color="success" expand="block" @click="launchDynamic()">
@@ -184,7 +190,7 @@ LICENSE
                 <small>{{$t('Dynamic.no-results')}}</small>
                 <ion-button class="mc-dynamic-button mt-5 search-button" fill="outline" expand="block" @click="goToSearchPage()">Voir les résultats de recherche classiques</ion-button>
               </div>
-              <ion-card  class="dynamic-card" v-for="(result, index) in currentDynamic.asks">
+              <ion-card  class="dynamic-card" v-for="(result, index) in currentDynamic.asks" :data-speech="launchSpeech(result.id)">
                 <ion-card-content>
                   <div>
                     <div>{{result.user.givenName}} {{result.user.shortFamilyName}}</div>
@@ -313,6 +319,7 @@ LICENSE
 
 <script>
   import {toast} from "../../Shared/Mixin/toast.mixin";
+  import {speech} from "../../Shared/Mixin/speech.mixin";
   // import { BackgroundGeolocation } from '@mauron85/cordova-plugin-background-geolocation';
   import { LMap, LTileLayer, LPolyline, LMarker, LIcon } from "vue2-leaflet";
   import { BackgroundGeolocation, BackgroundGeolocationEvents } from '@ionic-native/background-geolocation';
@@ -329,6 +336,8 @@ LICENSE
     name: 'dynamic',
     data () {
       return {
+        vocal: true,
+        vocalProposal: [],
         map: {
           url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
           zoom: 8,
@@ -384,7 +393,7 @@ LICENSE
         return this.$store.state.dynamicStore.asksLength
       }
     },
-    mixins: [toast],
+    mixins: [toast, speech],
     props : [],
     created() {
       if (this.state == 1) {
@@ -641,7 +650,42 @@ LICENSE
               error => console.log('Error launching navigator', error)
             );
          */
+        },
+        launchSpeech(dynamicAskId) {
+          if (this.vocal) {
+            const f = this.vocalProposal.find(item => item === dynamicAskId);
+            if (!f) {
+              this.vocalProposal.push(dynamicAskId);
+            const speechSentence = {
+              phrase : 'Un nouveau covoiturage est proposé. Que souhaitez vous faire ?',
+              results : [
+                {
+                  matching : 'accepter',
+                  phrase : 'Vous avez accepté le covoiturage.',
+                  callback : () => {
+                    this.putDynamicAsks(dynamicAskId, '')
+                  }
+                },
+                {
+                  matching : 'refuser',
+                  phrase : 'Vous avez refusé le covoiturage.',
+                  callback : () => {
+
+                  }
+                }
+              ]
+            };
+
+            this.startSpeechRecognition(speechSentence);
+            }
+          }
+        },
+      setVocal(event) {
+        this.vocal = event;
+        if (this.vocal) {
+          this.requestSpeechRecognitionPermission(false);
         }
+      }
     }
   }
 </script>

@@ -34,7 +34,7 @@ LICENSE
 
         <ion-button expand="block" :color="activated ? 'success' : 'primary'" @click="start()">Start</ion-button>
         <br>
-        <ion-button expand="block" color="danger" @click="stop()">Stop</ion-button>
+        <ion-button expand="block" color="danger" @click="stopSpeechRecognition()">Stop</ion-button>
         <br>
       </div>
     </ion-content>
@@ -47,91 +47,42 @@ LICENSE
 
 <script>
   import {toast} from "../../Shared/Mixin/toast.mixin";
-  import { Plugins } from "@capacitor/core";
-  const { SpeechRecognition } = Plugins;
-  import { TextToSpeech } from '@capacitor-community/text-to-speech';
+  import {speech} from "../../Shared/Mixin/speech.mixin";
 
   export default {
     name: 'speech',
     data () {
       return {
-        activated: false,
-        recognitionListener: null,
-        stopRecognitionListener: null
+
       }
     },
-    mixins: [toast],
+    mixins: [toast, speech],
     created() {
-      this.activated = false;
+
     },
     methods: {
       start() {
-        SpeechRecognition.hasPermission().then(permission => {
-          if(permission.permission) {
-            this.startRecognition();
-          } else {
-            this.requestPermission();
-          }
-        }).catch(() => {
-          this.requestPermission()
-        })
-      },
-      requestPermission() {
-        SpeechRecognition.requestPermission().then(() => {
-          this.startRecognition();
-        }).catch(() => {
+        const speechSentence = {
+          phrase : 'Un nouveau covoiturage est proposé. Que souhaitez vous faire ?',
+          results : [
+            {
+              matching : 'accepter',
+              phrase : 'Vous avez accepté le covoiturage.',
+              callback : () => {
+                this.presentToast('Vous avez bien accepté le covoiturage.', 'success')
+              }
+            },
+            {
+              matching : 'refuser',
+              phrase : 'Vous avez refusé le covoiturage.',
+              callback : () => {
+                this.presentToast('Vous avez bien refusé le covoiturage.', 'danger')
+              }
+            }
+          ]
+        };
 
-        });
-      },
-      startRecognition() {
-        this.activated = true;
-        this.speak('Un nouveau covoiturage est proposé. Que souhaitez vous faire ?');
-        this.recognitionListener = SpeechRecognition.addListener('speech-recognition-result', (res) => {
-          if (res.matches[0].toLowerCase().includes("accepter")) {
-            this.speak('Vous avez accepté le covoiturage.');
-            this.presentToast("Vous avez accepté le covoiturage", "success");
-            this.stop();
-          }
-          if (res.matches[0].toLowerCase().includes("refuser")) {
-            this.speak('Vous avez refusé le covoiturage.');
-            this.presentToast("Vous avez refusé le covoiturage", "danger");
-            this.stop();
-          }
-        });
-        this.stopRecognitionListener = SpeechRecognition.addListener('speech-recognition-stopped', () => {
-          this.stop()
-        })
-        SpeechRecognition.start({
-          language: "fr-FR",
-          maxResults: 1000,
-          prompt: "Parlez",
-          partialResults: true,
-          popup: false,
-        }).then(res => {
-
-        }).catch(() => {
-          this.stop()
-        });
-      },
-      stop() {
-        this.activated = false;
-        if (this.recognitionListener) {
-          this.recognitionListener.remove();
-        }
-        if (this.stopRecognitionListener) {
-          this.stopRecognitionListener.remove();
-        }
-        SpeechRecognition.stop();
-      },
-      async speak(text) {
-        await TextToSpeech.speak({
-          text: text,
-          lang: 'fr_FR',
-          rate: 1.0,
-          pitch: 1.0,
-          volume: 1.0,
-          category: 'ambient',
-        });
+        this.startSpeechRecognition(speechSentence);
       }
     }
   }
