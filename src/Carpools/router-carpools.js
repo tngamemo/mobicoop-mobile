@@ -57,6 +57,8 @@ import BankAccount from './Payment/BankAccount.view.vue';
 import Paye from './Payment/Paye.view.vue';
 import ResetPassword from './Login/ResetPassword.view.vue';
 import ProfilePublic from './Profile/ProfilePublic.view.vue';
+import CompletedAction from './Gamification/CompletedAction.vue'
+import WinBadge from './Gamification/WinBadge.vue'
 
 import Vue from 'vue'
 import store from '../Shared/Store/store';
@@ -293,4 +295,14 @@ export default [
     name: 'profile-public',
     component: ProfilePublic,
   },
+  {
+    path: '/completed-action',
+    name: 'completed-action',
+    component: CompletedAction,
+  },
+  {
+    path: '/win-badge',
+    name: 'win-badge',
+    component: WinBadge,
+  }
 ]

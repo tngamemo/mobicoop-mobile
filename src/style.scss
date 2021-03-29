@@ -310,6 +310,10 @@ ion-toolbar h1 {
   overflow: hidden;
 }
 
+ion-progress-bar {
+  padding: 15px;
+}
+
 .bg-primary-transparent {
   --background: rgba(var(--ion-color-primary-rgb), 0.1);
 }

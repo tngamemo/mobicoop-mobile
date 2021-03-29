@@ -1,0 +1,25 @@
+{
+  "Badge" : {
+    "actionCompleted": {
+      "message": "Bravo ! Vous venez de",
+      "actionNumberToAchieve": {
+        "text": {
+          "part1" : "Il vous reste",
+          "part2" : "action à réaliser pour gagner le badge"
+        }
+      }
+    },
+    "actionNext": {
+      "label": "Prochaine action :"
+    },
+    "checkbox": {
+      "label": "Ne plus afficher des messages de ce type"
+    }
+  },
+  "winBadge" : {
+    "message" : "WAOOUH !!! Vous venez de gagner le badge",
+    "otherBadge" : {
+      "label" : "Tenté par un autre badge comme ... ?"
+    }
+  }
+}
