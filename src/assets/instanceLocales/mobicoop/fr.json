@@ -1,25 +1,28 @@
 {
-  "Badge" : {
-    "actionCompleted": {
-      "message": "Bravo ! Vous venez de",
-      "actionNumberToAchieve": {
-        "text": {
-          "part1" : "Il vous reste",
-          "part2" : "action à réaliser pour gagner le badge"
+    "Badge": {
+        "actionCompleted": {
+            "message": "Inscription validée. Bravo! Bientôt, le badge un profil complet ?",
+            "button": {
+                "text": "Voir les Badges"
+            }
+        },
+        "actionNext": {
+            "label": "Prochaine action :"
+        },
+        "checkbox": {
+            "label": "Ne plus afficher des messages de ce type"
+        },
+        "winBadge": {
+            "message": "WAOOUH !!! Vous venez de gagner le badge",
+            "otherBadge": {
+                "label": "Tenté par un autre badge comme ... ?"
+            }
+        },
+        "Profile": {
+            "badges": "Badges"
+        },
+        "MyBadges": {
+            "title": "Mes badges"
         }
-      }
-    },
-    "actionNext": {
-      "label": "Prochaine action :"
-    },
-    "checkbox": {
-      "label": "Ne plus afficher des messages de ce type"
     }
-  },
-  "winBadge" : {
-    "message" : "WAOOUH !!! Vous venez de gagner le badge",
-    "otherBadge" : {
-      "label" : "Tenté par un autre badge comme ... ?"
-    }
-  }
 }

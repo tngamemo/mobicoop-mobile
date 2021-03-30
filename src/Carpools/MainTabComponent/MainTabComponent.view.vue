@@ -29,7 +29,7 @@ LICENSE
           <Home />
           <BannerCookie />
         </ion-tab>
-
+        
         <ion-tab tab="help"  v-if="! !!this.$store.state.userStore.user">
           <MArticle :title="$t('Help.title')" id="10"/>
         </ion-tab>

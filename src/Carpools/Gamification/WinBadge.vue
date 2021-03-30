@@ -1,6 +1,6 @@
 /**
 
-Copyright (c) 2018, MOBICOOP. All rights reserved.
+Copyright (c) 2021, MOBICOOP. All rights reserved.
 This project is dual licensed under AGPL and proprietary licence.
 
 This program is free software: you can redistribute it and/or modify
@@ -32,15 +32,15 @@ LICENSE
             <div class="mc-white-container mc-white-container-no-padding-full message-flex" style="height: 100%">
                 <div class="mc-white-container">
                     <ion-row>
-                        <ion-col class="top-message d-flex justify-between" >
+                        <ion-col class="top-message d-flex justify-between" style="padding: 0" >
                             <h2 class="ion-text-center">{{ message }} </br/><strong>{{ titleBadge }}</strong> </h2>
                         </ion-col>
-                        <ion-col class=" d-flex justify-center align-center" >
-                            <img style="width: 100%" src="/assets/badges.png"/>
+                        <ion-col class=" d-flex justify-center align-center" style="padding: 0" >
+                            <img style="width: 75%" src="/assets/badges.png"/>
                         </ion-col>
                     </ion-row>
 
-                    <div class=" d-flex justify-center align-center">
+                    <div class=" d-flex justify-center align-center" style="margin-top: 20px">
                         <img style="width: 100%" src="/assets/win-badge.gif"/>
                     </div> 
 
@@ -49,8 +49,15 @@ LICENSE
                         <ion-text color="secondary">
                             <h5 class="ion-text-left"><strong> {{ $t('winBadge.otherBadge.label') }}</strong></h5>
                         </ion-text>
-                        <ion-card class="link pointer" v-on:click="$router.push('/carpools/messages')" color="primary">
-                            <ion-card-content>{{ otherBadge }}</ion-card-content>
+                        <ion-card color="primary">
+                            <ion-row>
+                                <ion-col class=" d-flex justify-center align-center" >
+                                    <img style="width: 60%" src="/assets/carpool.jpeg"/>
+                                </ion-col>
+                                <ion-col class=" d-flex justify-center align-center" style="padding: 0" >
+                                    <ion-card-content style="padding-left: 0">{{ otherBadge }}</ion-card-content>
+                                </ion-col>
+                            </ion-row>
                         </ion-card>
                     </div>
                     <!-- composant -> prochaine action -->
@@ -104,8 +111,4 @@ LICENSE
     border-top-left-radius: 15px !important;
     border-top-right-radius: 15px !important;
   }
-  .bottom-checkbox {
-    padding: 20px;  
-  }
-
 </style>

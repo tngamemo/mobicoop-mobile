@@ -114,6 +114,9 @@ LICENSE
           <ion-button v-if="showReviews" class="mc-big-button" color="success" expand="block" @click="$router.push('reviews')">
             <ion-icon class="ion-margin-end" name="quote"></ion-icon>{{ $t('Profile.reviews') }}
           </ion-button>
+          <ion-button v-if="showBadges" class="mc-big-button" color="success" expand="block" @click="$router.push('my-badges')">
+            <ion-icon class="ion-margin-end" name="quote"></ion-icon>{{ $t('Profile.badges') }}
+          </ion-button>
           <ion-button class="mc-big-button" color="warning" expand="block" @click="logout()">
             <ion-icon class="ion-margin-end" name="log-out"></ion-icon>
             {{ $t('Profile.logout') }}
@@ -182,7 +185,9 @@ export default {
     return {
       showPayment: JSON.parse(process.env.VUE_APP_PAYMENT),
       showReviews: JSON.parse(process.env.VUE_APP_REVIEWS),
-      showExperienced: JSON.parse(process.env.VUE_APP_EXPERIENCED)
+      showExperienced: JSON.parse(process.env.VUE_APP_EXPERIENCED),
+      showBadges: JSON.parse(process.env.VUE_APP_BADGES),
+
     };
   },
   mixins: [toast],

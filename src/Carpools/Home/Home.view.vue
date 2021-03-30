@@ -31,7 +31,13 @@ LICENSE
       </ion-toolbar>
     </ion-header>
 
+
     <ion-content color="primary">
+      <!-- a declencher lorsque l'api renverra l'info comme quoi le nouvel utilisateur est inscrit -->
+      <div v-if="!!this.$store.state.userStore.user && displayBadge">
+        <BannerCompletedAction />
+      </div>
+
       <UserHome />
 
       <div class="mc-white-container">
@@ -177,6 +183,8 @@ LICENSE
 import UserHome from "./Components/UserHome.component";
 import BlockAction from "./Components/BlockAction.component";
 import SearchQuick from "../Shared/Components/SearchQuick.component";
+import BannerCompletedAction from "../Gamification/BannerCompletedAction.vue";
+
 import {isPlatform} from "@ionic/core";
 import { Plugins } from '@capacitor/core';
 const { Device } = Plugins;
@@ -186,7 +194,9 @@ export default {
   components: {
     UserHome,
     BlockAction,
-    SearchQuick
+    SearchQuick,
+            BannerCompletedAction
+
   },
   data() {
     return {
@@ -200,6 +210,7 @@ export default {
       showCommunities: JSON.parse(process.env.VUE_APP_SHOW_COMMUNITIES),
       noIconToolbar: JSON.parse(process.env.VUE_APP_NO_ICON_TOOLBAR),
       noTextToolbar: JSON.parse(process.env.VUE_APP_NO_TEXT_TOOLBAR),
+      displayBadge: JSON.parse(process.env.VUE_APP_BADGES),
       isNotCapacitor: !isPlatform(window.document.defaultView, "capacitor"),
       version: null
     };
