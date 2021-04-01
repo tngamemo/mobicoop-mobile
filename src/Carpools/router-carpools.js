@@ -57,6 +57,7 @@ import BankAccount from './Payment/BankAccount.view.vue';
 import Paye from './Payment/Paye.view.vue';
 import ResetPassword from './Login/ResetPassword.view.vue';
 import ProfilePublic from './Profile/ProfilePublic.view.vue';
+import WaitingBadge from './Gamification/WaitingBadge.vue';
 import WinBadge from './Gamification/WinBadge.vue';
 import Badges from './Gamification/Badges.vue';
 
@@ -292,6 +293,11 @@ export default [{
         path: 'public/profile/:id',
         name: 'profile-public',
         component: ProfilePublic,
+    },
+    {
+        path: 'waiting-badge',
+        name: 'waiting-badge',
+        component: WaitingBadge
     },
     {
         path: 'win-badge',

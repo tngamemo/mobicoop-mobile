@@ -19,13 +19,18 @@ LICENSE
 **************************/
 
 <template>
-  <div class="mc-banner-badge">
-    <p>
-      {{ $t('Badge.actionCompleted.message') }}
-    </p>
-    <button class="mc-button-badge" v-on:click="redirectToMyBadges">{{ $t('Badge.actionCompleted.button.text') }}</button>
-    <ion-fab-button color="primary">Primary</ion-fab-button>
-  </div>
+    <div class="mc-banner-badge">
+      <p>
+        {{ $t('Badge.actionCompleted.message') }}
+      </p>
+      <ion-fab horizontal="end" slot="fixed">
+        <ion-fab-button v-on:click="redirectToMyBadges" color="secondary">
+          <ion-icon name="arrow-forward"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
+    </div>
+
+    
 </template>
 
 <style lang="scss">
@@ -38,21 +43,12 @@ LICENSE
   background: white;
   padding: 10px;
   border-radius: 30px;
-  border: 1px solid var(--ion-color-primary);
+  border: 1px solid var(--ion-color-secondary);
   p {
     font-size: 0.9rem;
-    margin-bottom: 0;
-    color: #000000;
-  }
+    margin : 5px;
 
-  .mc-button-badge {
-    float: right;
-    background: #666;
-    padding: 8px;
-    color: #fff;
-    border-width: 2px 4px;
-    border-radius: 40px;
-    font-size: 1em;
+    color: #000000;
   }
 }
 </style>
@@ -67,7 +63,7 @@ export default {
   mounted() {},
   methods: {
     redirectToMyBadges() {
-        this.$router.push({ name: "my-badges" });
+        this.$router.push({ name: "waiting-badge" });
     }
   }
 };

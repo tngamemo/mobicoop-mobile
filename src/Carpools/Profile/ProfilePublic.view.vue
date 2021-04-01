@@ -49,7 +49,7 @@ LICENSE
               <ion-thumbnail v-if="!! user.profileSummary.avatar">
                 <img :src="user.profileSummary.avatar" alt="" />
               </ion-thumbnail>
-              <ion-icon v-if="showExeprienced && user.profileSummary.experienced" class="experienced" name="star"></ion-icon>
+              <ion-icon v-if="showExperienced && user.profileSummary.experienced" class="experienced" name="star"></ion-icon>
             </div>
 
             <div class="mc-user-info">

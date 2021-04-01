@@ -33,29 +33,29 @@ LICENSE
                 <div class="mc-white-container">
                     <ion-row>
                         <ion-col class="top-message d-flex justify-between" style="padding: 0" >
-                            <h2 class="ion-text-center">{{ message }} </br/><strong>{{ titleBadge }}</strong> </h2>
+                            <h5 class="ion-text-center">{{ message }} </br/><strong>{{ titleBadge }}</strong> </h5>
                         </ion-col>
                         <ion-col class=" d-flex justify-center align-center" style="padding: 0" >
-                            <img style="width: 75%" src="/assets/badges.png"/>
+                            <img style="width: 70%" src="/assets/badges.png"/>
                         </ion-col>
                     </ion-row>
 
-                    <div class=" d-flex justify-center align-center" style="margin-top: 20px">
-                        <img style="width: 100%" src="/assets/win-badge.gif"/>
+                    <div class=" d-flex justify-center align-center">
+                        <img style="width: 75%" src="/assets/win-badge.gif"/>
                     </div> 
 
                     <!-- composant -> prochaine action -->
                     <div class="mc-action-next">
                         <ion-text color="secondary">
-                            <h5 class="ion-text-left"><strong> {{ $t('winBadge.otherBadge.label') }}</strong></h5>
+                            <h6 class="ion-text-left"><strong> {{ $t('Badge.winBadge.otherBadge.label') }}</strong></h6>
                         </ion-text>
                         <ion-card color="primary">
                             <ion-row>
                                 <ion-col class=" d-flex justify-center align-center" >
-                                    <img style="width: 60%" src="/assets/carpool.jpeg"/>
+                                    <img style="width: 50%" src="/assets/carpool.jpeg"/>
                                 </ion-col>
                                 <ion-col class=" d-flex justify-center align-center" style="padding: 0" >
-                                    <ion-card-content style="padding-left: 0">{{ otherBadge }}</ion-card-content>
+                                    <ion-card-content style="padding-left: 0"><p>{{ otherBadge }}</p></ion-card-content>
                                 </ion-col>
                             </ion-row>
                         </ion-card>
@@ -69,13 +69,18 @@ LICENSE
                             name="displayNone"
                             color="primary"
                         ></ion-checkbox>
-                            <ion-label class="no-white-space">{{ $t('Badge.checkbox.label') }}</ion-label>
+                            <ion-label class="no-white-space"><p>{{ $t('Badge.checkbox.label') }}</p></ion-label>
                     </ion-item>
                     </div>
                     <!-- checkbox -->
                 </div>
                 
             </div>
+             <ion-fab horizontal="end" vertical="bottom" slot="fixed">
+        <ion-fab-button v-on:click="redirectToMyBadges" color="secondary">
+          <ion-icon name="arrow-forward"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
         </ion-content>
     </div>
 </template>
@@ -84,17 +89,22 @@ LICENSE
     export default {
         data() {
             return {
-                message: this.$t('winBadge.message'),
+                message: this.$t('Badge.winBadge.message'),
                 titleBadge: "J'ai créé un événement covoituré avec succès !",
                 otherBadge: "J'ai covoituré avec 10 personnes différentes"
             }
         },
+        methods: {
+    redirectToMyBadges() {
+        this.$router.push({ name: "my-badges" });
+    }
+  }
     }
 </script>
 
 <style lang="scss" scoped>
   .mc-action-next {
-    padding: 5px;  
+    padding: 0;  
   }
   .no-white-space {
     white-space: normal !important;
@@ -107,7 +117,7 @@ LICENSE
     background-color: #f5f6fa;
     color: var(--ion-color-primary);
     padding: 15px 30px;
-    margin-top: -20px;
+    margin-top: -30px;
     border-top-left-radius: 15px !important;
     border-top-right-radius: 15px !important;
   }

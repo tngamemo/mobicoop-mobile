@@ -121,7 +121,7 @@ LICENSE
                 @ionChange="changeUserAgreementAccepted($event)"
                 :checked="user.userAgreementAccepted"
               ></ion-checkbox>
-              <ion-label class="no-white-space">{{ $t('Register.userAgreementAccepted') }}</ion-label>
+              <ion-label class="no-white-space"><p>{{ $t('Register.userAgreementAccepted') }}</p></ion-label>
             </ion-item>
             <div v-if="$v.user.userAgreementAccepted.$error">
               <div class="mc-error-label"  v-if="!$v.user.userAgreementAccepted.required">{{$t('Validation.required')}}</div>

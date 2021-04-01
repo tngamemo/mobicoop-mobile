@@ -190,7 +190,7 @@ LICENSE
               @ionChange="changeNewsSubscription($event)"
               :checked="user.newsSubscription"
             ></ion-checkbox>
-            <ion-label class="no-white-space">{{ $t('UpdateProfile.newsSubscription') }}</ion-label>
+            <ion-label class="no-white-space"><p>{{ $t('UpdateProfile.newsSubscription') }}</p></ion-label>
           </ion-item>
 
           <br>
