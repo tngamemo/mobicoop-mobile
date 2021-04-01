@@ -338,7 +338,7 @@ export default {
   computed: {
     volunteer: {
       get() {
-        return this.$store.state.solidaryTransportStore.temporary.volunteer;
+        return this.$store.state.solidaryTransportStore.volunteer;
       },
       set() {
         //this.$store.commit("solidaryVolunteerUpdate", this.volunteer);

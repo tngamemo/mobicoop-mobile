@@ -207,6 +207,11 @@ export default {
           this.processing = true
           this.$store.dispatch('postSolidaryVolunteer')
             .then((data) => {
+              if (!!this.$store.state.userStore.user) {
+                const idUser = this.$store.state.userStore.user.id;
+                this.$store.dispatch('getUser', { idUser })
+              }
+
               this.presentToast("Votre proposition en tant que bénévole a bien été envoyée", 'success');
               this.$router.push({name:'solidaryTransport.home'})
             })

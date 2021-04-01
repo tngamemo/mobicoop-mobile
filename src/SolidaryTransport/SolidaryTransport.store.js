@@ -453,7 +453,7 @@ export const solidaryTransportStore = {
 
     // Volunteer
     postSolidaryVolunteerSuccess: (state, res) => {
-      state.default.volunteer = res;
+      state.volunteer = res;
       setTimeout(() => {
         state.temporary.volunteer = _.cloneDeep(state.default.volunteer)
       }, 1000);
@@ -461,12 +461,12 @@ export const solidaryTransportStore = {
     },
 
     getSolidaryUserSuccess: (state, res)=> {
-      state.default.volunteer = res;
+      state.volunteer = res;
       state.temporary.volunteer = _.cloneDeep(state.default.volunteer)
     },
 
     putSolidaryVolunteerSuccess: (state, res) => {
-      state.default.volunteer = res;
+      state.volunteer = res;
       state.temporary.volunteer = _.cloneDeep(state.default.volunteer)
     },
 
@@ -1174,7 +1174,7 @@ export const solidaryTransportStore = {
       })
     },
     putSolidaryVolunteer: ({commit, state}) => {
-      let volunteer = _.cloneDeep(state.temporary.volunteer);
+      let volunteer = _.cloneDeep(state.volunteer);
       delete volunteer.user;
       delete volunteer.needs;
       delete volunteer.solidaries;
