@@ -292,5 +292,5 @@ export default [
     path: 'public/profile/:id',
     name: 'profile-public',
     component: ProfilePublic,
-  },
+  }
 ]

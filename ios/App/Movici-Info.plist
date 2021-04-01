@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>fr</string>
 	<key>CFBundleDisplayName</key>
-	<string>MOV'ICI</string>
+	<string>MOV&apos;ICI</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -59,7 +59,7 @@
 	<key>NSMotionUsageDescription</key>
 	<string>$MOTION_USAGE_DESCRIPTION</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Stocker les photos de l'appareil photo sur l'appareil photo</string>
+	<string>Stocker les photos de l&apos;appareil photo sur l&apos;appareil photo</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Utilisez des photos pour votre profil, vos événements ou vos communautés</string>
 	<key>UIBackgroundModes</key>
@@ -89,5 +89,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>Parlez à l&apos;application pour accepter ou refuser les covoiturages dynamiques</string>
 </dict>
 </plist>
