@@ -6,8 +6,8 @@ android {
         applicationId "eu.covivo.covisoft"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 120
-        versionName "2.3.4"
+        versionCode 122
+        versionName "2.3.6"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -89,7 +89,7 @@ import java.util.regex.Pattern
 
 task flavourCheck() {
   println "Vérification de la flavour"
-  String fileContents = new File('/Users/mobicoop/Documents//mobicoop-mobile/android/app/src/main/assets/public/build.info').text
+  String fileContents = new File('./app/src/main/assets/public/build.info').text
   Gradle gradle = getGradle()
   String tskReqStr = gradle.getStartParameter().getTaskRequests().toString()
   println tskReqStr
