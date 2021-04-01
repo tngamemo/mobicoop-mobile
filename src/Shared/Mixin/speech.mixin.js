@@ -28,7 +28,7 @@ import {toast} from "./toast.mixin";
     phrase : string
     results : [
       {
-        matching : string
+        matchings : string
         phrase : string
         callback: ()
       }
@@ -72,7 +72,7 @@ export const speech = {
       this.speechRecognitionListener = SpeechRecognition.addListener('speech-recognition-result', (res) => {
         if (this.speechSentence.results) {
           this.speechSentence.results.forEach(item => {
-            if (res.matches[0].toLowerCase().includes(item.matching)) {
+            if (item.matchings.some(match => res.matches[0].toLowerCase().includes(match))) {
               this.speak(item.phrase);
               item.callback();
               this.stopSpeechRecognition();

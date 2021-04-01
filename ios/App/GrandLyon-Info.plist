@@ -89,5 +89,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
+    <key>NSSpeechRecognitionUsageDescription</key>
+    <string>Parlez à l&apos;application pour accepter ou refuser les covoiturages dynamiques</string>
 </dict>
 </plist>

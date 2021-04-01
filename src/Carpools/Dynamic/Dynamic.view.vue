@@ -83,7 +83,7 @@ LICENSE
             </ion-textarea>
           </ion-item>
 
-          <ion-item lines="none">
+          <ion-item lines="none" v-if="vocalPlugin">
             <ion-label>Commande vocale</ion-label>
             <ion-toggle @ionChange="setVocal($event.target.checked)" :checked="vocal"></ion-toggle>
           </ion-item>
@@ -336,7 +336,8 @@ LICENSE
     name: 'dynamic',
     data () {
       return {
-        vocal: true,
+        vocalPlugin: JSON.parse(process.env.VUE_APP_VOCAL),
+        vocal: false,
         vocalProposal: [],
         map: {
           url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
@@ -594,11 +595,11 @@ LICENSE
         BackgroundGeolocation.start();
       },
       stopBackgroundGeolocation() {
+        BackgroundGeolocation.removeAllListeners();
+        BackgroundGeolocation.stop();
         if(this.updatePositionInterval) {
           clearInterval(this.updatePositionInterval);
         }
-        BackgroundGeolocation.removeAllListeners();
-        BackgroundGeolocation.stop();
       },
       async sendLocalNotification() {
         const notifs = await LocalNotifications.schedule({
@@ -657,17 +658,17 @@ LICENSE
             if (!f) {
               this.vocalProposal.push(dynamicAskId);
             const speechSentence = {
-              phrase : 'Un nouveau covoiturage est proposé. Que souhaitez vous faire ?',
+              phrase : 'Un nouveau covoiturage est proposé. Souhaitez-vous l\'accepter ?',
               results : [
                 {
-                  matching : 'accepter',
+                  matchings : ['oui'],
                   phrase : 'Vous avez accepté le covoiturage.',
                   callback : () => {
                     this.putDynamicAsks(dynamicAskId, '')
                   }
                 },
                 {
-                  matching : 'refuser',
+                  matchings : ['refuser', 'non'],
                   phrase : 'Vous avez refusé le covoiturage.',
                   callback : () => {
 
