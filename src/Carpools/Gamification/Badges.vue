@@ -35,57 +35,82 @@ LICENSE
             <div class=" d-flex justify-between">
                 <h5 class="ion-text-left" style="padding: 0"><strong>Mes badges : </strong> </h5>            
             </div>
-            <ion-row>
-                <ion-col class="d-flex justify-between" size="3">
-                    <img style="width:50%" src="/assets/badges.png"/>
-                </ion-col>
-                    <ion-col class="d-flex justify-between" size="3">
-                    <img style="width:50%" src="/assets/badges.png"/>
-                </ion-col>
-            </ion-row>
-                <ion-col size="12"></ion-col>
-            </ion-row>
-          <!-- My badges -->
+            <ion-item>
+                    <img style="width:20%; padding:15px;" src="/assets/badges.png"/>
+                    <img style="width:20%; padding:15px;" src="/assets/badges.png"/>
+          </ion-item>
 
+           <!-- My badges in progress -->
+          <div class="d-flex justify-between" style="margin-top:10px;">
+              <h5 class="ion-text-left" style="padding: 0"><strong>Badges en cours : </strong> </h5>            
+          </div>
+          <ion-item>
+            <ion-row  class="text-left d-flex align-center">
+              <ion-col size="2" >
+                <img style="width:50%" src="/assets/carpool.jpeg"/>
+              </ion-col>
+              <ion-col size="10">
+                <ion-label >Badges en cours</ion-label>
+                <ion-select placeholder="Badges en cours">
+                  <ion-select-option v-for="(item, index) in items" :key="index" :value="index">{{ item.label }} </ion-select-option>
+                </ion-select>
+              </ion-col>
+
+              <ion-col size="12"style="padding-bottom:15px; padding-top:5px;"> 
+                <div>
+                  <span class="mc-progress-bar">
+                    1/2
+                  </span>
+                  <ion-progress-bar color="primary" value="0.5" >3/10</ion-progress-bar>
+                </div>
+              </ion-col>
+            </ion-row> 
+          </ion-item>
+
+          <!-- My badges in progress -->
+            <div class="d-flex justify-between" style="margin-top:10px;">
+              <h5 class="ion-text-left" style="padding: 0"><strong>Autres badges : </strong> </h5>            
+            </div>
+            <ion-item>
+              <ion-row  class="text-left d-flex align-center">
+                <ion-col size="1" >
+                  <img style="width:100%;" src="/assets/carpool.jpeg"/>
+                </ion-col>
+                <ion-col size="11">
+                <p style="margin-left:5px;"> J'ai parrainé 3 utilisateurs </p>
+                </ion-col>
+              </ion-row>
+            </ion-item>
+
+          <!-- Button -->
           <ion-fab v-if="showExperienced" horizontal="end" vertical="bottom" slot="fixed">
             <ion-fab-button @click="redirectToPublicProfil" color="secondary">
               <ion-icon name="arrow-forward"></ion-icon>
             </ion-fab-button>
           </ion-fab>
 
-           <!-- My badges in progress -->
-          <div class="d-flex justify-between" style="margin-top:10px;">
-              <h5 class="ion-text-left" style="padding: 0"><strong>Badges en cours : </strong> </h5>            
+          <!-- checkbox -->
+          <div class="mc-checkbox d-flex bottom-checkbox">
+            <ion-item lines="none">
+                <ion-checkbox
+                    name="displayNone"
+                    color="primary"
+                ></ion-checkbox>
+                    <ion-label class="no-white-space"><p>Ne plus afficher de message pour une action réalisée</p></ion-label>
+            </ion-item>
           </div>
-          <ion-row  class="text-left d-flex align-center">
-            <ion-col size="12">  
-              <ion-progress-bar color="primary" value="0.5">3/10</ion-progress-bar>
-            </ion-col>
-          </ion-row> 
-          <ion-row  class="text-left d-flex align-center">
-              <ion-col size="1" >
-                  <img style="width:100%" src="/assets/carpool.jpeg"/>
-              </ion-col>
-              <ion-col size="11">
-                <ion-select interface="popover" value="J'ai covoituré avec 10 personnes différentes" >
-                  <ion-select-option v-for="(item, index) in items" disabled>{{ item.label }}</ion-select-option>
-                </ion-select>
-              </ion-col>
-          </ion-row>
-
-            <!-- My badges in progress -->
-          <div class="d-flex justify-between" style="margin-top:10px;">
-              <h5 class="ion-text-left" style="padding: 0"><strong>Autres badges : </strong> </h5>            
+          <div class="mc-checkbox d-flex bottom-checkbox">
+            <ion-item lines="none">
+                <ion-checkbox
+                    name="displayNone"
+                    color="primary"
+                ></ion-checkbox>
+                    <ion-label class="no-white-space"><p>Ne plus afficher de message pour un badge gagné</p></ion-label>
+            </ion-item>
           </div>
-          <ion-row  class="text-left d-flex align-center">
-              <ion-col size="1" >
-                  <img style="width:100%" src="/assets/carpool.jpeg"/>
-              </ion-col>
-              <ion-col size="11">
-                <p> J'ai parrainé 3 utilisateurs </p>
-              </ion-col>
-          </ion-row>
+          <!-- checkbox -->
       </div>
+   
     </ion-content>
   </div>
 </template>
@@ -125,5 +150,10 @@ LICENSE
   }
   ion-select-option {
     padding-left: 5px;
+  }
+  .mc-progress-bar {
+    position: absolute;
+    z-index: 1;
+    margin-left:150px;  
   }
 </style>

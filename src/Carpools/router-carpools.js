@@ -57,7 +57,6 @@ import BankAccount from './Payment/BankAccount.view.vue';
 import Paye from './Payment/Paye.view.vue';
 import ResetPassword from './Login/ResetPassword.view.vue';
 import ProfilePublic from './Profile/ProfilePublic.view.vue';
-import WaitingBadge from './Gamification/WaitingBadge.vue';
 import WinBadge from './Gamification/WinBadge.vue';
 import Badges from './Gamification/Badges.vue';
 
@@ -76,237 +75,232 @@ function guardAccesByLogin(to, from, next) {
 }
 
 export default [{
-        path: '',
-        name: 'mainTabComponent',
-        component: MainTabComponent,
-        children: [{
-                path: '/',
-                name: '',
-                redirect: { name: 'carpoolsHome' }
-            },
-            {
-                path: 'home',
-                name: 'carpoolsHome',
-                component: Home,
-            },
-            {
-                path: 'help',
-                name: 'help',
-                component: Article,
-            },
-            {
-                path: 'login',
-                name: 'login',
-                component: Login
-            },
-            {
-                path: 'register',
-                name: 'register',
-                component: Register,
-            },
-            {
-                path: 'messages',
-                name: 'messages',
-                component: Messages,
-            },
-            {
-                path: 'communities',
-                name: 'communities',
-                component: Communities,
-                // beforeEnter: guardAccesByLogin
-            },
-            {
-                path: 'profile',
-                name: 'profile',
-                component: Profile,
-            },
-        ]
-    },
-
-    {
-        path: 'geosearch',
-        name: 'geoSearch',
-        component: GeoSearch
-    },
-
-    {
-        path: 'search',
-        name: 'search',
-        component: Search
+    path: '',
+    name: 'mainTabComponent',
+    component: MainTabComponent,
+    children: [{
+        path: '/',
+        name: '',
+        redirect: { name: 'carpoolsHome' }
     },
     {
-        path: 'update-profile',
-        name: 'update-profile',
-        component: UpdateProfile
+        path: 'home',
+        name: 'carpoolsHome',
+        component: Home,
     },
     {
-        path: 'profile-alerts',
-        name: 'profile-alerts',
-        component: ProfileAlerts
-    },
-    {
-        path: 'profile-prefs',
-        name: 'profile-prefs',
-        component: ProfilePrefs
-    },
-    {
-        path: 'my-carpools',
-        name: 'my-carpools',
-        component: MyCarpools
-    },
-    {
-        path: 'accepted-carpools',
-        name: 'accepted-carpools',
-        component: AcceptedCarpools
-    },
-    {
-        path: 'reviews',
-        name: 'reviews',
-        component: Reviews
-    },
-    {
-        path: 'payment',
-        name: 'payment',
-        component: Payment,
-        // beforeEnter: guardAccesByLogin
-    },
-    {
-        path: 'payment/paye',
-        name: 'paye',
-        component: Paye,
-        // beforeEnter: guardAccesByLogin
-    },
-    {
-        path: 'bank-account',
-        name: 'bank-account',
-        component: BankAccount,
-    },
-    {
-        path: 'post-carpool-step',
-        name: 'post-carpool-step',
-        component: PostCarpoolStep
-    },
-    {
-        path: 'post-carpool',
-        name: 'post-carpool',
-        component: PostCarpool,
-        props: (route) => ({
-            ...route.params
-        }),
-        beforeEnter: guardAccesByLogin
-    },
-    {
-        path: 'message/:idRecipient/:idAsk',
-        name: 'message',
-        component: Message,
-        /*
-        props: (route) => ({
-          ...route.params
-        })
-         */
-    },
-    {
-        path: '/article/:id',
-        name: 'article',
+        path: 'help',
+        name: 'help',
         component: Article,
     },
     {
-        path: '/confirm-registration/:email',
-        name: 'confirm-registration',
-        component: ConfirmRegistration,
+        path: 'login',
+        name: 'login',
+        component: Login
     },
     {
-        path: '/carpool-detail/:param',
-        name: 'carpool-detail',
-        component: DetailCarpool,
-        beforeEnter: guardAccesByLogin
+        path: 'register',
+        name: 'register',
+        component: Register,
     },
     {
-        path: '/public-transport/:param',
-        name: 'public-transport',
-        component: PublicTransport,
+        path: 'messages',
+        name: 'messages',
+        component: Messages,
     },
     {
-        path: '/ask-carpool/:param',
-        name: 'ask-carpool',
-        component: AskCarpool,
-        beforeEnter: guardAccesByLogin
-    },
-    {
-        path: 'allcommunities',
-        name: 'allcommunities',
+        path: 'communities',
+        name: 'communities',
         component: Communities,
         // beforeEnter: guardAccesByLogin
     },
     {
-        path: 'community/:id',
-        name: 'carpool-community',
-        component: Community,
-        // beforeEnter: guardAccesByLogin
+        path: 'profile',
+        name: 'profile',
+        component: Profile,
     },
-    {
-        path: 'post-community',
-        name: 'post-community',
-        component: PostCommunity,
-        beforeEnter: guardAccesByLogin
-    },
-    {
-        path: 'events',
-        name: 'carpool-events',
-        component: Events,
-        // beforeEnter: guardAccesByLogin
-    },
-    {
-        path: 'event/:id',
-        name: 'carpool-event',
-        component: Event,
-        // beforeEnter: guardAccesByLogin
-    },
-    {
-        path: 'post-event',
-        name: 'post-event',
-        component: PostEvent,
-        beforeEnter: guardAccesByLogin
-    },
-    {
-        path: 'contact',
-        name: 'carpool-contact',
-        component: Contact,
-    },
-    {
-        path: 'solidarity',
-        name: 'carpool-solidarity',
-        component: Solidarity,
-    },
-    {
-        path: 'dynamic',
-        name: 'dynamic',
-        component: Dynamic,
-        beforeEnter: guardAccesByLogin
-    },
-    {
-        path: 'reset-password',
-        name: 'reset-password',
-        component: ResetPassword,
-    },
-    {
-        path: 'public/profile/:id',
-        name: 'profile-public',
-        component: ProfilePublic,
-    },
-    {
-        path: 'waiting-badge',
-        name: 'waiting-badge',
-        component: WaitingBadge
-    },
-    {
-        path: 'win-badge',
-        name: 'win-badge',
-        component: WinBadge
-    },
-    {
-        path: 'my-badges',
-        name: 'my-badges',
-        component: Badges
-    }
+    ]
+},
+
+{
+    path: 'geosearch',
+    name: 'geoSearch',
+    component: GeoSearch
+},
+
+{
+    path: 'search',
+    name: 'search',
+    component: Search
+},
+{
+    path: 'update-profile',
+    name: 'update-profile',
+    component: UpdateProfile
+},
+{
+    path: 'profile-alerts',
+    name: 'profile-alerts',
+    component: ProfileAlerts
+},
+{
+    path: 'profile-prefs',
+    name: 'profile-prefs',
+    component: ProfilePrefs
+},
+{
+    path: 'my-carpools',
+    name: 'my-carpools',
+    component: MyCarpools
+},
+{
+    path: 'accepted-carpools',
+    name: 'accepted-carpools',
+    component: AcceptedCarpools
+},
+{
+    path: 'reviews',
+    name: 'reviews',
+    component: Reviews
+},
+{
+    path: 'payment',
+    name: 'payment',
+    component: Payment,
+    // beforeEnter: guardAccesByLogin
+},
+{
+    path: 'payment/paye',
+    name: 'paye',
+    component: Paye,
+    // beforeEnter: guardAccesByLogin
+},
+{
+    path: 'bank-account',
+    name: 'bank-account',
+    component: BankAccount,
+},
+{
+    path: 'post-carpool-step',
+    name: 'post-carpool-step',
+    component: PostCarpoolStep
+},
+{
+    path: 'post-carpool',
+    name: 'post-carpool',
+    component: PostCarpool,
+    props: (route) => ({
+        ...route.params
+    }),
+    beforeEnter: guardAccesByLogin
+},
+{
+    path: 'message/:idRecipient/:idAsk',
+    name: 'message',
+    component: Message,
+    /*
+    props: (route) => ({
+      ...route.params
+    })
+     */
+},
+{
+    path: '/article/:id',
+    name: 'article',
+    component: Article,
+},
+{
+    path: '/confirm-registration/:email',
+    name: 'confirm-registration',
+    component: ConfirmRegistration,
+},
+{
+    path: '/carpool-detail/:param',
+    name: 'carpool-detail',
+    component: DetailCarpool,
+    beforeEnter: guardAccesByLogin
+},
+{
+    path: '/public-transport/:param',
+    name: 'public-transport',
+    component: PublicTransport,
+},
+{
+    path: '/ask-carpool/:param',
+    name: 'ask-carpool',
+    component: AskCarpool,
+    beforeEnter: guardAccesByLogin
+},
+{
+    path: 'allcommunities',
+    name: 'allcommunities',
+    component: Communities,
+    // beforeEnter: guardAccesByLogin
+},
+{
+    path: 'community/:id',
+    name: 'carpool-community',
+    component: Community,
+    // beforeEnter: guardAccesByLogin
+},
+{
+    path: 'post-community',
+    name: 'post-community',
+    component: PostCommunity,
+    beforeEnter: guardAccesByLogin
+},
+{
+    path: 'events',
+    name: 'carpool-events',
+    component: Events,
+    // beforeEnter: guardAccesByLogin
+},
+{
+    path: 'event/:id',
+    name: 'carpool-event',
+    component: Event,
+    // beforeEnter: guardAccesByLogin
+},
+{
+    path: 'post-event',
+    name: 'post-event',
+    component: PostEvent,
+    beforeEnter: guardAccesByLogin
+},
+{
+    path: 'contact',
+    name: 'carpool-contact',
+    component: Contact,
+},
+{
+    path: 'solidarity',
+    name: 'carpool-solidarity',
+    component: Solidarity,
+},
+{
+    path: 'dynamic',
+    name: 'dynamic',
+    component: Dynamic,
+    beforeEnter: guardAccesByLogin
+},
+{
+    path: 'reset-password',
+    name: 'reset-password',
+    component: ResetPassword,
+},
+{
+    path: 'public/profile/:id',
+    name: 'profile-public',
+    component: ProfilePublic,
+},
+{
+    path: 'win-badge',
+    name: 'win-badge',
+    component: WinBadge
+},
+{
+    path: 'my-badges',
+    name: 'my-badges',
+    component: Badges
+}
 ];

@@ -36,6 +36,7 @@ import { rdexStore } from './rdex.store';
 import { reviewStore } from "./review.store";
 import { paymentStore } from './payment.store';
 import { proofStore } from './proof.store';
+import { badgeStore } from './badge.store';
 import createPersistedState from "vuex-persistedstate";
 
 
@@ -60,6 +61,8 @@ export default new Vuex.Store({
     rdexStore: rdexStore,
     reviewStore: reviewStore,
     paymentStore: paymentStore,
-    proofStore: proofStore
+    proofStore: proofStore,
+    badgeStore: badgeStore,
+
   }
 })

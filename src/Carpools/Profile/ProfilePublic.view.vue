@@ -61,7 +61,6 @@ LICENSE
               <p>{{user.profileSummary.telephone }}</p>
             </div>
           </div>
-
         </div>
 
           <div class="d-flex justify-between">
@@ -100,6 +99,44 @@ LICENSE
                 <ion-icon v-if="showExperienced && review.reviewer.experienced" class="experienced" name="star"></ion-icon>
               </div>
               <b>{{review.reviewer.givenName}} {{review.reviewer.shortFamilyName}}</b><span style="margin-right: 5px; margin-left: 5px"> - </span> {{review.date | moment('utc', 'DD/MM/YYYY')}}
+            </div>
+          </div>
+
+
+          <!-- Badges -->
+          <div class="d-flex justify-between">
+            <div class="mc-badge-bubble">
+              <div class="d-flex justify-left">
+                <div class="mc-carpool-badge">
+                  <div class="mc-carpool-badge-image">
+                    <img v-if="displayBadge" style="width:15%;" src="/assets/badge-null.png"/>
+                  </div>
+                  <div class="mc-carpool-badge-text">
+                    <span><strong>2</strong></span>
+                  </div>
+                  <div style="padding-left:60px;padding-top:10px;">
+                    <!-- TODO value -->
+                    <p><b>2 badges gagnés</b></p>
+                  </div>
+                  <!-- TODO v-for -->
+                  <ion-row  class="d-flex align-center" style="padding-left:50px;">
+                    <ion-col size="1" >
+                      <img style="width:100%;" src="/assets/carpool.jpeg"/>
+                    </ion-col>
+                    <ion-col size="11">
+                      <p style="margin-left:5px;"> J'ai parrainé 3 utilisateurs </p>
+                    </ion-col>
+                  </ion-row>
+                  <ion-row  class="d-flex align-center" style="padding-left:50px;">
+                    <ion-col size="1" >
+                      <img style="width:100%;" src="/assets/carpool.jpeg"/>
+                    </ion-col>
+                    <ion-col size="11">
+                      <p style="margin-left:5px;"> J'ai parrainé 3 utilisateurs </p>
+                    </ion-col>
+                  </ion-row>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -180,6 +217,35 @@ ion-thumbnail {
   margin-bottom: 5px;
   color: #00000080;
 }
+.mc-badge-bubble {
+  padding: 20px 20px;
+  background: #F5F6FA;
+  border-radius: 0px 15px 15px 15px;
+  color: rgba(0, 0, 0, 0.4);
+  width: 100%;
+  margin-right: 0px;
+  margin-bottom: 30px;
+}
+
+.mc-carpool-badge {
+     
+      margin-top:-25px;
+      .mc-carpool-badge-image {
+        position:absolute;
+        z-index:1;
+        margin-top:10px;
+      }
+      
+      .mc-carpool-badge-text {
+        position:absolute;
+        z-index:1;
+        margin-top:22px;
+        margin-left:25px;
+        font-size:0.8rem;
+        color:black;
+        font-weight: bold;
+      }
+    }
 
 </style>
 
@@ -192,7 +258,8 @@ export default {
     return {
       user : null,
       loading : false,
-      showExperienced: JSON.parse(process.env.VUE_APP_EXPERIENCED)
+      showExperienced: JSON.parse(process.env.VUE_APP_EXPERIENCED),
+      displayBadge: JSON.parse(process.env.VUE_APP_BADGES),
     };
   },
   mixins: [toast],

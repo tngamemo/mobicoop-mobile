@@ -161,7 +161,6 @@ LICENSE
       margin: 0;
     }
   }
-
 }
 
 .user-prefs-bloc {
@@ -196,7 +195,15 @@ export default {
       get() {
         return this.$store.state.userStore.user;
       }
-    }
+    },
+    computed: {
+        badges: {
+          get() {
+              console.log(this.$store.state.badgeStore.resultBadges);
+              return this.$store.state.badgetore.resultBadges
+          },
+        }
+    },
   },
   created() {},
   methods: {

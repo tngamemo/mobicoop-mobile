@@ -102,6 +102,16 @@ LICENSE
         <strong
           class="mc-carpool-carpooler"
         >{{this.carpool.carpooler.givenName}} {{this.carpool.carpooler.shortFamilyName}}</strong>
+          <!-- Badges -->
+            <div v-if="displayBadge" class="mc-carpool-badge">
+                <div class="mc-carpool-badge-image">
+                  <img style="width:15%;" src="/assets/badge-null.png"/>
+                </div>
+                <div class="mc-carpool-badge-text">
+                  <span><strong>2</strong></span>
+                </div> 
+            </div>
+
         </div>
         <div v-if="this.carpool.carpooler.telephone && (this.carpool.carpooler.phoneDisplay == 2 || this.carpool.acceptedAsk)">
           <ion-fab-button :href="'tel:' + carpool.carpooler.telephone" target="_self" style="height: 40px; width: 40px;">
@@ -355,6 +365,28 @@ LICENSE
       padding-left: 20px;
     }
 
+    .mc-carpool-badge {
+      margin-left:10px;
+      margin-top:-25px;
+
+      .mc-carpool-badge-image {
+        position:absolute;
+        z-index:1;
+        margin-top:-1px;
+      }
+      
+      .mc-carpool-badge-text {
+        position:absolute;
+        z-index:1;
+        margin-top:5px;
+        margin-left:15px;
+        font-size:0.8rem;
+        color:black;
+        font-weight: bold;
+      }
+    }
+    
+
     ion-thumbnail {
       --size: 40px;
       --border-radius: 50%;
@@ -399,7 +431,8 @@ export default {
       proof: null,
       activatedPayment: JSON.parse(process.env.VUE_APP_PAYMENT),
       activatedProof: JSON.parse(process.env.VUE_APP_CAN_SEE_PROOF),
-      showExperienced: JSON.parse(process.env.VUE_APP_EXPERIENCED)
+      showExperienced: JSON.parse(process.env.VUE_APP_EXPERIENCED),
+      displayBadge: JSON.parse(process.env.VUE_APP_BADGES),
     };
   },
   mixins: [toast],
@@ -609,8 +642,7 @@ export default {
         this.proofLoading = false;
         this.presentToast(this.$parent.$t("Commons.error"), "danger");
       }
-    },
-
+    }
   }
 };
 </script>

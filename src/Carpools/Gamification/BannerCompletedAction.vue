@@ -60,10 +60,9 @@ export default {
     return {
     };
   },
-  mounted() {},
   methods: {
     redirectToMyBadges() {
-        this.$router.push({ name: "waiting-badge" });
+      this.$router.push({ name: "win-badge" });
     }
   }
 };
