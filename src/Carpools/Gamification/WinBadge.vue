@@ -29,60 +29,56 @@ LICENSE
         </ion-toolbar>
     </ion-header>
 
-    <div v-if="$store.state.badgeStore.statusBadges == 'loading'">
+    <!-- en attendant l'api changer loading par null -->
+    <div v-if="$store.state.badgeStore.statusBadges == ''"> 
       <h2 class="ion-text-center" color="white"> Attention ... </h2>
       <img class="mc-image-waiting-badge" src="/assets/tenor.gif"/>
     </div>
     <ion-content class="mc-message-badge" color="primary" no-bounce>
-        <div class="mc-white-container mc-white-container-no-padding-full message-flex" style="height: 100%" v-if="$store.state.badgeStore.statusBadges == ''">
-            <div class="mc-white-container">
-                <ion-row>
-                    <ion-col class="top-message d-flex justify-between" style="padding: 0">
-                        <h5 class="ion-text-center">{{ message }} </br /><strong>{{ titleBadge }}</strong> </h5>
-                    </ion-col>
-                    <ion-col class=" d-flex justify-center align-center" style="padding: 0">
-                        <img style="width: 70%" src="/assets/badges.png" />
-                    </ion-col>
-                </ion-row>
+        <!-- en attendant l'api changer '' par loading -->
+        <div class="mc-white-container" v-if="$store.state.badgeStore.statusBadges == 'loading'">
+            <ion-row>
+                <ion-col size="12">
+                    <p class="mc-message-text text-center" color="primary">{{ message }} </br /><strong>{{ titleBadge }}</strong> </p>
+                </ion-col>
+                <ion-col size="12" class="d-flex justify-center align-center">
+                    <img style="width: 20%" src="/assets/badges.png" />
+                </ion-col>
+                <ion-col size="12" style="margin-top:15px">
+                    <img style="width: 100%" src="/assets/win-badge.gif" />
+                </ion-col>
+            </ion-row>
+            <!-- composant -> prochaine action -->
+            <div class="mc-action-next">
+                <ion-text color="secondary" class="d-flex justify-center">
+                    <h6><strong> {{ $t('Badge.winBadge.otherBadge.label') }}</strong></h6>
+                </ion-text>
+                <ion-card color="primary" style="margin-top:10px;">
+                    <ion-row>
+                        <ion-col size="12" style="padding:2px;">
+                                <p class="text-center">{{ otherBadge }}</p>
+                        </ion-col>
+                        <ion-col class="d-flex justify-center align-center">
+                        <ion-button shape="round" size="small"  style="margin-top:-10px;margin-bottom:10px;" color="secondary" @click="redirectToMyBadges">Voir "Badges"</ion-button>
+                        </ion-col>
+                    </ion-row>
+                </ion-card>
+            </div>
+            <!-- composant -> prochaine action -->
 
-                <div class=" d-flex justify-center align-center">
-                    <img style="width: 75%" src="/assets/win-badge.gif" />
-                </div>
-
-                <!-- composant -> prochaine action -->
-                <div class="mc-action-next">
-                    <ion-text color="secondary">
-                        <h6 class="ion-text-left"><strong> {{ $t('Badge.winBadge.otherBadge.label') }}</strong></h6>
-                    </ion-text>
-                    <ion-card color="primary">
-                        <ion-row>
-                            <ion-col class=" d-flex justify-center align-center">
-                                <img style="width: 50%" src="/assets/carpool.jpeg" />
-                            </ion-col>
-                            <ion-col class=" d-flex justify-center align-center" style="padding: 0">
-                                <ion-card-content style="padding-left: 0">
-                                    <p>{{ otherBadge }}</p>
-                                </ion-card-content>
-                            </ion-col>fff∏
-                        </ion-row>
-                    </ion-card>
-                </div>
-                <!-- composant -> prochaine action -->
-
-                <!-- checkbox -->
-                <div class="mc-checkbox d-flex bottom-checkbox">
-                    <ion-item lines="none">
-                        <ion-checkbox name="displayNone" color="primary"></ion-checkbox>
-                        <ion-label class="no-white-space">
-                            <p>{{ $t('Badge.checkbox.label') }}</p>
-                        </ion-label>
-                    </ion-item>
-                </div>
+            <!-- checkbox -->
+            <div class="mc-checkbox d-flex bottom-checkbox">
+                <ion-item lines="none">
+                    <ion-checkbox name="displayNone" color="primary"></ion-checkbox>
+                    <ion-label class="no-white-space">
+                        <p>{{ $t('Badge.checkbox.label') }}</p>
+                    </ion-label>
+                </ion-item>
             </div>
         </div>
         <!-- checkbox -->
-        <div class="d-flex justify-center">
-        <ion-button  v-show="displayButton" expand="shape" color="secondary">
+        <div class="d-flex justify-center" v-if="$store.state.badgeStore.statusBadges == ''">
+        <ion-button  v-show="displayButton" shape="round" color="secondary">
                 Afficher version allégée
         </ion-button>
         </div>
@@ -96,7 +92,7 @@ export default {
     return {
       message: this.$t('Badge.winBadge.message'),
       titleBadge: "J'ai créé un événement covoituré avec succès !",
-      otherBadge: "J'ai covoituré avec 10 personnes différentes",
+      otherBadge: "Retrouver ce badge dans votre profil public et dans l'écran 'Badges' de votre compte.",
       displayButton: false
     }
   },
@@ -106,12 +102,7 @@ export default {
 
   methods: {
     redirectToMyBadges() {
-        this.$router.push({
-            name: "my-badges"
-        });
-    },
-    redirectToWinBadges() {
-      this.$router.push({ name: "win-badge" });
+      this.$router.push({ name: "my-badges" });
     }
   }
 }
@@ -144,5 +135,10 @@ export default {
     width: "100%";
     padding-top: 50px;
     background-size: cover;
-  }
+}
+ .mc-message-text {
+    font-size: 1rem;
+    padding: 3px;
+    color: var(--ion-color-primary);
+ }
 </style>

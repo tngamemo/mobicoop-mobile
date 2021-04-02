@@ -15,7 +15,7 @@
         "winBadge": {
             "message": "WAOOUH !!! Vous venez de gagner le badge",
             "otherBadge": {
-                "label": "Tenté par un autre badge comme ... ?"
+                "label": "Chapeau ! Votre événement est un succès !"
             }
         },
         "Profile": {

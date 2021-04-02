@@ -35,10 +35,14 @@ LICENSE
             <div class=" d-flex justify-between">
                 <h5 class="ion-text-left" style="padding: 0"><strong>Mes badges : </strong> </h5>            
             </div>
-            <ion-item>
-                    <img style="width:20%; padding:15px;" src="/assets/badges.png"/>
-                    <img style="width:20%; padding:15px;" src="/assets/badges.png"/>
-          </ion-item>
+
+            <img style="width:20%; padding:15px;" src="/assets/badges.png"/>
+            <img style="width:20%; padding:15px;" src="/assets/badges.png"/>
+            
+            <!-- Button -->
+            <ion-button  @click="redirectToPublicProfil" size="small" shape="round" color="secondary">
+              Voir profil public
+            </ion-button>
 
            <!-- My badges in progress -->
           <div class="d-flex justify-between" style="margin-top:10px;">
@@ -82,13 +86,6 @@ LICENSE
               </ion-row>
             </ion-item>
 
-          <!-- Button -->
-          <ion-fab v-if="showExperienced" horizontal="end" vertical="bottom" slot="fixed">
-            <ion-fab-button @click="redirectToPublicProfil" color="secondary">
-              <ion-icon name="arrow-forward"></ion-icon>
-            </ion-fab-button>
-          </ion-fab>
-
           <!-- checkbox -->
           <div class="mc-checkbox d-flex bottom-checkbox">
             <ion-item lines="none">
@@ -120,7 +117,6 @@ LICENSE
     name: 'my-badges',
     data () {
       return {
-        showExperienced: JSON.parse(process.env.VUE_APP_EXPERIENCED),
         items: [
           { label: "J'ai covoituré avec 10 personnes différentes" },
           { label: "J'ai parrainé 3 utilisateurs" },
