@@ -19,14 +19,14 @@
  **************************/
 
 import http from '../Mixin/http.mixin'
-import {isPlatform} from "@ionic/core";
+import { isPlatform } from "@ionic/core";
 
 export const registerStore = {
   state: {
     statusRegister: '',
     statusValidateToken: '',
     statusCheckEmail: '',
-    displayAddress : '',
+    displayAddress: '',
     userToRegister: null,
     checkEmailErrorMessage: null,
   },
@@ -72,7 +72,7 @@ export const registerStore = {
       state.statusCheckEmail = 'error';
     },
 
-    register_update (state, value) {
+    register_update(state, value) {
       state.userToRegister = value;
     },
 
@@ -87,25 +87,25 @@ export const registerStore = {
 
       state.userToRegister = {
         status: 1,
-          givenName: '',
-          familyName: '',
-          gender: '',
-          telephone: '',
-          email: '',
-          password: '',
-          confirmPassword: '',
-          communityId: null,
-          multiTransportMode: true,
-          userAgreementAccepted: false,
-          phoneDisplay: 1,
-          birthDate: JSON.parse(process.env.VUE_APP_REQUIRED_BIRTHDATE) ? n.toISOString() : null,
-          maxDeviationTime:600,
-          maxDeviationDistance:10000,
-          anyRouteAsPassenger:false,
-          newsSubscription:true,
-          mobileRegistration: 1,
-          language: "fr_FR",
-          addresses: '',
+        givenName: '',
+        familyName: '',
+        gender: '',
+        telephone: '',
+        email: '',
+        password: '',
+        confirmPassword: '',
+        communityId: null,
+        multiTransportMode: true,
+        userAgreementAccepted: false,
+        phoneDisplay: 1,
+        birthDate: JSON.parse(process.env.VUE_APP_REQUIRED_BIRTHDATE) ? n.toISOString() : null,
+        maxDeviationTime: 600,
+        maxDeviationDistance: 10000,
+        anyRouteAsPassenger: false,
+        newsSubscription: true,
+        mobileRegistration: 1,
+        language: "fr_FR",
+        addresses: '',
       };
       state.displayAddress = '';
     }
@@ -113,7 +113,7 @@ export const registerStore = {
   },
   actions: {
     // Register
-    register: ({commit, state}) => {
+    register: ({ commit, state }) => {
       commit('register_request');
       const u = Object.assign({}, state.userToRegister);
       delete u.registerFromMobile;
@@ -127,11 +127,12 @@ export const registerStore = {
       if (isPlatform(window.document.defaultView, "android")) {
         u.mobileRegistration = 3;
       }
-      u.backLink = process.env.VUE_APP_DOMAIN + '/#/carpools/confirm-registration/' + u.email + '&token=';
-      if(u.communityId) {
+      u.backLink = process.env.VUE_APP_DOMAIN + '/#/confirm-registration/' + u.email + '?token=';
+
+      if (u.communityId) {
         u.communityId = Number(u.communityId)
       }
-      if(!u.gender) {
+      if (!u.gender) {
         u.gender = 3
       }
 
@@ -147,7 +148,7 @@ export const registerStore = {
         })
       })
     },
-    validateToken: ({commit, state}, params) => {
+    validateToken: ({ commit, state }, params) => {
       commit('validate_token_request');
       let mobile = '';
       if (isPlatform(window.document.defaultView, "ios")) {
@@ -173,7 +174,7 @@ export const registerStore = {
         })
       })
     },
-    checkEmail: ({commit, state}, params) => {
+    checkEmail: ({ commit, state }, params) => {
       commit('check_email_request');
       return new Promise((resolve, reject) => {
         http.get("/users/checkEmail?email=" + params).then(resp => {
@@ -191,7 +192,7 @@ export const registerStore = {
       })
     },
   },
-  getters : {
+  getters: {
 
   }
 }
